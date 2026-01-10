@@ -629,7 +629,7 @@ const CasesView: React.FC = () => {
       category: "Intelligent CS Bot",
       title: "Customer Support AI",
       image: "/assets/case02.png",
-      detailImage: "/assets/case02_detail.jpg",
+      detailImage: "/assets/case02_chatbot_ui.jpg",
       desc: "介護業界、建材メーカー等における問い合わせ対応をRAG活用で自動化。Web/LINE上での高度な対話を実現。",
       detail: "【顧客対応と社内FAQの双方向DX】\n対外的な顧客サポート（Webチャット、LINE公式アカウント）の自動化に加え、社内向けの問い合わせ対応もAI化しました。\n\n「経費精算の手順は？」「就業規則の確認」といった社員からの質問に対し、RAG（検索拡張生成）技術を用いて社内マニュアルから最適な回答を即座に生成します。\n\n企業ごとの膨大なナレッジを学習させることで、「誰に聞けばいいかわからない」時間を排除し、組織全体の生産性を底上げしました。",
       tags: ["RAG", "Multi-modal Chatbot", "Knowledge Base Integration"],
