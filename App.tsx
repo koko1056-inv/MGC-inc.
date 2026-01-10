@@ -610,6 +610,8 @@ const WorksView: React.FC = () => {
 };
 
 const CasesView: React.FC = () => {
+  const [selectedCase, setSelectedCase] = useState<number | null>(null);
+
   const cases = [
     {
       id: "01",
@@ -617,6 +619,7 @@ const CasesView: React.FC = () => {
       title: "Voice Agent Construction",
       image: "/assets/case01.png",
       desc: "コールセンターにおける一次応答・架電業務の完全AI化。小売店における予約受付の自動化を実装。",
+      detail: "【コールセンター業務の完全自動化と高度化】\nコールセンターにおける一次応答から、AIへのエスカレーション対応までをシームレスに自動化しました。\n\n特筆すべきは、人間が対応している通話内容もAIがリアルタイムで聞き取り、自動要約を作成する機能です。この要約データは自動的にCRM（顧客管理システム）へ入力され、必要に応じて担当部署へのタスク連携も行われます。\n\nこれにより、オペレーターの後処理時間（ACW）をほぼゼロにし、対応品質の均質化と業務効率の劇的な向上を実現しました。",
       tags: ["Voice Synthesis", "Call Center Automation", "Real-time Processing"],
       icon: <Mic className="w-8 h-8 text-offblack" />
     },
@@ -626,6 +629,7 @@ const CasesView: React.FC = () => {
       title: "Customer Support AI",
       image: "/assets/case02.png",
       desc: "介護業界、建材メーカー等における問い合わせ対応をRAG活用で自動化。Web/LINE上での高度な対話を実現。",
+      detail: "【顧客対応と社内FAQの双方向DX】\n対外的な顧客サポート（Webチャット、LINE公式アカウント）の自動化に加え、社内向けの問い合わせ対応もAI化しました。\n\n「経費精算の手順は？」「就業規則の確認」といった社員からの質問に対し、RAG（検索拡張生成）技術を用いて社内マニュアルから最適な回答を即座に生成します。\n\n企業ごとの膨大なナレッジを学習させることで、「誰に聞けばいいかわからない」時間を排除し、組織全体の生産性を底上げしました。",
       tags: ["RAG", "Multi-modal Chatbot", "Knowledge Base Integration"],
       icon: <MessageSquare className="w-8 h-8 text-offblack" />
     },
@@ -635,6 +639,7 @@ const CasesView: React.FC = () => {
       title: "AI Consulting",
       image: "/assets/case03.png",
       desc: "最新ツール導入によるAIネイティブなビジネスモデルへの転換支援。業務プロセスの自動化ワークフロー開発。",
+      detail: "【ヒアリングから実装まで、一気通貫の変革】\n単なるアドバイザリー業務ではありません。現場の課題ヒアリングから始まり、解決策の提案、そしてコードレベルでの実装までを一貫して行います。\n\n複数のSaaSツール間をAPI連携で繋ぎ合わせる自動化ワークフローの構築や、業務に特化した独自の社内システムのスクラッチ開発も実施。\n\nボトルネックとなっていた手作業をシステムに置き換え、企業が本来注力すべきコア業務にリソースを集中できる環境を構築します。",
       tags: ["DX Strategy", "Workflow Automation", "Business Modeling"],
       icon: <Briefcase className="w-8 h-8 text-offblack" />
     },
@@ -644,6 +649,7 @@ const CasesView: React.FC = () => {
       title: "AI Powered Export",
       image: "/assets/case04.png",
       desc: "アフリカ・欧州との連携をベースに、日本企業の製品・サービスを最適化してマッチング。市場選定のAI化。",
+      detail: "【AIが即座に見つける、世界の最適パートナー】\nアフリカや欧州市場をメインターゲットに、日本企業の製品が「刺さる」パートナー企業をAIが自動選定します。\n\nLinkedInなどのビジネスデータベースを解析し、決裁権を持つキーマンを特定。さらに、その相手に合わせたパーソナライズされたアプローチ（コールドメール等）までも自動化します。\n\nマッチング成立後は、MGCの実務チームが輸出・契約面をサポート。テクノロジーによる開拓と、人間によるクロージングの融合で、海外進出の成功率を最大化させます。",
       tags: ["Global Matching Algorithm", "Market Entry", "Africa / Europe"],
       icon: <Plane className="w-8 h-8 text-offblack" />
     }
@@ -660,7 +666,10 @@ const CasesView: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {cases.map((c, i) => (
             <Reveal key={i} delay={i * 100} className="h-full">
-               <div className="group h-full bg-white rounded-[2rem] border border-gray-100 hover:border-accent hover:shadow-xl transition-all duration-500 flex flex-col relative overflow-hidden">
+               <div 
+                 onClick={() => setSelectedCase(i)}
+                 className="group cursor-pointer h-full bg-white rounded-[2rem] border border-gray-100 hover:border-accent hover:shadow-xl transition-all duration-500 flex flex-col relative overflow-hidden"
+               >
                   {/* Image Section */}
                   <div className="h-64 w-full bg-gray-50 relative overflow-hidden">
                       <GridPattern />
@@ -668,7 +677,16 @@ const CasesView: React.FC = () => {
                         src={c.image} 
                         alt={c.title}
                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        onError={(e) => {
+                          // Fallback if case image is missing
+                          (e.target as HTMLImageElement).src = i === 0 ? "/assets/service_ai.jpg" : i === 1 ? "/assets/service_lab.png" : "/assets/service_trade.png";
+                        }}
                       />
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                        <span className="bg-white/90 text-offblack px-6 py-2 rounded-full font-bold text-sm tracking-widest backdrop-blur-sm transform translate-y-4 group-hover:translate-y-0 transition-all duration-500">
+                          VIEW DETAILS
+                        </span>
+                      </div>
                   </div>
                   
                   {/* Content Section */}
@@ -682,15 +700,15 @@ const CasesView: React.FC = () => {
 
                     <div className="mb-6">
                        <span className="text-xs font-bold uppercase tracking-widest text-accent mb-2 block">{c.category}</span>
-                       <h3 className="text-3xl font-bold tracking-tight mb-4 text-offblack">{c.title}</h3>
-                       <p className="text-gray-600 font-medium leading-relaxed">{c.desc}</p>
+                       <h3 className="text-3xl font-bold tracking-tight mb-4 text-offblack group-hover:text-accent transition-colors duration-300">{c.title}</h3>
+                       <p className="text-gray-600 font-medium leading-relaxed mb-6">{c.desc}</p>
                     </div>
 
                     <div className="mt-auto pt-6 border-t border-gray-100 flex flex-wrap gap-2">
                        {c.tags.map((tag, idx) => (
-                         <span key={idx} className="text-xs font-mono bg-gray-50 px-3 py-1 rounded text-gray-500 border border-gray-100">
-                           {tag}
-                         </span>
+                          <span key={idx} className="px-3 py-1 bg-gray-50 text-gray-500 text-[10px] font-bold uppercase tracking-wider rounded-lg border border-gray-100">
+                            {tag}
+                          </span>
                        ))}
                     </div>
                   </div>
@@ -698,6 +716,70 @@ const CasesView: React.FC = () => {
             </Reveal>
           ))}
         </div>
+
+        {/* Detail Modal */}
+        {selectedCase !== null && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8 overflow-y-auto">
+            <div 
+              className="fixed inset-0 bg-offblack/80 backdrop-blur-sm animate-in fade-in duration-300" 
+              onClick={() => setSelectedCase(null)}
+            />
+            <div className="relative w-full max-w-4xl bg-white rounded-[2.5rem] overflow-hidden shadow-2xl animate-in zoom-in-95 duration-300 flex flex-col md:flex-row max-h-[90vh]">
+              <button 
+                onClick={() => setSelectedCase(null)}
+                className="absolute top-6 right-6 z-20 w-10 h-10 rounded-full bg-offblack/10 hover:bg-offblack text-offblack hover:text-white flex items-center justify-center transition-all duration-300"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              <div className="md:w-2/5 relative h-64 md:h-auto bg-gray-100">
+                <img 
+                  src={cases[selectedCase].image} 
+                  className="w-full h-full object-cover" 
+                  alt="" 
+                  onError={(e) => {
+                       (e.target as HTMLImageElement).src = selectedCase === 0 ? "/assets/service_ai.jpg" : selectedCase === 1 ? "/assets/service_lab.png" : selectedCase === 2 ? "/assets/service_trade.png" : "/assets/service_ai.jpg";
+                  }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-offblack/60 to-transparent flex items-end p-8">
+                  <div className="text-white">
+                    <span className="block text-xs font-bold uppercase tracking-widest mb-2 opacity-80">{cases[selectedCase].category}</span>
+                    <h3 className="text-2xl font-bold leading-tight">{cases[selectedCase].title}</h3>
+                  </div>
+                </div>
+              </div>
+
+              <div className="md:w-3/5 p-8 md:p-12 overflow-y-auto custom-scrollbar bg-white">
+                <div className="flex items-center gap-4 mb-8">
+                   <div className="p-3 rounded-2xl bg-accent/5 text-accent">
+                      {cases[selectedCase].icon}
+                   </div>
+                   <div>
+                     <span className="block text-xs font-bold text-gray-400 uppercase tracking-wider">Project ID</span>
+                     <span className="block text-lg font-mono font-bold text-offblack">CASE.{cases[selectedCase].id}</span>
+                   </div>
+                </div>
+
+                <div className="prose prose-lg max-w-none">
+                  <p className="text-offblack text-base md:text-lg leading-relaxed whitespace-pre-line font-medium">
+                    {cases[selectedCase].detail}
+                  </p>
+                </div>
+
+                <div className="mt-10 pt-10 border-t border-gray-100">
+                  <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Technologies & Scope</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {cases[selectedCase].tags.map((tag, idx) => (
+                      <span key={idx} className="px-4 py-2 bg-gray-50 text-offblack text-xs font-bold uppercase tracking-wider rounded-xl border border-gray-100">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </PageTransition>
   );
