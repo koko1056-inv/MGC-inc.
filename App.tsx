@@ -640,7 +640,7 @@ const CasesView: React.FC = () => {
       category: "AI Native Transformation",
       title: "AI Consulting",
       image: "/assets/case03.png",
-      detailImage: "/assets/case03_detail.jpg",
+      detailImage: "/assets/case03_workflow.jpg",
       desc: "最新ツール導入によるAIネイティブなビジネスモデルへの転換支援。業務プロセスの自動化ワークフロー開発。",
       detail: "【ヒアリングから実装まで、一気通貫の変革】\n単なるアドバイザリー業務ではありません。現場の課題ヒアリングから始まり、解決策の提案、そしてコードレベルでの実装までを一貫して行います。\n\n複数のSaaSツール間をAPI連携で繋ぎ合わせる自動化ワークフローの構築や、業務に特化した独自の社内システムのスクラッチ開発も実施。\n\nボトルネックとなっていた手作業をシステムに置き換え、企業が本来注力すべきコア業務にリソースを集中できる環境を構築します。",
       tags: ["DX Strategy", "Workflow Automation", "Business Modeling"],
