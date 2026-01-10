@@ -1385,7 +1385,7 @@ const App: React.FC = () => {
   // Helper to parse view from hash
   const getViewFromHash = (): ViewState => {
     const hash = window.location.hash.slice(1);
-    const validViews: ViewState[] = ['home', 'works', 'cases', 'mission', 'partners', 'company', 'career', 'contact']; // Added 'cases'
+    const validViews: ViewState[] = ['home', 'works', 'cases', 'mission', 'partners', 'company', 'career', 'contact', 'blog']; // Added 'blog'
     return validViews.includes(hash as ViewState) ? (hash as ViewState) : 'home';
   };
 
