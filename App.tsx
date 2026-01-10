@@ -950,6 +950,7 @@ const PartnersView: React.FC = () => {
 const CompanyView: React.FC = () => {
   const info = [
     { label: 'Company Name', value: 'MGC inc.' },
+    { label: 'CEO', value: 'KOKOMU MATSUO' },
     { label: 'Headquarters', value: 'Kyoto, Japan' },
     { label: 'Established', value: '2025' },
     { label: 'Business Domains', value: 'AI Native Product Development\nGlobal Marketing Solution\nCurated Cross-border Trading' },
