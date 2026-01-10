@@ -618,78 +618,29 @@ const CasesView: React.FC = () => {
       category: "Voice AI Architecture",
       title: "Voice Agent Construction",
       image: "/assets/case01.png",
+      detailImage: "/assets/case01_detail.jpg",
       desc: "コールセンターにおける一次応答・架電業務の完全AI化。小売店における予約受付の自動化を実装。",
       detail: "【コールセンター業務の完全自動化と高度化】\nTwilio（電話API）とElevenLabs（超自然な音声合成）、そしてLLMを高度に連携させることで、人間と区別がつかないレベルのAI電話対応を実現しました。\n\nコールセンターにおける一次応答から、AIへのエスカレーション対応までをシームレスに自動化。特筆すべきは、人間が対応している通話内容もAIがリアルタイムで聞き取り、自動要約を作成する機能です。\n\nこの要約データは自動的にCRMへ入力され、担当部署へのタスク連携も行われます。オペレーターの後処理時間（ACW）をほぼゼロにし、対応品質の均質化を実現しました。",
       tags: ["Voice Synthesis", "Twilio / ElevenLabs", "Real-time Processing"],
-      icon: <Mic className="w-8 h-8 text-offblack" />,
-      diagram: (
-        <div className="flex flex-col gap-4 p-6 bg-gray-50 rounded-2xl border border-gray-100">
-           <div className="text-xs font-bold text-gray-400 uppercase tracking-widest text-center mb-2">Voice AI Architecture</div>
-           <div className="flex items-center justify-between text-offblack">
-              <div className="flex flex-col items-center gap-2">
-                 <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm border border-gray-200"><User className="w-5 h-5"/></div>
-                 <span className="text-[10px] font-bold">User</span>
-              </div>
-              <div className="h-0.5 bg-gray-300 w-full mx-2 relative">
-                 <div className="absolute -top-3 left-1/2 -translate-x-1/2 text-[9px] text-gray-400">Call</div>
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                 <div className="w-12 h-12 bg-[#F22F46]/10 text-[#F22F46] rounded-full flex items-center justify-center shadow-sm border border-[#F22F46]/20"><svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-2h2v2zm0-4H9V7h2v5z"/></svg></div>
-                 <span className="text-[10px] font-bold">Twilio</span>
-              </div>
-              <div className="h-0.5 bg-gray-300 w-full mx-2 relative">
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 text-[9px] text-gray-400">Stream</div>
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                 <div className="w-12 h-12 bg-accent/10 text-accent rounded-full flex items-center justify-center shadow-sm border border-accent/20"><Cpu className="w-6 h-6"/></div>
-                 <span className="text-[10px] font-bold">LLM Brain</span>
-              </div>
-              <div className="h-0.5 bg-gray-300 w-full mx-2 relative">
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 text-[9px] text-gray-400">Text</div>
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                 <div className="w-12 h-12 bg-offblack text-white rounded-full flex items-center justify-center shadow-sm"><Mic className="w-5 h-5"/></div>
-                 <span className="text-[10px] font-bold">ElevenLabs</span>
-              </div>
-           </div>
-        </div>
-      )
+      icon: <Mic className="w-8 h-8 text-offblack" />
     },
     {
       id: "02",
       category: "Intelligent CS Bot",
       title: "Customer Support AI",
       image: "/assets/case02.png",
+      detailImage: "/assets/case02_detail.jpg",
       desc: "介護業界、建材メーカー等における問い合わせ対応をRAG活用で自動化。Web/LINE上での高度な対話を実現。",
       detail: "【顧客対応と社内FAQの双方向DX】\n対外的な顧客サポート（Webチャット、LINE公式アカウント）の自動化に加え、社内向けの問い合わせ対応もAI化しました。\n\n「経費精算の手順は？」「就業規則の確認」といった社員からの質問に対し、RAG（検索拡張生成）技術を用いて社内マニュアルから最適な回答を即座に生成します。\n\n企業ごとの膨大なナレッジを学習させることで、「誰に聞けばいいかわからない」時間を排除し、組織全体の生産性を底上げしました。",
       tags: ["RAG", "Multi-modal Chatbot", "Knowledge Base Integration"],
-      icon: <MessageSquare className="w-8 h-8 text-offblack" />,
-      diagram: (
-        <div className="flex flex-col gap-4 p-6 bg-gray-50 rounded-2xl border border-gray-100 font-sans">
-           <div className="text-xs font-bold text-gray-400 uppercase tracking-widest text-center mb-2">Internal Chat UI Demo</div>
-           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 space-y-4">
-              <div className="flex items-end gap-2">
-                 <div className="w-6 h-6 rounded-full bg-gray-200" />
-                 <div className="bg-gray-100 rounded-2xl rounded-bl-sm px-4 py-2 text-xs text-gray-600 max-w-[80%]">
-                    交通費精算の規定について教えてください。タクシー利用は可能ですか？
-                 </div>
-              </div>
-              <div className="flex items-end gap-2 flex-row-reverse">
-                 <div className="w-6 h-6 rounded-full bg-accent text-white flex items-center justify-center"><Sparkles className="w-3 h-3"/></div>
-                 <div className="bg-accent/10 rounded-2xl rounded-br-sm px-4 py-2 text-xs text-offblack max-w-[90%]">
-                    <span className="font-bold block mb-1">社内規定 第4章 旅費規程より:</span>
-                    公共交通機関の利用が困難な場合、または緊急を要する場合に限り、上長の承認を得てタクシー利用が可能です。領収書の提出が必須となります。
-                 </div>
-              </div>
-           </div>
-        </div>
-      )
+      icon: <MessageSquare className="w-8 h-8 text-offblack" />
     },
     {
       id: "03",
       category: "AI Native Transformation",
       title: "AI Consulting",
       image: "/assets/case03.png",
+      detailImage: "/assets/case03_detail.jpg",
       desc: "最新ツール導入によるAIネイティブなビジネスモデルへの転換支援。業務プロセスの自動化ワークフロー開発。",
       detail: "【ヒアリングから実装まで、一気通貫の変革】\n単なるアドバイザリー業務ではありません。現場の課題ヒアリングから始まり、解決策の提案、そしてコードレベルでの実装までを一貫して行います。\n\n複数のSaaSツール間をAPI連携で繋ぎ合わせる自動化ワークフローの構築や、業務に特化した独自の社内システムのスクラッチ開発も実施。\n\nボトルネックとなっていた手作業をシステムに置き換え、企業が本来注力すべきコア業務にリソースを集中できる環境を構築します。",
       tags: ["DX Strategy", "Workflow Automation", "Business Modeling"],
@@ -700,31 +651,11 @@ const CasesView: React.FC = () => {
       category: "Cross-Border Matching",
       title: "AI Powered Export",
       image: "/assets/case04.png",
+      detailImage: "/assets/case04_detail.jpg",
       desc: "アフリカ・欧州との連携をベースに、日本企業の製品・サービスを最適化してマッチング。市場選定のAI化。",
       detail: "【AIが即座に見つける、世界の最適パートナー】\nアフリカや欧州市場をメインターゲットに、日本企業の製品が「刺さる」パートナー企業をAIが自動選定します。\n\nLinkedInなどのビジネスデータベースを解析し、決裁権を持つキーマンを特定。さらに、その相手に合わせたパーソナライズされたアプローチ（コールドメール等）までも自動化します。\n\nマッチング成立後は、連携企業とともに輸出・契約面をサポート。テクノロジーによる開拓と、人間によるクロージングの融合で、海外進出の成功率を最大化させます。",
       tags: ["Global Matching Algorithm", "Market Entry", "Africa / Europe"],
-      icon: <Plane className="w-8 h-8 text-offblack" />,
-      diagram: (
-         <div className="flex flex-col gap-4 p-6 bg-gray-50 rounded-2xl border border-gray-100">
-           <div className="text-xs font-bold text-gray-400 uppercase tracking-widest text-center mb-2">Automated Matching Flow</div>
-           <div className="flex items-center gap-4">
-              <div className="flex-1 bg-white p-3 rounded-xl border border-gray-200 shadow-sm flex flex-col items-center gap-2">
-                 <Globe className="w-5 h-5 text-gray-400"/>
-                 <div className="text-[10px] font-bold text-center">Global Market<br/>Scanning</div>
-              </div>
-              <ArrowRight className="w-4 h-4 text-gray-300" />
-              <div className="flex-1 bg-accent/5 p-3 rounded-xl border border-accent/20 shadow-sm flex flex-col items-center gap-2 text-accent">
-                 <Zap className="w-5 h-5"/>
-                 <div className="text-[10px] font-bold text-center">AI Partner<br/>Filtering</div>
-              </div>
-              <ArrowRight className="w-4 h-4 text-gray-300" />
-              <div className="flex-1 bg-white p-3 rounded-xl border border-gray-200 shadow-sm flex flex-col items-center gap-2">
-                 <Mail className="w-5 h-5 text-gray-400"/>
-                 <div className="text-[10px] font-bold text-center">Auto<br/>Contact</div>
-              </div>
-           </div>
-         </div>
-      )
+      icon: <Plane className="w-8 h-8 text-offblack" />
     }
   ];
 
@@ -839,12 +770,20 @@ const CasesView: React.FC = () => {
                   </p>
                 </div>
 
-                {/* VISUAL DIAGRAM SECTION */}
-                {cases[selectedCase].diagram && (
-                   <div className="mb-8">
-                      {cases[selectedCase].diagram}
-                   </div>
-                )}
+                {/* DETAIL IMAGE SECTION */}
+                <div className="mb-8 rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
+                   <img 
+                      src={cases[selectedCase].detailImage} 
+                      alt="Architecture Diagram" 
+                      className="w-full h-auto"
+                      onError={(e) => {
+                         // Fallback to main image if detail image is interactive diagram replacement not ready
+                         (e.target as HTMLImageElement).src = cases[selectedCase].image; 
+                         // Or hide it if no image
+                         // (e.target as HTMLImageElement).style.display = 'none';
+                      }}
+                   />
+                </div>
 
                 <div className="mt-10 pt-10 border-t border-gray-100">
                   <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Technologies & Scope</h4>
