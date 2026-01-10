@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState, ReactNode } from 'react';
-import { ArrowRight, Globe, Zap, Layers, ArrowUpRight, X, Palette, Send, Network, Menu, Plus, Anchor, Check, Heart, MapPin, Cpu, Mic, MessageSquare, Briefcase, Plane, Sparkles, Mail } from 'lucide-react';
+import { ArrowRight, Globe, Zap, Layers, ArrowUpRight, X, Palette, Send, Network, Menu, Plus, Anchor, Check, Heart, MapPin, Cpu, Mic, MessageSquare, Briefcase, Plane, Sparkles, Mail, Calendar, User } from 'lucide-react';
 
 
 // --- Types & Interfaces ---
 
-type ViewState = 'home' | 'works' | 'cases' | 'mission' | 'partners' | 'company' | 'career' | 'contact';
+type ViewState = 'home' | 'works' | 'cases' | 'mission' | 'partners' | 'company' | 'career' | 'contact' | 'blog';
 
 // Updated ContentKeys to include new services and keep old architecture items
 type ContentKey = 'product' | 'marketing' | 'trading' | 'vision' | 'service_ai' | 'service_lab' | 'service_trade';
@@ -1127,6 +1127,145 @@ const CareerView: React.FC = () => {
   )
 }
 
+const BlogView: React.FC = () => {
+  const [selectedPost, setSelectedPost] = useState<number | null>(null);
+
+  const posts = [
+    {
+      id: 1,
+      date: "2025.05.20",
+      category: "Vision",
+      title: "「言語の壁」の終焉：AIが変える未来のコミュニケーション",
+      excerpt: "翻訳ではなく、共感。テクノロジーが言葉の意味を直接脳に届ける時代が、もうそこまで来ています。",
+      image: "/assets/service_ai.jpg",
+      content: "言語はこれまで、人類の文明を発展させると同時に、目に見えない巨大な壁として君臨してきました。MGC inc.が挑戦するのは、その壁を物理的に、そして心理的に消滅させることです。最新の音声AI技術は、単なる単語の置き換えを超え、声のトーン、感情、そして発話者の『魂』までもリアルタイムで翻訳することを可能にします。世界が真の意味で一つになれる未来。私たちはその第一歩を踏み出しています。"
+    },
+    {
+      id: 2,
+      date: "2025.06.05",
+      category: "Culture",
+      title: "京都の精神性と、デジタル・フロンティアの融合",
+      excerpt: "1000年の歴史を持つ京都という場所で、私たちがなぜ最先端のテックカンパニーを立ち上げたのか。",
+      image: "/assets/service_lab.png",
+      content: "京都には、時間をかけて美を研ぎ澄ます『精神性』があります。一方で、シリコンバレーには世界を数式で解決しようとする『合理性』があります。MGC inc.はこの二つを対立させるのではなく、一つのプロダクトの中で融合させ、技術という無機質なものに物語と魂を吹き込みます。便利さの先にある『豊かさ』。それこそが私たちが京都から発信する理由です。"
+    },
+    {
+      id: 3,
+      date: "2025.06.12",
+      category: "Tech",
+      title: "MGC inc. が追求する「AI-Native」という生き方",
+      excerpt: "AIをツールとして使うのではなく、AIと共に思考を拡張する。これからの時代の必須スキルとは。",
+      image: "/assets/service_trade.png",
+      content: "『AIを使える人』と『使えない人』の差は、もはやスキルの差ではなく、OSの差と言えるかもしれません。AIは私たちの仕事を奪う脅威ではなく、私たちの思考領域を無限に広げる同僚です。MGC inc.のメンバーは、日常のあらゆる瞬間にAIを介在させ、人間ならではのクリエイティビティに全ての時間を充てています。これこそが、私たちが定義するAI-Nativeなライフスタイルです。"
+    }
+  ];
+
+  return (
+    <PageTransition>
+      <div className="px-6 md:px-12 max-w-screen-xl mx-auto py-20">
+        <SectionHeading title="Journal" subtitle="Thoughts & Vision" dark />
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {posts.map((post, i) => (
+            <Reveal key={post.id} delay={i * 100}>
+              <div 
+                onClick={() => setSelectedPost(i)}
+                className="group cursor-pointer bg-gray-900/50 rounded-[2.5rem] border border-gray-800 p-2 hover:border-accent/40 transition-all duration-700 hover:shadow-2xl flex flex-col h-full"
+              >
+                <div className="relative aspect-[4/3] rounded-[2rem] overflow-hidden mb-6">
+                  <img src={post.image} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2s]" alt={post.title} />
+                  <div className="absolute top-6 left-6 px-4 py-1.5 bg-accent/90 backdrop-blur-md text-white text-[10px] font-bold tracking-widest uppercase rounded-full">
+                    {post.category}
+                  </div>
+                </div>
+                
+                <div className="px-6 pb-8 flex flex-col flex-grow">
+                  <div className="flex items-center gap-2 text-gray-500 font-mono text-xs mb-4">
+                    <Calendar className="w-3.5 h-3.5" />
+                    <span>{post.date}</span>
+                  </div>
+                  <h3 className="text-2xl font-bold tracking-tighter text-white mb-4 leading-tight group-hover:text-accent transition-colors duration-300">
+                    {post.title}
+                  </h3>
+                  <p className="text-gray-400 text-sm leading-relaxed mb-6 line-clamp-3">
+                    {post.excerpt}
+                  </p>
+                  <div className="mt-auto flex items-center gap-2 text-accent font-bold text-sm tracking-tight group-hover:translate-x-2 transition-transform duration-300">
+                    Read More <ArrowRight className="w-4 h-4" />
+                  </div>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+
+        {/* Post Detail Modal */}
+        {selectedPost !== null && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-12 overflow-y-auto">
+            <div 
+              className="fixed inset-0 bg-offblack/95 backdrop-blur-2xl animate-in fade-in duration-500" 
+              onClick={() => setSelectedPost(null)}
+            />
+            <div className="relative w-full max-w-4xl bg-gray-900 rounded-[3rem] border border-gray-800 overflow-hidden shadow-2xl animate-in fade-in zoom-in-95 duration-500 flex flex-col md:flex-row max-h-[90vh]">
+              <button 
+                onClick={() => setSelectedPost(null)}
+                className="absolute top-8 right-8 z-10 w-12 h-12 rounded-full bg-white/10 hover:bg-accent text-white flex items-center justify-center backdrop-blur-md transition-all duration-300 group"
+              >
+                <X className="w-6 h-6 group-hover:rotate-90 transition-transform duration-300" />
+              </button>
+              
+              <div className="md:w-1/2 h-64 md:h-auto relative">
+                <img src={posts[selectedPost].image} className="w-full h-full object-cover" alt="" />
+                <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent md:hidden" />
+              </div>
+              
+              <div className="md:w-1/2 p-8 md:p-16 overflow-y-auto custom-scrollbar">
+                <div className="flex items-center gap-4 mb-8">
+                  <span className="px-3 py-1 bg-accent/20 text-accent text-[10px] font-bold tracking-widest uppercase rounded-full border border-accent/30">
+                    {posts[selectedPost].category}
+                  </span>
+                  <span className="text-gray-500 font-mono text-xs">{posts[selectedPost].date}</span>
+                </div>
+                
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-white mb-8 leading-tight">
+                  {posts[selectedPost].title}
+                </h2>
+                
+                <div className="prose prose-invert max-w-none">
+                  <p className="text-gray-300 text-lg leading-relaxed font-medium mb-8 italic border-l-4 border-accent pl-6">
+                    {posts[selectedPost].excerpt}
+                  </p>
+                  <p className="text-gray-400 leading-relaxed whitespace-pre-line text-base">
+                    {posts[selectedPost].content}
+                  </p>
+                </div>
+
+                <div className="mt-12 pt-12 border-t border-gray-800 flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center">
+                      <User className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      <span className="block text-white font-bold text-sm">Editorial Team</span>
+                      <span className="block text-gray-500 text-xs tracking-wide">MGC Journal</span>
+                    </div>
+                  </div>
+                  <button 
+                    onClick={() => setSelectedPost(null)}
+                    className="text-gray-400 hover:text-white transition-colors text-sm font-bold flex items-center gap-2"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </PageTransition>
+  );
+};
+
 const ContactView: React.FC = () => {
   const [formState, setFormState] = useState({ name: '', email: '', message: '' });
   const [emailError, setEmailError] = useState('');
@@ -1279,6 +1418,7 @@ const App: React.FC = () => {
   const navItems: { id: ViewState; label: string }[] = [
     { id: 'works', label: 'Works' },
     { id: 'cases', label: 'Cases' },
+    { id: 'blog', label: 'Journal' },
     { id: 'mission', label: 'Mission' },
     // { id: 'partners', label: 'Partners' }, // Hidden
     { id: 'company', label: 'Company' },
@@ -1287,7 +1427,7 @@ const App: React.FC = () => {
   ];
 
   return (
-    <div className={`min-h-screen transition-colors duration-500 font-sans ${view === 'mission' || view === 'career' || view === 'works' ? 'bg-offblack text-white' : 'bg-offwhite text-offblack'}`}>
+    <div className={`min-h-screen transition-colors duration-500 font-sans ${view === 'mission' || view === 'career' || view === 'works' || view === 'blog' ? 'bg-offblack text-white' : 'bg-offwhite text-offblack'}`}>
       
       {/* Header */}
       <header className="fixed top-0 left-0 w-full py-6 px-6 md:px-12 z-50 flex justify-between items-center mix-blend-difference text-white">
@@ -1344,6 +1484,7 @@ const App: React.FC = () => {
         {view === 'home' && <HomeView />}
         {view === 'works' && <WorksView />}
         {view === 'cases' && <CasesView />}
+        {view === 'blog' && <BlogView />}
         {view === 'mission' && <MissionView />}
         {/* PartnersView is hidden */}
         {view === 'company' && <CompanyView />}
