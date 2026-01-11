@@ -1,7 +1,13 @@
 import React, { useEffect, useRef, useState, ReactNode } from 'react';
 import { ArrowRight, Globe, Zap, Layers, ArrowUpRight, X, Palette, Send, Network, Menu, Plus, Anchor, Check, Heart, MapPin, Cpu, Mic, MessageSquare, Briefcase, Plane, Sparkles, Mail, Calendar, User } from 'lucide-react';
 
-
+import { translations, Lang } from './translations';
+export const LanguageContext = React.createContext<{ lang: Lang; setLang: (l: Lang) => void; t: typeof translations['ja'] }>({
+  lang: 'ja',
+  setLang: () => {},
+  t: translations['ja']
+});
+export const useLanguage = () => React.useContext(LanguageContext);
 // --- Types & Interfaces ---
 
 type ViewState = 'home' | 'works' | 'cases' | 'mission' | 'partners' | 'company' | 'career' | 'contact' | 'blog';
@@ -476,23 +482,22 @@ const GeneratedCaseImage = ({ prompt, className }: { prompt: string, className?:
 
 // --- Feature Components (Pages) ---
 
-const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavigate }) => (
+const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavigate }) => {
+  const { t } = useLanguage();
+  return (
   <section className="min-h-screen flex flex-col justify-center px-6 md:px-12 relative overflow-hidden pt-40 pb-20">
     <div className="max-w-screen-xl w-full mx-auto">
       <Reveal>
         <h1 className="text-[12vw] md:text-[10vw] leading-[0.9] font-bold tracking-tighter text-offblack mb-12">
-          Connect <br />
-          <span className="text-accent transition-colors duration-500">Japan</span> & <br />
-          The World.
+          {t.hero.title_1} <br />
+          <span className="text-accent transition-colors duration-500">{t.hero.title_2}</span> {t.hero.title_3}
         </h1>
       </Reveal>
       
       <Reveal delay={200}>
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between border-t border-gray-200 pt-8 mt-8">
-          <p className="text-lg md:text-xl text-gray-600 max-w-md font-medium leading-relaxed">
-            日本の可能性を、世界の実装へ。
-            <br />
-            テクノロジーで思考と国境の壁を溶かす、次世代のグローバル・ハブ。
+          <p className="text-lg md:text-xl text-gray-600 max-w-md font-medium leading-relaxed whitespace-pre-line">
+            {t.hero.desc}
           </p>
           <div className="mt-8 md:mt-0">
             <button 
@@ -502,24 +507,26 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
               }} 
               className="group flex items-center gap-2 text-offblack font-bold text-lg tracking-tight border-b-2 border-offblack pb-1 hover:text-accent hover:border-accent transition-colors"
             >
-              View Projects <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              {t.hero.viewProjects} <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
         </div>
       </Reveal>
     </div>
   </section>
-);
+  );
+};
 
 const WorksView: React.FC = () => {
   const [selectedId, setSelectedId] = useState<ContentKey | null>(null);
+  const { t } = useLanguage();
 
   return (
     <PageTransition>
       <div className="px-6 md:px-12 max-w-screen-xl mx-auto">
         <SectionHeading 
-          title="Business" 
-          subtitle="Our Business Domains."
+          title={t.headings.works.title}
+          subtitle={t.headings.works.sub}
           dark 
         />
 
@@ -539,9 +546,9 @@ const WorksView: React.FC = () => {
                 <div className="w-14 h-14 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center mb-8 border border-white/20">
                   <Globe className="w-6 h-6 text-white stroke-[1.5]" />
                 </div>
-                <h3 className="text-4xl font-bold tracking-tighter mb-4">Global <br/>One AI</h3>
+                <h3 className="text-4xl font-bold tracking-tighter mb-4 whitespace-pre-line">{t.works.service_ai.title.replace(' ', '\n')}</h3>
                 <p className="text-gray-200 text-base leading-relaxed font-medium">
-                  世界をひとつの市場に変える、ワンストップAI。
+                  {t.works.service_ai.subtitle}
                 </p>
               </div>
               <div className="flex justify-end mt-auto relative z-10">
@@ -564,9 +571,10 @@ const WorksView: React.FC = () => {
                 <div className="w-14 h-14 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center mb-8 border border-white/20">
                   <Zap className="w-6 h-6 text-white stroke-[1.5]" />
                 </div>
-                <h3 className="text-4xl md:text-5xl font-bold tracking-tighter mb-6">Global <br/>X Lab</h3>
+                <h3 className="text-4xl md:text-5xl font-bold tracking-tighter mb-6 whitespace-pre-line">{t.works.service_lab.title.replace(' ', '\n')}</h3>
                 <p className="text-gray-200 text-lg font-medium leading-relaxed max-w-md">
-                  アイデアを、瞬速で世界の手のひらへ。<br/>「開発」と「マーケティング」を掛け合わせ（X）、国境の壁を突破する。
+                   {t.works.service_lab.subtitle}<br/>
+                   {t.works.service_lab.desc}
                 </p>
               </div>
               <div className="flex items-center gap-3 text-white font-bold tracking-tight relative z-10 mt-auto">
@@ -592,9 +600,10 @@ const WorksView: React.FC = () => {
                 <div className="w-14 h-14 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center mb-8 border border-white/20">
                   <Layers className="w-6 h-6 text-white stroke-[1.5]" />
                 </div>
-                <h3 className="text-4xl md:text-5xl font-bold tracking-tighter mb-4">Global Nexus Trade</h3>
-                <p className="text-gray-200 text-lg leading-relaxed max-w-xl">
-                  技術の「適材適所」を、世界規模で創り出す。<br/>日本の技術を世界へ、世界の革新を日本へ。
+                <h3 className="text-4xl md:text-5xl font-bold tracking-tighter mb-6 whitespace-pre-line">{t.works.service_trade.title.replace(' ', '\n')}</h3>
+                <p className="text-gray-200 text-lg font-medium leading-relaxed max-w-xl">
+                  {t.works.service_trade.subtitle}<br/>
+                  {t.works.service_trade.desc}
                 </p>
               </div>
               <div className="relative z-10 mt-8 md:mt-0">
@@ -611,60 +620,42 @@ const WorksView: React.FC = () => {
 
 const CasesView: React.FC = () => {
   const [selectedCase, setSelectedCase] = useState<number | null>(null);
+  const { t } = useLanguage();
 
-  const cases = [
+  const staticCaseData = [
     {
-      id: "01",
-      category: "Voice AI Architecture",
-      title: "Voice Agent Construction",
-      image: "/assets/case01.png",
-      detailImage: "/assets/case01_detail.jpg",
-      desc: "コールセンターにおける一次応答・架電業務の完全AI化。小売店における予約受付の自動化を実装。",
-      detail: "【コールセンター業務の完全自動化と高度化】\nTwilio（電話API）とElevenLabs（超自然な音声合成）、そしてLLMを高度に連携させることで、人間と区別がつかないレベルのAI電話対応を実現しました。\n\nコールセンターにおける一次応答から、AIへのエスカレーション対応までをシームレスに自動化。特筆すべきは、人間が対応している通話内容もAIがリアルタイムで聞き取り、自動要約を作成する機能です。\n\nこの要約データは自動的にCRMへ入力され、担当部署へのタスク連携も行われます。オペレーターの後処理時間（ACW）をほぼゼロにし、対応品質の均質化を実現しました。",
-      tags: ["Voice Synthesis", "Twilio / ElevenLabs", "Real-time Processing"],
-      icon: <Mic className="w-8 h-8 text-offblack" />
+       image: "/assets/case01.png",
+       detailImage: "/assets/case01_detail.jpg",
+       icon: <Mic className="w-8 h-8 text-offblack" />
     },
     {
-      id: "02",
-      category: "Intelligent CS Bot",
-      title: "Customer Support AI",
-      image: "/assets/case02.png",
-      detailImage: "/assets/case02_chatbot_ui.jpg",
-      desc: "介護業界、建材メーカー等における問い合わせ対応をRAG活用で自動化。Web/LINE上での高度な対話を実現。",
-      detail: "【顧客対応と社内FAQの双方向DX】\n対外的な顧客サポート（Webチャット、LINE公式アカウント）の自動化に加え、社内向けの問い合わせ対応もAI化しました。\n\n「経費精算の手順は？」「就業規則の確認」といった社員からの質問に対し、RAG（検索拡張生成）技術を用いて社内マニュアルから最適な回答を即座に生成します。\n\n企業ごとの膨大なナレッジを学習させることで、「誰に聞けばいいかわからない」時間を排除し、組織全体の生産性を底上げしました。",
-      tags: ["RAG", "Multi-modal Chatbot", "Knowledge Base Integration"],
-      icon: <MessageSquare className="w-8 h-8 text-offblack" />
+       image: "/assets/case02.png",
+       detailImage: "/assets/case02_chatbot_ui.jpg",
+       icon: <MessageSquare className="w-8 h-8 text-offblack" />
     },
     {
-      id: "03",
-      category: "AI Native Transformation",
-      title: "AI Consulting",
-      image: "/assets/case03.png",
-      detailImage: "/assets/case03_workflow.jpg",
-      desc: "最新ツール導入によるAIネイティブなビジネスモデルへの転換支援。業務プロセスの自動化ワークフロー開発。",
-      detail: "【ヒアリングから実装まで、一気通貫の変革】\n単なるアドバイザリー業務ではありません。現場の課題ヒアリングから始まり、解決策の提案、そしてコードレベルでの実装までを一貫して行います。\n\n複数のSaaSツール間をAPI連携で繋ぎ合わせる自動化ワークフローの構築や、業務に特化した独自の社内システムのスクラッチ開発も実施。\n\nボトルネックとなっていた手作業をシステムに置き換え、企業が本来注力すべきコア業務にリソースを集中できる環境を構築します。",
-      tags: ["DX Strategy", "Workflow Automation", "Business Modeling"],
-      icon: <Briefcase className="w-8 h-8 text-offblack" />
+       image: "/assets/case03.png",
+       detailImage: "/assets/case03_workflow.jpg",
+       icon: <Briefcase className="w-8 h-8 text-offblack" />
     },
     {
-      id: "04",
-      category: "Cross-Border Matching",
-      title: "AI Powered Export",
-      image: "/assets/case04_final.jpg",
-      detailImage: "/assets/case04_final.jpg",
-      desc: "アフリカ・欧州との連携をベースに、日本企業の製品・サービスを最適化してマッチング。市場選定のAI化。",
-      detail: "【AIが即座に見つける、世界の最適パートナー】\nアフリカや欧州市場をメインターゲットに、日本企業の製品が「刺さる」パートナー企業をAIが自動選定します。\n\nLinkedInなどのビジネスデータベースを解析し、決裁権を持つキーマンを特定。さらに、その相手に合わせたパーソナライズされたアプローチ（コールドメール等）までも自動化します。\n\nマッチング成立後は、連携企業とともに輸出・契約面をサポート。テクノロジーによる開拓と、人間によるクロージングの融合で、海外進出の成功率を最大化させます。",
-      tags: ["Global Matching Algorithm", "Market Entry", "Africa / Europe"],
-      icon: <Plane className="w-8 h-8 text-offblack" />
+       image: "/assets/case04_final.jpg",
+       detailImage: "/assets/case04_final.jpg",
+       icon: <Plane className="w-8 h-8 text-offblack" />
     }
   ];
+
+  const cases = t.cases.map((c, i) => ({
+    ...c,
+    ...staticCaseData[i]
+  }));
 
   return (
     <PageTransition>
       <div className="px-6 md:px-12 max-w-screen-xl mx-auto">
         <SectionHeading 
-          title="Case Studies" 
-          subtitle="Implementation Archive" 
+          title={t.headings.cases.title}
+          subtitle={t.headings.cases.sub}
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -806,6 +797,7 @@ const CasesView: React.FC = () => {
 
 const MissionView: React.FC = () => {
   const [selectedId, setSelectedId] = useState<ContentKey | null>(null);
+  const { t } = useLanguage();
 
   const values = [
     { title: "不易流行 (Fueki Ryuko)", sub: "技術を変え、文化を創る", desc: "技術は時代とともに変わるが、本質は変わらない。私たちはAIという最新の「流行」を追いながらも、その奥にある人々の幸せという「不易」を見失わない。目指すのは、単なる技術の実装ではない。10年、100年と続き、やがて人々の当たり前となる「文化」を創り出すことだ。" },
@@ -820,8 +812,8 @@ const MissionView: React.FC = () => {
       <div className="bg-offblack min-h-screen text-white pb-20">
         <div className="px-6 md:px-12 max-w-screen-xl mx-auto pt-10">
           <SectionHeading 
-            title="MGC Way" 
-            subtitle="The Core Philosophy" 
+            title={t.headings.mission.title}
+            subtitle={t.headings.mission.sub}
             dark 
           />
 
@@ -874,8 +866,8 @@ const MissionView: React.FC = () => {
             dark
           />
 
-          <p className="text-gray-400 text-xl mb-12 max-w-3xl">
-            MGC inc.を動かす3つの駆動エンジン。これらは単なる事業ドメインではなく、私たちが世界を認識し、ハックするための独自の思考OSである。
+          <p className="text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed mb-16 text-center">
+            {t.mission.internal_os.lead}
           </p>
 
           {/* Internal OS - System Module Style */}
@@ -886,8 +878,8 @@ const MissionView: React.FC = () => {
                    <div className="p-3 rounded bg-gray-800 text-white"><Zap className="w-6 h-6" /></div>
                    <span className="font-mono text-sm text-accent">OS.01</span>
                 </div>
-                <h4 className="text-2xl font-bold mb-4 group-hover:text-accent transition-colors">Manifest Creativity</h4>
-                <p className="text-gray-400 text-sm leading-relaxed mb-6">脳内のビジョンを、直接ソフトウェアへ変換する。技術的な摩擦係数をゼロにする思考法。</p>
+                <h4 className="text-2xl font-bold mb-4 group-hover:text-accent transition-colors">{t.mission.internal_os.os1.title}</h4>
+                <p className="text-gray-400 text-sm leading-relaxed mb-6">{t.mission.internal_os.os1.desc}</p>
                 <div className="mt-auto pt-4 border-t border-gray-800 flex items-center justify-between">
                    <span className="text-xs font-mono text-gray-500 uppercase">Input: Vision</span>
                    <ArrowUpRight className="w-4 h-4 text-gray-500 group-hover:text-white transition-colors" />
@@ -901,8 +893,8 @@ const MissionView: React.FC = () => {
                    <div className="p-3 rounded bg-gray-800 text-white"><Globe className="w-6 h-6" /></div>
                    <span className="font-mono text-sm text-accent">OS.02</span>
                 </div>
-                <h4 className="text-2xl font-bold mb-4 group-hover:text-accent transition-colors">Global Marketing</h4>
-                <p className="text-gray-400 text-sm leading-relaxed mb-6">コンテキストをハックし、文化的な摩擦を「共感」に変える。ナラティブ設計のメソドロジー。</p>
+                <h4 className="text-2xl font-bold mb-4 group-hover:text-accent transition-colors">{t.mission.internal_os.os2.title}</h4>
+                <p className="text-gray-400 text-sm leading-relaxed mb-6">{t.mission.internal_os.os2.desc}</p>
                 <div className="mt-auto pt-4 border-t border-gray-800 flex items-center justify-between">
                    <span className="text-xs font-mono text-gray-500 uppercase">Input: Context</span>
                    <ArrowUpRight className="w-4 h-4 text-gray-500 group-hover:text-white transition-colors" />
@@ -916,8 +908,8 @@ const MissionView: React.FC = () => {
                    <div className="p-3 rounded bg-gray-800 text-white"><Layers className="w-6 h-6" /></div>
                    <span className="font-mono text-sm text-accent">OS.03</span>
                 </div>
-                <h4 className="text-2xl font-bold mb-4 group-hover:text-accent transition-colors">Curated Commerce</h4>
-                <p className="text-gray-400 text-sm leading-relaxed mb-6">AIオペレーションで、物理と情報の距離を消し去る。価値の再配置（Arbitrage）システム。</p>
+                <h4 className="text-2xl font-bold mb-4 group-hover:text-accent transition-colors">{t.mission.internal_os.os3.title}</h4>
+                <p className="text-gray-400 text-sm leading-relaxed mb-6">{t.mission.internal_os.os3.desc}</p>
                 <div className="mt-auto pt-4 border-t border-gray-800 flex items-center justify-between">
                    <span className="text-xs font-mono text-gray-500 uppercase">Input: Value</span>
                    <ArrowUpRight className="w-4 h-4 text-gray-500 group-hover:text-white transition-colors" />
@@ -943,13 +935,14 @@ const PartnersView: React.FC = () => {
   ];
   
   const [activeCity, setActiveCity] = useState<string | null>(null);
+  const { t } = useLanguage();
 
   return (
     <PageTransition>
        <div className="px-6 md:px-12 max-w-screen-xl mx-auto min-h-screen">
         <SectionHeading 
-          title="Alliance" 
-          subtitle="Global Network Nodes" 
+          title={t.headings.alliance.title} 
+          subtitle={t.headings.alliance.sub} 
         />
         
         <div className="relative w-full aspect-[16/9] bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 mb-12 group/map">
@@ -1049,6 +1042,7 @@ const PartnersView: React.FC = () => {
 }
 
 const CompanyView: React.FC = () => {
+  const { t } = useLanguage();
   const info = [
     { label: 'Company Name', value: 'MGC inc.' },
     { label: 'CEO', value: 'KOKOMU MATSUO' },
@@ -1060,7 +1054,7 @@ const CompanyView: React.FC = () => {
   return (
     <PageTransition>
       <div className="px-6 md:px-12 max-w-screen-xl mx-auto">
-        <SectionHeading title="Profile" subtitle="Corporate Overview" />
+        <SectionHeading title={t.headings.company.title} subtitle={t.headings.company.sub} />
         <div className="grid grid-cols-1">
           {info.map((item, index) => (
             <Reveal key={index} delay={index * 100}>
@@ -1081,6 +1075,7 @@ const CompanyView: React.FC = () => {
 };
 
 const CareerView: React.FC = () => {
+  const { t } = useLanguage();
   const mindsets = [
     { title: "Will・原動力", req: "「Why」を語れる偏愛家", desc: "内なる衝動や「なぜ」という問いから動ける。", ng: "受動的な優等生", ngDesc: "指示待ち、言われたことしかやらない。" },
     { title: "Grit・突破力", req: "壁を遊具と捉える「冒険心」", desc: "トラブルを面白がれるレジリエンス。", ng: "正解を求める性質", ngDesc: "正解がないと動けない。失敗を極度に恐れる。" },
@@ -1097,7 +1092,7 @@ const CareerView: React.FC = () => {
   return (
     <PageTransition>
       <div className="px-6 md:px-12 max-w-screen-xl mx-auto text-white">
-        <SectionHeading title="Careers" subtitle="Join the Collective." dark />
+        <SectionHeading title={t.headings.career.title} subtitle={t.headings.career.sub} dark />
 
         {/* Introduction */}
         <Reveal>
@@ -1230,6 +1225,7 @@ const CareerView: React.FC = () => {
 
 const BlogView: React.FC = () => {
   const [selectedPost, setSelectedPost] = useState<number | null>(null);
+  const { t } = useLanguage();
 
   const posts = [
     {
@@ -1378,6 +1374,7 @@ const BlogView: React.FC = () => {
 
 const ContactView: React.FC = () => {
   const [formState, setFormState] = useState({ name: '', email: '', message: '' });
+  const { t } = useLanguage();
   const [emailError, setEmailError] = useState('');
   const [isSent, setIsSent] = useState(false);
 
@@ -1501,6 +1498,8 @@ const App: React.FC = () => {
 
   const [view, setView] = useState<ViewState>(getViewFromHash());
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [lang, setLang] = useState<Lang>('ja');
+  const t = translations[lang];
 
   // Listen for hash changes to handle browser back/forward and direct URL access
   useEffect(() => {
@@ -1521,22 +1520,28 @@ const App: React.FC = () => {
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
+  // Update HTML lang attribute
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
+
   const navigate = (id: ViewState) => {
     window.location.hash = id;
   };
 
   const navItems: { id: ViewState; label: string }[] = [
-    { id: 'works', label: 'Works' },
-    { id: 'cases', label: 'Cases' },
-    { id: 'blog', label: 'Journal' },
-    { id: 'mission', label: 'Mission' },
+    { id: 'works', label: t.nav.works },
+    { id: 'cases', label: t.nav.cases },
+    { id: 'blog', label: t.nav.blog },
+    { id: 'mission', label: t.nav.mission },
     // { id: 'partners', label: 'Partners' }, // Hidden
-    { id: 'company', label: 'Company' },
-    { id: 'career', label: 'Careers' },
-    { id: 'contact', label: 'Contact' },
+    { id: 'company', label: t.nav.company },
+    { id: 'career', label: t.nav.career },
+    { id: 'contact', label: t.nav.contact },
   ];
 
   return (
+    <LanguageContext.Provider value={{ lang, setLang, t }}>
     <div className={`min-h-screen transition-colors duration-500 font-sans ${view === 'mission' || view === 'career' || view === 'works' || view === 'blog' ? 'bg-offblack text-white' : 'bg-offwhite text-offblack'}`}>
       
       {/* Header */}
@@ -1566,12 +1571,22 @@ const App: React.FC = () => {
         </nav>
 
         {/* Mobile Menu Toggle */}
-        <button 
-          className="md:hidden z-50 p-2 hover:opacity-70 transition-opacity"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
-          {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
+        <div className="flex items-center gap-4">
+             {/* Language Switcher (Desktop/Mobile) */}
+             <button
+               onClick={() => setLang(lang === 'ja' ? 'en' : 'ja')}
+               className="font-mono text-sm font-bold border border-white/30 px-3 py-1 rounded-full hover:bg-white hover:text-offblack transition-all z-50 backdrop-blur-md"
+             >
+               {lang === 'ja' ? 'EN' : 'JP'}
+             </button>
+
+             <button 
+               className="md:hidden z-50 p-2 hover:opacity-70 transition-opacity"
+               onClick={() => setIsMenuOpen(!isMenuOpen)}
+             >
+               {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+             </button>
+        </div>
       </header>
 
       {/* Mobile Menu Overlay */}
@@ -1602,12 +1617,13 @@ const App: React.FC = () => {
         {view === 'contact' && <ContactView />}
       </main>
 
-      {/* Footer (Simple) */}
       <footer className={`px-6 md:px-12 py-8 text-center text-sm font-medium opacity-50 ${view === 'mission' || view === 'career' || view === 'works' ? 'text-gray-500' : 'text-gray-400'}`}>
         &copy; 2025 MGC inc. All Rights Reserved.
       </footer>
     </div>
+    </LanguageContext.Provider>
   );
 };
+
 
 export default App;
