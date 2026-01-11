@@ -927,8 +927,8 @@ const BlogView: React.FC = () => {
 
   const staticImages = [
      "/assets/blog_vision.jpg",
-     "/assets/blog_product.jpg",
-     "/assets/blog_global.jpg",
+     "/assets/blog_philosophy.jpg",
+     "/assets/blog_strategy.jpg",
      "/assets/blog_methodology.jpg"
   ];
   
