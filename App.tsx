@@ -1099,8 +1099,7 @@ const ContactView: React.FC = () => {
             <Reveal delay={200}>
               <div className="mt-[-2rem]">
                 <p className="text-xl text-gray-500 mb-6">
-                  Have an idea? Let's build the future together. <br />
-                  まずはあなたのビジョンをお聞かせください。
+                  {t.contact.lead}
                 </p>
               </div>
             </Reveal>
