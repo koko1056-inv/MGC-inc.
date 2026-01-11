@@ -26,276 +26,7 @@ interface ContentItem {
 
 // --- Data ---
 
-const contentData: Record<ContentKey, ContentItem> = {
-  // --- New Services (for WorksView) ---
-  service_ai: {
-    title: "Global One AI",
-    subtitle: "世界をひとつの市場に変える、ワンストップAI",
-    theme: 'dark',
-    number: "01",
-    icon: <Globe className="w-6 h-6 text-white stroke-[1.5]" />,
-    details: (
-      <>
-        <p className="text-xl md:text-3xl font-light leading-relaxed mb-12 text-gray-300">
-          言葉の壁を越える「音声AI」と、未開拓の顧客へ届く「リーチAI」を統合。<br className="hidden md:block"/>
-          海外進出のハードルをゼロにし、あなたのビジネスを世界標準へ加速させます。
-        </p>
-        <div className="space-y-12 text-gray-400">
-           <div className="border-t border-gray-800 pt-8">
-             <div className="flex flex-col md:flex-row gap-8">
-                <div className="md:w-1/3">
-                  <span className="text-accent font-bold tracking-widest text-sm mb-2 block">01</span>
-                  <h4 className="text-2xl font-bold text-white">Cross-Border Voice</h4>
-                </div>
-                <div className="md:w-2/3">
-                  <p className="text-xl font-bold mb-3 text-white">その声は、国境を越えて響く。</p>
-                  <p className="text-lg leading-relaxed">
-                    高精度の音声AIが、リアルタイムで言語の壁を解消。まるで母国語同士のように、現地のパートナーや顧客と深い信頼関係を築けます。
-                  </p>
-                </div>
-             </div>
-           </div>
-           
-           <div className="border-t border-gray-800 pt-8">
-             <div className="flex flex-col md:flex-row gap-8">
-                <div className="md:w-1/3">
-                  <span className="text-accent font-bold tracking-widest text-sm mb-2 block">02</span>
-                  <h4 className="text-2xl font-bold text-white">Direct Global Reach</h4>
-                </div>
-                <div className="md:w-2/3">
-                  <p className="text-xl font-bold mb-3 text-white">待っているだけでは出会えない顧客へ。</p>
-                  <p className="text-lg leading-relaxed">
-                    独自のリーチAIが、世界中の企業データベースから最適なターゲットを抽出。アプローチまでを自動化し、商談の機会を最大化します。
-                  </p>
-                </div>
-             </div>
-           </div>
 
-           <div className="border-t border-gray-800 pt-8">
-             <div className="flex flex-col md:flex-row gap-8">
-                <div className="md:w-1/3">
-                  <span className="text-accent font-bold tracking-widest text-sm mb-2 block">03</span>
-                  <h4 className="text-2xl font-bold text-white">All-in-One Platform</h4>
-                </div>
-                <div className="md:w-2/3">
-                  <p className="text-xl font-bold mb-3 text-white">海外展開を、もっとシンプルに。</p>
-                  <p className="text-lg leading-relaxed">
-                    コミュニケーションから新規開拓まで、グローバルビジネスに必要なツールをワンストップで提供。複雑なプロセスをなくし、成果に集中できる環境を作ります。
-                  </p>
-                </div>
-             </div>
-           </div>
-        </div>
-      </>
-    )
-  },
-  service_lab: {
-    title: "Global X Lab",
-    subtitle: "アイデアを、瞬速で世界の手のひらへ。",
-    theme: 'light',
-    number: "02",
-    icon: <Zap className="w-6 h-6 text-offblack stroke-[1.5]" />,
-    details: (
-      <>
-        <p className="text-xl md:text-3xl font-light leading-relaxed mb-12">
-          「開発」と「マーケティング」を掛け合わせ（X）、国境の壁を突破する。<br className="hidden md:block"/>
-          世界中のライフスタイルをアップデートするプロダクトを、ここから次々と生み出します。
-        </p>
-        <div className="space-y-12">
-           <div className="border-t border-gray-200 pt-8">
-             <div className="flex flex-col md:flex-row gap-8">
-                <div className="md:w-1/3">
-                  <span className="text-accent font-bold tracking-widest text-sm mb-2 block">01</span>
-                  <h4 className="text-2xl font-bold">Agile for Global<br/><span className="text-base text-gray-400 font-normal">世界最速の社会実装</span></h4>
-                </div>
-                <div className="md:w-2/3">
-                  <p className="text-xl font-bold mb-3">ひらめきを、即座に形にする。</p>
-                  <p className="text-gray-600 text-lg leading-relaxed">
-                    トレンドの波を逃さない超高速のアジャイル開発。MVP（実用最小限の製品）を短期間で市場へ投入し、世界中のユーザーからのフィードバックで進化させ続けます。
-                  </p>
-                </div>
-             </div>
-           </div>
-           
-           <div className="border-t border-gray-200 pt-8">
-             <div className="flex flex-col md:flex-row gap-8">
-                <div className="md:w-1/3">
-                  <span className="text-accent font-bold tracking-widest text-sm mb-2 block">02</span>
-                  <h4 className="text-2xl font-bold">Dev × Growth<br/><span className="text-base text-gray-400 font-normal">開発と成長の融合</span></h4>
-                </div>
-                <div className="md:w-2/3">
-                  <p className="text-xl font-bold mb-3">作ると同時に、世界へ仕掛ける。</p>
-                  <p className="text-gray-600 text-lg leading-relaxed">
-                    プロダクト開発とグロースハックを分断させない。設計段階から各国のマーケティング戦略を組み込み、リリースした瞬間から垂直立ち上げを実現します。
-                  </p>
-                </div>
-             </div>
-           </div>
-
-           <div className="border-t border-gray-200 pt-8">
-             <div className="flex flex-col md:flex-row gap-8">
-                <div className="md:w-1/3">
-                  <span className="text-accent font-bold tracking-widest text-sm mb-2 block">03</span>
-                  <h4 className="text-2xl font-bold">Borderless Experience<br/><span className="text-base text-gray-400 font-normal">言葉はいらない体験</span></h4>
-                </div>
-                <div className="md:w-2/3">
-                  <p className="text-xl font-bold mb-3">直感で伝わる、ノンバーバル設計。</p>
-                  <p className="text-gray-600 text-lg leading-relaxed">
-                    言語や文化背景が異なる70億人が、説明書なしで使えるUI/UXを追求。国境を感じさせない「ボーダレス」な体験デザインを提供します。
-                  </p>
-                </div>
-             </div>
-           </div>
-        </div>
-      </>
-    )
-  },
-  service_trade: {
-    title: "Global Nexus Trade",
-    subtitle: "技術の「適材適所」を、世界規模で創り出す。",
-    theme: 'light',
-    number: "03",
-    icon: <Layers className="w-6 h-6 text-offblack stroke-[1.5]" />,
-    details: (
-      <>
-        <p className="text-xl md:text-3xl font-light leading-relaxed mb-12">
-          日本の技術を世界へ、世界の革新を日本へ。<br className="hidden md:block"/>
-          国境によるミスマッチを解消し、埋もれていた価値を「最も必要とされる場所」へと繋ぐ、次世代の技術トレーディング。
-        </p>
-        <div className="space-y-12">
-           <div className="border-t border-gray-200 pt-8">
-             <div className="flex flex-col md:flex-row gap-8">
-                <div className="md:w-1/3">
-                  <span className="text-accent font-bold tracking-widest text-sm mb-2 block">01</span>
-                  <h4 className="text-2xl font-bold">Export: Value Optimization<br/><span className="text-base text-gray-400 font-normal">価値の再配置</span></h4>
-                </div>
-                <div className="md:w-2/3">
-                  <p className="text-xl font-bold mb-3">日本の技術に、新たな市場を。</p>
-                  <p className="text-gray-600 text-lg leading-relaxed">
-                    国内では成熟した技術も、世界にはそれを熱望する市場が存在します。日本の優れた知財（IP）や素材を発掘し、その価値が最も高く評価される海外パートナーへとマッチングさせます。
-                  </p>
-                </div>
-             </div>
-           </div>
-           
-           <div className="border-t border-gray-200 pt-8">
-             <div className="flex flex-col md:flex-row gap-8">
-                <div className="md:w-1/3">
-                  <span className="text-accent font-bold tracking-widest text-sm mb-2 block">02</span>
-                  <h4 className="text-2xl font-bold">Import: Global Solution<br/><span className="text-base text-gray-400 font-normal">世界の知を実装</span></h4>
-                </div>
-                <div className="md:w-2/3">
-                  <p className="text-xl font-bold mb-3">海外の革新を、日本の課題解決へ。</p>
-                  <p className="text-gray-600 text-lg leading-relaxed">
-                    ゼロから開発するのではなく、世界中にある「既存の正解」を導入する。海外の先端テクノロジーやソリューションを輸入し、日本企業のイノベーションを加速させます。
-                  </p>
-                </div>
-             </div>
-           </div>
-
-           <div className="border-t border-gray-200 pt-8">
-             <div className="flex flex-col md:flex-row gap-8">
-                <div className="md:w-1/3">
-                  <span className="text-accent font-bold tracking-widest text-sm mb-2 block">03</span>
-                  <h4 className="text-2xl font-bold">Frictionless Process<br/><span className="text-base text-gray-400 font-normal">取引の効率化</span></h4>
-                </div>
-                <div className="md:w-2/3">
-                  <p className="text-xl font-bold mb-3">技術移転を、もっとスムーズに。</p>
-                  <p className="text-gray-600 text-lg leading-relaxed">
-                    複雑なライセンス契約、権利処理、ローカライズの壁を、専門チームとAIが効率化。アナログで時間のかかる貿易実務を刷新し、ビジネスチャンスを逃さないスピーディな取引を実現します。
-                  </p>
-                </div>
-             </div>
-           </div>
-        </div>
-      </>
-    )
-  },
-  
-  // --- Old Architecture (Renamed to Internal Methods) ---
-  product: {
-    title: "Manifest Creativity",
-    subtitle: "脳内のビジョンを、直接ソフトウェアへ変換する。",
-    theme: 'light',
-    number: "OS.01",
-    icon: <Zap className="w-6 h-6 text-offblack stroke-[1.5]" />,
-    details: (
-      <>
-        <p className="text-xl md:text-3xl font-light leading-relaxed mb-8">
-          The barrier between idea and execution is gone.
-        </p>
-        <div className="space-y-6 text-gray-600 text-lg leading-relaxed">
-          <p>
-            AIネイティブ時代において、技術はもはや障壁ではありません。
-            重要なのは「何を創りたいか」という思想です。
-            私たちは、情熱とアイデアを持つ個人が、AIという翼を使って自分の世界観をそのままプロダクトとして具現化し、
-            世の中に問いかけることを可能にします。
-          </p>
-        </div>
-      </>
-    )
-  },
-  marketing: {
-    title: "Global Marketing",
-    subtitle: "コンテキストをハックし、文化的な摩擦を共感に変える。",
-    theme: 'dark',
-    number: "OS.02",
-    icon: <Globe className="w-6 h-6 text-white stroke-[1.5]" />,
-    details: (
-      <>
-        <p className="text-xl md:text-3xl font-light leading-relaxed mb-8 text-gray-300">
-          Translation is utility. Localization is empathy.
-        </p>
-        <div className="space-y-6 text-gray-400 text-lg leading-relaxed">
-          <p>
-            言語をただ置き換えるだけでは、人の心は動きません。
-            私たちはターゲット市場の文化的背景（コンテキスト）を徹底的に解析。
-            その土地の空気を吸い込んだかのような、自然で響くナラティブを構築します。
-          </p>
-        </div>
-      </>
-    )
-  },
-  trading: {
-    title: "Curated Commerce",
-    subtitle: "AIオペレーションで、物理と情報の距離を消し去る。",
-    theme: 'light',
-    number: "OS.03",
-    icon: <Layers className="w-6 h-6 text-offblack stroke-[1.5]" />,
-    details: (
-      <>
-        <p className="text-xl md:text-3xl font-light leading-relaxed mb-8">
-           Delivering the unseen craft of Japan everywhere.
-        </p>
-        <div className="space-y-6 text-gray-600 text-lg leading-relaxed">
-          <p>
-            日本の本当に良いものには、まだ世界が知らない物語があります。
-            私たちはAIを活用した高度なオペレーションにより、従来の手法ではリーチできなかった地域やニッチな市場へ、
-            日本のクラフトマンシップと美意識を届けます。
-          </p>
-        </div>
-      </>
-    )
-  },
-  vision: {
-    title: "Minimal Organization.",
-    subtitle: "Small Team, Giant Leaps.",
-    theme: 'gray',
-    details: (
-      <>
-        <p className="text-xl md:text-3xl font-light leading-relaxed mb-8">
-          Bloat is the enemy of speed.
-        </p>
-        <div className="space-y-6 text-gray-600 text-lg leading-relaxed">
-          <p>
-            巨大な組織図は必要ありません。必要なのは、自律的に動き、決定し、実行できるエリートたちの小さな集合体です。
-            MGC inc.は組織の肥大化を拒み、個々の能力を最大化することで、世界規模の課題解決に挑みます。
-          </p>
-        </div>
-      </>
-    )
-  }
-};
 
 const ACCENT_COLORS = [
   '#2563EB', // Swiss Blue
@@ -372,6 +103,8 @@ const GridPattern = ({ dark = false }: { dark?: boolean }) => (
 );
 
 const DetailModal: React.FC<{ id: ContentKey | null; onClose: () => void }> = ({ id, onClose }) => {
+  const { t } = useLanguage();
+  const contentData = getContentData(t);
   if (!id) return null;
   const content = contentData[id];
   if (!content) return null;
@@ -520,6 +253,7 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
 const WorksView: React.FC = () => {
   const [selectedId, setSelectedId] = useState<ContentKey | null>(null);
   const { t } = useLanguage();
+  const contentData = getContentData(t);
 
   return (
     <PageTransition>
@@ -798,15 +532,8 @@ const CasesView: React.FC = () => {
 const MissionView: React.FC = () => {
   const [selectedId, setSelectedId] = useState<ContentKey | null>(null);
   const { t } = useLanguage();
-
-  const values = [
-    { title: "不易流行 (Fueki Ryuko)", sub: "技術を変え、文化を創る", desc: "技術は時代とともに変わるが、本質は変わらない。私たちはAIという最新の「流行」を追いながらも、その奥にある人々の幸せという「不易」を見失わない。目指すのは、単なる技術の実装ではない。10年、100年と続き、やがて人々の当たり前となる「文化」を創り出すことだ。" },
-    { title: "四方よし (Future)", sub: "歴史と社会への愛", desc: "「売り手よし、買い手よし、世間よし」。私たちはそこに「未来よし」を加える。自分と他者、そして社会への愛を持ち、歴史に恥じない商いを行う。1000年後の人類が振り返ったとき、「この技術があってよかった」と感謝される価値だけを世界に届ける。" },
-    { title: "志高実行 (Think Big)", sub: "問いと意志", desc: "すべての起点は「なぜ（Why）」という問いと、「なんとしてもやりたい（Will）」という志。評論家になるな。他者を評価する暇があるなら、己の手を動かせ。大きな夢を抱きながら、足元の一歩を積み重ねる者だけが、世界を変える。" },
-    { title: "柔軟自在 (Be Agile)", sub: "壁を楽しむ", desc: "世界は広く、変化は速い。内側に閉じこもらず、外に目を向けよ。立ちはだかる壁は、成長のための遊び場だ。日本的な「和」の精神と、グローバルな「個」の強さを融合させ、しなやかに壁を越えていけ。" },
-    { title: "一日一生 (Live for Today)", sub: "人生を主役に", desc: "仕事は、あなたの人生を豊かにするための「手段」である。会社のために己を殺すな。自分のために会社を生かせ。今日が最後の一日であるという覚悟（死生観）を持ち、悔いのない「今」を熱く生きろ。" },
-  ];
-
+  const contentData = getContentData(t);
+  const values = t.mission.values;
   return (
     <PageTransition>
       <div className="bg-offblack min-h-screen text-white pb-20">
@@ -820,10 +547,9 @@ const MissionView: React.FC = () => {
           <Reveal>
             <div className="mb-24 grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
                <div>
-                 <h3 className="text-3xl md:text-5xl font-bold mb-6 text-accent">AI × Global Trading</h3>
+                 <h3 className="text-3xl md:text-5xl font-bold mb-6 text-accent">{t.mission.intro.title}</h3>
                  <p className="text-xl leading-relaxed text-gray-300">
-                   AIを「未来のインフラ」として捉え、<br/>
-                   1000年続く人類の豊かさを実装する。
+                   {t.mission.intro.desc}
                  </p>
                </div>
                <div className="bg-gray-900 p-8 rounded-2xl border border-gray-800">
@@ -831,9 +557,9 @@ const MissionView: React.FC = () => {
                    <Anchor className="w-6 h-6 text-accent" />
                    Mission
                  </h4>
-                 <p className="text-2xl font-bold mb-4">日本の精神で、未来のインフラを創る</p>
+                 <p className="text-2xl font-bold mb-4">{t.mission.intro.mission_title}</p>
                  <p className="text-gray-400 leading-relaxed">
-                   技術は変えても、文化と精神性は変えない。AIという最新のテクノロジーを使いながらも、それによって人間が退化（絶滅）するのではなく、むしろ「人間らしさ」が極大化されるような新しい社会システム（インフラ）を創る。
+                   {t.mission.intro.mission_desc}
                  </p>
                </div>
             </div>
@@ -861,8 +587,8 @@ const MissionView: React.FC = () => {
           </div>
 
           <SectionHeading 
-            title="Internal OS" 
-            subtitle="MGC Internal Operating System" 
+            title={t.headings.internalOS.title} 
+            subtitle={t.headings.internalOS.sub} 
             dark
           />
 
@@ -1043,13 +769,7 @@ const PartnersView: React.FC = () => {
 
 const CompanyView: React.FC = () => {
   const { t } = useLanguage();
-  const info = [
-    { label: 'Company Name', value: 'MGC inc.' },
-    { label: 'CEO', value: 'KOKOMU MATSUO' },
-    { label: 'Headquarters', value: 'Kyoto, Japan' },
-    { label: 'Established', value: '2025' },
-    { label: 'Business Domains', value: 'AI Native Product Development\nGlobal Marketing Solution\nCurated Cross-border Trading' },
-  ];
+  const info = t.company.items;
 
   return (
     <PageTransition>
@@ -1076,18 +796,9 @@ const CompanyView: React.FC = () => {
 
 const CareerView: React.FC = () => {
   const { t } = useLanguage();
-  const mindsets = [
-    { title: "Will・原動力", req: "「Why」を語れる偏愛家", desc: "内なる衝動や「なぜ」という問いから動ける。", ng: "受動的な優等生", ngDesc: "指示待ち、言われたことしかやらない。" },
-    { title: "Grit・突破力", req: "壁を遊具と捉える「冒険心」", desc: "トラブルを面白がれるレジリエンス。", ng: "正解を求める性質", ngDesc: "正解がないと動けない。失敗を極度に恐れる。" },
-    { title: "Time・時間感覚", req: "「今日」と「1000年」の複眼思考", desc: "今日死ぬ気で働き、1000年先のロマンを描く。", ng: "目先の数字/夢想のみ", ngDesc: "目先の数字しか見えない、または夢だけで手が動かない。" },
-    { title: "Humanity", req: "他者を裁かず、愛を持てる人", desc: "自分・他者・社会・歴史へのリスペクト。", ng: "他責・冷笑的", ngDesc: "他責思考、冷笑的な評論家タイプ。" },
-  ];
+  const mindsets = t.career.mindsets;
 
-  const skills = [
-    { title: "AI Native", sub: "AIを「同僚」にする力", desc: "AIを拡張ツールとして息をするように使う。", ng: "AIアレルギー (技術への好奇心がない)" },
-    { title: "Global", sub: "異文化への敬意と適応力", desc: "異なる価値観の間に入り、滑らかに調整・融合できる。", ng: "語学力のみ/排他的 (中身がない、特定の価値観を押し付ける)" },
-    { title: "Concept", sub: "「技術」を「文化」にする構想力", desc: "技術が生活をどう豊かにするか、ストーリーを描ける。", ng: "機能重視 (機能の話しかできない、人間への興味が薄い)" },
-  ];
+  const skills = t.career.skills;
 
   return (
     <PageTransition>
@@ -1097,19 +808,11 @@ const CareerView: React.FC = () => {
         {/* Introduction */}
         <Reveal>
           <div className="mb-32 max-w-5xl">
-            <h3 className="text-4xl md:text-7xl font-bold tracking-tighter mb-12 text-white leading-[1.1]">
-              We don't hire employees. <br/>
-              We gather <span className="text-accent underline decoration-4 underline-offset-8">comrades</span>.
-            </h3>
-            <div className="flex flex-col md:flex-row gap-12 border-l-2 border-accent pl-8 md:pl-12">
-                <p className="text-xl text-gray-400 font-medium leading-relaxed md:w-1/2">
-                   MGC inc.は、既存の枠組みに収まりきらない「はみ出し者」を求めています。
-                   スキルセットよりも、私たちの哲学（MGC Way）に魂レベルで共鳴できるか。
-                </p>
-                <p className="text-xl text-gray-400 font-medium leading-relaxed md:w-1/2">
-                   それが唯一にして最大の採用基準です。
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-end">
+                <p className="text-2xl md:text-4xl font-light leading-snug">
+                   {t.career.intro.desc}
                    <br/>
-                   <span className="text-white font-bold mt-4 block">Are you the one?</span>
+                   <span className="text-white font-bold mt-4 block">{t.career.intro.call}</span>
                 </p>
             </div>
           </div>
@@ -1117,7 +820,7 @@ const CareerView: React.FC = () => {
 
         {/* Mindset Section */}
         <div className="mb-40">
-          <SectionHeading title="" subtitle={<span className="flex items-center gap-3 text-2xl font-bold"><Heart className="text-accent w-8 h-8"/> Mindset / Core Requirements</span>} dark />
+          <SectionHeading title="" subtitle={<span className="flex items-center gap-3 text-2xl font-bold"><Heart className="text-accent w-8 h-8"/> {t.career.subheadings.mindset}</span>} dark />
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {mindsets.map((m, i) => (
@@ -1159,7 +862,7 @@ const CareerView: React.FC = () => {
 
         {/* Skills Section */}
         <div className="mb-40">
-          <SectionHeading title="" subtitle={<span className="flex items-center gap-3 text-2xl font-bold"><Zap className="text-accent w-8 h-8"/> Competency / Required Skills</span>} dark />
+          <SectionHeading title="" subtitle={<span className="flex items-center gap-3 text-2xl font-bold"><Zap className="text-accent w-8 h-8"/> {t.career.subheadings.skills}</span>} dark />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
              {skills.map((s, i) => (
@@ -1201,19 +904,14 @@ const CareerView: React.FC = () => {
               <div className="absolute inset-0 bg-offblack opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
               
               <div className="absolute -top-[50%] -left-[50%] w-[200%] h-[200%] bg-[radial-gradient(circle,rgba(255,255,255,0.1)_0%,transparent_60%)] animate-[spin_20s_linear_infinite]"></div>
-
+              {/* Added decorative logic */}
               <div className="relative z-10 flex flex-col items-center">
-                <h3 className="text-5xl md:text-8xl font-bold mb-8 tracking-tighter">Are you ready?</h3>
-                <p className="text-xl md:text-2xl text-white/90 mb-12 max-w-3xl mx-auto font-medium leading-relaxed">
-                   評論家になるな。世界を変えるのは、いつだって手を動かす者だけだ。<br className="hidden md:block"/>
-                   あなたの「Why」を聞かせてください。
+                <h3 className="text-5xl md:text-8xl font-bold mb-8 tracking-tighter">{t.career.cta.title}</h3>
+                <p className="text-xl md:text-2xl text-white/90 mb-12 max-w-3xl mx-auto font-medium leading-relaxed whitespace-pre-line">
+                   {t.career.cta.desc}
                 </p>
-                <button 
-                   onClick={() => window.location.hash = 'contact'}
-                   className="inline-flex items-center gap-3 bg-white text-accent px-14 py-6 rounded-full text-xl font-bold hover:bg-offblack hover:text-white transition-all duration-300 shadow-lg"
-                >
-                   Entry Form
-                   <ArrowRight className="w-6 h-6" />
+                <button className="px-10 py-5 bg-white text-offblack rounded-full font-bold text-xl hover:bg-offwhite transition-colors shadow-lg">
+                   {t.career.cta.button}
                 </button>
               </div>
            </div>
@@ -1227,44 +925,17 @@ const BlogView: React.FC = () => {
   const [selectedPost, setSelectedPost] = useState<number | null>(null);
   const { t } = useLanguage();
 
-  const posts = [
-    {
-      id: 1,
-      date: "2025.10.15",
-      category: "AI-Native",
-      title: "「声」の再定義：電話業務という\"負の遺産\"を、AIはどう解放するか",
-      excerpt: "人間が電話番をする時代の終わり。AIがコンシェルジュとなり、人間は創造的な対話のみに集中する未来。",
-      image: "/assets/blog_vision.jpg",
-      content: "「電話対応」は、企業の生産性を最も阻害する要因の一つです。理不尽なクレーム、繰り返される同じ質問、取次ぎのためだけの時間。MGC inc.は、この「負の遺産」をAIによって完全に解放します。\n\n最新のVoice AIは、感情を理解し、文脈を読み取り、人間以上のホスピタリティで顧客をもてなします。人間は、AIが解決できない高度な判断や、心を通わせる対話だけに集中する。\n\n私たちが提供するのは、単なる自動応答システムではありません。企業の「声」そのものをアップデートし、ビジネスのスピードを極限まで加速させる、AI時代の新しいコミュニケーション・インフラです。"
-    },
-    {
-      id: 2,
-      date: "2025.10.20",
-      category: "Philosophy",
-      title: "Tech × Art × Soul：次世代プロダクト開発における「三位一体」の哲学",
-      excerpt: "機能競争の終焉。技術に美意識と魂を宿らせ、マーケティング自体を不要にするほどの引力を持つ。",
-      image: "/assets/blog_philosophy.jpg",
-      content: "「機能」だけで差別化できる時代は終わりました。これからのプロダクトに必要なのは、Tech（技術）、Art（美意識）、そしてSoul（魂）の三位一体です。\n\n技術はあくまで表現の筆であり、そこにどんな絵を描くか（Art）、そしてなぜ描くのか（Soul）がなければ、人の心は動きません。スペックの高さではなく、手にした瞬間の「高揚感」をデザインする。\n\nMGC inc.は、多額の広告費で無理やり売るマーケティングを否定します。プロダクトそのものが発する圧倒的な美しさとストーリー（引力）で、世界中のユーザーを自然と惹きつける。それが私たちの流儀です。"
-    },
-    {
-      id: 3,
-      date: "2025.11.01",
-      category: "Strategy",
-      title: "日本という枠を、最初から捨てる：Day1 Global戦略の必然性",
-      excerpt: "「まずは国内」という思考停止が死を招く理由。MGCが京都にいながらシリコンバレーと同じ目線で世界を見る理由。",
-      image: "/assets/blog_strategy.jpg",
-      content: "「まずは日本で成功してから海外へ」——その順序思考こそが、日本のスタートアップをガラパゴス化させてきました。インターネットに国境がない以上、最初から世界市場（Day1 Global）を狙わない手はありません。\n\n言語の壁はAIが溶かしました。物流の壁はDXが低くしました。今、京都にいながらにして、ロンドンやニューヨークの顧客と直接取引できない理由は何一つありません。\n\nMGC inc.は、日本の繊細な感性と精神性を最大の武器に、最初から世界80億人をターゲットにします。日本市場はその中の一部に過ぎません。ローカルに根を張り、グローバルに花を咲かせる。これが私たちの生存戦略であり、これからの日本企業があるべき姿です。"
-    },
-    {
-      id: 4,
-      date: "2025.11.15",
-      category: "Methodology",
-      title: "眠れる巨人を、AIで叩き起こす：日本発グローバル展開の新解",
-      excerpt: "日本の技術・資産を世界へ届けるために必要なのは、商社でもコンサルでもなく、「AIネイティブなオペレーション」への完全移行である。",
-      image: "/assets/blog_methodology.jpg",
-      content: "日本には、世界を驚かせる技術や伝統資産が山のように眠っています。しかし、「良いものを作れば売れる」という昭和の神話はとっくに崩壊しました。必要なのは、世界市場への最適化と接続です。\n\n従来、これを担っていた商社やコンサルの役割を、MGC inc.はAIによって解体・再構築します。\n\n1. **全方位スキャンによる最適地選定**\n人間には不可能な規模で世界中の市場データやトレンドをクロールし、「どの国の、どの企業の、どんな課題に」その技術が刺さるのか、AIがピンポイントで特定します。\n\n2. **現地特化型マリアージュ**\n単なる翻訳ではありません。現地の文化コード、商習慣、美的感覚に合わせて、製品の文脈（コンテキスト）自体をAIが生成し直します。日本の文脈のまま押し付けるのではなく、現地に「刺さる」形へと変容させるのです。\n\n3. **ゼロから組み直したAIオペレーション**\nリード獲得から商談設定、契約までのプロセスを、AIエージェントが自律的に遂行します。時差も言語も関係ありません。人間が寝ている間も、AIは地球の裏側でトップセールスを行い続けます。\n\nこの「劇的によいもの」に生まれ変わったオペレーションこそが、日本の眠れる資産を世界へ届けるための最短ルートなのです。"
-    }
+  const staticImages = [
+     "/assets/blog_vision.jpg",
+     "/assets/blog_product.jpg",
+     "/assets/blog_global.jpg",
+     "/assets/blog_methodology.jpg"
   ];
+  
+  const posts = t.blog.items.map((item, i) => ({
+    ...item,
+    image: staticImages[i] || staticImages[0]
+  }));
 
   return (
     <PageTransition>
@@ -1488,6 +1159,139 @@ const ContactView: React.FC = () => {
   );
 };
 
+const getContentData = (t: typeof translations['ja']) => ({
+  service_ai: {
+    ...t.details.service_ai,
+    theme: 'dark' as const,
+    number: "01",
+    icon: <Globe className="w-6 h-6 text-white stroke-[1.5]" />,
+    details: (
+      <>
+        <p className="text-xl md:text-3xl font-light leading-relaxed mb-12 whitespace-pre-line text-gray-300">
+          {t.details.service_ai.p1}
+        </p>
+        <div className="space-y-12">
+          {t.details.service_ai.features.map((f, i) => (
+             <div key={i} className="border-t border-gray-800 pt-8">
+               <div className="flex flex-col md:flex-row gap-8">
+                 <div className="md:w-1/3">
+                   <span className="text-accent font-bold tracking-widest text-sm mb-2 block">0{i+1}</span>
+                   <h4 className="text-2xl font-bold">{f.title}<br/><span className="text-base text-gray-400 font-normal">{f.sub}</span></h4>
+                 </div>
+                 <div className="md:w-2/3">
+                   <p className="text-gray-400 text-lg leading-relaxed">{f.text}</p>
+                 </div>
+               </div>
+             </div>
+          ))}
+        </div>
+      </>
+    )
+  },
+  service_lab: {
+    ...t.details.service_lab,
+    theme: 'dark' as const,
+    number: "02",
+    icon: <Zap className="w-6 h-6 text-white stroke-[1.5]" />,
+    details: (
+      <>
+        <p className="text-xl md:text-3xl font-light leading-relaxed mb-12 whitespace-pre-line text-gray-300">
+          {t.details.service_lab.p1}
+        </p>
+        <div className="space-y-12">
+          {t.details.service_lab.features.map((f, i) => (
+             <div key={i} className="border-t border-gray-800 pt-8">
+               <div className="flex flex-col md:flex-row gap-8">
+                 <div className="md:w-1/3">
+                   <span className="text-accent font-bold tracking-widest text-sm mb-2 block">0{i+1}</span>
+                   <h4 className="text-2xl font-bold">{f.title}<br/><span className="text-base text-gray-400 font-normal">{f.sub}</span></h4>
+                 </div>
+                 <div className="md:w-2/3">
+                   <p className="text-gray-400 text-lg leading-relaxed">{f.text}</p>
+                 </div>
+               </div>
+             </div>
+          ))}
+        </div>
+      </>
+    )
+  },
+  service_trade: {
+    ...t.details.service_trade,
+    theme: 'light' as const,
+    number: "03",
+    icon: <Layers className="w-6 h-6 text-offblack stroke-[1.5]" />,
+    details: (
+      <>
+        <p className="text-xl md:text-3xl font-light leading-relaxed mb-12 whitespace-pre-line">
+          {t.details.service_trade.p1}
+        </p>
+        <div className="space-y-12">
+          {t.details.service_trade.features.map((f, i) => (
+             <div key={i} className="border-t border-gray-200 pt-8">
+               <div className="flex flex-col md:flex-row gap-8">
+                 <div className="md:w-1/3">
+                   <span className="text-accent font-bold tracking-widest text-sm mb-2 block">0{i+1}</span>
+                   <h4 className="text-2xl font-bold">{f.title}<br/><span className="text-base text-gray-400 font-normal">{f.sub}</span></h4>
+                 </div>
+                 <div className="md:w-2/3">
+                   <p className="text-gray-600 text-lg leading-relaxed">{f.text}</p>
+                 </div>
+               </div>
+             </div>
+          ))}
+        </div>
+      </>
+    )
+  },
+  product: {
+    ...t.details.product,
+    theme: 'light' as const,
+    number: "OS.01",
+    icon: <Zap className="w-6 h-6 text-offblack stroke-[1.5]" />,
+    details: (
+      <>
+        <p className="text-xl md:text-3xl font-light leading-relaxed mb-8">{t.details.product.p1}</p>
+        <div className="space-y-6 text-gray-600 text-lg leading-relaxed"><p>{t.details.product.text}</p></div>
+      </>
+    )
+  },
+  marketing: {
+    ...t.details.marketing,
+    theme: 'dark' as const,
+    number: "OS.02",
+    icon: <Globe className="w-6 h-6 text-white stroke-[1.5]" />,
+    details: (
+      <>
+        <p className="text-xl md:text-3xl font-light leading-relaxed mb-8 text-gray-300">{t.details.marketing.p1}</p>
+        <div className="space-y-6 text-gray-400 text-lg leading-relaxed"><p>{t.details.marketing.text}</p></div>
+      </>
+    )
+  },
+  trading: {
+    ...t.details.trading,
+    theme: 'light' as const,
+    number: "OS.03",
+    icon: <Layers className="w-6 h-6 text-offblack stroke-[1.5]" />,
+    details: (
+      <>
+        <p className="text-xl md:text-3xl font-light leading-relaxed mb-8">{t.details.trading.p1}</p>
+        <div className="space-y-6 text-gray-600 text-lg leading-relaxed"><p>{t.details.trading.text}</p></div>
+      </>
+    )
+  },
+  vision: {
+    ...t.details.vision,
+    theme: 'gray' as const,
+    details: (
+      <>
+        <p className="text-xl md:text-3xl font-light leading-relaxed mb-8">{t.details.vision.p1}</p>
+        <div className="space-y-6 text-gray-600 text-lg leading-relaxed"><p>{t.details.vision.text}</p></div>
+      </>
+    )
+  }
+});
+
 const App: React.FC = () => {
   // Helper to parse view from hash
   const getViewFromHash = (): ViewState => {
@@ -1575,9 +1379,10 @@ const App: React.FC = () => {
              {/* Language Switcher (Desktop/Mobile) */}
              <button
                onClick={() => setLang(lang === 'ja' ? 'en' : 'ja')}
-               className="font-mono text-sm font-bold border border-white/30 px-3 py-1 rounded-full hover:bg-white hover:text-offblack transition-all z-50 backdrop-blur-md"
+               className="font-mono text-sm font-bold border border-white/30 rounded-full flex overflow-hidden backdrop-blur-md z-50 hover:border-white/50 transition-colors"
              >
-               {lang === 'ja' ? 'EN' : 'JP'}
+               <span className={`px-3 py-1 transition-colors ${lang === 'ja' ? 'bg-white text-offblack' : 'text-white/60 hover:text-white'}`}>JP</span>
+               <span className={`px-3 py-1 transition-colors ${lang === 'en' ? 'bg-white text-offblack' : 'text-white/60 hover:text-white'}`}>EN</span>
              </button>
 
              <button 
