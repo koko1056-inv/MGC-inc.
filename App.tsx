@@ -1302,7 +1302,7 @@ const App: React.FC = () => {
 
   const [view, setView] = useState<ViewState>(getViewFromHash());
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [lang, setLang] = useState<Lang>('ja');
+  const [lang, setLang] = useState<Lang>('en');
   const t = translations[lang];
 
   // Listen for hash changes to handle browser back/forward and direct URL access

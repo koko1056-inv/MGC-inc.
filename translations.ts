@@ -10,7 +10,7 @@ export const translations = {
       cases: '実績',
       blog: 'Journal',
       mission: '会社理念',
-      company: '特設サイト',
+      company: '会社概要',
       career: '採用情報',
       contact: 'お問い合わせ',
     },
