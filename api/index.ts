@@ -10,7 +10,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const genAI = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || '' });
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 // --- Endpoints ---
@@ -85,9 +84,20 @@ app.post(
       return res.status(400).json({ error: "Prompt is required." });
     }
 
+    const apiKey = process.env.GEMINI_API_KEY;
+    console.log("[Backend] GEMINI_API_KEY present:", !!apiKey, "length:", apiKey?.length ?? 0);
+
+    if (!apiKey) {
+      return res.status(500).json({ error: "GEMINI_API_KEY is not configured on the server." });
+    }
+
     try {
+      const genAI = new GoogleGenAI({ apiKey });
+      const model = process.env.GEMINI_MODEL || "gemini-2.5-flash-image";
+      console.log("[Backend] Using model:", model);
+
       const response = await (genAI as any).models.generateContent({
-        model: process.env.GEMINI_MODEL || "gemini-2.5-flash-image",
+        model,
         contents: {
           parts: [{ text: prompt }]
         },
