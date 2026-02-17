@@ -87,8 +87,10 @@ app.post(
 
     try {
       const response = await (genAI as any).models.generateContent({
-        model: "gemini-2.0-flash-preview-image-generation",
-        contents: prompt,
+        model: process.env.GEMINI_MODEL || "gemini-2.5-flash-image",
+        contents: {
+          parts: [{ text: prompt }]
+        },
         config: {
           responseModalities: ["TEXT", "IMAGE"],
         },
