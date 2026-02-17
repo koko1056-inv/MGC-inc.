@@ -215,14 +215,6 @@ export const translations = {
     blog: {
       items: [
         {
-          id: 10,
-          date: "2026.02.17",
-          category: "AI Strategy",
-          title: "音楽著作権の未来を再考する",
-          excerpt: "音楽著作権ビジネスはAIによって再構築される運命にある。",
-          content: "音楽著作権が不変のものであると考えるのは時代遅れです。現代のミュージシャンが音楽生成AIをまだ他人事のように捉えているのは驚くべきことです。MGC inc.は、これから3年以内に音楽著作権ビジネスが完全に崩壊し、新しいルールが求められると確信しています。\n\nAIによる音楽生成は、パクリパクられという古い概念を無意味に変えます。どのメロディが誰のものなのかを議論するのはもう過去のことです。私たちは、創造性の新しい形を見つけるべき時代に突入しました。\n\nこの変革をリードするのは、MGC inc.です。我々の技術は、アーティストがAIと協力して新しい音楽の世界を創造するための道を開きます。未来は待つものではなく、創るものです。MGCと共に新しい音楽の波に乗りましょう。"
-        },
-        {
           id: 0,
           date: "2025.02.15",
           category: "Sales AI",
@@ -500,14 +492,6 @@ export const translations = {
     },
     blog: {
       items: [
-        {
-          id: 10,
-          date: "2026.02.17",
-          category: "AI Strategy",
-          title: "Rethinking Music Copyright",
-          excerpt: "AI will reconstruct music copyright.",
-          content: "To think of music copyright as an immutable concept is outdated. It's astonishing that musicians view AI-generated music as peripheral. MGC inc. is convinced that within three years, the music copyright business will collapse and demand new rules.\n\nAI-generated music renders the old concept of plagiarism meaningless. Debating who owns which melody is a thing of the past. We are entering an era where new forms of creativity must be found.\n\nLeading this transformation is MGC inc. Our technology paves the way for artists to collaborate with AI to create a new world of music. The future is not something to wait for but to create. Join MGC in riding the wave of new music."
-        },
         {
           id: 0,
           date: "2025.02.15",

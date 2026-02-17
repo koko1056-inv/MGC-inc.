@@ -926,7 +926,6 @@ const BlogView: React.FC = () => {
   const { t } = useLanguage();
 
   const staticImages = [
-     "/assets/blog_rethinking_music_copyright.jpg",
      "/assets/blog_sales_ai.jpg",
      "/assets/blog_automation.jpg",
      "/assets/blog_voice_app.jpg",
