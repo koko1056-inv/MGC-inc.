@@ -79,26 +79,30 @@ ${message}
 app.post(
   "/api/generate-image",
   async (req: express.Request, res: express.Response) => {
-    const { prompt, aspectRatio = "16:9", numberOfImages = 1 } = req.body;
+    const { prompt } = req.body;
 
     if (!prompt) {
       return res.status(400).json({ error: "Prompt is required." });
     }
 
     try {
-      const response = await (genAI as any).models.generateImages({
-        model: process.env.GEMINI_MODEL || "imagen-4.0-generate-001",
-        prompt,
+      const response = await (genAI as any).models.generateContent({
+        model: "gemini-2.0-flash-preview-image-generation",
+        contents: prompt,
         config: {
-          numberOfImages,
-          aspectRatio,
+          responseModalities: ["TEXT", "IMAGE"],
         },
       });
 
-      const images = (response.generatedImages || []).map((img: any) => ({
-        base64: img.image?.imageBytes,
-        mimeType: img.image?.mimeType || "image/jpeg",
-      }));
+      const images: { base64: string; mimeType: string }[] = [];
+      for (const part of response?.candidates?.[0]?.content?.parts || []) {
+        if (part.inlineData) {
+          images.push({
+            base64: part.inlineData.data,
+            mimeType: part.inlineData.mimeType || "image/jpeg",
+          });
+        }
+      }
 
       res.json({ images });
     } catch (error) {
