@@ -1,25 +1,11 @@
 {
   "version": 2,
   "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "/api/index.ts"
-    },
-    {
-      "source": "/privacy-policy",
-      "destination": "/privacy-policy.html"
-    },
-    {
-      "source": "/terms-of-service",
-      "destination": "/terms-of-service.html"
-    },
-    {
-      "source": "/tiktok-developers-site-verification=XTXhOKY6dU5oJbp1LOu746E3EvjUi3NU",
-      "destination": "/tiktok-developers-site-verification=XTXhOKY6dU5oJbp1LOu746E3EvjUi3NU.html"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/"
-    }
+    { "source": "/api/(.*)", "destination": "/api/index.ts" },
+    { "source": "/privacy-policy", "destination": "/privacy-policy.html" },
+    { "source": "/terms-of-service", "destination": "/terms-of-service.html" },
+    { "source": "/tiktok-callback", "destination": "/tiktok-callback.html" },
+    { "source": "/tiktok-developers-site-verification=XTXhOKY6dU5oJbp1LOu746E3EvjUi3NU", "destination": "/tiktok-developers-site-verification=XTXhOKY6dU5oJbp1LOu746E3EvjUi3NU.html" },
+    { "source": "/(.*)", "destination": "/" }
   ]
 }
