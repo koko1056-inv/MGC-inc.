@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { GoogleGenAI } from "@google/genai";
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 
 dotenv.config();
 
@@ -11,6 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 const genAI = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || '' });
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 // --- Endpoints ---
 
@@ -26,22 +27,13 @@ app.post(
         .json({ success: false, message: "All fields are required." });
     }
 
-    try {
-      // Note: To use this, you need to set up your SMTP credentials in .env
-      const transporter = nodemailer.createTransport({
-        host: process.env.SMTP_HOST || "smtp.gmail.com",
-        port: Number(process.env.SMTP_PORT) || 587,
-        secure: process.env.SMTP_SECURE === "true",
-        auth: {
-          user: process.env.EMAIL_USER,
-          pass: process.env.EMAIL_PASS,
-        },
-      });
+    const receiverEmail = process.env.CONTACT_RECEIVER_EMAIL || "kokomu.matsuo@mgc-global01.com";
 
-      const mailOptions = {
-        from: `"${name}" <${process.env.EMAIL_USER}>`,
+    try {
+      const { error } = await resend.emails.send({
+        from: "MGC Contact Form <onboarding@resend.dev>",
         replyTo: email,
-        to: process.env.CONTACT_RECEIVER_EMAIL || process.env.EMAIL_USER,
+        to: [receiverEmail],
         subject: `[MGC Contact] New message from ${name}`,
         text: `
 Name: ${name}
@@ -49,22 +41,35 @@ Email: ${email}
 
 Message:
 ${message}
-      `,
-      };
+        `.trim(),
+        html: `
+          <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
+            <h2 style="color: #1e3a8a;">[MGC Contact] New message from ${name}</h2>
+            <p><strong>Name:</strong> ${name}</p>
+            <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
+            <hr style="border: 1px solid #e5e7eb;" />
+            <p><strong>Message:</strong></p>
+            <p style="white-space: pre-wrap;">${message}</p>
+          </div>
+        `,
+      });
 
-      await transporter.sendMail(mailOptions);
-      console.log(`[Backend] Email sent for ${name}`);
-      res
-        .status(200)
-        .json({ success: true, message: "Message sent successfully." });
+      if (error) {
+        console.error("[Backend] Resend error:", error);
+        return res.status(500).json({
+          success: false,
+          message: "Failed to send email.",
+        });
+      }
+
+      console.log(`[Backend] Email sent for ${name} → ${receiverEmail}`);
+      res.status(200).json({ success: true, message: "Message sent successfully." });
     } catch (error) {
       console.error("[Backend] Contact form error:", error);
-      res
-        .status(500)
-        .json({
-          success: false,
-          message: "Internal server error while sending email.",
-        });
+      res.status(500).json({
+        success: false,
+        message: "Internal server error while sending email.",
+      });
     }
   }
 );
@@ -82,13 +87,13 @@ app.post(
 
     try {
       const response = await (genAI as any).models.generateContent({
-      model: process.env.GEMINI_MODEL || 'gemini-2.5-flash-image',
-      contents: {
-        parts: [{ text: prompt }]
-      },
-    });
+        model: process.env.GEMINI_MODEL || 'gemini-2.5-flash-image',
+        contents: {
+          parts: [{ text: prompt }]
+        },
+      });
 
-    res.json(response);
+      res.json(response);
     } catch (error) {
       console.error("[Backend] Image generation error:", error);
       res.status(500).json({ error: "Failed to generate image." });
