@@ -215,6 +215,14 @@ export const translations = {
     blog: {
       items: [
         {
+          id: 0,
+          date: "2025.02.15",
+          category: "Sales AI",
+          title: "人間が電話しなくても売れる時代：AIで実現する、次世代営業の全自動化",
+          excerpt: "リスト作成、メール送信、フォローアップ、CRM入力——これら全てをAIに任せたとき、営業担当者は何をすべきか。",
+          content: "「営業は足で稼ぐもの」——その信仰こそが、日本の営業組織を非効率の泥沼に引きずり込んできた。\n\nターゲットリストの作成、パーソナライズされたアプローチメールの送信、返信がなければ自動フォローアップ、商談後のCRM入力——これら全てはAIが代替できる「実行業務」だ。MGC inc.では、これらを完全に自動化したAI営業フローを構築している。アポイント獲得まで、人間の手を一切介さない。\n\n人間の営業担当者が集中すべきは「クロージング」と「信頼構築」だ。AIが選び抜いた有望リードに対し、人間が感情と論理で訴えかける。それだけに全力を注げる体制こそが、勝てる営業組織の姿だ。\n\nAIは競合に勝つためのツールではない。競合が存在する前提を壊すためのインフラだ。AIネイティブな営業設計に移行した企業が圧倒的な優位を取る——その分水嶺は、もう目の前に来ている。"
+        },
+        {
           id: 1,
           date: "2025.02.10",
           category: "AI Automation",
@@ -484,6 +492,14 @@ export const translations = {
     },
     blog: {
       items: [
+        {
+          id: 0,
+          date: "2025.02.15",
+          category: "Sales AI",
+          title: "Selling Without Picking Up the Phone: The Complete Automation of Sales with AI",
+          excerpt: "List building, email outreach, follow-ups, CRM entry — when AI handles all of this, what should your salespeople actually do?",
+          content: "'Sales is all about legwork' — this belief has dragged Japanese sales organizations into a swamp of inefficiency.\n\nBuilding target lists, sending personalized outreach emails, automated follow-ups when there's no reply, CRM entry after meetings — all of this is 'execution work' that AI can replace. MGC inc. has built fully automated AI sales flows where no human touch is needed until the appointment is secured.\n\nWhat human salespeople should focus on is closing and trust-building. AI selects the most promising leads; humans bring emotion and logic to close the deal. That single-focus structure is what a winning sales organization looks like.\n\nAI is not a tool to beat competitors. It is infrastructure to destroy the premise that competitors exist. Companies that shift to AI-native sales design will gain overwhelming advantage — and that inflection point is right in front of us."
+        },
         {
           id: 1,
           date: "2025.02.10",
