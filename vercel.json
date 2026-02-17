@@ -14,6 +14,10 @@
       "destination": "/terms-of-service.html"
     },
     {
+      "source": "/tiktok-developers-site-verification=XTXhOKY6dU5oJbp1LOu746E3EvjUi3NU",
+      "destination": "/tiktok-developers-site-verification=XTXhOKY6dU5oJbp1LOu746E3EvjUi3NU.html"
+    },
+    {
       "source": "/(.*)",
       "destination": "/"
     }
