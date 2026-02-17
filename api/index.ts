@@ -79,24 +79,31 @@ ${message}
 app.post(
   "/api/generate-image",
   async (req: express.Request, res: express.Response) => {
-    const { prompt } = req.body;
+    const { prompt, aspectRatio = "16:9", numberOfImages = 1 } = req.body;
 
     if (!prompt) {
       return res.status(400).json({ error: "Prompt is required." });
     }
 
     try {
-      const response = await (genAI as any).models.generateContent({
-        model: process.env.GEMINI_MODEL || 'gemini-2.5-flash-image',
-        contents: {
-          parts: [{ text: prompt }]
+      const response = await (genAI as any).models.generateImages({
+        model: process.env.GEMINI_MODEL || "imagen-4.0-generate-001",
+        prompt,
+        config: {
+          numberOfImages,
+          aspectRatio,
         },
       });
 
-      res.json(response);
+      const images = (response.generatedImages || []).map((img: any) => ({
+        base64: img.image?.imageBytes,
+        mimeType: img.image?.mimeType || "image/jpeg",
+      }));
+
+      res.json({ images });
     } catch (error) {
       console.error("[Backend] Image generation error:", error);
-      res.status(500).json({ error: "Failed to generate image." });
+      res.status(500).json({ error: "Failed to generate image.", detail: String(error) });
     }
   }
 );
