@@ -216,6 +216,22 @@ export const translations = {
       items: [
         {
           id: 1,
+          date: "2025.02.10",
+          category: "AI Automation",
+          title: "AIエージェントが「社員」になる日：OpenClawで実現する、眠らない組織の作り方",
+          excerpt: "メールの確認、カレンダー管理、SNS投稿、データ分析——これらを一体のAIエージェントに任せたとき、組織は何倍速になるか。",
+          content: "「AI導入」と言えば、多くの企業がまず思い浮かべるのはチャットボットや一部業務の自動化だ。だが、それは氷山の一角に過ぎない。\n\nMGC inc.が実装しているのは、もっと根本的な変革だ。OpenClaw（AIエージェント基盤）を活用することで、メールの確認・返信、タスクの進捗管理、Slackへの自動通知、SNSのスケジュール投稿、週次レポートの自動生成——これら全てを、一人のAIエージェントが24時間365日、休まず実行する。\n\n人間が行うべき仕事とは何か。それは「判断」と「創造」だ。AIエージェントは、情報収集・整理・実行の部分を完全に引き受ける。人間は、その出力を見て、より高次元の意思決定に集中すればいい。\n\n「AIを使いこなす」から「AIに働かせる」へ。この発想の転換こそが、次世代のビジネスオペレーションの本質だ。眠らない社員、不満を言わない実行者、全ツールを横断するオペレーター——それがAIエージェントの正体である。"
+        },
+        {
+          id: 2,
+          date: "2025.02.01",
+          category: "Voice AI",
+          title: "エンジニア不要の音声革命：ElevenLabs × Lovableが証明する「創造の民主化」",
+          excerpt: "プロダクトを作るのに、もうエンジニアは要らない。AIツールの組み合わせで、ビジョンを持つ全員が音声アプリを世に問える時代が来た。",
+          content: "「良いアイデアはあるが、実装できる人間がいない」——この言い訳は、2025年に入って完全に消滅した。\n\nElevenLabs（世界最高峰の音声AI）とLovable（AIによるアプリ開発基盤）を組み合わせれば、コードを一行も書かずに、プロ品質の音声インタラクティブアプリを数時間で構築できる。コールセンター向けAI音声エージェント、音声でナビゲートするサービスアプリ、ユーザーの言葉に反応するコマーシャル——全てが、ノーコードで実装可能な現実だ。\n\nMGC inc.は、この組み合わせをクライアントの「最速プロトタイピング」に活用している。アイデアを出した翌日には、実動するプロダクトのデモを見せられる。投資家への説明も、ユーザーテストも、市場検証も——全てが圧倒的に早くなった。\n\n技術の民主化は、単なる便利の話ではない。「思想を持った人間」が「技術の壁」を超えて、直接世界に問いかけられる時代の到来だ。ツールは揃った。あとは、あなたのビジョンだけが問われる。"
+        },
+        {
+          id: 3,
           date: "2025.01.10",
           category: "Vision",
           title: "「声」の再定義：電話業務という\"負の遺産\"を、AIはどう解放するか",
@@ -223,7 +239,7 @@ export const translations = {
           content: "「電話対応」は、企業の生産性を最も阻害する要因の一つです。理不尽なクレーム、繰り返される同じ質問、取次ぎのためだけの時間。MGC inc.は、この「負の遺産」をAIによって完全に解放します。\n\n最新のVoice AIは、感情を理解し、文脈を読み取り、人間以上のホスピタリティで顧客をもてなします。人間は、AIが解決できない高度な判断や、心を通わせる対話だけに集中する。\n\n私たちが提供するのは、単なる自動応答システムではありません。企業の「声」そのものをアップデートし、ビジネスのスピードを極限まで加速させる、AI時代の新しいコミュニケーション・インフラです。"
         },
         {
-          id: 2,
+          id: 4,
           date: "2025.01.05",
           category: "Product",
           title: "Tech × Art × Soul：次世代プロダクト開発における「三位一体」の哲学",
@@ -231,7 +247,7 @@ export const translations = {
           content: "「機能」だけで差別化できる時代は終わりました。これからのプロダクトに必要なのは、Tech（技術）、Art（美意識）、そしてSoul（魂）の三位一体です。\n\n技術はあくまで表現の筆であり、そこにどんな絵を描くか（Art）、そしてなぜ描くのか（Soul）がなければ、人の心は動きません。スペックの高さではなく、手にした瞬間の「高揚感」をデザインする。\n\nMGC inc.は、多額の広告費で無理やり売るマーケティングを否定します。プロダクトそのものが発する圧倒的な美しさとストーリー（引力）で、世界中のユーザーを自然と惹きつける。それが私たちの流儀です。"
         },
         {
-          id: 3,
+          id: 5,
           date: "2024.12.28",
           category: "Global",
           title: "日本という枠を、最初から捨てる：Day1 Global戦略の必然性",
@@ -239,7 +255,7 @@ export const translations = {
           content: "「まずは日本で成功してから海外へ」——その順序思考こそが、日本のスタートアップをガラパゴス化させてきました。インターネットに国境がない以上、最初から世界市場（Day1 Global）を狙わない手はありません。\n\n言語の壁はAIが溶かしました。物流の壁はDXが低くしました。今、京都にいながらにして、ロンドンやニューヨークの顧客と直接取引できない理由は何一つありません。\n\nMGC inc.は、日本の繊細な感性と精神性を最大の武器に、最初から世界80億人をターゲットにします。日本市場はその中の一部に過ぎません。ローカルに根を張り、グローバルに花を咲かせる。これが私たちの生存戦略であり、これからの日本企業があるべき姿です。"
         },
         {
-          id: 4,
+          id: 6,
           date: "2024.12.20",
           category: "AI Trading",
           title: "眠れる巨人を、AIで叩き起こす：日本発グローバル展開の新解",
@@ -470,30 +486,46 @@ export const translations = {
       items: [
         {
           id: 1,
+          date: "2025.02.10",
+          category: "AI Automation",
+          title: "The Day AI Agents Become Employees: Building a 24/7 Organization with OpenClaw",
+          excerpt: "Email management, calendar coordination, auto-posting, data analysis — what happens to your organization's velocity when a single AI agent handles all of this?",
+          content: "When companies talk about 'AI adoption', most envision chatbots or partial automation. That's just the tip of the iceberg.\n\nMGC inc. implements something more fundamental. Using OpenClaw (an AI agent platform), a single AI agent handles email monitoring and responses, task tracking, Slack notifications, social media scheduling, and automated weekly reports — all running 24/7 without rest.\n\nWhat should humans actually do? Judge and create. AI agents fully take over information gathering, organization, and execution. Humans can focus on higher-order decisions with the outputs AI surfaces.\n\nThe shift from 'using AI' to 'making AI work for you' — this mindset change is the essence of next-gen business operations. A tireless employee, an executor without complaints, an operator spanning all tools. That is what an AI agent truly is."
+        },
+        {
+          id: 2,
+          date: "2025.02.01",
+          category: "Voice AI",
+          title: "The No-Engineer Voice Revolution: How ElevenLabs × Lovable Proves the Democratization of Creation",
+          excerpt: "You no longer need engineers to build a product. The era where anyone with a vision can ship a voice app has arrived.",
+          content: "'Great idea, but no one to build it' — this excuse completely disappeared in 2025.\n\nCombining ElevenLabs (world-class voice AI) and Lovable (AI-powered app development), you can build a professional-grade interactive voice app in hours without writing a single line of code. AI voice agents for call centers, voice-navigated service apps, voice-reactive commercials — all achievable with no-code, today.\n\nMGC inc. uses this combination for fastest-possible prototyping for clients. We can demo a working product the day after an idea is born. Investor pitches, user testing, market validation — everything accelerates dramatically.\n\nThe democratization of technology is not just about convenience. It is the arrival of an era where people with ideas can directly question the world without being blocked by technical walls. The tools are ready. What's left is only your vision."
+        },
+        {
+          id: 3,
           date: "2025.01.10",
           category: "Vision",
           title: "Redefining 'Voice': How AI liberates from the legacy of phone operations",
           excerpt: "The end of human receptionists. A future where AI becomes a concierge, allowing humans to focus only on creative dialogue.",
-          content: "'Phone support' is one of the biggest inhibitors of corporate productivity. MGC inc. completely liberates this 'negative legacy' with AI.\nLatest Voice AI understands emotion, reads context, and welcomes customers with more hospitality than humans. Humans can focus only on creative judgment and heart-to-heart dialogue."
+          content: "'Phone support' is one of the biggest inhibitors of corporate productivity. MGC inc. completely liberates this 'negative legacy' with AI.\n\nLatest Voice AI understands emotion, reads context, and welcomes customers with more hospitality than humans. Humans can focus only on creative judgment and heart-to-heart dialogue.\n\nWhat we provide is not a simple auto-response system. It is a new communication infrastructure for the AI era that updates a company's very 'voice' and pushes business speed to its limit."
         },
         {
-          id: 2,
+          id: 4,
           date: "2025.01.05",
           category: "Product",
           title: "Tech × Art × Soul: The philosophy of 'Trinity' in next-gen product development",
           excerpt: "End of the feature war. Infusing aesthetics and soul into technology to create gravity that makes marketing itself unnecessary.",
-          content: "The era where features alone differentiate is over. What next-gen products need is the trinity of Tech, Art, and Soul.\nTechnology is just a brush; without Art and Soul, hearts won't move. We design 'excitement' at the first touch, not just high specs."
+          content: "The era where features alone differentiate is over. What next-gen products need is the trinity of Tech, Art, and Soul.\n\nTechnology is just a brush; without Art (aesthetics) and Soul (purpose), hearts won't move. We design 'excitement' at the first touch, not just high specs.\n\nMGC inc. rejects marketing that forces products through massive ad spend. Products that naturally attract users worldwide through their own overwhelming beauty and story — that is our way."
         },
         {
-          id: 3,
+          id: 5,
           date: "2024.12.28",
           category: "Global",
           title: "Discarding the 'Japan' frame from Day 1: The necessity of Global strategy",
           excerpt: "Why the 'Japan first' mindset leads to death. Why MGC looks at the world from Kyoto with the same eyes as Silicon Valley.",
-          content: "'Japan first' has galapagos-ized Japanese startups. If there are no borders on the internet, there's no reason not to target the world market (Day1 Global) from the start.\nAI melted language barriers. DX lowered logistics walls. There's no reason not to deal directly with London or NY from Kyoto."
+          content: "'Japan first' has galapagos-ized Japanese startups. If there are no borders on the internet, there's no reason not to target the world market (Day1 Global) from the start.\n\nAI melted language barriers. DX lowered logistics walls. There's no reason not to deal directly with London or NY from Kyoto.\n\nMGC inc. targets all 8 billion people on earth from day one, using Japan's refined sensibility as its greatest weapon. Japan is just one part of that. Root locally, bloom globally. This is our survival strategy."
         },
         {
-          id: 4,
+          id: 6,
           date: "2024.12.20",
           category: "AI Trading",
           title: "Waking the Sleeping Giants with AI: A new solution for Japan's global expansion",
