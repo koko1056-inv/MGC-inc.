@@ -215,6 +215,14 @@ export const translations = {
     blog: {
       items: [
         {
+          id: 10,
+          date: "2026.02.18",
+          category: "AI Strategy",
+          title: "AI導入で未来を変える",
+          excerpt: "AIを活用しない企業は未来に取り残される。",
+          content: "AIを導入することなくして、企業は未来に生き残れるだろうか？この問いに対する答えは、否である。大手企業でさえも、AIを活用しなければ業務の効率化を果たせず、競争から取り残されるだろう。\n\nアインHDが約1300店舗に生成AIを搭載した薬歴入力システムを導入する計画は、AIの力を活用することで、業務時間を半減させる革新的な一例だ。このような動きは、業界全体に変革をもたらす布石となる。\n\nITエンジニアとしての未来を考えると、AIツールを活用することがキャリアの向上につながる。ChatGPTやClaude Codeなどのツールは、エンジニアとしての価値を高めるための鍵となる。\n\nMGC inc.は、AIを通じて業務の自動化を進め、より豊かな未来を築くビジョンを持っている。AIを活用しない選択肢はない！"
+        },
+        {
           id: 0,
           date: "2025.02.15",
           category: "Sales AI",
@@ -492,6 +500,14 @@ export const translations = {
     },
     blog: {
       items: [
+        {
+          id: 10,
+          date: "2026.02.18",
+          category: "AI Strategy",
+          title: "AI: Transforming the Future",
+          excerpt: "Embrace AI or face obsolescence.",
+          content: "Can businesses survive without adopting AI? The answer is a resounding no. Even major corporations will find themselves left behind if they do not leverage AI to enhance operational efficiency.\n\nAin HD's plan to implement a generative AI-powered pharmaceutical record-keeping system across 1,300 stores is a groundbreaking example of how harnessing AI can halve working hours, setting the stage for industry-wide transformation.\n\nFor IT engineers considering their future, leveraging AI tools like ChatGPT and Claude Code is key to enhancing career value. These tools are crucial in advancing an engineer's worth in the modern tech landscape.\n\nMGC inc. envisions a future where AI-driven automation leads to a more prosperous tomorrow. There is no alternative to embracing AI!"
+        },
         {
           id: 0,
           date: "2025.02.15",
