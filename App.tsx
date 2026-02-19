@@ -927,6 +927,7 @@ const BlogView: React.FC = () => {
 
   const staticImages = [
      "/assets/blog_ai__transforming_the_future.jpg",
+     "/assets/blog_japan_s_future_in_sales_ai.jpg",
      "/assets/blog_sales_ai.jpg",
      "/assets/blog_automation.jpg",
      "/assets/blog_voice_app.jpg",

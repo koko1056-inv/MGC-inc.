@@ -216,6 +216,14 @@ export const translations = {
       items: [
         {
           id: 10,
+          date: "2026.02.19",
+          category: "AI Strategy",
+          title: "日本の営業AIの未来",
+          excerpt: "営業AIの先駆者は海外、日本はどう動く？",
+          content: "AIが営業の世界を席巻している中、SNSやニュースデータを駆使して広告ニーズをリアルタイムで探知するAIの事例が注目されています。しかし、日本の企業はまだ商談特化型AIの開発に至っていません。これは国際競争力を高めるための喫緊の課題と言えるでしょう。\n\nMGC inc.では、営業AIの開発に力を注いでおり、国内でのリーダーシップを確立するために、国産の商談特化型AIの開発を推進しています。ローカルLLMの失敗パターンを解析する技術やRAGの精度を高めるデバッグツールなど、最先端の技術を駆使して、日本が世界に誇れるAIソリューションを提供することを目指しています。\n\n今こそ、日本の企業がそのポテンシャルをフルに発揮し、AI戦略を再構築する時です。MGC inc.は、この新たな局面での先駆者として、未来を切り開く覚悟です。"
+        },
+        {
+          id: 10,
           date: "2026.02.18",
           category: "AI Strategy",
           title: "AI導入で未来を変える",
@@ -500,6 +508,14 @@ export const translations = {
     },
     blog: {
       items: [
+        {
+          id: 10,
+          date: "2026.02.19",
+          category: "AI Strategy",
+          title: "Japan's Future in Sales AI",
+          excerpt: "Pioneers in sales AI are abroad. Japan, what's next?",
+          content: "In a world where AI dominates sales, an example of an AI detecting advertising needs in real-time using SNS and news data is making waves. Yet, Japanese companies have not developed negotiation-specialized AI. This is a pressing issue for enhancing international competitiveness.\n\nAt MGC inc., we are focusing on developing sales AI and are pushing for the creation of domestic negotiation-specialized AI to establish leadership in Japan. By utilizing cutting-edge technologies such as analyzing failure patterns in local LLMs and enhancing RAG accuracy with debugging tools, we aim to offer AI solutions Japan can be proud of globally.\n\nNow is the time for Japanese companies to unleash their full potential and rebuild their AI strategies. As a front-runner in this new phase, MGC inc. is ready to pave the way forward."
+        },
         {
           id: 10,
           date: "2026.02.18",
