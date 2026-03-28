@@ -7,7 +7,7 @@ export const translations = {
   ja: {
     nav: {
       works: '事業内容',
-      cases: '実績',
+      cases: 'サービス',
       blog: 'Journal',
       mission: '会社理念',
       company: '会社概要',
@@ -20,11 +20,11 @@ export const translations = {
       title_3: '& The World.',
       subtitle_en: 'Updating the World with AI Intelligence.',
       desc: '日本の可能性を、世界の実装へ。\nテクノロジーで思考と国境の壁を溶かす、次世代のグローバル・ハブ。',
-      viewProjects: 'プロジェクトを見る',
+      viewProjects: 'サービスを見る',
     },
     headings: {
       works: { title: '事業内容', sub: 'Our Works' },
-      cases: { title: '導入事例', sub: 'Case Studies' },
+      cases: { title: 'サービス', sub: 'Services' },
       mission: { title: '会社理念', sub: 'MGC Way' },
       internalOS: { title: '駆動エンジン', sub: 'Internal OS' },
       alliance: { title: 'アライアンス', sub: 'Alliance' },
@@ -125,35 +125,27 @@ export const translations = {
     cases: [
       {
         id: "01",
-        category: "Voice AI Architecture",
-        title: "Voice Agent Construction",
-        desc: "コールセンターにおける一次応答・架電業務の完全AI化。小売店における予約受付の自動化を実装。",
-        detail: "【コールセンター業務の完全自動化と高度化】\nTwilio（電話API）とElevenLabs（超自然な音声合成）、そしてLLMを高度に連携させることで、人間と区別がつかないレベルのAI電話対応を実現しました。\n\nコールセンターにおける一次応答から、AIへのエスカレーション対応までをシームレスに自動化。特筆すべきは、人間が対応している通話内容もAIがリアルタイムで聞き取り、自動要約を作成する機能です。\n\nこの要約データは自動的にCRMへ入力され、担当部署へのタスク連携も行われます。オペレーターの後処理時間（ACW）をほぼゼロにし、対応品質の均質化を実現しました。",
-        tags: ["Voice Synthesis", "Twilio / ElevenLabs", "Real-time Processing"]
+        category: "AI Native Communication",
+        title: "MGC Operator",
+        desc: "コールセンターをはじめとするカスタマーサポート領域を、AIネイティブなオペレーションに置き換えるサービス。",
+        detail: "【コミュニケーションのAIネイティブ化】\n電話応対、チャットサポート、LINE対応など、企業と顧客をつなぐコミュニケーション領域をAIで根本から再構築します。\n\n従来のコールセンター業務をAI Voice Agentに置き換え、一次応答から通話要約・CRM入力までを完全自動化。さらにRAGを活用したナレッジベース連携により、Webやチャット上での高度な顧客対応も実現します。\n\n「人が対応すべきところ」と「AIに任せるべきところ」を最適に設計し、対応品質の均質化とコスト削減を同時に達成します。",
+        tags: ["Voice AI", "RAG Chatbot", "CS Automation", "CRM Integration"]
       },
       {
         id: "02",
-        category: "Intelligent CS Bot",
-        title: "Customer Support AI",
-        desc: "介護業界、建材メーカー等における問い合わせ対応をRAG活用で自動化。Web/LINE上での高度な対話を実現。",
-        detail: "【顧客対応と社内FAQの双方向DX】\n対外的な顧客サポート（Webチャット、LINE公式アカウント）の自動化に加え、社内向けの問い合わせ対応もAI化しました。\n\n「経費精算の手順は？」「就業規則の確認」といった社員からの質問に対し、RAG（検索拡張生成）技術を用いて社内マニュアルから最適な回答を即座に生成します。\n\n企業ごとの膨大なナレッジを学習させることで、「誰に聞けばいいかわからない」時間を排除し、組織全体の生産性を底上げしました。",
-        tags: ["RAG", "Multi-modal Chatbot", "Knowledge Base Integration"]
+        category: "AI-Powered Global Trading",
+        title: "MGC Connector",
+        desc: "日本と世界をつなぐオールインワンAIサービス。市場調査からパートナー開拓、輸出入まで一気通貫でサポート。",
+        detail: "【日本と世界をAIでつなぐ、新しい商社のかたち】\nAIを武器に、日本企業の製品・サービスを世界市場へ届けます。ターゲット市場の選定、現地パートナーのAI探索、パーソナライズされたアプローチの自動化まで、従来の商社機能をテクノロジーで再定義しました。\n\nアフリカ・欧州をはじめとするグローバル市場で、AIによるデータドリブンなマッチングと、人間によるクロージングを組み合わせ、海外進出の成功率を最大化します。\n\n逆に、海外の優れたプロダクトを日本に持ち込む「逆輸入」も推進。双方向の価値の橋渡しを行います。",
+        tags: ["Cross-Border Trade", "Market Intelligence", "Partner Matching", "Import / Export"]
       },
       {
         id: "03",
-        category: "AI Native Transformation",
-        title: "AI Consulting",
-        desc: "最新ツール導入によるAIネイティブなビジネスモデルへの転換支援。業務プロセスの自動化ワークフロー開発。",
-        detail: "【ヒアリングから実装まで、一気通貫の変革】\n単なるアドバイザリー業務ではありません。現場の課題ヒアリングから始まり、解決策の提案、そしてコードレベルでの実装までを一貫して行います。\n\n複数のSaaSツール間をAPI連携で繋ぎ合わせる自動化ワークフローの構築や、業務に特化した独自の社内システムのスクラッチ開発も実施。\n\nボトルネックとなっていた手作業をシステムに置き換え、企業が本来注力すべきコア業務にリソースを集中できる環境を構築します。",
-        tags: ["DX Strategy", "Workflow Automation", "Business Modeling"]
-      },
-      {
-        id: "04",
-        category: "Cross-Border Matching",
-        title: "AI Powered Export",
-        desc: "アフリカ・欧州との連携をベースに、日本企業の製品・サービスを最適化してマッチング。市場選定のAI化。",
-        detail: "【AIが即座に見つける、世界の最適パートナー】\nアフリカや欧州市場をメインターゲットに、日本企業の製品が「刺さる」パートナー企業をAIが自動選定します。\n\nLinkedInなどのビジネスデータベースを解析し、決裁権を持つキーマンを特定。さらに、その相手に合わせたパーソナライズされたアプローチ（コールドメール等）までも自動化します。\n\nマッチング成立後は、連携企業とともに輸出・契約面をサポート。テクノロジーによる開拓と、人間によるクロージングの融合で、海外進出の成功率を最大化させます。",
-        tags: ["Global Matching Algorithm", "Market Entry", "Africa / Europe"]
+        category: "AI Product & Organization Design",
+        title: "MGC Inventor",
+        desc: "AI時代の新しいプロダクトや組織のあり方を構想し、外部パートナーとも連携しながら実現していく事業。",
+        detail: "【AI時代のプロダクトと組織を、構想から実現まで】\nまだ世の中にない価値を生み出すために、AIを前提とした新しいプロダクトや事業モデルを構想・開発します。\n\n自社単独にこだわらず、ビジョンを共有するパートナー企業やクリエイターと積極的に連携。技術的な実装だけでなく「この技術で何を届けるべきか」というコンセプト設計から関わり、AIが人間の創造性を拡張するプロダクトを世に送り出します。\n\n新規事業の立ち上げ支援、プロトタイプ開発、共創プロジェクトなど、かたちにとらわれずに挑戦します。",
+        tags: ["Product Design", "Co-Creation", "New Business", "AI Architecture"]
       }
     ],
     mission: {
@@ -302,7 +294,7 @@ export const translations = {
   en: {
      nav: {
       works: 'Works',
-      cases: 'Cases',
+      cases: 'Services',
       blog: 'Journal',
       mission: 'Mission',
       company: 'Company',
@@ -315,11 +307,11 @@ export const translations = {
       title_3: '& The World.',
       subtitle_en: 'Updating the World with AI Intelligence.',
       desc: 'Connect Japan\'s Potential to Global Implementation.\nTechnology melting the borders of thought and nations. A next-gen global hub.',
-      viewProjects: 'View Projects',
+      viewProjects: 'View Services',
     },
     headings: {
       works: { title: 'Our Works', sub: 'Global Solutions' },
-      cases: { title: 'Case Studies', sub: 'Implementation Archive' },
+      cases: { title: 'Services', sub: 'What We Do' },
       mission: { title: 'MGC Way', sub: 'The Core Philosophy' },
       internalOS: { title: 'Internal OS', sub: 'MGC Internal Operating System' },
       alliance: { title: 'Alliance', sub: 'Global Network Nodes' },
@@ -419,35 +411,27 @@ export const translations = {
     cases: [
       {
         id: "01",
-        category: "Voice AI Architecture",
-        title: "Voice Agent Construction",
-        desc: "Complete AI automation of call center response and outbound tasks. Automated reservation systems for retail.",
-        detail: "[Full Automation of Call Center Operations]\nSeamlessly automating everything from primary response to AI escalation using Twilio, ElevenLabs, and LLMs.\n\nKey feature: AI listens to human conversations in real-time and creates automated summaries. This data enters CRM automatically, reducing After Call Work (ACW) to near zero.",
-        tags: ["Voice Synthesis", "Twilio / ElevenLabs", "Real-time Processing"]
+        category: "AI Native Communication",
+        title: "MGC Operator",
+        desc: "Replacing call centers and customer support with AI-native operations — from voice agents to intelligent chat.",
+        detail: "[AI-Native Communication Infrastructure]\nWe fundamentally rebuild the communication layer between businesses and customers — phone, chat, LINE, and beyond.\n\nTraditional call center operations are replaced by AI Voice Agents that handle first response, call summarization, and CRM entry automatically. RAG-powered knowledge bases enable advanced customer support across web and messaging platforms.\n\nWe design the optimal balance between human and AI touchpoints, achieving both consistent quality and cost efficiency.",
+        tags: ["Voice AI", "RAG Chatbot", "CS Automation", "CRM Integration"]
       },
       {
         id: "02",
-        category: "Intelligent CS Bot",
-        title: "Customer Support AI",
-        desc: "Automating inquiries in nursing/construction sectors using RAG. Advanced dialogue on Web/LINE.",
-        detail: "[Two-way DX for Customer Support & Internal FAQ]\nAutomating external support and internal inquiries. Using RAG to generate optimal answers from internal manuals instantly, solving 'who do I ask?' issues and boosting productivity.",
-        tags: ["RAG", "Multi-modal Chatbot", "Knowledge Base Integration"]
+        category: "AI-Powered Global Trading",
+        title: "MGC Connector",
+        desc: "An all-in-one AI service connecting Japan and the world — market research, partner discovery, and trade execution.",
+        detail: "[A New Kind of Trading Company, Powered by AI]\nWe use AI to bring Japanese products and services to global markets. From target market selection to AI-driven partner discovery and automated personalized outreach — we've redefined traditional trading functions with technology.\n\nCombining data-driven AI matching with human-led closing across markets in Africa, Europe, and beyond to maximize success rates for international expansion.\n\nWe also drive 'reverse imports' — bringing outstanding overseas products into Japan. A two-way bridge of value.",
+        tags: ["Cross-Border Trade", "Market Intelligence", "Partner Matching", "Import / Export"]
       },
       {
         id: "03",
-        category: "AI Native Transformation",
-        title: "AI Consulting",
-        desc: "Supporting transition to AI-native business models. Developing automated workflow automation.",
-        detail: "[Transformation from Hearing to Implementation]\nFrom issue identification to code-level implementation. Building automated workflows connecting SaaS tools via API and developing scratch systems to replace manual bottlenecks.",
-        tags: ["DX Strategy", "Workflow Automation", "Business Modeling"]
-      },
-      {
-        id: "04",
-        category: "Cross-Border Matching",
-        title: "AI Powered Export",
-        desc: "Optimizing matching for Japanese products/services based on Africa/Europe connections.",
-        detail: "[AI Finds Optimal Global Partners Instantly]\nAI selects partners in Africa/Europe where Japanese products fit best. Parsing databases like LinkedIn to identify key decision makers and automating personalized approaches.",
-        tags: ["Global Matching Algorithm", "Market Entry", "Africa / Europe"]
+        category: "AI Product & Organization Design",
+        title: "MGC Inventor",
+        desc: "Envisioning and building new products and organizations for the AI era — in collaboration with external partners.",
+        detail: "[From Concept to Reality in the AI Era]\nWe design and develop new products and business models built on AI-first principles to create value that doesn't yet exist.\n\nRather than working in isolation, we actively collaborate with partner companies and creators who share our vision. We engage from concept design — asking 'what should this technology deliver?' — and ship products where AI amplifies human creativity.\n\nNew business launches, prototype development, co-creation projects — we take on challenges regardless of form.",
+        tags: ["Product Design", "Co-Creation", "New Business", "AI Architecture"]
       }
     ],
     mission: {

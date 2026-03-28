@@ -363,19 +363,14 @@ const CasesView: React.FC = () => {
        icon: <Mic className="w-8 h-8 text-offblack" />
     },
     {
-       image: "/assets/case02.png",
-       detailImage: "/assets/case02_chatbot_ui.jpg",
-       icon: <MessageSquare className="w-8 h-8 text-offblack" />
+       image: "/assets/case04_final.jpg",
+       detailImage: "/assets/case04_final.jpg",
+       icon: <Plane className="w-8 h-8 text-offblack" />
     },
     {
        image: "/assets/case03.png",
        detailImage: "/assets/case03_workflow.jpg",
        icon: <Briefcase className="w-8 h-8 text-offblack" />
-    },
-    {
-       image: "/assets/case04_final.jpg",
-       detailImage: "/assets/case04_final.jpg",
-       icon: <Plane className="w-8 h-8 text-offblack" />
     }
   ];
 
@@ -408,7 +403,7 @@ const CasesView: React.FC = () => {
                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                         onError={(e) => {
                           // Fallback if case image is missing
-                          (e.target as HTMLImageElement).src = i === 0 ? "/assets/service_ai.jpg" : i === 1 ? "/assets/service_lab.png" : "/assets/service_trade.png";
+                          (e.target as HTMLImageElement).src = i === 0 ? "/assets/service_ai.jpg" : i === 1 ? "/assets/service_trade.png" : "/assets/service_lab.png";
                         }}
                       />
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
@@ -424,7 +419,7 @@ const CasesView: React.FC = () => {
                       <div className="p-3 rounded-2xl bg-gray-50 border border-gray-100 group-hover:bg-white group-hover:border-accent/20 transition-colors duration-300">
                         {c.icon}
                       </div>
-                      <span className="font-mono text-sm font-bold text-gray-300 group-hover:text-accent transition-colors duration-300">CASE.{c.id}</span>
+                      <span className="font-mono text-sm font-bold text-gray-300 group-hover:text-accent transition-colors duration-300">MGC.{c.id}</span>
                     </div>
 
                     <div className="mb-6">
@@ -467,7 +462,7 @@ const CasesView: React.FC = () => {
                   className="w-full h-full object-cover" 
                   alt="" 
                   onError={(e) => {
-                       (e.target as HTMLImageElement).src = selectedCase === 0 ? "/assets/service_ai.jpg" : selectedCase === 1 ? "/assets/service_lab.png" : selectedCase === 2 ? "/assets/service_trade.png" : "/assets/service_ai.jpg";
+                       (e.target as HTMLImageElement).src = selectedCase === 0 ? "/assets/service_ai.jpg" : selectedCase === 1 ? "/assets/service_trade.png" : "/assets/service_lab.png";
                   }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-offblack/60 to-transparent flex items-end p-8">
@@ -484,8 +479,8 @@ const CasesView: React.FC = () => {
                       {cases[selectedCase].icon}
                    </div>
                    <div>
-                     <span className="block text-xs font-bold text-gray-400 uppercase tracking-wider">Project ID</span>
-                     <span className="block text-lg font-mono font-bold text-offblack">CASE.{cases[selectedCase].id}</span>
+                     <span className="block text-xs font-bold text-gray-400 uppercase tracking-wider">Service</span>
+                     <span className="block text-lg font-mono font-bold text-offblack">MGC.{cases[selectedCase].id}</span>
                    </div>
                 </div>
 
