@@ -207,6 +207,30 @@ export const translations = {
     blog: {
       items: [
         {
+          id: 13,
+          date: "2026.03.29",
+          category: "Claude Code",
+          title: "Claude Codeで「一人CTO」になる方法",
+          excerpt: "エンジニア1人が、100人分のアウトプットを出す時代が来た。",
+          content: "「人を雇う前に、まずClaude Codeを使い倒せ」——これが2026年のスタートアップに対する、最も誠実なアドバイスだ。\n\nClaude Opus 4.6は出力上限が64Kトークンに拡張され、100万トークンのコンテキストウィンドウがベータ提供されている。Agent Teams機能により、複数のClaudeセッションが自律的に並列作業を行い、サブエージェントが独立タスクを処理してボスエージェントに報告する。\n\nMGC inc.では、このアーキテクチャを日常業務に組み込んでいる。HP改修、API開発、リサーチ、コンテンツ生成——すべてがClaude Codeの中で完結する。Skills、Hooks、MCP、Pluginsを組み合わせることで、コードを書く行為そのものがオペレーションになった。\n\nHooksはGit Hooksのように、ツール呼び出しの前後で自動的にリンティングやフォーマットを実行する。/loopコマンドでバックグラウンドワーカーとして常駐させれば、PRレビューやデプロイ監視も自動化できる。\n\nもはや「コーディング能力」ではなく「AIを指揮する能力」が競争力の源泉だ。Claude Codeは単なるツールではない。一人のCTOを、一個小隊に変える増幅装置である。"
+        },
+        {
+          id: 12,
+          date: "2026.03.29",
+          category: "Voice AI",
+          title: "音声AIが「同僚」になった日：ElevenLabs × IBM の衝撃",
+          excerpt: "ARR3.3億ドル突破、IBMとの統合——音声AIはもう実験ではない。インフラだ。",
+          content: "ElevenLabsがARR3.3億ドルを突破した。ローンチから20ヶ月で1億ドル、そこから10ヶ月で倍増、さらに5ヶ月で1.3億ドルを上積み。この成長曲線は、音声AIが「面白い技術」から「不可欠なインフラ」に進化したことを物語っている。\n\n2026年3月25日、IBMとの提携が発表された。ElevenLabsのTTS/STTがIBM watsonx Orchestrateに統合され、70言語・10,000以上の音声ライブラリが企業向けエージェントに搭載される。PCI準拠、HIPAAレベルのゼロ保持モード、データレジデンシー対応——エンタープライズが求める全条件を揃えた。\n\nEleven v3 TTSは「最も表現力豊かな音声合成」と評され、Scribe v2は90言語以上をサポートする最高精度の文字起こしモデルだ。さらに11.aiというボイスファースト・アシスタントがアルファ段階に入り、MCPを介して日常業務を音声で操作できる世界が見え始めている。\n\nMGC Operatorは、この波の最前線にいる。コールセンターのAI化は「やるかやらないか」ではなく「いつやるか」のフェーズに完全移行した。答えは「今」だ。"
+        },
+        {
+          id: 11,
+          date: "2026.03.29",
+          category: "AI Agent",
+          title: "MCPが変えた「AIの使い方」——プロトコルが世界標準になるとき",
+          excerpt: "OpenAI、Google、Microsoftが採用。MCPはAIエージェントの共通言語になった。",
+          content: "2024年にAnthropicの内部実験として始まったMCP（Model Context Protocol）が、2026年、Linux Foundation傘下で業界標準となった。OpenAI、Google DeepMind、Microsoftが採用し、数千の開発チームが日常的に利用している。\n\n何が変わったのか。AIエージェントが「閉じた箱」から「つながる存在」になった。75以上の公式MCPコネクタがディレクトリ化され、Slack、GitHub、Google Calendar、Supabase——あらゆるツールがエージェントの「手足」になる。Streamable HTTPトランスポートにより、ローカルだけでなくリモートサーバーでの本番運用も現実的になった。\n\nMGC inc.が実践しているのは「デジタル・アセンブリライン」だ。複数の専門エージェントが、リサーチ→コンテンツ生成→レビュー→投稿というプロセスを一気通貫で実行する。人間はゴールを設定し、品質を検証するだけでいい。\n\n2026年は、エージェントの性能競争ではなく「どの組織がスケールに成功したか」が記憶される年になる。ベンチマークの勝者ではなく、実装の勝者が市場を取る。MGCは、そちら側にいる。"
+        },
+        {
           id: 10,
           date: "2026.02.19",
           category: "AI Strategy",
@@ -492,6 +516,30 @@ export const translations = {
     },
     blog: {
       items: [
+        {
+          id: 13,
+          date: "2026.03.29",
+          category: "Claude Code",
+          title: "How to Become a One-Person CTO with Claude Code",
+          excerpt: "One engineer. Output of a hundred. The era has arrived.",
+          content: "'Before hiring, max out Claude Code first' — this is the most honest advice for startups in 2026.\n\nClaude Opus 4.6 expanded output to 64K tokens with a 1M context window in beta. Agent Teams let multiple Claude sessions work autonomously in parallel, with subagents handling isolated tasks and reporting back.\n\nAt MGC inc., this architecture is woven into daily operations. Website updates, API development, research, content generation — everything completes inside Claude Code. Skills, Hooks, MCP, and Plugins combine to make the act of coding itself an operation.\n\nHooks fire automatically around tool calls — linting, formatting, policy enforcement. The /loop command turns Claude into a persistent background worker for PR reviews and deploy monitoring.\n\nThe competitive edge is no longer 'coding ability' but 'ability to conduct AI.' Claude Code isn't just a tool. It's an amplifier that turns a solo CTO into a small army."
+        },
+        {
+          id: 12,
+          date: "2026.03.29",
+          category: "Voice AI",
+          title: "The Day Voice AI Became a Colleague: ElevenLabs × IBM",
+          excerpt: "$330M ARR, IBM integration — voice AI is no longer experimental. It's infrastructure.",
+          content: "ElevenLabs crossed $330M ARR. $100M in 20 months, doubled in 10, added $130M in just 5 more. This growth curve proves voice AI has evolved from 'interesting tech' to 'essential infrastructure.'\n\nOn March 25, 2026, the IBM partnership was announced. ElevenLabs TTS/STT integrates into IBM watsonx Orchestrate — 70 languages, 10,000+ voices, now available for enterprise agents. PCI compliance, HIPAA-level zero retention mode, data residency support — every enterprise requirement, met.\n\nEleven v3 TTS is called 'the most expressive speech synthesis ever.' Scribe v2 supports 90+ languages with top transcription accuracy. And 11.ai, a voice-first assistant in alpha, hints at a world where daily work is operated by voice via MCP.\n\nMGC Operator rides this wave at the front. Call center AI transformation has fully shifted from 'whether to do it' to 'when.' The answer is now."
+        },
+        {
+          id: 11,
+          date: "2026.03.29",
+          category: "AI Agent",
+          title: "MCP Changed How We Use AI — When a Protocol Becomes the World Standard",
+          excerpt: "Adopted by OpenAI, Google, Microsoft. MCP is now the lingua franca of AI agents.",
+          content: "MCP (Model Context Protocol), born as an internal Anthropic experiment in 2024, became an industry standard under the Linux Foundation in 2026. OpenAI, Google DeepMind, and Microsoft adopted it. Thousands of development teams use it daily.\n\nWhat changed? AI agents went from 'closed boxes' to 'connected beings.' 75+ official MCP connectors are cataloged — Slack, GitHub, Google Calendar, Supabase — every tool becomes an agent's hands and feet. Streamable HTTP transport made remote server production deployments realistic.\n\nWhat MGC inc. practices is the 'digital assembly line.' Multiple specialized agents execute research → content generation → review → publishing end-to-end. Humans set goals and verify quality. That's it.\n\n2026 will be remembered not for which agent won benchmarks, but which organizations successfully scaled. Implementation winners take the market, not benchmark champions. MGC is on that side."
+        },
         {
           id: 10,
           date: "2026.02.19",
