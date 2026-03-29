@@ -493,7 +493,6 @@ export const translations = {
     blog: {
       items: [
         {
-        {
           id: 10,
           date: "2026.02.19",
           category: "AI Strategy",
