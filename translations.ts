@@ -207,6 +207,14 @@ export const translations = {
     blog: {
       items: [
         {
+          id: 11,
+          date: "2026.04.09",
+          category: "Claude Code",
+          title: "AIに「チーム」を持たせる時代",
+          excerpt: "Claude CodeのAgent Teams機能が、開発の概念を根本から変えようとしている。",
+          content: "「一人で全部やる」時代は、もう終わった。これからは「AIにチームを持たせる」時代だ。\n\nClaude CodeにAgent Teams機能が搭載された。複数のClaudeセッションが自律的に並列作業し、リーダーがタスクを分配、チームメイトが独立して実行し、結果を統合する。セキュリティレビュー、テスト実行、コードレビュー——それぞれに専門のサブエージェントを定義し、再利用可能な「役割」として組み込める。\n\nAppleはXcode 26.3にMCPネイティブ対応を追加し、OpenAIもChatGPTにMCPトンネルを実装した。MCPはLinux Foundation傘下のAgentic AI Foundationが管理する業界標準となり、AIエージェントの「共通言語」になった。\n\nMGC inc.では、この仕組みを実務に組み込んでいる。HP改修、記事生成、リサーチ、デプロイ——すべてがClaude Codeの中で完結する。Writeツールの大規模ファイル処理は60%高速化され、MCPツール結果は最大50万文字まで保持可能になった。\n\n2026年4月4日からは、サードパーティ連携でのサブスクリプション制限も撤廃された。もはやClaude Codeは「ツール」ではない。あなたの隣で働く、最強のAIチームそのものだ。"
+        },
+        {
           id: 10,
           date: "2026.02.19",
           category: "AI Strategy",
@@ -492,6 +500,14 @@ export const translations = {
     },
     blog: {
       items: [
+        {
+          id: 11,
+          date: "2026.04.09",
+          category: "Claude Code",
+          title: "The Era of Giving AI Its Own Team",
+          excerpt: "Claude Code's Agent Teams feature is rewriting what it means to develop software.",
+          content: "The era of 'doing everything yourself' is over. Now it's time to give AI its own team.\n\nClaude Code launched Agent Teams. Multiple Claude sessions work autonomously in parallel — a leader distributes tasks, teammates execute independently, and results converge. Security review, test execution, code review — each gets a dedicated subagent defined as a reusable 'role.'\n\nApple added native MCP support to Xcode 26.3. OpenAI built MCP tunnels into ChatGPT. MCP is now an industry standard under the Linux Foundation's Agentic AI Foundation — the lingua franca of AI agents.\n\nAt MGC inc., this architecture runs in production. Website updates, article generation, research, deployment — everything completes inside Claude Code. The Write tool processes large files 60% faster, and MCP tool results now persist up to 500K characters.\n\nAs of April 4, 2026, subscription limits for third-party integrations were removed entirely. Claude Code is no longer just a 'tool.' It's the most capable AI team working right beside you."
+        },
         {
           id: 10,
           date: "2026.02.19",
