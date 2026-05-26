@@ -4,7 +4,6 @@ export const translations = {
   ja: {
     nav: {
       works: '事業内容',
-      cases: 'サービス',
       blog: 'Journal',
       mission: '会社理念',
       company: '会社概要',
@@ -17,11 +16,10 @@ export const translations = {
       title_3: '& The World.',
       subtitle_en: 'Updating the World with AI Intelligence.',
       desc: '日本の可能性を、世界の実装へ。\nテクノロジーで思考と国境の壁を溶かす、次世代のグローバル・ハブ。',
-      viewProjects: 'サービスを見る',
+      viewProjects: '事業内容を見る',
     },
     headings: {
-      works: { title: '事業内容', sub: 'Our Works' },
-      cases: { title: 'サービス', sub: 'Services' },
+      works: { title: '事業内容', sub: 'Our Services' },
       mission: { title: '会社理念', sub: 'MGC Way' },
       internalOS: { title: '駆動エンジン', sub: 'Internal OS' },
       alliance: { title: 'アライアンス', sub: 'Alliance' },
@@ -32,66 +30,66 @@ export const translations = {
     },
     works: {
       service_ai: {
-        title: "Global One AI",
-        subtitle: "世界をひとつの市場に変える、ワンストップAI",
-        desc: "言葉の壁を越える「音声AI」と、未開拓の顧客へ届く「リーチAI」を統合。海外進出のハードルをゼロにし、あなたのビジネスを世界標準へ加速させます。",
+        title: "AI Native Operations",
+        subtitle: "AIネイティブな組織を、構想から実装、内製化までフルスタックで。",
+        desc: "「何をAI化すべきか」の戦略策定から、Voice AI・RAG・エージェントの実装、社員が自走できる内製化研修まで。組織全体を本当の意味でAIネイティブに変革する、伴走型パートナーです。",
         items: [
-          { title: "Cross-Border Voice", sub: "その声は、国境を越えて響く。", text: "高精度の音声AIが、リアルタイムで言語の壁を解消。まるで母国語同士のように、現地のパートナーや顧客と深い信頼関係を築けます。" },
-          { title: "Direct Global Reach", sub: "待っているだけでは出会えない顧客へ。", text: "独自のリーチAIが、世界中の企業データベースから最適なターゲットを抽出。アプローチまでを自動化し、商談の機会を最大化します。" },
-          { title: "All-in-One Platform", sub: "海外展開を、もっとシンプルに。", text: "コミュニケーションから新規開拓まで、グローバルビジネスに必要なツールをワンストップで提供。" }
+          { title: "Strategy & Consulting", sub: "戦略と優先順位の設計", text: "業務プロセスを棚卸しし、AI導入の優先順位とROI試算、現実的なロードマップを描きます。経営課題に直結する打ち手から着手します。" },
+          { title: "Build & Implementation", sub: "Voice AI・RAG・エージェント実装", text: "PoCで止まらない、本番運用まで耐える設計と実装。社内CRM・MA・基幹システムへの統合まで一気通貫で担います。" },
+          { title: "Training & Enablement", sub: "AI研修・内製化支援", text: "経営層・管理職・現場担当それぞれに最適化した研修プログラムで、AIを「同僚」として使いこなせる組織文化を社内に残します。" }
         ]
       },
       service_lab: {
-        title: "Global X Lab",
-        subtitle: "アイデアを、瞬速で世界の手のひらへ。",
-        desc: "「開発」と「マーケティング」を掛け合わせ、国境の壁を突破する。世界中のライフスタイルをアップデートするプロダクトを生み出します。",
+        title: "AI Sales Engine",
+        subtitle: "アポ獲得まで完全自動化。固定費ゼロ、成果報酬型の営業AI。",
+        desc: "AIメール自動配信、音声AI一次受付突破、ターゲットリスト自動生成。GTM領域の営業実行業務をAIで完全自動化します。導入は固定費ゼロ、アポ獲得分のみの成果報酬型です。",
         items: [
-           { title: "Agile for Global", sub: "世界最速の社会実装", text: "トレンドの波を逃さない超高速のアジャイル開発。MVPを短期間で市場へ投入し、フィードバックで進化させ続けます。" },
-           { title: "Dev × Growth", sub: "開発と成長の融合", text: "プロダクト開発とグロースハックを分断させない。設計段階からマーケティング戦略を組み込みます。" },
-           { title: "Borderless Experience", sub: "言葉はいらない体験", text: "言語や文化背景が異なる人々が、説明書なしで使えるUI/UXを追求します。" }
+          { title: "AI Email Outreach", sub: "メール完全自動配信", text: "ターゲット自動抽出 → パーソナライズ送信 → 反応に応じたフォローアップまで、人の手を介さず完結します。" },
+          { title: "Voice AI Receptionist", sub: "音声AIで一次受付突破", text: "音声AIがゲートキーパーを自然な会話で突破し、意思決定者まで繋ぎます。架電数の物理的制約を取り払います。" },
+          { title: "Performance-Based", sub: "成果報酬で導入できる", text: "アポ獲得数や商談数で課金。固定費ゼロ、低リスクで、本気の営業AI運用をスタートできます。" }
         ]
       },
       service_trade: {
-        title: "Global Nexus Trade",
-        subtitle: "技術の「適材適所」を、世界規模で創り出す。",
-        desc: "日本の技術を世界へ、世界の革新を日本へ。国境によるミスマッチを解消し、埋もれていた価値を繋ぐ次世代技術トレーディング。",
+        title: "Cross-Border Trading",
+        subtitle: "日本と世界の価値を、AIで繋ぐ越境事業。",
+        desc: "日本の優れた技術・プロダクトを世界へ、世界の革新を日本へ。AIによる市場分析と現地パートナー開拓で、越境取引のハードルをゼロにします。",
         items: [
-          { title: "Export: Value Optimization", sub: "価値の再配置", text: "日本の優れた知財（IP）や素材を発掘し、その価値が最も高く評価される海外パートナーへとマッチングさせます。" },
-          { title: "Import: Global Solution", sub: "世界の知を実装", text: "世界中にある「既存の正解」を導入する。海外の先端テクノロジーを輸入し、日本企業のイノベーションを加速させます。" },
-          { title: "Frictionless Process", sub: "取引の効率化", text: "複雑なライセンス契約や権利処理をAIが効率化。スピーディな取引を実現します。" }
+          { title: "Export: Japan → World", sub: "日本から世界へ", text: "日本の知財・素材・プロダクトを発掘し、その価値を最も評価する海外パートナーへとマッチング。アフリカ・欧州・東南アジアなど新興市場の開拓を支援します。" },
+          { title: "Import: World → Japan", sub: "世界から日本へ", text: "海外の先端ソリューションを輸入し、日本企業のイノベーションを加速。総代理店として日本市場での販売・サポート・ローカライズまで担います。" },
+          { title: "AI-Powered Matching", sub: "AIによる最短ルート", text: "AIで市場需要を解析し、現地パートナーを自動スクリーニング。複雑な貿易実務をAIで効率化し、スピーディな取引を実現します。" }
         ]
       }
     },
     // Detailed Modal Content (JSX Text Parts)
     details: {
       service_ai: {
-        title: "Global One AI",
-        subtitle: "世界をひとつの市場に変える、ワンストップAI",
-        p1: "言葉の壁を越える「音声AI」と、未開拓の顧客へ届く「リーチAI」を統合。海外進出のハードルをゼロにし、あなたのビジネスを世界標準へ加速させます。",
+        title: "AI Native Operations",
+        subtitle: "AIネイティブな組織を、構想から実装、内製化までフルスタックで。",
+        p1: "「何をAI化すべきか」の戦略策定から、Voice AI・RAG・エージェントの実装、社員が自走できる内製化研修まで。\n組織全体を本当の意味でAIネイティブに変革する、伴走型パートナーです。",
         features: [
-          { title: "Cross-Border Voice", sub: "その声は、国境を越えて響く。", text: "高精度の音声AIが、リアルタイムで言語の壁を解消。まるで母国語同士のように、現地のパートナーや顧客と深い信頼関係を築けます。" },
-          { title: "Direct Global Reach", sub: "待っているだけでは出会えない顧客へ。", text: "独自のリーチAIが、世界中の企業データベースから最適なターゲットを抽出。アプローチまでを自動化し、商談の機会を最大化します。" },
-          { title: "All-in-One Platform", sub: "海外展開を、もっとシンプルに。", text: "コミュニケーションから新規開拓まで、グローバルビジネスに必要なツールをワンストップで提供。" }
+          { title: "Strategy & Consulting", sub: "戦略と優先順位の設計", text: "業務プロセスを棚卸しし、AI導入の優先順位とROI試算、現実的なロードマップを描きます。経営課題に直結する打ち手から着手し、PoC倒れを起こさない投資判断を支援します。" },
+          { title: "Build & Implementation", sub: "Voice AI・RAG・エージェント実装", text: "PoCで止まらない、本番運用まで耐える設計と実装。CRM・MA・基幹システムへの統合、社内ナレッジを学習させたRAG、現場の判断を自動化するエージェント——一気通貫で構築します。" },
+          { title: "Training & Enablement", sub: "AI研修・内製化支援", text: "経営層向けの戦略研修、管理職向けのオペレーション設計研修、現場担当者向けのプロンプト・ハンズオン研修。職種別に最適化されたプログラムで、AIを「同僚」として扱える組織文化を社内に残します。" }
         ]
       },
       service_lab: {
-        title: "Global X Lab",
-        subtitle: "アイデアを、瞬速で世界の手のひらへ。",
-        p1: "「開発」と「マーケティング」を掛け合わせ、国境の壁を突破する。世界中のライフスタイルをアップデートするプロダクトを生み出します。",
+        title: "AI Sales Engine",
+        subtitle: "アポ獲得まで完全自動化。固定費ゼロ、成果報酬型の営業AI。",
+        p1: "AIメール自動配信、音声AI一次受付突破、ターゲットリスト自動生成。\nGTM領域の営業実行業務をAIで完全自動化します。導入は固定費ゼロ、アポ獲得分のみの成果報酬型です。",
         features: [
-           { title: "Agile for Global", sub: "世界最速の社会実装", text: "トレンドの波を逃さない超高速のアジャイル開発。MVPを短期間で市場へ投入し、フィードバックで進化させ続けます。" },
-           { title: "Dev × Growth", sub: "開発と成長の融合", text: "プロダクト開発とグロースハックを分断させない。設計段階からマーケティング戦略を組み込みます。" },
-           { title: "Borderless Experience", sub: "言葉はいらない体験", text: "言語や文化背景が異なる人々が、説明書なしで使えるUI/UXを追求します。" }
+          { title: "AI Email Outreach", sub: "メール完全自動配信", text: "Web・企業データベース・SNSからAIがターゲット企業と担当者を自動抽出。各社の文脈に合わせたパーソナライズメールを自動送信し、反応・未開封に応じてフォローアップまで完結します。" },
+          { title: "Voice AI Receptionist", sub: "音声AIで一次受付突破", text: "音声AIエージェントがゲートキーパーを自然な会話で突破し、意思決定者まで繋ぎます。架電数の物理的制約を取り払い、テレアポの常識を書き換えます。" },
+          { title: "Performance-Based Pricing", sub: "成果報酬で導入できる", text: "アポ獲得数・商談数で課金する成果報酬型。固定費ゼロ、低リスクで導入できるので、新規事業のPMF検証や、外注テレアポからの置き換えに最適です。" }
         ]
       },
       service_trade: {
-        title: "Global Nexus Trade",
-        subtitle: "技術の「適材適所」を、世界規模で創り出す。",
-        p1: "日本の技術を世界へ、世界の革新を日本へ。\n国境によるミスマッチを解消し、埋もれていた価値を「最も必要とされる場所」へと繋ぐ、次世代の技術トレーディング。",
+        title: "Cross-Border Trading",
+        subtitle: "日本と世界の価値を、AIで繋ぐ越境事業。",
+        p1: "日本の優れた技術・プロダクトを世界へ、世界の革新を日本へ。\nAIによる市場分析と現地パートナー開拓で、越境取引のハードルをゼロにします。",
         features: [
-          { title: "Export: Value Optimization", sub: "価値の再配置", p1: "日本の技術に、新たな市場を。", text: "国内では成熟した技術も、世界にはそれを熱望する市場が存在します。日本の優れた知財（IP）や素材を発掘し、その価値が最も高く評価される海外パートナーへとマッチングさせます。" },
-          { title: "Import: Global Solution", sub: "世界の知を実装", p1: "海外の革新を、日本の課題解決へ。", text: "ゼロから開発するのではなく、世界中にある「既存の正解」を導入する。海外の先端テクノロジーやソリューションを輸入し、日本企業のイノベーションを加速させます。" },
-          { title: "Frictionless Process", sub: "取引の効率化", p1: "技術移転を、もっとスムーズに。", text: "複雑なライセンス契約、権利処理、ローカライズの壁を、専門チームとAIが効率化。アナログで時間のかかる貿易実務を刷新し、ビジネスチャンスを逃さないスピーディな取引を実現します。" }
+          { title: "Export: Japan → World", sub: "日本から世界へ", p1: "日本の技術に、新たな市場を。", text: "国内では成熟してしまった技術も、海外には熱望する市場が存在します。日本の知財・素材・プロダクトを発掘し、その価値を最も評価する海外パートナーへマッチング。アフリカ・欧州・東南アジアなど新興市場開拓を伴走します。" },
+          { title: "Import: World → Japan", sub: "世界から日本へ", p1: "海外の革新を、日本の現場へ。", text: "海外の先端ソリューションを輸入し、日本企業のイノベーションを加速。総代理店として日本市場での販売・カスタマーサポート・ローカライズ・規制対応まで一気通貫で担います。" },
+          { title: "AI-Powered Matching", sub: "AIによる最短ルート", p1: "AIで市場と現地を繋ぐ。", text: "AIで市場需要を解析し、現地パートナーを自動スクリーニング。複雑なライセンス契約・通関・物流調整もAIワークフローで効率化し、従来比1/10のスピードで越境取引を実現します。" }
         ]
       },
       product: {
@@ -119,32 +117,6 @@ export const translations = {
         text: "巨大な組織図は必要ありません。必要なのは、自律的に動き、決定し、実行できるエリートたちの小さな集合体です。MGC inc.は組織の肥大化を拒み、個々の能力を最大化することで、世界規模の課題解決に挑みます。"
       }
     },
-    cases: [
-      {
-        id: "01",
-        category: "AI Native Communication",
-        title: "MGC Operator",
-        desc: "コールセンターをはじめとするカスタマーサポート領域を、AIネイティブなオペレーションに置き換えるサービス。",
-        detail: "【コミュニケーションのAIネイティブ化】\n電話応対、チャットサポート、LINE対応など、企業と顧客をつなぐコミュニケーション領域をAIで根本から再構築します。\n\n従来のコールセンター業務をAI Voice Agentに置き換え、一次応答から通話要約・CRM入力までを完全自動化。さらにRAGを活用したナレッジベース連携により、Webやチャット上での高度な顧客対応も実現します。\n\n「人が対応すべきところ」と「AIに任せるべきところ」を最適に設計し、対応品質の均質化とコスト削減を同時に達成します。",
-        tags: ["Voice AI", "RAG Chatbot", "CS Automation", "CRM Integration"]
-      },
-      {
-        id: "02",
-        category: "AI-Powered Global Trading",
-        title: "MGC Connector",
-        desc: "日本と世界をつなぐオールインワンAIサービス。市場調査からパートナー開拓、輸出入まで一気通貫でサポート。",
-        detail: "【日本と世界をAIでつなぐ、新しい商社のかたち】\nAIを武器に、日本企業の製品・サービスを世界市場へ届けます。ターゲット市場の選定、現地パートナーのAI探索、パーソナライズされたアプローチの自動化まで、従来の商社機能をテクノロジーで再定義しました。\n\nアフリカ・欧州をはじめとするグローバル市場で、AIによるデータドリブンなマッチングと、人間によるクロージングを組み合わせ、海外進出の成功率を最大化します。\n\n逆に、海外の優れたプロダクトを日本に持ち込む「逆輸入」も推進。双方向の価値の橋渡しを行います。",
-        tags: ["Cross-Border Trade", "Market Intelligence", "Partner Matching", "Import / Export"]
-      },
-      {
-        id: "03",
-        category: "AI Product & Organization Design",
-        title: "MGC Inventor",
-        desc: "AI時代の新しいプロダクトや組織のあり方を構想し、外部パートナーとも連携しながら実現していく事業。",
-        detail: "【AI時代のプロダクトと組織を、構想から実現まで】\nまだ世の中にない価値を生み出すために、AIを前提とした新しいプロダクトや事業モデルを構想・開発します。\n\n自社単独にこだわらず、ビジョンを共有するパートナー企業やクリエイターと積極的に連携。技術的な実装だけでなく「この技術で何を届けるべきか」というコンセプト設計から関わり、AIが人間の創造性を拡張するプロダクトを世に送り出します。\n\n新規事業の立ち上げ支援、プロトタイプ開発、共創プロジェクトなど、かたちにとらわれずに挑戦します。",
-        tags: ["Product Design", "Co-Creation", "New Business", "AI Architecture"]
-      }
-    ],
     mission: {
       internal_os: {
         lead: "MGC inc.を動かす3つの駆動エンジン。これらは単なる事業ドメインではなく、私たちが世界を認識し、ハックするための独自の思考OSである。",
@@ -172,7 +144,7 @@ export const translations = {
         { label: 'CEO', value: 'KOKOMU MATSUO' },
         { label: 'Headquarters', value: 'Kyoto, Japan' },
         { label: 'Established', value: '2025' },
-        { label: 'Business Domains', value: 'AI Native Product Development\nGlobal Marketing Solution\nCurated Cross-border Trading' },
+        { label: 'Business Domains', value: 'AI Native Operations\nAI Sales Engine\nCross-Border Trading' },
       ]
     },
     career: {
@@ -249,7 +221,7 @@ export const translations = {
           category: "Voice AI",
           title: "エンジニア不要の音声革命：ElevenLabs × Lovableが証明する「創造の民主化」",
           excerpt: "プロダクトを作るのに、もうエンジニアは要らない。AIツールの組み合わせで、ビジョンを持つ全員が音声アプリを世に問える時代が来た。",
-          content: "「良いアイデアはあるが、実装できる人間がいない」——この言い訳は、2025年に入って完全に消滅した。\n\nElevenLabs（世界最高峰の音声AI）とLovable（AIによるアプリ開発基盤）を組み合わせれば、コードを一行も書かずに、プロ品質の音声インタラクティブアプリを数時間で構築できる。コールセンター向けAI音声エージェント、音声でナビゲートするサービスアプリ、ユーザーの言葉に反応するコマーシャル——全てが、ノーコードで実装可能な現実だ。\n\nMGC inc.は、この組み合わせをクライアントの「最速プロトタイピング」に活用している。アイデアを出した翌日には、実動するプロダクトのデモを見せられる。投資家への説明も、ユーザーテストも、市場検証も——全てが圧倒的に早くなった。\n\n技術の民主化は、単なる便利の話ではない。「思想を持った人間」が「技術の壁」を超えて、直接世界に問いかけられる時代の到来だ。ツールは揃った。あとは、あなたのビジョンだけが問われる。"
+          content: "「良いアイデアはあるが、実装できる人間がいない」——この言い訳は、2025年に入って完全に消滅した。\n\nElevenLabs（世界最高峰の音声AI）とLovable(AIによるアプリ開発基盤）を組み合わせれば、コードを一行も書かずに、プロ品質の音声インタラクティブアプリを数時間で構築できる。コールセンター向けAI音声エージェント、音声でナビゲートするサービスアプリ、ユーザーの言葉に反応するコマーシャル——全てが、ノーコードで実装可能な現実だ。\n\nMGC inc.は、この組み合わせをクライアントの「最速プロトタイピング」に活用している。アイデアを出した翌日には、実動するプロダクトのデモを見せられる。投資家への説明も、ユーザーテストも、市場検証も——全てが圧倒的に早くなった。\n\n技術の民主化は、単なる便利の話ではない。「思想を持った人間」が「技術の壁」を超えて、直接世界に問いかけられる時代の到来だ。ツールは揃った。あとは、あなたのビジョンだけが問われる。"
         },
         {
           id: 3,
@@ -297,9 +269,8 @@ export const translations = {
     }
   },
   en: {
-     nav: {
-      works: 'Works',
-      cases: 'Services',
+    nav: {
+      works: 'Services',
       blog: 'Journal',
       mission: 'Mission',
       company: 'Company',
@@ -315,8 +286,7 @@ export const translations = {
       viewProjects: 'View Services',
     },
     headings: {
-      works: { title: 'Our Works', sub: 'Global Solutions' },
-      cases: { title: 'Services', sub: 'What We Do' },
+      works: { title: 'Services', sub: 'What We Do' },
       mission: { title: 'MGC Way', sub: 'The Core Philosophy' },
       internalOS: { title: 'Internal OS', sub: 'MGC Internal Operating System' },
       alliance: { title: 'Alliance', sub: 'Global Network Nodes' },
@@ -327,65 +297,65 @@ export const translations = {
     },
     works: {
       service_ai: {
-        title: "Global One AI",
-        subtitle: "One-stop AI turning the world into a single market.",
-        desc: "Integrating 'Voice AI' to break language barriers and 'Reach AI' to find untapped customers. We lower hurdles for global expansion to zero.",
+        title: "AI Native Operations",
+        subtitle: "Full-stack transformation — from strategy to implementation to in-house enablement.",
+        desc: "From AI strategy and roadmapping to Voice AI, RAG, and agent implementation, and training that gives your team autonomy. We become the partner that transforms your organization to truly AI-native, at every layer.",
         items: [
-          { title: "Cross-Border Voice", sub: "Resonating across borders.", text: "High-precision Voice AI resolves language barriers in real-time. Build trust with local partners as if speaking their native language." },
-          { title: "Direct Global Reach", sub: "Don't wait. Reach out.", text: "Proprietary Reach AI extracts optimal targets from global databases. Automates approaches to maximize business opportunities." },
-          { title: "All-in-One Platform", sub: "Global expansion, simplified.", text: "One-stop tools for global business, from communication to new client acquisition." }
+          { title: "Strategy & Consulting", sub: "Prioritization & roadmap design", text: "We audit your operations, prioritize AI use-cases by ROI, and build a realistic roadmap. We start with initiatives tied directly to business outcomes." },
+          { title: "Build & Implementation", sub: "Voice AI · RAG · Agent build-out", text: "No PoC-only delivery. We design and implement systems that survive production, with full integration into your CRM, MA, and core systems." },
+          { title: "Training & Enablement", sub: "AI training & in-house enablement", text: "Tailored training programs for executives, managers, and individual contributors — building an organizational culture where AI is treated as a colleague." }
         ]
       },
       service_lab: {
-        title: "Global X Lab",
-        subtitle: "Ideas to the world, instantly.",
-        desc: "Multiplying Development x Marketing to break borders. Creating products that update global lifestyles.",
+        title: "AI Sales Engine",
+        subtitle: "Fully automated to appointment-booked. Zero fixed cost, performance-based.",
+        desc: "AI email outreach, voice AI gatekeeper bypass, automated list generation. We fully automate GTM execution — pay nothing up front, only for booked appointments.",
         items: [
-           { title: "Agile for Global", sub: "Fastest Social Implementation", text: "Ultra-high-speed agile development catching trends. Launch MVPs quickly and evolve through feedback." },
-           { title: "Dev × Growth", sub: "Fusion of Code & Growth", text: "No division between dev and growth. Marketing strategy matches architecture from day one." },
-           { title: "Borderless Experience", sub: "Intuitive Design", text: "Pursuing UI/UX usable by 7 billion people without manuals. Designing borderless experiences." }
+          { title: "AI Email Outreach", sub: "Fully automated email sequencing", text: "AI extracts targets, sends personalized messages tailored to each company's context, and follows up based on engagement — completely hands-off." },
+          { title: "Voice AI Receptionist", sub: "AI voice bypasses gatekeepers", text: "Voice AI agents handle natural conversations with receptionists and route calls to decision-makers — removing the physical limit on outbound calling." },
+          { title: "Performance-Based Pricing", sub: "Pay only for results", text: "Pay per appointment or qualified meeting. Zero fixed cost makes this ideal for validating PMF or replacing outsourced tele-prospecting." }
         ]
       },
       service_trade: {
-        title: "Global Nexus Trade",
-        subtitle: "Creating 'Right Place, Right Time' globally.",
-        desc: "Japan's tech to the world, world's innovation to Japan. Eliminating mismatches and connecting hidden values.",
+        title: "Cross-Border Trading",
+        subtitle: "Connecting value between Japan and the world, powered by AI.",
+        desc: "Japan's tech and products to the world, the world's innovation to Japan. AI-driven market analysis and partner matching eliminate cross-border friction.",
         items: [
-          { title: "Export: Value Optimization", sub: "Value Reallocation", text: "Discovering Japanese IP/materials and matching them to overseas partners where they are valued most." },
-          { title: "Import: Global Solution", sub: "Implementing World Knowledge", text: "Importing cutting-edge tech to accelerate Japanese innovation, rather than reinventing the wheel." },
-          { title: "Frictionless Process", sub: "Efficient Trading", text: "AI streamlines complex licensing and rights processing for speedy transactions." }
+          { title: "Export: Japan → World", sub: "From Japan to the world", text: "We surface Japanese IP, materials, and products, then match them with overseas partners who value them most — supporting expansion into Africa, Europe, and Southeast Asia." },
+          { title: "Import: World → Japan", sub: "From the world to Japan", text: "We import leading overseas solutions to accelerate Japanese innovation, acting as exclusive Japan distributor — sales, support, localization, and regulatory work included." },
+          { title: "AI-Powered Matching", sub: "Shortest path, AI-driven", text: "AI analyzes market demand and auto-screens local partners. Licensing, customs, and logistics workflows are streamlined with AI — 10× faster than traditional trade." }
         ]
       }
     },
     details: {
       service_ai: {
-        title: "Global One AI",
-        subtitle: "One-stop AI turning the world into a single market.",
-        p1: "Integrating 'Voice AI' to break language barriers and 'Reach AI' to find untapped customers. We lower hurdles for global expansion to zero.",
+        title: "AI Native Operations",
+        subtitle: "Full-stack transformation — from strategy to implementation to in-house enablement.",
+        p1: "From AI strategy and roadmapping to Voice AI / RAG / agent implementation, and training that gives your team autonomy.\nWe become the partner that transforms your organization to truly AI-native, at every layer.",
         features: [
-          { title: "Cross-Border Voice", sub: "Resonating across borders.", text: "High-precision Voice AI resolves language barriers in real-time. Build trust with local partners as if speaking their native language." },
-          { title: "Direct Global Reach", sub: "Don't wait. Reach out.", text: "Proprietary Reach AI extracts optimal targets from global databases. Automates approaches to maximize business opportunities." },
-          { title: "All-in-One Platform", sub: "Global expansion, simplified.", text: "One-stop tools for global business, from communication to new client acquisition." }
+          { title: "Strategy & Consulting", sub: "Prioritization & roadmap design", text: "We audit your operations, prioritize AI use-cases by ROI, and design a realistic roadmap. We start with initiatives tied directly to business outcomes — no PoC-graveyard projects." },
+          { title: "Build & Implementation", sub: "Voice AI · RAG · Agent build-out", text: "Production-grade design and implementation. Full integration into your CRM, MA, and core systems. Internal knowledge bases trained into RAG. Agents that take real operational decisions." },
+          { title: "Training & Enablement", sub: "AI training & in-house enablement", text: "Strategic training for executives, operations-design training for managers, and prompt and hands-on training for individual contributors — building an organizational culture where AI is a colleague." }
         ]
       },
       service_lab: {
-        title: "Global X Lab",
-        subtitle: "Ideas to the world, instantly.",
-        p1: "Multiplying Development x Marketing to break borders. Creating products that update global lifestyles.",
+        title: "AI Sales Engine",
+        subtitle: "Fully automated to appointment-booked. Zero fixed cost, performance-based.",
+        p1: "AI email outreach, voice AI gatekeeper bypass, automated list generation.\nWe fully automate GTM execution — pay nothing up front, only for booked appointments.",
         features: [
-           { title: "Agile for Global", sub: "Fastest Social Implementation", text: "Ultra-high-speed agile development catching trends. Launch MVPs quickly and evolve through feedback." },
-           { title: "Dev × Growth", sub: "Fusion of Code & Growth", text: "No division between dev and growth. Marketing strategy matches architecture from day one." },
-           { title: "Borderless Experience", sub: "Intuitive Design", text: "Pursuing UI/UX usable by 7 billion people without manuals. Designing borderless experiences." }
+          { title: "AI Email Outreach", sub: "Fully automated email sequencing", text: "AI extracts targets from the web, company databases, and social. Sends personalized messages adapted to each company's context, follows up based on opens and replies, and books meetings — completely hands-off." },
+          { title: "Voice AI Receptionist", sub: "AI voice bypasses gatekeepers", text: "Voice AI agents handle natural conversations with receptionists and route calls to decision-makers. We rewrite the rules of outbound calling." },
+          { title: "Performance-Based Pricing", sub: "Pay only for results", text: "Pay per appointment or qualified meeting. Zero fixed cost makes this ideal for validating PMF of new ventures or replacing outsourced tele-prospecting." }
         ]
       },
       service_trade: {
-        title: "Global Nexus Trade",
-        subtitle: "Creating 'Right Place, Right Time' globally.",
-        p1: "Japan's tech to the world, world's innovation to Japan.\nEliminating mismatches and connecting hidden values to where they are needed most.",
+        title: "Cross-Border Trading",
+        subtitle: "Connecting value between Japan and the world, powered by AI.",
+        p1: "Japan's tech and products to the world, the world's innovation to Japan.\nAI-driven market analysis and partner matching eliminate cross-border friction.",
         features: [
-          { title: "Export: Value Optimization", sub: "Value Reallocation", p1: "New markets for Japan's tech.", text: "Discovering Japanese IP/materials and matching them to overseas partners where they are valued most." },
-          { title: "Import: Global Solution", sub: "Implementing World Knowledge", p1: "Global innovation for Japan.", text: "Importing cutting-edge tech to accelerate Japanese innovation, rather than reinventing the wheel." },
-          { title: "Frictionless Process", sub: "Efficient Trading", p1: "Smoother tech transfer.", text: "AI streamlines complex licensing and rights processing. Renewing analog trade practices for speed." }
+          { title: "Export: Japan → World", sub: "From Japan to the world", p1: "New markets for Japan's tech.", text: "Tech that is mature in Japan may be revolutionary elsewhere. We surface Japanese IP, materials, and products, and match them with overseas partners who value them most — supporting expansion into Africa, Europe, and Southeast Asia." },
+          { title: "Import: World → Japan", sub: "From the world to Japan", p1: "Global innovation for the Japanese market.", text: "We import cutting-edge overseas solutions to accelerate Japanese innovation, acting as exclusive Japan distributor — sales, customer support, localization, and regulatory work end-to-end." },
+          { title: "AI-Powered Matching", sub: "Shortest path, AI-driven", p1: "AI bridging markets and partners.", text: "AI analyzes market demand and auto-screens local partners. Licensing, customs, and logistics workflows are streamlined with AI — 10× faster than traditional trade processes." }
         ]
       },
       product: {
@@ -413,32 +383,6 @@ export const translations = {
         text: "No giant org charts needed. Just a small collective of autonomous elites who decide and execute. MGC inc. rejects bloat and maximizes individual capability to tackle global challenges."
       }
     },
-    cases: [
-      {
-        id: "01",
-        category: "AI Native Communication",
-        title: "MGC Operator",
-        desc: "Replacing call centers and customer support with AI-native operations — from voice agents to intelligent chat.",
-        detail: "[AI-Native Communication Infrastructure]\nWe fundamentally rebuild the communication layer between businesses and customers — phone, chat, LINE, and beyond.\n\nTraditional call center operations are replaced by AI Voice Agents that handle first response, call summarization, and CRM entry automatically. RAG-powered knowledge bases enable advanced customer support across web and messaging platforms.\n\nWe design the optimal balance between human and AI touchpoints, achieving both consistent quality and cost efficiency.",
-        tags: ["Voice AI", "RAG Chatbot", "CS Automation", "CRM Integration"]
-      },
-      {
-        id: "02",
-        category: "AI-Powered Global Trading",
-        title: "MGC Connector",
-        desc: "An all-in-one AI service connecting Japan and the world — market research, partner discovery, and trade execution.",
-        detail: "[A New Kind of Trading Company, Powered by AI]\nWe use AI to bring Japanese products and services to global markets. From target market selection to AI-driven partner discovery and automated personalized outreach — we've redefined traditional trading functions with technology.\n\nCombining data-driven AI matching with human-led closing across markets in Africa, Europe, and beyond to maximize success rates for international expansion.\n\nWe also drive 'reverse imports' — bringing outstanding overseas products into Japan. A two-way bridge of value.",
-        tags: ["Cross-Border Trade", "Market Intelligence", "Partner Matching", "Import / Export"]
-      },
-      {
-        id: "03",
-        category: "AI Product & Organization Design",
-        title: "MGC Inventor",
-        desc: "Envisioning and building new products and organizations for the AI era — in collaboration with external partners.",
-        detail: "[From Concept to Reality in the AI Era]\nWe design and develop new products and business models built on AI-first principles to create value that doesn't yet exist.\n\nRather than working in isolation, we actively collaborate with partner companies and creators who share our vision. We engage from concept design — asking 'what should this technology deliver?' — and ship products where AI amplifies human creativity.\n\nNew business launches, prototype development, co-creation projects — we take on challenges regardless of form.",
-        tags: ["Product Design", "Co-Creation", "New Business", "AI Architecture"]
-      }
-    ],
     mission: {
       internal_os: {
         lead: "Three engines driving MGC inc. Not just business domains, but our proprietary Operating System to perceive and hack the world.",
@@ -466,7 +410,7 @@ export const translations = {
         { label: 'CEO', value: 'KOKOMU MATSUO' },
         { label: 'Headquarters', value: 'Kyoto, Japan' },
         { label: 'Established', value: '2025' },
-        { label: 'Business Domains', value: 'AI Native Product Development\nGlobal Marketing Solution\nCurated Cross-border Trading' },
+        { label: 'Business Domains', value: 'AI Native Operations\nAI Sales Engine\nCross-Border Trading' },
       ]
     },
     career: {
@@ -575,7 +519,7 @@ export const translations = {
           category: "AI Trading",
           title: "Waking the Sleeping Giants with AI: A new solution for Japan's global expansion",
           excerpt: "Instead of trading houses or consultants, what's needed for Japan's global expansion is complete migration to 'AI-native operations'.",
-          content: "Japan has tons of hidden gems. But the 'good products will sell' myth is long dead. What's needed is optimization and connection to global markets via AI-native operations."
+          content: "Japan has tons of hidden gems. But the 'good products will sell' myth is long dead. What's needed is optimization and connection to global markets via AI-native operations.\n\nThe traditional trading-company model rested on information asymmetry and personal networks — analog walls. AI dissolves those walls instantly: real-time demand analysis, auto-screening of overseas partners, multilingual personalized outreach at scale.\n\nMGC inc. wakes Japan's sleeping giants — artisan techniques, unique materials, IP — and brings them where they are most valued. Even SMBs can now compete as global players when AI handles market scanning, cross-language outreach, and end-to-end deal management.\n\nThis 'dramatically better' operating model is the shortest path to delivering Japan's hidden assets to the world."
         }
       ]
     },

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, ReactNode } from 'react';
-import { ArrowRight, Globe, Zap, Layers, ArrowUpRight, X, Send, Menu, Anchor, Check, Heart, MapPin, Mic, MessageSquare, Briefcase, Plane, Calendar, User } from 'lucide-react';
+import { ArrowRight, Globe, Zap, Layers, ArrowUpRight, X, Send, Menu, Anchor, Check, Heart, MapPin, Calendar, User } from 'lucide-react';
 
 import { translations, Lang } from './translations';
 export const LanguageContext = React.createContext<{ lang: Lang; setLang: (l: Lang) => void; t: typeof translations['ja'] }>({
@@ -10,7 +10,7 @@ export const LanguageContext = React.createContext<{ lang: Lang; setLang: (l: La
 export const useLanguage = () => React.useContext(LanguageContext);
 // --- Types & Interfaces ---
 
-type ViewState = 'home' | 'works' | 'cases' | 'mission' | 'partners' | 'company' | 'career' | 'contact' | 'blog';
+type ViewState = 'home' | 'works' | 'mission' | 'partners' | 'company' | 'career' | 'contact' | 'blog';
 
 // Updated ContentKeys to include new services and keep old architecture items
 type ContentKey = 'product' | 'marketing' | 'trading' | 'vision' | 'service_ai' | 'service_lab' | 'service_trade';
@@ -163,7 +163,7 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
           </p>
           <div className="mt-8 md:mt-0">
             <button
-              onClick={() => goTo('cases')}
+              onClick={() => goTo('works')}
               className="group flex items-center gap-2 text-offblack font-bold text-lg tracking-tight border-b-2 border-offblack pb-1 hover:text-accent hover:border-accent transition-colors"
             >
               {t.hero.viewProjects} <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -300,178 +300,6 @@ const WorksView: React.FC = () => {
   );
 };
 
-const CasesView: React.FC = () => {
-  const [selectedCase, setSelectedCase] = useState<number | null>(null);
-  const { t } = useLanguage();
-
-  const staticCaseData = [
-    {
-       image: "/assets/case01.png",
-       detailImage: "/assets/case01_detail.jpg",
-       icon: <Mic className="w-8 h-8 text-offblack" />
-    },
-    {
-       image: "/assets/case02.png",
-       detailImage: "/assets/case02_chatbot_ui.jpg",
-       icon: <Plane className="w-8 h-8 text-offblack" />
-    },
-    {
-       image: "/assets/case03.png",
-       detailImage: "/assets/case03_workflow.jpg",
-       icon: <Briefcase className="w-8 h-8 text-offblack" />
-    }
-  ];
-
-  const cases = t.cases.map((c, i) => ({
-    ...c,
-    ...staticCaseData[i]
-  }));
-
-  return (
-    <PageTransition>
-      <div className="px-6 md:px-12 max-w-screen-xl mx-auto">
-        <SectionHeading 
-          title={t.headings.cases.title}
-          subtitle={t.headings.cases.sub}
-        />
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {cases.map((c, i) => (
-            <Reveal key={i} delay={i * 100} className="h-full">
-               <div 
-                 onClick={() => setSelectedCase(i)}
-                 className="group cursor-pointer h-full bg-white rounded-[2rem] border border-gray-100 hover:border-accent hover:shadow-xl transition-all duration-500 flex flex-col relative overflow-hidden"
-               >
-                  {/* Image Section */}
-                  <div className="h-64 w-full bg-gray-50 relative overflow-hidden">
-                      <GridPattern />
-                      <img
-                        src={c.image}
-                        alt={c.title}
-                        loading="lazy"
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                        onError={(e) => {
-                          // Fallback if case image is missing
-                          (e.target as HTMLImageElement).src = i === 0 ? "/assets/service_ai.jpg" : i === 1 ? "/assets/service_trade.png" : "/assets/service_lab.png";
-                        }}
-                      />
-                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                        <span className="bg-white/90 text-offblack px-6 py-2 rounded-full font-bold text-sm tracking-widest backdrop-blur-sm transform translate-y-4 group-hover:translate-y-0 transition-all duration-500">
-                          VIEW DETAILS
-                        </span>
-                      </div>
-                  </div>
-                  
-                  {/* Content Section */}
-                  <div className="p-8 md:p-10 flex flex-col flex-grow relative z-10">
-                    <div className="flex justify-between items-start mb-6">
-                      <div className="p-3 rounded-2xl bg-gray-50 border border-gray-100 group-hover:bg-white group-hover:border-accent/20 transition-colors duration-300">
-                        {c.icon}
-                      </div>
-                      <span className="font-mono text-sm font-bold text-gray-300 group-hover:text-accent transition-colors duration-300">MGC.{c.id}</span>
-                    </div>
-
-                    <div className="mb-6">
-                       <span className="text-xs font-bold uppercase tracking-widest text-accent mb-2 block">{c.category}</span>
-                       <h3 className="text-3xl font-bold tracking-tight mb-4 text-offblack group-hover:text-accent transition-colors duration-300">{c.title}</h3>
-                       <p className="text-gray-600 font-medium leading-relaxed mb-6">{c.desc}</p>
-                    </div>
-
-                    <div className="mt-auto pt-6 border-t border-gray-100 flex flex-wrap gap-2">
-                       {c.tags.map((tag, idx) => (
-                          <span key={idx} className="px-3 py-1 bg-gray-50 text-gray-500 text-[10px] font-bold uppercase tracking-wider rounded-lg border border-gray-100">
-                            {tag}
-                          </span>
-                       ))}
-                    </div>
-                  </div>
-               </div>
-            </Reveal>
-          ))}
-        </div>
-
-        {/* Detail Modal */}
-        {selectedCase !== null && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8 overflow-y-auto">
-            <div 
-              className="fixed inset-0 bg-offblack/80 backdrop-blur-sm animate-in fade-in duration-300" 
-              onClick={() => setSelectedCase(null)}
-            />
-            <div className="relative w-full max-w-4xl bg-white rounded-[2.5rem] overflow-hidden shadow-2xl animate-in zoom-in-95 duration-300 flex flex-col md:flex-row max-h-[90vh]">
-              <button 
-                onClick={() => setSelectedCase(null)}
-                className="absolute top-6 right-6 z-20 w-10 h-10 rounded-full bg-offblack/10 hover:bg-offblack text-offblack hover:text-white flex items-center justify-center transition-all duration-300"
-              >
-                <X className="w-5 h-5" />
-              </button>
-
-              <div className="md:w-2/5 relative h-64 md:h-auto bg-gray-100">
-                <img 
-                  src={cases[selectedCase].image} 
-                  className="w-full h-full object-cover" 
-                  alt="" 
-                  onError={(e) => {
-                       (e.target as HTMLImageElement).src = selectedCase === 0 ? "/assets/service_ai.jpg" : selectedCase === 1 ? "/assets/service_trade.png" : "/assets/service_lab.png";
-                  }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-offblack/60 to-transparent flex items-end p-8">
-                  <div className="text-white">
-                    <span className="block text-xs font-bold uppercase tracking-widest mb-2 opacity-80">{cases[selectedCase].category}</span>
-                    <h3 className="text-2xl font-bold leading-tight">{cases[selectedCase].title}</h3>
-                  </div>
-                </div>
-              </div>
-
-              <div className="md:w-3/5 p-8 md:p-12 overflow-y-auto custom-scrollbar bg-white">
-                <div className="flex items-center gap-4 mb-8">
-                   <div className="p-3 rounded-2xl bg-accent/5 text-accent">
-                      {cases[selectedCase].icon}
-                   </div>
-                   <div>
-                     <span className="block text-xs font-bold text-gray-400 uppercase tracking-wider">Service</span>
-                     <span className="block text-lg font-mono font-bold text-offblack">MGC.{cases[selectedCase].id}</span>
-                   </div>
-                </div>
-
-                <div className="prose prose-lg max-w-none mb-8">
-                  <p className="text-offblack text-base md:text-lg leading-relaxed whitespace-pre-line font-medium">
-                    {cases[selectedCase].detail}
-                  </p>
-                </div>
-
-                {/* DETAIL IMAGE SECTION */}
-                <div className="mb-8 rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
-                   <img 
-                      src={cases[selectedCase].detailImage} 
-                      alt="Architecture Diagram" 
-                      className="w-full h-auto"
-                      onError={(e) => {
-                         // Fallback to main image if detail image is interactive diagram replacement not ready
-                         (e.target as HTMLImageElement).src = cases[selectedCase].image; 
-                         // Or hide it if no image
-                         // (e.target as HTMLImageElement).style.display = 'none';
-                      }}
-                   />
-                </div>
-
-                <div className="mt-10 pt-10 border-t border-gray-100">
-                  <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Technologies & Scope</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {cases[selectedCase].tags.map((tag, idx) => (
-                      <span key={idx} className="px-4 py-2 bg-gray-50 text-offblack text-xs font-bold uppercase tracking-wider rounded-xl border border-gray-100">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-    </PageTransition>
-  );
-};
 
 const MissionView: React.FC = () => {
   const [selectedId, setSelectedId] = useState<ContentKey | null>(null);
@@ -1245,7 +1073,7 @@ const App: React.FC = () => {
   // Helper to parse view from hash
   const getViewFromHash = (): ViewState => {
     const hash = window.location.hash.slice(1);
-    const validViews: ViewState[] = ['home', 'works', 'cases', 'mission', 'partners', 'company', 'career', 'contact', 'blog']; // Added 'blog'
+    const validViews: ViewState[] = ['home', 'works', 'mission', 'partners', 'company', 'career', 'contact', 'blog'];
     return validViews.includes(hash as ViewState) ? (hash as ViewState) : 'home';
   };
 
@@ -1284,7 +1112,6 @@ const App: React.FC = () => {
 
   const navItems: { id: ViewState; label: string }[] = [
     { id: 'works', label: t.nav.works },
-    { id: 'cases', label: t.nav.cases },
     { id: 'blog', label: t.nav.blog },
     { id: 'mission', label: t.nav.mission },
     // { id: 'partners', label: 'Partners' }, // Hidden
@@ -1362,7 +1189,6 @@ const App: React.FC = () => {
       <main>
         {view === 'home' && <HomeView onNavigate={navigate} />}
         {view === 'works' && <WorksView />}
-        {view === 'cases' && <CasesView />}
         {view === 'blog' && <BlogView />}
         {view === 'mission' && <MissionView />}
         {/* PartnersView is hidden */}
