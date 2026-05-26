@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, ReactNode } from 'react';
-import { ArrowRight, Globe, Zap, Layers, ArrowUpRight, X, Palette, Send, Network, Menu, Plus, Anchor, Check, Heart, MapPin, Cpu, Mic, MessageSquare, Briefcase, Plane, Sparkles, Mail, Calendar, User } from 'lucide-react';
+import { ArrowRight, Globe, Zap, Layers, ArrowUpRight, X, Send, Menu, Anchor, Check, Heart, MapPin, Mic, MessageSquare, Briefcase, Plane, Calendar, User } from 'lucide-react';
 
 import { translations, Lang } from './translations';
 export const LanguageContext = React.createContext<{ lang: Lang; setLang: (l: Lang) => void; t: typeof translations['ja'] }>({
@@ -27,15 +27,6 @@ interface ContentItem {
 // --- Data ---
 
 
-
-const ACCENT_COLORS = [
-  '#2563EB', // Swiss Blue
-  '#FF3B30', // International Red
-  '#34C759', // Success Green
-  '#FF9500', // Safety Orange
-  '#AF52DE', // Royal Purple
-  '#050505', // Monochrome
-];
 
 // --- Shared Components ---
 
@@ -138,86 +129,24 @@ const DetailModal: React.FC<{ id: ContentKey | null; onClose: () => void }> = ({
   );
 };
 
-// --- Generated Case Image Component ---
-
-// Simple memory cache to persist images during session
-const imageCache: Record<string, string> = {};
-
-const GeneratedCaseImage = ({ prompt, className }: { prompt: string, className?: string }) => {
-  const [imageUrl, setImageUrl] = useState<string | null>(imageCache[prompt] || null);
-  const [loading, setLoading] = useState(!imageCache[prompt]);
-  const [error, setError] = useState(false);
-
-  useEffect(() => {
-    // If we have a cached image for this prompt, use it and skip generation.
-    if (imageCache[prompt]) {
-        setImageUrl(imageCache[prompt]);
-        setLoading(false);
-        return;
-    }
-
-    setLoading(true);
-    let isMounted = true;
-    const gen = async () => {
-      try {
-        const response = await fetch('/api/generate-image', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ prompt }),
-        });
-        
-        if (!response.ok) throw new Error("Backend failed");
-        const data = await response.json();
-        
-        if (!isMounted) return;
-
-        let found = false;
-        // Extract image from parts (matching backend structure which returns full response)
-        for (const part of data.candidates?.[0]?.content?.parts || []) {
-           if (part.inlineData) {
-             const url = `data:image/png;base64,${part.inlineData.data}`;
-             setImageUrl(url);
-             imageCache[prompt] = url; // Save to cache
-             found = true;
-             break;
-           }
-        }
-        if (!found) setError(true);
-      } catch (e) {
-        console.error("Image generation failed", e);
-        if (isMounted) setError(true);
-      } finally {
-        if (isMounted) setLoading(false);
-      }
-    };
-    gen();
-    return () => { isMounted = false; };
-  }, [prompt]);
-
-  if (loading) return (
-      <div className={`bg-gray-50 flex flex-col items-center justify-center ${className}`}>
-          <div className="w-8 h-8 border-2 border-gray-200 border-t-accent rounded-full animate-spin mb-4"/>
-          <p className="text-xs font-mono text-gray-400 animate-pulse">Generating Asset...</p>
-      </div>
-  );
-
-  if (error || !imageUrl) return (
-      <div className={`bg-gray-50 flex items-center justify-center text-gray-300 ${className}`}>
-        <div className="text-center">
-            <Sparkles className="w-8 h-8 mx-auto mb-2 opacity-50" />
-            <span className="text-xs font-mono">Image Unavailable</span>
-        </div>
-      </div>
-  );
-
-  return <img src={imageUrl} alt="Generated Asset" className={`object-cover w-full h-full animate-[fadeIn_0.5s_ease-out] ${className}`} />;
-}
-
 // --- Feature Components (Pages) ---
 
 const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavigate }) => {
   const { t } = useLanguage();
+
+  const goTo = (id: ViewState) => {
+    if (onNavigate) onNavigate(id);
+    else window.location.hash = id;
+  };
+
+  const services = [
+    { icon: <Globe className="w-6 h-6" />, title: t.works.service_ai.title, subtitle: t.works.service_ai.subtitle },
+    { icon: <Zap className="w-6 h-6" />, title: t.works.service_lab.title, subtitle: t.works.service_lab.subtitle },
+    { icon: <Layers className="w-6 h-6" />, title: t.works.service_trade.title, subtitle: t.works.service_trade.subtitle },
+  ];
+
   return (
+  <>
   <section className="min-h-screen flex flex-col justify-center px-6 md:px-12 relative overflow-hidden pt-40 pb-20">
     <div className="max-w-screen-xl w-full mx-auto">
       <Reveal>
@@ -226,18 +155,15 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
           <span className="text-accent transition-colors duration-500">{t.hero.title_2}</span> {t.hero.title_3}
         </h1>
       </Reveal>
-      
+
       <Reveal delay={200}>
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between border-t border-gray-200 pt-8 mt-8">
           <p className="text-lg md:text-xl text-gray-600 max-w-md font-medium leading-relaxed whitespace-pre-line">
             {t.hero.desc}
           </p>
           <div className="mt-8 md:mt-0">
-            <button 
-              onClick={() => {
-                if (onNavigate) onNavigate('cases');
-                else window.location.hash = 'cases';
-              }} 
+            <button
+              onClick={() => goTo('cases')}
               className="group flex items-center gap-2 text-offblack font-bold text-lg tracking-tight border-b-2 border-offblack pb-1 hover:text-accent hover:border-accent transition-colors"
             >
               {t.hero.viewProjects} <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -247,6 +173,28 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
       </Reveal>
     </div>
   </section>
+
+  <div className="px-6 md:px-12 pb-24 max-w-screen-xl mx-auto w-full">
+    <Reveal>
+      <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-gray-200 border border-gray-200 rounded-[2rem] overflow-hidden">
+        {services.map((s, i) => (
+          <button
+            key={i}
+            onClick={() => goTo('works')}
+            className="group bg-offwhite hover:bg-offblack transition-colors duration-500 p-10 text-left flex flex-col gap-4"
+          >
+            <div className="text-accent">{s.icon}</div>
+            <h3 className="text-2xl font-bold tracking-tight text-offblack group-hover:text-white transition-colors duration-300">{s.title}</h3>
+            <p className="text-sm text-gray-500 group-hover:text-gray-300 transition-colors duration-300 leading-relaxed flex-grow">{s.subtitle}</p>
+            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-400 group-hover:text-gray-200 transition-colors">
+              Learn More <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+            </div>
+          </button>
+        ))}
+      </div>
+    </Reveal>
+  </div>
+  </>
   );
 };
 
@@ -363,8 +311,8 @@ const CasesView: React.FC = () => {
        icon: <Mic className="w-8 h-8 text-offblack" />
     },
     {
-       image: "/assets/case04_final.jpg",
-       detailImage: "/assets/case04_final.jpg",
+       image: "/assets/case02.png",
+       detailImage: "/assets/case02_chatbot_ui.jpg",
        icon: <Plane className="w-8 h-8 text-offblack" />
     },
     {
@@ -397,9 +345,10 @@ const CasesView: React.FC = () => {
                   {/* Image Section */}
                   <div className="h-64 w-full bg-gray-50 relative overflow-hidden">
                       <GridPattern />
-                      <img 
-                        src={c.image} 
+                      <img
+                        src={c.image}
                         alt={c.title}
+                        loading="lazy"
                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                         onError={(e) => {
                           // Fallback if case image is missing
@@ -951,7 +900,7 @@ const BlogView: React.FC = () => {
                 className="group cursor-pointer bg-gray-900/50 rounded-[2.5rem] border border-gray-800 p-2 hover:border-accent/40 transition-all duration-700 hover:shadow-2xl flex flex-col h-full"
               >
                 <div className="relative aspect-[4/3] rounded-[2rem] overflow-hidden mb-6">
-                  <img src={post.image} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2s]" alt={post.title} />
+                  <img src={post.image} loading="lazy" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2s]" alt={post.title} />
                   <div className="absolute top-6 left-6 px-4 py-1.5 bg-accent/90 backdrop-blur-md text-white text-[10px] font-bold tracking-widest uppercase rounded-full">
                     {post.category}
                   </div>
@@ -1411,7 +1360,7 @@ const App: React.FC = () => {
 
       {/* Main Content */}
       <main>
-        {view === 'home' && <HomeView />}
+        {view === 'home' && <HomeView onNavigate={navigate} />}
         {view === 'works' && <WorksView />}
         {view === 'cases' && <CasesView />}
         {view === 'blog' && <BlogView />}
@@ -1423,7 +1372,7 @@ const App: React.FC = () => {
       </main>
 
       <footer className={`px-6 md:px-12 py-8 text-center text-sm font-medium opacity-50 ${view === 'mission' || view === 'career' || view === 'works' ? 'text-gray-500' : 'text-gray-400'}`}>
-        &copy; 2025 MGC inc. All Rights Reserved.
+        &copy; 2026 MGC inc. All Rights Reserved.
       </footer>
     </div>
     </LanguageContext.Provider>

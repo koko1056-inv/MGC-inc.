@@ -1,6 +1,3 @@
-import React from 'react';
-import { Globe, Zap, Layers, Mic, MessageSquare, Briefcase, Plane } from 'lucide-react';
-
 export type Lang = 'ja' | 'en';
 
 export const translations = {
@@ -223,10 +220,10 @@ export const translations = {
           content: "AIが営業の世界を席巻している中、SNSやニュースデータを駆使して広告ニーズをリアルタイムで探知するAIの事例が注目されています。しかし、日本の企業はまだ商談特化型AIの開発に至っていません。これは国際競争力を高めるための喫緊の課題と言えるでしょう。\n\nMGC inc.では、営業AIの開発に力を注いでおり、国内でのリーダーシップを確立するために、国産の商談特化型AIの開発を推進しています。ローカルLLMの失敗パターンを解析する技術やRAGの精度を高めるデバッグツールなど、最先端の技術を駆使して、日本が世界に誇れるAIソリューションを提供することを目指しています。\n\n今こそ、日本の企業がそのポテンシャルをフルに発揮し、AI戦略を再構築する時です。MGC inc.は、この新たな局面での先駆者として、未来を切り開く覚悟です。"
         },
         {
-          id: 10,
+          id: 9,
           date: "2026.02.18",
           category: "AI Strategy",
-          title: "AI導入で未来を変える",
+          title: "AIを導入しない企業に未来はない",
           excerpt: "AIを活用しない企業は未来に取り残される。",
           content: "AIを導入することなくして、企業は未来に生き残れるだろうか？この問いに対する答えは、否である。大手企業でさえも、AIを活用しなければ業務の効率化を果たせず、競争から取り残されるだろう。\n\nアインHDが約1300店舗に生成AIを搭載した薬歴入力システムを導入する計画は、AIの力を活用することで、業務時間を半減させる革新的な一例だ。このような動きは、業界全体に変革をもたらす布石となる。\n\nITエンジニアとしての未来を考えると、AIツールを活用することがキャリアの向上につながる。ChatGPTやClaude Codeなどのツールは、エンジニアとしての価値を高めるための鍵となる。\n\nMGC inc.は、AIを通じて業務の自動化を進め、より豊かな未来を築くビジョンを持っている。AIを活用しない選択肢はない！"
         },
@@ -284,7 +281,7 @@ export const translations = {
           category: "AI Trading",
           title: "眠れる巨人を、AIで叩き起こす：日本発グローバル展開の新解",
           excerpt: "日本の技術・資産を世界へ届けるために必要なのは、商社でもコンサルでもなく、「AIネイティブなオペレーション」への完全移行である。",
-          content: "日本には、世界を驚かせる技術や伝統資産が山のように眠っています。... (略) ... この「劇的によいもの」に生まれ変わったオペレーションこそが、日本の眠れる資産を世界へ届けるための最短ルートなのです。"
+          content: "日本には、世界を驚かせる技術や伝統資産が山のように眠っています。しかし「良いものはいつか売れる」という信仰は、グローバル競争の現実において通用しません。問題は「品質」ではなく、「届け方」にあるのです。\n\n従来の商社モデルは、情報の非対称性と人脈という「アナログな壁」の上に成立していました。しかしAIは、この壁を根本から溶かします。ターゲット市場の需要データを瞬時に解析し、最適なパートナーを自動でスクリーニングし、パーソナライズされたアプローチを多言語で自動送信する——これら全てが、AIネイティブなオペレーションで実現できます。\n\nMGC inc.が目指すのは、「日本の眠れる巨人」を世界市場で目覚めさせることです。匠の技術・独自素材・知的財産——国内では当たり前になってしまったそれらの価値が、海外では革命的なソリューションになり得ます。AIによる市場スキャン、言語の壁を越えたアウトリーチ、契約から物流までの一気通貫管理。これらを組み合わせることで、中小企業でさえ「グローバルプレイヤー」として戦える時代が来ています。\n\nこの「劇的によいもの」に生まれ変わったオペレーションこそが、日本の眠れる資産を世界へ届けるための最短ルートなのです。"
         }
       ]
     },
@@ -517,7 +514,7 @@ export const translations = {
           content: "In a world where AI dominates sales, an example of an AI detecting advertising needs in real-time using SNS and news data is making waves. Yet, Japanese companies have not developed negotiation-specialized AI. This is a pressing issue for enhancing international competitiveness.\n\nAt MGC inc., we are focusing on developing sales AI and are pushing for the creation of domestic negotiation-specialized AI to establish leadership in Japan. By utilizing cutting-edge technologies such as analyzing failure patterns in local LLMs and enhancing RAG accuracy with debugging tools, we aim to offer AI solutions Japan can be proud of globally.\n\nNow is the time for Japanese companies to unleash their full potential and rebuild their AI strategies. As a front-runner in this new phase, MGC inc. is ready to pave the way forward."
         },
         {
-          id: 10,
+          id: 9,
           date: "2026.02.18",
           category: "AI Strategy",
           title: "AI: Transforming the Future",
