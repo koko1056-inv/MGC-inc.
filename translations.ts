@@ -11,11 +11,11 @@ export const translations = {
       contact: 'お問い合わせ',
     },
     hero: {
-      title_1: 'Connect',
-      title_2: 'Japan',
-      title_3: '& The World.',
-      subtitle_en: 'Updating the World with AI Intelligence.',
-      desc: '日本の可能性を、世界の実装へ。\nテクノロジーで思考と国境の壁を溶かす、次世代のグローバル・ハブ。',
+      title_1: 'Implementing',
+      title_2: 'AI Native',
+      title_3: 'Society.',
+      subtitle_en: 'Implementing the AI Native Society.',
+      desc: 'AIネイティブな社会を、日本から世界へ実装する。\n戦略・実装・越境までを繋ぎ、次世代の社会インフラを共に創ります。',
       viewProjects: '事業内容を見る',
     },
     headings: {
@@ -278,11 +278,11 @@ export const translations = {
       contact: 'Contact',
     },
     hero: {
-      title_1: 'Connect',
-      title_2: 'Japan',
-      title_3: '& The World.',
-      subtitle_en: 'Updating the World with AI Intelligence.',
-      desc: 'Connect Japan\'s Potential to Global Implementation.\nTechnology melting the borders of thought and nations. A next-gen global hub.',
+      title_1: 'Implementing',
+      title_2: 'AI Native',
+      title_3: 'Society.',
+      subtitle_en: 'Implementing the AI Native Society.',
+      desc: 'Implementing the AI Native Society — from Japan to the world.\nFrom strategy and build-out to cross-border execution — co-building the next-gen social infrastructure.',
       viewProjects: 'View Services',
     },
     headings: {
