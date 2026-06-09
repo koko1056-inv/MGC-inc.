@@ -61,6 +61,32 @@ export const translations = {
       label: '無料相談',
       sub: '30分・無料',
     },
+    faq: {
+      eyebrow: 'FAQ',
+      title: 'よくあるご質問',
+      items: [
+        {
+          q: '料金体系を教えてください。',
+          a: 'AI受託開発・コンサルはプロジェクト単位のお見積もり、営業AIは固定費ゼロ・アポイント獲得分のみの成果報酬型、海外進出AIパッケージは月額制と成果報酬型を併設しています。初回相談で最適なプランをご提案します。',
+        },
+        {
+          q: '小さな業務から試したいのですが、可能ですか？',
+          a: 'もちろん可能です。「まず1業務から」のスモールスタートを推奨しており、AIDE（AI秘書）は2〜4週間のパイロット運用で効果を検証してから本格展開できます。リスクを抑えてご導入いただけます。',
+        },
+        {
+          q: '導入までの期間はどれくらいですか？',
+          a: 'スコープによりますが、営業AIは最短2週間で稼働開始、AIDEのパイロットは2〜4週間、本番運用は1〜3ヶ月が目安です。スピード感を持って事業価値を生み出すことを最優先に設計します。',
+        },
+        {
+          q: '海外進出は未経験ですが対応できますか？',
+          a: '京都発で世界市場を見据えてきた実績があります。市場調査・現地パートナー開拓・多言語アウトリーチ・現地マーケまで「海外進出AIパッケージ」でワンストップ支援します。ゼロからの伴走で安心です。',
+        },
+        {
+          q: '機密情報の取り扱いは安全ですか？',
+          a: 'AIDEはマルチテナント設計で企業ごとにデータを完全分離、認証ゲート・アクセス権限・鍵情報の暗号化保管に対応しています。秘密保持契約（NDA）の締結も柔軟に対応します。',
+        },
+      ],
+    },
     headings: {
       works: { title: '事業内容', sub: 'Our Services' },
       mission: { title: '会社理念', sub: 'MGC Way' },
@@ -431,6 +457,32 @@ export const translations = {
     floatingCta: {
       label: 'Free Consult',
       sub: '30-min · free',
+    },
+    faq: {
+      eyebrow: 'FAQ',
+      title: 'Frequently Asked Questions',
+      items: [
+        {
+          q: 'How is pricing structured?',
+          a: 'AI build & consulting is quoted per project. Sales AI is zero-fixed-cost, pay-per-appointment-booked (performance-based). Cross-Border AI Package supports both monthly and performance-based pricing. We propose the best plan during the first consultation.',
+        },
+        {
+          q: 'Can we start small with one task?',
+          a: 'Absolutely. We recommend the "start with one task" small-start approach. AIDE (AI secretary) runs a 2–4 week pilot to validate impact before scaling. You can adopt with minimal risk.',
+        },
+        {
+          q: 'How long does deployment take?',
+          a: 'Depending on scope: Sales AI can be live in as little as 2 weeks; AIDE pilot runs 2–4 weeks; production rollouts 1–3 months. We prioritize speed-to-value above all.',
+        },
+        {
+          q: "We're new to overseas expansion — can you help?",
+          a: 'Yes. From Kyoto, we have built for the global market from day one. The Cross-Border AI Package supports the full journey: market research, local partner discovery, multilingual outreach, and local marketing. Zero-experience teams welcome.',
+        },
+        {
+          q: 'Is our confidential data safe?',
+          a: 'AIDE is multi-tenant by design, fully isolating data per company. We support auth gates, access controls, and encrypted key storage. NDA arrangements are flexible.',
+        },
+      ],
     },
     headings: {
       works: { title: 'Services', sub: 'What We Do' },

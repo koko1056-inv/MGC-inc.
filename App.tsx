@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, ReactNode } from 'react';
-import { ArrowRight, Globe, Zap, Layers, ArrowUpRight, X, Send, Menu, Anchor, Check, Heart, MapPin, Calendar, User, Brain, Network, MessageCircle, Sparkles } from 'lucide-react';
+import { ArrowRight, Globe, Zap, Layers, ArrowUpRight, X, Send, Menu, Anchor, Check, Heart, MapPin, Calendar, User, Brain, Network, MessageCircle, Sparkles, Plus, Minus } from 'lucide-react';
 
 import { translations, Lang } from './translations';
 export const LanguageContext = React.createContext<{ lang: Lang; setLang: (l: Lang) => void; t: typeof translations['ja'] }>({
@@ -131,6 +131,41 @@ const DetailModal: React.FC<{ id: ContentKey | null; onClose: () => void }> = ({
 
 // --- Feature Components (Pages) ---
 
+// --- FAQ Item (collapsible accordion) ---
+const FaqItem: React.FC<{ question: string; answer: string; index: number }> = ({ question, answer, index }) => {
+  const [open, setOpen] = useState(index === 0); // First open by default
+  return (
+    <div className={`group rounded-2xl border transition-all duration-300 ${open ? 'bg-white border-accent shadow-lg shadow-accent/5' : 'bg-white border-gray-200 hover:border-gray-300'}`}>
+      <button
+        onClick={() => setOpen(o => !o)}
+        className="w-full flex items-start justify-between gap-6 p-6 md:p-7 text-left"
+        aria-expanded={open}
+      >
+        <div className="flex items-start gap-4 flex-1 min-w-0">
+          <span className={`font-mono text-xs font-bold flex-shrink-0 mt-1.5 ${open ? 'text-accent' : 'text-gray-400'}`}>
+            Q.{String(index + 1).padStart(2, '0')}
+          </span>
+          <h3 className={`text-base md:text-lg font-bold tracking-tight leading-snug ${open ? 'text-accent' : 'text-offblack'}`}>
+            {question}
+          </h3>
+        </div>
+        <span className={`flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300 ${open ? 'bg-accent text-white rotate-180' : 'bg-gray-100 text-gray-500 group-hover:bg-gray-200'}`}>
+          {open ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+        </span>
+      </button>
+      <div
+        className={`overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${open ? 'max-h-96' : 'max-h-0'}`}
+      >
+        <div className="px-6 md:px-7 pb-6 md:pb-7 pl-14 md:pl-[4.5rem]">
+          <p className="text-gray-600 text-sm md:text-base leading-relaxed">
+            {answer}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavigate }) => {
   const { t } = useLanguage();
 
@@ -148,7 +183,19 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
   return (
   <>
   <section className="min-h-screen flex flex-col justify-center px-6 md:px-12 relative overflow-hidden pt-40 pb-20">
-    <div className="max-w-screen-xl w-full mx-auto">
+    {/* Decorative orb backdrop — subtle visual accent without distracting from copy */}
+    <div className="absolute inset-0 pointer-events-none overflow-hidden">
+      <div className="absolute -top-40 -right-40 w-[600px] h-[600px] bg-accent/5 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-20 -left-40 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-3xl"></div>
+      <div
+        className="absolute inset-0 opacity-[0.025] pointer-events-none"
+        style={{
+          backgroundImage: `linear-gradient(#050505 1px, transparent 1px), linear-gradient(90deg, #050505 1px, transparent 1px)`,
+          backgroundSize: '40px 40px'
+        }}
+      />
+    </div>
+    <div className="max-w-screen-xl w-full mx-auto relative">
       {/* Eyebrow: What we do */}
       <Reveal>
         <div className="flex items-center gap-3 mb-8">
@@ -281,6 +328,34 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
           ))}
         </div>
       </Reveal>
+    </div>
+  </section>
+
+  {/* === FAQ Section === */}
+  <section className="px-6 md:px-12 py-24 md:py-32 bg-offwhite">
+    <div className="max-w-screen-xl mx-auto">
+      <Reveal>
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <Sparkles className="w-4 h-4 text-accent" />
+              <span className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-accent">
+                {t.faq.eyebrow}
+              </span>
+            </div>
+            <h2 className="text-5xl md:text-7xl font-bold tracking-tighter text-offblack leading-[0.95]">
+              {t.faq.title}
+            </h2>
+          </div>
+        </div>
+      </Reveal>
+      <div className="space-y-3 md:space-y-4">
+        {t.faq.items.map((item, i) => (
+          <Reveal key={i} delay={i * 80}>
+            <FaqItem question={item.q} answer={item.a} index={i} />
+          </Reveal>
+        ))}
+      </div>
     </div>
   </section>
 
