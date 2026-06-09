@@ -149,24 +149,57 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
   <>
   <section className="min-h-screen flex flex-col justify-center px-6 md:px-12 relative overflow-hidden pt-40 pb-20">
     <div className="max-w-screen-xl w-full mx-auto">
+      {/* Eyebrow: What we do */}
       <Reveal>
-        <h1 className="text-[12vw] md:text-[10vw] leading-[0.9] font-bold tracking-tighter text-offblack mb-12">
+        <div className="flex items-center gap-3 mb-8">
+          <Sparkles className="w-4 h-4 text-accent" />
+          <span className="text-[10px] md:text-xs font-mono font-bold uppercase tracking-[0.3em] text-accent">
+            {t.hero.whatWeDo}
+          </span>
+        </div>
+      </Reveal>
+
+      <Reveal delay={50}>
+        <h1 className="text-[12vw] md:text-[10vw] leading-[0.9] font-bold tracking-tighter text-offblack mb-10">
           {t.hero.title_1} <br />
           <span className="text-accent transition-colors duration-500">{t.hero.title_2}</span> {t.hero.title_3}
         </h1>
       </Reveal>
 
-      <Reveal delay={200}>
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between border-t border-gray-200 pt-8 mt-8">
-          <p className="text-lg md:text-xl text-gray-600 max-w-md font-medium leading-relaxed whitespace-pre-line">
+      {/* Service chips — "what we do" at a glance */}
+      <Reveal delay={150}>
+        <div className="flex flex-wrap gap-2 md:gap-3 mb-10">
+          {t.hero.chips.map((chip, i) => (
+            <span
+              key={i}
+              className="inline-flex items-center gap-2 px-4 py-2 bg-offblack text-white rounded-full text-xs md:text-sm font-bold tracking-tight"
+            >
+              <span className="w-1.5 h-1.5 bg-accent rounded-full"></span>
+              {chip}
+            </span>
+          ))}
+        </div>
+      </Reveal>
+
+      <Reveal delay={250}>
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between border-t border-gray-200 pt-8 mt-8 gap-6">
+          <p className="text-lg md:text-xl text-gray-600 max-w-xl font-medium leading-relaxed whitespace-pre-line">
             {t.hero.desc}
           </p>
-          <div className="mt-8 md:mt-0">
+          <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
+            <button
+              onClick={() => goTo('contact')}
+              className="group inline-flex items-center justify-center gap-3 px-6 py-4 bg-accent text-white rounded-full font-bold text-base tracking-tight hover:bg-offblack transition-all shadow-lg shadow-accent/20 whitespace-nowrap"
+            >
+              {t.hero.bookConsult}
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </button>
             <button
               onClick={() => goTo('works')}
-              className="group flex items-center gap-2 text-offblack font-bold text-lg tracking-tight border-b-2 border-offblack pb-1 hover:text-accent hover:border-accent transition-colors"
+              className="group inline-flex items-center justify-center gap-2 text-offblack font-bold text-sm tracking-tight border-b-2 border-offblack pb-1 hover:text-accent hover:border-accent transition-colors whitespace-nowrap"
             >
-              {t.hero.viewProjects} <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              {t.hero.viewProjects}
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
         </div>
@@ -174,6 +207,7 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
     </div>
   </section>
 
+  {/* === Service Index (under hero) === */}
   <div className="px-6 md:px-12 pb-24 max-w-screen-xl mx-auto w-full">
     <Reveal>
       <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-gray-200 border border-gray-200 rounded-[2rem] overflow-hidden">
@@ -183,7 +217,10 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
             onClick={() => goTo('works')}
             className="group bg-offwhite hover:bg-offblack transition-colors duration-500 p-10 text-left flex flex-col gap-4"
           >
-            <div className="text-accent">{s.icon}</div>
+            <div className="flex items-center justify-between">
+              <div className="text-accent">{s.icon}</div>
+              <span className="font-mono text-xs text-gray-300 group-hover:text-accent transition-colors">0{i + 1}</span>
+            </div>
             <h3 className="text-2xl font-bold tracking-tight text-offblack group-hover:text-white transition-colors duration-300">{s.title}</h3>
             <p className="text-sm text-gray-500 group-hover:text-gray-300 transition-colors duration-300 leading-relaxed flex-grow">{s.subtitle}</p>
             <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-400 group-hover:text-gray-200 transition-colors">
@@ -194,6 +231,103 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
       </div>
     </Reveal>
   </div>
+
+  {/* === Why MGC Section === */}
+  <section className="bg-offblack text-white py-24 md:py-32 px-6 md:px-12">
+    <div className="max-w-screen-xl mx-auto">
+      <Reveal>
+        <div className="flex items-center gap-3 mb-6">
+          <Sparkles className="w-4 h-4 text-accent" />
+          <span className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-accent">
+            {t.whyMgc.eyebrow}
+          </span>
+        </div>
+        <h2 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter mb-6 leading-[0.95]">
+          {t.whyMgc.title}
+        </h2>
+        <p className="text-xl md:text-2xl text-gray-300 max-w-3xl leading-relaxed mb-16 font-medium">
+          {t.whyMgc.lead}
+        </p>
+      </Reveal>
+
+      {/* 3 Reasons */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
+        {t.whyMgc.reasons.map((r, i) => (
+          <Reveal key={r.number} delay={i * 100} className="h-full">
+            <div className="group h-full bg-gray-900/60 rounded-2xl p-8 border border-gray-800 hover:border-accent transition-colors duration-500 flex flex-col">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="font-mono text-2xl font-bold text-accent">{r.number}</span>
+              </div>
+              <h3 className="text-2xl font-bold text-white mb-4 tracking-tight leading-snug">
+                {r.title}
+              </h3>
+              <p className="text-gray-400 text-base leading-relaxed">{r.desc}</p>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+
+      {/* Stats Strip */}
+      <Reveal>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-gray-800 border border-gray-800 rounded-2xl overflow-hidden">
+          {t.whyMgc.stats.map((s, i) => (
+            <div key={i} className="bg-offblack p-8 md:p-10 flex flex-col items-start">
+              <div className="flex items-baseline gap-2 mb-2">
+                <span className="text-5xl md:text-7xl font-bold tracking-tighter text-white leading-none">{s.value}</span>
+                <span className="text-xl md:text-2xl font-bold text-accent">{s.unit}</span>
+              </div>
+              <p className="text-sm md:text-base text-gray-400 leading-relaxed mt-3">{s.label}</p>
+            </div>
+          ))}
+        </div>
+      </Reveal>
+    </div>
+  </section>
+
+  {/* === Home CTA Section === */}
+  <section className="px-6 md:px-12 py-24 md:py-32">
+    <div className="max-w-screen-xl mx-auto">
+      <Reveal>
+        <div className="relative bg-gradient-to-br from-accent via-blue-600 to-blue-700 rounded-[2.5rem] p-12 md:p-20 overflow-hidden">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-black/10 rounded-full blur-3xl"></div>
+          <div className="relative z-10 max-w-4xl">
+            <div className="flex items-center gap-3 mb-6">
+              <Sparkles className="w-4 h-4 text-white" />
+              <span className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-white/80">
+                {t.homeCTA.eyebrow}
+              </span>
+            </div>
+            <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-white mb-6 leading-tight">
+              {t.homeCTA.title}
+            </h2>
+            <p className="text-lg md:text-xl text-white/90 leading-relaxed mb-10 whitespace-pre-line max-w-3xl">
+              {t.homeCTA.desc}
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center mb-6">
+              <button
+                onClick={() => goTo('contact')}
+                className="group inline-flex items-center gap-3 px-7 py-4 bg-white text-offblack rounded-full font-bold tracking-tight hover:bg-offwhite transition-colors whitespace-nowrap shadow-xl"
+              >
+                {t.homeCTA.primary}
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </button>
+              <button
+                onClick={() => goTo('works')}
+                className="group inline-flex items-center gap-2 text-white font-bold text-sm tracking-tight border-b-2 border-white/40 pb-1 hover:border-white transition-colors whitespace-nowrap"
+              >
+                {t.homeCTA.secondary}
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
+            </div>
+            <p className="text-xs md:text-sm text-white/70 leading-relaxed">
+              {t.homeCTA.foot}
+            </p>
+          </div>
+        </div>
+      </Reveal>
+    </div>
+  </section>
   </>
   );
 };
@@ -1016,9 +1150,10 @@ const BlogView: React.FC = () => {
 };
 
 const ContactView: React.FC = () => {
-  const [formState, setFormState] = useState({ name: '', email: '', message: '' });
+  const [formState, setFormState] = useState({ name: '', email: '', company: '', topic: '', message: '' });
   const { t } = useLanguage();
   const [emailError, setEmailError] = useState('');
+  const [isSending, setIsSending] = useState(false);
   const [isSent, setIsSent] = useState(false);
 
   const validateEmail = (email: string) => {
@@ -1031,32 +1166,30 @@ const ContactView: React.FC = () => {
       setEmailError('Please enter a valid email address.');
       return;
     }
-    // Updated to call real backend endpoint
+    setIsSending(true);
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formState),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formState.name,
+          email: formState.email,
+          message: `[Company] ${formState.company || '(unspecified)'}\n[Topic] ${formState.topic || '(unspecified)'}\n\n${formState.message}`,
+        }),
       });
-
-      if (!response.ok) {
-        throw new Error('Failed to send message');
-      }
-
+      if (!response.ok) throw new Error('Failed to send message');
       setIsSent(true);
-      setFormState({ name: '', email: '', message: '' });
-      
-      // Keep feedback visible for a few seconds
-      setTimeout(() => setIsSent(false), 5000);
+      setFormState({ name: '', email: '', company: '', topic: '', message: '' });
+      setTimeout(() => setIsSent(false), 8000);
     } catch (error) {
       console.error('Contact error:', error);
       alert('Sorry, there was an error sending your message. Please try again later.');
+    } finally {
+      setIsSending(false);
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { id, value } = e.target;
     setFormState(prev => ({ ...prev, [id]: value }));
     if (id === 'email') setEmailError('');
@@ -1065,62 +1198,138 @@ const ContactView: React.FC = () => {
   return (
     <PageTransition>
       <div className="px-6 md:px-12 max-w-screen-xl mx-auto">
-        <div className="flex flex-col md:flex-row gap-16">
-          <div className="md:w-1/2">
-            <SectionHeading title="Contact" subtitle="Let's Collaborate." />
-            <Reveal delay={200}>
-              <div className="mt-[-2rem]">
-                <p className="text-xl text-gray-500 mb-6">
-                  {t.contact.lead}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+          {/* Left: Lead + Bullets + Trust */}
+          <div className="lg:col-span-5">
+            <Reveal>
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-accent/10 border border-accent/30 rounded-full mb-6">
+                <span className="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
+                <span className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-accent">
+                  {t.contact.eyebrow}
+                </span>
+              </div>
+              <h1 className="text-5xl md:text-7xl font-bold tracking-tighter text-offblack mb-6 leading-[1.05]">
+                {t.contact.lead}
+              </h1>
+              <p className="text-lg md:text-xl text-gray-600 leading-relaxed mb-10 font-medium">
+                {t.contact.sub}
+              </p>
+              <div className="space-y-3 mb-10">
+                {t.contact.bullets.map((b, i) => (
+                  <div key={i} className="flex items-start gap-3 text-gray-700">
+                    <Check className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                    <span className="text-sm md:text-base font-medium">{b}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="pt-6 border-t border-gray-200">
+                <p className="text-xs text-gray-500 leading-relaxed">
+                  {t.contact.form.privacyNote}
                 </p>
               </div>
             </Reveal>
           </div>
-          <div className="md:w-1/2 pt-8 md:pt-32">
+
+          {/* Right: Form */}
+          <div className="lg:col-span-7">
             <Reveal delay={200}>
-              <form className="space-y-12" onSubmit={handleSubmit}>
-                <div className="group">
-                  <label htmlFor="name" className="block text-sm font-bold uppercase tracking-widest text-gray-400 mb-2 group-focus-within:text-accent transition-colors">Name</label>
-                  <input 
-                    type="text" 
-                    id="name" 
-                    value={formState.name}
-                    onChange={handleChange}
-                    className="w-full border-b-2 border-gray-200 py-4 text-2xl font-medium bg-transparent focus:outline-none focus:border-accent transition-colors placeholder-gray-200" 
-                    placeholder="Your Name" 
-                  />
+              <form onSubmit={handleSubmit} className="bg-white rounded-3xl border border-gray-200 p-8 md:p-12 shadow-sm">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                  <div className="group">
+                    <label htmlFor="name" className="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2 group-focus-within:text-accent transition-colors">
+                      {t.contact.form.name} <span className="text-accent">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      value={formState.name}
+                      onChange={handleChange}
+                      required
+                      className="w-full border-b border-gray-300 py-3 text-base font-medium bg-transparent focus:outline-none focus:border-accent transition-colors placeholder-gray-300"
+                      placeholder={t.contact.form.namePlaceholder}
+                    />
+                  </div>
+                  <div className="group">
+                    <label htmlFor="company" className="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2 group-focus-within:text-accent transition-colors">
+                      {t.contact.form.company}
+                    </label>
+                    <input
+                      type="text"
+                      id="company"
+                      value={formState.company}
+                      onChange={handleChange}
+                      className="w-full border-b border-gray-300 py-3 text-base font-medium bg-transparent focus:outline-none focus:border-accent transition-colors placeholder-gray-300"
+                      placeholder={t.contact.form.companyPlaceholder}
+                    />
+                  </div>
                 </div>
-                <div className="group">
-                  <label htmlFor="email" className={`block text-sm font-bold uppercase tracking-widest mb-2 transition-colors ${emailError ? 'text-red-500' : 'text-gray-400 group-focus-within:text-accent'}`}>Email</label>
-                  <input 
-                    type="email" 
-                    id="email" 
+
+                <div className="group mb-6">
+                  <label htmlFor="email" className={`block text-xs font-bold uppercase tracking-widest mb-2 transition-colors ${emailError ? 'text-red-500' : 'text-gray-500 group-focus-within:text-accent'}`}>
+                    {t.contact.form.email} <span className="text-accent">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
                     value={formState.email}
                     onChange={handleChange}
-                    className={`w-full border-b-2 py-4 text-2xl font-medium bg-transparent focus:outline-none transition-colors placeholder-gray-200 ${emailError ? 'border-red-500 focus:border-red-500' : 'border-gray-200 focus:border-accent'}`} 
-                    placeholder="your.email@example.com" 
+                    required
+                    className={`w-full border-b py-3 text-base font-medium bg-transparent focus:outline-none transition-colors placeholder-gray-300 ${emailError ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-accent'}`}
+                    placeholder={t.contact.form.emailPlaceholder}
                   />
-                  {emailError && <p className="text-red-500 text-sm mt-2 font-medium animate-[fadeIn_0.3s_ease-out]">{emailError}</p>}
+                  {emailError && <p className="text-red-500 text-xs mt-2 font-medium animate-[fadeIn_0.3s_ease-out]">{emailError}</p>}
                 </div>
-                <div className="group">
-                  <label htmlFor="message" className="block text-sm font-bold uppercase tracking-widest text-gray-400 mb-2 group-focus-within:text-accent transition-colors">Message</label>
-                  <textarea 
-                    id="message" 
-                    rows={3} 
+
+                <div className="group mb-6">
+                  <label htmlFor="topic" className="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2 group-focus-within:text-accent transition-colors">
+                    {t.contact.form.topic}
+                  </label>
+                  <select
+                    id="topic"
+                    value={formState.topic}
+                    onChange={handleChange}
+                    className="w-full border-b border-gray-300 py-3 text-base font-medium bg-transparent focus:outline-none focus:border-accent transition-colors text-offblack"
+                  >
+                    <option value="">— Select —</option>
+                    {t.contact.form.topicOptions.map((opt, i) => (
+                      <option key={i} value={opt}>{opt}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="group mb-8">
+                  <label htmlFor="message" className="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2 group-focus-within:text-accent transition-colors">
+                    {t.contact.form.message}
+                  </label>
+                  <textarea
+                    id="message"
+                    rows={4}
                     value={formState.message}
                     onChange={handleChange}
-                    className="w-full border-b-2 border-gray-200 py-4 text-2xl font-medium bg-transparent focus:outline-none focus:border-accent transition-colors placeholder-gray-200 resize-none" 
-                    placeholder="Tell us about your project"
+                    className="w-full border-b border-gray-300 py-3 text-base font-medium bg-transparent focus:outline-none focus:border-accent transition-colors placeholder-gray-300 resize-none"
+                    placeholder={t.contact.form.messagePlaceholder}
                   ></textarea>
                 </div>
-                <div className="pt-8">
-                  <button type="submit" className="group flex items-center gap-4 text-2xl font-bold tracking-tight hover:text-accent transition-colors" disabled={isSent}>
-                    {isSent ? 'Message Sent' : 'Send Message'}
-                    <span className={`rounded-full p-3 transition-colors duration-300 ${isSent ? 'bg-accent text-white' : 'bg-offblack text-white group-hover:bg-accent'}`}>
-                      {isSent ? <Check className="w-6 h-6" /> : <Send className="w-6 h-6" />}
-                    </span>
-                  </button>
-                </div>
+
+                <button
+                  type="submit"
+                  disabled={isSent || isSending}
+                  className="group w-full inline-flex items-center justify-center gap-3 px-6 py-4 bg-accent text-white rounded-full font-bold text-base tracking-tight hover:bg-offblack transition-all shadow-lg shadow-accent/20 disabled:opacity-70"
+                >
+                  {isSent ? (
+                    <>
+                      <Check className="w-5 h-5" />
+                      {t.contact.form.success}
+                    </>
+                  ) : isSending ? (
+                    <>{t.contact.form.sending}</>
+                  ) : (
+                    <>
+                      {t.contact.form.submit}
+                      <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    </>
+                  )}
+                </button>
               </form>
             </Reveal>
           </div>
@@ -1390,6 +1599,26 @@ const App: React.FC = () => {
         {view === 'career' && <CareerView />}
         {view === 'contact' && <ContactView />}
       </main>
+
+      {/* Floating CTA — visible on every page except contact itself */}
+      {view !== 'contact' && (
+        <button
+          onClick={() => navigate('contact')}
+          aria-label={t.floatingCta.label}
+          className="group fixed bottom-6 right-6 md:bottom-8 md:right-8 z-40 inline-flex items-center gap-3 px-5 py-3.5 md:px-6 md:py-4 bg-accent text-white rounded-full font-bold text-sm md:text-base tracking-tight shadow-2xl shadow-accent/30 hover:bg-offblack hover:shadow-offblack/40 transition-all duration-300"
+        >
+          <span className="relative flex items-center justify-center w-2.5 h-2.5">
+            <span className="absolute inset-0 bg-white/40 rounded-full animate-ping"></span>
+            <span className="relative w-2.5 h-2.5 bg-white rounded-full"></span>
+          </span>
+          <span className="hidden sm:flex flex-col items-start leading-tight">
+            <span>{t.floatingCta.label}</span>
+            <span className="text-[10px] font-mono opacity-80">{t.floatingCta.sub}</span>
+          </span>
+          <span className="sm:hidden">{t.floatingCta.label}</span>
+          <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+        </button>
+      )}
 
       <footer className={`px-6 md:px-12 py-8 text-center text-sm font-medium opacity-50 ${view === 'mission' || view === 'career' || view === 'works' ? 'text-gray-500' : 'text-gray-400'}`}>
         &copy; 2026 MGC inc. All Rights Reserved.

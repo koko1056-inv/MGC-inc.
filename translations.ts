@@ -15,8 +15,51 @@ export const translations = {
       title_2: 'AI Native',
       title_3: 'Society.',
       subtitle_en: 'Implementing the AI Native Society.',
-      desc: 'AIネイティブな社会を、日本から世界へ実装する。\n戦略・実装・越境までを繋ぎ、次世代の社会インフラを共に創ります。',
+      desc: 'AI受託開発・成果報酬型 営業AI・越境事業まで。\nAIネイティブな組織と市場を、日本から世界へ実装します。',
+      whatWeDo: '私たちがやっていること',
+      chips: ['AI受託開発・コンサル', '成果報酬型 営業AI', '海外進出AIパッケージ'],
       viewProjects: '事業内容を見る',
+      bookConsult: '30分の無料相談を予約',
+      bookConsultSub: 'まずはお気軽にご相談ください',
+    },
+    whyMgc: {
+      eyebrow: 'Why MGC',
+      title: 'なぜ MGC が選ばれるのか',
+      lead: '「作って終わり」のAI導入は、もうやめませんか。',
+      reasons: [
+        {
+          number: '01',
+          title: 'PoC で終わらせない、本番運用までの伴走',
+          desc: '戦略策定から実装、内製化研修までを一気通貫で提供。実際に現場で動き、KPIを押し上げるところまで責任を持ちます。',
+        },
+        {
+          number: '02',
+          title: '成果報酬型でリスクゼロから始められる',
+          desc: '営業AIは固定費ゼロ、アポ獲得分のみの成果報酬型。新規事業のPMF検証や、外注テレアポからの置き換えに最適です。',
+        },
+        {
+          number: '03',
+          title: '京都発、グローバル目線でのプロダクト設計',
+          desc: '日本の精神性とシリコンバレーのスピード感を融合。最初から世界市場（Day1 Global）を見据えたAI実装を行います。',
+        },
+      ],
+      stats: [
+        { value: '3', unit: '事業領域', label: 'AI受託 / 営業AI / 越境事業' },
+        { value: '24/7', unit: '稼働', label: 'AIDE エージェント常時運用' },
+        { value: '0', unit: '円', label: '営業AIは成果報酬型・固定費なし' },
+      ],
+    },
+    homeCTA: {
+      eyebrow: 'Get Started',
+      title: 'まずは、30分の無料相談から。',
+      desc: '事業課題を伺い、AIで解決できる打ち手を一緒に設計します。\n自社のどこから始めるか、最短ルートで答えを出します。',
+      primary: '無料相談を予約する',
+      secondary: '事業内容を見る',
+      foot: '※ 初回相談は完全無料です。提案書作成まで含めて無償でお見積もりいたします。',
+    },
+    floatingCta: {
+      label: '無料相談',
+      sub: '30分・無料',
     },
     headings: {
       works: { title: '事業内容', sub: 'Our Services' },
@@ -296,13 +339,36 @@ export const translations = {
       ]
     },
     contact: {
-      lead: "まずはあなたのビジョンをお聞かせください。",
+      eyebrow: "30分・無料",
+      lead: "まずは30分、お話しませんか。",
+      sub: "事業課題を伺い、AIで解決できる打ち手を一緒に設計します。初回相談・提案書作成まで無料です。",
+      bullets: [
+        "AI受託開発・コンサルのご相談",
+        "成果報酬型 営業AIの導入",
+        "海外進出AIパッケージ・越境事業",
+        "AIDE（AI秘書）のデモ・導入相談",
+      ],
       form: {
-        name: "Name",
-        email: "Email",
-        message: "Message",
-        submit: "Send Message",
-        success: "Thank you for reaching out."
+        name: "お名前",
+        namePlaceholder: "山田 太郎",
+        email: "メールアドレス",
+        emailPlaceholder: "your@example.com",
+        company: "会社名",
+        companyPlaceholder: "株式会社○○",
+        topic: "ご相談内容",
+        topicOptions: [
+          "AI受託開発・コンサル",
+          "成果報酬型 営業AI",
+          "海外進出AIパッケージ",
+          "AIDE（AI秘書）",
+          "その他・複合的なご相談",
+        ],
+        message: "詳細メッセージ（任意）",
+        messagePlaceholder: "現在の課題や、ご希望の進め方など、自由にお書きください。",
+        submit: "無料相談を申し込む",
+        sending: "送信中…",
+        success: "ありがとうございます。1営業日以内にご返信いたします。",
+        privacyNote: "送信いただいた情報は、ご相談対応の目的のみに使用します。",
       }
     }
   },
@@ -320,8 +386,51 @@ export const translations = {
       title_2: 'AI Native',
       title_3: 'Society.',
       subtitle_en: 'Implementing the AI Native Society.',
-      desc: 'Implementing the AI Native Society — from Japan to the world.\nFrom strategy and build-out to cross-border execution — co-building the next-gen social infrastructure.',
+      desc: 'AI build & consulting · performance-based sales AI · cross-border execution.\nImplementing AI-native organizations and markets — from Japan to the world.',
+      whatWeDo: 'What we do',
+      chips: ['AI Build & Consulting', 'Performance-Based Sales AI', 'Cross-Border AI Package'],
       viewProjects: 'View Services',
+      bookConsult: 'Book a 30-min Free Consultation',
+      bookConsultSub: 'Talk to us first',
+    },
+    whyMgc: {
+      eyebrow: 'Why MGC',
+      title: 'Why teams choose MGC',
+      lead: 'Tired of AI projects that end at "PoC"?',
+      reasons: [
+        {
+          number: '01',
+          title: 'We stay with you until it hits production',
+          desc: 'Strategy, build, training — end-to-end. We are accountable until the system actually runs in your operations and moves the KPI.',
+        },
+        {
+          number: '02',
+          title: 'Performance-based — start with zero fixed cost',
+          desc: 'Our Sales AI is pay-per-appointment, zero fixed cost. Ideal for validating PMF on new ventures or replacing outsourced tele-prospecting.',
+        },
+        {
+          number: '03',
+          title: 'From Kyoto, designed for global from day one',
+          desc: 'Japanese sensibility fused with Silicon Valley speed. We design AI implementations for the global market from day one.',
+        },
+      ],
+      stats: [
+        { value: '3', unit: 'Domains', label: 'Build / Sales AI / Cross-Border' },
+        { value: '24/7', unit: 'Uptime', label: 'AIDE agents always running' },
+        { value: '0', unit: 'JPY', label: 'Sales AI fixed cost — pay only for results' },
+      ],
+    },
+    homeCTA: {
+      eyebrow: 'Get Started',
+      title: 'Start with a 30-min free consultation.',
+      desc: "We listen to your business challenge and co-design where AI can help.\nWe'll show you the shortest path to results, together.",
+      primary: 'Book a Consultation',
+      secondary: 'View Services',
+      foot: 'First consultation is fully free — including a custom proposal at no charge.',
+    },
+    floatingCta: {
+      label: 'Free Consult',
+      sub: '30-min · free',
     },
     headings: {
       works: { title: 'Services', sub: 'What We Do' },
@@ -600,13 +709,36 @@ export const translations = {
       ]
     },
     contact: {
-      lead: "Tell us your vision.",
+      eyebrow: "30-min · Free",
+      lead: "Let's start with a 30-minute conversation.",
+      sub: "We listen to your business challenge and co-design where AI can help. First consultation and proposal are fully free.",
+      bullets: [
+        "AI build & consulting engagement",
+        "Performance-based Sales AI rollout",
+        "Cross-Border AI Package / overseas expansion",
+        "AIDE (AI secretary) demo & onboarding",
+      ],
       form: {
-        name: "Name",
+        name: "Your name",
+        namePlaceholder: "Taro Yamada",
         email: "Email",
-        message: "Message",
-        submit: "Send Message",
-        success: "Thank you for reaching out."
+        emailPlaceholder: "your@example.com",
+        company: "Company",
+        companyPlaceholder: "Acme Co., Ltd.",
+        topic: "Topic",
+        topicOptions: [
+          "AI Build & Consulting",
+          "Performance-Based Sales AI",
+          "Cross-Border AI Package",
+          "AIDE (AI Secretary)",
+          "Other / mixed topics",
+        ],
+        message: "Details (optional)",
+        messagePlaceholder: "Tell us about your current challenges or how you'd like to proceed.",
+        submit: "Request a Free Consultation",
+        sending: "Sending…",
+        success: "Thank you. We'll get back to you within one business day.",
+        privacyNote: "We use your information only for responding to your inquiry.",
       }
     }
   }
