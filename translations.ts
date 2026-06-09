@@ -28,6 +28,14 @@ export const translations = {
       blog: { title: 'ジャーナル', sub: 'Journal' },
       contact: { title: 'お問い合わせ', sub: 'Contact' },
     },
+    worksIntro: {
+      eyebrow: "Services",
+      lead: "MGCは、3つの事業領域とそれを支える旗艦プロダクト「AIDE」で、AIネイティブな社会の実装を支援します。",
+      indexLabel: "事業領域",
+      flagshipLabel: "旗艦プロダクト",
+      detailLink: "詳しく見る",
+      flagshipAnchor: "AIDEの詳細を見る",
+    },
     works: {
       service_ai: {
         title: "AI Native Operations",
@@ -324,6 +332,14 @@ export const translations = {
       career: { title: 'Careers', sub: 'Join the Collective.' },
       blog: { title: 'Journal', sub: 'Thoughts & Vision' },
       contact: { title: 'Contact', sub: 'Start the Conversation' },
+    },
+    worksIntro: {
+      eyebrow: "Services",
+      lead: "Three business domains and a signature product — AIDE — together implementing AI-native society.",
+      indexLabel: "Domains",
+      flagshipLabel: "Signature Product",
+      detailLink: "Learn more",
+      flagshipAnchor: "Explore AIDE",
     },
     works: {
       service_ai: {

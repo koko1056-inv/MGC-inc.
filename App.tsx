@@ -198,6 +198,104 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
   );
 };
 
+// --- Service Block (uniform structure for each service) ---
+const ServiceBlock: React.FC<{
+  index: '01' | '02' | '03';
+  serviceKey: 'service_ai' | 'service_lab' | 'service_trade';
+  icon: ReactNode;
+  hasFlagship?: boolean;
+  badge?: string;
+  onDetail: () => void;
+}> = ({ index, serviceKey, icon, hasFlagship, badge, onDetail }) => {
+  const { t } = useLanguage();
+  const data = t.works[serviceKey];
+  return (
+    <Reveal>
+      <section className="border-t border-gray-800 pt-16 md:pt-20 pb-4">
+        <div className="grid md:grid-cols-12 gap-8 md:gap-12">
+          {/* Left column: index + headline */}
+          <div className="md:col-span-5 lg:col-span-5">
+            <div className="flex items-center gap-3 mb-6">
+              <span className="font-mono text-[10px] font-bold uppercase tracking-[0.3em] text-accent">
+                SERVICE / {index}
+              </span>
+              {badge && (
+                <span className="px-2.5 py-1 bg-accent/10 border border-accent/30 rounded-full text-[10px] font-bold tracking-wider text-accent uppercase">
+                  {badge}
+                </span>
+              )}
+            </div>
+            <div className="text-[7rem] md:text-[9rem] font-bold text-gray-800/60 leading-[0.85] mb-8 select-none tracking-tighter">
+              {index}
+            </div>
+            <div className="flex items-center gap-4 mb-4">
+              <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center border border-accent/20">
+                {icon}
+              </div>
+            </div>
+            <h3 className="text-4xl md:text-5xl font-bold text-white tracking-tight mb-4 leading-[1.1]">
+              {data.title}
+            </h3>
+            <p className="text-lg md:text-xl text-accent font-bold leading-snug">
+              {data.subtitle}
+            </p>
+          </div>
+          {/* Right column: description + features */}
+          <div className="md:col-span-7 lg:col-span-7 md:pl-6 md:border-l md:border-gray-900">
+            <p className="text-gray-300 text-base md:text-lg leading-relaxed mb-10 font-normal">
+              {data.desc}
+            </p>
+            <div className="space-y-6 mb-8">
+              {data.items.map((item, i) => (
+                <div key={i} className="group flex gap-4 md:gap-6 pb-6 border-b border-gray-900 last:border-b-0">
+                  <div className="flex-shrink-0">
+                    <span className="font-mono text-xs font-bold text-accent">
+                      0{i + 1}
+                    </span>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h4 className="text-lg md:text-xl font-bold text-white mb-1 tracking-tight">
+                      {item.title}
+                    </h4>
+                    <p className="text-[11px] font-mono uppercase tracking-widest text-accent/80 mb-2">
+                      {item.sub}
+                    </p>
+                    <p className="text-gray-400 text-sm md:text-base leading-relaxed">
+                      {item.text}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="flex flex-wrap items-center gap-4 pt-2">
+              <button
+                onClick={onDetail}
+                className="group inline-flex items-center gap-3 text-white font-bold text-sm tracking-tight border-b-2 border-white/30 pb-1 hover:border-accent hover:text-accent transition-colors"
+              >
+                {t.worksIntro.detailLink}
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
+              {hasFlagship && (
+                <a
+                  href="#aide-section"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById('aide-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }}
+                  className="group inline-flex items-center gap-2 px-4 py-2 bg-accent/10 border border-accent/30 rounded-full text-accent text-xs font-bold tracking-tight hover:bg-accent hover:text-white transition-all"
+                >
+                  <Sparkles className="w-3.5 h-3.5" />
+                  {t.worksIntro.flagshipAnchor}
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+    </Reveal>
+  );
+};
+
 const WorksView: React.FC = () => {
   const [selectedId, setSelectedId] = useState<ContentKey | null>(null);
   const { t } = useLanguage();
@@ -206,103 +304,96 @@ const WorksView: React.FC = () => {
   return (
     <PageTransition>
       <div className="px-6 md:px-12 max-w-screen-xl mx-auto">
-        <SectionHeading 
-          title={t.headings.works.title}
-          subtitle={t.headings.works.sub}
-          dark 
-        />
-
-        <div className="group/grid grid grid-cols-1 md:grid-cols-3 gap-8 auto-rows-[420px] md:auto-rows-[520px]">
-          
-          <Reveal className="h-full">
-             <div 
-              onClick={() => setSelectedId('service_ai')}
-              className="relative h-full text-white rounded-[2rem] p-10 shadow-sm hover:shadow-2xl transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] flex flex-col justify-between overflow-hidden group/card cursor-pointer border border-transparent group-hover/grid:opacity-50 hover:!opacity-100 bg-offblack"
-            >
-              <div className="absolute inset-0 z-0">
-                <img src="/assets/service_ai.jpg" className="w-full h-full object-cover opacity-50 group-hover:scale-110 transition-transform duration-[2s] ease-out" alt="Global One AI" />
-                <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/40 to-transparent" />
-              </div>
-              <div className="absolute top-6 right-8 text-[8rem] font-bold text-white/5 opacity-0 group-hover/card:opacity-10 transition-all duration-700 select-none leading-none z-0">01</div>
-              <div className="pointer-events-none relative z-10 transition-transform duration-700 group-hover:translate-y-[-5px]">
-                <div className="w-14 h-14 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center mb-8 border border-white/20">
-                  <Globe className="w-6 h-6 text-white stroke-[1.5]" />
-                </div>
-                <h3 className="text-4xl font-bold tracking-tighter mb-4 whitespace-pre-line">{t.works.service_ai.title.replace(' ', '\n')}</h3>
-                <p className="text-gray-200 text-base leading-relaxed font-medium">
-                  {t.works.service_ai.subtitle}
-                </p>
-              </div>
-              <div className="flex justify-end mt-auto relative z-10">
-                <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover/card:bg-accent group-hover/card:border-accent transition-all duration-500 backdrop-blur-sm"><ArrowRight className="w-5 h-5 text-white" /></div>
-              </div>
+        {/* === Page Intro Hero === */}
+        <Reveal>
+          <div className="pb-12 md:pb-16">
+            <div className="flex items-center gap-3 mb-6">
+              <Sparkles className="w-4 h-4 text-accent" />
+              <span className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-accent">
+                {t.worksIntro.eyebrow}
+              </span>
             </div>
-          </Reveal>
+            <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-white leading-[0.9] mb-8">
+              {t.headings.works.title}
+              <span className="block text-accent">{t.headings.works.sub}</span>
+            </h1>
+            <p className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-3xl font-medium">
+              {t.worksIntro.lead}
+            </p>
+          </div>
+        </Reveal>
 
-          <Reveal delay={150} className="md:col-span-2 h-full">
-             <div 
-              onClick={() => setSelectedId('service_lab')}
-              className="relative h-full text-white rounded-[2rem] p-10 md:p-14 shadow-sm hover:shadow-2xl transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] flex flex-col justify-between overflow-hidden group/card cursor-pointer border border-transparent group-hover/grid:opacity-50 hover:!opacity-100 bg-offblack"
-            >
-              <div className="absolute inset-0 z-0">
-                <img src="/assets/service_lab.png" className="w-full h-full object-cover opacity-40 group-hover:scale-110 transition-transform duration-[2s] ease-out" alt="Global X Lab" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-              </div>
-              <div className="absolute top-6 right-10 text-[10rem] font-bold text-white/5 opacity-0 group-hover/card:opacity-10 transition-all duration-700 select-none leading-none z-0">02</div>
-              <div className="relative z-10 pointer-events-none">
-                <div className="w-14 h-14 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center mb-8 border border-white/20">
-                  <Zap className="w-6 h-6 text-white stroke-[1.5]" />
-                </div>
-                <h3 className="text-4xl md:text-5xl font-bold tracking-tighter mb-6 whitespace-pre-line">{t.works.service_lab.title.replace(' ', '\n')}</h3>
-                <p className="text-gray-200 text-lg font-medium leading-relaxed max-w-md">
-                   {t.works.service_lab.subtitle}<br/>
-                   {t.works.service_lab.desc}
-                </p>
-              </div>
-              <div className="flex items-center gap-3 text-white font-bold tracking-tight relative z-10 mt-auto">
-                <span className="group-hover/card:text-accent transition-colors duration-300">View Lab</span>
-                <div className="bg-white/10 backdrop-blur-md p-2 rounded-full group-hover/card:bg-accent group-hover/card:text-white transition-all duration-300">
-                  <ArrowUpRight className="w-5 h-5 group-hover/card:rotate-45 transition-transform duration-500" />
-                </div>
-              </div>
+        {/* === Index Strip === */}
+        <Reveal delay={150}>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-20 md:mb-32 pt-8 border-t border-gray-800">
+            <div className="md:col-span-1 col-span-2 flex items-center mb-2 md:mb-0">
+              <span className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-gray-500">
+                {t.worksIntro.indexLabel}
+              </span>
             </div>
-          </Reveal>
+            {(['service_ai', 'service_lab', 'service_trade'] as const).map((key, i) => (
+              <a
+                key={key}
+                href={`#service-0${i + 1}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById(`service-0${i + 1}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }}
+                className="group flex items-center gap-3 p-4 rounded-xl border border-gray-800 hover:border-accent transition-colors"
+              >
+                <span className="font-mono text-xs text-accent font-bold">
+                  0{i + 1}
+                </span>
+                <span className="text-sm font-bold text-white group-hover:text-accent transition-colors leading-snug">
+                  {t.works[key].title}
+                </span>
+              </a>
+            ))}
+          </div>
+        </Reveal>
 
-          <Reveal delay={300} className="md:col-span-3 h-[420px]">
-            <div 
-              onClick={() => setSelectedId('service_trade')}
-              className="relative h-full text-white rounded-[2rem] p-10 md:p-14 shadow-sm hover:shadow-2xl transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] flex flex-col md:flex-row items-center justify-between overflow-hidden group/card cursor-pointer border border-transparent group-hover/grid:opacity-50 hover:!opacity-100 bg-offblack"
-            >
-              <div className="absolute inset-0 z-0">
-                <img src="/assets/service_trade.png" className="w-full h-full object-cover opacity-40 group-hover:scale-110 transition-transform duration-[2s] ease-out" alt="Global Nexus Trade" />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/20 to-transparent" />
-              </div>
-              <div className="absolute top-6 right-10 text-[12rem] font-bold text-white/5 opacity-0 group-hover/card:opacity-10 transition-all duration-700 select-none leading-none z-0">03</div>
-              <div className="pointer-events-none relative z-10 w-full md:w-2/3">
-                <div className="w-14 h-14 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center mb-8 border border-white/20">
-                  <Layers className="w-6 h-6 text-white stroke-[1.5]" />
-                </div>
-                <h3 className="text-4xl md:text-5xl font-bold tracking-tighter mb-6 whitespace-pre-line">{t.works.service_trade.title.replace(' ', '\n')}</h3>
-                <p className="text-gray-200 text-lg font-medium leading-relaxed max-w-xl">
-                  {t.works.service_trade.subtitle}<br/>
-                  {t.works.service_trade.desc}
-                </p>
-              </div>
-              <div className="relative z-10 mt-8 md:mt-0">
-                 <div className="w-20 h-20 rounded-full border border-white/20 flex items-center justify-center group-hover/card:bg-accent group-hover/card:border-accent group-hover/card:text-white transition-all duration-500 backdrop-blur-sm"><ArrowRight className="w-8 h-8" /></div>
-              </div>
-            </div>
-          </Reveal>
+        {/* === Service Blocks (vertical, uniform) === */}
+        <div id="service-01" className="scroll-mt-24">
+          <ServiceBlock
+            index="01"
+            serviceKey="service_ai"
+            icon={<Globe className="w-5 h-5 text-accent stroke-[1.75]" />}
+            hasFlagship
+            badge="Flagship: AIDE"
+            onDetail={() => setSelectedId('service_ai')}
+          />
+        </div>
+
+        <div id="service-02" className="scroll-mt-24 mt-24 md:mt-32">
+          <ServiceBlock
+            index="02"
+            serviceKey="service_lab"
+            icon={<Zap className="w-5 h-5 text-accent stroke-[1.75]" />}
+            badge="Performance-Based"
+            onDetail={() => setSelectedId('service_lab')}
+          />
+        </div>
+
+        <div id="service-03" className="scroll-mt-24 mt-24 md:mt-32">
+          <ServiceBlock
+            index="03"
+            serviceKey="service_trade"
+            icon={<Layers className="w-5 h-5 text-accent stroke-[1.75]" />}
+            onDetail={() => setSelectedId('service_trade')}
+          />
         </div>
 
         {/* === Flagship Product: AIDE === */}
-        <div className="mt-32 md:mt-40">
+        <div id="aide-section" className="scroll-mt-24 mt-32 md:mt-40">
           <Reveal>
-            <div className="border-t border-gray-800 pt-16 mb-12">
-              <div className="flex items-center gap-3 mb-6">
+            <div className="border-t-2 border-accent pt-16 mb-12">
+              <div className="flex flex-wrap items-center gap-3 mb-6">
                 <Sparkles className="w-4 h-4 text-accent" />
                 <span className="text-xs font-bold uppercase tracking-widest text-accent">{t.aide.badge}</span>
                 <span className="font-mono text-xs text-gray-500">{t.aide.number}</span>
+                <span className="px-2 py-0.5 bg-accent/10 border border-accent/30 rounded-full text-[10px] font-mono font-bold tracking-wider text-accent">
+                  ← SERVICE 01
+                </span>
               </div>
               <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-8 mb-10">
                 <div>

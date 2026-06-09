@@ -54,12 +54,30 @@
         theme: {
           extend: {
             fontFamily: {
-              sans: ["Inter", "Helvetica Neue", "Arial", "sans-serif"],
+              sans: [
+                "Inter",
+                "Noto Sans JP",
+                "Hiragino Kaku Gothic ProN",
+                "Hiragino Sans",
+                "Yu Gothic",
+                "Helvetica Neue",
+                "Arial",
+                "sans-serif"
+              ],
+              jp: [
+                "Noto Sans JP",
+                "Hiragino Kaku Gothic ProN",
+                "Hiragino Sans",
+                "Yu Gothic",
+                "Inter",
+                "sans-serif"
+              ],
             },
             colors: {
               accent: "var(--color-accent)", // Dynamic Accent Color
               offwhite: "#FAFAFA",
-              offblack: "#050505",
+              offblack: "#0A0A0F", // Softer than pure black (per design-md-jp guidance)
+              ink: "#15151B",
             },
             spacing: {
               128: "32rem",
@@ -69,7 +87,8 @@
       };
     </script>
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap");
+      /* Inter for Latin glyphs, Noto Sans JP for CJK — Google Fonts subsets each per char-set */
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;600;700;800&display=swap");
       :root {
         --color-accent: #2563eb; /* Default Swiss Blue */
       }
@@ -77,10 +96,34 @@
         scroll-behavior: smooth;
       }
       body {
-        font-family: "Inter", sans-serif;
+        font-family: "Inter", "Noto Sans JP", "Hiragino Kaku Gothic ProN",
+          "Hiragino Sans", "Yu Gothic", "Helvetica Neue", Arial, sans-serif;
         background-color: #fafafa;
-        color: #050505;
+        color: #0A0A0F;
         -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        /* Japanese typography polish — per awesome-design-md-jp */
+        font-feature-settings: "palt" 1, "kern" 1;
+        line-height: 1.75;
+        letter-spacing: 0.02em;
+        text-rendering: optimizeLegibility;
+        word-break: normal;
+        overflow-wrap: break-word;
+        line-break: strict;
+      }
+      /* Headings: tighter spacing per design-md-jp guidance */
+      h1, h2, h3, h4 {
+        font-feature-settings: "palt" 1, "kern" 1;
+        line-height: 1.3;
+        letter-spacing: -0.01em;
+      }
+      /* Body text in JA pages — wider line-height for readability */
+      :lang(ja) p, :lang(ja) li {
+        line-height: 1.8;
+        letter-spacing: 0.03em;
+      }
+      :lang(en) p, :lang(en) li {
+        line-height: 1.65;
       }
       /* Hide scrollbar for cleaner look */
       ::-webkit-scrollbar {
