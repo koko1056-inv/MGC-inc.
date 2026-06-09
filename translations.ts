@@ -32,10 +32,10 @@ export const translations = {
       service_ai: {
         title: "AI Native Operations",
         subtitle: "AIネイティブな組織を、構想から実装、内製化までフルスタックで。",
-        desc: "「何をAI化すべきか」の戦略策定から、Voice AI・RAG・エージェントの実装、社員が自走できる内製化研修まで。組織全体を本当の意味でAIネイティブに変革する、伴走型パートナーです。",
+        desc: "「何をAI化すべきか」の戦略策定から、自社専用AIエージェント「AIDE」の実装、社員が自走できる内製化研修まで。組織全体を本当の意味でAIネイティブに変革する、伴走型パートナーです。",
         items: [
           { title: "Strategy & Consulting", sub: "戦略と優先順位の設計", text: "業務プロセスを棚卸しし、AI導入の優先順位とROI試算、現実的なロードマップを描きます。経営課題に直結する打ち手から着手します。" },
-          { title: "Build & Implementation", sub: "Voice AI・RAG・エージェント実装", text: "PoCで止まらない、本番運用まで耐える設計と実装。社内CRM・MA・基幹システムへの統合まで一気通貫で担います。" },
+          { title: "Build with AIDE", sub: "自社専用AIエージェント実装", text: "自社専用に育つAIエージェント「AIDE」を中核に、Voice AI・RAG・自動化を本番運用まで構築。CRM・MA・基幹システムへの統合まで一気通貫で担います。" },
           { title: "Training & Enablement", sub: "AI研修・内製化支援", text: "経営層・管理職・現場担当それぞれに最適化した研修プログラムで、AIを「同僚」として使いこなせる組織文化を社内に残します。" }
         ]
       },
@@ -52,12 +52,41 @@ export const translations = {
       service_trade: {
         title: "Cross-Border Trading",
         subtitle: "日本と世界の価値を、AIで繋ぐ越境事業。",
-        desc: "日本の優れた技術・プロダクトを世界へ、世界の革新を日本へ。AIによる市場分析と現地パートナー開拓で、越境取引のハードルをゼロにします。",
+        desc: "日本の優れた技術・プロダクトを世界へ、世界の革新を日本へ。海外進出AIパッケージ（営業AI・翻訳・海外マーケ）まで、越境取引のハードルをAIでゼロにします。",
         items: [
           { title: "Export: Japan → World", sub: "日本から世界へ", text: "日本の知財・素材・プロダクトを発掘し、その価値を最も評価する海外パートナーへとマッチング。アフリカ・欧州・東南アジアなど新興市場の開拓を支援します。" },
           { title: "Import: World → Japan", sub: "世界から日本へ", text: "海外の先端ソリューションを輸入し、日本企業のイノベーションを加速。総代理店として日本市場での販売・サポート・ローカライズまで担います。" },
+          { title: "Global Reach AI Package", sub: "海外進出AIパッケージ", text: "海外営業AI・多言語翻訳AI・現地マーケAIをワンセット提供。市場調査からアウトリーチ、現地販促までを伴走する海外進出オールインワン支援。" },
           { title: "AI-Powered Matching", sub: "AIによる最短ルート", text: "AIで市場需要を解析し、現地パートナーを自動スクリーニング。複雑な貿易実務をAIで効率化し、スピーディな取引を実現します。" }
         ]
+      }
+    },
+    aide: {
+      badge: "Signature Product",
+      number: "MGC.AIDE",
+      title: "AIDE",
+      tagline: "育てる、AI秘書。",
+      subtitle: "普段使うチャットから呼び出せる、自社専用に育つAIエージェント。",
+      lead: "ChatGPTのような汎用チャットは賢い。けれど自社の現場には「覚えない・繋がらない・続かない」という壁が残ります。AIDEは、その壁を超える、自社専用に育つAIエージェント・プラットフォームです。",
+      pillarsTitle: "4つの力で、ただのチャットボットを「働く秘書」に変えます。",
+      pillars: [
+        { id: "01", title: "覚える", sub: "Remember", desc: "業務ルール・専門用語・ナレッジを学習。マニュアル/FAQ/過去資料を読み込み即戦力化。使うほど賢く育ちます。" },
+        { id: "02", title: "繋ぐ", sub: "Connect", desc: "カレンダー・メール・CRM/SFA。自社ツールのAPIと双方向に連携し、実務にそのまま反映します。" },
+        { id: "03", title: "動く", sub: "Act", desc: "定期実行・先回り通知・ワークフロー自走。指示待ちではなく、決めた仕事を自律的に実行します。" },
+        { id: "04", title: "呼び出す", sub: "Invoke", desc: "LINE・社内チャット・音声から。新しいアプリも管理画面も不要。全員がすぐ使えます。" }
+      ],
+      flowTitle: "スモールスタートで、1業務から",
+      flowLead: "いきなり全社展開は不要。まず1つの業務で成果を出し、効果を確かめながら広げます。",
+      flow: [
+        { step: "01", title: "ヒアリング", desc: "課題と対象業務を1つ選定。現状フローを整理します。" },
+        { step: "02", title: "学習・連携設定", desc: "ナレッジ投入とツール連携。秘書を初期セットアップ。" },
+        { step: "03", title: "試験運用", desc: "現場で2〜4週間試用。会話で精度を磨き込みます。" },
+        { step: "04", title: "拡張・横展開", desc: "対象業務・部署・拠点へ。他テナントへも展開可能です。" }
+      ],
+      cta: {
+        title: "まずは1業務から、AI秘書を育てませんか。",
+        desc: "デモ・無料相談を承っています。自社のどの業務から始められるか、一緒に設計します。",
+        button: "AIDEの相談をする"
       }
     },
     // Detailed Modal Content (JSX Text Parts)
@@ -65,10 +94,10 @@ export const translations = {
       service_ai: {
         title: "AI Native Operations",
         subtitle: "AIネイティブな組織を、構想から実装、内製化までフルスタックで。",
-        p1: "「何をAI化すべきか」の戦略策定から、Voice AI・RAG・エージェントの実装、社員が自走できる内製化研修まで。\n組織全体を本当の意味でAIネイティブに変革する、伴走型パートナーです。",
+        p1: "「何をAI化すべきか」の戦略策定から、自社専用AIエージェント「AIDE」の実装、社員が自走できる内製化研修まで。\n組織全体を本当の意味でAIネイティブに変革する、伴走型パートナーです。",
         features: [
           { title: "Strategy & Consulting", sub: "戦略と優先順位の設計", text: "業務プロセスを棚卸しし、AI導入の優先順位とROI試算、現実的なロードマップを描きます。経営課題に直結する打ち手から着手し、PoC倒れを起こさない投資判断を支援します。" },
-          { title: "Build & Implementation", sub: "Voice AI・RAG・エージェント実装", text: "PoCで止まらない、本番運用まで耐える設計と実装。CRM・MA・基幹システムへの統合、社内ナレッジを学習させたRAG、現場の判断を自動化するエージェント——一気通貫で構築します。" },
+          { title: "Build with AIDE", sub: "自社専用AIエージェント実装", text: "自社専用に育つAIエージェント「AIDE」を中核に、本番運用まで耐える設計と実装。CRM・MA・基幹システムへの統合、社内ナレッジを学習させたRAG、現場判断を自動化するエージェント——一気通貫で構築します。" },
           { title: "Training & Enablement", sub: "AI研修・内製化支援", text: "経営層向けの戦略研修、管理職向けのオペレーション設計研修、現場担当者向けのプロンプト・ハンズオン研修。職種別に最適化されたプログラムで、AIを「同僚」として扱える組織文化を社内に残します。" }
         ]
       },
@@ -85,10 +114,11 @@ export const translations = {
       service_trade: {
         title: "Cross-Border Trading",
         subtitle: "日本と世界の価値を、AIで繋ぐ越境事業。",
-        p1: "日本の優れた技術・プロダクトを世界へ、世界の革新を日本へ。\nAIによる市場分析と現地パートナー開拓で、越境取引のハードルをゼロにします。",
+        p1: "日本の優れた技術・プロダクトを世界へ、世界の革新を日本へ。\nAIによる市場分析と現地パートナー開拓、海外進出AIパッケージまでをワンストップで。",
         features: [
           { title: "Export: Japan → World", sub: "日本から世界へ", p1: "日本の技術に、新たな市場を。", text: "国内では成熟してしまった技術も、海外には熱望する市場が存在します。日本の知財・素材・プロダクトを発掘し、その価値を最も評価する海外パートナーへマッチング。アフリカ・欧州・東南アジアなど新興市場開拓を伴走します。" },
           { title: "Import: World → Japan", sub: "世界から日本へ", p1: "海外の革新を、日本の現場へ。", text: "海外の先端ソリューションを輸入し、日本企業のイノベーションを加速。総代理店として日本市場での販売・カスタマーサポート・ローカライズ・規制対応まで一気通貫で担います。" },
+          { title: "Global Reach AI Package", sub: "海外進出AIパッケージ", p1: "海外進出を、AIでワンストップに。", text: "海外営業AI（多言語アウトリーチ）・翻訳AI（社内文書・商談・契約書）・現地マーケAI（広告・SNS・ローカル広報）をワンセットで提供。市場調査からアウトリーチ、現地販促、商談支援までを一気通貫で伴走します。" },
           { title: "AI-Powered Matching", sub: "AIによる最短ルート", p1: "AIで市場と現地を繋ぐ。", text: "AIで市場需要を解析し、現地パートナーを自動スクリーニング。複雑なライセンス契約・通関・物流調整もAIワークフローで効率化し、従来比1/10のスピードで越境取引を実現します。" }
         ]
       },
@@ -299,10 +329,10 @@ export const translations = {
       service_ai: {
         title: "AI Native Operations",
         subtitle: "Full-stack transformation — from strategy to implementation to in-house enablement.",
-        desc: "From AI strategy and roadmapping to Voice AI, RAG, and agent implementation, and training that gives your team autonomy. We become the partner that transforms your organization to truly AI-native, at every layer.",
+        desc: "From AI strategy and roadmapping to deploying AIDE — our company-specific AI agent platform — and training that gives your team autonomy. We become the partner that transforms your organization to truly AI-native, at every layer.",
         items: [
           { title: "Strategy & Consulting", sub: "Prioritization & roadmap design", text: "We audit your operations, prioritize AI use-cases by ROI, and build a realistic roadmap. We start with initiatives tied directly to business outcomes." },
-          { title: "Build & Implementation", sub: "Voice AI · RAG · Agent build-out", text: "No PoC-only delivery. We design and implement systems that survive production, with full integration into your CRM, MA, and core systems." },
+          { title: "Build with AIDE", sub: "Company-specific AI agent build-out", text: "Around AIDE — the AI agent platform built for your company — we design and implement production-grade Voice AI, RAG, and automation, with full integration into your CRM, MA, and core systems." },
           { title: "Training & Enablement", sub: "AI training & in-house enablement", text: "Tailored training programs for executives, managers, and individual contributors — building an organizational culture where AI is treated as a colleague." }
         ]
       },
@@ -319,22 +349,51 @@ export const translations = {
       service_trade: {
         title: "Cross-Border Trading",
         subtitle: "Connecting value between Japan and the world, powered by AI.",
-        desc: "Japan's tech and products to the world, the world's innovation to Japan. AI-driven market analysis and partner matching eliminate cross-border friction.",
+        desc: "Japan's tech and products to the world, the world's innovation to Japan. With our Global Reach AI Package — sales AI, translation, overseas marketing — we eliminate cross-border friction end-to-end.",
         items: [
           { title: "Export: Japan → World", sub: "From Japan to the world", text: "We surface Japanese IP, materials, and products, then match them with overseas partners who value them most — supporting expansion into Africa, Europe, and Southeast Asia." },
           { title: "Import: World → Japan", sub: "From the world to Japan", text: "We import leading overseas solutions to accelerate Japanese innovation, acting as exclusive Japan distributor — sales, support, localization, and regulatory work included." },
+          { title: "Global Reach AI Package", sub: "Overseas expansion, AI bundle", text: "Overseas sales AI (multilingual outreach), translation AI (docs, sales calls, contracts), and local marketing AI (ads, social, PR) bundled together. End-to-end accompaniment from market research to local promotion." },
           { title: "AI-Powered Matching", sub: "Shortest path, AI-driven", text: "AI analyzes market demand and auto-screens local partners. Licensing, customs, and logistics workflows are streamlined with AI — 10× faster than traditional trade." }
         ]
+      }
+    },
+    aide: {
+      badge: "Signature Product",
+      number: "MGC.AIDE",
+      title: "AIDE",
+      tagline: "The AI Secretary You Grow.",
+      subtitle: "An AI agent you invoke from the chat tools you already use — built to learn and grow inside your business.",
+      lead: "Generic chats like ChatGPT are smart. But three walls remain inside real operations — they don't remember, don't connect, and don't stick. AIDE is the AI agent platform built to break all three, grown specifically for your company.",
+      pillarsTitle: "Four capabilities that turn a chatbot into a working secretary.",
+      pillars: [
+        { id: "01", title: "Remember", sub: "覚える", desc: "Learns your business rules, terminology, and knowledge. Manuals, FAQs, and past documents become operational from day one — and it gets smarter with use." },
+        { id: "02", title: "Connect", sub: "繋ぐ", desc: "Calendar, email, CRM/SFA. Bidirectional integration with the tools you already use, so AI actions hit real operations." },
+        { id: "03", title: "Act", sub: "動く", desc: "Scheduled execution, proactive nudges, autonomous workflows. It doesn't wait for instructions — it runs the work you defined." },
+        { id: "04", title: "Invoke", sub: "呼び出す", desc: "From LINE, internal chat, or voice. No new app, no new login — everyone uses it instantly." }
+      ],
+      flowTitle: "Start small. One task at a time.",
+      flowLead: "No need for a full company rollout. Prove value on one operation first, then expand confidently.",
+      flow: [
+        { step: "01", title: "Discovery", desc: "Pick one business problem. Map the current flow together." },
+        { step: "02", title: "Setup", desc: "Inject knowledge, connect tools, configure the initial secretary." },
+        { step: "03", title: "Pilot", desc: "2-4 week trial in the field. Sharpen precision through conversation." },
+        { step: "04", title: "Scale", desc: "Expand to other operations, departments, locations — and other tenants." }
+      ],
+      cta: {
+        title: "Start with one task. Grow your AI secretary.",
+        desc: "Demos and free consultations available. Let's design where to start, together.",
+        button: "Talk to us about AIDE"
       }
     },
     details: {
       service_ai: {
         title: "AI Native Operations",
         subtitle: "Full-stack transformation — from strategy to implementation to in-house enablement.",
-        p1: "From AI strategy and roadmapping to Voice AI / RAG / agent implementation, and training that gives your team autonomy.\nWe become the partner that transforms your organization to truly AI-native, at every layer.",
+        p1: "From AI strategy and roadmapping to deploying AIDE — our company-specific AI agent platform — and training that gives your team autonomy.\nWe become the partner that transforms your organization to truly AI-native, at every layer.",
         features: [
           { title: "Strategy & Consulting", sub: "Prioritization & roadmap design", text: "We audit your operations, prioritize AI use-cases by ROI, and design a realistic roadmap. We start with initiatives tied directly to business outcomes — no PoC-graveyard projects." },
-          { title: "Build & Implementation", sub: "Voice AI · RAG · Agent build-out", text: "Production-grade design and implementation. Full integration into your CRM, MA, and core systems. Internal knowledge bases trained into RAG. Agents that take real operational decisions." },
+          { title: "Build with AIDE", sub: "Company-specific AI agent build-out", text: "Around AIDE — the AI agent platform built for your company — we deliver production-grade systems. Full integration into your CRM, MA, and core systems. Internal knowledge bases trained into RAG. Agents that take real operational decisions." },
           { title: "Training & Enablement", sub: "AI training & in-house enablement", text: "Strategic training for executives, operations-design training for managers, and prompt and hands-on training for individual contributors — building an organizational culture where AI is a colleague." }
         ]
       },
@@ -351,10 +410,11 @@ export const translations = {
       service_trade: {
         title: "Cross-Border Trading",
         subtitle: "Connecting value between Japan and the world, powered by AI.",
-        p1: "Japan's tech and products to the world, the world's innovation to Japan.\nAI-driven market analysis and partner matching eliminate cross-border friction.",
+        p1: "Japan's tech and products to the world, the world's innovation to Japan.\nFrom AI-driven market analysis and partner matching to the Global Reach AI Package — sales, translation, and overseas marketing in one bundle.",
         features: [
           { title: "Export: Japan → World", sub: "From Japan to the world", p1: "New markets for Japan's tech.", text: "Tech that is mature in Japan may be revolutionary elsewhere. We surface Japanese IP, materials, and products, and match them with overseas partners who value them most — supporting expansion into Africa, Europe, and Southeast Asia." },
           { title: "Import: World → Japan", sub: "From the world to Japan", p1: "Global innovation for the Japanese market.", text: "We import cutting-edge overseas solutions to accelerate Japanese innovation, acting as exclusive Japan distributor — sales, customer support, localization, and regulatory work end-to-end." },
+          { title: "Global Reach AI Package", sub: "Overseas expansion, AI bundle", p1: "Overseas expansion, fully AI-bundled.", text: "Overseas sales AI (multilingual outreach), translation AI (internal docs, sales calls, contracts), and local marketing AI (ads, social, PR) — bundled together. End-to-end accompaniment from market research to outreach, local promotion, and deal support." },
           { title: "AI-Powered Matching", sub: "Shortest path, AI-driven", p1: "AI bridging markets and partners.", text: "AI analyzes market demand and auto-screens local partners. Licensing, customs, and logistics workflows are streamlined with AI — 10× faster than traditional trade processes." }
         ]
       },

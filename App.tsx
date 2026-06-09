@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, ReactNode } from 'react';
-import { ArrowRight, Globe, Zap, Layers, ArrowUpRight, X, Send, Menu, Anchor, Check, Heart, MapPin, Calendar, User } from 'lucide-react';
+import { ArrowRight, Globe, Zap, Layers, ArrowUpRight, X, Send, Menu, Anchor, Check, Heart, MapPin, Calendar, User, Brain, Network, MessageCircle, Sparkles } from 'lucide-react';
 
 import { translations, Lang } from './translations';
 export const LanguageContext = React.createContext<{ lang: Lang; setLang: (l: Lang) => void; t: typeof translations['ja'] }>({
@@ -294,6 +294,109 @@ const WorksView: React.FC = () => {
             </div>
           </Reveal>
         </div>
+
+        {/* === Flagship Product: AIDE === */}
+        <div className="mt-32 md:mt-40">
+          <Reveal>
+            <div className="border-t border-gray-800 pt-16 mb-12">
+              <div className="flex items-center gap-3 mb-6">
+                <Sparkles className="w-4 h-4 text-accent" />
+                <span className="text-xs font-bold uppercase tracking-widest text-accent">{t.aide.badge}</span>
+                <span className="font-mono text-xs text-gray-500">{t.aide.number}</span>
+              </div>
+              <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-8 mb-10">
+                <div>
+                  <h2 className="text-7xl md:text-[9rem] font-bold tracking-tighter text-white mb-4 leading-none">
+                    {t.aide.title}
+                  </h2>
+                  <p className="text-2xl md:text-3xl font-bold text-accent tracking-tight">{t.aide.tagline}</p>
+                </div>
+                <p className="text-lg text-gray-300 leading-relaxed max-w-md font-medium">
+                  {t.aide.subtitle}
+                </p>
+              </div>
+              <p className="text-gray-400 max-w-3xl leading-relaxed mb-4 text-base">
+                {t.aide.lead}
+              </p>
+              <p className="text-sm text-gray-500 uppercase tracking-widest font-bold mb-8">
+                {t.aide.pillarsTitle}
+              </p>
+            </div>
+          </Reveal>
+
+          {/* 4 Pillars Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-20">
+            {t.aide.pillars.map((p, i) => {
+              const icons = [
+                <Brain className="w-6 h-6 text-accent stroke-[1.5]" />,
+                <Network className="w-6 h-6 text-accent stroke-[1.5]" />,
+                <Zap className="w-6 h-6 text-accent stroke-[1.5]" />,
+                <MessageCircle className="w-6 h-6 text-accent stroke-[1.5]" />
+              ];
+              return (
+                <Reveal key={p.id} delay={i * 100} className="h-full">
+                  <div className="group h-full bg-gray-900/70 rounded-2xl p-7 border border-gray-800 hover:border-accent hover:bg-gray-900 transition-all duration-500 flex flex-col">
+                    <div className="flex justify-between items-start mb-8">
+                      <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center border border-accent/20">
+                        {icons[i]}
+                      </div>
+                      <span className="text-accent font-mono text-sm font-bold">{p.id}</span>
+                    </div>
+                    <h3 className="text-2xl font-bold text-white mb-1 tracking-tight">{p.title}</h3>
+                    <p className="text-xs text-accent font-mono uppercase tracking-widest mb-5">{p.sub}</p>
+                    <p className="text-gray-400 text-sm leading-relaxed">{p.desc}</p>
+                  </div>
+                </Reveal>
+              );
+            })}
+          </div>
+
+          {/* 4-Step Flow */}
+          <Reveal>
+            <div className="border-t border-gray-800 pt-12 mb-12">
+              <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+                <h3 className="text-3xl md:text-4xl font-bold text-white tracking-tighter">{t.aide.flowTitle}</h3>
+                <p className="text-gray-400 leading-relaxed max-w-md font-medium">{t.aide.flowLead}</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {t.aide.flow.map((s, i) => (
+                  <div key={s.step} className="relative bg-gray-900/40 rounded-xl p-6 border border-gray-800 hover:border-gray-700 transition-colors">
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-accent">STEP {s.step}</span>
+                    <h4 className="text-xl font-bold text-white mt-3 mb-2 tracking-tight">{s.title}</h4>
+                    <p className="text-gray-400 text-sm leading-relaxed">{s.desc}</p>
+                    {i < t.aide.flow.length - 1 && (
+                      <ArrowRight className="hidden lg:block absolute top-1/2 -right-3 -translate-y-1/2 w-5 h-5 text-gray-700" />
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+
+          {/* AIDE CTA */}
+          <Reveal>
+            <div className="relative bg-gradient-to-br from-accent to-blue-600 rounded-[2.5rem] p-12 md:p-16 overflow-hidden mt-8">
+              <div className="absolute top-0 right-0 w-72 h-72 bg-white/5 rounded-full blur-3xl"></div>
+              <div className="absolute bottom-0 left-0 w-72 h-72 bg-black/10 rounded-full blur-3xl"></div>
+              <div className="relative z-10 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+                <div className="max-w-2xl">
+                  <h3 className="text-3xl md:text-5xl font-bold text-white tracking-tighter mb-4 leading-tight">
+                    {t.aide.cta.title}
+                  </h3>
+                  <p className="text-white/90 text-lg leading-relaxed">{t.aide.cta.desc}</p>
+                </div>
+                <a
+                  href="#contact"
+                  className="inline-flex items-center gap-3 px-7 py-4 bg-white text-offblack rounded-full font-bold tracking-tight hover:bg-offwhite transition-colors whitespace-nowrap shadow-lg"
+                >
+                  {t.aide.cta.button}
+                  <ArrowRight className="w-5 h-5" />
+                </a>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+
         <DetailModal id={selectedId} onClose={() => setSelectedId(null)} />
       </div>
     </PageTransition>
