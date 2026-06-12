@@ -11,42 +11,42 @@ export const translations = {
       contact: 'お問い合わせ',
     },
     hero: {
-      title_1: 'Implementing',
-      title_2: 'AI Native',
-      title_3: 'Society.',
-      subtitle_en: 'Implementing the AI Native Society.',
-      desc: 'AI受託開発・成果報酬型 営業AI・越境事業まで。\nAIネイティブな組織と市場を、日本から世界へ実装します。',
+      title_1: 'Connect',
+      title_2: 'Japan & The World',
+      title_3: 'through AI and Tech.',
+      subtitle_en: 'Connect Japan & The World through AI and Tech.',
+      desc: 'AIとテクノロジーで、日本と世界をつなぐ。\n私たちにとってAIは手段です。目的は、未来をより良くすること。独自の世界観と信念をもって技術を届け、人から人へ受け継がれていくものをつくります。',
       whatWeDo: '私たちがやっていること',
-      chips: ['AI受託開発・コンサル', '成果報酬型 営業AI', '海外進出AIパッケージ'],
+      chips: ['AIソリューション', '海外企業 日本総代理店', 'RKSYO（グッズAI生成）'],
       viewProjects: '事業内容を見る',
       bookConsult: '30分の無料相談を予約',
       bookConsultSub: 'まずはお気軽にご相談ください',
     },
     whyMgc: {
       eyebrow: 'Why MGC',
-      title: 'なぜ MGC が選ばれるのか',
-      lead: '「作って終わり」のAI導入は、もうやめませんか。',
+      title: 'MGCが届ける、3つの価値',
+      lead: 'AIはあくまで手段です。目的は、未来をより良くすること。私たちは独自の世界観と信念をもって、技術を世の中に届けます。',
       reasons: [
         {
           number: '01',
-          title: 'PoC で終わらせない、本番運用までの伴走',
-          desc: '戦略策定から実装、内製化研修までを一気通貫で提供。実際に現場で動き、KPIを押し上げるところまで責任を持ちます。',
+          title: 'スピード',
+          desc: 'AIネイティブな組織だからこそ出せる速さで、価値を届けます。目の前のお客様の課題に、最短ルートで応えます。',
         },
         {
           number: '02',
-          title: '成果報酬型でリスクゼロから始められる',
-          desc: '営業AIは固定費ゼロ、アポ獲得分のみの成果報酬型。新規事業のPMF検証や、外注テレアポからの置き換えに最適です。',
+          title: '世界中への展開',
+          desc: '日本にとどまらず、世界へ。「日本と世界をつなぐ」ことを前提に、すべての事業を設計しています。',
         },
         {
           number: '03',
-          title: '京都発、グローバル目線でのプロダクト設計',
-          desc: '日本の精神性とシリコンバレーのスピード感を融合。最初から世界市場（Day1 Global）を見据えたAI実装を行います。',
+          title: '新しい発想',
+          desc: '普通のやり方・既存の前提にとらわれず、独自の視点・世界観から生まれる、これまでにない発想を届けます。',
         },
       ],
       stats: [
-        { value: '3', unit: '事業領域', label: 'AI受託 / 営業AI / 越境事業' },
-        { value: '24/7', unit: '稼働', label: 'AIDE エージェント常時運用' },
-        { value: '0', unit: '円', label: '営業AIは成果報酬型・固定費なし' },
+        { value: '3', unit: '事業', label: 'AIソリューション / 海外企業 日本総代理店 / RKSYO' },
+        { value: '24/7', unit: '稼働', label: 'AIが電話・CRM・営業などの業務を代行' },
+        { value: '2025', unit: '年設立', label: '京都から、日本と世界をつなぐ' },
       ],
     },
     homeCTA: {
@@ -67,7 +67,7 @@ export const translations = {
       items: [
         {
           q: '料金体系を教えてください。',
-          a: 'AI受託開発・コンサルはプロジェクト単位のお見積もり、営業AIは固定費ゼロ・アポイント獲得分のみの成果報酬型、海外進出AIパッケージは月額制と成果報酬型を併設しています。初回相談で最適なプランをご提案します。',
+          a: 'AIソリューションはプロジェクト単位のお見積もりが中心です。ご相談内容（対象業務・規模・期間）に応じて最適なプランをご提案しますので、まずは初回相談（無料）でお聞かせください。',
         },
         {
           q: '小さな業務から試したいのですが、可能ですか？',
@@ -75,11 +75,11 @@ export const translations = {
         },
         {
           q: '導入までの期間はどれくらいですか？',
-          a: 'スコープによりますが、営業AIは最短2週間で稼働開始、AIDEのパイロットは2〜4週間、本番運用は1〜3ヶ月が目安です。スピード感を持って事業価値を生み出すことを最優先に設計します。',
+          a: 'スコープによりますが、AIDEのパイロットは2〜4週間、本番運用は1〜3ヶ月が目安です。AIネイティブだからこそ出せるスピードで、事業価値を生み出すことを最優先に設計します。',
         },
         {
-          q: '海外進出は未経験ですが対応できますか？',
-          a: '京都発で世界市場を見据えてきた実績があります。市場調査・現地パートナー開拓・多言語アウトリーチ・現地マーケまで「海外進出AIパッケージ」でワンストップ支援します。ゼロからの伴走で安心です。',
+          q: '海外のプロダクトについて相談できますか？',
+          a: 'はい。海外企業の日本総代理店として、海外の優れたプロダクトの日本市場での販売・サポートを行っています（ガジェット領域を中心に展開予定）。海外企業の日本参入のご相談もお受けします。',
         },
         {
           q: '機密情報の取り扱いは安全ですか？',
@@ -99,7 +99,7 @@ export const translations = {
     },
     worksIntro: {
       eyebrow: "Services",
-      lead: "MGCは、3つの事業領域とそれを支える旗艦プロダクト「AIDE」で、AIネイティブな社会の実装を支援します。",
+      lead: "MGCは、AIソリューション・海外企業 日本総代理店・RKSYOの3つの事業で、AIとテクノロジーによって日本と世界をつなぎます。",
       indexLabel: "事業領域",
       flagshipLabel: "旗艦プロダクト",
       detailLink: "詳しく見る",
@@ -107,34 +107,33 @@ export const translations = {
     },
     works: {
       service_ai: {
-        title: "AI Native Operations",
-        subtitle: "AIネイティブな組織を、構想から実装、内製化までフルスタックで。",
-        desc: "「何をAI化すべきか」の戦略策定から、自社専用AIエージェント「AIDE」の実装、社員が自走できる内製化研修まで。組織全体を本当の意味でAIネイティブに変革する、伴走型パートナーです。",
+        title: "AIソリューション",
+        subtitle: "業務を代行・自動化するAIを、開発から運用まで。",
+        desc: "電話対応・CRM入力・アポイント獲得といった、人手のかかる定型業務をAIで代行・自動化します。お客様の課題に合わせて開発から運用まで一気通貫で伴走する、MGCの主力事業です。",
         items: [
-          { title: "Strategy & Consulting", sub: "戦略と優先順位の設計", text: "業務プロセスを棚卸しし、AI導入の優先順位とROI試算、現実的なロードマップを描きます。経営課題に直結する打ち手から着手します。" },
-          { title: "Build with AIDE", sub: "自社専用AIエージェント実装", text: "自社専用に育つAIエージェント「AIDE」を中核に、Voice AI・RAG・自動化を本番運用まで構築。CRM・MA・基幹システムへの統合まで一気通貫で担います。" },
-          { title: "Training & Enablement", sub: "AI研修・内製化支援", text: "経営層・管理職・現場担当それぞれに最適化した研修プログラムで、AIを「同僚」として使いこなせる組織文化を社内に残します。" }
+          { title: "Voice AI", sub: "音声AI（電話業務の代行）", text: "コールセンターなどの電話対応をAIが代行。人手に頼っていた電話業務を自動化し、現場をコア業務に集中させます。" },
+          { title: "CRM Agent", sub: "CRM操作AI", text: "顧客企業のCRMを、適切なタイミングでAIが操作・更新。入力・更新の手作業から現場を解放します。" },
+          { title: "Sales AI", sub: "営業AI（アポイント獲得）", text: "AIが営業活動を行い、アポイントを獲得。営業チームは商談とクロージングに集中できます。" }
         ]
       },
       service_lab: {
-        title: "AI Sales Engine",
-        subtitle: "アポ獲得まで完全自動化。固定費ゼロ、成果報酬型の営業AI。",
-        desc: "AIメール自動配信、音声AI一次受付突破、ターゲットリスト自動生成。GTM領域の営業実行業務をAIで完全自動化します。導入は固定費ゼロ、アポ獲得分のみの成果報酬型です。",
+        title: "海外企業 日本総代理店",
+        subtitle: "海外の優れたプロダクトを、日本市場へ。",
+        desc: "海外企業から日本における販売権を得て、日本市場で販売する事業です。海外企業には日本参入の経路を、日本のお客様には世界の優れたプロダクトへのアクセスを提供します。ビジョン「日本と世界をつなぐ」を体現する事業のひとつです。",
         items: [
-          { title: "AI Email Outreach", sub: "メール完全自動配信", text: "ターゲット自動抽出 → パーソナライズ送信 → 反応に応じたフォローアップまで、人の手を介さず完結します。" },
-          { title: "Voice AI Receptionist", sub: "音声AIで一次受付突破", text: "音声AIがゲートキーパーを自然な会話で突破し、意思決定者まで繋ぎます。架電数の物理的制約を取り払います。" },
-          { title: "Performance-Based", sub: "成果報酬で導入できる", text: "アポ獲得数や商談数で課金。固定費ゼロ、低リスクで、本気の営業AI運用をスタートできます。" }
+          { title: "Market Entry", sub: "日本市場への参入経路", text: "海外企業の日本総代理店として、日本市場での販売からサポート、ローカライズまでを担います。" },
+          { title: "Curation", sub: "優れたプロダクトの目利き", text: "独自の視点で世界のプロダクトを発掘し、日本のお客様へ届けます。ガジェット領域を中心に展開予定です。" },
+          { title: "Bridge", sub: "日本と世界の橋渡し", text: "言語・商習慣・サポートのギャップをMGCが埋め、海外企業と日本のお客様の双方にとってスムーズな取引を実現します。" }
         ]
       },
       service_trade: {
-        title: "Cross-Border Trading",
-        subtitle: "日本と世界の価値を、AIで繋ぐ越境事業。",
-        desc: "日本の優れた技術・プロダクトを世界へ、世界の革新を日本へ。海外進出AIパッケージ（営業AI・翻訳・海外マーケ）まで、越境取引のハードルをAIでゼロにします。",
+        title: "RKSYO",
+        subtitle: "グッズのAI生成から製品化まで、一気通貫で。",
+        desc: "グッズのデザインをAIで生成し、実際の製品にするところまでを支援する事業です。パートナー企業と連携し、AI生成ならではのスピードと新しい発想、そして「実際にモノになる」ところまでをワンストップで提供します。",
         items: [
-          { title: "Export: Japan → World", sub: "日本から世界へ", text: "日本の知財・素材・プロダクトを発掘し、その価値を最も評価する海外パートナーへとマッチング。アフリカ・欧州・東南アジアなど新興市場の開拓を支援します。" },
-          { title: "Import: World → Japan", sub: "世界から日本へ", text: "海外の先端ソリューションを輸入し、日本企業のイノベーションを加速。総代理店として日本市場での販売・サポート・ローカライズまで担います。" },
-          { title: "Global Reach AI Package", sub: "海外進出AIパッケージ", text: "海外営業AI・多言語翻訳AI・現地マーケAIをワンセット提供。市場調査からアウトリーチ、現地販促までを伴走する海外進出オールインワン支援。" },
-          { title: "AI-Powered Matching", sub: "AIによる最短ルート", text: "AIで市場需要を解析し、現地パートナーを自動スクリーニング。複雑な貿易実務をAIで効率化し、スピーディな取引を実現します。" }
+          { title: "AI Design", sub: "AIによるデザイン生成", text: "AI生成ならではのスピードと新しい発想で、グッズのデザインを形にします。" },
+          { title: "Production", sub: "製品化までつなぐ", text: "デザインを生成して終わりではなく、パートナー企業と連携して実際の製品に仕上げます。" },
+          { title: "One-Stop", sub: "企画から製品まで一気通貫", text: "デザイン生成から製品化までをワンストップで支援。アイデアが「モノ」になるまで伴走します。" }
         ]
       }
     },
@@ -169,34 +168,33 @@ export const translations = {
     // Detailed Modal Content (JSX Text Parts)
     details: {
       service_ai: {
-        title: "AI Native Operations",
-        subtitle: "AIネイティブな組織を、構想から実装、内製化までフルスタックで。",
-        p1: "「何をAI化すべきか」の戦略策定から、自社専用AIエージェント「AIDE」の実装、社員が自走できる内製化研修まで。\n組織全体を本当の意味でAIネイティブに変革する、伴走型パートナーです。",
+        title: "AIソリューション",
+        subtitle: "業務を代行・自動化するAIを、開発から運用まで。",
+        p1: "電話対応・CRM入力・アポイント獲得といった、人手のかかる定型業務をAIで代行・自動化します。\nお客様の課題に合わせて開発から運用まで一気通貫で伴走する、MGCの主力事業です。",
         features: [
-          { title: "Strategy & Consulting", sub: "戦略と優先順位の設計", text: "業務プロセスを棚卸しし、AI導入の優先順位とROI試算、現実的なロードマップを描きます。経営課題に直結する打ち手から着手し、PoC倒れを起こさない投資判断を支援します。" },
-          { title: "Build with AIDE", sub: "自社専用AIエージェント実装", text: "自社専用に育つAIエージェント「AIDE」を中核に、本番運用まで耐える設計と実装。CRM・MA・基幹システムへの統合、社内ナレッジを学習させたRAG、現場判断を自動化するエージェント——一気通貫で構築します。" },
-          { title: "Training & Enablement", sub: "AI研修・内製化支援", text: "経営層向けの戦略研修、管理職向けのオペレーション設計研修、現場担当者向けのプロンプト・ハンズオン研修。職種別に最適化されたプログラムで、AIを「同僚」として扱える組織文化を社内に残します。" }
+          { title: "Voice AI", sub: "音声AI（電話業務の代行）", text: "コールセンターなどの電話対応をAIが代行。人手に頼っていた電話業務を自動化し、現場をコア業務に集中させます。" },
+          { title: "CRM Agent", sub: "CRM操作AI", text: "顧客企業のCRMを、適切なタイミングでAIが操作・更新。入力・更新の手作業から現場を解放し、データの鮮度と精度を保ちます。" },
+          { title: "Sales AI", sub: "営業AI（アポイント獲得）", text: "AIが営業活動を行い、アポイントを獲得します。営業チームは、人にしかできない商談とクロージングに集中できます。" }
         ]
       },
       service_lab: {
-        title: "AI Sales Engine",
-        subtitle: "アポ獲得まで完全自動化。固定費ゼロ、成果報酬型の営業AI。",
-        p1: "AIメール自動配信、音声AI一次受付突破、ターゲットリスト自動生成。\nGTM領域の営業実行業務をAIで完全自動化します。導入は固定費ゼロ、アポ獲得分のみの成果報酬型です。",
+        title: "海外企業 日本総代理店",
+        subtitle: "海外の優れたプロダクトを、日本市場へ。",
+        p1: "海外企業から日本における販売権を得て、日本市場で販売する事業です。\n海外企業には日本参入の経路を、日本のお客様には世界の優れたプロダクトへのアクセスを提供します。",
         features: [
-          { title: "AI Email Outreach", sub: "メール完全自動配信", text: "Web・企業データベース・SNSからAIがターゲット企業と担当者を自動抽出。各社の文脈に合わせたパーソナライズメールを自動送信し、反応・未開封に応じてフォローアップまで完結します。" },
-          { title: "Voice AI Receptionist", sub: "音声AIで一次受付突破", text: "音声AIエージェントがゲートキーパーを自然な会話で突破し、意思決定者まで繋ぎます。架電数の物理的制約を取り払い、テレアポの常識を書き換えます。" },
-          { title: "Performance-Based Pricing", sub: "成果報酬で導入できる", text: "アポ獲得数・商談数で課金する成果報酬型。固定費ゼロ、低リスクで導入できるので、新規事業のPMF検証や、外注テレアポからの置き換えに最適です。" }
+          { title: "Market Entry", sub: "日本市場への参入経路", text: "海外企業の日本総代理店として、日本市場での販売からカスタマーサポート、ローカライズまでを一気通貫で担います。" },
+          { title: "Curation", sub: "優れたプロダクトの目利き", text: "独自の視点・世界観で世界のプロダクトを発掘し、日本のお客様へ届けます。ガジェット領域を中心に展開予定です。" },
+          { title: "Bridge", sub: "日本と世界の橋渡し", text: "言語・商習慣・サポートのギャップをMGCが埋め、海外企業と日本のお客様の双方にとってスムーズな取引を実現します。" }
         ]
       },
       service_trade: {
-        title: "Cross-Border Trading",
-        subtitle: "日本と世界の価値を、AIで繋ぐ越境事業。",
-        p1: "日本の優れた技術・プロダクトを世界へ、世界の革新を日本へ。\nAIによる市場分析と現地パートナー開拓、海外進出AIパッケージまでをワンストップで。",
+        title: "RKSYO",
+        subtitle: "グッズのAI生成から製品化まで、一気通貫で。",
+        p1: "グッズのデザインをAIで生成し、実際の製品にするところまでを支援する事業です。\nパートナー企業と連携し、デザインのスピードと新しい発想、そして「実際にモノになる」ところまでをワンストップで提供します。",
         features: [
-          { title: "Export: Japan → World", sub: "日本から世界へ", p1: "日本の技術に、新たな市場を。", text: "国内では成熟してしまった技術も、海外には熱望する市場が存在します。日本の知財・素材・プロダクトを発掘し、その価値を最も評価する海外パートナーへマッチング。アフリカ・欧州・東南アジアなど新興市場開拓を伴走します。" },
-          { title: "Import: World → Japan", sub: "世界から日本へ", p1: "海外の革新を、日本の現場へ。", text: "海外の先端ソリューションを輸入し、日本企業のイノベーションを加速。総代理店として日本市場での販売・カスタマーサポート・ローカライズ・規制対応まで一気通貫で担います。" },
-          { title: "Global Reach AI Package", sub: "海外進出AIパッケージ", p1: "海外進出を、AIでワンストップに。", text: "海外営業AI（多言語アウトリーチ）・翻訳AI（社内文書・商談・契約書）・現地マーケAI（広告・SNS・ローカル広報）をワンセットで提供。市場調査からアウトリーチ、現地販促、商談支援までを一気通貫で伴走します。" },
-          { title: "AI-Powered Matching", sub: "AIによる最短ルート", p1: "AIで市場と現地を繋ぐ。", text: "AIで市場需要を解析し、現地パートナーを自動スクリーニング。複雑なライセンス契約・通関・物流調整もAIワークフローで効率化し、従来比1/10のスピードで越境取引を実現します。" }
+          { title: "AI Design", sub: "AIによるデザイン生成", p1: "デザインに、AIのスピードを。", text: "AI生成ならではのスピードと新しい発想で、グッズのデザインを形にします。従来の制作フローでは出てこなかったアイデアを、短時間で何案も生み出せます。" },
+          { title: "Production", sub: "製品化までつなぐ", p1: "生成で終わらせない。", text: "デザインを生成して終わりではなく、パートナー企業と連携して実際の製品に仕上げます。「モノになる」ところまでが私たちの仕事です。" },
+          { title: "One-Stop", sub: "企画から製品まで一気通貫", p1: "アイデアから、手元に届くまで。", text: "デザイン生成から製品化までをワンストップで支援。発注側は煩雑な調整から解放され、アイデアに集中できます。" }
         ]
       },
       product: {
@@ -221,37 +219,35 @@ export const translations = {
         title: "Minimal Organization.",
         subtitle: "Small Team, Giant Leaps.",
         p1: "Bloat is the enemy of speed.",
-        text: "巨大な組織図は必要ありません。必要なのは、自律的に動き、決定し、実行できるエリートたちの小さな集合体です。MGC inc.は組織の肥大化を拒み、個々の能力を最大化することで、世界規模の課題解決に挑みます。"
+        text: "巨大な組織図は必要ありません。必要なのは、自律的に動き、決定し、実行できるエリートたちの小さな集合体です。MGC Inc.は組織の肥大化を拒み、個々の能力を最大化することで、世界規模の課題解決に挑みます。"
       }
     },
     mission: {
       internal_os: {
-        lead: "MGC inc.を動かす3つの駆動エンジン。これらは単なる事業ドメインではなく、私たちが世界を認識し、ハックするための独自の思考OSである。",
+        lead: "MGC Inc.を動かす3つの駆動エンジン。これらは単なる事業ドメインではなく、私たちが世界を認識し、ハックするための独自の思考OSである。",
         os1: { title: "Manifest Creativity", desc: "脳内のビジョンを、直接ソフトウェアへ変換する。技術的な摩擦係数をゼロにする思考法。" },
         os2: { title: "Global Marketing", desc: "コンテキストをハックし、文化的な摩擦を「共感」に変える。ナラティブ設計のメソドロジー。" },
         os3: { title: "Curated Commerce", desc: "AIオペレーションで、物理と情報の距離を消し去る。見えない価値を届ける物流OS。" }
       },
       intro: {
-        title: "AI × Global Trading",
-        desc: "AIを「未来のインフラ」として捉え、1000年続く人類の豊かさを実装する。",
-        mission_title: "日本の精神で、未来のインフラを創る",
-        mission_desc: "技術は変えても、文化と精神性は変えない。AIという最新のテクノロジーを使いながらも、それによって人間が退化（絶滅）するのではなく、むしろ「人間らしさ」が極大化されるような新しい社会システム（インフラ）を創る。"
+        title: "AIとテクノロジーで、日本と世界をつなぐ。",
+        desc: "AIは新しい技術ですが、あくまで手段でしかありません。目的は、未来をより良くすること。独自の世界観と信念を持って技術を世の中に届け、自分たちが実現したことが人から人へ受け継がれ、ずっと続いていく未来をつくります。",
+        mission_title: "目の前の課題と、マクロな視点の両立",
+        mission_desc: "目の前のお客様の課題を解決しながら、マクロ（中長期・広い）視点で「どこに技術を活かせば世界を良くできるか」を考え、実行する。「世の中に求められていくこと」を広い視点で捉え、AIをはじめとする技術の活かしどころを見定めます。"
       },
       values: [
-        { title: "不易流行 (Fueki Ryuko)", sub: "技術を変え、文化を創る", desc: "技術は時代とともに変わるが、本質は変わらない。私たちはAIという最新の「流行」を追いながらも、その奥にある人々の幸せという「不易」を見失わない。目指すのは、単なる技術の実装ではない。10年、100年と続き、やがて人々の当たり前となる「文化」を創り出すことだ。" },
-        { title: "四方よし (Future)", sub: "歴史と社会への愛", desc: "「売り手よし、買い手よし、世間よし」。私たちはそこに「未来よし」を加える。自分と他者、そして社会への愛を持ち、歴史に恥じない商いを行う。1000年後の人類が振り返ったとき、「この技術があってよかった」と感謝される価値だけを世界に届ける。" },
-        { title: "志高実行 (Think Big)", sub: "問いと意志", desc: "すべての起点は「なぜ（Why）」という問いと、「なんとしてもやりたい（Will）」という志。評論家になるな。他者を評価する暇があるなら、己の手を動かせ。大きな夢を抱きながら、足元の一歩を積み重ねる者だけが、世界を変える。" },
-        { title: "柔軟自在 (Be Agile)", sub: "壁を楽しむ", desc: "世界は広く、変化は速い。内側に閉じこもらず、外に目を向けよ。立ちはだかる壁は、成長のための遊び場だ。日本的な「和」の精神と、グローバルな「個」の強さを融合させ、しなやかに壁を越えていけ。" },
-        { title: "一日一生 (Live for Today)", sub: "人生を主役に", desc: "仕事は、あなたの人生を豊かにするための「手段」である。会社のために己を殺すな。自分のために会社を生かせ。今日が最後の一日であるという覚悟（死生観）を持ち、悔いのない「今」を熱く生きろ。" },
+        { title: "楽観主義", sub: "Optimism", desc: "未来は技術でより良くできると信じ、前向きに挑む。楽しく働けている状態を大切にする。" },
+        { title: "誠実さ", sub: "Integrity", desc: "顧客にも仲間にも、ごまかさず真摯に向き合う。" },
+        { title: "思考の枠を超える", sub: "Think Beyond", desc: "普通のやり方・既存の前提にとらわれず、独自の視点と新しい発想で考える。" },
       ]
     },
     company: {
       items: [
-        { label: 'Company Name', value: 'MGC inc.' },
-        { label: 'CEO', value: 'KOKOMU MATSUO' },
-        { label: 'Headquarters', value: 'Kyoto, Japan' },
-        { label: 'Established', value: '2025' },
-        { label: 'Business Domains', value: 'AI Native Operations\nAI Sales Engine\nCross-Border Trading' },
+        { label: '商号', value: 'ＭＧＣ株式会社（MGC Inc.）' },
+        { label: '代表者', value: '代表取締役 松尾 心夢' },
+        { label: '所在地', value: '京都府京都市上京区西辰巳町111\nアビタシオンオンズアン106' },
+        { label: '設立', value: '2025年12月' },
+        { label: '事業内容', value: 'AIソリューション（音声AI・CRM操作AI・営業AI）\n海外企業 日本総代理店\nRKSYO（グッズのAI生成〜製品化支援）' },
       ]
     },
     career: {
@@ -288,7 +284,7 @@ export const translations = {
           category: "Claude Code",
           title: "AIに「チーム」を持たせる時代",
           excerpt: "Claude CodeのAgent Teams機能が、開発の概念を根本から変えようとしている。",
-          content: "「一人で全部やる」時代は、もう終わった。これからは「AIにチームを持たせる」時代だ。\n\nClaude CodeにAgent Teams機能が搭載された。複数のClaudeセッションが自律的に並列作業し、リーダーがタスクを分配、チームメイトが独立して実行し、結果を統合する。セキュリティレビュー、テスト実行、コードレビュー——それぞれに専門のサブエージェントを定義し、再利用可能な「役割」として組み込める。\n\nAppleはXcode 26.3にMCPネイティブ対応を追加し、OpenAIもChatGPTにMCPトンネルを実装した。MCPはLinux Foundation傘下のAgentic AI Foundationが管理する業界標準となり、AIエージェントの「共通言語」になった。\n\nMGC inc.では、この仕組みを実務に組み込んでいる。HP改修、記事生成、リサーチ、デプロイ——すべてがClaude Codeの中で完結する。Writeツールの大規模ファイル処理は60%高速化され、MCPツール結果は最大50万文字まで保持可能になった。\n\n2026年4月4日からは、サードパーティ連携でのサブスクリプション制限も撤廃された。もはやClaude Codeは「ツール」ではない。あなたの隣で働く、最強のAIチームそのものだ。"
+          content: "「一人で全部やる」時代は、もう終わった。これからは「AIにチームを持たせる」時代だ。\n\nClaude CodeにAgent Teams機能が搭載された。複数のClaudeセッションが自律的に並列作業し、リーダーがタスクを分配、チームメイトが独立して実行し、結果を統合する。セキュリティレビュー、テスト実行、コードレビュー——それぞれに専門のサブエージェントを定義し、再利用可能な「役割」として組み込める。\n\nAppleはXcode 26.3にMCPネイティブ対応を追加し、OpenAIもChatGPTにMCPトンネルを実装した。MCPはLinux Foundation傘下のAgentic AI Foundationが管理する業界標準となり、AIエージェントの「共通言語」になった。\n\nMGC Inc.では、この仕組みを実務に組み込んでいる。HP改修、記事生成、リサーチ、デプロイ——すべてがClaude Codeの中で完結する。Writeツールの大規模ファイル処理は60%高速化され、MCPツール結果は最大50万文字まで保持可能になった。\n\n2026年4月4日からは、サードパーティ連携でのサブスクリプション制限も撤廃された。もはやClaude Codeは「ツール」ではない。あなたの隣で働く、最強のAIチームそのものだ。"
         },
         {
           id: 10,
@@ -296,7 +292,7 @@ export const translations = {
           category: "AI Strategy",
           title: "日本の営業AIの未来",
           excerpt: "営業AIの先駆者は海外、日本はどう動く？",
-          content: "AIが営業の世界を席巻している中、SNSやニュースデータを駆使して広告ニーズをリアルタイムで探知するAIの事例が注目されています。しかし、日本の企業はまだ商談特化型AIの開発に至っていません。これは国際競争力を高めるための喫緊の課題と言えるでしょう。\n\nMGC inc.では、営業AIの開発に力を注いでおり、国内でのリーダーシップを確立するために、国産の商談特化型AIの開発を推進しています。ローカルLLMの失敗パターンを解析する技術やRAGの精度を高めるデバッグツールなど、最先端の技術を駆使して、日本が世界に誇れるAIソリューションを提供することを目指しています。\n\n今こそ、日本の企業がそのポテンシャルをフルに発揮し、AI戦略を再構築する時です。MGC inc.は、この新たな局面での先駆者として、未来を切り開く覚悟です。"
+          content: "AIが営業の世界を席巻している中、SNSやニュースデータを駆使して広告ニーズをリアルタイムで探知するAIの事例が注目されています。しかし、日本の企業はまだ商談特化型AIの開発に至っていません。これは国際競争力を高めるための喫緊の課題と言えるでしょう。\n\nMGC Inc.では、営業AIの開発に力を注いでおり、国内でのリーダーシップを確立するために、国産の商談特化型AIの開発を推進しています。ローカルLLMの失敗パターンを解析する技術やRAGの精度を高めるデバッグツールなど、最先端の技術を駆使して、日本が世界に誇れるAIソリューションを提供することを目指しています。\n\n今こそ、日本の企業がそのポテンシャルをフルに発揮し、AI戦略を再構築する時です。MGC Inc.は、この新たな局面での先駆者として、未来を切り開く覚悟です。"
         },
         {
           id: 9,
@@ -304,7 +300,7 @@ export const translations = {
           category: "AI Strategy",
           title: "AIを導入しない企業に未来はない",
           excerpt: "AIを活用しない企業は未来に取り残される。",
-          content: "AIを導入することなくして、企業は未来に生き残れるだろうか？この問いに対する答えは、否である。大手企業でさえも、AIを活用しなければ業務の効率化を果たせず、競争から取り残されるだろう。\n\nアインHDが約1300店舗に生成AIを搭載した薬歴入力システムを導入する計画は、AIの力を活用することで、業務時間を半減させる革新的な一例だ。このような動きは、業界全体に変革をもたらす布石となる。\n\nITエンジニアとしての未来を考えると、AIツールを活用することがキャリアの向上につながる。ChatGPTやClaude Codeなどのツールは、エンジニアとしての価値を高めるための鍵となる。\n\nMGC inc.は、AIを通じて業務の自動化を進め、より豊かな未来を築くビジョンを持っている。AIを活用しない選択肢はない！"
+          content: "AIを導入することなくして、企業は未来に生き残れるだろうか？この問いに対する答えは、否である。大手企業でさえも、AIを活用しなければ業務の効率化を果たせず、競争から取り残されるだろう。\n\nアインHDが約1300店舗に生成AIを搭載した薬歴入力システムを導入する計画は、AIの力を活用することで、業務時間を半減させる革新的な一例だ。このような動きは、業界全体に変革をもたらす布石となる。\n\nITエンジニアとしての未来を考えると、AIツールを活用することがキャリアの向上につながる。ChatGPTやClaude Codeなどのツールは、エンジニアとしての価値を高めるための鍵となる。\n\nMGC Inc.は、AIを通じて業務の自動化を進め、より豊かな未来を築くビジョンを持っている。AIを活用しない選択肢はない！"
         },
         {
           id: 0,
@@ -312,7 +308,7 @@ export const translations = {
           category: "Sales AI",
           title: "人間が電話しなくても売れる時代：AIで実現する、次世代営業の全自動化",
           excerpt: "リスト作成、メール送信、フォローアップ、CRM入力——これら全てをAIに任せたとき、営業担当者は何をすべきか。",
-          content: "「営業は足で稼ぐもの」——その信仰こそが、日本の営業組織を非効率の泥沼に引きずり込んできた。\n\nターゲットリストの作成、パーソナライズされたアプローチメールの送信、返信がなければ自動フォローアップ、商談後のCRM入力——これら全てはAIが代替できる「実行業務」だ。MGC inc.では、これらを完全に自動化したAI営業フローを構築している。アポイント獲得まで、人間の手を一切介さない。\n\n人間の営業担当者が集中すべきは「クロージング」と「信頼構築」だ。AIが選び抜いた有望リードに対し、人間が感情と論理で訴えかける。それだけに全力を注げる体制こそが、勝てる営業組織の姿だ。\n\nAIは競合に勝つためのツールではない。競合が存在する前提を壊すためのインフラだ。AIネイティブな営業設計に移行した企業が圧倒的な優位を取る——その分水嶺は、もう目の前に来ている。"
+          content: "「営業は足で稼ぐもの」——その信仰こそが、日本の営業組織を非効率の泥沼に引きずり込んできた。\n\nターゲットリストの作成、パーソナライズされたアプローチメールの送信、返信がなければ自動フォローアップ、商談後のCRM入力——これら全てはAIが代替できる「実行業務」だ。MGC Inc.では、これらを完全に自動化したAI営業フローを構築している。アポイント獲得まで、人間の手を一切介さない。\n\n人間の営業担当者が集中すべきは「クロージング」と「信頼構築」だ。AIが選び抜いた有望リードに対し、人間が感情と論理で訴えかける。それだけに全力を注げる体制こそが、勝てる営業組織の姿だ。\n\nAIは競合に勝つためのツールではない。競合が存在する前提を壊すためのインフラだ。AIネイティブな営業設計に移行した企業が圧倒的な優位を取る——その分水嶺は、もう目の前に来ている。"
         },
         {
           id: 1,
@@ -320,7 +316,7 @@ export const translations = {
           category: "AI Automation",
           title: "AIエージェントが「社員」になる日：OpenClawで実現する、眠らない組織の作り方",
           excerpt: "メールの確認、カレンダー管理、SNS投稿、データ分析——これらを一体のAIエージェントに任せたとき、組織は何倍速になるか。",
-          content: "「AI導入」と言えば、多くの企業がまず思い浮かべるのはチャットボットや一部業務の自動化だ。だが、それは氷山の一角に過ぎない。\n\nMGC inc.が実装しているのは、もっと根本的な変革だ。OpenClaw（AIエージェント基盤）を活用することで、メールの確認・返信、タスクの進捗管理、Slackへの自動通知、SNSのスケジュール投稿、週次レポートの自動生成——これら全てを、一人のAIエージェントが24時間365日、休まず実行する。\n\n人間が行うべき仕事とは何か。それは「判断」と「創造」だ。AIエージェントは、情報収集・整理・実行の部分を完全に引き受ける。人間は、その出力を見て、より高次元の意思決定に集中すればいい。\n\n「AIを使いこなす」から「AIに働かせる」へ。この発想の転換こそが、次世代のビジネスオペレーションの本質だ。眠らない社員、不満を言わない実行者、全ツールを横断するオペレーター——それがAIエージェントの正体である。"
+          content: "「AI導入」と言えば、多くの企業がまず思い浮かべるのはチャットボットや一部業務の自動化だ。だが、それは氷山の一角に過ぎない。\n\nMGC Inc.が実装しているのは、もっと根本的な変革だ。OpenClaw（AIエージェント基盤）を活用することで、メールの確認・返信、タスクの進捗管理、Slackへの自動通知、SNSのスケジュール投稿、週次レポートの自動生成——これら全てを、一人のAIエージェントが24時間365日、休まず実行する。\n\n人間が行うべき仕事とは何か。それは「判断」と「創造」だ。AIエージェントは、情報収集・整理・実行の部分を完全に引き受ける。人間は、その出力を見て、より高次元の意思決定に集中すればいい。\n\n「AIを使いこなす」から「AIに働かせる」へ。この発想の転換こそが、次世代のビジネスオペレーションの本質だ。眠らない社員、不満を言わない実行者、全ツールを横断するオペレーター——それがAIエージェントの正体である。"
         },
         {
           id: 2,
@@ -328,7 +324,7 @@ export const translations = {
           category: "Voice AI",
           title: "エンジニア不要の音声革命：ElevenLabs × Lovableが証明する「創造の民主化」",
           excerpt: "プロダクトを作るのに、もうエンジニアは要らない。AIツールの組み合わせで、ビジョンを持つ全員が音声アプリを世に問える時代が来た。",
-          content: "「良いアイデアはあるが、実装できる人間がいない」——この言い訳は、2025年に入って完全に消滅した。\n\nElevenLabs（世界最高峰の音声AI）とLovable(AIによるアプリ開発基盤）を組み合わせれば、コードを一行も書かずに、プロ品質の音声インタラクティブアプリを数時間で構築できる。コールセンター向けAI音声エージェント、音声でナビゲートするサービスアプリ、ユーザーの言葉に反応するコマーシャル——全てが、ノーコードで実装可能な現実だ。\n\nMGC inc.は、この組み合わせをクライアントの「最速プロトタイピング」に活用している。アイデアを出した翌日には、実動するプロダクトのデモを見せられる。投資家への説明も、ユーザーテストも、市場検証も——全てが圧倒的に早くなった。\n\n技術の民主化は、単なる便利の話ではない。「思想を持った人間」が「技術の壁」を超えて、直接世界に問いかけられる時代の到来だ。ツールは揃った。あとは、あなたのビジョンだけが問われる。"
+          content: "「良いアイデアはあるが、実装できる人間がいない」——この言い訳は、2025年に入って完全に消滅した。\n\nElevenLabs（世界最高峰の音声AI）とLovable(AIによるアプリ開発基盤）を組み合わせれば、コードを一行も書かずに、プロ品質の音声インタラクティブアプリを数時間で構築できる。コールセンター向けAI音声エージェント、音声でナビゲートするサービスアプリ、ユーザーの言葉に反応するコマーシャル——全てが、ノーコードで実装可能な現実だ。\n\nMGC Inc.は、この組み合わせをクライアントの「最速プロトタイピング」に活用している。アイデアを出した翌日には、実動するプロダクトのデモを見せられる。投資家への説明も、ユーザーテストも、市場検証も——全てが圧倒的に早くなった。\n\n技術の民主化は、単なる便利の話ではない。「思想を持った人間」が「技術の壁」を超えて、直接世界に問いかけられる時代の到来だ。ツールは揃った。あとは、あなたのビジョンだけが問われる。"
         },
         {
           id: 3,
@@ -336,7 +332,7 @@ export const translations = {
           category: "Vision",
           title: "「声」の再定義：電話業務という\"負の遺産\"を、AIはどう解放するか",
           excerpt: "人間が電話番をする時代の終わり。AIがコンシェルジュとなり、人間は創造的な対話のみに集中する未来。",
-          content: "「電話対応」は、企業の生産性を最も阻害する要因の一つです。理不尽なクレーム、繰り返される同じ質問、取次ぎのためだけの時間。MGC inc.は、この「負の遺産」をAIによって完全に解放します。\n\n最新のVoice AIは、感情を理解し、文脈を読み取り、人間以上のホスピタリティで顧客をもてなします。人間は、AIが解決できない高度な判断や、心を通わせる対話だけに集中する。\n\n私たちが提供するのは、単なる自動応答システムではありません。企業の「声」そのものをアップデートし、ビジネスのスピードを極限まで加速させる、AI時代の新しいコミュニケーション・インフラです。"
+          content: "「電話対応」は、企業の生産性を最も阻害する要因の一つです。理不尽なクレーム、繰り返される同じ質問、取次ぎのためだけの時間。MGC Inc.は、この「負の遺産」をAIによって完全に解放します。\n\n最新のVoice AIは、感情を理解し、文脈を読み取り、人間以上のホスピタリティで顧客をもてなします。人間は、AIが解決できない高度な判断や、心を通わせる対話だけに集中する。\n\n私たちが提供するのは、単なる自動応答システムではありません。企業の「声」そのものをアップデートし、ビジネスのスピードを極限まで加速させる、AI時代の新しいコミュニケーション・インフラです。"
         },
         {
           id: 4,
@@ -344,7 +340,7 @@ export const translations = {
           category: "Product",
           title: "Tech × Art × Soul：次世代プロダクト開発における「三位一体」の哲学",
           excerpt: "機能競争の終焉。技術に美意識と魂を宿らせ、マーケティング自体を不要にするほどの引力を持つ。",
-          content: "「機能」だけで差別化できる時代は終わりました。これからのプロダクトに必要なのは、Tech（技術）、Art（美意識）、そしてSoul（魂）の三位一体です。\n\n技術はあくまで表現の筆であり、そこにどんな絵を描くか（Art）、そしてなぜ描くのか（Soul）がなければ、人の心は動きません。スペックの高さではなく、手にした瞬間の「高揚感」をデザインする。\n\nMGC inc.は、多額の広告費で無理やり売るマーケティングを否定します。プロダクトそのものが発する圧倒的な美しさとストーリー（引力）で、世界中のユーザーを自然と惹きつける。それが私たちの流儀です。"
+          content: "「機能」だけで差別化できる時代は終わりました。これからのプロダクトに必要なのは、Tech（技術）、Art（美意識）、そしてSoul（魂）の三位一体です。\n\n技術はあくまで表現の筆であり、そこにどんな絵を描くか（Art）、そしてなぜ描くのか（Soul）がなければ、人の心は動きません。スペックの高さではなく、手にした瞬間の「高揚感」をデザインする。\n\nMGC Inc.は、多額の広告費で無理やり売るマーケティングを否定します。プロダクトそのものが発する圧倒的な美しさとストーリー（引力）で、世界中のユーザーを自然と惹きつける。それが私たちの流儀です。"
         },
         {
           id: 5,
@@ -352,7 +348,7 @@ export const translations = {
           category: "Global",
           title: "日本という枠を、最初から捨てる：Day1 Global戦略の必然性",
           excerpt: "「まずは国内」という思考停止が死を招く理由。MGCが京都にいながらシリコンバレーと同じ目線で世界を見る理由。",
-          content: "「まずは日本で成功してから海外へ」——その順序思考こそが、日本のスタートアップをガラパゴス化させてきました。インターネットに国境がない以上、最初から世界市場（Day1 Global）を狙わない手はありません。\n\n言語の壁はAIが溶かしました。物流の壁はDXが低くしました。今、京都にいながらにして、ロンドンやニューヨークの顧客と直接取引できない理由は何一つありません。\n\nMGC inc.は、日本の繊細な感性と精神性を最大の武器に、最初から世界80億人をターゲットにします。日本市場はその中の一部に過ぎません。ローカルに根を張り、グローバルに花を咲かせる。これが私たちの生存戦略であり、これからの日本企業があるべき姿です。"
+          content: "「まずは日本で成功してから海外へ」——その順序思考こそが、日本のスタートアップをガラパゴス化させてきました。インターネットに国境がない以上、最初から世界市場（Day1 Global）を狙わない手はありません。\n\n言語の壁はAIが溶かしました。物流の壁はDXが低くしました。今、京都にいながらにして、ロンドンやニューヨークの顧客と直接取引できない理由は何一つありません。\n\nMGC Inc.は、日本の繊細な感性と精神性を最大の武器に、最初から世界80億人をターゲットにします。日本市場はその中の一部に過ぎません。ローカルに根を張り、グローバルに花を咲かせる。これが私たちの生存戦略であり、これからの日本企業があるべき姿です。"
         },
         {
           id: 6,
@@ -360,7 +356,7 @@ export const translations = {
           category: "AI Trading",
           title: "眠れる巨人を、AIで叩き起こす：日本発グローバル展開の新解",
           excerpt: "日本の技術・資産を世界へ届けるために必要なのは、商社でもコンサルでもなく、「AIネイティブなオペレーション」への完全移行である。",
-          content: "日本には、世界を驚かせる技術や伝統資産が山のように眠っています。しかし「良いものはいつか売れる」という信仰は、グローバル競争の現実において通用しません。問題は「品質」ではなく、「届け方」にあるのです。\n\n従来の商社モデルは、情報の非対称性と人脈という「アナログな壁」の上に成立していました。しかしAIは、この壁を根本から溶かします。ターゲット市場の需要データを瞬時に解析し、最適なパートナーを自動でスクリーニングし、パーソナライズされたアプローチを多言語で自動送信する——これら全てが、AIネイティブなオペレーションで実現できます。\n\nMGC inc.が目指すのは、「日本の眠れる巨人」を世界市場で目覚めさせることです。匠の技術・独自素材・知的財産——国内では当たり前になってしまったそれらの価値が、海外では革命的なソリューションになり得ます。AIによる市場スキャン、言語の壁を越えたアウトリーチ、契約から物流までの一気通貫管理。これらを組み合わせることで、中小企業でさえ「グローバルプレイヤー」として戦える時代が来ています。\n\nこの「劇的によいもの」に生まれ変わったオペレーションこそが、日本の眠れる資産を世界へ届けるための最短ルートなのです。"
+          content: "日本には、世界を驚かせる技術や伝統資産が山のように眠っています。しかし「良いものはいつか売れる」という信仰は、グローバル競争の現実において通用しません。問題は「品質」ではなく、「届け方」にあるのです。\n\n従来の商社モデルは、情報の非対称性と人脈という「アナログな壁」の上に成立していました。しかしAIは、この壁を根本から溶かします。ターゲット市場の需要データを瞬時に解析し、最適なパートナーを自動でスクリーニングし、パーソナライズされたアプローチを多言語で自動送信する——これら全てが、AIネイティブなオペレーションで実現できます。\n\nMGC Inc.が目指すのは、「日本の眠れる巨人」を世界市場で目覚めさせることです。匠の技術・独自素材・知的財産——国内では当たり前になってしまったそれらの価値が、海外では革命的なソリューションになり得ます。AIによる市場スキャン、言語の壁を越えたアウトリーチ、契約から物流までの一気通貫管理。これらを組み合わせることで、中小企業でさえ「グローバルプレイヤー」として戦える時代が来ています。\n\nこの「劇的によいもの」に生まれ変わったオペレーションこそが、日本の眠れる資産を世界へ届けるための最短ルートなのです。"
         }
       ]
     },
@@ -369,9 +365,9 @@ export const translations = {
       lead: "まずは30分、お話しませんか。",
       sub: "事業課題を伺い、AIで解決できる打ち手を一緒に設計します。初回相談・提案書作成まで無料です。",
       bullets: [
-        "AI受託開発・コンサルのご相談",
-        "成果報酬型 営業AIの導入",
-        "海外進出AIパッケージ・越境事業",
+        "AIソリューション（音声AI・CRM操作AI・営業AI）のご相談",
+        "海外プロダクトの導入・日本市場参入のご相談",
+        "RKSYO（グッズのAI生成〜製品化）のご相談",
         "AIDE（AI秘書）のデモ・導入相談",
       ],
       form: {
@@ -383,9 +379,9 @@ export const translations = {
         companyPlaceholder: "株式会社○○",
         topic: "ご相談内容",
         topicOptions: [
-          "AI受託開発・コンサル",
-          "成果報酬型 営業AI",
-          "海外進出AIパッケージ",
+          "AIソリューション（音声AI・CRM操作AI・営業AI）",
+          "海外企業 日本総代理店",
+          "RKSYO（グッズのAI生成〜製品化）",
           "AIDE（AI秘書）",
           "その他・複合的なご相談",
         ],
@@ -408,42 +404,42 @@ export const translations = {
       contact: 'Contact',
     },
     hero: {
-      title_1: 'Implementing',
-      title_2: 'AI Native',
-      title_3: 'Society.',
-      subtitle_en: 'Implementing the AI Native Society.',
-      desc: 'AI build & consulting · performance-based sales AI · cross-border execution.\nImplementing AI-native organizations and markets — from Japan to the world.',
+      title_1: 'Connect',
+      title_2: 'Japan & The World',
+      title_3: 'through AI and Tech.',
+      subtitle_en: 'Connect Japan & The World through AI and Tech.',
+      desc: 'For us, AI is a means — the goal is to make the future better.\nWe deliver technology with our own worldview and conviction, building things that are passed on from person to person and last.',
       whatWeDo: 'What we do',
-      chips: ['AI Build & Consulting', 'Performance-Based Sales AI', 'Cross-Border AI Package'],
+      chips: ['AI Solutions', 'Japan Distributor for Global Products', 'RKSYO (AI-Generated Goods)'],
       viewProjects: 'View Services',
       bookConsult: 'Book a 30-min Free Consultation',
       bookConsultSub: 'Talk to us first',
     },
     whyMgc: {
       eyebrow: 'Why MGC',
-      title: 'Why teams choose MGC',
-      lead: 'Tired of AI projects that end at "PoC"?',
+      title: 'Three values we deliver',
+      lead: 'AI is only a means. The goal is to make the future better — and we deliver technology with our own worldview and conviction.',
       reasons: [
         {
           number: '01',
-          title: 'We stay with you until it hits production',
-          desc: 'Strategy, build, training — end-to-end. We are accountable until the system actually runs in your operations and moves the KPI.',
+          title: 'Speed',
+          desc: 'We deliver value at the pace only an AI-native organization can — answering the challenges in front of our customers by the shortest path.',
         },
         {
           number: '02',
-          title: 'Performance-based — start with zero fixed cost',
-          desc: 'Our Sales AI is pay-per-appointment, zero fixed cost. Ideal for validating PMF on new ventures or replacing outsourced tele-prospecting.',
+          title: 'Global Reach',
+          desc: 'Not just Japan — the world. Every business we run is designed around connecting Japan and the world.',
         },
         {
           number: '03',
-          title: 'From Kyoto, designed for global from day one',
-          desc: 'Japanese sensibility fused with Silicon Valley speed. We design AI implementations for the global market from day one.',
+          title: 'Fresh Thinking',
+          desc: 'Unbound by conventional methods and existing assumptions, we deliver ideas born from our own perspective and worldview.',
         },
       ],
       stats: [
-        { value: '3', unit: 'Domains', label: 'Build / Sales AI / Cross-Border' },
-        { value: '24/7', unit: 'Uptime', label: 'AIDE agents always running' },
-        { value: '0', unit: 'JPY', label: 'Sales AI fixed cost — pay only for results' },
+        { value: '3', unit: 'Businesses', label: 'AI Solutions / Japan Distributorship / RKSYO' },
+        { value: '24/7', unit: 'Uptime', label: 'AI handling phone, CRM, and sales operations' },
+        { value: '2025', unit: 'Founded', label: 'From Kyoto, connecting Japan and the world' },
       ],
     },
     homeCTA: {
@@ -464,7 +460,7 @@ export const translations = {
       items: [
         {
           q: 'How is pricing structured?',
-          a: 'AI build & consulting is quoted per project. Sales AI is zero-fixed-cost, pay-per-appointment-booked (performance-based). Cross-Border AI Package supports both monthly and performance-based pricing. We propose the best plan during the first consultation.',
+          a: 'AI Solutions engagements are quoted per project. We propose the best plan based on your scope, scale, and timeline — start with a free first consultation.',
         },
         {
           q: 'Can we start small with one task?',
@@ -472,11 +468,11 @@ export const translations = {
         },
         {
           q: 'How long does deployment take?',
-          a: 'Depending on scope: Sales AI can be live in as little as 2 weeks; AIDE pilot runs 2–4 weeks; production rollouts 1–3 months. We prioritize speed-to-value above all.',
+          a: 'Depending on scope: an AIDE pilot runs 2–4 weeks, and production rollouts take 1–3 months. We design for speed-to-value above all — the pace only an AI-native team can deliver.',
         },
         {
-          q: "We're new to overseas expansion — can you help?",
-          a: 'Yes. From Kyoto, we have built for the global market from day one. The Cross-Border AI Package supports the full journey: market research, local partner discovery, multilingual outreach, and local marketing. Zero-experience teams welcome.',
+          q: 'Can we talk to you about overseas products?',
+          a: 'Yes. As the exclusive Japan distributor for overseas companies, we sell and support outstanding global products in the Japanese market (starting with gadgets). We also welcome inquiries from overseas companies looking to enter Japan.',
         },
         {
           q: 'Is our confidential data safe?',
@@ -496,7 +492,7 @@ export const translations = {
     },
     worksIntro: {
       eyebrow: "Services",
-      lead: "Three business domains and a signature product — AIDE — together implementing AI-native society.",
+      lead: "Three businesses — AI Solutions, Japan distributorship for global products, and RKSYO — connecting Japan and the world through AI and tech.",
       indexLabel: "Domains",
       flagshipLabel: "Signature Product",
       detailLink: "Learn more",
@@ -504,34 +500,33 @@ export const translations = {
     },
     works: {
       service_ai: {
-        title: "AI Native Operations",
-        subtitle: "Full-stack transformation — from strategy to implementation to in-house enablement.",
-        desc: "From AI strategy and roadmapping to deploying AIDE — our company-specific AI agent platform — and training that gives your team autonomy. We become the partner that transforms your organization to truly AI-native, at every layer.",
+        title: "AI Solutions",
+        subtitle: "AI that takes over and automates real operations — from build to run.",
+        desc: "We build AI that takes over labor-intensive routine work — phone support, CRM entry, appointment setting. From development to operations, we stay with you end-to-end. This is MGC's core business.",
         items: [
-          { title: "Strategy & Consulting", sub: "Prioritization & roadmap design", text: "We audit your operations, prioritize AI use-cases by ROI, and build a realistic roadmap. We start with initiatives tied directly to business outcomes." },
-          { title: "Build with AIDE", sub: "Company-specific AI agent build-out", text: "Around AIDE — the AI agent platform built for your company — we design and implement production-grade Voice AI, RAG, and automation, with full integration into your CRM, MA, and core systems." },
-          { title: "Training & Enablement", sub: "AI training & in-house enablement", text: "Tailored training programs for executives, managers, and individual contributors — building an organizational culture where AI is treated as a colleague." }
+          { title: "Voice AI", sub: "AI that handles phone operations", text: "AI takes over phone support such as call-center work, automating operations that used to depend on people and freeing your team for core work." },
+          { title: "CRM Agent", sub: "AI that operates your CRM", text: "AI operates and updates your CRM at the right moments — freeing your team from manual entry while keeping data fresh and accurate." },
+          { title: "Sales AI", sub: "AI that books appointments", text: "AI runs outbound sales activity and books appointments, so your sales team can focus on meetings and closing." }
         ]
       },
       service_lab: {
-        title: "AI Sales Engine",
-        subtitle: "Fully automated to appointment-booked. Zero fixed cost, performance-based.",
-        desc: "AI email outreach, voice AI gatekeeper bypass, automated list generation. We fully automate GTM execution — pay nothing up front, only for booked appointments.",
+        title: "Japan Distributorship",
+        subtitle: "Bringing outstanding global products to the Japanese market.",
+        desc: "We acquire exclusive Japan sales rights from overseas companies and sell their products in the Japanese market — giving overseas companies a route into Japan, and Japanese customers access to the world's best products. One of the businesses that embodies our vision of connecting Japan and the world.",
         items: [
-          { title: "AI Email Outreach", sub: "Fully automated email sequencing", text: "AI extracts targets, sends personalized messages tailored to each company's context, and follows up based on engagement — completely hands-off." },
-          { title: "Voice AI Receptionist", sub: "AI voice bypasses gatekeepers", text: "Voice AI agents handle natural conversations with receptionists and route calls to decision-makers — removing the physical limit on outbound calling." },
-          { title: "Performance-Based Pricing", sub: "Pay only for results", text: "Pay per appointment or qualified meeting. Zero fixed cost makes this ideal for validating PMF or replacing outsourced tele-prospecting." }
+          { title: "Market Entry", sub: "A route into the Japanese market", text: "As the exclusive Japan distributor, we handle sales, customer support, and localization in the Japanese market." },
+          { title: "Curation", sub: "An eye for outstanding products", text: "We discover global products through our own perspective and bring them to Japanese customers — starting with the gadget category." },
+          { title: "Bridge", sub: "Bridging Japan and the world", text: "MGC closes the gaps in language, business practice, and support — making transactions smooth for overseas companies and Japanese customers alike." }
         ]
       },
       service_trade: {
-        title: "Cross-Border Trading",
-        subtitle: "Connecting value between Japan and the world, powered by AI.",
-        desc: "Japan's tech and products to the world, the world's innovation to Japan. With our Global Reach AI Package — sales AI, translation, overseas marketing — we eliminate cross-border friction end-to-end.",
+        title: "RKSYO",
+        subtitle: "From AI-generated goods design to finished products, end-to-end.",
+        desc: "We generate goods designs with AI and support them all the way to becoming real products, working with partner companies. The speed and fresh ideas of AI generation, plus the follow-through to make things real — delivered as one service.",
         items: [
-          { title: "Export: Japan → World", sub: "From Japan to the world", text: "We surface Japanese IP, materials, and products, then match them with overseas partners who value them most — supporting expansion into Africa, Europe, and Southeast Asia." },
-          { title: "Import: World → Japan", sub: "From the world to Japan", text: "We import leading overseas solutions to accelerate Japanese innovation, acting as exclusive Japan distributor — sales, support, localization, and regulatory work included." },
-          { title: "Global Reach AI Package", sub: "Overseas expansion, AI bundle", text: "Overseas sales AI (multilingual outreach), translation AI (docs, sales calls, contracts), and local marketing AI (ads, social, PR) bundled together. End-to-end accompaniment from market research to local promotion." },
-          { title: "AI-Powered Matching", sub: "Shortest path, AI-driven", text: "AI analyzes market demand and auto-screens local partners. Licensing, customs, and logistics workflows are streamlined with AI — 10× faster than traditional trade." }
+          { title: "AI Design", sub: "AI-generated design", text: "The speed and fresh ideas unique to AI generation, turned into goods designs." },
+          { title: "Production", sub: "All the way to the product", text: "We don't stop at generation — together with partner companies, we turn designs into real products." },
+          { title: "One-Stop", sub: "From idea to finished goods", text: "End-to-end support from design generation to production, so you can focus on the idea." }
         ]
       }
     },
@@ -565,34 +560,33 @@ export const translations = {
     },
     details: {
       service_ai: {
-        title: "AI Native Operations",
-        subtitle: "Full-stack transformation — from strategy to implementation to in-house enablement.",
-        p1: "From AI strategy and roadmapping to deploying AIDE — our company-specific AI agent platform — and training that gives your team autonomy.\nWe become the partner that transforms your organization to truly AI-native, at every layer.",
+        title: "AI Solutions",
+        subtitle: "AI that takes over and automates real operations — from build to run.",
+        p1: "We build AI that takes over labor-intensive routine work — phone support, CRM entry, appointment setting.\nFrom development to operations, we stay with you end-to-end. This is MGC's core business.",
         features: [
-          { title: "Strategy & Consulting", sub: "Prioritization & roadmap design", text: "We audit your operations, prioritize AI use-cases by ROI, and design a realistic roadmap. We start with initiatives tied directly to business outcomes — no PoC-graveyard projects." },
-          { title: "Build with AIDE", sub: "Company-specific AI agent build-out", text: "Around AIDE — the AI agent platform built for your company — we deliver production-grade systems. Full integration into your CRM, MA, and core systems. Internal knowledge bases trained into RAG. Agents that take real operational decisions." },
-          { title: "Training & Enablement", sub: "AI training & in-house enablement", text: "Strategic training for executives, operations-design training for managers, and prompt and hands-on training for individual contributors — building an organizational culture where AI is a colleague." }
+          { title: "Voice AI", sub: "AI that handles phone operations", text: "AI takes over phone support such as call-center work, automating operations that used to depend on people and freeing your team for core work." },
+          { title: "CRM Agent", sub: "AI that operates your CRM", text: "AI operates and updates your CRM at the right moments — freeing your team from manual entry while keeping data fresh and accurate." },
+          { title: "Sales AI", sub: "AI that books appointments", text: "AI runs outbound sales activity and books appointments, so your sales team can focus on what only people can do — meetings and closing." }
         ]
       },
       service_lab: {
-        title: "AI Sales Engine",
-        subtitle: "Fully automated to appointment-booked. Zero fixed cost, performance-based.",
-        p1: "AI email outreach, voice AI gatekeeper bypass, automated list generation.\nWe fully automate GTM execution — pay nothing up front, only for booked appointments.",
+        title: "Japan Distributorship",
+        subtitle: "Bringing outstanding global products to the Japanese market.",
+        p1: "We acquire exclusive Japan sales rights from overseas companies and sell their products in the Japanese market.\nA route into Japan for overseas companies — and access to the world's best products for Japanese customers.",
         features: [
-          { title: "AI Email Outreach", sub: "Fully automated email sequencing", text: "AI extracts targets from the web, company databases, and social. Sends personalized messages adapted to each company's context, follows up based on opens and replies, and books meetings — completely hands-off." },
-          { title: "Voice AI Receptionist", sub: "AI voice bypasses gatekeepers", text: "Voice AI agents handle natural conversations with receptionists and route calls to decision-makers. We rewrite the rules of outbound calling." },
-          { title: "Performance-Based Pricing", sub: "Pay only for results", text: "Pay per appointment or qualified meeting. Zero fixed cost makes this ideal for validating PMF of new ventures or replacing outsourced tele-prospecting." }
+          { title: "Market Entry", sub: "A route into the Japanese market", text: "As the exclusive Japan distributor, we handle sales, customer support, and localization in the Japanese market end-to-end." },
+          { title: "Curation", sub: "An eye for outstanding products", text: "We discover global products through our own perspective and worldview, and bring them to Japanese customers — starting with the gadget category." },
+          { title: "Bridge", sub: "Bridging Japan and the world", text: "MGC closes the gaps in language, business practice, and support — making transactions smooth for overseas companies and Japanese customers alike." }
         ]
       },
       service_trade: {
-        title: "Cross-Border Trading",
-        subtitle: "Connecting value between Japan and the world, powered by AI.",
-        p1: "Japan's tech and products to the world, the world's innovation to Japan.\nFrom AI-driven market analysis and partner matching to the Global Reach AI Package — sales, translation, and overseas marketing in one bundle.",
+        title: "RKSYO",
+        subtitle: "From AI-generated goods design to finished products, end-to-end.",
+        p1: "We generate goods designs with AI and support them all the way to becoming real products, working with partner companies.\nThe speed and fresh ideas of AI generation — plus the follow-through to make things real.",
         features: [
-          { title: "Export: Japan → World", sub: "From Japan to the world", p1: "New markets for Japan's tech.", text: "Tech that is mature in Japan may be revolutionary elsewhere. We surface Japanese IP, materials, and products, and match them with overseas partners who value them most — supporting expansion into Africa, Europe, and Southeast Asia." },
-          { title: "Import: World → Japan", sub: "From the world to Japan", p1: "Global innovation for the Japanese market.", text: "We import cutting-edge overseas solutions to accelerate Japanese innovation, acting as exclusive Japan distributor — sales, customer support, localization, and regulatory work end-to-end." },
-          { title: "Global Reach AI Package", sub: "Overseas expansion, AI bundle", p1: "Overseas expansion, fully AI-bundled.", text: "Overseas sales AI (multilingual outreach), translation AI (internal docs, sales calls, contracts), and local marketing AI (ads, social, PR) — bundled together. End-to-end accompaniment from market research to outreach, local promotion, and deal support." },
-          { title: "AI-Powered Matching", sub: "Shortest path, AI-driven", p1: "AI bridging markets and partners.", text: "AI analyzes market demand and auto-screens local partners. Licensing, customs, and logistics workflows are streamlined with AI — 10× faster than traditional trade processes." }
+          { title: "AI Design", sub: "AI-generated design", p1: "Design at the speed of AI.", text: "The speed and fresh ideas unique to AI generation, turned into goods designs — producing in hours ideas that conventional workflows would never reach." },
+          { title: "Production", sub: "All the way to the product", p1: "We don't stop at generation.", text: "Together with partner companies, we turn generated designs into real products. Making it real is part of the job." },
+          { title: "One-Stop", sub: "From idea to finished goods", p1: "From idea to in your hands.", text: "End-to-end support from design generation to production — freeing you from coordination overhead so you can focus on the idea." }
         ]
       },
       product: {
@@ -617,37 +611,35 @@ export const translations = {
         title: "Minimal Organization.",
         subtitle: "Small Team, Giant Leaps.",
         p1: "Bloat is the enemy of speed.",
-        text: "No giant org charts needed. Just a small collective of autonomous elites who decide and execute. MGC inc. rejects bloat and maximizes individual capability to tackle global challenges."
+        text: "No giant org charts needed. Just a small collective of autonomous elites who decide and execute. MGC Inc. rejects bloat and maximizes individual capability to tackle global challenges."
       }
     },
     mission: {
       internal_os: {
-        lead: "Three engines driving MGC inc. Not just business domains, but our proprietary Operating System to perceive and hack the world.",
+        lead: "Three engines driving MGC Inc. Not just business domains, but our proprietary Operating System to perceive and hack the world.",
         os1: { title: "Manifest Creativity", desc: "Converting visions directly into software. A mindset to reduce technical friction to zero." },
         os2: { title: "Global Marketing", desc: "Hacking context to turn cultural friction into empathy. Methodology of narrative design." },
         os3: { title: "Curated Commerce", desc: "Eliminating distance between physical and information via AI ops. Logistics OS delivering unseen value." }
       },
       intro: {
-        title: "AI × Global Trading",
-        desc: "AI as a 'Future Infrastructure' to implement human prosperity for 1000 years.",
-        mission_title: "Creating future infrastructure with Japan's spirit",
-        mission_desc: "We change technology, but we do not change culture and spirituality. Using AI but ensuring humanity is maximized, not diminished."
+        title: "Connect Japan & The World through AI and Tech.",
+        desc: "AI is new technology, but it is only a means. The goal is to make the future better. We deliver technology with our own worldview and conviction — building things that are passed on from person to person and last.",
+        mission_title: "Solving today's problems with a macro view",
+        mission_desc: "We solve the challenges in front of our customers, while thinking — from a macro, long-term perspective — about where technology can make the world better, and acting on it."
       },
       values: [
-        { title: "Fueki Ryuko (Review & Innovation)", sub: "Change Tech, Create Culture", desc: "Tech changes, essence remains. While chasing the latest AI 'trends' (Ryuko), we never lose sight of 'Fueki' - human happiness. We aim not just for implementation, but to create culture that lasts 100 years." },
-        { title: "Four-way Satisfaction (Future Good)", sub: "Love for History & Society", desc: "Seller, Buyer, Society... and 'Future'. We conduct business with love for others and history. Delivering value that humanity 1000 years from now will thank us for." },
-        { title: "Think Big, Execute High", sub: "Question & Will", desc: "Start with 'Why' and 'Will'. Don't be a critic. If you have time to judge, move your hands. Only those who dream big while stacking small steps change the world." },
-        { title: "Flexible & Agile", sub: "Enjoy the Walls", desc: "The world is wide and fast. Look outward. Obstacles are playgrounds for growth. Fuse Japanese harmony with global individuality to overcome walls gracefully." },
-        { title: "Live for Today (Ichinichi Issho)", sub: "Life as the Protagonist", desc: "Work is a means to enrich life. Don't kill yourself for the company; use the company for yourself. Live today with passion, as if it were your last." },
+        { title: "Optimism", sub: "楽観主義", desc: "We believe technology can make the future better, and we take it on with a positive spirit — valuing a state where we genuinely enjoy our work." },
+        { title: "Integrity", sub: "誠実さ", desc: "With customers and teammates alike, we engage sincerely — no glossing over." },
+        { title: "Think Beyond the Frame", sub: "思考の枠を超える", desc: "Unbound by conventional methods and existing assumptions, we think with our own perspective and fresh ideas." },
       ]
     },
     company: {
       items: [
-        { label: 'Company Name', value: 'MGC inc.' },
-        { label: 'CEO', value: 'KOKOMU MATSUO' },
+        { label: 'Company Name', value: 'MGC Inc. (ＭＧＣ株式会社)' },
+        { label: 'CEO', value: 'Kokomu Matsuo' },
         { label: 'Headquarters', value: 'Kyoto, Japan' },
-        { label: 'Established', value: '2025' },
-        { label: 'Business Domains', value: 'AI Native Operations\nAI Sales Engine\nCross-Border Trading' },
+        { label: 'Established', value: 'December 2025' },
+        { label: 'Business Domains', value: 'AI Solutions (Voice AI / CRM Agent / Sales AI)\nJapan Distributorship for Global Products\nRKSYO (AI-Generated Goods to Production)' },
       ]
     },
     career: {
@@ -684,7 +676,7 @@ export const translations = {
           category: "Claude Code",
           title: "The Era of Giving AI Its Own Team",
           excerpt: "Claude Code's Agent Teams feature is rewriting what it means to develop software.",
-          content: "The era of 'doing everything yourself' is over. Now it's time to give AI its own team.\n\nClaude Code launched Agent Teams. Multiple Claude sessions work autonomously in parallel — a leader distributes tasks, teammates execute independently, and results converge. Security review, test execution, code review — each gets a dedicated subagent defined as a reusable 'role.'\n\nApple added native MCP support to Xcode 26.3. OpenAI built MCP tunnels into ChatGPT. MCP is now an industry standard under the Linux Foundation's Agentic AI Foundation — the lingua franca of AI agents.\n\nAt MGC inc., this architecture runs in production. Website updates, article generation, research, deployment — everything completes inside Claude Code. The Write tool processes large files 60% faster, and MCP tool results now persist up to 500K characters.\n\nAs of April 4, 2026, subscription limits for third-party integrations were removed entirely. Claude Code is no longer just a 'tool.' It's the most capable AI team working right beside you."
+          content: "The era of 'doing everything yourself' is over. Now it's time to give AI its own team.\n\nClaude Code launched Agent Teams. Multiple Claude sessions work autonomously in parallel — a leader distributes tasks, teammates execute independently, and results converge. Security review, test execution, code review — each gets a dedicated subagent defined as a reusable 'role.'\n\nApple added native MCP support to Xcode 26.3. OpenAI built MCP tunnels into ChatGPT. MCP is now an industry standard under the Linux Foundation's Agentic AI Foundation — the lingua franca of AI agents.\n\nAt MGC Inc., this architecture runs in production. Website updates, article generation, research, deployment — everything completes inside Claude Code. The Write tool processes large files 60% faster, and MCP tool results now persist up to 500K characters.\n\nAs of April 4, 2026, subscription limits for third-party integrations were removed entirely. Claude Code is no longer just a 'tool.' It's the most capable AI team working right beside you."
         },
         {
           id: 10,
@@ -692,7 +684,7 @@ export const translations = {
           category: "AI Strategy",
           title: "Japan's Future in Sales AI",
           excerpt: "Pioneers in sales AI are abroad. Japan, what's next?",
-          content: "In a world where AI dominates sales, an example of an AI detecting advertising needs in real-time using SNS and news data is making waves. Yet, Japanese companies have not developed negotiation-specialized AI. This is a pressing issue for enhancing international competitiveness.\n\nAt MGC inc., we are focusing on developing sales AI and are pushing for the creation of domestic negotiation-specialized AI to establish leadership in Japan. By utilizing cutting-edge technologies such as analyzing failure patterns in local LLMs and enhancing RAG accuracy with debugging tools, we aim to offer AI solutions Japan can be proud of globally.\n\nNow is the time for Japanese companies to unleash their full potential and rebuild their AI strategies. As a front-runner in this new phase, MGC inc. is ready to pave the way forward."
+          content: "In a world where AI dominates sales, an example of an AI detecting advertising needs in real-time using SNS and news data is making waves. Yet, Japanese companies have not developed negotiation-specialized AI. This is a pressing issue for enhancing international competitiveness.\n\nAt MGC Inc., we are focusing on developing sales AI and are pushing for the creation of domestic negotiation-specialized AI to establish leadership in Japan. By utilizing cutting-edge technologies such as analyzing failure patterns in local LLMs and enhancing RAG accuracy with debugging tools, we aim to offer AI solutions Japan can be proud of globally.\n\nNow is the time for Japanese companies to unleash their full potential and rebuild their AI strategies. As a front-runner in this new phase, MGC Inc. is ready to pave the way forward."
         },
         {
           id: 9,
@@ -700,7 +692,7 @@ export const translations = {
           category: "AI Strategy",
           title: "AI: Transforming the Future",
           excerpt: "Embrace AI or face obsolescence.",
-          content: "Can businesses survive without adopting AI? The answer is a resounding no. Even major corporations will find themselves left behind if they do not leverage AI to enhance operational efficiency.\n\nAin HD's plan to implement a generative AI-powered pharmaceutical record-keeping system across 1,300 stores is a groundbreaking example of how harnessing AI can halve working hours, setting the stage for industry-wide transformation.\n\nFor IT engineers considering their future, leveraging AI tools like ChatGPT and Claude Code is key to enhancing career value. These tools are crucial in advancing an engineer's worth in the modern tech landscape.\n\nMGC inc. envisions a future where AI-driven automation leads to a more prosperous tomorrow. There is no alternative to embracing AI!"
+          content: "Can businesses survive without adopting AI? The answer is a resounding no. Even major corporations will find themselves left behind if they do not leverage AI to enhance operational efficiency.\n\nAin HD's plan to implement a generative AI-powered pharmaceutical record-keeping system across 1,300 stores is a groundbreaking example of how harnessing AI can halve working hours, setting the stage for industry-wide transformation.\n\nFor IT engineers considering their future, leveraging AI tools like ChatGPT and Claude Code is key to enhancing career value. These tools are crucial in advancing an engineer's worth in the modern tech landscape.\n\nMGC Inc. envisions a future where AI-driven automation leads to a more prosperous tomorrow. There is no alternative to embracing AI!"
         },
         {
           id: 0,
@@ -708,7 +700,7 @@ export const translations = {
           category: "Sales AI",
           title: "Selling Without Picking Up the Phone: The Complete Automation of Sales with AI",
           excerpt: "List building, email outreach, follow-ups, CRM entry — when AI handles all of this, what should your salespeople actually do?",
-          content: "'Sales is all about legwork' — this belief has dragged Japanese sales organizations into a swamp of inefficiency.\n\nBuilding target lists, sending personalized outreach emails, automated follow-ups when there's no reply, CRM entry after meetings — all of this is 'execution work' that AI can replace. MGC inc. has built fully automated AI sales flows where no human touch is needed until the appointment is secured.\n\nWhat human salespeople should focus on is closing and trust-building. AI selects the most promising leads; humans bring emotion and logic to close the deal. That single-focus structure is what a winning sales organization looks like.\n\nAI is not a tool to beat competitors. It is infrastructure to destroy the premise that competitors exist. Companies that shift to AI-native sales design will gain overwhelming advantage — and that inflection point is right in front of us."
+          content: "'Sales is all about legwork' — this belief has dragged Japanese sales organizations into a swamp of inefficiency.\n\nBuilding target lists, sending personalized outreach emails, automated follow-ups when there's no reply, CRM entry after meetings — all of this is 'execution work' that AI can replace. MGC Inc. has built fully automated AI sales flows where no human touch is needed until the appointment is secured.\n\nWhat human salespeople should focus on is closing and trust-building. AI selects the most promising leads; humans bring emotion and logic to close the deal. That single-focus structure is what a winning sales organization looks like.\n\nAI is not a tool to beat competitors. It is infrastructure to destroy the premise that competitors exist. Companies that shift to AI-native sales design will gain overwhelming advantage — and that inflection point is right in front of us."
         },
         {
           id: 1,
@@ -716,7 +708,7 @@ export const translations = {
           category: "AI Automation",
           title: "The Day AI Agents Become Employees: Building a 24/7 Organization with OpenClaw",
           excerpt: "Email management, calendar coordination, auto-posting, data analysis — what happens to your organization's velocity when a single AI agent handles all of this?",
-          content: "When companies talk about 'AI adoption', most envision chatbots or partial automation. That's just the tip of the iceberg.\n\nMGC inc. implements something more fundamental. Using OpenClaw (an AI agent platform), a single AI agent handles email monitoring and responses, task tracking, Slack notifications, social media scheduling, and automated weekly reports — all running 24/7 without rest.\n\nWhat should humans actually do? Judge and create. AI agents fully take over information gathering, organization, and execution. Humans can focus on higher-order decisions with the outputs AI surfaces.\n\nThe shift from 'using AI' to 'making AI work for you' — this mindset change is the essence of next-gen business operations. A tireless employee, an executor without complaints, an operator spanning all tools. That is what an AI agent truly is."
+          content: "When companies talk about 'AI adoption', most envision chatbots or partial automation. That's just the tip of the iceberg.\n\nMGC Inc. implements something more fundamental. Using OpenClaw (an AI agent platform), a single AI agent handles email monitoring and responses, task tracking, Slack notifications, social media scheduling, and automated weekly reports — all running 24/7 without rest.\n\nWhat should humans actually do? Judge and create. AI agents fully take over information gathering, organization, and execution. Humans can focus on higher-order decisions with the outputs AI surfaces.\n\nThe shift from 'using AI' to 'making AI work for you' — this mindset change is the essence of next-gen business operations. A tireless employee, an executor without complaints, an operator spanning all tools. That is what an AI agent truly is."
         },
         {
           id: 2,
@@ -724,7 +716,7 @@ export const translations = {
           category: "Voice AI",
           title: "The No-Engineer Voice Revolution: How ElevenLabs × Lovable Proves the Democratization of Creation",
           excerpt: "You no longer need engineers to build a product. The era where anyone with a vision can ship a voice app has arrived.",
-          content: "'Great idea, but no one to build it' — this excuse completely disappeared in 2025.\n\nCombining ElevenLabs (world-class voice AI) and Lovable (AI-powered app development), you can build a professional-grade interactive voice app in hours without writing a single line of code. AI voice agents for call centers, voice-navigated service apps, voice-reactive commercials — all achievable with no-code, today.\n\nMGC inc. uses this combination for fastest-possible prototyping for clients. We can demo a working product the day after an idea is born. Investor pitches, user testing, market validation — everything accelerates dramatically.\n\nThe democratization of technology is not just about convenience. It is the arrival of an era where people with ideas can directly question the world without being blocked by technical walls. The tools are ready. What's left is only your vision."
+          content: "'Great idea, but no one to build it' — this excuse completely disappeared in 2025.\n\nCombining ElevenLabs (world-class voice AI) and Lovable (AI-powered app development), you can build a professional-grade interactive voice app in hours without writing a single line of code. AI voice agents for call centers, voice-navigated service apps, voice-reactive commercials — all achievable with no-code, today.\n\nMGC Inc. uses this combination for fastest-possible prototyping for clients. We can demo a working product the day after an idea is born. Investor pitches, user testing, market validation — everything accelerates dramatically.\n\nThe democratization of technology is not just about convenience. It is the arrival of an era where people with ideas can directly question the world without being blocked by technical walls. The tools are ready. What's left is only your vision."
         },
         {
           id: 3,
@@ -732,7 +724,7 @@ export const translations = {
           category: "Vision",
           title: "Redefining 'Voice': How AI liberates from the legacy of phone operations",
           excerpt: "The end of human receptionists. A future where AI becomes a concierge, allowing humans to focus only on creative dialogue.",
-          content: "'Phone support' is one of the biggest inhibitors of corporate productivity. MGC inc. completely liberates this 'negative legacy' with AI.\n\nLatest Voice AI understands emotion, reads context, and welcomes customers with more hospitality than humans. Humans can focus only on creative judgment and heart-to-heart dialogue.\n\nWhat we provide is not a simple auto-response system. It is a new communication infrastructure for the AI era that updates a company's very 'voice' and pushes business speed to its limit."
+          content: "'Phone support' is one of the biggest inhibitors of corporate productivity. MGC Inc. completely liberates this 'negative legacy' with AI.\n\nLatest Voice AI understands emotion, reads context, and welcomes customers with more hospitality than humans. Humans can focus only on creative judgment and heart-to-heart dialogue.\n\nWhat we provide is not a simple auto-response system. It is a new communication infrastructure for the AI era that updates a company's very 'voice' and pushes business speed to its limit."
         },
         {
           id: 4,
@@ -740,7 +732,7 @@ export const translations = {
           category: "Product",
           title: "Tech × Art × Soul: The philosophy of 'Trinity' in next-gen product development",
           excerpt: "End of the feature war. Infusing aesthetics and soul into technology to create gravity that makes marketing itself unnecessary.",
-          content: "The era where features alone differentiate is over. What next-gen products need is the trinity of Tech, Art, and Soul.\n\nTechnology is just a brush; without Art (aesthetics) and Soul (purpose), hearts won't move. We design 'excitement' at the first touch, not just high specs.\n\nMGC inc. rejects marketing that forces products through massive ad spend. Products that naturally attract users worldwide through their own overwhelming beauty and story — that is our way."
+          content: "The era where features alone differentiate is over. What next-gen products need is the trinity of Tech, Art, and Soul.\n\nTechnology is just a brush; without Art (aesthetics) and Soul (purpose), hearts won't move. We design 'excitement' at the first touch, not just high specs.\n\nMGC Inc. rejects marketing that forces products through massive ad spend. Products that naturally attract users worldwide through their own overwhelming beauty and story — that is our way."
         },
         {
           id: 5,
@@ -748,7 +740,7 @@ export const translations = {
           category: "Global",
           title: "Discarding the 'Japan' frame from Day 1: The necessity of Global strategy",
           excerpt: "Why the 'Japan first' mindset leads to death. Why MGC looks at the world from Kyoto with the same eyes as Silicon Valley.",
-          content: "'Japan first' has galapagos-ized Japanese startups. If there are no borders on the internet, there's no reason not to target the world market (Day1 Global) from the start.\n\nAI melted language barriers. DX lowered logistics walls. There's no reason not to deal directly with London or NY from Kyoto.\n\nMGC inc. targets all 8 billion people on earth from day one, using Japan's refined sensibility as its greatest weapon. Japan is just one part of that. Root locally, bloom globally. This is our survival strategy."
+          content: "'Japan first' has galapagos-ized Japanese startups. If there are no borders on the internet, there's no reason not to target the world market (Day1 Global) from the start.\n\nAI melted language barriers. DX lowered logistics walls. There's no reason not to deal directly with London or NY from Kyoto.\n\nMGC Inc. targets all 8 billion people on earth from day one, using Japan's refined sensibility as its greatest weapon. Japan is just one part of that. Root locally, bloom globally. This is our survival strategy."
         },
         {
           id: 6,
@@ -756,7 +748,7 @@ export const translations = {
           category: "AI Trading",
           title: "Waking the Sleeping Giants with AI: A new solution for Japan's global expansion",
           excerpt: "Instead of trading houses or consultants, what's needed for Japan's global expansion is complete migration to 'AI-native operations'.",
-          content: "Japan has tons of hidden gems. But the 'good products will sell' myth is long dead. What's needed is optimization and connection to global markets via AI-native operations.\n\nThe traditional trading-company model rested on information asymmetry and personal networks — analog walls. AI dissolves those walls instantly: real-time demand analysis, auto-screening of overseas partners, multilingual personalized outreach at scale.\n\nMGC inc. wakes Japan's sleeping giants — artisan techniques, unique materials, IP — and brings them where they are most valued. Even SMBs can now compete as global players when AI handles market scanning, cross-language outreach, and end-to-end deal management.\n\nThis 'dramatically better' operating model is the shortest path to delivering Japan's hidden assets to the world."
+          content: "Japan has tons of hidden gems. But the 'good products will sell' myth is long dead. What's needed is optimization and connection to global markets via AI-native operations.\n\nThe traditional trading-company model rested on information asymmetry and personal networks — analog walls. AI dissolves those walls instantly: real-time demand analysis, auto-screening of overseas partners, multilingual personalized outreach at scale.\n\nMGC Inc. wakes Japan's sleeping giants — artisan techniques, unique materials, IP — and brings them where they are most valued. Even SMBs can now compete as global players when AI handles market scanning, cross-language outreach, and end-to-end deal management.\n\nThis 'dramatically better' operating model is the shortest path to delivering Japan's hidden assets to the world."
         }
       ]
     },
@@ -765,9 +757,9 @@ export const translations = {
       lead: "Let's start with a 30-minute conversation.",
       sub: "We listen to your business challenge and co-design where AI can help. First consultation and proposal are fully free.",
       bullets: [
-        "AI build & consulting engagement",
-        "Performance-based Sales AI rollout",
-        "Cross-Border AI Package / overseas expansion",
+        "AI Solutions (Voice AI / CRM Agent / Sales AI)",
+        "Overseas products & Japan market entry",
+        "RKSYO (AI-generated goods to production)",
         "AIDE (AI secretary) demo & onboarding",
       ],
       form: {
@@ -779,9 +771,9 @@ export const translations = {
         companyPlaceholder: "Acme Co., Ltd.",
         topic: "Topic",
         topicOptions: [
-          "AI Build & Consulting",
-          "Performance-Based Sales AI",
-          "Cross-Border AI Package",
+          "AI Solutions (Voice AI / CRM Agent / Sales AI)",
+          "Japan Distributorship / Overseas Products",
+          "RKSYO (AI-Generated Goods)",
           "AIDE (AI Secretary)",
           "Other / mixed topics",
         ],

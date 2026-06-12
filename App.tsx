@@ -578,7 +578,6 @@ const WorksView: React.FC = () => {
             index="02"
             serviceKey="service_lab"
             icon={<Zap className="w-5 h-5 text-accent stroke-[1.75]" />}
-            badge="Performance-Based"
             onDetail={() => setSelectedId('service_lab')}
           />
         </div>
@@ -832,7 +831,7 @@ const PartnersView: React.FC = () => {
     { code: 'ULN', city: 'Ulaanbaatar', name: 'Moniinnotech', role: 'Central Asia Tech Hub', description: 'モンゴル独自の高度IT人材ネットワークを活用した、スケーラブルな開発体制の構築。AIデータセットの精製からコアモジュールの実装まで、技術基盤を強固に支える。', x: 75, y: 35 },
     { code: 'SFO', city: 'San Francisco', name: 'Nebula AI Labs', role: 'Research Partner', description: 'シリコンバレーの最先端AI研究機関との連携により、生成AIの最新モデルをプロダクトへ即座に統合。技術的な優位性を担保する。', x: 15, y: 38 },
     { code: 'LND', city: 'London', name: 'ElevenLabs', role: 'Voice AI Partner', description: '英国発の音声AIユニコーン。感情や抑揚を完璧に再現する世界最高峰の音声合成モデルを連携させ、言語の壁を「声」のレベルで完全に消滅させる。', x: 48, y: 28 },
-    { code: 'TYO', city: 'Kyoto (HQ)', name: 'MGC inc.', role: 'Headquarters', description: '日本の精神性と美意識を、テクノロジーの実装に落とし込む司令塔。すべての戦略とクリエイティブはここから生まれる。', x: 85, y: 40 },
+    { code: 'TYO', city: 'Kyoto (HQ)', name: 'MGC Inc.', role: 'Headquarters', description: '日本の精神性と美意識を、テクノロジーの実装に落とし込む司令塔。すべての戦略とクリエイティブはここから生まれる。', x: 85, y: 40 },
   ];
   
   const [activeCity, setActiveCity] = useState<string | null>(null);
@@ -1696,7 +1695,7 @@ const App: React.FC = () => {
       )}
 
       <footer className={`px-6 md:px-12 py-8 text-center text-sm font-medium opacity-50 ${view === 'mission' || view === 'career' || view === 'works' ? 'text-gray-500' : 'text-gray-400'}`}>
-        &copy; 2026 MGC inc. All Rights Reserved.
+        &copy; 2026 MGC Inc. All Rights Reserved.
       </footer>
     </div>
     </LanguageContext.Provider>
