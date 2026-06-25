@@ -279,6 +279,14 @@ export const translations = {
     blog: {
       items: [
         {
+          id: 12,
+          date: "2026.06.25",
+          category: "Build Notes",
+          title: "Claude Codeで、SalesforceとKintoneに「手を動かすAI」をつなぐ",
+          excerpt: "顧客企業のCRMをAIが操作・更新する——その実装を、Claude CodeとMCPでどう組むか。覚えない・繋がらない・続かないの壁を、現場で越えた記録。",
+          content: "「AIにCRMを触らせる」と言うと、多くの人はチャットボットを思い浮かべる。だが現場で本当に必要なのは、会話することではなく、SalesforceやKintoneのレコードを「正しいタイミングで、正しく」更新してくれることだ。MGCのCRM操作AI事業は、この「手を動かす」部分を担っている。今回は、その実装にClaude Codeをどう使っているかを、隠さず書く。\n\nまず、汎用チャットがCRM運用でつまずく理由は3つに集約できる。覚えない（自社の項目定義や運用ルールを毎回説明し直す必要がある）、繋がらない（実際のレコードを読み書きできない）、続かない（一度の会話で終わり、定期実行や先回りができない）。この3つを越えない限り、どんなに賢いモデルでも「便利な相談相手」止まりになる。\n\n繋ぐ部分の中心がMCP（Model Context Protocol）だ。Claude Codeは、MCPサーバー経由で外部ツールのAPIを「道具」として呼び出せる。SalesforceならREST/Bulk APIとSOQL、KintoneならレコードのREST APIを、それぞれMCPサーバーとしてラップしてやれば、AIは「商談を検索する」「活動履歴を追記する」といった操作を、人間の代わりに実行できる。重要なのは、AIに生のDBを触らせるのではなく、「許可した操作だけ」を道具として渡すことだ。\n\nSalesforceとKintoneでは、設計の勘所が違う。Salesforceはオブジェクトとガバナ制限、OAuthのConnected App、Sandboxでの検証が要点になる。項目もリレーションも多く、SOQLの組み立てを誤ると無関係なレコードまで触りかねない。Kintoneはアプリ単位の権限とAPIトークンがシンプルな反面、アプリごとにスキーマが自由なので、「このアプリのステータスは何の値を取るのか」をAIに正しく覚えさせる工程が効く。どちらも、最初に「辞書」（項目定義・運用ルール）を読み込ませるかどうかで精度が段違いになる。\n\n安全に動かす設計は、機能より先に決める。具体的には3点。(1) 最小権限——AIに渡すAPIトークンや接続ユーザーは、触ってよいオブジェクト・アプリだけに絞る。(2) 監査ログ——いつ・どのレコードに・何をしたかを必ず残し、後から人が追える状態にする。(3) 承認ゲート——金額や顧客ステータスなど影響の大きい更新は、AIが下書きを作り、人が承認してから反映する。誠実さは、こういう仕組みに宿る。\n\nそして、いきなり全社でやらない。MGCが必ず勧めるのは「1業務 × 2〜4週間」のスモールスタートだ。たとえば「商談メモを音声から起こしてSalesforceの活動履歴に追記する」だけを、まず完璧にする。動くものを現場で2〜4週間まわし、会話で精度を磨いてから、対象業務・アプリ・拠点へ広げる。\n\nこの一連を、自社プロダクトAIDEとして製品化している。AIDEは「覚える・繋ぐ・動く・呼び出す」の4つで、ただのチャットボットを「働く秘書」に変える基盤だ。今回のCRM連携は、その「繋ぐ」「動く」を、SalesforceとKintoneという日本の現場で最も使われるCRMで実証したものにあたる。\n\n最後に、これは特別な話ではない。APIがあるツールなら、同じやり方でAIに手を動かさせることができる。違いを生むのは、モデルの賢さよりも、辞書を整える地道さと、安全に運用する設計だ。私たちはそこに価値があると信じているし、この記録が、同じことに挑む誰かの最短ルートになればいい。"
+        },
+        {
           id: 11,
           date: "2026.04.09",
           category: "Claude Code",
@@ -670,6 +678,14 @@ export const translations = {
     },
     blog: {
       items: [
+        {
+          id: 12,
+          date: "2026.06.25",
+          category: "Build Notes",
+          title: "Connecting Salesforce and Kintone to a 'Hands-On AI' with Claude Code",
+          excerpt: "Letting AI operate and update a customer's CRM — how we wire it up with Claude Code and MCP. Field notes on getting past the walls of 'doesn't remember, doesn't connect, doesn't stick.'",
+          content: "Say 'let AI touch the CRM' and most people picture a chatbot. But what operations actually need isn't conversation — it's records in Salesforce or Kintone being updated correctly, at the right moment. MGC's CRM Agent business owns exactly this 'hands-on' part. Here's how we use Claude Code to build it, written plainly.\n\nFirst, generic chat stumbles on CRM work for three reasons. It doesn't remember (you re-explain your field definitions and rules every time), it doesn't connect (it can't actually read or write your records), and it doesn't stick (one conversation and it's over — no scheduled runs, no proactive nudges). Until you clear all three, even the smartest model stays a 'helpful advisor' and no more.\n\nThe heart of connecting is MCP (the Model Context Protocol). Claude Code can call external tool APIs as 'tools' through an MCP server. Wrap Salesforce's REST/Bulk API and SOQL, or Kintone's record REST API, as MCP servers, and the AI can perform operations like 'search opportunities' or 'append to the activity log' on a human's behalf. The key: you don't hand the AI a raw database — you hand it only the operations you've explicitly allowed.\n\nSalesforce and Kintone differ in where the design effort goes. Salesforce centers on objects and governor limits, the OAuth Connected App, and validating in a Sandbox. With many fields and relationships, a malformed SOQL query can touch records you never intended. Kintone keeps per-app permissions and API tokens simple, but each app's schema is freeform — so the step that pays off is teaching the AI exactly what values 'status' takes in this app. For both, precision swings wildly on whether you first load the 'dictionary' (field definitions and operating rules).\n\nThe safety design comes before features. Three points specifically: (1) Least privilege — the API token or connected user you give the AI is scoped only to the objects and apps it may touch. (2) Audit logs — always record what was done to which record and when, so a human can trace it afterward. (3) Approval gates — high-impact updates like amounts or customer status are drafted by the AI and applied only after a human approves. Integrity lives in mechanisms like these.\n\nAnd we never roll out company-wide on day one. What MGC always recommends is a 'one task × 2–4 weeks' small start. Get just one thing perfect first — say, transcribing meeting notes from voice and appending them to a Salesforce activity log. Run the working thing in the field for 2–4 weeks, sharpen precision through conversation, then expand to more tasks, apps, and locations.\n\nWe've productized this whole flow as AIDE — our own product. With its four capabilities (Remember, Connect, Act, Invoke), AIDE turns a mere chatbot into a working secretary. This CRM integration is the 'Connect' and 'Act' parts, proven on Salesforce and Kintone — the CRMs most used on the Japanese front line.\n\nFinally, none of this is special. Any tool with an API can be made to let AI move its hands the same way. What makes the difference isn't the model's brilliance — it's the unglamorous work of preparing the dictionary, and the design that runs it safely. We believe that's where the value is, and we hope this record becomes the shortest path for someone taking on the same thing."
+        },
         {
           id: 11,
           date: "2026.04.09",
