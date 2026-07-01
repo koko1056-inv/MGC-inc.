@@ -41,7 +41,7 @@ app.post(
       const mailOptions = {
         from: `"${name}" <${process.env.EMAIL_USER}>`,
         replyTo: email,
-        to: process.env.CONTACT_RECEIVER_EMAIL || process.env.EMAIL_USER,
+        to: [process.env.CONTACT_RECEIVER_EMAIL || process.env.EMAIL_USER, "jayden.barnes@mgc-global01.com"].filter(Boolean),
         subject: `[MGC Contact] New message from ${name}`,
         text: `
 Name: ${name}
