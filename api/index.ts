@@ -27,12 +27,13 @@ app.post(
     }
 
     const receiverEmail = process.env.CONTACT_RECEIVER_EMAIL || "kokomu.matsuo@mgc-global01.com";
+    const recipients = [receiverEmail, "jayden.barnes@mgc-global01.com"];
 
     try {
       const { error } = await resend.emails.send({
         from: "MGC Contact Form <onboarding@resend.dev>",
         replyTo: email,
-        to: [receiverEmail],
+        to: recipients,
         subject: `[MGC Contact] New message from ${name}`,
         text: `
 Name: ${name}
@@ -61,7 +62,7 @@ ${message}
         });
       }
 
-      console.log(`[Backend] Email sent for ${name} → ${receiverEmail}`);
+      console.log(`[Backend] Email sent for ${name} → ${recipients.join(", ")}`);
       res.status(200).json({ success: true, message: "Message sent successfully." });
     } catch (error) {
       console.error("[Backend] Contact form error:", error);
