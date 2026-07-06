@@ -17,7 +17,7 @@ export const translations = {
       subtitle_en: 'Connect Japan & The World through AI and Tech.',
       desc: '私たちにとってAIは手段です。目的は、未来をより良くすること。\n企業のAI活用を、コンサルティングから開発・運用・研修まで一気通貫で支援します。',
       whatWeDo: '私たちがやっていること',
-      chips: ['AIコンサルティング・研修', 'AI開発（音声・テキスト・CRM連携）', '海外企業 日本総代理店'],
+      chips: ['AIコンサルティング・研修', 'AI開発（音声・テキスト・CRM連携）', 'クロスボーダー事業（海外進出支援）'],
       viewProjects: '事業内容を見る',
       bookConsult: '30分の無料相談を予約',
       bookConsultSub: 'まずはお気軽にご相談ください',
@@ -44,7 +44,7 @@ export const translations = {
         },
       ],
       stats: [
-        { value: '2', unit: '事業', label: 'AIソリューション / 海外企業 日本総代理店' },
+        { value: '2', unit: '事業', label: 'AIソリューション / クロスボーダー事業' },
         { value: '3', unit: 'モダリティ', label: 'テキスト・音声・画像に対応するAIを構築' },
         { value: '2025', unit: '年設立', label: '京都から、日本と世界をつなぐ' },
       ],
@@ -111,6 +111,10 @@ export const translations = {
           a: 'はい。海外企業の日本総代理店として、海外の優れたプロダクトの日本市場での販売・サポートを行っています（ガジェット領域を中心に展開予定）。海外企業の日本参入のご相談もお受けします。',
         },
         {
+          q: '日本企業の海外進出も支援していますか？',
+          a: 'はい。クロスボーダー事業のOutbound（海外進出支援）として、市場調査・現地パートナー開拓から、越境ECや現地展開の実行までをご支援します。どの国・地域から始めるべきかのご相談から承ります。',
+        },
+        {
           q: '機密情報の取り扱いは安全ですか？',
           a: 'お客様ごとにデータを分離した設計を基本とし、認証・アクセス権限の管理、鍵情報の暗号化保管に対応しています。秘密保持契約（NDA）の締結も柔軟に対応します。',
         },
@@ -127,7 +131,7 @@ export const translations = {
     },
     worksIntro: {
       eyebrow: "Services",
-      lead: "MGCは、AIソリューション（コンサルティング・開発・運用・研修）と、海外企業 日本総代理店の2つの事業で、AIとテクノロジーによって日本と世界をつなぎます。",
+      lead: "MGCは、AIソリューション（コンサルティング・開発・運用・研修）と、クロスボーダー事業（Inbound/Outbound）の2つの事業で、AIとテクノロジーによって日本と世界をつなぎます。",
       indexLabel: "事業領域",
       detailLink: "詳しく見る",
     },
@@ -143,13 +147,13 @@ export const translations = {
         ]
       },
       service_lab: {
-        title: "海外企業 日本総代理店",
-        subtitle: "海外の優れたプロダクトを、日本市場へ。",
-        desc: "海外企業から日本における販売権を得て、日本市場で販売する事業です。海外企業には日本参入の経路を、日本のお客様には世界の優れたプロダクトへのアクセスを提供します。ビジョン「日本と世界をつなぐ」を体現する事業のひとつです。",
+        title: "クロスボーダー事業",
+        subtitle: "日本と世界の間で、双方向にビジネスをつなぐ。",
+        desc: "海外の優れたプロダクトを日本市場へ届ける「Inbound」と、日本企業の海外進出を支援する「Outbound」。双方向のクロスボーダー事業で、ビジョン「日本と世界をつなぐ」を体現します。",
         items: [
-          { title: "Market Entry", sub: "日本市場への参入経路", text: "海外企業の日本総代理店として、日本市場での販売からサポート、ローカライズまでを担います。" },
-          { title: "Curation", sub: "優れたプロダクトの目利き", text: "独自の視点で世界のプロダクトを発掘し、日本のお客様へ届けます。ガジェット領域を中心に展開予定です。" },
-          { title: "Bridge", sub: "日本と世界の橋渡し", text: "言語・商習慣・サポートのギャップをMGCが埋め、海外企業と日本のお客様の双方にとってスムーズな取引を実現します。" }
+          { title: "Inbound: Market Entry", sub: "海外企業 日本総代理店", text: "海外企業から日本における販売権を得て、日本市場での販売・カスタマーサポート・ローカライズまでを担います。" },
+          { title: "Outbound: Global Expansion", sub: "日本企業の海外進出支援", text: "日本企業が海外市場に出ていくための、市場調査・現地パートナー開拓から、越境ECや現地展開の実行までを支援します。" },
+          { title: "Bridge", sub: "日本と世界の橋渡し", text: "言語・商習慣・サポートのギャップをMGCが埋め、双方向の取引・進出がスムーズに進む状態をつくります。" }
         ]
       }
     },
@@ -166,13 +170,13 @@ export const translations = {
         ]
       },
       service_lab: {
-        title: "海外企業 日本総代理店",
-        subtitle: "海外の優れたプロダクトを、日本市場へ。",
-        p1: "海外企業から日本における販売権を得て、日本市場で販売する事業です。\n海外企業には日本参入の経路を、日本のお客様には世界の優れたプロダクトへのアクセスを提供します。",
+        title: "クロスボーダー事業",
+        subtitle: "日本と世界の間で、双方向にビジネスをつなぐ。",
+        p1: "海外の優れたプロダクトを日本市場へ届ける「Inbound」と、日本企業の海外進出を支援する「Outbound」。\n双方向のクロスボーダー事業で、ビジョン「日本と世界をつなぐ」を体現します。",
         features: [
-          { title: "Market Entry", sub: "日本市場への参入経路", text: "海外企業の日本総代理店として、日本市場での販売からカスタマーサポート、ローカライズまでを一気通貫で担います。" },
-          { title: "Curation", sub: "優れたプロダクトの目利き", text: "独自の視点・世界観で世界のプロダクトを発掘し、日本のお客様へ届けます。ガジェット領域を中心に展開予定です。" },
-          { title: "Bridge", sub: "日本と世界の橋渡し", text: "言語・商習慣・サポートのギャップをMGCが埋め、海外企業と日本のお客様の双方にとってスムーズな取引を実現します。" }
+          { title: "Inbound: Market Entry", sub: "海外企業 日本総代理店", text: "海外企業の日本総代理店として、日本市場での販売からカスタマーサポート、ローカライズまでを一気通貫で担います。" },
+          { title: "Outbound: Global Expansion", sub: "日本企業の海外進出支援", text: "日本企業が海外市場に出ていくための、市場調査・現地パートナー開拓から、越境ECや現地展開の実行までを支援します。" },
+          { title: "Bridge", sub: "日本と世界の橋渡し", text: "言語・商習慣・サポートのギャップをMGCが埋め、双方向の取引・進出がスムーズに進む状態をつくります。" }
         ]
       }
     },
@@ -196,7 +200,7 @@ export const translations = {
         { label: '所在地', value: '京都府京都市上京区西辰巳町111\nアビタシオンオンズアン106' },
         { label: '設立', value: '2025年12月' },
         { label: '法人番号', value: '4130001081155' },
-        { label: '事業内容', value: 'AIソリューション（コンサルティング・開発・運用・研修）\n海外企業 日本総代理店' },
+        { label: '事業内容', value: 'AIソリューション（コンサルティング・開発・運用・研修）\nクロスボーダー事業（海外企業 日本総代理店・日本企業の海外進出支援）' },
         { label: 'お問い合わせ', value: 'kokomu.matsuo@mgc-global01.com' },
       ]
     },
@@ -326,6 +330,7 @@ export const translations = {
         "AIコンサルティング・AI研修のご相談",
         "AI開発（音声AI・CRM操作AI・営業AIなど）のご相談",
         "海外プロダクトの導入・日本市場参入のご相談",
+        "日本企業の海外進出支援のご相談",
       ],
       form: {
         name: "お名前",
@@ -338,7 +343,8 @@ export const translations = {
         topicOptions: [
           "AIコンサルティング・研修",
           "AI開発（音声・テキスト・CRM連携）",
-          "海外企業 日本総代理店",
+          "海外企業の日本市場参入（Inbound）",
+          "日本企業の海外進出支援（Outbound）",
           "その他・複合的なご相談",
         ],
         message: "詳細メッセージ（任意）",
@@ -371,7 +377,7 @@ export const translations = {
       subtitle_en: 'Connect Japan & The World through AI and Tech.',
       desc: 'For us, AI is a means — the goal is to make the future better.\nWe support enterprise AI adoption end-to-end: consulting, development, operations, and training.',
       whatWeDo: 'What we do',
-      chips: ['AI Consulting & Training', 'AI Development (Voice · Text · CRM)', 'Japan Distributor for Global Products'],
+      chips: ['AI Consulting & Training', 'AI Development (Voice · Text · CRM)', 'Cross-Border Business (Global Expansion)'],
       viewProjects: 'View Services',
       bookConsult: 'Book a 30-min Free Consultation',
       bookConsultSub: 'Talk to us first',
@@ -398,7 +404,7 @@ export const translations = {
         },
       ],
       stats: [
-        { value: '2', unit: 'Businesses', label: 'AI Solutions / Japan Distributorship' },
+        { value: '2', unit: 'Businesses', label: 'AI Solutions / Cross-Border Business' },
         { value: '3', unit: 'Modalities', label: 'AI built for text, voice, and image' },
         { value: '2025', unit: 'Founded', label: 'From Kyoto, connecting Japan and the world' },
       ],
@@ -465,6 +471,10 @@ export const translations = {
           a: 'Yes. As the exclusive Japan distributor for overseas companies, we sell and support outstanding global products in the Japanese market (starting with gadgets). We also welcome inquiries from overseas companies looking to enter Japan.',
         },
         {
+          q: 'Do you also support Japanese companies expanding overseas?',
+          a: "Yes. As the Outbound side of our Cross-Border Business, we support market research, local partner discovery, cross-border e-commerce, and local rollout execution. We're happy to start with which country or region makes sense for you.",
+        },
+        {
           q: 'Is our confidential data safe?',
           a: 'We isolate data per client by design, and support authentication, access controls, and encrypted key storage. NDA arrangements are flexible.',
         },
@@ -481,7 +491,7 @@ export const translations = {
     },
     worksIntro: {
       eyebrow: "Services",
-      lead: "Two businesses — AI Solutions (consulting, development, operations, training) and Japan distributorship for global products — connecting Japan and the world through AI and tech.",
+      lead: "Two businesses — AI Solutions (consulting, development, operations, training) and Cross-Border Business (Inbound/Outbound) — connecting Japan and the world through AI and tech.",
       indexLabel: "Domains",
       detailLink: "Learn more",
     },
@@ -497,13 +507,13 @@ export const translations = {
         ]
       },
       service_lab: {
-        title: "Japan Distributorship",
-        subtitle: "Bringing outstanding global products to the Japanese market.",
-        desc: "We acquire exclusive Japan sales rights from overseas companies and sell their products in the Japanese market — giving overseas companies a route into Japan, and Japanese customers access to the world's best products. One of the businesses that embodies our vision of connecting Japan and the world.",
+        title: "Cross-Border Business",
+        subtitle: "Connecting business between Japan and the world, in both directions.",
+        desc: "Inbound: bringing outstanding global products into the Japanese market. Outbound: helping Japanese companies expand overseas. A two-way cross-border business that embodies our vision of connecting Japan and the world.",
         items: [
-          { title: "Market Entry", sub: "A route into the Japanese market", text: "As the exclusive Japan distributor, we handle sales, customer support, and localization in the Japanese market." },
-          { title: "Curation", sub: "An eye for outstanding products", text: "We discover global products through our own perspective and bring them to Japanese customers — starting with the gadget category." },
-          { title: "Bridge", sub: "Bridging Japan and the world", text: "MGC closes the gaps in language, business practice, and support — making transactions smooth for overseas companies and Japanese customers alike." }
+          { title: "Inbound: Market Entry", sub: "Japan distributorship", text: "As the exclusive Japan distributor for overseas companies, we handle sales, customer support, and localization in the Japanese market." },
+          { title: "Outbound: Global Expansion", sub: "Support for Japanese companies going global", text: "From market research and local partner discovery to running cross-border e-commerce and local rollout, we support Japanese companies expanding abroad." },
+          { title: "Bridge", sub: "Bridging Japan and the world", text: "MGC closes the gaps in language, business practice, and support — making cross-border transactions and expansion smooth in both directions." }
         ]
       }
     },
@@ -519,13 +529,13 @@ export const translations = {
         ]
       },
       service_lab: {
-        title: "Japan Distributorship",
-        subtitle: "Bringing outstanding global products to the Japanese market.",
-        p1: "We acquire exclusive Japan sales rights from overseas companies and sell their products in the Japanese market.\nA route into Japan for overseas companies — and access to the world's best products for Japanese customers.",
+        title: "Cross-Border Business",
+        subtitle: "Connecting business between Japan and the world, in both directions.",
+        p1: "Inbound: bringing outstanding global products into the Japanese market. Outbound: helping Japanese companies expand overseas.\nA two-way cross-border business that embodies our vision of connecting Japan and the world.",
         features: [
-          { title: "Market Entry", sub: "A route into the Japanese market", text: "As the exclusive Japan distributor, we handle sales, customer support, and localization in the Japanese market end-to-end." },
-          { title: "Curation", sub: "An eye for outstanding products", text: "We discover global products through our own perspective and worldview, and bring them to Japanese customers — starting with the gadget category." },
-          { title: "Bridge", sub: "Bridging Japan and the world", text: "MGC closes the gaps in language, business practice, and support — making transactions smooth for overseas companies and Japanese customers alike." }
+          { title: "Inbound: Market Entry", sub: "Japan distributorship", text: "As the exclusive Japan distributor for overseas companies, we handle sales, customer support, and localization in the Japanese market end-to-end." },
+          { title: "Outbound: Global Expansion", sub: "Support for Japanese companies going global", text: "From market research and local partner discovery to running cross-border e-commerce and local rollout, we support Japanese companies expanding abroad." },
+          { title: "Bridge", sub: "Bridging Japan and the world", text: "MGC closes the gaps in language, business practice, and support — making cross-border transactions and expansion smooth in both directions." }
         ]
       }
     },
@@ -549,7 +559,7 @@ export const translations = {
         { label: 'Headquarters', value: 'Kyoto, Japan' },
         { label: 'Established', value: 'December 2025' },
         { label: 'Corporate Number', value: '4130001081155' },
-        { label: 'Business Domains', value: 'AI Solutions (Consulting / Development / Operations / Training)\nJapan Distributorship for Global Products' },
+        { label: 'Business Domains', value: 'AI Solutions (Consulting / Development / Operations / Training)\nCross-Border Business (Japan Distributorship / Overseas Expansion Support)' },
         { label: 'Contact', value: 'kokomu.matsuo@mgc-global01.com' },
       ]
     },
@@ -678,7 +688,8 @@ export const translations = {
       bullets: [
         "AI consulting & training",
         "AI development (Voice AI / CRM Agent / Sales AI)",
-        "Overseas products & Japan market entry",
+        "Overseas products & Japan market entry (Inbound)",
+        "Overseas expansion support for Japanese companies (Outbound)",
       ],
       form: {
         name: "Your name",
@@ -691,7 +702,8 @@ export const translations = {
         topicOptions: [
           "AI Consulting & Training",
           "AI Development (Voice / Text / CRM)",
-          "Japan Distributorship / Overseas Products",
+          "Japan Market Entry (Inbound)",
+          "Overseas Expansion Support (Outbound)",
           "Other / mixed topics",
         ],
         message: "Details (optional)",
