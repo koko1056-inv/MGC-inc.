@@ -4,6 +4,7 @@ export const translations = {
   ja: {
     nav: {
       works: '事業内容',
+      training: '研修',
       blog: 'Journal',
       mission: '会社理念',
       company: '会社概要',
@@ -355,6 +356,67 @@ export const translations = {
         privacyNote: "送信いただいた情報は、ご相談対応の目的のみに使用します。",
       }
     },
+    training: {
+      hero: {
+        badge: '人材開発支援助成金 対応（事業展開等リスキリング支援コース）',
+        title: 'AI活用リスキリング研修',
+        titleSub: '― AIを「従業員」として雇い・育てる ―',
+        lead: 'ITに詳しくない経営者・従業員が、AIを自社の業務に導入・活用できるようになるための実践型研修（OFF-JT）。人材開発支援助成金の対象となる訓練にも対応します。',
+        cta: '資料請求・お問い合わせ',
+      },
+      course: {
+        heading: 'コース内容',
+        eyebrow: 'Course',
+        nameLabel: 'コース名',
+        name: 'AI活用リスキリング研修（基礎〜実践）',
+        overviewLabel: 'どんな訓練か',
+        overview: 'AIの全体像から、自社データと連携した“戦力化”までを、解説・業界別実例・デモで学ぶOFF-JT（通常の業務を離れて行う実践型の座学・演習）です。',
+        specs: [
+          { label: '対象', value: '経営者、管理者、従業員（AIを業務に取り入れたい方）' },
+          { label: '実施形態', value: '通学（対面）／オンライン（同時双方向）／eラーニング' },
+          { label: '標準時間', value: '10時間以上（企業のニーズに合わせて設計・OFF-JT）' },
+          { label: '主なテーマ', value: 'AIツールの全体像／生成AI・AIエージェントの使い分け／社内データ連携(API)による業務活用／セキュリティと権限設計／自社業務への当てはめ' },
+        ],
+      },
+      skills: {
+        heading: 'この研修で習得できる知識・技能',
+        eyebrow: 'Outcomes',
+        items: [
+          '主要なAIツールの種類と役割、業務での使い分けを説明できる',
+          '生成AIを用いた文章作成・調査・要約・翻訳などの実務ができる',
+          'AIエージェントに業務を任せ、成果物を作らせる進め方が分かる',
+          '社内データをAPI連携し“自社をわかって働くAI”として活用する考え方が身につく',
+          'AI活用時の情報セキュリティ・個人情報の扱い・権限設計の基礎を理解する',
+          '自社のどの業務に、どのデータをつないで、何を任せるかを自分の言葉で計画できる',
+        ],
+      },
+      flow: {
+        heading: '研修の進め方',
+        eyebrow: 'Process',
+        steps: [
+          { no: '01', title: 'ヒアリング', desc: '現状の業務課題とAI活用の目的を整理します。' },
+          { no: '02', title: 'カリキュラム設計', desc: '貴社のニーズに合わせて内容・時間を設計します（OFF-JT）。' },
+          { no: '03', title: '研修実施（OFF-JT）', desc: '解説・業界別実例・デモで、基礎から実践まで学びます。' },
+          { no: '04', title: '実践支援・振り返り', desc: '自社業務への当てはめを支援し、定着まで伴走します。' },
+        ],
+        note: '人材開発支援助成金の活用を希望される場合は、要件に沿ったカリキュラム・記録整備を支援します（申請手続きは提携社労士と連携して行います）。',
+      },
+      contact: {
+        heading: 'お申し込み・資料請求',
+        eyebrow: 'Contact',
+        lead: '受講のご相談、カリキュラムのご要望、助成金活用のご質問など、お気軽にお問い合わせください。',
+        corp: 'ＭＧＣ株式会社',
+        rows: [
+          { label: '所在地', value: '京都府京都市上京区西辰巳町111 アビタシオンオンズアン106' },
+          { label: '電話', value: '090-8353-1056', href: 'tel:09083531056' },
+          { label: 'メール', value: 'kokomu.matsuo@mgc-global01.com', href: 'mailto:kokomu.matsuo@mgc-global01.com' },
+          { label: 'Web', value: 'https://mgc-global01.com/', href: 'https://mgc-global01.com/' },
+        ],
+        cta: '資料請求・お問い合わせ',
+        ctaHref: 'mailto:kokomu.matsuo@mgc-global01.com?subject=AI活用リスキリング研修の資料請求・お問い合わせ',
+      },
+      footnote: '掲載の研修は、企業のご要望に応じて内容・時間を設計します。助成金の支給・可否は、受講企業の要件・訓練内容・審査により決まります（詳細は提携社労士がご案内します）。',
+    },
     footer: {
       corp: 'ＭＧＣ株式会社（MGC Inc.）',
       address: '京都府京都市上京区西辰巳町111 アビタシオンオンズアン106',
@@ -364,6 +426,7 @@ export const translations = {
   en: {
     nav: {
       works: 'Services',
+      training: 'Training',
       blog: 'Journal',
       mission: 'Mission',
       company: 'Company',
@@ -713,6 +776,67 @@ export const translations = {
         success: "Thank you. We'll get back to you within one business day.",
         privacyNote: "We use your information only for responding to your inquiry.",
       }
+    },
+    training: {
+      hero: {
+        badge: 'Eligible for Japan’s Human Resource Development subsidy (Reskilling course)',
+        title: 'AI Reskilling Program',
+        titleSub: '— Hire and raise AI as a member of your team —',
+        lead: 'A hands-on training program (OFF-JT) that helps managers and employees who are not IT specialists introduce and use AI in their own operations. Designed to qualify as subsidized training under Japan’s Human Resource Development grant.',
+        cta: 'Request materials / Contact us',
+      },
+      course: {
+        heading: 'Course',
+        eyebrow: 'Course',
+        nameLabel: 'Course name',
+        name: 'AI Reskilling Program (Foundations to Practice)',
+        overviewLabel: 'What the training covers',
+        overview: 'An OFF-JT course — lectures, industry examples, and demos — taking you from the big picture of AI to making AI a real working asset connected to your own company data.',
+        specs: [
+          { label: 'Audience', value: 'Executives, managers, and employees who want to bring AI into their work' },
+          { label: 'Format', value: 'In-person / Live online / e-learning' },
+          { label: 'Standard hours', value: '10+ hours (designed to your needs, OFF-JT)' },
+          { label: 'Key themes', value: 'Overview of AI tools / Generative AI vs. AI agents / Using internal data via API / Security & permission design / Applying it to your operations' },
+        ],
+      },
+      skills: {
+        heading: 'Knowledge & skills you will gain',
+        eyebrow: 'Outcomes',
+        items: [
+          'Explain the main types of AI tools and how to use each in your work',
+          'Do real work with generative AI: writing, research, summarizing, translation',
+          'Understand how to delegate tasks to AI agents and have them produce deliverables',
+          'Grasp how to connect internal data via API so AI works with knowledge of your company',
+          'Understand the basics of security, personal-data handling, and permission design',
+          'Plan, in your own words, which tasks to hand off, connected to which data',
+        ],
+      },
+      flow: {
+        heading: 'How the training works',
+        eyebrow: 'Process',
+        steps: [
+          { no: '01', title: 'Hearing', desc: 'We clarify your current operational challenges and goals for AI.' },
+          { no: '02', title: 'Curriculum design', desc: 'We design content and hours to your needs (OFF-JT).' },
+          { no: '03', title: 'Training (OFF-JT)', desc: 'Learn from foundations to practice through lectures, examples, and demos.' },
+          { no: '04', title: 'Practice support & review', desc: 'We support applying it to your work and stay with you until it sticks.' },
+        ],
+        note: 'If you wish to use the Human Resource Development subsidy, we support building the curriculum and records to meet the requirements (applications are handled together with a partner labor & social-security attorney).',
+      },
+      contact: {
+        heading: 'Apply / Request materials',
+        eyebrow: 'Contact',
+        lead: 'Feel free to reach out about enrollment, curriculum requests, or questions on using the subsidy.',
+        corp: 'MGC Inc.',
+        rows: [
+          { label: 'Address', value: '111 Nishitatsumi-cho, Kamigyo-ku, Kyoto, Japan' },
+          { label: 'Phone', value: '090-8353-1056', href: 'tel:09083531056' },
+          { label: 'Email', value: 'kokomu.matsuo@mgc-global01.com', href: 'mailto:kokomu.matsuo@mgc-global01.com' },
+          { label: 'Web', value: 'https://mgc-global01.com/', href: 'https://mgc-global01.com/' },
+        ],
+        cta: 'Request materials / Contact us',
+        ctaHref: 'mailto:kokomu.matsuo@mgc-global01.com?subject=AI Reskilling Program inquiry',
+      },
+      footnote: 'Program content and hours are designed to each company’s needs. Whether the subsidy is granted depends on the enrolling company’s eligibility, the training content, and screening (details are provided by our partner labor & social-security attorney).',
     },
     footer: {
       corp: 'MGC Inc. (ＭＧＣ株式会社)',

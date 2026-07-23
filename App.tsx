@@ -10,7 +10,7 @@ export const LanguageContext = React.createContext<{ lang: Lang; setLang: (l: La
 export const useLanguage = () => React.useContext(LanguageContext);
 // --- Types & Interfaces ---
 
-type ViewState = 'home' | 'works' | 'mission' | 'partners' | 'company' | 'career' | 'contact' | 'blog';
+type ViewState = 'home' | 'works' | 'training' | 'mission' | 'partners' | 'company' | 'career' | 'contact' | 'blog';
 
 type ContentKey = 'service_ai' | 'service_lab';
 
@@ -1374,12 +1374,190 @@ const getContentData = (t: typeof translations['ja']) => ({
   },
 });
 
+const TrainingView: React.FC = () => {
+  const { t } = useLanguage();
+  const tr = t.training;
+
+  const Head: React.FC<{ eyebrow: string; title: string }> = ({ eyebrow, title }) => (
+    <div className="mb-10 md:mb-12">
+      <span className="text-[#2D6CDF] font-bold tracking-[0.2em] text-xs uppercase">{eyebrow}</span>
+      <h2 className="text-2xl md:text-4xl font-bold tracking-tight text-[#111418] mt-2 leading-[1.5]">{title}</h2>
+      <div className="w-16 h-1.5 bg-[#2D6CDF] mt-4 rounded-full" />
+    </div>
+  );
+
+  return (
+    <PageTransition>
+      <div className="text-[#111418]">
+        {/* Hero */}
+        <section className="px-6 md:px-12">
+          <div className="max-w-screen-xl mx-auto">
+            <Reveal>
+              <div className="relative overflow-hidden rounded-[1.75rem] md:rounded-[2.5rem] bg-[#111418] text-white">
+                <GridPattern dark />
+                <div className="relative px-6 md:px-16 py-14 md:py-24">
+                  <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/20 bg-white/5 text-white/80 text-xs md:text-sm font-medium">
+                    <span className="w-2 h-2 rounded-full bg-[#2D6CDF]" />
+                    {tr.hero.badge}
+                  </span>
+                  <h1 className="text-3xl md:text-6xl font-bold tracking-tight leading-[1.25] mt-6">{tr.hero.title}</h1>
+                  <p className="text-base md:text-2xl text-white/55 font-medium mt-3 leading-[1.6]">{tr.hero.titleSub}</p>
+                  <p className="max-w-3xl text-base md:text-lg text-white/85 leading-[1.9] mt-8">{tr.hero.lead}</p>
+                  <a
+                    href={tr.contact.ctaHref}
+                    className="group inline-flex items-center gap-2.5 mt-10 px-7 py-4 rounded-full bg-[#2D6CDF] text-white font-bold text-sm md:text-base tracking-tight shadow-xl shadow-[#2D6CDF]/25 hover:bg-white hover:text-[#111418] transition-all duration-300"
+                  >
+                    {tr.hero.cta}
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                  </a>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+
+        {/* Course */}
+        <section className="px-6 md:px-12 mt-20 md:mt-28">
+          <div className="max-w-screen-xl mx-auto">
+            <Reveal><Head eyebrow={tr.course.eyebrow} title={tr.course.heading} /></Reveal>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+              <Reveal className="lg:col-span-1">
+                <div className="rounded-3xl border-2 border-[#2D6CDF]/20 bg-[#2D6CDF]/[0.04] p-7 md:p-8 h-full">
+                  <span className="text-xs font-bold tracking-widest uppercase text-[#2D6CDF]">{tr.course.nameLabel}</span>
+                  <p className="text-xl md:text-2xl font-bold text-[#111418] mt-3 leading-[1.6]">{tr.course.name}</p>
+                  <div className="mt-6 pt-6 border-t border-[#2D6CDF]/15">
+                    <span className="text-xs font-bold tracking-widest uppercase text-gray-500">{tr.course.overviewLabel}</span>
+                    <p className="text-[15px] md:text-base text-gray-700 mt-3 leading-[1.9]">{tr.course.overview}</p>
+                  </div>
+                </div>
+              </Reveal>
+              <div className="lg:col-span-2">
+                <dl className="grid grid-cols-1">
+                  {tr.course.specs.map((s, i) => (
+                    <Reveal key={i} delay={i * 80}>
+                      <div className="flex flex-col md:flex-row gap-2 md:gap-8 py-6 border-b border-gray-200">
+                        <dt className="md:w-40 flex-shrink-0 text-sm font-bold text-[#2D6CDF] pt-0.5">{s.label}</dt>
+                        <dd className="flex-1 text-base md:text-lg text-[#111418] leading-[1.8]">{s.value}</dd>
+                      </div>
+                    </Reveal>
+                  ))}
+                </dl>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Skills / Outcomes */}
+        <section className="px-6 md:px-12 mt-20 md:mt-28">
+          <div className="max-w-screen-xl mx-auto">
+            <Reveal><Head eyebrow={tr.skills.eyebrow} title={tr.skills.heading} /></Reveal>
+            <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+              {tr.skills.items.map((item, i) => (
+                <Reveal key={i} delay={i * 70}>
+                  <li className="flex items-start gap-4 rounded-2xl border border-gray-200 bg-white p-5 md:p-6 h-full hover:border-[#2D6CDF]/40 transition-colors duration-300">
+                    <span className="flex-shrink-0 w-8 h-8 rounded-full bg-[#2D6CDF]/10 text-[#2D6CDF] flex items-center justify-center mt-0.5">
+                      <Check className="w-4 h-4" strokeWidth={3} />
+                    </span>
+                    <span className="text-[15px] md:text-base text-[#111418] leading-[1.8]">{item}</span>
+                  </li>
+                </Reveal>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        {/* Flow / Process */}
+        <section className="px-6 md:px-12 mt-20 md:mt-28">
+          <div className="max-w-screen-xl mx-auto">
+            <Reveal><Head eyebrow={tr.flow.eyebrow} title={tr.flow.heading} /></Reveal>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+              {tr.flow.steps.map((step, i) => (
+                <Reveal key={i} delay={i * 90}>
+                  <div className="relative rounded-2xl bg-[#111418] text-white p-6 md:p-7 h-full">
+                    <span className="text-[#2D6CDF] font-bold tracking-widest text-sm">{step.no}</span>
+                    <h3 className="text-lg md:text-xl font-bold mt-2 leading-[1.5]">{step.title}</h3>
+                    <p className="text-sm text-white/70 mt-3 leading-[1.8]">{step.desc}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+            <Reveal>
+              <div className="mt-8 rounded-2xl border border-[#2D6CDF]/30 bg-[#2D6CDF]/[0.05] p-6 md:p-7">
+                <p className="text-[15px] md:text-base text-[#111418] leading-[1.9]">{tr.flow.note}</p>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+
+        {/* Contact / Apply */}
+        <section className="px-6 md:px-12 mt-20 md:mt-28">
+          <div className="max-w-screen-xl mx-auto">
+            <Reveal><Head eyebrow={tr.contact.eyebrow} title={tr.contact.heading} /></Reveal>
+            <Reveal>
+              <div className="rounded-[1.75rem] md:rounded-[2.5rem] bg-[#111418] text-white overflow-hidden">
+                <div className="grid grid-cols-1 lg:grid-cols-5">
+                  <div className="lg:col-span-3 p-7 md:p-12">
+                    <p className="text-base md:text-lg text-white/85 leading-[1.9]">{tr.contact.lead}</p>
+                    <p className="text-2xl md:text-3xl font-bold mt-8 mb-6">{tr.contact.corp}</p>
+                    <dl className="space-y-4">
+                      {tr.contact.rows.map((row, i) => (
+                        <div key={i} className="flex flex-col md:flex-row md:items-baseline gap-1 md:gap-6 border-b border-white/10 pb-4">
+                          <dt className="md:w-24 flex-shrink-0 text-xs font-bold tracking-widest uppercase text-[#2D6CDF]">{row.label}</dt>
+                          <dd className="flex-1 text-base md:text-lg leading-[1.7] break-words">
+                            {'href' in row && row.href ? (
+                              <a
+                                href={row.href}
+                                target={row.href.startsWith('http') ? '_blank' : undefined}
+                                rel={row.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                                className="text-white hover:text-[#2D6CDF] transition-colors underline decoration-white/20 underline-offset-4"
+                              >
+                                {row.value}
+                              </a>
+                            ) : (
+                              <span className="text-white">{row.value}</span>
+                            )}
+                          </dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </div>
+                  <div className="lg:col-span-2 bg-[#2D6CDF] p-7 md:p-12 flex flex-col justify-center">
+                    <p className="text-white/90 font-medium leading-[1.8] mb-6">{tr.hero.cta}</p>
+                    <a
+                      href={tr.contact.ctaHref}
+                      className="group inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full bg-white text-[#111418] font-bold text-sm md:text-base tracking-tight hover:bg-[#111418] hover:text-white transition-all duration-300"
+                    >
+                      {tr.contact.cta}
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </Reveal>
+
+            {/* Footnote */}
+            <Reveal>
+              <p className="mt-10 text-xs md:text-sm text-gray-500 leading-[1.9] border-l-2 border-gray-300 pl-4">
+                {tr.footnote}
+              </p>
+            </Reveal>
+          </div>
+        </section>
+      </div>
+    </PageTransition>
+  );
+};
+
 const App: React.FC = () => {
   // Helper to parse view from hash
   const getViewFromHash = (): ViewState => {
-    const hash = window.location.hash.slice(1);
-    const validViews: ViewState[] = ['home', 'works', 'mission', 'partners', 'company', 'career', 'contact', 'blog'];
-    return validViews.includes(hash as ViewState) ? (hash as ViewState) : 'home';
+    const validViews: ViewState[] = ['home', 'works', 'training', 'mission', 'partners', 'company', 'career', 'contact', 'blog'];
+    const hash = window.location.hash.slice(1).split('/')[0];
+    if (validViews.includes(hash as ViewState)) return hash as ViewState;
+    // Support a clean path URL for the training page (e.g. /training) via Vercel SPA rewrite
+    const path = window.location.pathname.replace(/\/+$/, '');
+    if (path === '/training') return 'training';
+    return 'home';
   };
 
   const [view, setView] = useState<ViewState>(getViewFromHash());
@@ -1417,6 +1595,7 @@ const App: React.FC = () => {
 
   const navItems: { id: ViewState; label: string }[] = [
     { id: 'works', label: t.nav.works },
+    { id: 'training', label: t.nav.training },
     { id: 'blog', label: t.nav.blog },
     { id: 'mission', label: t.nav.mission },
     // { id: 'partners', label: 'Partners' }, // Hidden
@@ -1494,6 +1673,7 @@ const App: React.FC = () => {
       <main>
         {view === 'home' && <HomeView onNavigate={navigate} />}
         {view === 'works' && <WorksView />}
+        {view === 'training' && <TrainingView />}
         {view === 'blog' && <BlogView />}
         {view === 'mission' && <MissionView />}
         {/* PartnersView is hidden */}
