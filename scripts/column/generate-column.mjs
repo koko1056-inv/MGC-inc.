@@ -1,19 +1,20 @@
 #!/usr/bin/env node
 /**
- * generate-column.mjs — 業界別AI活用コラムを1本、Anthropic APIで生成する
+ * generate-column.mjs — 業界別AI活用コラムを1本、Gemini API で生成する
  *
  * 役割:
  *   1. columns.json のローテーションから「次の業種」を決定的に選ぶ
- *   2. その業種向けの記事JSONを Anthropic Messages API で生成（自然な日本語・SEO最適化）
+ *   2. その業種向けの記事JSONを Google Gemini API で生成（自然な日本語・SEO最適化）
  *   3. content/columns/<slug>.json を書き出し、columns.json を更新
  *   （HTML化は build-columns.mjs が担当。本スクリプトは記事データの生成のみ）
  *
  * 環境変数:
- *   ANTHROPIC_API_KEY  … 必須（GitHub Secrets）
- *   ANTHROPIC_MODEL    … 任意（既定 claude-sonnet-5）
+ *   GEMINI_API_KEY  … 必須（GitHub Secrets）
+ *   GEMINI_MODEL    … 任意（既定 gemini-2.0-flash）
  *   DRY_RUN=1 / --dry-run … APIを呼ばず、選定業種とプロンプト概要のみ表示（ローカル検証用）
  *
- * 依存ゼロ（Node 20+ の global fetch を使用）。実行: node scripts/column/generate-column.mjs
+ * 依存ゼロ（Node 20+ の global fetch で Gemini REST を直接呼ぶ）。
+ * 実行: node scripts/column/generate-column.mjs
  */
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -25,8 +26,8 @@ const CONTENT_DIR = join(ROOT, 'content', 'columns');
 const MANIFEST = join(CONTENT_DIR, 'columns.json');
 
 const DRY = process.argv.includes('--dry-run') || process.env.DRY_RUN === '1';
-const MODEL = process.env.ANTHROPIC_MODEL || 'claude-sonnet-5';
-const API_KEY = process.env.ANTHROPIC_API_KEY;
+const MODEL = process.env.GEMINI_MODEL || 'gemini-2.0-flash';
+const API_KEY = process.env.GEMINI_API_KEY;
 
 const die = (m) => { console.error(`\n[generate-column] ERROR: ${m}\n`); process.exit(1); };
 
@@ -109,25 +110,26 @@ if (DRY) {
   process.exit(0);
 }
 
-if (!API_KEY) die('ANTHROPIC_API_KEY が未設定です（GitHub Secrets に登録してください）');
+if (!API_KEY) die('GEMINI_API_KEY が未設定です（GitHub Secrets に登録してください）');
 
-const res = await fetch('https://api.anthropic.com/v1/messages', {
+const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(MODEL)}:generateContent`;
+const res = await fetch(endpoint, {
   method: 'POST',
-  headers: {
-    'content-type': 'application/json',
-    'x-api-key': API_KEY,
-    'anthropic-version': '2023-06-01',
-  },
+  headers: { 'content-type': 'application/json', 'x-goog-api-key': API_KEY },
   body: JSON.stringify({
-    model: MODEL,
-    max_tokens: 8192,
-    system: SYSTEM,
-    messages: [{ role: 'user', content: USER }],
+    systemInstruction: { parts: [{ text: SYSTEM }] },
+    contents: [{ role: 'user', parts: [{ text: USER }] }],
+    generationConfig: { temperature: 0.85, maxOutputTokens: 8192, responseMimeType: 'application/json' },
   }),
 });
-if (!res.ok) die(`Anthropic API ${res.status}: ${(await res.text()).slice(0, 500)}`);
+if (!res.ok) die(`Gemini API ${res.status}: ${(await res.text()).slice(0, 600)}`);
 const data = await res.json();
-let text = (data.content || []).filter((c) => c.type === 'text').map((c) => c.text).join('').trim();
+const cand = (data.candidates || [])[0];
+if (!cand) die(`Gemini 応答に candidates がありません: ${JSON.stringify(data).slice(0, 400)}`);
+if (cand.finishReason && cand.finishReason !== 'STOP') {
+  console.error(`[generate-column] 警告: finishReason=${cand.finishReason}`);
+}
+let text = ((cand.content && cand.content.parts) || []).map((p) => p.text || '').join('').trim();
 text = text.replace(/^```(?:json)?/i, '').replace(/```$/i, '').trim();
 const s = text.indexOf('{'), e = text.lastIndexOf('}');
 if (s < 0 || e < 0) die(`JSONが見つかりません。先頭: ${text.slice(0, 200)}`);
@@ -173,4 +175,4 @@ manifest.articles = manifest.articles || [];
 manifest.articles.push({ slug: art.slug, industry: ind.key, date: today, file: `${art.slug}.json` });
 writeFileSync(MANIFEST, JSON.stringify(manifest, null, 2) + '\n');
 
-console.log(`[generate-column] OK: ${ind.ja} / ${art.slug}（本文 約${textLen}字）`);
+console.log(`[generate-column] OK: ${ind.ja} / ${art.slug}（本文 約${textLen}字, model ${MODEL}）`);

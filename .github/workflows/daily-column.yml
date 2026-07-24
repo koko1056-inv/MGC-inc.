@@ -1,8 +1,8 @@
 name: Daily AI Column
 
 # 業界別AI活用コラムを毎日1本、自動生成して main に公開する。
-# 前提: リポジトリの Secrets に ANTHROPIC_API_KEY を登録すること。
-#      （任意）Variables に ANTHROPIC_MODEL を設定するとモデルを変更できる（既定 claude-sonnet-5）。
+# 前提: リポジトリの Secrets に GEMINI_API_KEY を登録すること。
+#      （任意）Variables に GEMINI_MODEL を設定するとモデルを変更できる（既定 gemini-2.0-flash）。
 
 on:
   schedule:
@@ -28,10 +28,10 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Generate today's column (Anthropic API)
+      - name: Generate today's column (Gemini API)
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          ANTHROPIC_MODEL: ${{ vars.ANTHROPIC_MODEL }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
         run: node scripts/column/generate-column.mjs
 
       - name: Build static column pages + sitemap
