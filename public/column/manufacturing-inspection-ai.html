@@ -53,20 +53,28 @@
   "@type": "BlogPosting",
   "headline": "製造業の外観検査にAIをどう使うか — 全数検査を「人とAI」で分担する",
   "description": "製造現場の外観検査・検品にAIを導入する現実的な進め方。何をAIに任せ、どこは人が判断するか。導入の順番、精度の考え方、失敗しないスモールスタートまで実務目線で解説します。",
+  "abstract": "製造現場の外観検査・検品にAIを導入する現実的な進め方。何をAIに任せ、どこは人が判断するか。導入の順番、精度の考え方、失敗しないスモールスタートまで実務目線で解説します。",
   "image": [
     "https://mgc-global01.com/assets/column/manufacturing-inspection-ai.png"
   ],
   "datePublished": "2026-07-23",
   "dateModified": "2026-07-23",
   "inLanguage": "ja",
+  "isAccessibleForFree": true,
+  "wordCount": 1744,
   "author": {
     "@type": "Organization",
     "name": "MGC Inc.",
-    "url": "https://mgc-global01.com"
+    "alternateName": "ＭＧＣ株式会社",
+    "url": "https://mgc-global01.com",
+    "sameAs": [
+      "https://mgc-global01.com"
+    ]
   },
   "publisher": {
     "@type": "Organization",
     "name": "MGC Inc.",
+    "url": "https://mgc-global01.com",
     "logo": {
       "@type": "ImageObject",
       "url": "https://mgc-global01.com/logo.png"
@@ -77,7 +85,25 @@
     "@id": "https://mgc-global01.com/column/manufacturing-inspection-ai"
   },
   "articleSection": "製造業",
-  "keywords": "製造業 AI, 外観検査 AI, 検品 自動化, 画像認識 検査, AI導入 製造"
+  "about": [
+    {
+      "@type": "Thing",
+      "name": "製造業のAI活用"
+    },
+    {
+      "@type": "Thing",
+      "name": "AI導入・業務効率化"
+    }
+  ],
+  "keywords": "製造業 AI, 外観検査 AI, 検品 自動化, 画像認識 検査, AI導入 製造",
+  "speakable": {
+    "@type": "SpeakableSpecification",
+    "cssSelector": [
+      "h1.title",
+      ".keypoints",
+      ".lead"
+    ]
+  }
 }</script>
 <script type="application/ld+json">{
   "@context": "https://schema.org",
@@ -127,7 +153,12 @@ h1.title{font-size:2rem;line-height:1.45;font-weight:800;letter-spacing:-.01em;m
 .meta{display:flex;flex-wrap:wrap;gap:14px;align-items:center;font-size:.82rem;color:var(--muted);margin-bottom:26px}
 .chip{background:var(--soft);color:var(--blue);font-weight:700;border-radius:999px;padding:4px 12px;font-size:.78rem}
 .hero{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:16px;background:var(--soft);margin:6px 0 30px;display:block}
-.lead{font-size:1.08rem;color:#2a3340;font-weight:500;border-left:3px solid var(--blue);padding-left:16px;margin:0 0 34px}
+.lead{font-size:1.08rem;color:#2a3340;font-weight:500;border-left:3px solid var(--blue);padding-left:16px;margin:0 0 30px}
+.keypoints{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:0 0 34px}
+.keypoints h2{font-size:.95rem;font-weight:800;color:var(--blue);margin:0 0 12px;letter-spacing:.02em}
+.keypoints ul{margin:0;padding-left:20px}
+.keypoints li{margin:0 0 8px;color:#1b2430;font-weight:500}
+.keypoints li:last-child{margin-bottom:0}
 .article h2{font-size:1.35rem;font-weight:800;line-height:1.5;margin:44px 0 14px;padding-top:6px}
 .article h3{font-size:1.1rem;font-weight:700;margin:30px 0 10px;color:#1b2430}
 .article p{margin:0 0 18px;color:#313a46}
@@ -184,6 +215,7 @@ h1.title{font-size:2rem;line-height:1.45;font-weight:800;letter-spacing:-.01em;m
 <div class="meta"><span class="chip">製造業</span><span>2026.07.23</span><span>読了目安 8分</span></div>
 <img class="hero" src="/assets/column/manufacturing-inspection-ai.png" alt="製造ラインの外観検査を人とAIで分担するイメージ図" width="1200" height="675"/>
 <p class="lead">外観検査へのAI導入で最初につまずくのは「AIの精度」ではなく、「どこまでAIに判定させ、どこから人が見るか」の線引きでした。全数検査を人とAIで分担する、その設計の勘所を実務目線でまとめます。</p>
+<aside class="keypoints"><h2>この記事の要点</h2><ul><li>外観検査AIは全数検査をなくす道具ではなく、AIと人で検査を分担する仕組みとして設計するのが現実的です。</li><li>精度は一つの数字で見ず、『見逃し（不良を良品と判定）』と『取りすぎ』を分け、AIは見逃しを避ける一次選別に振ります。</li><li>1ライン・1品種のスモールスタートと、人の判定と突き合わせる並走期間が、定着の分かれ目になります。</li></ul></aside>
 <p>外観検査（キズ・欠け・異物・印字ずれなどの目視チェック）は、多くの製造現場で人手に頼っています。検査員の熟練に依存し、長時間で集中力も落ちる。AIによる画像検査は有力な打ち手ですが、「AIを入れれば検査が全部なくなる」と考えると、たいてい失敗します。</p>
 <p>現場で本当に効くのは、AIに全部を任せることではなく、AIと人の役割を分けることでした。この記事では、外観検査AIを『導入して終わり』にしないための考え方を、順を追って説明します。</p>
 <h2>AIに向く検査、人に残す検査</h2>

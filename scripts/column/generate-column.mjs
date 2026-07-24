@@ -70,7 +70,14 @@ const RULES = `# 文体・品質ルール（厳守）
 - トーンは落ち着いた実務・等身大。煽らない。「何をAIに任せ、どこは人が判断するか」「小さく始める」「記録・権限・基準を先に決める」といった誠実な視点。
 - 誇大な断定や、具体的な数値効果（○％削減 等）の保証はしない。
 - 売り込みは本文に入れない（相談導線CTAはサイト側で自動付与される）。末尾の「まとめ」は内容の要約に徹する。
-- 本文（lead + body のテキスト合計）はおよそ2000〜3500字。`;
+- 本文（lead + body のテキスト合計）はおよそ2500〜3500字。しっかり読み応えのある密度にする。
+
+# AIアシスタント/生成エンジンに引用・推薦されやすくする（GEO）ルール
+- **結論先出し**: 各 h2 セクションは、最初の段落で結論・要点を1〜2文で言い切ってから詳細に入る。
+- **見出しは読者の疑問に対応**させる（例「AIに任せてよい業務は？」「導入は何から始める？」）。疑問文でなくても、答えが明確に想像できる具体的な見出しにする。
+- **用語は初出で一言定義**する（専門語をそのまま置かない）。
+- **自己完結した事実文**を心がける（その段落だけ切り出されても意味が通る）。曖昧な埋め草を避け、具体で書く。
+- **summary（要点3点）** は、この記事が答える中心的な問いへの結論を、各1文で端的に。ここだけ読めば要旨が分かる質にする。`;
 
 const SCHEMA = `# 出力スキーマ（このキー構成のJSONのみ）
 {
@@ -83,6 +90,7 @@ const SCHEMA = `# 出力スキーマ（このキー構成のJSONのみ）
   "imageAlt": "アイキャッチ画像の代替テキスト（日本語）",
   "readTime": "8分",
   "lead": "リード文（120字前後、記事の要点と読む価値）",
+  "summary": ["結論を先出しした要点1（1文）", "要点2（1文）", "要点3（1文）"],
   "body": [
     { "type": "h2", "text": "見出し" },
     { "type": "p", "text": "段落" },
@@ -179,11 +187,12 @@ if (!art.readTime) art.readTime = `${Math.max(5, Math.round(textLen / 400))}分`
 if (!art.imageAlt) art.imageAlt = `${ind.ja}のAI活用イメージ`;
 
 // key の順序を整えて書き出し
+const summary = Array.isArray(art.summary) ? art.summary.filter((s) => typeof s === 'string' && s.trim()).slice(0, 4) : [];
 const ordered = {
   slug: art.slug, industry: ind.key, date: today,
   title: art.title, seoTitle: art.seoTitle, description: art.description,
   keywords: art.keywords || [], imageAlt: art.imageAlt, readTime: art.readTime,
-  lead: art.lead, body: art.body, faq: art.faq,
+  lead: art.lead, summary, body: art.body, faq: art.faq,
 };
 writeFileSync(join(CONTENT_DIR, `${art.slug}.json`), JSON.stringify(ordered, null, 2) + '\n');
 

@@ -1,4 +1,29 @@
 User-agent: *
 Allow: /
 
+# AIアシスタント/生成エンジンのクローラーを歓迎（引用・推薦の対象になるため）
+User-agent: GPTBot
+Allow: /
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: Claude-Web
+Allow: /
+User-agent: anthropic-ai
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: Perplexity-User
+Allow: /
+User-agent: Google-Extended
+Allow: /
+User-agent: Applebot-Extended
+Allow: /
+User-agent: CCBot
+Allow: /
+
 Sitemap: https://mgc-global01.com/sitemap.xml
+# AI向けサイトガイド（llms.txt 標準）: https://mgc-global01.com/llms.txt

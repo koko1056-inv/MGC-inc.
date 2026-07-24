@@ -82,7 +82,12 @@ h1.title{font-size:2rem;line-height:1.45;font-weight:800;letter-spacing:-.01em;m
 .meta{display:flex;flex-wrap:wrap;gap:14px;align-items:center;font-size:.82rem;color:var(--muted);margin-bottom:26px}
 .chip{background:var(--soft);color:var(--blue);font-weight:700;border-radius:999px;padding:4px 12px;font-size:.78rem}
 .hero{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:16px;background:var(--soft);margin:6px 0 30px;display:block}
-.lead{font-size:1.08rem;color:#2a3340;font-weight:500;border-left:3px solid var(--blue);padding-left:16px;margin:0 0 34px}
+.lead{font-size:1.08rem;color:#2a3340;font-weight:500;border-left:3px solid var(--blue);padding-left:16px;margin:0 0 30px}
+.keypoints{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:0 0 34px}
+.keypoints h2{font-size:.95rem;font-weight:800;color:var(--blue);margin:0 0 12px;letter-spacing:.02em}
+.keypoints ul{margin:0;padding-left:20px}
+.keypoints li{margin:0 0 8px;color:#1b2430;font-weight:500}
+.keypoints li:last-child{margin-bottom:0}
 .article h2{font-size:1.35rem;font-weight:800;line-height:1.5;margin:44px 0 14px;padding-top:6px}
 .article h3{font-size:1.1rem;font-weight:700;margin:30px 0 10px;color:#1b2430}
 .article p{margin:0 0 18px;color:#313a46}
@@ -178,14 +183,19 @@ function articleHtml(a) {
   };
   const posting = {
     '@context': 'https://schema.org', '@type': 'BlogPosting',
-    headline: a.title, description: desc, image: [imgAbs],
+    headline: a.title, description: desc, abstract: desc, image: [imgAbs],
     datePublished: a.date, dateModified: a.dateModified || a.date,
-    inLanguage: 'ja',
-    author: { '@type': 'Organization', name: 'MGC Inc.', url: site.baseUrl },
-    publisher: { '@type': 'Organization', name: 'MGC Inc.', logo: { '@type': 'ImageObject', url: `${site.baseUrl}/logo.png` } },
+    inLanguage: 'ja', isAccessibleForFree: true, wordCount: plainText(a).length,
+    author: { '@type': 'Organization', name: 'MGC Inc.', alternateName: 'ＭＧＣ株式会社', url: site.baseUrl, sameAs: [site.baseUrl] },
+    publisher: { '@type': 'Organization', name: 'MGC Inc.', url: site.baseUrl, logo: { '@type': 'ImageObject', url: `${site.baseUrl}/logo.png` } },
     mainEntityOfPage: { '@type': 'WebPage', '@id': url },
     articleSection: ind.ja,
+    about: [
+      { '@type': 'Thing', name: `${ind.ja}のAI活用` },
+      { '@type': 'Thing', name: 'AI導入・業務効率化' },
+    ],
     keywords: kw,
+    speakable: { '@type': 'SpeakableSpecification', cssSelector: ['h1.title', '.keypoints', '.lead'] },
   };
   const faqLd = (a.faq && a.faq.length) ? {
     '@context': 'https://schema.org', '@type': 'FAQPage',
@@ -244,6 +254,7 @@ ${HEADER}
 <div class="meta"><span class="chip">${esc(ind.ja)}</span><span>${esc(a.date.replace(/-/g, '.'))}</span>${a.readTime ? `<span>読了目安 ${esc(a.readTime)}</span>` : ''}</div>
 <img class="hero" src="${esc(img)}" alt="${esc(a.imageAlt || a.title)}" width="1200" height="675"/>
 <p class="lead">${esc(a.lead)}</p>
+${(a.summary && a.summary.length) ? `<aside class="keypoints"><h2>この記事の要点</h2><ul>${a.summary.map((s) => `<li>${esc(s)}</li>`).join('')}</ul></aside>` : ''}
 ${renderBody(a.body)}
 ${faqHtml}
 <section class="cta">
@@ -344,6 +355,27 @@ function updateSitemap() {
   writeFileSync(SITEMAP, xml);
 }
 
+// ---- llms.txt（AIアシスタント/生成エンジン向けのサイトガイド。llms.txt標準）----
+function updateLlmsTxt() {
+  const lines = [];
+  lines.push('# MGC Inc.（ＭＧＣ株式会社）');
+  lines.push('');
+  lines.push('> 企業のAI活用を支援する会社。AIソリューション（コンサルティング〜開発〜運用〜研修の一気通貫）とクロスボーダー事業を展開。以下のコラムは、業界別に「どの業務にどうAIを使い、どこは人が判断するか」を実務目線で解説する、引用・参照に適した一次情報です。');
+  lines.push('');
+  lines.push('## AI活用コラム（業界別）');
+  for (const a of articles) {
+    const ind = industriesByKey[a.industry];
+    const d = a.description || plainText(a).slice(0, 90);
+    lines.push(`- [${a.title}](${site.baseUrl}/column/${a.slug}): ［${ind.ja}］${d}`);
+  }
+  lines.push('');
+  lines.push('## サービス・問い合わせ');
+  lines.push(`- [AI活用リスキリング研修](${site.baseUrl}/training): 企業向けのAI活用研修（OFF-JT、人材開発支援助成金の対象訓練に対応）`);
+  lines.push(`- [30分の無料オンライン相談](${site.baseUrl}/#contact): AI活用・社内研修の相談窓口（初回無料）`);
+  lines.push('');
+  writeFileSync(join(ROOT, 'public', 'llms.txt'), lines.join('\n') + '\n');
+}
+
 // ---- run ----
 let count = 0;
 for (const a of articles) {
@@ -352,6 +384,7 @@ for (const a of articles) {
 }
 writeFileSync(join(OUT_DIR, 'index.html'), indexHtml());
 updateSitemap();
+updateLlmsTxt();
 
 console.log(`[build-columns] OK: ${count} 記事 + index.html + sitemap 更新`);
 for (const a of articles) {
