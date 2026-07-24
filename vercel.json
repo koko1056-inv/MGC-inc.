@@ -6,6 +6,9 @@
     { "source": "/terms-of-service", "destination": "/terms-of-service.html" },
     { "source": "/tiktok-callback", "destination": "/tiktok-callback.html" },
     { "source": "/tiktok-developers-site-verification=XTXhOKY6dU5oJbp1LOu746E3EvjUi3NU", "destination": "/tiktok-developers-site-verification=XTXhOKY6dU5oJbp1LOu746E3EvjUi3NU.html" },
+    { "source": "/column", "destination": "/column/index.html" },
+    { "source": "/column/", "destination": "/column/index.html" },
+    { "source": "/column/:slug", "destination": "/column/:slug.html" },
     { "source": "/(.*)", "destination": "/" }
   ]
 }

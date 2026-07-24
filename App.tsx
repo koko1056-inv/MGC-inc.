@@ -1453,6 +1453,12 @@ const App: React.FC = () => {
                <span className={`absolute -bottom-1 left-0 h-[2px] bg-white transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${view === item.id ? 'w-full' : 'w-0'}`} />
             </button>
           ))}
+          <a
+            href="/column"
+            className="relative py-1 opacity-60 hover:opacity-100 font-medium transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+          >
+            コラム
+          </a>
         </nav>
 
         {/* Mobile Menu Toggle */}
@@ -1487,6 +1493,12 @@ const App: React.FC = () => {
               {item.label}
             </button>
           ))}
+          <a
+            href="/column"
+            className="text-4xl font-bold tracking-tighter text-offblack hover:text-accent transition-colors"
+          >
+            コラム
+          </a>
         </nav>
       </div>
 
@@ -1536,6 +1548,7 @@ const App: React.FC = () => {
                 {item.label}
               </button>
             ))}
+            <a href="/column" className="hover:text-accent transition-colors">コラム</a>
           </nav>
         </div>
         <p className="max-w-screen-xl mx-auto text-xs mt-10 opacity-70">{t.footer.rights}</p>
