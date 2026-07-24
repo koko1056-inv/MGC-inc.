@@ -5,6 +5,7 @@ export const translations = {
     nav: {
       works: '事業内容',
       training: '研修',
+      column: 'コラム',
       blog: 'Journal',
       mission: '会社理念',
       company: '会社概要',
@@ -427,6 +428,7 @@ export const translations = {
     nav: {
       works: 'Services',
       training: 'Training',
+      column: 'Column',
       blog: 'Journal',
       mission: 'Mission',
       company: 'Company',

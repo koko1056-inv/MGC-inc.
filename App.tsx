@@ -1593,15 +1593,14 @@ const App: React.FC = () => {
     window.location.hash = id;
   };
 
-  const navItems: { id: ViewState; label: string }[] = [
+  // 情報ナビ（お問い合わせはCTAボタンとして分離、Journalはフッターへ集約）
+  const navItems: { id?: ViewState; href?: string; label: string }[] = [
     { id: 'works', label: t.nav.works },
     { id: 'training', label: t.nav.training },
-    { id: 'blog', label: t.nav.blog },
+    { href: '/column', label: t.nav.column },
     { id: 'mission', label: t.nav.mission },
-    // { id: 'partners', label: 'Partners' }, // Hidden
     { id: 'company', label: t.nav.company },
     { id: 'career', label: t.nav.career },
-    { id: 'contact', label: t.nav.contact },
   ];
 
   return (
@@ -1621,23 +1620,32 @@ const App: React.FC = () => {
         </button>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8">
-          {navItems.map((item) => (
+        <nav className="hidden md:flex items-center gap-7">
+          {navItems.map((item) => item.href ? (
+            <a
+              key={item.href}
+              href={item.href}
+              className="relative py-1 opacity-60 hover:opacity-100 font-medium transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+            >
+              {item.label}
+            </a>
+          ) : (
             <button
               key={item.id}
-              onClick={() => navigate(item.id)}
+              onClick={() => item.id && navigate(item.id)}
               className={`relative py-1 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] origin-center ${view === item.id ? 'opacity-100 font-bold scale-110' : 'opacity-60 hover:opacity-100 font-medium scale-100'}`}
             >
               {item.label}
                <span className={`absolute -bottom-1 left-0 h-[2px] bg-white transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${view === item.id ? 'w-full' : 'w-0'}`} />
             </button>
           ))}
-          <a
-            href="/column"
-            className="relative py-1 opacity-60 hover:opacity-100 font-medium transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+          {/* Contact CTA（主導線） */}
+          <button
+            onClick={() => navigate('contact')}
+            className="ml-1 px-5 py-1.5 rounded-full border border-white/50 font-bold hover:bg-white hover:text-offblack transition-colors duration-300"
           >
-            コラム
-          </a>
+            {t.nav.contact}
+          </button>
         </nav>
 
         {/* Mobile Menu Toggle */}
@@ -1662,22 +1670,31 @@ const App: React.FC = () => {
 
       {/* Mobile Menu Overlay */}
       <div className={`fixed inset-0 bg-white z-40 flex flex-col items-center justify-center transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}>
-        <nav className="flex flex-col items-center gap-8">
-           {navItems.map((item) => (
+        <nav className="flex flex-col items-center gap-7">
+           {navItems.map((item) => item.href ? (
+            <a
+              key={item.href}
+              href={item.href}
+              onClick={() => setIsMenuOpen(false)}
+              className="text-4xl font-bold tracking-tighter text-offblack hover:text-accent transition-colors"
+            >
+              {item.label}
+            </a>
+          ) : (
             <button
               key={item.id}
-              onClick={() => navigate(item.id)}
+              onClick={() => item.id && navigate(item.id)}
               className="text-4xl font-bold tracking-tighter text-offblack hover:text-accent transition-colors"
             >
               {item.label}
             </button>
           ))}
-          <a
-            href="/column"
-            className="text-4xl font-bold tracking-tighter text-offblack hover:text-accent transition-colors"
+          <button
+            onClick={() => navigate('contact')}
+            className="mt-3 px-8 py-4 rounded-full bg-accent text-white text-2xl font-bold hover:bg-offblack transition-colors"
           >
-            コラム
-          </a>
+            {t.nav.contact}
+          </button>
         </nav>
       </div>
 
@@ -1723,12 +1740,15 @@ const App: React.FC = () => {
             <p className="text-sm leading-relaxed">{t.footer.address}</p>
           </div>
           <nav className="flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium">
-            {navItems.map((item) => (
-              <button key={item.id} onClick={() => navigate(item.id)} className="hover:text-accent transition-colors">
+            {navItems.map((item) => item.href ? (
+              <a key={item.href} href={item.href} className="hover:text-accent transition-colors">{item.label}</a>
+            ) : (
+              <button key={item.id} onClick={() => item.id && navigate(item.id)} className="hover:text-accent transition-colors">
                 {item.label}
               </button>
             ))}
-            <a href="/column" className="hover:text-accent transition-colors">コラム</a>
+            <button onClick={() => navigate('blog')} className="hover:text-accent transition-colors">{t.nav.blog}</button>
+            <button onClick={() => navigate('contact')} className="hover:text-accent transition-colors">{t.nav.contact}</button>
           </nav>
         </div>
         <p className="max-w-screen-xl mx-auto text-xs mt-10 opacity-70">{t.footer.rights}</p>
