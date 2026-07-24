@@ -100,7 +100,9 @@ h1.title{font-size:2rem;line-height:1.45;font-weight:800;letter-spacing:-.01em;m
 .cta{margin:52px 0;background:var(--ink);color:#fff;border-radius:20px;padding:30px 26px}
 .cta h2{color:#fff;font-size:1.3rem;font-weight:800;margin-bottom:10px}
 .cta p{color:rgba(255,255,255,.82);margin-bottom:20px}
+.cta .cta-eyebrow{display:inline-block;background:var(--blue);color:#fff;font-size:.72rem;font-weight:800;letter-spacing:.08em;border-radius:999px;padding:5px 12px;margin-bottom:14px}
 .cta .btns{display:flex;flex-wrap:wrap;gap:12px}
+.cta .cta-foot{color:rgba(255,255,255,.6);font-size:.8rem;margin:14px 0 0}
 .btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:13px 22px;font-weight:800;font-size:.92rem;text-decoration:none}
 .btn-primary{background:var(--blue);color:#fff}
 .btn-ghost{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.25)}
@@ -245,12 +247,14 @@ ${HEADER}
 ${renderBody(a.body)}
 ${faqHtml}
 <section class="cta">
-<h2>${esc(ind.ja)}のAI活用を、MGCが伴走します</h2>
-<p>「自社のどの業務に、どうAIを使うか」の整理から、開発・運用・社内研修まで一気通貫でご支援します。初回相談は30分・無料です。</p>
+<span class="cta-eyebrow">無料・オンライン30分</span>
+<h2>${esc(ind.ja)}のAI活用、まず30分だけ話しませんか</h2>
+<p>「自社ならどこから始められるか」が気になったら、オンラインの無料相談へ。御社の業務に合わせて、AI活用の進め方と、社内研修の設計を一緒に整理します。ITに詳しくない方でも大丈夫です。</p>
 <div class="btns">
-<a class="btn btn-primary" href="/#contact">無料相談を申し込む</a>
+<a class="btn btn-primary" href="/#contact">30分の無料相談を予約する</a>
 <a class="btn btn-ghost" href="/training">AI活用リスキリング研修を見る</a>
 </div>
+<p class="cta-foot">初回相談・お見積もりまで無料。経営者・管理職・現場、それぞれに合わせて研修を設計します。</p>
 </section>
 ${relatedHtml}
 <p class="disclaimer">本コラムは一般的な情報提供を目的としたもので、特定の成果を保証するものではありません。導入可否や効果は、企業の状況・データ・体制により異なります。具体的なご相談は個別にお問い合わせください。</p>
@@ -302,6 +306,14 @@ function indexHtml() {
 ${HEADER}
 <section class="index-hero"><span class="eyebrow">AI Column</span><h1>業界別 AI活用コラム</h1><p>製造・建設・不動産・小売・物流・医療・士業…。業界ごとに「どの業務に、どうAIを使い、どこは人が判断するか」を、実務目線でまとめています。</p></section>
 <section class="cards">${cards || '<p style="color:#5b6472">記事は準備中です。</p>'}</section>
+<section class="wrap" style="margin-top:56px">
+<div class="cta">
+<span class="cta-eyebrow">無料・オンライン30分</span>
+<h2>自社のAI活用、どこから始める？ まず30分で相談</h2>
+<p>業界や業務に合わせて、AIの使いどころと社内研修の進め方を一緒に整理します。ITに詳しくない方でも大丈夫です。初回相談・お見積もりまで無料です。</p>
+<div class="btns"><a class="btn btn-primary" href="/#contact">30分の無料相談を予約する</a><a class="btn btn-ghost" href="/training">AI活用リスキリング研修を見る</a></div>
+</div>
+</section>
 ${FOOTER}
 </body>
 </html>`;
