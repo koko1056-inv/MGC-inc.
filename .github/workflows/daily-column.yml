@@ -1,0 +1,51 @@
+name: Daily AI Column
+
+# 業界別AI活用コラムを毎日1本、自動生成して main に公開する。
+# 前提: リポジトリの Secrets に ANTHROPIC_API_KEY を登録すること。
+#      （任意）Variables に ANTHROPIC_MODEL を設定するとモデルを変更できる（既定 claude-sonnet-5）。
+
+on:
+  schedule:
+    - cron: '10 22 * * *'   # 毎日 07:10 JST (22:10 UTC)
+  workflow_dispatch: {}       # 手動実行も可（Actions画面から Run workflow）
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-column
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Generate today's column (Anthropic API)
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_MODEL: ${{ vars.ANTHROPIC_MODEL }}
+        run: node scripts/column/generate-column.mjs
+
+      - name: Build static column pages + sitemap
+        run: node scripts/column/build-columns.mjs
+
+      - name: Commit & push to main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "変更なし（生成に失敗した可能性）。コミットせず終了。"
+            exit 0
+          fi
+          slug="$(node -e "const m=require('./content/columns/columns.json');console.log(m.articles[m.articles.length-1].slug)")"
+          git add -A
+          git commit -m "業界コラム自動投稿: ${slug} ($(TZ=Asia/Tokyo date +%Y-%m-%d))"
+          git push
