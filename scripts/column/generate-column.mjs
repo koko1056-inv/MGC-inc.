@@ -26,7 +26,16 @@ const CONTENT_DIR = join(ROOT, 'content', 'columns');
 const MANIFEST = join(CONTENT_DIR, 'columns.json');
 
 const DRY = process.argv.includes('--dry-run') || process.env.DRY_RUN === '1';
-const MODEL = process.env.GEMINI_MODEL || 'gemini-2.0-flash';
+// Gemini 3.0系を優先。モデル廃止・表記揺れに強いよう複数候補を順に試す
+// （GEMINI_MODEL 指定があれば最優先。未ヒット時は最新エイリアス→2.5系へフォールバック）。
+const MODELS = [
+  ...(process.env.GEMINI_MODEL ? [process.env.GEMINI_MODEL] : []),
+  'gemini-3.0-flash',
+  'gemini-3-flash',
+  'gemini-flash-latest', // 最新flashのエイリアス（通常は最新の3.0系を指す）
+  'gemini-3.0-pro',
+  'gemini-2.5-flash',
+].filter((v, i, a) => v && a.indexOf(v) === i);
 const API_KEY = process.env.GEMINI_API_KEY;
 
 const die = (m) => { console.error(`\n[generate-column] ERROR: ${m}\n`); process.exit(1); };
@@ -105,25 +114,36 @@ if (DRY) {
   console.log('[generate-column] DRY RUN');
   console.log('  次の業種:', ind.key, '/', ind.ja, `(lastIndex ${manifest.rotation.lastIndex} → ${next})`);
   console.log('  既出テーマ:', used);
-  console.log('  公開日:', today, ' モデル:', MODEL);
+  console.log('  公開日:', today, ' モデル候補:', MODELS.join(', '));
   console.log('  プロンプト長:', USER.length, 'chars（見本込み）');
   process.exit(0);
 }
 
 if (!API_KEY) die('GEMINI_API_KEY が未設定です（GitHub Secrets に登録してください）');
 
-const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(MODEL)}:generateContent`;
-const res = await fetch(endpoint, {
-  method: 'POST',
-  headers: { 'content-type': 'application/json', 'x-goog-api-key': API_KEY },
-  body: JSON.stringify({
-    systemInstruction: { parts: [{ text: SYSTEM }] },
-    contents: [{ role: 'user', parts: [{ text: USER }] }],
-    generationConfig: { temperature: 0.85, maxOutputTokens: 8192, responseMimeType: 'application/json' },
-  }),
+const reqBody = JSON.stringify({
+  systemInstruction: { parts: [{ text: SYSTEM }] },
+  contents: [{ role: 'user', parts: [{ text: USER }] }],
+  generationConfig: { temperature: 0.85, maxOutputTokens: 8192, responseMimeType: 'application/json' },
 });
-if (!res.ok) die(`Gemini API ${res.status}: ${(await res.text()).slice(0, 600)}`);
-const data = await res.json();
+let data, MODEL;
+for (const m of MODELS) {
+  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(m)}:generateContent`;
+  const res = await fetch(endpoint, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json', 'x-goog-api-key': API_KEY },
+    body: reqBody,
+  });
+  if (res.ok) { data = await res.json(); MODEL = m; break; }
+  const errText = await res.text();
+  // モデルが存在しない/廃止された場合のみ次の候補へ。認証・レート等は即失敗。
+  if (res.status === 404 || (res.status === 400 && /not found|not supported|no longer available|is not available/i.test(errText))) {
+    console.error(`[generate-column] モデル ${m} は利用不可 (${res.status})。次の候補を試します。`);
+    continue;
+  }
+  die(`Gemini API ${res.status} (model ${m}): ${errText.slice(0, 500)}`);
+}
+if (!data) die(`利用可能なGeminiモデルが見つかりませんでした。候補: ${MODELS.join(', ')}（GEMINI_MODEL 変数で有効なモデルを指定してください）`);
 const cand = (data.candidates || [])[0];
 if (!cand) die(`Gemini 応答に candidates がありません: ${JSON.stringify(data).slice(0, 400)}`);
 if (cand.finishReason && cand.finishReason !== 'STOP') {

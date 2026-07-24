@@ -2,7 +2,8 @@ name: Daily AI Column
 
 # 業界別AI活用コラムを毎日1本、自動生成して main に公開する。
 # 前提: リポジトリの Secrets に GEMINI_API_KEY を登録すること。
-#      （任意）Variables に GEMINI_MODEL を設定するとモデルを変更できる（既定 gemini-2.0-flash）。
+#      （任意）Variables に GEMINI_MODEL を設定すると使用モデルを固定できる。
+#      未設定時は gemini-3.0-flash → 最新エイリアス → gemini-2.5-flash の順に自動フォールバック。
 
 on:
   schedule:
@@ -26,7 +27,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
       - name: Generate today's column (Gemini API)
         env:
