@@ -7,7 +7,7 @@
   },
   "rotation": {
     "note": "日次で industries を順番に回す。lastIndex は最後に公開した業種の添字。次回は (lastIndex+1)%12 の業種で、usedTopics に無いテーマを選ぶ。",
-    "lastIndex": 2,
+    "lastIndex": 3,
     "industries": [
       {
         "key": "manufacturing",
@@ -79,7 +79,9 @@
     "real-estate": [
       "real-estate-inquiry-response-ai"
     ],
-    "retail": [],
+    "retail": [
+      "retail-demand-forecasting-inventory"
+    ],
     "logistics": [],
     "healthcare": [],
     "hospitality": [],
@@ -109,6 +111,12 @@
       "industry": "real-estate",
       "date": "2026-07-25",
       "file": "real-estate-inquiry-response-ai.json"
+    },
+    {
+      "slug": "retail-demand-forecasting-inventory",
+      "industry": "retail",
+      "date": "2026-07-25",
+      "file": "retail-demand-forecasting-inventory.json"
     }
   ]
 }
