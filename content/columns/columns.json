@@ -7,38 +7,108 @@
   },
   "rotation": {
     "note": "日次で industries を順番に回す。lastIndex は最後に公開した業種の添字。次回は (lastIndex+1)%12 の業種で、usedTopics に無いテーマを選ぶ。",
-    "lastIndex": 1,
+    "lastIndex": 2,
     "industries": [
-      { "key": "manufacturing", "ja": "製造業", "fallbackImage": "/assets/column/ind_manufacturing.png" },
-      { "key": "construction", "ja": "建設業", "fallbackImage": "/assets/column/ind_construction.png" },
-      { "key": "real-estate", "ja": "不動産", "fallbackImage": "/assets/column/ind_real-estate.png" },
-      { "key": "retail", "ja": "小売・EC", "fallbackImage": "/assets/column/ind_retail.png" },
-      { "key": "logistics", "ja": "物流", "fallbackImage": "/assets/column/ind_logistics.png" },
-      { "key": "healthcare", "ja": "医療・介護", "fallbackImage": "/assets/column/ind_healthcare.png" },
-      { "key": "hospitality", "ja": "飲食・ホテル", "fallbackImage": "/assets/column/ind_hospitality.png" },
-      { "key": "professional", "ja": "士業（会計・法務）", "fallbackImage": "/assets/column/ind_professional.png" },
-      { "key": "finance", "ja": "金融・保険", "fallbackImage": "/assets/column/ind_finance.png" },
-      { "key": "education", "ja": "教育", "fallbackImage": "/assets/column/ind_education.png" },
-      { "key": "hr", "ja": "人材・採用", "fallbackImage": "/assets/column/ind_hr.png" },
-      { "key": "public", "ja": "自治体・公共", "fallbackImage": "/assets/column/ind_public.png" }
+      {
+        "key": "manufacturing",
+        "ja": "製造業",
+        "fallbackImage": "/assets/column/ind_manufacturing.png"
+      },
+      {
+        "key": "construction",
+        "ja": "建設業",
+        "fallbackImage": "/assets/column/ind_construction.png"
+      },
+      {
+        "key": "real-estate",
+        "ja": "不動産",
+        "fallbackImage": "/assets/column/ind_real-estate.png"
+      },
+      {
+        "key": "retail",
+        "ja": "小売・EC",
+        "fallbackImage": "/assets/column/ind_retail.png"
+      },
+      {
+        "key": "logistics",
+        "ja": "物流",
+        "fallbackImage": "/assets/column/ind_logistics.png"
+      },
+      {
+        "key": "healthcare",
+        "ja": "医療・介護",
+        "fallbackImage": "/assets/column/ind_healthcare.png"
+      },
+      {
+        "key": "hospitality",
+        "ja": "飲食・ホテル",
+        "fallbackImage": "/assets/column/ind_hospitality.png"
+      },
+      {
+        "key": "professional",
+        "ja": "士業（会計・法務）",
+        "fallbackImage": "/assets/column/ind_professional.png"
+      },
+      {
+        "key": "finance",
+        "ja": "金融・保険",
+        "fallbackImage": "/assets/column/ind_finance.png"
+      },
+      {
+        "key": "education",
+        "ja": "教育",
+        "fallbackImage": "/assets/column/ind_education.png"
+      },
+      {
+        "key": "hr",
+        "ja": "人材・採用",
+        "fallbackImage": "/assets/column/ind_hr.png"
+      },
+      {
+        "key": "public",
+        "ja": "自治体・公共",
+        "fallbackImage": "/assets/column/ind_public.png"
+      }
     ]
   },
   "usedTopics": {
-    "manufacturing": ["manufacturing-inspection-ai"],
+    "manufacturing": [
+      "manufacturing-inspection-ai"
+    ],
     "construction": [],
-    "real-estate": [],
+    "real-estate": [
+      "real-estate-inquiry-response-ai"
+    ],
     "retail": [],
     "logistics": [],
     "healthcare": [],
     "hospitality": [],
-    "professional": ["professional-accounting-ai"],
+    "professional": [
+      "professional-accounting-ai"
+    ],
     "finance": [],
     "education": [],
     "hr": [],
     "public": []
   },
   "articles": [
-    { "slug": "manufacturing-inspection-ai", "industry": "manufacturing", "date": "2026-07-23", "file": "manufacturing-inspection-ai.json" },
-    { "slug": "professional-accounting-ai", "industry": "professional", "date": "2026-07-24", "file": "professional-accounting-ai.json" }
+    {
+      "slug": "manufacturing-inspection-ai",
+      "industry": "manufacturing",
+      "date": "2026-07-23",
+      "file": "manufacturing-inspection-ai.json"
+    },
+    {
+      "slug": "professional-accounting-ai",
+      "industry": "professional",
+      "date": "2026-07-24",
+      "file": "professional-accounting-ai.json"
+    },
+    {
+      "slug": "real-estate-inquiry-response-ai",
+      "industry": "real-estate",
+      "date": "2026-07-25",
+      "file": "real-estate-inquiry-response-ai.json"
+    }
   ]
 }
