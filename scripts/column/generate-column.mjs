@@ -70,7 +70,11 @@ const RULES = `# 文体・品質ルール（厳守）
 - トーンは落ち着いた実務・等身大。煽らない。「何をAIに任せ、どこは人が判断するか」「小さく始める」「記録・権限・基準を先に決める」といった誠実な視点。
 - 誇大な断定や、具体的な数値効果（○％削減 等）の保証はしない。
 - 売り込みは本文に入れない（相談導線CTAはサイト側で自動付与される）。末尾の「まとめ」は内容の要約に徹する。
-- 本文（lead + body のテキスト合計）はおよそ2500〜3500字。しっかり読み応えのある密度にする。
+
+# 分量・構成（厳守）
+- 本文（lead + body のテキスト合計）は **3,000〜4,000字（最低でも3,000字）**。しっかり読み応えのある密度にする。
+- **h2 を6〜7本**立て、各セクションは段落を2つ以上書く。数セクションには箇条書き(ul/ol)や引用(quote)を入れて具体性を出す。
+- 水増しや同義の繰り返しで字数を稼がない。具体例、業務の場面、導入手順、つまずきやすい点、確認すべきチェック項目などで自然に厚くする。
 
 # AIアシスタント/生成エンジンに引用・推薦されやすくする（GEO）ルール
 - **結論先出し**: 各 h2 セクションは、最初の段落で結論・要点を1〜2文で言い切ってから詳細に入る。
@@ -129,41 +133,59 @@ if (DRY) {
 
 if (!API_KEY) die('GEMINI_API_KEY が未設定です（GitHub Secrets に登録してください）');
 
-const reqBody = JSON.stringify({
-  systemInstruction: { parts: [{ text: SYSTEM }] },
-  contents: [{ role: 'user', parts: [{ text: USER }] }],
-  generationConfig: { temperature: 0.85, maxOutputTokens: 8192, responseMimeType: 'application/json' },
-});
-let data, MODEL;
-for (const m of MODELS) {
-  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(m)}:generateContent`;
-  const res = await fetch(endpoint, {
-    method: 'POST',
-    headers: { 'content-type': 'application/json', 'x-goog-api-key': API_KEY },
-    body: reqBody,
+// Gemini を呼び、記事JSONを1件返す（モデル候補を順に試す）。
+async function callGemini(userText) {
+  const body = JSON.stringify({
+    systemInstruction: { parts: [{ text: SYSTEM }] },
+    contents: [{ role: 'user', parts: [{ text: userText }] }],
+    generationConfig: { temperature: 0.85, maxOutputTokens: 16384, responseMimeType: 'application/json' },
   });
-  if (res.ok) { data = await res.json(); MODEL = m; break; }
-  const errText = await res.text();
-  // モデルが存在しない/廃止された場合のみ次の候補へ。認証・レート等は即失敗。
-  if (res.status === 404 || (res.status === 400 && /not found|not supported|no longer available|is not available/i.test(errText))) {
-    console.error(`[generate-column] モデル ${m} は利用不可 (${res.status})。次の候補を試します。`);
-    continue;
+  let data, usedModel;
+  for (const m of MODELS) {
+    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(m)}:generateContent`;
+    const res = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', 'x-goog-api-key': API_KEY },
+      body,
+    });
+    if (res.ok) { data = await res.json(); usedModel = m; break; }
+    const errText = await res.text();
+    // モデルが存在しない/廃止された場合のみ次の候補へ。認証・レート等は即失敗。
+    if (res.status === 404 || (res.status === 400 && /not found|not supported|no longer available|is not available/i.test(errText))) {
+      console.error(`[generate-column] モデル ${m} は利用不可 (${res.status})。次の候補を試します。`);
+      continue;
+    }
+    die(`Gemini API ${res.status} (model ${m}): ${errText.slice(0, 500)}`);
   }
-  die(`Gemini API ${res.status} (model ${m}): ${errText.slice(0, 500)}`);
+  if (!data) die(`利用可能なGeminiモデルが見つかりませんでした。候補: ${MODELS.join(', ')}（GEMINI_MODEL 変数で有効なモデルを指定してください）`);
+  const cand = (data.candidates || [])[0];
+  if (!cand) die(`Gemini 応答に candidates がありません: ${JSON.stringify(data).slice(0, 400)}`);
+  if (cand.finishReason && cand.finishReason !== 'STOP') {
+    console.error(`[generate-column] 警告: finishReason=${cand.finishReason}`);
+  }
+  let text = ((cand.content && cand.content.parts) || []).map((p) => p.text || '').join('').trim();
+  text = text.replace(/^```(?:json)?/i, '').replace(/```$/i, '').trim();
+  const s = text.indexOf('{'), e = text.lastIndexOf('}');
+  if (s < 0 || e < 0) die(`JSONが見つかりません。先頭: ${text.slice(0, 200)}`);
+  try { return { art: JSON.parse(text.slice(s, e + 1)), model: usedModel }; }
+  catch (err) { die(`JSON parse失敗: ${err.message}`); }
 }
-if (!data) die(`利用可能なGeminiモデルが見つかりませんでした。候補: ${MODELS.join(', ')}（GEMINI_MODEL 変数で有効なモデルを指定してください）`);
-const cand = (data.candidates || [])[0];
-if (!cand) die(`Gemini 応答に candidates がありません: ${JSON.stringify(data).slice(0, 400)}`);
-if (cand.finishReason && cand.finishReason !== 'STOP') {
-  console.error(`[generate-column] 警告: finishReason=${cand.finishReason}`);
-}
-let text = ((cand.content && cand.content.parts) || []).map((p) => p.text || '').join('').trim();
-text = text.replace(/^```(?:json)?/i, '').replace(/```$/i, '').trim();
-const s = text.indexOf('{'), e = text.lastIndexOf('}');
-if (s < 0 || e < 0) die(`JSONが見つかりません。先頭: ${text.slice(0, 200)}`);
 
-let art;
-try { art = JSON.parse(text.slice(s, e + 1)); } catch (err) { die(`JSON parse失敗: ${err.message}`); }
+// 本文（lead + body）の文字数
+const bodyLen = (a) => [a.lead || '', ...((a.body || []).map((b) => (b.text || '') + (b.items ? b.items.join('') : '')))].join('').length;
+
+let { art, model: MODEL } = await callGemini(USER);
+
+// 分量ガード: 短ければ1回だけ「書き足し」を依頼（デイリー投稿は止めない）
+if (bodyLen(art) < 2800) {
+  const prev = bodyLen(art);
+  const expandPrompt = `以下は前回のあなたの出力です。内容の重複や水増しをせず、具体例・業務の場面・導入手順・つまずきやすい点・確認すべきチェック項目などを補って、本文（lead + body）を約3,500字まで自然に充実させてください。h2は6〜7本にする。タイトルや構成の骨子は活かしつつ、同じJSONスキーマで全文を1つのJSONオブジェクトとして再出力してください。\n\n${JSON.stringify(art)}`;
+  try {
+    const r = await callGemini(expandPrompt);
+    if (r && bodyLen(r.art) > prev) { art = r.art; MODEL = r.model; }
+  } catch (_) { /* 失敗時は初稿を使用 */ }
+  console.error(`[generate-column] 分量ガード: ${prev}字 → ${bodyLen(art)}字`);
+}
 
 // --- 正規化・検証 ---
 art.industry = ind.key;
