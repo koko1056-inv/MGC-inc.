@@ -135,8 +135,8 @@ h1.title{font-size:2rem;line-height:1.45;font-weight:800;letter-spacing:-.01em;m
 @media(max-width:640px){h1.title{font-size:1.55rem}.wrap{padding:0 18px}.cta{padding:24px 20px}}
 `.trim();
 
-const HEADER = `<header class="site-header"><a class="brand" href="/">MGC Inc.</a><nav><a href="/column">コラム</a><a href="/training">研修</a><a href="/#works">事業内容</a><a href="/#contact">お問い合わせ</a></nav></header>`;
-const FOOTER = `<footer class="site-footer"><div class="wrap"><p><strong>${esc(site.brandFull)}</strong></p><p>${esc(site.address || '')}</p><p style="margin-top:10px"><a href="/">${esc(site.baseUrl)}</a> ・ <a href="/column">コラム一覧</a> ・ <a href="/training">研修</a></p><p style="margin-top:10px">© 2026 MGC Inc. All Rights Reserved.</p></div></footer>`;
+const HEADER = `<header class="site-header"><a class="brand" href="/">MGC Inc.</a><nav><a href="/column">コラム</a><a href="/diagnosis">AI診断</a><a href="/training">研修</a><a href="/#works">事業内容</a><a href="/#contact">お問い合わせ</a></nav></header>`;
+const FOOTER = `<footer class="site-footer"><div class="wrap"><p><strong>${esc(site.brandFull)}</strong></p><p>${esc(site.address || '')}</p><p style="margin-top:10px"><a href="/">${esc(site.baseUrl)}</a> ・ <a href="/column">コラム一覧</a> ・ <a href="/diagnosis">AI活用診断</a> ・ <a href="/training">研修</a></p><p style="margin-top:10px">© 2026 MGC Inc. All Rights Reserved.</p></div></footer>`;
 
 // ---- render article body blocks ----
 function renderBody(blocks = []) {
@@ -258,14 +258,14 @@ ${(a.summary && a.summary.length) ? `<aside class="keypoints"><h2>この記事�
 ${renderBody(a.body)}
 ${faqHtml}
 <section class="cta">
-<span class="cta-eyebrow">無料・オンライン30分</span>
-<h2>${esc(ind.ja)}のAI活用、まず30分だけ話しませんか</h2>
-<p>「自社ならどこから始められるか」が気になったら、オンラインの無料相談へ。御社の業務に合わせて、AI活用の進め方と、社内研修の設計を一緒に整理します。ITに詳しくない方でも大丈夫です。</p>
+<span class="cta-eyebrow">無料・所要3分・その場で結果</span>
+<h2>では、御社の場合はどうか？ 3分のAI活用診断で確かめる</h2>
+<p>業種と今の課題を入力するだけで、AIが「${esc(ind.ja)}の御社に向いたAI活用施策・導入後のワークフロー・削減できる工数とコスト」を、提案書レベルの診断レポートにしてその場でお返しします。無料です。</p>
 <div class="btns">
-<a class="btn btn-primary" href="/#contact">30分の無料相談を予約する</a>
-<a class="btn btn-ghost" href="/training">AI活用リスキリング研修を見る</a>
+<a class="btn btn-primary" href="/diagnosis">無料でAI活用診断を受ける</a>
+<a class="btn btn-ghost" href="/#contact">30分の無料相談を予約する</a>
 </div>
-<p class="cta-foot">初回相談・お見積もりまで無料。経営者・管理職・現場、それぞれに合わせて研修を設計します。</p>
+<p class="cta-foot">診断は登録不要・その場で結果表示。もちろん、いきなり相談していただいても構いません（初回相談・お見積もりまで無料）。</p>
 </section>
 ${relatedHtml}
 <p class="disclaimer">本コラムは一般的な情報提供を目的としたもので、特定の成果を保証するものではありません。導入可否や効果は、企業の状況・データ・体制により異なります。具体的なご相談は個別にお問い合わせください。</p>
@@ -319,10 +319,10 @@ ${HEADER}
 <section class="cards">${cards || '<p style="color:#5b6472">記事は準備中です。</p>'}</section>
 <section class="wrap" style="margin-top:56px">
 <div class="cta">
-<span class="cta-eyebrow">無料・オンライン30分</span>
-<h2>自社のAI活用、どこから始める？ まず30分で相談</h2>
-<p>業界や業務に合わせて、AIの使いどころと社内研修の進め方を一緒に整理します。ITに詳しくない方でも大丈夫です。初回相談・お見積もりまで無料です。</p>
-<div class="btns"><a class="btn btn-primary" href="/#contact">30分の無料相談を予約する</a><a class="btn btn-ghost" href="/training">AI活用リスキリング研修を見る</a></div>
+<span class="cta-eyebrow">無料・所要3分・その場で結果</span>
+<h2>自社のAI活用、どこから始める？ まず3分の無料診断で確かめる</h2>
+<p>業種と課題を入力するだけで、AIが最適な活用施策・導入後のワークフロー・削減できる工数とコストを、提案書レベルのレポートにしてその場でお返しします。ITに詳しくない方でも大丈夫です。</p>
+<div class="btns"><a class="btn btn-primary" href="/diagnosis">無料でAI活用診断を受ける</a><a class="btn btn-ghost" href="/#contact">30分の無料相談を予約する</a></div>
 </div>
 </section>
 ${FOOTER}
@@ -370,6 +370,7 @@ function updateLlmsTxt() {
   }
   lines.push('');
   lines.push('## サービス・問い合わせ');
+  lines.push(`- [AI活用診断（無料）](${site.baseUrl}/diagnosis): 業種と課題を入力すると、AIが最適なAI活用施策・導入後ワークフロー・工数/コスト削減の試算を「要件定義レポート」として即時に返す無料診断`);
   lines.push(`- [AI活用リスキリング研修](${site.baseUrl}/training): 企業向けのAI活用研修（OFF-JT、人材開発支援助成金の対象訓練に対応）`);
   lines.push(`- [30分の無料オンライン相談](${site.baseUrl}/#contact): AI活用・社内研修の相談窓口（初回無料）`);
   lines.push('');
