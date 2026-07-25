@@ -313,11 +313,15 @@ app.post(
     }
 
     // リード通知（失敗しても診断結果は返す）
+    // 注意: resend.emails.send() は API エラーで throw せず { error } を返す。
+    // 戻り値を必ず確認すること（見落とすと送信失敗を成功として記録してしまう）。
+    let mailCode = "unknown";
+    if (!process.env.RESEND_API_KEY) mailCode = "skipped_no_key";
     try {
       const receiverEmail = process.env.CONTACT_RECEIVER_EMAIL || "kokomu.matsuo@mgc-global01.com";
       const recipients = [receiverEmail, "jayden.barnes@mgc-global01.com"];
-      await resend.emails.send({
-        from: "MGC AI診断 <onboarding@resend.dev>",
+      const { error: mailError } = await resend.emails.send({
+        from: process.env.MAIL_FROM || "MGC AI診断 <onboarding@resend.dev>",
         replyTo: email,
         to: recipients,
         subject: `[MGC AI診断リード] ${company || name || email}`,
@@ -341,12 +345,19 @@ ${diagnosis?.summary || ""}
 （使用モデル: ${usedModel}）
         `.trim(),
       });
-      console.log(`[Backend] Diagnose lead captured: ${email} (model ${usedModel})`);
+      if (mailError) {
+        mailCode = `error_${(mailError as any)?.statusCode || (mailError as any)?.name || "unknown"}`;
+        console.error("[Backend] Diagnose lead email rejected:", JSON.stringify(mailError).slice(0, 400));
+      } else {
+        mailCode = "sent";
+        console.log(`[Backend] Diagnose lead emailed: ${email} (model ${usedModel})`);
+      }
     } catch (mailErr) {
+      mailCode = "error_exception";
       console.error("[Backend] Diagnose lead email failed (non-fatal):", mailErr);
     }
 
-    res.json({ diagnosis, storeCode });
+    res.json({ diagnosis, storeCode, mailCode });
   }
 );
 
