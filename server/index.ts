@@ -137,7 +137,7 @@ app.post(
 
     const MODELS = [
       ...(process.env.GEMINI_TEXT_MODEL ? [process.env.GEMINI_TEXT_MODEL] : []),
-      "gemini-3.0-flash", "gemini-3-flash", "gemini-flash-latest", "gemini-3.0-pro", "gemini-2.5-flash",
+      "gemini-3-flash-preview", "gemini-flash-latest", "gemini-2.5-flash",
     ];
     const challengesText = Array.isArray(challenges) ? challenges.join("、") : String(challenges || "");
 

@@ -186,10 +186,8 @@ app.post(
     // GEMINI_TEXT_MODEL 指定を最優先。未ヒット時は最新エイリアス→2.5系へフォールバック。
     const MODELS = [
       ...(process.env.GEMINI_TEXT_MODEL ? [process.env.GEMINI_TEXT_MODEL] : []),
-      "gemini-3.0-flash",
-      "gemini-3-flash",
+      "gemini-3-flash-preview",
       "gemini-flash-latest",
-      "gemini-3.0-pro",
       "gemini-2.5-flash",
     ];
 
