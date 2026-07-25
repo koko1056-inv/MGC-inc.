@@ -96,6 +96,29 @@ app.post(
   }
 );
 
+// --- Lead storage (Supabase REST) — local dev mirror ---
+async function saveLead(row: Record<string, unknown>): Promise<void> {
+  const url = process.env.SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !key) {
+    console.warn("[Backend] SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY 未設定のためリード保存をスキップしました");
+    return;
+  }
+  const res = await fetch(`${url.replace(/\/+$/, "")}/rest/v1/diagnosis_leads`, {
+    method: "POST",
+    headers: {
+      apikey: key,
+      Authorization: `Bearer ${key}`,
+      "Content-Type": "application/json",
+      Prefer: "return=minimal",
+    },
+    body: JSON.stringify(row),
+  });
+  if (!res.ok) {
+    throw new Error(`Supabase insert failed: ${res.status} ${(await res.text()).slice(0, 200)}`);
+  }
+}
+
 // 3. AI Utilization Diagnosis Endpoint (local dev mirror of api/index.ts)
 app.post(
   "/api/diagnose",
@@ -167,6 +190,35 @@ app.post(
     } catch (error) {
       console.error("[Backend] Diagnose generation error:", error);
       return res.status(500).json({ error: "診断の生成に失敗しました。時間をおいて再度お試しください。" });
+    }
+
+    // リード保存（失敗しても診断結果は返す）
+    try {
+      await saveLead({
+        email,
+        name: name || null,
+        company: company || null,
+        industry: industry || null,
+        business: business || null,
+        employees: employees || null,
+        challenges: Array.isArray(challenges) ? challenges : null,
+        tools: tools || null,
+        monthly: monthly || null,
+        goal: goal || null,
+        summary: diagnosis?.summary || null,
+        hours_saved_per_month: typeof diagnosis?.expectedEffect?.hoursSavedPerMonth === "number"
+          ? diagnosis.expectedEffect.hoursSavedPerMonth : null,
+        cost_reduction_yen_per_month: typeof diagnosis?.expectedEffect?.costReductionYenPerMonth === "number"
+          ? diagnosis.expectedEffect.costReductionYenPerMonth : null,
+        roas: diagnosis?.expectedEffect?.roas || null,
+        diagnosis,
+        model: usedModel || null,
+        referer: req.get("referer") || null,
+        user_agent: req.get("user-agent") || null,
+      });
+      console.log(`[Backend] Diagnose lead saved: ${email}`);
+    } catch (dbErr) {
+      console.error("[Backend] Diagnose lead save failed (non-fatal):", dbErr);
     }
 
     // リード通知（SMTP設定があれば送信、失敗しても診断結果は返す）
