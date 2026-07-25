@@ -7,7 +7,7 @@
   },
   "rotation": {
     "note": "日次で industries を順番に回す。lastIndex は最後に公開した業種の添字。次回は (lastIndex+1)%12 の業種で、usedTopics に無いテーマを選ぶ。",
-    "lastIndex": 4,
+    "lastIndex": 5,
     "industries": [
       {
         "key": "manufacturing",
@@ -85,7 +85,9 @@
     "logistics": [
       "logistics-dispatch-planning-ai"
     ],
-    "healthcare": [],
+    "healthcare": [
+      "healthcare-documentation-efficiency-ai"
+    ],
     "hospitality": [],
     "professional": [
       "professional-accounting-ai"
@@ -125,6 +127,12 @@
       "industry": "logistics",
       "date": "2026-07-25",
       "file": "logistics-dispatch-planning-ai.json"
+    },
+    {
+      "slug": "healthcare-documentation-efficiency-ai",
+      "industry": "healthcare",
+      "date": "2026-07-26",
+      "file": "healthcare-documentation-efficiency-ai.json"
     }
   ]
 }
