@@ -228,6 +228,8 @@ app.post(
 
     let diagnosis: any = null;
     let usedModel = "";
+    // 失敗時の切り分け用。上流のHTTPステータスのみを記録する（本文・キーは含めない）。
+    const attemptCodes: string[] = [];
     try {
       const genAI = new GoogleGenAI({ apiKey });
       let lastErr: any = null;
@@ -250,13 +252,20 @@ app.post(
           break;
         } catch (e) {
           lastErr = e;
-          console.warn(`[Backend] diagnose model ${m} failed:`, String(e).slice(0, 160));
+          const msg = String((e as any)?.message || e);
+          const status = (e as any)?.status ?? (msg.match(/\b(4\d{2}|5\d{2})\b/) || [])[1];
+          attemptCodes.push(`${m}:${status || (msg.includes("JSON") ? "parse" : "err")}`);
+          console.warn(`[Backend] diagnose model ${m} failed:`, msg.slice(0, 300));
         }
       }
       if (!diagnosis) throw lastErr || new Error("no model succeeded");
     } catch (error) {
       console.error("[Backend] Diagnose generation error:", error);
-      return res.status(500).json({ error: "診断の生成に失敗しました。時間をおいて再度お試しください。" });
+      // code は「どのモデルがどのHTTPステータスで落ちたか」だけ。運用切り分け用で、機密は含まない。
+      return res.status(500).json({
+        error: "診断の生成に失敗しました。時間をおいて再度お試しください。",
+        code: attemptCodes.join(","),
+      });
     }
 
     // リード保存（失敗しても診断結果は返す）
