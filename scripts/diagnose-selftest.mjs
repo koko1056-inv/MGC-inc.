@@ -25,7 +25,7 @@ const CONFIG = { temperature: 0.6, maxOutputTokens: 256, responseMimeType: 'appl
 
 const show = (label, err) => {
   const msg = String(err?.message || err);
-  const status = err?.status ?? (msg.match(/\b(4\d{2}|5\d{2})\b/) || [])[1] || '?';
+  const status = err?.status ?? ((msg.match(/\b(4\d{2}|5\d{2})\b/) || [])[1] || '?');
   console.log(`  ✗ ${label} → status ${status}`);
   console.log(`     ${msg.slice(0, 300).replace(/\s+/g, ' ')}`);
 };
