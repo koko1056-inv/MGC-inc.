@@ -41,7 +41,7 @@ app.post(
       const mailOptions = {
         from: `"${name}" <${process.env.EMAIL_USER}>`,
         replyTo: email,
-        to: [process.env.CONTACT_RECEIVER_EMAIL || process.env.EMAIL_USER, "jayden.barnes@mgc-global01.com"].filter(Boolean),
+        to: [process.env.CONTACT_RECEIVER_EMAIL || process.env.EMAIL_USER].filter(Boolean),
         subject: `[MGC Contact] New message from ${name}`,
         text: `
 Name: ${name}
@@ -235,7 +235,7 @@ app.post(
         await transporter.sendMail({
           from: `"MGC AI診断" <${process.env.EMAIL_USER}>`,
           replyTo: email,
-          to: [process.env.CONTACT_RECEIVER_EMAIL || process.env.EMAIL_USER, "jayden.barnes@mgc-global01.com"].filter(Boolean) as string[],
+          to: [process.env.CONTACT_RECEIVER_EMAIL || process.env.EMAIL_USER].filter(Boolean) as string[],
           subject: `[MGC AI診断リード] ${company || name || email}`,
           text: `新しいAI活用診断リード\n\nName: ${name}\nCompany: ${company}\nEmail: ${email}\n業種: ${industry}\n事業内容: ${business}\n従業員規模: ${employees}\n課題: ${challengesText}\n使用ツール: ${tools}\n月間コスト/売上感: ${monthly}\n達成したいこと: ${goal}\n\n--- サマリー ---\n${diagnosis?.summary || ""}\n（model: ${usedModel}）`,
         });

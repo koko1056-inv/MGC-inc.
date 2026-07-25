@@ -27,7 +27,7 @@ app.post(
     }
 
     const receiverEmail = process.env.CONTACT_RECEIVER_EMAIL || "kokomu.matsuo@mgc-global01.com";
-    const recipients = [receiverEmail, "jayden.barnes@mgc-global01.com"];
+    const recipients = [receiverEmail];
 
     try {
       const { error } = await resend.emails.send({
@@ -319,7 +319,7 @@ app.post(
     if (!process.env.RESEND_API_KEY) mailCode = "skipped_no_key";
     try {
       const receiverEmail = process.env.CONTACT_RECEIVER_EMAIL || "kokomu.matsuo@mgc-global01.com";
-      const recipients = [receiverEmail, "jayden.barnes@mgc-global01.com"];
+      const recipients = [receiverEmail];
       const { error: mailError } = await resend.emails.send({
         from: process.env.MAIL_FROM || "MGC AI診断 <onboarding@resend.dev>",
         replyTo: email,
