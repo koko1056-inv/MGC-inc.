@@ -129,26 +129,41 @@ app.post(
 // service_role キーで書き込む。テーブルはRLS有効＋ポリシー無しなので、
 // このサーバー経由以外（anonキー）からは読み書きできない。
 // 環境変数が未設定なら保存はスキップする（診断機能自体は止めない）。
-async function saveLead(row: Record<string, unknown>): Promise<void> {
+// 戻り値は保存結果の短いコード。運用切り分け用で、機密は含まない。
+//   stored          … 保存成功
+//   skipped_no_env  … 環境変数が未設定（保存せず診断は継続）
+//   error_<status>  … Supabaseがエラーを返した
+//   error_network   … 通信自体が失敗
+async function saveLead(row: Record<string, unknown>): Promise<string> {
   const url = process.env.SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !key) {
-    console.warn("[Backend] SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY 未設定のためリード保存をスキップしました");
-    return;
+    console.warn(
+      `[Backend] リード保存をスキップ: SUPABASE_URL=${url ? "設定済" : "未設定"} SUPABASE_SERVICE_ROLE_KEY=${key ? "設定済" : "未設定"}`
+    );
+    return "skipped_no_env";
   }
-  const res = await fetch(`${url.replace(/\/+$/, "")}/rest/v1/diagnosis_leads`, {
-    method: "POST",
-    headers: {
-      apikey: key,
-      Authorization: `Bearer ${key}`,
-      "Content-Type": "application/json",
-      Prefer: "return=minimal",
-    },
-    body: JSON.stringify(row),
-  });
+  let res: Response;
+  try {
+    res = await fetch(`${url.replace(/\/+$/, "")}/rest/v1/diagnosis_leads`, {
+      method: "POST",
+      headers: {
+        apikey: key,
+        Authorization: `Bearer ${key}`,
+        "Content-Type": "application/json",
+        Prefer: "return=minimal",
+      },
+      body: JSON.stringify(row),
+    });
+  } catch (e) {
+    console.error("[Backend] Supabase insert network error:", String((e as any)?.message || e).slice(0, 300));
+    return "error_network";
+  }
   if (!res.ok) {
-    throw new Error(`Supabase insert failed: ${res.status} ${(await res.text()).slice(0, 200)}`);
+    console.error(`[Backend] Supabase insert failed: ${res.status} ${(await res.text()).slice(0, 300)}`);
+    return `error_${res.status}`;
   }
+  return "stored";
 }
 
 // 3. AI Utilization Diagnosis Endpoint
@@ -267,8 +282,9 @@ app.post(
     }
 
     // リード保存（失敗しても診断結果は返す）
+    let storeCode = "unknown";
     try {
-      await saveLead({
+      storeCode = await saveLead({
         email,
         name: name || null,
         company: company || null,
@@ -290,8 +306,9 @@ app.post(
         referer: req.get("referer") || null,
         user_agent: req.get("user-agent") || null,
       });
-      console.log(`[Backend] Diagnose lead saved: ${email}`);
+      console.log(`[Backend] Diagnose lead store result: ${storeCode} (${email})`);
     } catch (dbErr) {
+      storeCode = "error_exception";
       console.error("[Backend] Diagnose lead save failed (non-fatal):", dbErr);
     }
 
@@ -329,7 +346,7 @@ ${diagnosis?.summary || ""}
       console.error("[Backend] Diagnose lead email failed (non-fatal):", mailErr);
     }
 
-    res.json({ diagnosis });
+    res.json({ diagnosis, storeCode });
   }
 );
 
