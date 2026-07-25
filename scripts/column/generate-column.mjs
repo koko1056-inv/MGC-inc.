@@ -28,13 +28,13 @@ const MANIFEST = join(CONTENT_DIR, 'columns.json');
 const DRY = process.argv.includes('--dry-run') || process.env.DRY_RUN === '1';
 // Gemini 3.0系を優先。モデル廃止・表記揺れに強いよう複数候補を順に試す
 // （GEMINI_MODEL 指定があれば最優先。未ヒット時は最新エイリアス→2.5系へフォールバック）。
+// モデル名は models.list の実在名に合わせること。過去に gemini-3.0-flash / gemini-3-flash /
+// gemini-3.0-pro を指定していたが、いずれも存在せず毎回404で無駄な呼び出しになっていた。
 const MODELS = [
   ...(process.env.GEMINI_MODEL ? [process.env.GEMINI_MODEL] : []),
-  'gemini-3.0-flash',
-  'gemini-3-flash',
-  'gemini-flash-latest', // 最新flashのエイリアス（通常は最新の3.0系を指す）
-  'gemini-3.0-pro',
-  'gemini-2.5-flash',
+  'gemini-3-flash-preview', // 3系flash（2026-07時点の実在名）
+  'gemini-flash-latest',    // 最新flashのエイリアス
+  'gemini-2.5-flash',       // 安定版フォールバック
 ].filter((v, i, a) => v && a.indexOf(v) === i);
 const API_KEY = process.env.GEMINI_API_KEY;
 

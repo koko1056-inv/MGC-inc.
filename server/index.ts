@@ -97,12 +97,12 @@ app.post(
 );
 
 // --- Lead storage (Supabase REST) — local dev mirror ---
-async function saveLead(row: Record<string, unknown>): Promise<void> {
+async function saveLead(row: Record<string, unknown>): Promise<string> {
   const url = process.env.SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !key) {
     console.warn("[Backend] SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY 未設定のためリード保存をスキップしました");
-    return;
+    return "skipped_no_env";
   }
   const res = await fetch(`${url.replace(/\/+$/, "")}/rest/v1/diagnosis_leads`, {
     method: "POST",
@@ -115,8 +115,10 @@ async function saveLead(row: Record<string, unknown>): Promise<void> {
     body: JSON.stringify(row),
   });
   if (!res.ok) {
-    throw new Error(`Supabase insert failed: ${res.status} ${(await res.text()).slice(0, 200)}`);
+    console.error(`[Backend] Supabase insert failed: ${res.status} ${(await res.text()).slice(0, 300)}`);
+    return `error_${res.status}`;
   }
+  return "stored";
 }
 
 // 3. AI Utilization Diagnosis Endpoint (local dev mirror of api/index.ts)
@@ -137,7 +139,7 @@ app.post(
 
     const MODELS = [
       ...(process.env.GEMINI_TEXT_MODEL ? [process.env.GEMINI_TEXT_MODEL] : []),
-      "gemini-3.0-flash", "gemini-3-flash", "gemini-flash-latest", "gemini-3.0-pro", "gemini-2.5-flash",
+      "gemini-3-flash-preview", "gemini-flash-latest", "gemini-2.5-flash",
     ];
     const challengesText = Array.isArray(challenges) ? challenges.join("、") : String(challenges || "");
 
