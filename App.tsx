@@ -10,7 +10,7 @@ export const LanguageContext = React.createContext<{ lang: Lang; setLang: (l: La
 export const useLanguage = () => React.useContext(LanguageContext);
 // --- Types & Interfaces ---
 
-type ViewState = 'home' | 'works' | 'training' | 'mission' | 'partners' | 'company' | 'career' | 'contact' | 'blog';
+type ViewState = 'home' | 'works' | 'training' | 'diagnosis' | 'mission' | 'partners' | 'company' | 'career' | 'contact' | 'blog';
 
 type ContentKey = 'service_ai' | 'service_lab';
 
@@ -238,17 +238,18 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
           </p>
           <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
             <button
-              onClick={() => goTo('contact')}
+              onClick={() => goTo('diagnosis')}
               className="group inline-flex items-center justify-center gap-3 px-6 py-4 bg-accent text-white rounded-full font-bold text-base tracking-tight hover:bg-offblack transition-all shadow-lg shadow-accent/20 whitespace-nowrap"
             >
-              {t.hero.bookConsult}
+              <Sparkles className="w-5 h-5" />
+              {t.hero.tryDiagnosis}
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
             <button
-              onClick={() => goTo('works')}
+              onClick={() => goTo('contact')}
               className="group inline-flex items-center justify-center gap-2 text-offblack font-bold text-sm tracking-tight border-b-2 border-offblack pb-1 hover:text-accent hover:border-accent transition-colors whitespace-nowrap"
             >
-              {t.hero.viewProjects}
+              {t.hero.bookConsult}
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
@@ -279,6 +280,42 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
           </button>
         ))}
       </div>
+    </Reveal>
+  </div>
+
+  {/* === Free AI Diagnosis Banner (無料フロントエンド) === */}
+  <div className="px-6 md:px-12 pb-24 max-w-screen-xl mx-auto w-full">
+    <Reveal>
+      <button
+        onClick={() => goTo('diagnosis')}
+        className="group w-full relative overflow-hidden rounded-[2rem] bg-offblack text-left p-8 md:p-12 hover:bg-accent transition-colors duration-500"
+      >
+        <div
+          className="absolute inset-0 opacity-[0.06] pointer-events-none"
+          style={{
+            backgroundImage: `linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)`,
+            backgroundSize: '40px 40px'
+          }}
+        />
+        <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-8">
+          <div className="max-w-2xl">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/20 bg-white/5 text-white/80 text-xs font-bold">
+              <span className="w-2 h-2 rounded-full bg-accent group-hover:bg-white transition-colors animate-pulse" />
+              {t.diagnosisBanner.badge}
+            </span>
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-white mt-5 leading-[1.2] whitespace-pre-line">
+              {t.diagnosisBanner.title}
+            </h2>
+            <p className="text-base md:text-lg text-white/70 group-hover:text-white/90 transition-colors mt-4 leading-relaxed">
+              {t.diagnosisBanner.lead}
+            </p>
+          </div>
+          <span className="inline-flex items-center gap-3 px-7 py-4 rounded-full bg-white text-offblack font-bold text-base tracking-tight whitespace-nowrap flex-shrink-0">
+            {t.diagnosisBanner.cta}
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          </span>
+        </div>
+      </button>
     </Reveal>
   </div>
 
@@ -1548,15 +1585,315 @@ const TrainingView: React.FC = () => {
   );
 };
 
+// --- AI活用診断（無料フロントエンド） ---
+interface Diagnosis {
+  summary: string;
+  recommendedUseCases: { title: string; why: string; how: string }[];
+  workflow: { step: string; before: string; after: string }[];
+  expectedEffect: {
+    hoursSavedPerMonth?: number;
+    costReductionYenPerMonth?: number;
+    roiNote?: string;
+    roas?: string | null;
+    assumptions?: string[];
+  };
+  requirements: string[];
+  firstSteps: string[];
+  riskNotes?: string[];
+}
+
+const DiagnosisView: React.FC = () => {
+  const { t } = useLanguage();
+  const d = t.diagnosis;
+  const [form, setForm] = useState({
+    name: '', company: '', email: '', industry: '', business: '',
+    employees: '', tools: '', monthly: '', goal: '',
+  });
+  const [challenges, setChallenges] = useState<string[]>([]);
+  const [emailError, setEmailError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState<Diagnosis | null>(null);
+  const [error, setError] = useState('');
+
+  const validateEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { id, value } = e.target;
+    setForm(prev => ({ ...prev, [id]: value }));
+    if (id === 'email') setEmailError('');
+  };
+
+  const toggleChallenge = (c: string) => {
+    setChallenges(prev => prev.includes(c) ? prev.filter(x => x !== c) : [...prev, c]);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    if (!validateEmail(form.email)) { setEmailError(d.form.emailError); return; }
+    if (!form.industry && !form.business) { setError(d.form.needIndustry); return; }
+    setLoading(true);
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 58000);
+    try {
+      const res = await fetch('/api/diagnose', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...form, challenges }),
+        signal: controller.signal,
+      });
+      const data = await res.json();
+      if (!res.ok || !data.diagnosis) throw new Error(data.error || d.form.genericError);
+      setResult(data.diagnosis);
+      setTimeout(() => document.getElementById('diagnosis-result')?.scrollIntoView({ behavior: 'smooth' }), 100);
+    } catch (err: any) {
+      setError(err?.name === 'AbortError' ? d.form.timeoutError : (err?.message || d.form.genericError));
+    } finally {
+      clearTimeout(timer);
+      setLoading(false);
+    }
+  };
+
+  const yen = (n?: number) => typeof n === 'number' ? `¥${n.toLocaleString()}` : '—';
+  const hrs = (n?: number) => typeof n === 'number' ? `${n.toLocaleString()}h` : '—';
+
+  return (
+    <PageTransition>
+      <div className="text-[#111418]">
+        {/* Hero */}
+        <section className="px-6 md:px-12">
+          <div className="max-w-screen-xl mx-auto">
+            <Reveal>
+              <div className="relative overflow-hidden rounded-[1.75rem] md:rounded-[2.5rem] bg-[#111418] text-white">
+                <GridPattern dark />
+                <div className="relative px-6 md:px-16 py-14 md:py-20">
+                  <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/20 bg-white/5 text-white/80 text-xs md:text-sm font-medium">
+                    <span className="w-2 h-2 rounded-full bg-[#2D6CDF] animate-pulse" />
+                    {d.hero.badge}
+                  </span>
+                  <h1 className="text-3xl md:text-6xl font-bold tracking-tight leading-[1.2] mt-6">{d.hero.title}</h1>
+                  <p className="text-base md:text-2xl text-white/55 font-medium mt-3 leading-[1.6]">{d.hero.titleSub}</p>
+                  <p className="max-w-3xl text-base md:text-lg text-white/85 leading-[1.9] mt-8">{d.hero.lead}</p>
+                  <div className="flex flex-wrap gap-4 md:gap-6 mt-8">
+                    {d.hero.points.map((p, i) => (
+                      <div key={i} className="flex items-center gap-2 text-white/80 text-sm md:text-base">
+                        <Check className="w-5 h-5 text-[#2D6CDF] flex-shrink-0" />
+                        <span className="font-medium">{p}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+
+        {/* Form */}
+        {!result && (
+          <section className="px-6 md:px-12 mt-12 md:mt-16">
+            <div className="max-w-3xl mx-auto">
+              <Reveal>
+                <form onSubmit={handleSubmit} className="bg-white border border-gray-200 rounded-3xl p-6 md:p-10 shadow-xl shadow-gray-200/50">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                      <label htmlFor="industry" className="block text-sm font-bold text-[#111418] mb-2">{d.form.industry} <span className="text-[#2D6CDF]">*</span></label>
+                      <input id="industry" value={form.industry} onChange={onChange} placeholder={d.form.industryPh} className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-[#2D6CDF] focus:ring-2 focus:ring-[#2D6CDF]/20 outline-none transition" />
+                    </div>
+                    <div>
+                      <label htmlFor="employees" className="block text-sm font-bold text-[#111418] mb-2">{d.form.employees}</label>
+                      <select id="employees" value={form.employees} onChange={onChange} className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-[#2D6CDF] focus:ring-2 focus:ring-[#2D6CDF]/20 outline-none transition bg-white">
+                        <option value="">{d.form.selectPh}</option>
+                        {d.form.employeeOptions.map((o, i) => <option key={i} value={o}>{o}</option>)}
+                      </select>
+                    </div>
+                  </div>
+                  <div className="mt-5">
+                    <label htmlFor="business" className="block text-sm font-bold text-[#111418] mb-2">{d.form.business}</label>
+                    <textarea id="business" value={form.business} onChange={onChange} rows={2} placeholder={d.form.businessPh} className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-[#2D6CDF] focus:ring-2 focus:ring-[#2D6CDF]/20 outline-none transition resize-none" />
+                  </div>
+                  <div className="mt-5">
+                    <label className="block text-sm font-bold text-[#111418] mb-2">{d.form.challenges}</label>
+                    <div className="flex flex-wrap gap-2">
+                      {d.form.challengeOptions.map((c, i) => (
+                        <button type="button" key={i} onClick={() => toggleChallenge(c)}
+                          className={`px-3.5 py-2 rounded-full text-sm font-medium border transition ${challenges.includes(c) ? 'bg-[#2D6CDF] text-white border-[#2D6CDF]' : 'bg-white text-gray-600 border-gray-300 hover:border-[#2D6CDF]'}`}>
+                          {c}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
+                    <div>
+                      <label htmlFor="tools" className="block text-sm font-bold text-[#111418] mb-2">{d.form.tools}</label>
+                      <input id="tools" value={form.tools} onChange={onChange} placeholder={d.form.toolsPh} className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-[#2D6CDF] focus:ring-2 focus:ring-[#2D6CDF]/20 outline-none transition" />
+                    </div>
+                    <div>
+                      <label htmlFor="monthly" className="block text-sm font-bold text-[#111418] mb-2">{d.form.monthly}</label>
+                      <input id="monthly" value={form.monthly} onChange={onChange} placeholder={d.form.monthlyPh} className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-[#2D6CDF] focus:ring-2 focus:ring-[#2D6CDF]/20 outline-none transition" />
+                    </div>
+                  </div>
+                  <div className="mt-5">
+                    <label htmlFor="goal" className="block text-sm font-bold text-[#111418] mb-2">{d.form.goal}</label>
+                    <input id="goal" value={form.goal} onChange={onChange} placeholder={d.form.goalPh} className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-[#2D6CDF] focus:ring-2 focus:ring-[#2D6CDF]/20 outline-none transition" />
+                  </div>
+
+                  <div className="mt-8 pt-6 border-t border-gray-200">
+                    <p className="text-sm font-bold text-[#111418] mb-4">{d.form.contactHeading}</p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                      <div>
+                        <label htmlFor="name" className="block text-sm font-medium text-gray-600 mb-2">{d.form.name}</label>
+                        <input id="name" value={form.name} onChange={onChange} className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-[#2D6CDF] focus:ring-2 focus:ring-[#2D6CDF]/20 outline-none transition" />
+                      </div>
+                      <div>
+                        <label htmlFor="company" className="block text-sm font-medium text-gray-600 mb-2">{d.form.company}</label>
+                        <input id="company" value={form.company} onChange={onChange} className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-[#2D6CDF] focus:ring-2 focus:ring-[#2D6CDF]/20 outline-none transition" />
+                      </div>
+                    </div>
+                    <div className="mt-5">
+                      <label htmlFor="email" className="block text-sm font-medium text-gray-600 mb-2">{d.form.email} <span className="text-[#2D6CDF]">*</span></label>
+                      <input id="email" type="email" value={form.email} onChange={onChange} placeholder="you@company.com" className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-[#2D6CDF] focus:ring-2 focus:ring-[#2D6CDF]/20 outline-none transition" />
+                      {emailError && <p className="text-red-500 text-xs mt-1.5">{emailError}</p>}
+                    </div>
+                  </div>
+
+                  {error && <p className="text-red-500 text-sm mt-5">{error}</p>}
+
+                  <button type="submit" disabled={loading}
+                    className="group w-full mt-8 px-7 py-4 rounded-full bg-[#2D6CDF] text-white font-bold text-base tracking-tight shadow-xl shadow-[#2D6CDF]/25 hover:bg-[#111418] transition-all duration-300 disabled:opacity-60 flex items-center justify-center gap-2.5">
+                    {loading ? d.form.loading : d.form.submit}
+                    {!loading && <Sparkles className="w-5 h-5 group-hover:scale-110 transition-transform" />}
+                  </button>
+                  <p className="text-xs text-gray-400 text-center mt-4 leading-relaxed">{d.form.privacyNote}</p>
+                </form>
+              </Reveal>
+            </div>
+          </section>
+        )}
+
+        {/* Result */}
+        {result && (
+          <section id="diagnosis-result" className="px-6 md:px-12 mt-12 md:mt-16">
+            <div className="max-w-4xl mx-auto">
+              <Reveal>
+                <div className="flex items-center justify-between flex-wrap gap-4 mb-8">
+                  <div>
+                    <span className="text-[#2D6CDF] font-bold tracking-[0.2em] text-xs uppercase">{d.result.eyebrow}</span>
+                    <h2 className="text-2xl md:text-4xl font-bold tracking-tight text-[#111418] mt-2">{d.result.title}</h2>
+                  </div>
+                  <button onClick={() => window.print()} className="text-sm font-medium text-gray-500 hover:text-[#2D6CDF] underline underline-offset-4 print:hidden">{d.result.print}</button>
+                </div>
+
+                {/* Summary */}
+                <div className="bg-[#111418] text-white rounded-3xl p-6 md:p-8 mb-8">
+                  <p className="text-base md:text-lg leading-[1.9]">{result.summary}</p>
+                </div>
+
+                {/* Expected effect stat tiles */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+                  <div className="bg-[#2D6CDF]/5 border border-[#2D6CDF]/20 rounded-2xl p-5">
+                    <p className="text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">{d.result.hoursSaved}</p>
+                    <p className="text-3xl font-bold text-[#2D6CDF]">{hrs(result.expectedEffect?.hoursSavedPerMonth)}<span className="text-sm text-gray-400 font-medium">{d.result.perMonth}</span></p>
+                  </div>
+                  <div className="bg-[#2D6CDF]/5 border border-[#2D6CDF]/20 rounded-2xl p-5">
+                    <p className="text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">{d.result.costReduction}</p>
+                    <p className="text-3xl font-bold text-[#2D6CDF]">{yen(result.expectedEffect?.costReductionYenPerMonth)}<span className="text-sm text-gray-400 font-medium">{d.result.perMonth}</span></p>
+                  </div>
+                  <div className="bg-[#2D6CDF]/5 border border-[#2D6CDF]/20 rounded-2xl p-5">
+                    <p className="text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">{d.result.roi}</p>
+                    <p className="text-base font-bold text-[#111418] leading-snug mt-1">{result.expectedEffect?.roiNote || '—'}</p>
+                  </div>
+                </div>
+                {result.expectedEffect?.roas && (
+                  <div className="bg-amber-50 border border-amber-200 rounded-2xl p-5 mb-10">
+                    <p className="text-xs font-bold text-amber-700 uppercase tracking-wide mb-1">ROAS</p>
+                    <p className="text-sm text-[#111418] leading-relaxed">{result.expectedEffect.roas}</p>
+                  </div>
+                )}
+                {result.expectedEffect?.assumptions && result.expectedEffect.assumptions.length > 0 && (
+                  <p className="text-xs text-gray-400 -mt-6 mb-10">{d.result.assumptions}: {result.expectedEffect.assumptions.join(' / ')}</p>
+                )}
+
+                {/* Recommended use cases */}
+                <h3 className="text-xl font-bold text-[#111418] mb-4 flex items-center gap-2"><Zap className="w-5 h-5 text-[#2D6CDF]" />{d.result.useCases}</h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+                  {result.recommendedUseCases?.map((u, i) => (
+                    <div key={i} className="bg-white border border-gray-200 rounded-2xl p-5">
+                      <div className="w-8 h-8 rounded-full bg-[#2D6CDF] text-white font-bold flex items-center justify-center text-sm mb-3">{i + 1}</div>
+                      <p className="font-bold text-[#111418] mb-2 leading-snug">{u.title}</p>
+                      <p className="text-sm text-gray-600 leading-relaxed mb-2">{u.why}</p>
+                      <p className="text-sm text-[#2D6CDF] leading-relaxed">{u.how}</p>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Before / After workflow */}
+                <h3 className="text-xl font-bold text-[#111418] mb-4 flex items-center gap-2"><Layers className="w-5 h-5 text-[#2D6CDF]" />{d.result.workflow}</h3>
+                <div className="space-y-3 mb-10">
+                  {result.workflow?.map((w, i) => (
+                    <div key={i} className="grid grid-cols-1 md:grid-cols-[140px_1fr_1fr] gap-3 bg-white border border-gray-200 rounded-2xl p-4">
+                      <div className="font-bold text-[#111418] text-sm flex items-center">{w.step}</div>
+                      <div className="text-sm text-gray-500 bg-gray-50 rounded-xl p-3"><span className="text-[10px] font-bold uppercase text-gray-400 block mb-1">{d.result.before}</span>{w.before}</div>
+                      <div className="text-sm text-[#111418] bg-[#2D6CDF]/5 rounded-xl p-3"><span className="text-[10px] font-bold uppercase text-[#2D6CDF] block mb-1">{d.result.after}</span>{w.after}</div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Requirements & first steps */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+                  <div className="bg-white border border-gray-200 rounded-2xl p-6">
+                    <h3 className="font-bold text-[#111418] mb-4">{d.result.requirements}</h3>
+                    <ul className="space-y-2.5">
+                      {result.requirements?.map((r, i) => (
+                        <li key={i} className="flex items-start gap-2 text-sm text-gray-700"><Check className="w-4 h-4 text-[#2D6CDF] flex-shrink-0 mt-0.5" />{r}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="bg-white border border-gray-200 rounded-2xl p-6">
+                    <h3 className="font-bold text-[#111418] mb-4">{d.result.firstSteps}</h3>
+                    <ol className="space-y-2.5">
+                      {result.firstSteps?.map((s, i) => (
+                        <li key={i} className="flex items-start gap-2.5 text-sm text-gray-700"><span className="w-5 h-5 rounded-full bg-[#2D6CDF]/10 text-[#2D6CDF] font-bold flex items-center justify-center text-xs flex-shrink-0">{i + 1}</span>{s}</li>
+                      ))}
+                    </ol>
+                  </div>
+                </div>
+
+                {result.riskNotes && result.riskNotes.length > 0 && (
+                  <p className="text-xs text-gray-400 mb-10">{d.result.riskNotes}: {result.riskNotes.join(' / ')}</p>
+                )}
+
+                {/* CTA */}
+                <div className="relative overflow-hidden rounded-3xl bg-[#2D6CDF] text-white p-8 md:p-12 text-center print:hidden">
+                  <h3 className="text-2xl md:text-3xl font-bold mb-3">{d.result.ctaTitle}</h3>
+                  <p className="text-white/85 mb-8 max-w-xl mx-auto leading-relaxed">{d.result.ctaSub}</p>
+                  <a href="#contact" className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-white text-[#2D6CDF] font-bold text-base hover:bg-[#111418] hover:text-white transition-all duration-300">
+                    {d.result.ctaButton}
+                    <ArrowRight className="w-5 h-5" />
+                  </a>
+                </div>
+
+                <div className="text-center mt-8 print:hidden">
+                  <button onClick={() => { setResult(null); window.scrollTo(0, 0); }} className="text-sm font-medium text-gray-400 hover:text-[#2D6CDF] underline underline-offset-4">{d.result.again}</button>
+                </div>
+              </Reveal>
+            </div>
+          </section>
+        )}
+      </div>
+    </PageTransition>
+  );
+};
+
 const App: React.FC = () => {
   // Helper to parse view from hash
   const getViewFromHash = (): ViewState => {
-    const validViews: ViewState[] = ['home', 'works', 'training', 'mission', 'partners', 'company', 'career', 'contact', 'blog'];
+    const validViews: ViewState[] = ['home', 'works', 'training', 'diagnosis', 'mission', 'partners', 'company', 'career', 'contact', 'blog'];
     const hash = window.location.hash.slice(1).split('/')[0];
     if (validViews.includes(hash as ViewState)) return hash as ViewState;
-    // Support a clean path URL for the training page (e.g. /training) via Vercel SPA rewrite
+    // Support clean path URLs (e.g. /training, /diagnosis) via Vercel SPA rewrite
     const path = window.location.pathname.replace(/\/+$/, '');
     if (path === '/training') return 'training';
+    if (path === '/diagnosis') return 'diagnosis';
     return 'home';
   };
 
@@ -1596,6 +1933,7 @@ const App: React.FC = () => {
   // 情報ナビ（お問い合わせはCTAボタンとして分離、Journalはフッターへ集約）
   const navItems: { id?: ViewState; href?: string; label: string }[] = [
     { id: 'works', label: t.nav.works },
+    { id: 'diagnosis', label: t.nav.diagnosis },
     { id: 'training', label: t.nav.training },
     { href: '/column', label: t.nav.column },
     { id: 'mission', label: t.nav.mission },
@@ -1703,6 +2041,7 @@ const App: React.FC = () => {
         {view === 'home' && <HomeView onNavigate={navigate} />}
         {view === 'works' && <WorksView />}
         {view === 'training' && <TrainingView />}
+        {view === 'diagnosis' && <DiagnosisView />}
         {view === 'blog' && <BlogView />}
         {view === 'mission' && <MissionView />}
         {/* PartnersView is hidden */}
