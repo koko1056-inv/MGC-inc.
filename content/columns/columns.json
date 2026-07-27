@@ -7,7 +7,7 @@
   },
   "rotation": {
     "note": "日次で industries を順番に回す。lastIndex は最後に公開した業種の添字。次回は (lastIndex+1)%12 の業種で、usedTopics に無いテーマを選ぶ。",
-    "lastIndex": 5,
+    "lastIndex": 6,
     "industries": [
       {
         "key": "manufacturing",
@@ -88,7 +88,9 @@
     "healthcare": [
       "healthcare-documentation-efficiency-ai"
     ],
-    "hospitality": [],
+    "hospitality": [
+      "hospitality-service-automation"
+    ],
     "professional": [
       "professional-accounting-ai"
     ],
@@ -133,6 +135,12 @@
       "industry": "healthcare",
       "date": "2026-07-26",
       "file": "healthcare-documentation-efficiency-ai.json"
+    },
+    {
+      "slug": "hospitality-service-automation",
+      "industry": "hospitality",
+      "date": "2026-07-28",
+      "file": "hospitality-service-automation.json"
     }
   ]
 }
