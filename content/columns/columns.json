@@ -96,7 +96,9 @@
     ],
     "finance": [],
     "education": [],
-    "hr": [],
+    "hr": [
+      "hr-reskilling-ai"
+    ],
     "public": []
   },
   "articles": [
@@ -141,6 +143,12 @@
       "industry": "hospitality",
       "date": "2026-07-28",
       "file": "hospitality-service-automation.json"
+    },
+    {
+      "slug": "hr-reskilling-ai",
+      "industry": "hr",
+      "date": "2026-07-28",
+      "file": "hr-reskilling-ai.json"
     }
   ]
 }
