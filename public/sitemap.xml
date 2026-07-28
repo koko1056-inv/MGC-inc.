@@ -63,6 +63,7 @@
   </url>
 <!-- COLUMNS:START -->
   <url><loc>https://mgc-global01.com/column</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mgc-global01.com/column/hr-reskilling-ai</loc><lastmod>2026-07-28</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://mgc-global01.com/column/real-estate-inquiry-response-ai</loc><lastmod>2026-07-25</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://mgc-global01.com/column/retail-demand-forecasting-inventory</loc><lastmod>2026-07-25</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://mgc-global01.com/column/logistics-dispatch-planning-ai</loc><lastmod>2026-07-25</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
