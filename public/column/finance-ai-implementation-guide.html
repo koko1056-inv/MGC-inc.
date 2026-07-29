@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>金融・保険業界のAI活用｜審査・顧客対応の導入手順 - MGCコラム</title>
+<meta name="description" content="金融・保険業界におけるAI活用の現実的な進め方を解説。融資審査や保険金支払いの迅速化、コンタクトセンターの高度化、セキュリティ確保のポイントまで、実務目線で「人とAIの役割分担」を定義します。"/>
+<meta name="keywords" content="金融 AI, 保険 AI, 融資審査 自動化, 生成AI 金融, 不正検知 AI"/>
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1"/>
+<meta name="author" content="MGC Inc."/>
+<link rel="canonical" href="https://mgc-global01.com/column/finance-ai-implementation-guide"/>
+<meta property="og:type" content="article"/>
+<meta property="og:locale" content="ja_JP"/>
+<meta property="og:site_name" content="MGC Inc."/>
+<meta property="og:url" content="https://mgc-global01.com/column/finance-ai-implementation-guide"/>
+<meta property="og:title" content="金融・保険業界のAI活用｜審査・顧客対応の導入手順 - MGCコラム"/>
+<meta property="og:description" content="金融・保険業界におけるAI活用の現実的な進め方を解説。融資審査や保険金支払いの迅速化、コンタクトセンターの高度化、セキュリティ確保のポイントまで、実務目線で「人とAIの役割分担」を定義します。"/>
+<meta property="og:image" content="https://mgc-global01.com/assets/column/ind_finance.png"/>
+<meta property="article:published_time" content="2026-07-30"/>
+<meta property="article:section" content="金融・保険"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="金融・保険業界のAI活用｜審査・顧客対応の導入手順 - MGCコラム"/>
+<meta name="twitter:description" content="金融・保険業界におけるAI活用の現実的な進め方を解説。融資審査や保険金支払いの迅速化、コンタクトセンターの高度化、セキュリティ確保のポイントまで、実務目線で「人とAIの役割分担」を定義します。"/>
+<meta name="twitter:image" content="https://mgc-global01.com/assets/column/ind_finance.png"/>
+<meta name="theme-color" content="#111418"/>
+<link rel="icon" href="/favicon.ico"/>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "ホーム",
+      "item": "https://mgc-global01.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "AI活用コラム",
+      "item": "https://mgc-global01.com/column"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "金融・保険業務のAI導入 — 審査と照会を効率化し、判断の質を高める",
+      "item": "https://mgc-global01.com/column/finance-ai-implementation-guide"
+    }
+  ]
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "金融・保険業務のAI導入 — 審査と照会を効率化し、判断の質を高める",
+  "description": "金融・保険業界におけるAI活用の現実的な進め方を解説。融資審査や保険金支払いの迅速化、コンタクトセンターの高度化、セキュリティ確保のポイントまで、実務目線で「人とAIの役割分担」を定義します。",
+  "abstract": "金融・保険業界におけるAI活用の現実的な進め方を解説。融資審査や保険金支払いの迅速化、コンタクトセンターの高度化、セキュリティ確保のポイントまで、実務目線で「人とAIの役割分担」を定義します。",
+  "image": [
+    "https://mgc-global01.com/assets/column/ind_finance.png"
+  ],
+  "datePublished": "2026-07-30",
+  "dateModified": "2026-07-30",
+  "inLanguage": "ja",
+  "isAccessibleForFree": true,
+  "wordCount": 3064,
+  "author": {
+    "@type": "Organization",
+    "name": "MGC Inc.",
+    "alternateName": "ＭＧＣ株式会社",
+    "url": "https://mgc-global01.com",
+    "sameAs": [
+      "https://mgc-global01.com"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "MGC Inc.",
+    "url": "https://mgc-global01.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://mgc-global01.com/logo.png"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://mgc-global01.com/column/finance-ai-implementation-guide"
+  },
+  "articleSection": "金融・保険",
+  "about": [
+    {
+      "@type": "Thing",
+      "name": "金融・保険のAI活用"
+    },
+    {
+      "@type": "Thing",
+      "name": "AI導入・業務効率化"
+    }
+  ],
+  "keywords": "金融 AI, 保険 AI, 融資審査 自動化, 生成AI 金融, 不正検知 AI",
+  "speakable": {
+    "@type": "SpeakableSpecification",
+    "cssSelector": [
+      "h1.title",
+      ".keypoints",
+      ".lead"
+    ]
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "生成AIに顧客情報を入力しても大丈夫ですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "一般的な公開用チャットサービスに入力するのは厳禁です。しかし、法人向けのセキュアな環境（Azure OpenAI Service等）を利用し、データがAIの学習に利用されない設定を施せば、安全に活用できます。さらに、入力時に自動で個人名を伏せ字にするなどの技術的対策を組み合わせるのが一般的です。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "AIが間違った回答をした際の説明責任はどうなりますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "金融実務においては、AIを『決定者』ではなく『起案者』として位置づけます。AIの回答を人間が確認し、承認した上で顧客に提供するフローにすることで、責任の所在を明確にします。また、AIの判断根拠となった社内規定やソースを記録に残す運用が不可欠です。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "導入にはどのくらいの期間が必要ですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "特定の業務（例：コンタクトセンターのFAQ検索支援）に絞ったスモールスタートであれば、要件定義から試験運用開始まで3〜4ヶ月程度が目安です。そこでの検証結果をもとに、徐々に対象業務を広げていく段階的なアプローチを推奨しています。"
+      }
+    }
+  ]
+}</script>
+<style>*{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#111418;--blue:#2D6CDF;--muted:#5b6472;--line:#e6e8ec;--bg:#ffffff;--soft:#f6f8fb}
+html{-webkit-text-size-adjust:100%}
+body{font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",Meiryo,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.85;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.site-header{position:sticky;top:0;z-index:20;background:var(--ink);display:flex;align-items:center;justify-content:space-between;padding:16px 24px}
+.site-header a.brand{color:#fff;font-size:1.15rem;font-weight:800;letter-spacing:.04em;text-decoration:none}
+.site-header nav a{color:rgba(255,255,255,.8);font-size:.85rem;font-weight:600;margin-left:20px;text-decoration:none}
+.site-header nav a:hover{color:#fff}
+.wrap{max-width:760px;margin:0 auto;padding:0 22px}
+.crumbs{font-size:.8rem;color:var(--muted);margin:26px auto 0;max-width:760px;padding:0 22px}
+.crumbs a{color:var(--muted)}
+.eyebrow{display:inline-block;font-size:.72rem;font-weight:800;letter-spacing:.16em;color:var(--blue);text-transform:uppercase;margin-bottom:14px}
+h1.title{font-size:2rem;line-height:1.45;font-weight:800;letter-spacing:-.01em;margin:8px 0 16px}
+.meta{display:flex;flex-wrap:wrap;gap:14px;align-items:center;font-size:.82rem;color:var(--muted);margin-bottom:26px}
+.chip{background:var(--soft);color:var(--blue);font-weight:700;border-radius:999px;padding:4px 12px;font-size:.78rem}
+.hero{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:16px;background:var(--soft);margin:6px 0 30px;display:block}
+.lead{font-size:1.08rem;color:#2a3340;font-weight:500;border-left:3px solid var(--blue);padding-left:16px;margin:0 0 30px}
+.keypoints{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:0 0 34px}
+.keypoints h2{font-size:.95rem;font-weight:800;color:var(--blue);margin:0 0 12px;letter-spacing:.02em}
+.keypoints ul{margin:0;padding-left:20px}
+.keypoints li{margin:0 0 8px;color:#1b2430;font-weight:500}
+.keypoints li:last-child{margin-bottom:0}
+.article h2{font-size:1.35rem;font-weight:800;line-height:1.5;margin:44px 0 14px;padding-top:6px}
+.article h3{font-size:1.1rem;font-weight:700;margin:30px 0 10px;color:#1b2430}
+.article p{margin:0 0 18px;color:#313a46}
+.article ul,.article ol{margin:0 0 20px;padding-left:22px}
+.article li{margin:0 0 9px;color:#313a46}
+.article blockquote{margin:26px 0;padding:16px 20px;background:var(--soft);border-radius:12px;border-left:4px solid var(--blue);color:#1b2430;font-weight:600}
+.faq{margin:48px 0 8px}
+.faq h2{font-size:1.35rem;font-weight:800;margin-bottom:16px}
+.faq details{border:1px solid var(--line);border-radius:12px;padding:0;margin-bottom:12px;overflow:hidden}
+.faq summary{cursor:pointer;list-style:none;padding:16px 18px;font-weight:700;color:var(--ink);display:flex;justify-content:space-between;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"＋";color:var(--blue);font-weight:800}
+.faq details[open] summary::after{content:"−"}
+.faq .a{padding:0 18px 18px;color:#313a46}
+.cta{margin:52px 0;background:var(--ink);color:#fff;border-radius:20px;padding:30px 26px}
+.cta h2{color:#fff;font-size:1.3rem;font-weight:800;margin-bottom:10px}
+.cta p{color:rgba(255,255,255,.82);margin-bottom:20px}
+.cta .cta-eyebrow{display:inline-block;background:var(--blue);color:#fff;font-size:.72rem;font-weight:800;letter-spacing:.08em;border-radius:999px;padding:5px 12px;margin-bottom:14px}
+.cta .btns{display:flex;flex-wrap:wrap;gap:12px}
+.cta .cta-foot{color:rgba(255,255,255,.6);font-size:.8rem;margin:14px 0 0}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:13px 22px;font-weight:800;font-size:.92rem;text-decoration:none}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-ghost{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.25)}
+.related{margin:44px 0}
+.related h2{font-size:1.2rem;font-weight:800;margin-bottom:14px}
+.related a{display:block;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px;color:var(--ink);text-decoration:none}
+.related a:hover{border-color:var(--blue)}
+.related .k{font-size:.74rem;color:var(--blue);font-weight:700}
+.disclaimer{font-size:.8rem;color:var(--muted);border-top:1px solid var(--line);margin-top:44px;padding-top:20px}
+.site-footer{border-top:1px solid var(--line);margin-top:60px;padding:30px 22px;color:var(--muted);font-size:.82rem}
+.site-footer .wrap{max-width:760px}
+/* index */
+.index-hero{max-width:820px;margin:40px auto 8px;padding:0 22px}
+.index-hero h1{font-size:2rem;font-weight:800;margin-bottom:10px}
+.index-hero p{color:var(--muted);max-width:640px}
+.cards{max-width:900px;margin:26px auto 0;padding:0 22px;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
+.card{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff;display:flex;flex-direction:column;text-decoration:none;color:var(--ink);transition:border-color .2s}
+.card:hover{border-color:var(--blue);text-decoration:none}
+.card img{width:100%;aspect-ratio:16/9;object-fit:cover;background:var(--soft)}
+.card .body{padding:16px 16px 20px;display:flex;flex-direction:column;gap:8px;flex:1}
+.card .k{font-size:.72rem;color:var(--blue);font-weight:800}
+.card h3{font-size:1.02rem;font-weight:700;line-height:1.5}
+.card .d{font-size:.84rem;color:var(--muted);line-height:1.7}
+.card .date{font-size:.74rem;color:#9aa3b0;margin-top:auto}
+@media(max-width:640px){h1.title{font-size:1.55rem}.wrap{padding:0 18px}.cta{padding:24px 20px}}</style>
+</head>
+<body>
+<header class="site-header"><a class="brand" href="/">MGC Inc.</a><nav><a href="/column">コラム</a><a href="/diagnosis">AI診断</a><a href="/training">研修</a><a href="/#works">事業内容</a><a href="/#contact">お問い合わせ</a></nav></header>
+<nav class="crumbs"><a href="/">ホーム</a> ／ <a href="/column">AI活用コラム</a> ／ 金融・保険</nav>
+<main class="wrap">
+<article class="article">
+<span class="eyebrow">金融・保険 × AI活用</span>
+<h1 class="title">金融・保険業務のAI導入 — 審査と照会を効率化し、判断の質を高める</h1>
+<div class="meta"><span class="chip">金融・保険</span><span>2026.07.30</span><span>読了目安 10分</span></div>
+<img class="hero" src="/assets/column/ind_finance.png" alt="金融機関のオフィスでAIを活用してデータ分析と顧客対応を行うイメージ" width="1200" height="675"/>
+<p class="lead">金融・保険業界におけるAI導入は、単なる効率化を超え「判断のスピード」と「正確性」を両立させるための必須戦略となりました。しかし、厳格な法規制や高い信頼性が求められるこの業界では、AIをどこまで信じ、どこを人が担うかの設計が成否を分けます。現場で即戦力となるAI導入の勘所を詳しく解説します。</p>
+<aside class="keypoints"><h2>この記事の要点</h2><ul><li>AIは全自動の判断ツールではなく、膨大なデータから重要なポイントを抽出する『高度な助手』として位置づけるのが現実的です。</li><li>審査業務や顧客対応では、AIが一次処理を行い、人間が最終的な承認と例外対応に集中する体制を構築します。</li><li>セキュリティとデータガバナンスを最優先し、まずは社内向け業務からスモールスタートして成功体験を積むことが定石です。</li></ul></aside>
+<p>金融・保険業界は、これまでも膨大なデータを扱ってきましたが、その多くは構造化された数値データが中心でした。しかし、昨今の生成AIの進化により、契約書、約款、過去の応対履歴、調査報告書といった「非構造化データ（テキストや画像）」の活用が急速に現実味を帯びています。AIの導入は、人手不足の解消だけでなく、意思決定の迅速化という大きな競争優位性をもたらします。</p>
+<p>一方で、誤った情報をもっともらしく出力する「ハルシネーション（幻覚）」や、個人情報の取り扱いといったリスクへの懸念も根強くあります。金融機関がAIを導入する際、最も重要なのは「技術の目新しさ」に飛びつくことではなく、「どの業務プロセスにAIを組み込めば、最も安全かつ効果的に価値を生めるか」を見極めることです。この記事では、実務に即した具体的な導入ステップを提示します。</p>
+<h2>金融・保険業界がAI導入で直面する「信頼性」の壁</h2>
+<p>金融機関にとって、情報の正確性は業務の根幹です。AIが100回に1回でも誤った法的解釈や誤った金利情報を回答すれば、それは大きな信用問題につながります。この「信頼性の壁」を乗り越えるためには、AIを「完璧な自動化マシン」として扱うのをやめ、「高い能力を持つが、見落としもする研修生」のように扱う視点が必要です。</p>
+<p>具体的には、AIが出力した回答の根拠を常に確認できる「RAG（Retrieval-Augmented Generation：検索拡張生成）」という手法を採用することが一般的です。これは、AIが自身の知識だけで答えるのではなく、社内の規定集やマニュアルを検索し、その内容に基づいて回答を生成する仕組みです。これにより、根拠となる文書（ソース）を人がすぐに確認できるため、信頼性の問題は大幅に軽減されます。</p>
+<blockquote>AIに丸投げするのではなく、根拠となる社内文書とセットで出力させ、最終確認は人が行う。</blockquote>
+<h2>審査業務のスピードアップ：AIを「一次審査の助手」にする</h2>
+<p>融資審査や保険金の支払い審査は、AIによる恩恵を最も受けやすい領域の一つです。これまでは担当者が複数の書類を読み込み、矛盾がないか、基準を満たしているかを手作業でチェックしていましたが、ここをAIに任せることで、審査時間を数日から数時間に短縮できる可能性があります。</p>
+<ul><li>書類の自動分類と重要情報の抽出：本人確認書類や決算書、診断書からの自動データ化</li><li>整合性チェック：提出された書類間の矛盾（住所の不一致、数値の計算ミスなど）の自動検知</li><li>リスク因子のフラグ立て：過去の不正事例や特定のキーワードに基づく注意喚起</li><li>標準的な判断案の提示：社内規定に基づき「承認/否認」の推奨案を作成する</li></ul>
+<p>ここでのポイントは、AIに「否認」の最終決定をさせないことです。AIが「リスクあり」と判断した案件を、人間が重点的に精査する。逆にAIが「完全にクリーン」と判断した定型的な案件は、人間が短時間で最終承認ボタンを押す。このように、人間のエネルギーを「考えるべき案件」に集中させることで、業務全体の回転率が向上します。</p>
+<h2>顧客対応の高度化：ナレッジ検索から自動生成へ</h2>
+<p>コンタクトセンターや営業現場では、商品の多様化や複雑な制度により、オペレーターが「正しい答えを探す時間」が業務の大きな負担になっています。AIはこの「検索と要約」において圧倒的なパフォーマンスを発揮します。</p>
+<p>例えば、顧客との通話内容をリアルタイムで文字起こしし、その内容からAIが最適な回答候補を社内FAQから自動で提示するシステムです。これにより、新人オペレーターでもベテランに近い精度の回答が可能になります。また、通話終了後の「応対履歴（アフターコールワーク）」の作成も、AIが数秒で要約を作成することで、一回あたりの処理時間を大幅に削減できます。</p>
+<ol><li>過去の応対ログやマニュアルをAIが学習可能な形式に整理する</li><li>オペレーター向けの支援ツールとして導入し、回答の正確性を現場で検証する</li><li>社内での成功実績を元に、将来的に顧客向けチャットボットへの反映を検討する</li></ol>
+<h2>セキュリティとガバナンス：金融機関が踏むべきステップ</h2>
+<p>金融機関におけるAI導入で、技術以上に高いハードルとなるのが「セキュリティ」と「コンプライアンス」です。顧客の資産や個人情報を扱う以上、外部の公開型AIにデータを送ることは許されません。そのため、プライベートなクラウド環境やオンプレミス環境でのAI構築、あるいは入力データの匿名化（マスキング）が必須となります。</p>
+<p>また、AIがなぜその判断を下したのかという「説明責任（アカウンタビリティ）」も重要です。ブラックボックス化したAIに判断を委ねるのではなく、判断プロセスをログとして残し、監査に耐えうる運用体制を構築しなければなりません。MGCでは、導入の初期段階で「AI利用ガイドライン」を策定し、権限設定とデータの流れを可視化することを強く推奨しています。</p>
+<ul><li>データの暗号化とアクセス制限の徹底</li><li>AIへの入力情報の自動フィルタリング（個人情報の遮断）</li><li>AIの回答に対する定期的な人間によるサンプリング評価（精度モニタリング）</li></ul>
+<h2>不正検知・リスク管理：膨大なデータから「予兆」を掴む</h2>
+<p>アンチ・マネー・ローンダリング（AML）やテロ資金供与対策（CFT）、保険金詐欺の検知など、リスク管理領域でのAI活用はすでに実用段階にあります。従来のルールベース（「100万円以上の振込があれば検知」など）では、巧妙化する不正をすり抜けてしまう、あるいは逆に正常な取引を過剰に検知してしまう「誤検知（フェルスポジティブ）」が課題でした。</p>
+<p>AIを用いた異常検知では、過去の膨大な取引パターンを学習し、「いつもと違う」微細な兆候を捉えます。例えば、複数の口座を介した複雑な送金経路や、特定の時間帯に集中する不自然なアクセスなど、人間では気づけない相関関係をAIが可視化します。</p>
+<p>これにより、調査担当者はAIが弾き出した「高リスク案件」にリソースを集中できるようになり、監視業務の質が飛躍的に高まります。リスク管理は「守り」の業務ですが、AIによってそのコストを最適化することは、結果として「攻め」のサービス開発に資金と人員を回すことにつながります。</p>
+<h2>まとめ：金融・保険AI活用の成功ロードマップ</h2>
+<p>金融・保険業界におけるAI導入は、一足飛びに「完全無人化」を目指すものではありません。人の判断を補強し、ミスを防ぎ、付加価値の高い業務に時間を割けるようにするための「武器」として導入すべきです。最後に、導入に向けた重要なポイントを整理します。</p>
+<ul><li>AIは一次処理・要約・検索の『助手』として使い、最終判断は人が担う</li><li>RAG等の技術を活用し、常に『根拠となる文書』を確認できる仕組みにする</li><li>社内向け業務（照会支援・要約）から始め、セキュリティ基準を確立する</li><li>制度やルールの変更に合わせ、AIが参照するナレッジを常に最新に保つ</li></ul>
+<p>まずは現行の業務フローの中で、どこに「検索」や「突き合わせ」の時間がかかっているかを洗い出すことから始めてください。小さな成功を積み重ねることが、組織全体のAIリテラシーを高め、将来的な大規模活用への土台となります。</p>
+<section class="faq"><h2>よくあるご質問</h2><details><summary>生成AIに顧客情報を入力しても大丈夫ですか？</summary><div class="a">一般的な公開用チャットサービスに入力するのは厳禁です。しかし、法人向けのセキュアな環境（Azure OpenAI Service等）を利用し、データがAIの学習に利用されない設定を施せば、安全に活用できます。さらに、入力時に自動で個人名を伏せ字にするなどの技術的対策を組み合わせるのが一般的です。</div></details><details><summary>AIが間違った回答をした際の説明責任はどうなりますか？</summary><div class="a">金融実務においては、AIを『決定者』ではなく『起案者』として位置づけます。AIの回答を人間が確認し、承認した上で顧客に提供するフローにすることで、責任の所在を明確にします。また、AIの判断根拠となった社内規定やソースを記録に残す運用が不可欠です。</div></details><details><summary>導入にはどのくらいの期間が必要ですか？</summary><div class="a">特定の業務（例：コンタクトセンターのFAQ検索支援）に絞ったスモールスタートであれば、要件定義から試験運用開始まで3〜4ヶ月程度が目安です。そこでの検証結果をもとに、徐々に対象業務を広げていく段階的なアプローチを推奨しています。</div></details></section>
+<section class="cta">
+<span class="cta-eyebrow">無料・所要3分・その場で結果</span>
+<h2>では、御社の場合はどうか？ 3分のAI活用診断で確かめる</h2>
+<p>業種と今の課題を入力するだけで、AIが「金融・保険の御社に向いたAI活用施策・導入後のワークフロー・削減できる工数とコスト」を、提案書レベルの診断レポートにしてその場でお返しします。無料です。</p>
+<div class="btns">
+<a class="btn btn-primary" href="/diagnosis">無料でAI活用診断を受ける</a>
+<a class="btn btn-ghost" href="/#contact">30分の無料相談を予約する</a>
+</div>
+<p class="cta-foot">診断は登録不要・その場で結果表示。もちろん、いきなり相談していただいても構いません（初回相談・お見積もりまで無料）。</p>
+</section>
+
+<p class="disclaimer">本コラムは一般的な情報提供を目的としたもので、特定の成果を保証するものではありません。導入可否や効果は、企業の状況・データ・体制により異なります。具体的なご相談は個別にお問い合わせください。</p>
+</article>
+</main>
+<footer class="site-footer"><div class="wrap"><p><strong>ＭＧＣ株式会社（MGC Inc.）</strong></p><p>京都府京都市上京区西辰巳町111 アビタシオンオンズアン106</p><p style="margin-top:10px"><a href="/">https://mgc-global01.com</a> ・ <a href="/column">コラム一覧</a> ・ <a href="/diagnosis">AI活用診断</a> ・ <a href="/training">研修</a></p><p style="margin-top:10px">© 2026 MGC Inc. All Rights Reserved.</p></div></footer>
+</body>
+</html>

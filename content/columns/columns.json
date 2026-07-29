@@ -7,7 +7,7 @@
   },
   "rotation": {
     "note": "日次で industries を順番に回す。lastIndex は最後に公開した業種の添字。次回は (lastIndex+1)%12 の業種で、usedTopics に無いテーマを選ぶ。",
-    "lastIndex": 7,
+    "lastIndex": 8,
     "industries": [
       {
         "key": "manufacturing",
@@ -95,7 +95,9 @@
       "professional-accounting-ai",
       "professional-ai-legal-accounting-transformation"
     ],
-    "finance": [],
+    "finance": [
+      "finance-ai-implementation-guide"
+    ],
     "education": [],
     "hr": [
       "hr-reskilling-ai"
@@ -156,6 +158,12 @@
       "industry": "professional",
       "date": "2026-07-29",
       "file": "professional-ai-legal-accounting-transformation.json"
+    },
+    {
+      "slug": "finance-ai-implementation-guide",
+      "industry": "finance",
+      "date": "2026-07-30",
+      "file": "finance-ai-implementation-guide.json"
     }
   ]
 }
