@@ -7,7 +7,7 @@
   },
   "rotation": {
     "note": "日次で industries を順番に回す。lastIndex は最後に公開した業種の添字。次回は (lastIndex+1)%12 の業種で、usedTopics に無いテーマを選ぶ。",
-    "lastIndex": 9,
+    "lastIndex": 10,
     "industries": [
       {
         "key": "manufacturing",
@@ -102,7 +102,8 @@
       "education-personalized-learning-support"
     ],
     "hr": [
-      "hr-reskilling-ai"
+      "hr-reskilling-ai",
+      "hr-recruitment-process-ai"
     ],
     "public": []
   },
@@ -172,6 +173,12 @@
       "industry": "education",
       "date": "2026-07-31",
       "file": "education-personalized-learning-support.json"
+    },
+    {
+      "slug": "hr-recruitment-process-ai",
+      "industry": "hr",
+      "date": "2026-08-01",
+      "file": "hr-recruitment-process-ai.json"
     }
   ]
 }
