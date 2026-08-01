@@ -7,7 +7,7 @@
   },
   "rotation": {
     "note": "日次で industries を順番に回す。lastIndex は最後に公開した業種の添字。次回は (lastIndex+1)%12 の業種で、usedTopics に無いテーマを選ぶ。",
-    "lastIndex": 10,
+    "lastIndex": 11,
     "industries": [
       {
         "key": "manufacturing",
@@ -105,7 +105,9 @@
       "hr-reskilling-ai",
       "hr-recruitment-process-ai"
     ],
-    "public": []
+    "public": [
+      "public-dx-ai-implementation"
+    ]
   },
   "articles": [
     {
@@ -179,6 +181,12 @@
       "industry": "hr",
       "date": "2026-08-01",
       "file": "hr-recruitment-process-ai.json"
+    },
+    {
+      "slug": "public-dx-ai-implementation",
+      "industry": "public",
+      "date": "2026-08-02",
+      "file": "public-dx-ai-implementation.json"
     }
   ]
 }
