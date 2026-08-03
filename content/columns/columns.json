@@ -7,7 +7,7 @@
   },
   "rotation": {
     "note": "日次で industries を順番に回す。lastIndex は最後に公開した業種の添字。次回は (lastIndex+1)%12 の業種で、usedTopics に無いテーマを選ぶ。",
-    "lastIndex": 11,
+    "lastIndex": 0,
     "industries": [
       {
         "key": "manufacturing",
@@ -73,7 +73,8 @@
   },
   "usedTopics": {
     "manufacturing": [
-      "manufacturing-inspection-ai"
+      "manufacturing-inspection-ai",
+      "manufacturing-predictive-maintenance"
     ],
     "construction": [],
     "real-estate": [
@@ -187,6 +188,12 @@
       "industry": "public",
       "date": "2026-08-02",
       "file": "public-dx-ai-implementation.json"
+    },
+    {
+      "slug": "manufacturing-predictive-maintenance",
+      "industry": "manufacturing",
+      "date": "2026-08-04",
+      "file": "manufacturing-predictive-maintenance.json"
     }
   ]
 }
