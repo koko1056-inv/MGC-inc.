@@ -7,7 +7,7 @@
   },
   "rotation": {
     "note": "日次で industries を順番に回す。lastIndex は最後に公開した業種の添字。次回は (lastIndex+1)%12 の業種で、usedTopics に無いテーマを選ぶ。",
-    "lastIndex": 0,
+    "lastIndex": 1,
     "industries": [
       {
         "key": "manufacturing",
@@ -76,7 +76,9 @@
       "manufacturing-inspection-ai",
       "manufacturing-predictive-maintenance"
     ],
-    "construction": [],
+    "construction": [
+      "construction-site-efficiency-ai"
+    ],
     "real-estate": [
       "real-estate-inquiry-response-ai"
     ],
@@ -194,6 +196,12 @@
       "industry": "manufacturing",
       "date": "2026-08-04",
       "file": "manufacturing-predictive-maintenance.json"
+    },
+    {
+      "slug": "construction-site-efficiency-ai",
+      "industry": "construction",
+      "date": "2026-08-05",
+      "file": "construction-site-efficiency-ai.json"
     }
   ]
 }
