@@ -7,7 +7,7 @@
   },
   "rotation": {
     "note": "日次で industries を順番に回す。lastIndex は最後に公開した業種の添字。次回は (lastIndex+1)%12 の業種で、usedTopics に無いテーマを選ぶ。",
-    "lastIndex": 3,
+    "lastIndex": 4,
     "industries": [
       {
         "key": "manufacturing",
@@ -88,7 +88,8 @@
       "retail-ai-driven-personalization"
     ],
     "logistics": [
-      "logistics-dispatch-planning-ai"
+      "logistics-dispatch-planning-ai",
+      "logistics-demand-forecasting-ai"
     ],
     "healthcare": [
       "healthcare-documentation-efficiency-ai"
@@ -216,6 +217,12 @@
       "industry": "retail",
       "date": "2026-08-07",
       "file": "retail-ai-driven-personalization.json"
+    },
+    {
+      "slug": "logistics-demand-forecasting-ai",
+      "industry": "logistics",
+      "date": "2026-08-08",
+      "file": "logistics-demand-forecasting-ai.json"
     }
   ]
 }
