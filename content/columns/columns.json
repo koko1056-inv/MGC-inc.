@@ -7,7 +7,7 @@
   },
   "rotation": {
     "note": "日次で industries を順番に回す。lastIndex は最後に公開した業種の添字。次回は (lastIndex+1)%12 の業種で、usedTopics に無いテーマを選ぶ。",
-    "lastIndex": 2,
+    "lastIndex": 3,
     "industries": [
       {
         "key": "manufacturing",
@@ -84,7 +84,8 @@
       "real-estate-property-listing-matching-ai"
     ],
     "retail": [
-      "retail-demand-forecasting-inventory"
+      "retail-demand-forecasting-inventory",
+      "retail-ai-driven-personalization"
     ],
     "logistics": [
       "logistics-dispatch-planning-ai"
@@ -209,6 +210,12 @@
       "industry": "real-estate",
       "date": "2026-08-06",
       "file": "real-estate-property-listing-matching-ai.json"
+    },
+    {
+      "slug": "retail-ai-driven-personalization",
+      "industry": "retail",
+      "date": "2026-08-07",
+      "file": "retail-ai-driven-personalization.json"
     }
   ]
 }
