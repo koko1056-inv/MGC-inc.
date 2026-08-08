@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>医療・介護AI活用｜ケアプラン作成とリスク予測の進め方 - MGCコラム</title>
+<meta name="description" content="医療・介護現場におけるAI導入の現実的な進め方を解説。ケアプラン作成の効率化や転倒・急変のリスク予測など、現場の負担を減らしつつケアの質を向上させる手法を紹介します。ITに詳しくない管理者様でも実践できるステップをまとめました。"/>
+<meta name="keywords" content="医療 AI, 介護 AI, ケアプラン AI, リスク予測 AI, 科学的介護"/>
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1"/>
+<meta name="author" content="MGC Inc."/>
+<link rel="canonical" href="https://mgc-global01.com/column/healthcare-care-planning-risk-prediction-ai"/>
+<meta property="og:type" content="article"/>
+<meta property="og:locale" content="ja_JP"/>
+<meta property="og:site_name" content="MGC Inc."/>
+<meta property="og:url" content="https://mgc-global01.com/column/healthcare-care-planning-risk-prediction-ai"/>
+<meta property="og:title" content="医療・介護AI活用｜ケアプラン作成とリスク予測の進め方 - MGCコラム"/>
+<meta property="og:description" content="医療・介護現場におけるAI導入の現実的な進め方を解説。ケアプラン作成の効率化や転倒・急変のリスク予測など、現場の負担を減らしつつケアの質を向上させる手法を紹介します。ITに詳しくない管理者様でも実践できるステップをまとめました。"/>
+<meta property="og:image" content="https://mgc-global01.com/assets/column/ind_healthcare.png"/>
+<meta property="article:published_time" content="2026-08-09"/>
+<meta property="article:section" content="医療・介護"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="医療・介護AI活用｜ケアプラン作成とリスク予測の進め方 - MGCコラム"/>
+<meta name="twitter:description" content="医療・介護現場におけるAI導入の現実的な進め方を解説。ケアプラン作成の効率化や転倒・急変のリスク予測など、現場の負担を減らしつつケアの質を向上させる手法を紹介します。ITに詳しくない管理者様でも実践できるステップをまとめました。"/>
+<meta name="twitter:image" content="https://mgc-global01.com/assets/column/ind_healthcare.png"/>
+<meta name="theme-color" content="#111418"/>
+<link rel="icon" href="/favicon.ico"/>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "ホーム",
+      "item": "https://mgc-global01.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "AI活用コラム",
+      "item": "https://mgc-global01.com/column"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "医療・介護の現場でAIをどう活かすか — ケアプラン作成とリスク予測の現実解",
+      "item": "https://mgc-global01.com/column/healthcare-care-planning-risk-prediction-ai"
+    }
+  ]
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "医療・介護の現場でAIをどう活かすか — ケアプラン作成とリスク予測の現実解",
+  "description": "医療・介護現場におけるAI導入の現実的な進め方を解説。ケアプラン作成の効率化や転倒・急変のリスク予測など、現場の負担を減らしつつケアの質を向上させる手法を紹介します。ITに詳しくない管理者様でも実践できるステップをまとめました。",
+  "abstract": "医療・介護現場におけるAI導入の現実的な進め方を解説。ケアプラン作成の効率化や転倒・急変のリスク予測など、現場の負担を減らしつつケアの質を向上させる手法を紹介します。ITに詳しくない管理者様でも実践できるステップをまとめました。",
+  "image": [
+    "https://mgc-global01.com/assets/column/ind_healthcare.png"
+  ],
+  "datePublished": "2026-08-09",
+  "dateModified": "2026-08-09",
+  "inLanguage": "ja",
+  "isAccessibleForFree": true,
+  "wordCount": 3159,
+  "author": {
+    "@type": "Organization",
+    "name": "MGC Inc.",
+    "alternateName": "ＭＧＣ株式会社",
+    "url": "https://mgc-global01.com",
+    "sameAs": [
+      "https://mgc-global01.com"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "MGC Inc.",
+    "url": "https://mgc-global01.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://mgc-global01.com/logo.png"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://mgc-global01.com/column/healthcare-care-planning-risk-prediction-ai"
+  },
+  "articleSection": "医療・介護",
+  "about": [
+    {
+      "@type": "Thing",
+      "name": "医療・介護のAI活用"
+    },
+    {
+      "@type": "Thing",
+      "name": "AI導入・業務効率化"
+    }
+  ],
+  "keywords": "医療 AI, 介護 AI, ケアプラン AI, リスク予測 AI, 科学的介護",
+  "speakable": {
+    "@type": "SpeakableSpecification",
+    "cssSelector": [
+      "h1.title",
+      ".keypoints",
+      ".lead"
+    ]
+  }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "AIを導入すると、スタッフの考える力や技術が衰えてしまいませんか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "むしろ逆だと考えています。AIが定型的な計画案や予測を提示することで、スタッフは「なぜAIはこのプランを提案したのか？」「この方の場合はどこを修正すべきか？」という、より高度で個別性の高い判断に集中できるようになります。熟練者の暗黙知をAIが形式知化することで、若手スタッフの教育・育成が早まるメリットもあります。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "導入費用や維持費が心配です。小規模な施設でも採算は合いますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "現在は月額制（SaaS型）のサービスも多く、初期投資を抑えた導入が可能です。人件費の削減を直接の目的とするのではなく、転倒事故による訴訟リスクや入院回避、またスタッフの負担軽減による離職防止といった「見えないコストの削減」と「質の向上による選ばれる施設づくり」の観点で投資対効果を評価することをお勧めします。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "利用者のプライバシーをどこまで守れるかが不安です。",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "非常に重要な視点です。例えば映像解析AIの場合、画像をそのまま保存せず、骨格データやシルエットに変換して解析する技術もあります。また、クラウドではなく施設内のネットワークで完結させる仕組みも選択可能です。まずは、どのようなデータを、どこまで、何の目的で使うかを明確にし、利用者・ご家族に丁寧に説明して同意を得るという、アナログな信頼関係の構築が前提となります。"
+      }
+    }
+  ]
+}</script>
+<style>*{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#111418;--blue:#2D6CDF;--muted:#5b6472;--line:#e6e8ec;--bg:#ffffff;--soft:#f6f8fb}
+html{-webkit-text-size-adjust:100%}
+body{font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",Meiryo,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.85;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.site-header{position:sticky;top:0;z-index:20;background:var(--ink);display:flex;align-items:center;justify-content:space-between;padding:16px 24px}
+.site-header a.brand{color:#fff;font-size:1.15rem;font-weight:800;letter-spacing:.04em;text-decoration:none}
+.site-header nav a{color:rgba(255,255,255,.8);font-size:.85rem;font-weight:600;margin-left:20px;text-decoration:none}
+.site-header nav a:hover{color:#fff}
+.wrap{max-width:760px;margin:0 auto;padding:0 22px}
+.crumbs{font-size:.8rem;color:var(--muted);margin:26px auto 0;max-width:760px;padding:0 22px}
+.crumbs a{color:var(--muted)}
+.eyebrow{display:inline-block;font-size:.72rem;font-weight:800;letter-spacing:.16em;color:var(--blue);text-transform:uppercase;margin-bottom:14px}
+h1.title{font-size:2rem;line-height:1.45;font-weight:800;letter-spacing:-.01em;margin:8px 0 16px}
+.meta{display:flex;flex-wrap:wrap;gap:14px;align-items:center;font-size:.82rem;color:var(--muted);margin-bottom:26px}
+.chip{background:var(--soft);color:var(--blue);font-weight:700;border-radius:999px;padding:4px 12px;font-size:.78rem}
+.hero{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:16px;background:var(--soft);margin:6px 0 30px;display:block}
+.lead{font-size:1.08rem;color:#2a3340;font-weight:500;border-left:3px solid var(--blue);padding-left:16px;margin:0 0 30px}
+.keypoints{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:0 0 34px}
+.keypoints h2{font-size:.95rem;font-weight:800;color:var(--blue);margin:0 0 12px;letter-spacing:.02em}
+.keypoints ul{margin:0;padding-left:20px}
+.keypoints li{margin:0 0 8px;color:#1b2430;font-weight:500}
+.keypoints li:last-child{margin-bottom:0}
+.article h2{font-size:1.35rem;font-weight:800;line-height:1.5;margin:44px 0 14px;padding-top:6px}
+.article h3{font-size:1.1rem;font-weight:700;margin:30px 0 10px;color:#1b2430}
+.article p{margin:0 0 18px;color:#313a46}
+.article ul,.article ol{margin:0 0 20px;padding-left:22px}
+.article li{margin:0 0 9px;color:#313a46}
+.article blockquote{margin:26px 0;padding:16px 20px;background:var(--soft);border-radius:12px;border-left:4px solid var(--blue);color:#1b2430;font-weight:600}
+.faq{margin:48px 0 8px}
+.faq h2{font-size:1.35rem;font-weight:800;margin-bottom:16px}
+.faq details{border:1px solid var(--line);border-radius:12px;padding:0;margin-bottom:12px;overflow:hidden}
+.faq summary{cursor:pointer;list-style:none;padding:16px 18px;font-weight:700;color:var(--ink);display:flex;justify-content:space-between;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"＋";color:var(--blue);font-weight:800}
+.faq details[open] summary::after{content:"−"}
+.faq .a{padding:0 18px 18px;color:#313a46}
+.cta{margin:52px 0;background:var(--ink);color:#fff;border-radius:20px;padding:30px 26px}
+.cta h2{color:#fff;font-size:1.3rem;font-weight:800;margin-bottom:10px}
+.cta p{color:rgba(255,255,255,.82);margin-bottom:20px}
+.cta .cta-eyebrow{display:inline-block;background:var(--blue);color:#fff;font-size:.72rem;font-weight:800;letter-spacing:.08em;border-radius:999px;padding:5px 12px;margin-bottom:14px}
+.cta .btns{display:flex;flex-wrap:wrap;gap:12px}
+.cta .cta-foot{color:rgba(255,255,255,.6);font-size:.8rem;margin:14px 0 0}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:13px 22px;font-weight:800;font-size:.92rem;text-decoration:none}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-ghost{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.25)}
+.related{margin:44px 0}
+.related h2{font-size:1.2rem;font-weight:800;margin-bottom:14px}
+.related a{display:block;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px;color:var(--ink);text-decoration:none}
+.related a:hover{border-color:var(--blue)}
+.related .k{font-size:.74rem;color:var(--blue);font-weight:700}
+.disclaimer{font-size:.8rem;color:var(--muted);border-top:1px solid var(--line);margin-top:44px;padding-top:20px}
+.site-footer{border-top:1px solid var(--line);margin-top:60px;padding:30px 22px;color:var(--muted);font-size:.82rem}
+.site-footer .wrap{max-width:760px}
+/* index */
+.index-hero{max-width:820px;margin:40px auto 8px;padding:0 22px}
+.index-hero h1{font-size:2rem;font-weight:800;margin-bottom:10px}
+.index-hero p{color:var(--muted);max-width:640px}
+.cards{max-width:900px;margin:26px auto 0;padding:0 22px;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
+.card{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff;display:flex;flex-direction:column;text-decoration:none;color:var(--ink);transition:border-color .2s}
+.card:hover{border-color:var(--blue);text-decoration:none}
+.card img{width:100%;aspect-ratio:16/9;object-fit:cover;background:var(--soft)}
+.card .body{padding:16px 16px 20px;display:flex;flex-direction:column;gap:8px;flex:1}
+.card .k{font-size:.72rem;color:var(--blue);font-weight:800}
+.card h3{font-size:1.02rem;font-weight:700;line-height:1.5}
+.card .d{font-size:.84rem;color:var(--muted);line-height:1.7}
+.card .date{font-size:.74rem;color:#9aa3b0;margin-top:auto}
+@media(max-width:640px){h1.title{font-size:1.55rem}.wrap{padding:0 18px}.cta{padding:24px 20px}}</style>
+</head>
+<body>
+<header class="site-header"><a class="brand" href="/">MGC Inc.</a><nav><a href="/column">コラム</a><a href="/diagnosis">AI診断</a><a href="/training">研修</a><a href="/#works">事業内容</a><a href="/#contact">お問い合わせ</a></nav></header>
+<nav class="crumbs"><a href="/">ホーム</a> ／ <a href="/column">AI活用コラム</a> ／ 医療・介護</nav>
+<main class="wrap">
+<article class="article">
+<span class="eyebrow">医療・介護 × AI活用</span>
+<h1 class="title">医療・介護の現場でAIをどう活かすか — ケアプラン作成とリスク予測の現実解</h1>
+<div class="meta"><span class="chip">医療・介護</span><span>2026.08.09</span><span>読了目安 12分</span></div>
+<img class="hero" src="/assets/column/ind_healthcare.png" alt="医療・介護の現場でスタッフがAIの予測データを確認しながらケア方針を検討している様子" width="1200" height="675"/>
+<p class="lead">医療・介護の現場でAI（人工知能）に期待されているのは、単なる事務作業の自動化だけではありません。蓄積されたデータから利用者の『次の変化』を予測し、最適なケアを提案する「意思決定のパートナー」としての役割です。人手不足が深刻化する中で、熟練者の経験知をどうデータ化し、現場の負担軽減と質の向上を両立させるか。実務目線での導入ステップを紐解きます。</p>
+<aside class="keypoints"><h2>この記事の要点</h2><ul><li>AIはケアプラン作成の補助役として、過去の膨大なデータから根拠に基づいた最適なプランの「型」を提案するのに有効です。</li><li>リスク予測AIは転倒や急変の予兆を捉え、現場の『見守り』を「全数監視」から「重点対応」へシフトさせ、負担を軽減します。</li><li>導入の鍵は、現場のスタッフがAIを『監視者』ではなく『頼れる助手』と捉えられるよう、対話重視のプロセスで進めることです。</li></ul></aside>
+<p>現在の医療・介護現場が直面している最大の課題は、限られた人員でいかに質の高い、かつ個別化されたケアを提供し続けるかという点にあります。これまでは、経験豊富なベテランスタッフの『勘』や『気づき』に頼る部分が大きく、それがサービスの質を支えてきました。しかし、人手不足の加速により、その経験知を継承する余裕さえ失われつつあります。</p>
+<p>ここで期待されるのがAIの活用です。AI（人工知能）とは、大量のデータからパターンを見つけ出し、予測や分類を行う技術を指します。医療・介護におけるAIは、決して「人の代わり」になるものではありません。むしろ、スタッフが利用者と向き合う時間を生み出し、判断の精度を高めるための「強力な補助ツール」として位置づけるのが、導入を成功させるための現実的な考え方です。</p>
+<h2>ケアプラン作成をAIで効率化する：根拠に基づいた個別化</h2>
+<p>介護におけるケアプラン（居宅サービス計画）や、病院での退院調整支援計画の作成は、膨大な書類作成と調整を伴う業務です。利用者のADL（日常生活動作）や既往歴、家族の意向を統合して計画を立てる作業は、担当者のスキルによって精度にバラつきが出やすい領域でもあります。AIを導入することで、この「計画策定のプロセス」を大幅に標準化・効率化できます。</p>
+<p>具体的には、過去数万件のケアプランデータと、その後の状態変化の結果を学習したAIが、対象者に最適と思われるケアの組み合わせを数パターン提示します。ケアマネジャーや相談員は、白紙から考えるのではなく、AIが提示した案をベースに、目の前の利用者の細かな表情や声、生活環境に合わせた「微調整」を行うことに集中できます。これにより、作成時間は短縮されつつ、科学的根拠（エビデンス）に基づいた質の高いプランを提供できるようになります。</p>
+<blockquote>AIが『標準的な型』を作り、人が『個別の想い』を吹き込む。これがケアプラン作成の理想的な分業です。</blockquote>
+<h2>転倒・急変の予兆検知：センサーとAIによる「見守り」の再定義</h2>
+<p>夜間の見守りや急変対応は、現場スタッフにとって精神的・肉体的に最も負担が大きい業務の一つです。従来の離床センサーは「起きた後」の通知が主であり、駆けつけた時には既に転倒していたというケースも少なくありません。AIを活用した見守りシステムは、映像やバイタルデータ、振動センサーなどから「いつもと違う動き」や「転倒につながる予兆動作」をリアルタイムで解析します。</p>
+<p>例えば、歩行時のふらつきの変化や、ベッド上での落ち着きのない動きをAIが検知し、「10分以内に離床する可能性が高い」といった予測を通知します。これにより、スタッフは「全室を巡回する」のではなく、「リスクの高い方へ優先的に向かう」という効率的な動きが可能になります。また、急変のリスクを数値化して提示することで、夜間帯の少ない人員でも、優先順位を持って冷静に対応できるようになります。</p>
+<ul><li>行動解析：カメラ映像から転倒の前兆となる姿勢の崩れを検知</li><li>生体データ解析：心拍・呼吸のゆらぎから数時間後の体調急変を予測</li><li>睡眠解析：眠りの深さを可視化し、適切なタイミングでの排泄介助・体位変換を実現</li></ul>
+<h2>AI導入時に直面する「現場の心理的ハードル」をどう超えるか</h2>
+<p>どれほど優れたAIシステムを導入しても、現場のスタッフが「仕事を監視されている」「AIに仕事を奪われる」と感じてしまえば、運用は定着しません。医療・介護は感情の労働でもあります。AIが弾き出した「正解らしきもの」が、現場の感覚とズレた際に「AIが言っているから」と押し通してしまうと、スタッフの自律性は失われ、離職を招く原因にもなりかねません。</p>
+<p>導入を成功させるためには、AIを「採点者」ではなく、自分たちの負担を減らし、利用者の安全を守る「味方」として紹介することが重要です。導入前の検討段階から現場のキーマンを巻き込み、「どの業務が一番辛いか」「AIに何を任せられたら嬉しいか」を丁寧にヒアリングしましょう。AIの予測が外れたとしても、それを「AIの欠陥」と断じるのではなく、「なぜズレたのか」をスタッフと検証し、AIを育てていく文化を醸成することが定着への近道です。</p>
+<h2>データの質がAIの質を決める：日々の記録を「資産」に変える準備</h2>
+<p>AIは魔法の杖ではありません。その精度の源泉は、日々のケアの記録（データ）にあります。「食事を完食した」「少し元気がないように見えた」といった断片的な情報が、正しく蓄積されて初めて、AIは意味のある予測を出せるようになります。しかし、多くの現場では、記録が手書きであったり、スタッフ間で用語の定義がバラバラだったりすることが、AI活用の大きな壁となっています。</p>
+<p>まず取り組むべきは、記録のデジタル化と標準化です。厚労省が推進する「LIFE（科学的介護情報システム）」への対応は、その良いきっかけになります。ADLの評価指標（BIなど）を統一し、主観的な表現をできるだけ減らして構造化されたデータとして記録する。この一見地道な作業こそが、将来的にAIを最大限に活用するための「インフラ整備」となります。記録の負担を減らすために、音声入力や選択式入力を導入することも検討に値します。</p>
+<ol><li>記録のデジタル化：まずは紙の記録を廃止し、タブレット端末などでの入力を徹底する</li><li>用語の統一：状態の評価基準を明確にし、誰が書いても同じ意味になるようにする</li><li>目的の明確化：記録を「提出用」ではなく「AIで活用して現場を楽にするため」の資産と定義し直す</li></ol>
+<h2>段階的な導入プロセス：スモールスタートと倫理的配慮</h2>
+<p>全病棟・全フロアへの一斉導入は避けるべきです。まずは「夜勤帯の転倒リスク検知」や「特定の疾患を持つ方のケアプラン補助」など、課題が明確で効果が見えやすい領域から、1つのユニットや特定のチームで試行（パイロット運用）を始めます。この期間に、AIの通知頻度が適切か、現場の動きを妨げていないかを徹底的に検証します。</p>
+<p>また、医療・介護におけるAI活用で避けて通れないのが倫理的配慮とプライバシーの保護です。カメラによる見守りであれば、利用者や家族への説明と同意、データの保存期間やアクセス権限の厳格な管理が不可欠です。また、「AIがこう言っているから、このケアは行わない」といった極端な判断にならないよう、最終的な決定権は常に人にあるという「人間中心の原則」をガイドラインとして定めておく必要があります。</p>
+<h2>まとめ：AIを「第2の目」として使いこなすために</h2>
+<p>医療・介護現場におけるAI活用は、技術の導入そのものが目的ではありません。スタッフの疲弊を防ぎ、利用者一人ひとりに寄り添う時間を最大化するための手段です。AIを使いこなすことは、これまでの経験を捨てることではなく、経験をデータで裏付け、より確かなものへと進化させるプロセスと言えます。</p>
+<ul><li>AIはケアプランの『型』を提案し、人は『個別化』と『調整』に注力する分業体制を築く</li><li>リスク予測AIを導入し、夜間や少人数体制時の『見守り』の質と安全性を向上させる</li><li>導入前から現場を巻き込み、AIをスタッフの負担を減らす『助手』として位置づける</li><li>記録のデジタル化と標準化を優先し、AIが学習できる『質の高いデータ』を蓄積する</li><li>倫理的な同意形成と、最終判断を人が行う原則を徹底し、信頼される運用を目指す</li></ul>
+<section class="faq"><h2>よくあるご質問</h2><details><summary>AIを導入すると、スタッフの考える力や技術が衰えてしまいませんか？</summary><div class="a">むしろ逆だと考えています。AIが定型的な計画案や予測を提示することで、スタッフは「なぜAIはこのプランを提案したのか？」「この方の場合はどこを修正すべきか？」という、より高度で個別性の高い判断に集中できるようになります。熟練者の暗黙知をAIが形式知化することで、若手スタッフの教育・育成が早まるメリットもあります。</div></details><details><summary>導入費用や維持費が心配です。小規模な施設でも採算は合いますか？</summary><div class="a">現在は月額制（SaaS型）のサービスも多く、初期投資を抑えた導入が可能です。人件費の削減を直接の目的とするのではなく、転倒事故による訴訟リスクや入院回避、またスタッフの負担軽減による離職防止といった「見えないコストの削減」と「質の向上による選ばれる施設づくり」の観点で投資対効果を評価することをお勧めします。</div></details><details><summary>利用者のプライバシーをどこまで守れるかが不安です。</summary><div class="a">非常に重要な視点です。例えば映像解析AIの場合、画像をそのまま保存せず、骨格データやシルエットに変換して解析する技術もあります。また、クラウドではなく施設内のネットワークで完結させる仕組みも選択可能です。まずは、どのようなデータを、どこまで、何の目的で使うかを明確にし、利用者・ご家族に丁寧に説明して同意を得るという、アナログな信頼関係の構築が前提となります。</div></details></section>
+<section class="cta">
+<span class="cta-eyebrow">無料・所要3分・その場で結果</span>
+<h2>では、御社の場合はどうか？ 3分のAI活用診断で確かめる</h2>
+<p>業種と今の課題を入力するだけで、AIが「医療・介護の御社に向いたAI活用施策・導入後のワークフロー・削減できる工数とコスト」を、提案書レベルの診断レポートにしてその場でお返しします。無料です。</p>
+<div class="btns">
+<a class="btn btn-primary" href="/diagnosis">無料でAI活用診断を受ける</a>
+<a class="btn btn-ghost" href="/#contact">30分の無料相談を予約する</a>
+</div>
+<p class="cta-foot">診断は登録不要・その場で結果表示。もちろん、いきなり相談していただいても構いません（初回相談・お見積もりまで無料）。</p>
+</section>
+<section class="related"><h2>医療・介護の関連コラム</h2><a href="/column/healthcare-documentation-efficiency-ai"><span class="k">医療・介護</span><br>医療・介護の記録業務をAIで効率化する — ケアの時間を守るための現実的な進め方</a></section>
+<p class="disclaimer">本コラムは一般的な情報提供を目的としたもので、特定の成果を保証するものではありません。導入可否や効果は、企業の状況・データ・体制により異なります。具体的なご相談は個別にお問い合わせください。</p>
+</article>
+</main>
+<footer class="site-footer"><div class="wrap"><p><strong>ＭＧＣ株式会社（MGC Inc.）</strong></p><p>京都府京都市上京区西辰巳町111 アビタシオンオンズアン106</p><p style="margin-top:10px"><a href="/">https://mgc-global01.com</a> ・ <a href="/column">コラム一覧</a> ・ <a href="/diagnosis">AI活用診断</a> ・ <a href="/training">研修</a></p><p style="margin-top:10px">© 2026 MGC Inc. All Rights Reserved.</p></div></footer>
+</body>
+</html>

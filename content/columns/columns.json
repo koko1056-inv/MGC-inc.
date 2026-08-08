@@ -7,7 +7,7 @@
   },
   "rotation": {
     "note": "日次で industries を順番に回す。lastIndex は最後に公開した業種の添字。次回は (lastIndex+1)%12 の業種で、usedTopics に無いテーマを選ぶ。",
-    "lastIndex": 4,
+    "lastIndex": 5,
     "industries": [
       {
         "key": "manufacturing",
@@ -92,7 +92,8 @@
       "logistics-demand-forecasting-ai"
     ],
     "healthcare": [
-      "healthcare-documentation-efficiency-ai"
+      "healthcare-documentation-efficiency-ai",
+      "healthcare-care-planning-risk-prediction-ai"
     ],
     "hospitality": [
       "hospitality-service-automation"
@@ -223,6 +224,12 @@
       "industry": "logistics",
       "date": "2026-08-08",
       "file": "logistics-demand-forecasting-ai.json"
+    },
+    {
+      "slug": "healthcare-care-planning-risk-prediction-ai",
+      "industry": "healthcare",
+      "date": "2026-08-09",
+      "file": "healthcare-care-planning-risk-prediction-ai.json"
     }
   ]
 }
