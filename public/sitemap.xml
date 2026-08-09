@@ -63,6 +63,7 @@
   </url>
 <!-- COLUMNS:START -->
   <url><loc>https://mgc-global01.com/column</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mgc-global01.com/column/hospitality-demand-forecasting</loc><lastmod>2026-08-10</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://mgc-global01.com/column/healthcare-care-planning-risk-prediction-ai</loc><lastmod>2026-08-09</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://mgc-global01.com/column/logistics-demand-forecasting-ai</loc><lastmod>2026-08-08</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://mgc-global01.com/column/retail-ai-driven-personalization</loc><lastmod>2026-08-07</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
