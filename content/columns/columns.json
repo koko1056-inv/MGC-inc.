@@ -7,7 +7,7 @@
   },
   "rotation": {
     "note": "日次で industries を順番に回す。lastIndex は最後に公開した業種の添字。次回は (lastIndex+1)%12 の業種で、usedTopics に無いテーマを選ぶ。",
-    "lastIndex": 7,
+    "lastIndex": 8,
     "industries": [
       {
         "key": "manufacturing",
@@ -105,7 +105,8 @@
       "professional-practical-ai-implementation"
     ],
     "finance": [
-      "finance-ai-implementation-guide"
+      "finance-ai-implementation-guide",
+      "finance-backoffice-ai-automation"
     ],
     "education": [
       "education-personalized-learning-support"
@@ -244,6 +245,12 @@
       "industry": "professional",
       "date": "2026-08-11",
       "file": "professional-practical-ai-implementation.json"
+    },
+    {
+      "slug": "finance-backoffice-ai-automation",
+      "industry": "finance",
+      "date": "2026-08-12",
+      "file": "finance-backoffice-ai-automation.json"
     }
   ]
 }
