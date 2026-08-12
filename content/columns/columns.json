@@ -7,7 +7,7 @@
   },
   "rotation": {
     "note": "日次で industries を順番に回す。lastIndex は最後に公開した業種の添字。次回は (lastIndex+1)%12 の業種で、usedTopics に無いテーマを選ぶ。",
-    "lastIndex": 8,
+    "lastIndex": 9,
     "industries": [
       {
         "key": "manufacturing",
@@ -109,7 +109,8 @@
       "finance-backoffice-ai-automation"
     ],
     "education": [
-      "education-personalized-learning-support"
+      "education-personalized-learning-support",
+      "education-administrative-efficiency-ai"
     ],
     "hr": [
       "hr-reskilling-ai",
@@ -251,6 +252,12 @@
       "industry": "finance",
       "date": "2026-08-12",
       "file": "finance-backoffice-ai-automation.json"
+    },
+    {
+      "slug": "education-administrative-efficiency-ai",
+      "industry": "education",
+      "date": "2026-08-13",
+      "file": "education-administrative-efficiency-ai.json"
     }
   ]
 }
