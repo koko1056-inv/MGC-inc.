@@ -7,7 +7,7 @@
   },
   "rotation": {
     "note": "日次で industries を順番に回す。lastIndex は最後に公開した業種の添字。次回は (lastIndex+1)%12 の業種で、usedTopics に無いテーマを選ぶ。",
-    "lastIndex": 9,
+    "lastIndex": 10,
     "industries": [
       {
         "key": "manufacturing",
@@ -114,7 +114,8 @@
     ],
     "hr": [
       "hr-reskilling-ai",
-      "hr-recruitment-process-ai"
+      "hr-recruitment-process-ai",
+      "hr-talent-management-retention-ai"
     ],
     "public": [
       "public-dx-ai-implementation"
@@ -258,6 +259,12 @@
       "industry": "education",
       "date": "2026-08-13",
       "file": "education-administrative-efficiency-ai.json"
+    },
+    {
+      "slug": "hr-talent-management-retention-ai",
+      "industry": "hr",
+      "date": "2026-08-15",
+      "file": "hr-talent-management-retention-ai.json"
     }
   ]
 }
