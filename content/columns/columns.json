@@ -7,7 +7,7 @@
   },
   "rotation": {
     "note": "日次で industries を順番に回す。lastIndex は最後に公開した業種の添字。次回は (lastIndex+1)%12 の業種で、usedTopics に無いテーマを選ぶ。",
-    "lastIndex": 10,
+    "lastIndex": 11,
     "industries": [
       {
         "key": "manufacturing",
@@ -118,7 +118,8 @@
       "hr-talent-management-retention-ai"
     ],
     "public": [
-      "public-dx-ai-implementation"
+      "public-dx-ai-implementation",
+      "public-ai-efficiency-governance"
     ]
   },
   "articles": [
@@ -265,6 +266,12 @@
       "industry": "hr",
       "date": "2026-08-15",
       "file": "hr-talent-management-retention-ai.json"
+    },
+    {
+      "slug": "public-ai-efficiency-governance",
+      "industry": "public",
+      "date": "2026-08-17",
+      "file": "public-ai-efficiency-governance.json"
     }
   ]
 }
