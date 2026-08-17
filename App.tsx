@@ -1479,6 +1479,11 @@ const TrainingView: React.FC = () => {
                     </Reveal>
                   ))}
                 </dl>
+                {tr.course.note && (
+                  <Reveal delay={tr.course.specs.length * 80}>
+                    <p className="text-sm text-gray-500 leading-[1.9] mt-6">{tr.course.note}</p>
+                  </Reveal>
+                )}
               </div>
             </div>
           </div>
