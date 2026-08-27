@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState, ReactNode } from 'react';
 import { ArrowRight, Globe, Zap, Layers, X, Send, Menu, Anchor, Check, Heart, MapPin, Calendar, User, Sparkles, Plus, Minus } from 'lucide-react';
 
 import { translations, Lang } from './translations';
+import { serviceContent, ServiceKey, ServiceSection } from './serviceContent';
 export const LanguageContext = React.createContext<{ lang: Lang; setLang: (l: Lang) => void; t: typeof translations['ja'] }>({
   lang: 'ja',
   setLang: () => {},
@@ -10,7 +11,10 @@ export const LanguageContext = React.createContext<{ lang: Lang; setLang: (l: La
 export const useLanguage = () => React.useContext(LanguageContext);
 // --- Types & Interfaces ---
 
-type ViewState = 'home' | 'works' | 'training' | 'diagnosis' | 'mission' | 'partners' | 'company' | 'career' | 'contact' | 'blog';
+type ViewState = 'home' | 'works' | 'training' | 'diagnosis' | 'mission' | 'partners' | 'company' | 'career' | 'contact' | 'blog' | ServiceKey;
+
+const SERVICE_KEYS: ServiceKey[] = ['ai-sales', 'ai-phone', 'salesforce-ai'];
+const isServiceKey = (v: string): v is ServiceKey => (SERVICE_KEYS as string[]).includes(v);
 
 type ContentKey = 'service_ai' | 'service_lab';
 
@@ -599,7 +603,7 @@ const ServiceBlock: React.FC<{
 
 const WorksView: React.FC = () => {
   const [selectedId, setSelectedId] = useState<ContentKey | null>(null);
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const contentData = getContentData(t);
 
   return (
@@ -672,6 +676,38 @@ const WorksView: React.FC = () => {
             image="/assets/service_lab.png"
             onDetail={() => setSelectedId('service_lab')}
           />
+        </div>
+
+        {/* === 個別サービスページへの導線 === */}
+        <div className="mt-24 md:mt-32 border-t border-gray-800 pt-16">
+          <Reveal>
+            <span className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-accent">Service Details</span>
+            <h3 className="text-3xl md:text-4xl font-bold text-white tracking-tighter mt-3 mb-10 leading-tight">
+              {lang === 'ja' ? '個別のサービス' : 'Individual services'}
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {SERVICE_KEYS.map((key) => {
+                const p = serviceContent[lang][key];
+                return (
+                  <a
+                    key={key}
+                    href={`#${key}`}
+                    className="group flex flex-col bg-gray-900/40 rounded-xl p-6 border border-gray-800 hover:border-accent transition-colors"
+                  >
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-accent">{p.hero.badge}</span>
+                    <h4 className="text-xl font-bold text-white mt-3 mb-2 tracking-tight leading-snug group-hover:text-accent transition-colors">
+                      {p.navLabel}
+                    </h4>
+                    <p className="text-gray-400 text-sm leading-relaxed flex-1">{p.hero.title}</p>
+                    <span className="inline-flex items-center gap-2 text-sm font-bold text-white mt-5 group-hover:text-accent transition-colors">
+                      {t.worksIntro.detailLink}
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                    </span>
+                  </a>
+                );
+              })}
+            </div>
+          </Reveal>
         </div>
 
         {/* === One-Stop Flow (dark variant) === */}
@@ -1607,6 +1643,386 @@ interface Diagnosis {
   riskNotes?: string[];
 }
 
+// ============================================================
+// Service Pages (AI営業 / AI電話 / Salesforce AI)
+// 本文は serviceContent.ts。セクションの type ごとに見せ方を変え、
+// サービスごとに構成を組み替えることでページの表情を分ける。
+// ============================================================
+
+const SectionHead: React.FC<{ eyebrow: string; heading: string; lead?: string }> = ({ eyebrow, heading, lead }) => (
+  <div className="mb-10 md:mb-14">
+    <span className="text-[#2D6CDF] font-bold tracking-[0.2em] text-xs uppercase">{eyebrow}</span>
+    <h2 className="text-2xl md:text-4xl font-bold tracking-tight text-[#111418] mt-2 leading-[1.5]">{heading}</h2>
+    <div className="w-16 h-1.5 bg-[#2D6CDF] mt-4 rounded-full" />
+    {lead && <p className="text-base md:text-lg text-gray-600 leading-[1.9] mt-6 max-w-3xl">{lead}</p>}
+  </div>
+);
+
+const ServiceSectionBlock: React.FC<{ section: ServiceSection }> = ({ section }) => {
+  const s = section;
+
+  if (s.type === 'problems') {
+    return (
+      <>
+        <Reveal><SectionHead eyebrow={s.eyebrow} heading={s.heading} lead={s.lead} /></Reveal>
+        <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+          {s.items.map((item, i) => (
+            <Reveal key={i} delay={i * 70}>
+              <li className="flex items-start gap-4 rounded-2xl bg-[#F4F6FB] p-5 md:p-6 h-full border-l-4 border-[#2D6CDF]/30">
+                <span className="flex-shrink-0 text-[#2D6CDF] font-bold text-sm pt-0.5 tabular-nums">{String(i + 1).padStart(2, '0')}</span>
+                <span className="text-[15px] md:text-base text-[#1A2233] leading-[1.9]">{item}</span>
+              </li>
+            </Reveal>
+          ))}
+        </ul>
+      </>
+    );
+  }
+
+  if (s.type === 'steps') {
+    return (
+      <>
+        <Reveal><SectionHead eyebrow={s.eyebrow} heading={s.heading} lead={s.lead} /></Reveal>
+        <ol className="relative">
+          {s.steps.map((step, i) => (
+            <Reveal key={i} delay={i * 70}>
+              <li className="relative flex gap-5 md:gap-8 pb-8 last:pb-0">
+                {/* 縦のつなぎ線 */}
+                {i < s.steps.length - 1 && (
+                  <span aria-hidden className="absolute left-[19px] md:left-[27px] top-12 md:top-14 bottom-0 w-px bg-gray-200" />
+                )}
+                <span className="relative flex-shrink-0 w-10 h-10 md:w-14 md:h-14 rounded-full bg-[#2D6CDF] text-white font-bold text-sm md:text-base flex items-center justify-center tabular-nums">
+                  {step.no}
+                </span>
+                <div className="pt-1 md:pt-2.5 flex-1">
+                  <h3 className="text-lg md:text-xl font-bold text-[#111418] leading-[1.6]">{step.title}</h3>
+                  <p className="text-[15px] md:text-base text-gray-600 leading-[1.9] mt-2 max-w-3xl">{step.desc}</p>
+                </div>
+              </li>
+            </Reveal>
+          ))}
+        </ol>
+        {s.note && (
+          <Reveal>
+            <p className="mt-8 text-sm text-gray-500 leading-[1.9] border-l-2 border-gray-300 pl-4 max-w-3xl">{s.note}</p>
+          </Reveal>
+        )}
+      </>
+    );
+  }
+
+  if (s.type === 'compare') {
+    return (
+      <>
+        <Reveal><SectionHead eyebrow={s.eyebrow} heading={s.heading} lead={s.lead} /></Reveal>
+        <Reveal>
+          <div className="overflow-x-auto -mx-6 px-6 md:mx-0 md:px-0">
+            <table className="w-full min-w-[640px] border-collapse">
+              <thead>
+                <tr>
+                  <th className="w-[22%] text-left text-xs font-bold tracking-widest uppercase text-gray-500 pb-4 pr-4 align-bottom" />
+                  <th className="w-[39%] text-left pb-4 px-4 align-bottom">
+                    <span className="text-sm md:text-base font-bold text-[#5B6472] leading-[1.6]">{s.leftLabel}</span>
+                  </th>
+                  <th className="w-[39%] text-left pb-4 px-4 align-bottom">
+                    <span className="text-sm md:text-base font-bold text-[#2D6CDF] leading-[1.6]">{s.rightLabel}</span>
+                    <span className="block h-1 w-full bg-[#2D6CDF] rounded-full mt-3" />
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {s.rows.map((row, i) => (
+                  <tr key={i} className="border-t border-gray-200 align-top">
+                    <td className="py-5 pr-4 text-sm font-bold text-[#111418] leading-[1.7]">{row.axis}</td>
+                    <td className="py-5 px-4 text-[15px] text-gray-500 leading-[1.9]">{row.left}</td>
+                    <td className="py-5 px-4 text-[15px] text-[#1A2233] leading-[1.9] bg-[#F4F6FB]">{row.right}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Reveal>
+      </>
+    );
+  }
+
+  if (s.type === 'split') {
+    return (
+      <>
+        <Reveal><SectionHead eyebrow={s.eyebrow} heading={s.heading} lead={s.lead} /></Reveal>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
+          <Reveal>
+            <div className="h-full rounded-3xl bg-[#F4F6FB] p-7 md:p-9 border-t-4 border-[#2D6CDF]">
+              <h3 className="text-xl md:text-2xl font-bold text-[#111418] leading-[1.5]">{s.leftTitle}</h3>
+              <ul className="mt-6 space-y-4">
+                {s.leftItems.map((item, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <Check className="w-4 h-4 text-[#2D6CDF] flex-shrink-0 mt-1.5" strokeWidth={3} />
+                    <span className="text-[15px] md:text-base text-[#1A2233] leading-[1.9]">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Reveal>
+          <Reveal delay={100}>
+            <div className="h-full rounded-3xl bg-white p-7 md:p-9 border-2 border-gray-200 border-t-4 border-t-[#111418]">
+              <h3 className="text-xl md:text-2xl font-bold text-[#111418] leading-[1.5]">{s.rightTitle}</h3>
+              <ul className="mt-6 space-y-4">
+                {s.rightItems.map((item, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <span aria-hidden className="w-4 h-4 flex-shrink-0 mt-1.5 flex items-center justify-center">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#111418]" />
+                    </span>
+                    <span className="text-[15px] md:text-base text-[#1A2233] leading-[1.9]">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Reveal>
+        </div>
+      </>
+    );
+  }
+
+  if (s.type === 'chat') {
+    return (
+      <>
+        <Reveal><SectionHead eyebrow={s.eyebrow} heading={s.heading} lead={s.lead} /></Reveal>
+        <Reveal>
+          <div className="rounded-3xl bg-[#F4F6FB] p-6 md:p-10">
+            <div className="space-y-4 max-w-3xl mx-auto">
+              {s.turns.map((turn, i) => {
+                const isAi = turn.who === 'ai';
+                return (
+                  <div key={i} className={`flex ${isAi ? 'justify-start' : 'justify-end'}`}>
+                    <div className={`max-w-[85%] md:max-w-[75%] ${isAi ? '' : 'text-right'}`}>
+                      <span className={`block text-[11px] font-bold tracking-widest uppercase mb-1.5 ${isAi ? 'text-[#2D6CDF]' : 'text-gray-500'}`}>
+                        {isAi ? 'AI' : 'Caller'}
+                      </span>
+                      <p
+                        className={`inline-block text-left text-[15px] md:text-base leading-[1.9] px-5 py-3.5 ${
+                          isAi
+                            ? 'bg-[#2D6CDF] text-white rounded-2xl rounded-tl-sm'
+                            : 'bg-white text-[#1A2233] border border-gray-200 rounded-2xl rounded-tr-sm'
+                        }`}
+                      >
+                        {turn.text}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </Reveal>
+        {s.note && (
+          <Reveal>
+            <p className="mt-6 text-sm text-gray-500 leading-[1.9] border-l-2 border-gray-300 pl-4 max-w-3xl">{s.note}</p>
+          </Reveal>
+        )}
+      </>
+    );
+  }
+
+  if (s.type === 'layers') {
+    return (
+      <>
+        <Reveal><SectionHead eyebrow={s.eyebrow} heading={s.heading} lead={s.lead} /></Reveal>
+        <div className="space-y-5">
+          {s.layers.map((layer, i) => (
+            <Reveal key={i} delay={i * 90}>
+              <div className="relative rounded-3xl border-2 border-gray-200 bg-white p-7 md:p-9 hover:border-[#2D6CDF]/40 transition-colors duration-300">
+                {/* 段階が上がるほど青を濃く */}
+                <span
+                  aria-hidden
+                  className="absolute left-0 top-7 bottom-7 w-1.5 rounded-full bg-[#2D6CDF]"
+                  style={{ opacity: 0.3 + i * 0.35 }}
+                />
+                <div className="pl-5 md:pl-7">
+                  <div className="flex flex-col md:flex-row md:items-baseline md:gap-5">
+                    <span className="text-xs font-bold tracking-[0.2em] text-[#2D6CDF] tabular-nums">{layer.stage}</span>
+                    <h3 className="text-xl md:text-2xl font-bold text-[#111418] leading-[1.5] mt-1 md:mt-0">{layer.title}</h3>
+                  </div>
+                  <p className="text-[15px] md:text-base text-gray-600 leading-[1.9] mt-3 max-w-3xl">{layer.desc}</p>
+                  <ul className="mt-5 grid grid-cols-1 lg:grid-cols-3 gap-3">
+                    {layer.examples.map((ex, j) => (
+                      <li key={j} className="rounded-xl bg-[#F4F6FB] px-4 py-3.5 text-sm text-[#1A2233] leading-[1.8]">
+                        {ex}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </>
+    );
+  }
+
+  if (s.type === 'cards') {
+    return (
+      <>
+        <Reveal><SectionHead eyebrow={s.eyebrow} heading={s.heading} lead={s.lead} /></Reveal>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+          {s.cards.map((card, i) => (
+            <Reveal key={i} delay={i * 80}>
+              <div className="h-full rounded-2xl border border-gray-200 bg-white p-6 md:p-8 hover:border-[#2D6CDF]/40 transition-colors duration-300">
+                <span aria-hidden className="block w-10 h-1 bg-[#2D6CDF] rounded-full mb-5" />
+                <h3 className="text-lg md:text-xl font-bold text-[#111418] leading-[1.6]">{card.title}</h3>
+                <p className="text-[15px] md:text-base text-gray-600 leading-[1.9] mt-3">{card.desc}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </>
+    );
+  }
+
+  if (s.type === 'notes') {
+    return (
+      <>
+        <Reveal><SectionHead eyebrow={s.eyebrow} heading={s.heading} lead={s.lead} /></Reveal>
+        <Reveal>
+          <ul className="rounded-3xl bg-[#F4F6FB] p-7 md:p-10 space-y-5">
+            {s.items.map((item, i) => (
+              <li key={i} className="flex items-start gap-4">
+                <span aria-hidden className="flex-shrink-0 w-6 h-6 rounded-full border-2 border-[#2D6CDF] text-[#2D6CDF] text-xs font-bold flex items-center justify-center mt-0.5 tabular-nums">
+                  {i + 1}
+                </span>
+                <span className="text-[15px] md:text-base text-[#1A2233] leading-[1.9]">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </Reveal>
+      </>
+    );
+  }
+
+  // faq
+  return (
+    <>
+      <Reveal><SectionHead eyebrow={s.eyebrow} heading={s.heading} /></Reveal>
+      <dl className="divide-y divide-gray-200 border-t border-gray-200">
+        {s.items.map((item, i) => (
+          <Reveal key={i} delay={i * 60}>
+            <div className="py-7">
+              <dt className="flex items-start gap-4">
+                <span aria-hidden className="text-[#2D6CDF] font-bold text-lg leading-[1.5] flex-shrink-0">Q</span>
+                <span className="text-base md:text-lg font-bold text-[#111418] leading-[1.7]">{item.q}</span>
+              </dt>
+              <dd className="flex items-start gap-4 mt-4">
+                <span aria-hidden className="text-gray-400 font-bold text-lg leading-[1.5] flex-shrink-0">A</span>
+                <span className="text-[15px] md:text-base text-gray-600 leading-[1.9]">{item.a}</span>
+              </dd>
+            </div>
+          </Reveal>
+        ))}
+      </dl>
+    </>
+  );
+};
+
+const ServiceView: React.FC<{ serviceKey: ServiceKey }> = ({ serviceKey }) => {
+  const { lang } = useLanguage();
+  const page = serviceContent[lang][serviceKey];
+
+  // ページ固有のtitle/descriptionを反映する（SPAのため手動で書き換える）
+  useEffect(() => {
+    const prevTitle = document.title;
+    document.title = page.seoTitle;
+    const meta = document.querySelector('meta[name="description"]');
+    const prevDesc = meta?.getAttribute('content') ?? null;
+    meta?.setAttribute('content', page.seoDescription);
+    return () => {
+      document.title = prevTitle;
+      if (prevDesc !== null) meta?.setAttribute('content', prevDesc);
+    };
+  }, [page.seoTitle, page.seoDescription]);
+
+  return (
+    <PageTransition>
+      <div className="text-[#111418]">
+        {/* Hero */}
+        <section className="px-6 md:px-12">
+          <div className="max-w-screen-xl mx-auto">
+            <Reveal>
+              <div className="relative overflow-hidden rounded-[1.75rem] md:rounded-[2.5rem] bg-[#111418] text-white">
+                <GridPattern dark />
+                <div className="relative px-6 md:px-16 py-14 md:py-24">
+                  <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/20 bg-white/5 text-white/80 text-xs md:text-sm font-medium">
+                    <span className="w-2 h-2 rounded-full bg-[#2D6CDF]" />
+                    {page.hero.badge}
+                  </span>
+                  <h1 className="text-3xl md:text-6xl font-bold tracking-tight leading-[1.25] mt-6 max-w-4xl">{page.hero.title}</h1>
+                  <p className="text-base md:text-2xl text-white/55 font-medium mt-3 leading-[1.6]">{page.hero.titleSub}</p>
+                  <p className="max-w-3xl text-base md:text-lg text-white/85 leading-[1.9] mt-8">{page.hero.lead}</p>
+                  <ul className="flex flex-wrap gap-3 mt-8">
+                    {page.hero.points.map((p, i) => (
+                      <li key={i} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 text-white/90 text-sm font-medium">
+                        <Check className="w-3.5 h-3.5 text-[#2D6CDF]" strokeWidth={3} />
+                        {p}
+                      </li>
+                    ))}
+                  </ul>
+                  <a
+                    href="#contact"
+                    className="group inline-flex items-center gap-2.5 mt-10 px-7 py-4 rounded-full bg-[#2D6CDF] text-white font-bold text-sm md:text-base tracking-tight shadow-xl shadow-[#2D6CDF]/25 hover:bg-white hover:text-[#111418] transition-all duration-300"
+                  >
+                    {page.cta.button}
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                  </a>
+                </div>
+              </div>
+            </Reveal>
+
+            {/* Key visual */}
+            <Reveal delay={120}>
+              <img
+                src={page.image}
+                alt={page.imageAlt}
+                width={1600}
+                height={893}
+                loading="eager"
+                className="w-full h-auto rounded-[1.75rem] md:rounded-[2.5rem] border border-gray-200 mt-6 md:mt-8 bg-white"
+              />
+            </Reveal>
+          </div>
+        </section>
+
+        {/* Sections */}
+        {page.sections.map((section, i) => (
+          <section key={i} className="px-6 md:px-12 mt-20 md:mt-28">
+            <div className="max-w-screen-xl mx-auto">
+              <ServiceSectionBlock section={section} />
+            </div>
+          </section>
+        ))}
+
+        {/* CTA */}
+        <section className="px-6 md:px-12 mt-20 md:mt-28">
+          <div className="max-w-screen-xl mx-auto">
+            <Reveal>
+              <div className="rounded-[1.75rem] md:rounded-[2.5rem] bg-[#2D6CDF] text-white px-7 py-12 md:px-16 md:py-16 text-center">
+                <h2 className="text-2xl md:text-4xl font-bold tracking-tight leading-[1.5]">{page.cta.heading}</h2>
+                <p className="text-base md:text-lg text-white/90 leading-[1.9] mt-5 max-w-2xl mx-auto">{page.cta.lead}</p>
+                <a
+                  href="#contact"
+                  className="group inline-flex items-center gap-2.5 mt-9 px-8 py-4 rounded-full bg-white text-[#111418] font-bold text-sm md:text-base tracking-tight hover:bg-[#111418] hover:text-white transition-all duration-300"
+                >
+                  {page.cta.button}
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                </a>
+                <p className="text-sm text-white/75 leading-[1.8] mt-6">{page.cta.sub}</p>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+      </div>
+    </PageTransition>
+  );
+};
+
 const DiagnosisView: React.FC = () => {
   const { t } = useLanguage();
   const d = t.diagnosis;
@@ -1892,13 +2308,15 @@ const DiagnosisView: React.FC = () => {
 const App: React.FC = () => {
   // Helper to parse view from hash
   const getViewFromHash = (): ViewState => {
-    const validViews: ViewState[] = ['home', 'works', 'training', 'diagnosis', 'mission', 'partners', 'company', 'career', 'contact', 'blog'];
+    const validViews: ViewState[] = ['home', 'works', 'training', 'diagnosis', 'mission', 'partners', 'company', 'career', 'contact', 'blog', ...SERVICE_KEYS];
     const hash = window.location.hash.slice(1).split('/')[0];
     if (validViews.includes(hash as ViewState)) return hash as ViewState;
     // Support clean path URLs (e.g. /training, /diagnosis) via Vercel SPA rewrite
     const path = window.location.pathname.replace(/\/+$/, '');
     if (path === '/training') return 'training';
     if (path === '/diagnosis') return 'diagnosis';
+    const svc = path.match(/^\/service\/([a-z-]+)$/);
+    if (svc && isServiceKey(svc[1])) return svc[1];
     return 'home';
   };
 
@@ -2046,6 +2464,7 @@ const App: React.FC = () => {
         {view === 'home' && <HomeView onNavigate={navigate} />}
         {view === 'works' && <WorksView />}
         {view === 'training' && <TrainingView />}
+        {isServiceKey(view) && <ServiceView serviceKey={view} />}
         {view === 'diagnosis' && <DiagnosisView />}
         {view === 'blog' && <BlogView />}
         {view === 'mission' && <MissionView />}
