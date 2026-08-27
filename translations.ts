@@ -345,6 +345,9 @@ export const translations = {
         companyPlaceholder: "株式会社○○",
         topic: "ご相談内容",
         topicOptions: [
+          "AI営業（アポイント獲得の自動化）",
+          "AI電話（音声AIによる一次対応）",
+          "Salesforce・CRMのAI活用",
           "AIコンサルティング・研修",
           "AI開発（音声・テキスト・CRM連携）",
           "海外企業の日本市場参入（Inbound）",

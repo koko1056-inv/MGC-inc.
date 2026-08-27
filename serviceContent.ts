@@ -13,6 +13,8 @@ export type ServiceSection =
   | { type: 'layers'; eyebrow: string; heading: string; lead?: string; layers: { stage: string; title: string; desc: string; examples: string[] }[] }
   | { type: 'cards'; eyebrow: string; heading: string; lead?: string; cards: { title: string; desc: string }[] }
   | { type: 'notes'; eyebrow: string; heading: string; lead?: string; items: string[] }
+  | { type: 'pricing'; eyebrow: string; heading: string; lead?: string; note: string; rows: { label: string; value: string }[]; drivers: string[] }
+  | { type: 'related'; eyebrow: string; heading: string; lead?: string; links: { slug: string; title: string }[] }
   | { type: 'faq'; eyebrow: string; heading: string; items: { q: string; a: string }[] };
 
 export type ServicePage = {
@@ -24,7 +26,7 @@ export type ServicePage = {
   imageAlt: string;
   hero: { badge: string; title: string; titleSub: string; lead: string; points: string[] };
   sections: ServiceSection[];
-  cta: { heading: string; lead: string; button: string; sub: string };
+  cta: { heading: string; lead: string; button: string; sub: string; secondary: string; secondaryHref: string };
 };
 
 type Content = Record<'ja' | 'en', Record<ServiceKey, ServicePage>>;
@@ -120,6 +122,55 @@ export const serviceContent: Content = {
           ],
         },
         {
+          type: 'split',
+          eyebrow: 'Fit',
+          heading: 'このサービスが向く場合、向かない場合',
+          lead: '合わないまま始めても成果が出ません。最初にご自身で判断できるよう、条件を開示します。',
+          leftTitle: '向いています',
+          leftItems: [
+            '法人向け（BtoB）で、狙う企業の条件をある程度言葉にできる',
+            '商談さえ組めれば受注につながる手応えがある',
+            '営業担当が前工程に追われ、商談の準備が薄くなっている',
+            '一度の取引で終わらず、継続的な取引になる商材である',
+          ],
+          rightTitle: '今は向きません',
+          rightItems: [
+            '個人向け（BtoC）で、対象が不特定多数である',
+            '商材や提供価値がまだ固まっておらず、誰に売るかが決まっていない',
+            '今月中にアポイントが必要など、立ち上げの猶予がない',
+            '商談を受ける体制がなく、アポが増えても対応できない',
+          ],
+        },
+        {
+          type: 'pricing',
+          eyebrow: 'Cost',
+          heading: '費用の考え方',
+          lead: '金額は対象範囲と件数で変わるため一律の価格表は出していません。代わりに、何にいくらかかる構造かを先に開示します。',
+          note: 'テレアポ代行のような1アポ単位の成果報酬ではなく、仕組みを作って動かし続ける契約形態です。アポ単価だけで比較すると判断を誤るため、商談の質と、社内に仕組みが残るかも含めて比較してください。',
+          rows: [
+            { label: '初期費用', value: 'ターゲット定義、リスト設計、文面と判定基準の作り込み。ここが成果をほぼ決めるため、最初にまとめて行います。' },
+            { label: '月額費用', value: '運用と改善。反応を見て条件・文面を調整し、レポートまで含みます。' },
+            { label: '実費', value: '送信基盤やデータ取得の利用料。使った分だけの実費でお預かりします。' },
+          ],
+          drivers: [
+            '対象とするセグメントの数（1つか、複数か）',
+            '月間の接触件数',
+            '文面のパターン数と、人の確認をどこまで入れるか',
+            '既存CRMとの連携の有無と、その複雑さ',
+          ],
+        },
+        {
+          type: 'related',
+          eyebrow: 'Related',
+          heading: '関連するコラム',
+          lead: '導入の考え方をより詳しく書いた記事です。',
+          links: [
+            { slug: 'real-estate-inquiry-response-ai', title: '不動産仲介の反響対応をAIで効率化する — 24時間対応と初期ヒアリングの仕組み化' },
+            { slug: 'manufacturing-inspection-ai', title: '製造業の外観検査にAIをどう使うか — 全数検査を「人とAI」で分担する' },
+            { slug: 'hr-reskilling-ai', title: 'リスキリングをAI活用につなげる — 「研修を受けさせる」で終わらせない設計' },
+          ],
+        },
+        {
           type: 'faq',
           eyebrow: 'FAQ',
           heading: 'よくあるご質問',
@@ -135,7 +186,9 @@ export const serviceContent: Content = {
         heading: '営業の前工程、どこから外せるか見てみませんか',
         lead: '今の営業の流れを伺い、どの工程をAIに任せられるか、どこは人が持つべきかを整理してお返しします。初回のご相談は無料です。',
         button: '無料で相談する',
-        sub: '3分のAI活用診断で、先に当たりをつけることもできます。',
+        sub: 'いきなり相談しづらい場合は、無料のAI活用診断からどうぞ。',
+        secondary: '無料のAI活用診断を試す（3分）',
+        secondaryHref: '/diagnosis',
       },
     },
 
@@ -233,6 +286,55 @@ export const serviceContent: Content = {
           ],
         },
         {
+          type: 'split',
+          eyebrow: 'Fit',
+          heading: 'このサービスが向く場合、向かない場合',
+          lead: '電話は相手が選べません。合わない状態で入れると、かけてきた方に不利益が出ます。先に条件を開示します。',
+          leftTitle: '向いています',
+          leftItems: [
+            '同じ種類の問い合わせが繰り返し電話でかかってくる',
+            '電話に出るたびに現場の作業が中断されている',
+            '営業時間外やピーク時に、取りこぼしが発生している',
+            '折り返し前提の運用でも、かけてきた方が困らない業務である',
+          ],
+          rightTitle: '今は向きません',
+          rightItems: [
+            '着信のほとんどが緊急対応・クレームである',
+            '1件ごとに内容が大きく異なり、定型化できない',
+            '人に引き渡す先の体制がなく、結局つながらない状態になる',
+            '電話に出ること自体が価値になっている業態である',
+          ],
+        },
+        {
+          type: 'pricing',
+          eyebrow: 'Cost',
+          heading: '費用の考え方',
+          lead: '通話量と対応範囲で変わるため一律の価格表は出していません。何にいくらかかる構造かを先に開示します。',
+          note: '応答設計にかかる初期費用が、実運用の品質をほぼ決めます。ここを削って安く始めると、噛み合わない会話が増え、結局は人が対応し直すことになります。',
+          rows: [
+            { label: '初期費用', value: '着信内容の分解、応答方針・聞き取り項目・人に回す条件の設計、限定運用での調整。' },
+            { label: '月額費用', value: '運用と改善。実際の通話を確認し、聞き返しの粘りや言い回しを調整します。' },
+            { label: '従量費用', value: '通話時間や音声処理の実費。着信件数に応じて変動します。' },
+          ],
+          drivers: [
+            '月間の着信件数と、1件あたりの平均通話時間',
+            '対応する用件の種類の数',
+            '対応時間帯（時間外のみか、終日か）',
+            '既存の電話環境と、CRM・チャットツールへの連携の有無',
+          ],
+        },
+        {
+          type: 'related',
+          eyebrow: 'Related',
+          heading: '関連するコラム',
+          lead: '一次対応の自動化について、業種別に書いた記事です。',
+          links: [
+            { slug: 'real-estate-inquiry-response-ai', title: '不動産仲介の反響対応をAIで効率化する — 24時間対応と初期ヒアリングの仕組み化' },
+            { slug: 'hospitality-service-automation', title: '飲食・ホテルのAI活用 — 予約・シフト・接客の「自動化」と「おもてなし」を両立する' },
+            { slug: 'public-dx-ai-implementation', title: '自治体DXを加速させるAI活用の現実解 — 窓口と内部事務から着手する' },
+          ],
+        },
+        {
           type: 'faq',
           eyebrow: 'FAQ',
           heading: 'よくあるご質問',
@@ -248,7 +350,9 @@ export const serviceContent: Content = {
         heading: 'まず、どの電話をAIに向けられるか整理しませんか',
         lead: '現在の着信内容と件数を伺い、AIで受けられる範囲と、人に残すべき範囲を切り分けてご提案します。初回のご相談は無料です。',
         button: '無料で相談する',
-        sub: '通話内容の傾向が分かる資料があれば、より具体的にお返しできます。',
+        sub: 'いきなり相談しづらい場合は、無料のAI活用診断からどうぞ。',
+        secondary: '無料のAI活用診断を試す（3分）',
+        secondaryHref: '/diagnosis',
       },
     },
 
@@ -360,6 +464,56 @@ export const serviceContent: Content = {
           ],
         },
         {
+          type: 'split',
+          eyebrow: 'Fit',
+          heading: 'このサービスが向く場合、向かない場合',
+          lead: 'AIで解ける詰まりと、そうでない詰まりがあります。先に切り分けられるよう条件を開示します。',
+          leftTitle: '向いています',
+          leftItems: [
+            'すでにSalesforceを導入していて、入力の負担が課題になっている',
+            '案件数が多く、人が全部を見きれなくなっている',
+            '過去案件のデータはあるが、検索・活用ができていない',
+            '標準機能で足りるかどうかを、中立的に判断してほしい',
+          ],
+          rightTitle: '今は向きません',
+          rightItems: [
+            '運用ルールが未整備で、そもそも何を入力するか決まっていない',
+            '導入直後でデータがほとんど蓄積されていない',
+            '現場がSalesforceを使っておらず、別のExcelで実務が回っている',
+            '費用対効果より先に、組織側の合意形成が必要な状態にある',
+          ],
+        },
+        {
+          type: 'pricing',
+          eyebrow: 'Cost',
+          heading: '費用の考え方',
+          lead: '構成によって大きく変わるため、一律の価格表は出していません。最初の判断でどちらに寄せるかが費用を決めます。',
+          note: 'Salesforceの標準AI機能を使う場合は、別途ライセンス費用が発生します。MGCはライセンスの再販をしていないため、標準機能と個別開発のどちらが安く済むかを、利害なく比較してお出しできます。',
+          rows: [
+            { label: '調査・判断', value: '現状のデータと運用を確認し、標準機能で足りるか、個別に作るかを判断します。ここだけの依頼も可能です。' },
+            { label: '構築費用', value: '対象業務の実装。標準機能の設定で済むか、外部連携を作るかで大きく変わります。' },
+            { label: '月額費用', value: '運用と改善。精度の確認と調整、社内への定着支援を含みます。' },
+            { label: 'ライセンス', value: 'Salesforce標準のAI機能を使う場合に発生。MGCを経由せず、直接ご契約いただきます。' },
+          ],
+          drivers: [
+            '対象とする業務の数と、その複雑さ',
+            '標準機能で足りるか、個別開発が必要か',
+            '連携する外部システムの数（基幹システム・Excel・他SaaS）',
+            '利用ユーザー数（ライセンス費用に直結します）',
+          ],
+        },
+        {
+          type: 'related',
+          eyebrow: 'Related',
+          heading: '関連するコラム',
+          lead: 'データ活用の進め方について書いた記事です。',
+          links: [
+            { slug: 'retail-demand-forecasting-inventory', title: '小売・ECの需要予測AI活用 — 勘とデータをつなぐ在庫最適化' },
+            { slug: 'hr-talent-management-retention-ai', title: '人材の流出を防ぎ活躍を促すAI活用 — 経験と勘に頼らないタレントマネジメント' },
+            { slug: 'finance-backoffice-ai-automation', title: '金融・保険業務をAIで効率化する — 事務作業と顧客対応を「守りながら」変える' },
+          ],
+        },
+        {
           type: 'faq',
           eyebrow: 'FAQ',
           heading: 'よくあるご質問',
@@ -376,6 +530,8 @@ export const serviceContent: Content = {
         lead: '実際に入っているデータと運用を確認し、AIで解ける詰まりと、そうでない詰まりを切り分けてご提案します。初回のご相談は無料です。',
         button: '無料で相談する',
         sub: '標準機能で足りる場合は、そのようにお伝えします。',
+        secondary: '無料のAI活用診断を試す（3分）',
+        secondaryHref: '/diagnosis',
       },
     },
   },
@@ -470,6 +626,54 @@ export const serviceContent: Content = {
           ],
         },
         {
+          type: 'split',
+          eyebrow: 'Fit',
+          heading: 'When this fits — and when it does not',
+          lead: 'Starting on a poor fit wastes everyone’s time, so here are the conditions upfront.',
+          leftTitle: 'Good fit',
+          leftItems: [
+            'B2B, and you can describe the companies worth approaching',
+            'You convert well once a meeting is booked',
+            'Reps are buried in the front end and under-prepared for meetings',
+            'The product leads to an ongoing relationship, not a one-off sale',
+          ],
+          rightTitle: 'Not yet',
+          rightItems: [
+            'B2C, aimed at a broad consumer audience',
+            'The offer and target are still undecided',
+            'You need meetings this month — there is no ramp time',
+            'Nobody has capacity to take the meetings you would win',
+          ],
+        },
+        {
+          type: 'pricing',
+          eyebrow: 'Cost',
+          heading: 'How pricing works',
+          lead: 'Cost depends on scope and volume, so we publish the structure rather than a single price.',
+          note: 'This is not per-meeting commission like a cold-calling agency; it builds a system and keeps it running. Comparing on cost-per-meeting alone is misleading — weigh meeting quality and what stays with you.',
+          rows: [
+            { label: 'Setup', value: 'Target definition, list design, messaging and decision rules. This stage largely determines the result, so it is done properly upfront.' },
+            { label: 'Monthly', value: 'Operation and tuning — adjusting targeting and messaging from real responses, including reporting.' },
+            { label: 'Pass-through', value: 'Sending infrastructure and data costs, charged at actual usage.' },
+          ],
+          drivers: [
+            'How many segments you target',
+            'Monthly contact volume',
+            'Number of message variants and how much human review is kept',
+            'Whether and how deeply it integrates with your CRM',
+          ],
+        },
+        {
+          type: 'related',
+          eyebrow: 'Related',
+          heading: 'Related articles',
+          links: [
+            { slug: 'real-estate-inquiry-response-ai', title: 'Automating inbound response in real estate — 24/7 handling and structured first contact' },
+            { slug: 'manufacturing-inspection-ai', title: 'AI in visual inspection — splitting full inspection between people and AI' },
+            { slug: 'hr-reskilling-ai', title: 'Turning reskilling into real AI adoption' },
+          ],
+        },
+        {
           type: 'faq',
           eyebrow: 'FAQ',
           heading: 'Frequently asked questions',
@@ -485,7 +689,9 @@ export const serviceContent: Content = {
         heading: 'Let’s see what can come off your team',
         lead: 'Tell us how sales runs today and we will map which stages AI can take and which should stay with people. The first consultation is free.',
         button: 'Book a free consultation',
-        sub: 'Our 3-minute AI diagnosis can give you a first read.',
+        sub: 'Not ready to talk? Start with the free AI diagnosis.',
+        secondary: 'Try the free AI diagnosis (3 min)',
+        secondaryHref: '/diagnosis',
       },
     },
 
@@ -582,6 +788,54 @@ export const serviceContent: Content = {
           ],
         },
         {
+          type: 'split',
+          eyebrow: 'Fit',
+          heading: 'When this fits — and when it does not',
+          lead: 'You cannot choose who calls you. A poor fit hurts the caller, so here are the conditions upfront.',
+          leftTitle: 'Good fit',
+          leftItems: [
+            'The same kinds of questions arrive by phone repeatedly',
+            'Answering the phone keeps interrupting real work',
+            'Calls are missed out of hours or at peak times',
+            'A callback-based flow does not disadvantage the caller',
+          ],
+          rightTitle: 'Not yet',
+          rightItems: [
+            'Most calls are emergencies or complaints',
+            'Every call differs so much that nothing can be templated',
+            'There is no team to hand over to, so callers end up stuck',
+            'Answering personally is itself part of your value',
+          ],
+        },
+        {
+          type: 'pricing',
+          eyebrow: 'Cost',
+          heading: 'How pricing works',
+          lead: 'Cost varies with call volume and scope, so we publish the structure rather than a single price.',
+          note: 'Response design decides almost all of the real-world quality. Cutting that stage to start cheaply produces calls that miss, and people end up handling them again anyway.',
+          rows: [
+            { label: 'Setup', value: 'Breaking down incoming calls, designing responses, captured fields and handover rules, and tuning during limited rollout.' },
+            { label: 'Monthly', value: 'Operation and tuning — reviewing real calls and adjusting probing and phrasing.' },
+            { label: 'Usage', value: 'Call time and speech processing, charged at actual usage.' },
+          ],
+          drivers: [
+            'Monthly call volume and average call length',
+            'How many distinct request types are handled',
+            'Hours covered — out-of-hours only, or all day',
+            'Your existing phone setup and any CRM or chat integration',
+          ],
+        },
+        {
+          type: 'related',
+          eyebrow: 'Related',
+          heading: 'Related articles',
+          links: [
+            { slug: 'real-estate-inquiry-response-ai', title: 'Automating inbound response in real estate — 24/7 handling and structured first contact' },
+            { slug: 'hospitality-service-automation', title: 'AI in hospitality — balancing automation with genuine service' },
+            { slug: 'public-dx-ai-implementation', title: 'A realistic path to AI in local government — starting at the counter' },
+          ],
+        },
+        {
           type: 'faq',
           eyebrow: 'FAQ',
           heading: 'Frequently asked questions',
@@ -597,7 +851,9 @@ export const serviceContent: Content = {
         heading: 'Let’s work out which calls AI can take',
         lead: 'Tell us what is coming in and how much, and we will separate what AI can answer from what should stay with your team. The first consultation is free.',
         button: 'Book a free consultation',
-        sub: 'Any data on call types helps us be more specific.',
+        sub: 'Not ready to talk? Start with the free AI diagnosis.',
+        secondary: 'Try the free AI diagnosis (3 min)',
+        secondaryHref: '/diagnosis',
       },
     },
 
@@ -708,6 +964,55 @@ export const serviceContent: Content = {
           ],
         },
         {
+          type: 'split',
+          eyebrow: 'Fit',
+          heading: 'When this fits — and when it does not',
+          lead: 'Some blockages AI can solve; others it cannot. Here is how to tell upfront.',
+          leftTitle: 'Good fit',
+          leftItems: [
+            'Salesforce is already in place and data entry is the pain',
+            'Volume has grown past what people can review by hand',
+            'Historical data exists but cannot be searched or reused',
+            'You want a neutral call on whether standard features suffice',
+          ],
+          rightTitle: 'Not yet',
+          rightItems: [
+            'Operating rules are undefined — nobody agrees what to record',
+            'It was implemented recently and holds almost no data',
+            'The team works in spreadsheets and does not use Salesforce',
+            'The real blocker is internal alignment, not tooling',
+          ],
+        },
+        {
+          type: 'pricing',
+          eyebrow: 'Cost',
+          heading: 'How pricing works',
+          lead: 'Cost varies sharply with the design, and the first decision drives it.',
+          note: 'Using Salesforce’s built-in AI adds licence cost. MGC does not resell licences, so we can compare standard features against custom work without a stake in the outcome.',
+          rows: [
+            { label: 'Assessment', value: 'Reviewing your data and operation to decide whether standard features suffice. Available as a standalone engagement.' },
+            { label: 'Build', value: 'Implementing the target process — cost depends heavily on configuration versus custom integration.' },
+            { label: 'Monthly', value: 'Operation and tuning, including accuracy checks and adoption support.' },
+            { label: 'Licences', value: 'Applies when using Salesforce’s built-in AI. Contracted directly with Salesforce, not through MGC.' },
+          ],
+          drivers: [
+            'How many processes are in scope, and how complex they are',
+            'Standard features versus custom development',
+            'How many external systems must connect',
+            'Number of users, which drives licence cost directly',
+          ],
+        },
+        {
+          type: 'related',
+          eyebrow: 'Related',
+          heading: 'Related articles',
+          links: [
+            { slug: 'retail-demand-forecasting-inventory', title: 'Demand forecasting in retail — connecting judgement and data' },
+            { slug: 'hr-talent-management-retention-ai', title: 'Reducing attrition with AI — talent management beyond gut feel' },
+            { slug: 'finance-backoffice-ai-automation', title: 'AI in finance back-office work — changing it without lowering the guard' },
+          ],
+        },
+        {
           type: 'faq',
           eyebrow: 'FAQ',
           heading: 'Frequently asked questions',
@@ -724,6 +1029,8 @@ export const serviceContent: Content = {
         lead: 'We will look at the real data and the way it is run, then separate what AI can fix from what it cannot. The first consultation is free.',
         button: 'Book a free consultation',
         sub: 'If standard features are enough, we will tell you.',
+        secondary: 'Try the free AI diagnosis (3 min)',
+        secondaryHref: '/diagnosis',
       },
     },
   },

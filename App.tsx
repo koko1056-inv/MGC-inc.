@@ -1198,9 +1198,18 @@ const BlogView: React.FC = () => {
   );
 };
 
+// #contact/<slug> で来たとき、その相談内容を初期選択する。
+// どのサービスページ経由の問い合わせかを、受信メール側で判別できるようにする。
+const SERVICE_TOPIC_INDEX: Record<string, number> = { 'ai-sales': 0, 'ai-phone': 1, 'salesforce-ai': 2 };
+
 const ContactView: React.FC = () => {
-  const [formState, setFormState] = useState({ name: '', email: '', company: '', topic: '', message: '' });
   const { t } = useLanguage();
+  const initialTopic = (() => {
+    const seg = window.location.hash.slice(1).split('/')[1];
+    const i = seg !== undefined ? SERVICE_TOPIC_INDEX[seg] : undefined;
+    return i !== undefined ? (t.contact.form.topicOptions[i] ?? '') : '';
+  })();
+  const [formState, setFormState] = useState({ name: '', email: '', company: '', topic: initialTopic, message: '' });
   const [emailError, setEmailError] = useState('');
   const [isSending, setIsSending] = useState(false);
   const [isSent, setIsSent] = useState(false);
@@ -1899,6 +1908,69 @@ const ServiceSectionBlock: React.FC<{ section: ServiceSection }> = ({ section })
     );
   }
 
+  if (s.type === 'pricing') {
+    return (
+      <>
+        <Reveal><SectionHead eyebrow={s.eyebrow} heading={s.heading} lead={s.lead} /></Reveal>
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 md:gap-8">
+          <Reveal className="lg:col-span-3">
+            <dl className="h-full">
+              {s.rows.map((row, i) => (
+                <div key={i} className="flex flex-col md:flex-row gap-1.5 md:gap-8 py-5 border-b border-gray-200 first:pt-0">
+                  <dt className="md:w-32 flex-shrink-0 text-sm font-bold text-[#2D6CDF] pt-0.5">{row.label}</dt>
+                  <dd className="flex-1 text-[15px] md:text-base text-[#1A2233] leading-[1.9]">{row.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </Reveal>
+          <Reveal delay={100} className="lg:col-span-2">
+            <div className="h-full rounded-3xl bg-[#F4F6FB] p-6 md:p-8">
+              <span className="text-xs font-bold tracking-widest uppercase text-gray-500">費用が変わる要因</span>
+              <ul className="mt-5 space-y-3.5">
+                {s.drivers.map((d, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <span aria-hidden className="w-1.5 h-1.5 rounded-full bg-[#2D6CDF] flex-shrink-0 mt-2.5" />
+                    <span className="text-[15px] text-[#1A2233] leading-[1.9]">{d}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Reveal>
+        </div>
+        <Reveal>
+          <p className="mt-8 text-sm text-gray-500 leading-[1.9] border-l-2 border-gray-300 pl-4 max-w-3xl">{s.note}</p>
+        </Reveal>
+      </>
+    );
+  }
+
+  if (s.type === 'related') {
+    return (
+      <>
+        <Reveal><SectionHead eyebrow={s.eyebrow} heading={s.heading} lead={s.lead} /></Reveal>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
+          {s.links.map((link, i) => (
+            <Reveal key={i} delay={i * 80}>
+              <a
+                href={`/column/${link.slug}`}
+                className="group flex flex-col h-full rounded-2xl border border-gray-200 bg-white p-6 hover:border-[#2D6CDF]/40 transition-colors duration-300"
+              >
+                <span className="text-[11px] font-bold tracking-widest uppercase text-[#2D6CDF]">Column</span>
+                <span className="text-[15px] md:text-base font-bold text-[#111418] leading-[1.7] mt-3 flex-1 group-hover:text-[#2D6CDF] transition-colors">
+                  {link.title}
+                </span>
+                <span className="inline-flex items-center gap-2 text-sm font-bold text-gray-500 mt-5 group-hover:text-[#2D6CDF] transition-colors">
+                  読む
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                </span>
+              </a>
+            </Reveal>
+          ))}
+        </div>
+      </>
+    );
+  }
+
   // faq
   return (
     <>
@@ -1965,13 +2037,21 @@ const ServiceView: React.FC<{ serviceKey: ServiceKey }> = ({ serviceKey }) => {
                       </li>
                     ))}
                   </ul>
-                  <a
-                    href="#contact"
-                    className="group inline-flex items-center gap-2.5 mt-10 px-7 py-4 rounded-full bg-[#2D6CDF] text-white font-bold text-sm md:text-base tracking-tight shadow-xl shadow-[#2D6CDF]/25 hover:bg-white hover:text-[#111418] transition-all duration-300"
-                  >
-                    {page.cta.button}
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-                  </a>
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 mt-10">
+                    <a
+                      href={`#contact/${page.slug}`}
+                      className="group inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full bg-[#2D6CDF] text-white font-bold text-sm md:text-base tracking-tight shadow-xl shadow-[#2D6CDF]/25 hover:bg-white hover:text-[#111418] transition-all duration-300"
+                    >
+                      {page.cta.button}
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                    </a>
+                    <a
+                      href={page.cta.secondaryHref}
+                      className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full border border-white/25 text-white/90 font-bold text-sm tracking-tight hover:bg-white/10 transition-colors duration-300"
+                    >
+                      {page.cta.secondary}
+                    </a>
+                  </div>
                 </div>
               </div>
             </Reveal>
@@ -2006,13 +2086,21 @@ const ServiceView: React.FC<{ serviceKey: ServiceKey }> = ({ serviceKey }) => {
               <div className="rounded-[1.75rem] md:rounded-[2.5rem] bg-[#2D6CDF] text-white px-7 py-12 md:px-16 md:py-16 text-center">
                 <h2 className="text-2xl md:text-4xl font-bold tracking-tight leading-[1.5]">{page.cta.heading}</h2>
                 <p className="text-base md:text-lg text-white/90 leading-[1.9] mt-5 max-w-2xl mx-auto">{page.cta.lead}</p>
-                <a
-                  href="#contact"
-                  className="group inline-flex items-center gap-2.5 mt-9 px-8 py-4 rounded-full bg-white text-[#111418] font-bold text-sm md:text-base tracking-tight hover:bg-[#111418] hover:text-white transition-all duration-300"
-                >
-                  {page.cta.button}
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-                </a>
+                <div className="flex flex-col sm:flex-row sm:justify-center items-stretch sm:items-center gap-3 sm:gap-4 mt-9">
+                  <a
+                    href={`#contact/${page.slug}`}
+                    className="group inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-white text-[#111418] font-bold text-sm md:text-base tracking-tight hover:bg-[#111418] hover:text-white transition-all duration-300"
+                  >
+                    {page.cta.button}
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                  </a>
+                  <a
+                    href={page.cta.secondaryHref}
+                    className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full border border-white/40 text-white font-bold text-sm tracking-tight hover:bg-white/10 transition-colors duration-300"
+                  >
+                    {page.cta.secondary}
+                  </a>
+                </div>
                 <p className="text-sm text-white/75 leading-[1.8] mt-6">{page.cta.sub}</p>
               </div>
             </Reveal>
