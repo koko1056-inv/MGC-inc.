@@ -7,7 +7,7 @@
   },
   "rotation": {
     "note": "日次で industries を順番に回す。lastIndex は最後に公開した業種の添字。次回は (lastIndex+1)%12 の業種で、usedTopics に無いテーマを選ぶ。",
-    "lastIndex": 1,
+    "lastIndex": 7,
     "industries": [
       {
         "key": "manufacturing",
@@ -83,28 +83,34 @@
     ],
     "real-estate": [
       "real-estate-inquiry-response-ai",
-      "real-estate-property-listing-matching-ai"
+      "real-estate-property-listing-matching-ai",
+      "real-estate-valuation-market-analysis-ai"
     ],
     "retail": [
       "retail-demand-forecasting-inventory",
-      "retail-ai-driven-personalization"
+      "retail-ai-driven-personalization",
+      "retail-generative-ai-efficiency"
     ],
     "logistics": [
       "logistics-dispatch-planning-ai",
-      "logistics-demand-forecasting-ai"
+      "logistics-demand-forecasting-ai",
+      "logistics-warehouse-optimization-ai"
     ],
     "healthcare": [
       "healthcare-documentation-efficiency-ai",
-      "healthcare-care-planning-risk-prediction-ai"
+      "healthcare-care-planning-risk-prediction-ai",
+      "healthcare-staff-scheduling-shift-optimization-ai"
     ],
     "hospitality": [
       "hospitality-service-automation",
-      "hospitality-demand-forecasting"
+      "hospitality-demand-forecasting",
+      "hospitality-operational-efficiency-ai"
     ],
     "professional": [
       "professional-accounting-ai",
       "professional-ai-legal-accounting-transformation",
-      "professional-practical-ai-implementation"
+      "professional-practical-ai-implementation",
+      "professional-document-review-automation"
     ],
     "finance": [
       "finance-ai-implementation-guide",
@@ -286,6 +292,42 @@
       "industry": "construction",
       "date": "2026-08-20",
       "file": "construction-safety-quality-ai-vision.json"
+    },
+    {
+      "slug": "real-estate-valuation-market-analysis-ai",
+      "industry": "real-estate",
+      "date": "2026-08-21",
+      "file": "real-estate-valuation-market-analysis-ai.json"
+    },
+    {
+      "slug": "retail-generative-ai-efficiency",
+      "industry": "retail",
+      "date": "2026-08-22",
+      "file": "retail-generative-ai-efficiency.json"
+    },
+    {
+      "slug": "logistics-warehouse-optimization-ai",
+      "industry": "logistics",
+      "date": "2026-08-24",
+      "file": "logistics-warehouse-optimization-ai.json"
+    },
+    {
+      "slug": "healthcare-staff-scheduling-shift-optimization-ai",
+      "industry": "healthcare",
+      "date": "2026-08-25",
+      "file": "healthcare-staff-scheduling-shift-optimization-ai.json"
+    },
+    {
+      "slug": "hospitality-operational-efficiency-ai",
+      "industry": "hospitality",
+      "date": "2026-08-26",
+      "file": "hospitality-operational-efficiency-ai.json"
+    },
+    {
+      "slug": "professional-document-review-automation",
+      "industry": "professional",
+      "date": "2026-08-27",
+      "file": "professional-document-review-automation.json"
     }
   ]
 }
