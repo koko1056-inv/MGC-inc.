@@ -2061,8 +2061,8 @@ const ServiceView: React.FC<{ serviceKey: ServiceKey }> = ({ serviceKey }) => {
               <img
                 src={page.image}
                 alt={page.imageAlt}
-                width={1600}
-                height={893}
+                width={page.imageWidth}
+                height={page.imageHeight}
                 loading="eager"
                 className="w-full h-auto rounded-[1.75rem] md:rounded-[2.5rem] border border-gray-200 mt-6 md:mt-8 bg-white"
               />

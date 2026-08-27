@@ -24,6 +24,8 @@ export type ServicePage = {
   seoDescription: string;
   image: string;
   imageAlt: string;
+  imageWidth: number;
+  imageHeight: number;
   hero: { badge: string; title: string; titleSub: string; lead: string; points: string[] };
   sections: ServiceSection[];
   cta: { heading: string; lead: string; button: string; sub: string; secondary: string; secondaryHref: string };
@@ -40,6 +42,8 @@ export const serviceContent: Content = {
       seoTitle: 'AI営業サービス｜アポイント獲得までをAIに任せる - ＭＧＣ株式会社',
       seoDescription: 'リスト作成から初回接触・返信対応・日程調整まで、営業の前工程をAIが担います。人が商談に集中できる状態をつくる、AI営業サービス。',
       image: '/assets/service/ai-sales.png',
+      imageWidth: 1400,
+      imageHeight: 570,
       imageAlt: '多数の見込み客リストがAIによって絞り込まれ、1件の商談につながる流れを表した図',
       hero: {
         badge: 'AI Sales',
@@ -199,6 +203,8 @@ export const serviceContent: Content = {
       seoTitle: 'AI電話（音声AI）｜電話の一次対応を自動化 - ＭＧＣ株式会社',
       seoDescription: '鳴り続ける電話の一次対応を音声AIが引き受けます。プッシュ操作のIVRとは違い、用件を話し言葉のまま聞き取り、要約して担当者に渡します。',
       image: '/assets/service/ai-phone.png',
+      imageWidth: 1400,
+      imageHeight: 755,
       imageAlt: '受話器から広がる音声波形を表した、音声AIによる電話対応のイメージ図',
       hero: {
         badge: 'Voice AI',
@@ -363,6 +369,8 @@ export const serviceContent: Content = {
       seoTitle: 'Salesforce AI活用支援｜入力する箱から、動く仕組みへ - ＭＧＣ株式会社',
       seoDescription: 'Salesforceを「入力する箱」で終わらせないためのAI活用支援。入力の自動化、示唆の提示、エージェントによる実行まで、標準機能で足りるかの判断から支援します。',
       image: '/assets/service/salesforce-ai.png',
+      imageWidth: 1400,
+      imageHeight: 406,
       imageAlt: 'CRMのデータ層が積み重なり、上位の層へ流れていく様子を表した図',
       hero: {
         badge: 'Salesforce × AI',
@@ -544,6 +552,8 @@ export const serviceContent: Content = {
       seoTitle: 'AI Sales Service | Let AI handle everything up to the meeting - MGC Inc.',
       seoDescription: 'From list building to first contact, follow-up and scheduling, AI handles the front end of sales so your people can focus on the conversations that matter.',
       image: '/assets/service/ai-sales.png',
+      imageWidth: 1400,
+      imageHeight: 570,
       imageAlt: 'Diagram showing a large pool of prospects narrowing down to a single booked meeting',
       hero: {
         badge: 'AI Sales',
@@ -701,6 +711,8 @@ export const serviceContent: Content = {
       seoTitle: 'Voice AI for phone handling | Automate first response - MGC Inc.',
       seoDescription: 'Voice AI answers your incoming calls, understands the request in natural speech, summarises it and passes on only what needs a person.',
       image: '/assets/service/ai-phone.png',
+      imageWidth: 1400,
+      imageHeight: 755,
       imageAlt: 'Diagram of a handset with a voice waveform, representing AI-handled phone response',
       hero: {
         badge: 'Voice AI',
@@ -863,6 +875,8 @@ export const serviceContent: Content = {
       seoTitle: 'Salesforce AI enablement | From a data entry box to a working system - MGC Inc.',
       seoDescription: 'Make Salesforce more than a place to type. We reduce data entry, surface insight from what you have, and judge honestly whether standard AI features are enough.',
       image: '/assets/service/salesforce-ai.png',
+      imageWidth: 1400,
+      imageHeight: 406,
       imageAlt: 'Diagram of CRM data layers feeding upward into higher-level automation',
       hero: {
         badge: 'Salesforce × AI',
