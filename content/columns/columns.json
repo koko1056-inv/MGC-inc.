@@ -7,7 +7,7 @@
   },
   "rotation": {
     "note": "日次で industries を順番に回す。lastIndex は最後に公開した業種の添字。次回は (lastIndex+1)%12 の業種で、usedTopics に無いテーマを選ぶ。",
-    "lastIndex": 6,
+    "lastIndex": 7,
     "industries": [
       {
         "key": "manufacturing",
@@ -109,7 +109,8 @@
     "professional": [
       "professional-accounting-ai",
       "professional-ai-legal-accounting-transformation",
-      "professional-practical-ai-implementation"
+      "professional-practical-ai-implementation",
+      "professional-document-review-automation"
     ],
     "finance": [
       "finance-ai-implementation-guide",
@@ -321,6 +322,12 @@
       "industry": "hospitality",
       "date": "2026-08-26",
       "file": "hospitality-operational-efficiency-ai.json"
+    },
+    {
+      "slug": "professional-document-review-automation",
+      "industry": "professional",
+      "date": "2026-08-27",
+      "file": "professional-document-review-automation.json"
     }
   ]
 }
