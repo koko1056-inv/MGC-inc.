@@ -14,6 +14,10 @@ export const useLanguage = () => React.useContext(LanguageContext);
 
 type ViewState = 'home' | 'works' | 'training' | 'diagnosis' | 'mission' | 'partners' | 'company' | 'career' | 'contact' | 'blog' | 'cases' | ServiceKey;
 
+// AI診断の表示切り替え。false の間は、サイト内の導線をすべて隠す。
+// ページ自体（/diagnosis）は残るため、true に戻せば元の状態に復帰する。
+export const SHOW_DIAGNOSIS = false;
+
 const SERVICE_KEYS: ServiceKey[] = ['ai-sales', 'ai-phone', 'salesforce-ai'];
 const isServiceKey = (v: string): v is ServiceKey => (SERVICE_KEYS as string[]).includes(v);
 
@@ -242,20 +246,27 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
             {t.hero.desc}
           </p>
           <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
-            <button
-              onClick={() => goTo('diagnosis')}
-              className="group inline-flex items-center justify-center gap-3 px-6 py-4 bg-accent text-white rounded-full font-bold text-base tracking-tight hover:bg-offblack transition-all shadow-lg shadow-accent/20 whitespace-nowrap"
-            >
-              <Sparkles className="w-5 h-5" />
-              {t.hero.tryDiagnosis}
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </button>
+            {SHOW_DIAGNOSIS && (
+              <button
+                onClick={() => goTo('diagnosis')}
+                className="group inline-flex items-center justify-center gap-3 px-6 py-4 bg-accent text-white rounded-full font-bold text-base tracking-tight hover:bg-offblack transition-all shadow-lg shadow-accent/20 whitespace-nowrap"
+              >
+                <Sparkles className="w-5 h-5" />
+                {t.hero.tryDiagnosis}
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </button>
+            )}
+            {/* 診断を隠している間は、相談ボタンを主導線に格上げする */}
             <button
               onClick={() => goTo('contact')}
-              className="group inline-flex items-center justify-center gap-2 text-offblack font-bold text-sm tracking-tight border-b-2 border-offblack pb-1 hover:text-accent hover:border-accent transition-colors whitespace-nowrap"
+              className={
+                SHOW_DIAGNOSIS
+                  ? 'group inline-flex items-center justify-center gap-2 text-offblack font-bold text-sm tracking-tight border-b-2 border-offblack pb-1 hover:text-accent hover:border-accent transition-colors whitespace-nowrap'
+                  : 'group inline-flex items-center justify-center gap-3 px-6 py-4 bg-accent text-white rounded-full font-bold text-base tracking-tight hover:bg-offblack transition-all shadow-lg shadow-accent/20 whitespace-nowrap'
+              }
             >
               {t.hero.bookConsult}
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className={SHOW_DIAGNOSIS ? 'w-4 h-4 group-hover:translate-x-1 transition-transform' : 'w-5 h-5 group-hover:translate-x-1 transition-transform'} />
             </button>
           </div>
         </div>
@@ -289,7 +300,7 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
   </div>
 
   {/* === Free AI Diagnosis Banner (無料フロントエンド) === */}
-  <div className="px-6 md:px-12 pb-24 max-w-screen-xl mx-auto w-full">
+  <div className={`px-6 md:px-12 pb-24 max-w-screen-xl mx-auto w-full${SHOW_DIAGNOSIS ? '' : ' hidden'}`}>
     <Reveal>
       <button
         onClick={() => goTo('diagnosis')}
@@ -2191,12 +2202,14 @@ const CasesView: React.FC = () => {
                   {lang === 'ja' ? '無料で相談する' : 'Book a free consultation'}
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                 </a>
-                <a
-                  href="/diagnosis"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full border border-white/40 text-white font-bold text-sm tracking-tight hover:bg-white/10 transition-colors duration-300"
-                >
-                  {lang === 'ja' ? '無料のAI活用診断を試す（3分）' : 'Try the free AI diagnosis (3 min)'}
-                </a>
+                {SHOW_DIAGNOSIS && (
+                  <a
+                    href="/diagnosis"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full border border-white/40 text-white font-bold text-sm tracking-tight hover:bg-white/10 transition-colors duration-300"
+                  >
+                    {lang === 'ja' ? '無料のAI活用診断を試す（3分）' : 'Try the free AI diagnosis (3 min)'}
+                  </a>
+                )}
               </div>
             </div>
           </Reveal>
@@ -2256,12 +2269,14 @@ const ServiceView: React.FC<{ serviceKey: ServiceKey }> = ({ serviceKey }) => {
                       {page.cta.button}
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                     </a>
-                    <a
-                      href={page.cta.secondaryHref}
-                      className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full border border-white/25 text-white/90 font-bold text-sm tracking-tight hover:bg-white/10 transition-colors duration-300"
-                    >
-                      {page.cta.secondary}
-                    </a>
+                    {SHOW_DIAGNOSIS && (
+                      <a
+                        href={page.cta.secondaryHref}
+                        className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full border border-white/25 text-white/90 font-bold text-sm tracking-tight hover:bg-white/10 transition-colors duration-300"
+                      >
+                        {page.cta.secondary}
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>
@@ -2305,14 +2320,16 @@ const ServiceView: React.FC<{ serviceKey: ServiceKey }> = ({ serviceKey }) => {
                     {page.cta.button}
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                   </a>
-                  <a
-                    href={page.cta.secondaryHref}
-                    className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full border border-white/40 text-white font-bold text-sm tracking-tight hover:bg-white/10 transition-colors duration-300"
-                  >
-                    {page.cta.secondary}
-                  </a>
+                  {SHOW_DIAGNOSIS && (
+                    <a
+                      href={page.cta.secondaryHref}
+                      className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full border border-white/40 text-white font-bold text-sm tracking-tight hover:bg-white/10 transition-colors duration-300"
+                    >
+                      {page.cta.secondary}
+                    </a>
+                  )}
                 </div>
-                <p className="text-sm text-white/75 leading-[1.8] mt-6">{page.cta.sub}</p>
+                {SHOW_DIAGNOSIS && <p className="text-sm text-white/75 leading-[1.8] mt-6">{page.cta.sub}</p>}
               </div>
             </Reveal>
           </div>
@@ -2656,7 +2673,6 @@ const App: React.FC = () => {
   // 情報ナビ（お問い合わせはCTAボタンとして分離、Journalはフッターへ集約）
   const navItems: { id?: ViewState; href?: string; label: string }[] = [
     { id: 'works', label: t.nav.works },
-    { id: 'diagnosis', label: t.nav.diagnosis },
     { id: 'cases', label: t.nav.cases },
     { id: 'training', label: t.nav.training },
     { href: '/column', label: t.nav.column },
