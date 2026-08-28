@@ -14,6 +14,7 @@ export type ServiceSection =
   | { type: 'cards'; eyebrow: string; heading: string; lead?: string; cards: { title: string; desc: string }[] }
   | { type: 'notes'; eyebrow: string; heading: string; lead?: string; items: string[] }
   | { type: 'pricing'; eyebrow: string; heading: string; lead?: string; note: string; rows: { label: string; value: string }[]; drivers: string[] }
+  | { type: 'cases'; eyebrow: string; heading: string; lead?: string; links: { slug: string; label: string; desc: string }[] }
   | { type: 'related'; eyebrow: string; heading: string; lead?: string; links: { slug: string; title: string }[] }
   | { type: 'faq'; eyebrow: string; heading: string; items: { q: string; a: string }[] };
 
@@ -162,6 +163,13 @@ export const serviceContent: Content = {
             '文面のパターン数と、人の確認をどこまで入れるか',
             '既存CRMとの連携の有無と、その複雑さ',
           ],
+        },
+        {
+          type: 'cases',
+          eyebrow: 'Case',
+          heading: '関連する事例',
+          lead: '同じ課題に取り組んでいる案件です。',
+          links: [{ slug: 'distributor-ai-outreach', label: '総合代理店', desc: '海外メーカーの発掘をAIで自動化し、1ヶ月で商談10件につなげた事例' }],
         },
         {
           type: 'related',
@@ -328,6 +336,13 @@ export const serviceContent: Content = {
             '対応時間帯（時間外のみか、終日か）',
             '既存の電話環境と、CRM・チャットツールへの連携の有無',
           ],
+        },
+        {
+          type: 'cases',
+          eyebrow: 'Case',
+          heading: '関連する事例',
+          lead: '同じ課題に取り組んでいる案件です。',
+          links: [{ slug: 'callcenter-voice-ai', label: 'コールセンター運営', desc: '催促架電をAIが自動で行い、通話後の記録・通知（ACW）まで自動化した事例' }],
         },
         {
           type: 'related',
@@ -511,6 +526,13 @@ export const serviceContent: Content = {
           ],
         },
         {
+          type: 'cases',
+          eyebrow: 'Case',
+          heading: '関連する事例',
+          lead: '同じ課題に取り組んでいる案件です。',
+          links: [{ slug: 'callcenter-voice-ai', label: 'コールセンター運営', desc: 'Salesforceと音声AIを統合し、架電から通話後処理までを自動化した事例' }],
+        },
+        {
           type: 'related',
           eyebrow: 'Related',
           heading: '関連するコラム',
@@ -672,6 +694,12 @@ export const serviceContent: Content = {
             'Number of message variants and how much human review is kept',
             'Whether and how deeply it integrates with your CRM',
           ],
+        },
+        {
+          type: 'cases',
+          eyebrow: 'Case',
+          heading: 'Related case study',
+          links: [{ slug: 'distributor-ai-outreach', label: 'Distributor', desc: 'Automated discovery of overseas manufacturers — 10 meetings in one month' }],
         },
         {
           type: 'related',
@@ -836,6 +864,12 @@ export const serviceContent: Content = {
             'Hours covered — out-of-hours only, or all day',
             'Your existing phone setup and any CRM or chat integration',
           ],
+        },
+        {
+          type: 'cases',
+          eyebrow: 'Case',
+          heading: 'Related case study',
+          links: [{ slug: 'callcenter-voice-ai', label: 'Call centre operator', desc: 'AI places reminder calls and automates the after-call work' }],
         },
         {
           type: 'related',
@@ -1015,6 +1049,12 @@ export const serviceContent: Content = {
             'How many external systems must connect',
             'Number of users, which drives licence cost directly',
           ],
+        },
+        {
+          type: 'cases',
+          eyebrow: 'Case',
+          heading: 'Related case study',
+          links: [{ slug: 'callcenter-voice-ai', label: 'Call centre operator', desc: 'Salesforce integrated with voice AI, from the call through after-call work' }],
         },
         {
           type: 'related',

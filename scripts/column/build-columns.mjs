@@ -372,6 +372,7 @@ function updateLlmsTxt() {
   lines.push('## サービス・問い合わせ');
   lines.push(`- [AI活用診断（無料）](${site.baseUrl}/diagnosis): 業種と課題を入力すると、AIが最適なAI活用施策・導入後ワークフロー・工数/コスト削減の試算を「要件定義レポート」として即時に返す無料診断`);
   lines.push(`- [AI活用リスキリング研修](${site.baseUrl}/training): 企業向けのAI活用研修（OFF-JT、人材開発支援助成金の対象訓練に対応）`);
+  lines.push(`- [導入事例](${site.baseUrl}/cases): 実際の案件の課題・打ち手・設計上の要点。社名は掲載許諾が取れるまで伏せ、業種で紹介`);
   lines.push(`- [AI営業サービス](${site.baseUrl}/service/ai-sales): リスト作成・初回接触・追客・日程調整まで、営業の前工程をAIが担うサービス`);
   lines.push(`- [AI電話（音声AI）](${site.baseUrl}/service/ai-phone): 電話の一次対応を音声AIが引き受け、用件を聞き取って要約し担当者に引き渡すサービス`);
   lines.push(`- [Salesforce AI活用支援](${site.baseUrl}/service/salesforce-ai): Salesforceの入力負担を下げ、貯まったデータから示唆を出し、エージェントによる実行まで支援するサービス`);
