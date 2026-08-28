@@ -135,8 +135,12 @@ h1.title{font-size:2rem;line-height:1.45;font-weight:800;letter-spacing:-.01em;m
 @media(max-width:640px){h1.title{font-size:1.55rem}.wrap{padding:0 18px}.cta{padding:24px 20px}}
 `.trim();
 
-const HEADER = `<header class="site-header"><a class="brand" href="/">MGC Inc.</a><nav><a href="/column">コラム</a><a href="/diagnosis">AI診断</a><a href="/training">研修</a><a href="/#works">事業内容</a><a href="/#contact">お問い合わせ</a></nav></header>`;
-const FOOTER = `<footer class="site-footer"><div class="wrap"><p><strong>${esc(site.brandFull)}</strong></p><p>${esc(site.address || '')}</p><p style="margin-top:10px"><a href="/">${esc(site.baseUrl)}</a> ・ <a href="/column">コラム一覧</a> ・ <a href="/diagnosis">AI活用診断</a> ・ <a href="/training">研修</a></p><p style="margin-top:10px">© 2026 MGC Inc. All Rights Reserved.</p></div></footer>`;
+// AI診断の表示切り替え。App.tsx の SHOW_DIAGNOSIS と揃えること。
+// false の間はコラム側の導線（ヘッダー・フッター・CTA・llms.txt）から診断を外す。
+const SHOW_DIAGNOSIS = false;
+
+const HEADER = `<header class="site-header"><a class="brand" href="/">MGC Inc.</a><nav><a href="/column">コラム</a>${SHOW_DIAGNOSIS ? '<a href="/diagnosis">AI診断</a>' : ''}<a href="/training">研修</a><a href="/#works">事業内容</a><a href="/#contact">お問い合わせ</a></nav></header>`;
+const FOOTER = `<footer class="site-footer"><div class="wrap"><p><strong>${esc(site.brandFull)}</strong></p><p>${esc(site.address || '')}</p><p style="margin-top:10px"><a href="/">${esc(site.baseUrl)}</a> ・ <a href="/column">コラム一覧</a>${SHOW_DIAGNOSIS ? ' ・ <a href="/diagnosis">AI活用診断</a>' : ''} ・ <a href="/training">研修</a></p><p style="margin-top:10px">© 2026 MGC Inc. All Rights Reserved.</p></div></footer>`;
 
 // ---- render article body blocks ----
 function renderBody(blocks = []) {
@@ -257,7 +261,7 @@ ${HEADER}
 ${(a.summary && a.summary.length) ? `<aside class="keypoints"><h2>この記事の要点</h2><ul>${a.summary.map((s) => `<li>${esc(s)}</li>`).join('')}</ul></aside>` : ''}
 ${renderBody(a.body)}
 ${faqHtml}
-<section class="cta">
+${SHOW_DIAGNOSIS ? `<section class="cta">
 <span class="cta-eyebrow">無料・所要3分・その場で結果</span>
 <h2>では、御社の場合はどうか？ 3分のAI活用診断で確かめる</h2>
 <p>業種と今の課題を入力するだけで、AIが「${esc(ind.ja)}の御社に向いたAI活用施策・導入後のワークフロー・削減できる工数とコスト」を、提案書レベルの診断レポートにしてその場でお返しします。無料です。</p>
@@ -266,7 +270,16 @@ ${faqHtml}
 <a class="btn btn-ghost" href="/#contact">30分の無料相談を予約する</a>
 </div>
 <p class="cta-foot">診断は登録不要・その場で結果表示。もちろん、いきなり相談していただいても構いません（初回相談・お見積もりまで無料）。</p>
-</section>
+</section>` : `<section class="cta">
+<span class="cta-eyebrow">初回相談・お見積もりまで無料</span>
+<h2>では、御社の場合はどうか？ まず30分お話しませんか</h2>
+<p>${esc(ind.ja)}の業務のどこにAIを使えるか、どこは人が持つべきかを整理してお返しします。現状を伺うところから始められます。</p>
+<div class="btns">
+<a class="btn btn-primary" href="/#contact">30分の無料相談を予約する</a>
+<a class="btn btn-ghost" href="/cases">導入事例を見る</a>
+</div>
+<p class="cta-foot">初回のご相談・お見積もりまで無料です。具体的な資料がなくても構いません。</p>
+</section>`}
 ${relatedHtml}
 <p class="disclaimer">本コラムは一般的な情報提供を目的としたもので、特定の成果を保証するものではありません。導入可否や効果は、企業の状況・データ・体制により異なります。具体的なご相談は個別にお問い合わせください。</p>
 </article>
@@ -318,12 +331,17 @@ ${HEADER}
 <section class="index-hero"><span class="eyebrow">AI Column</span><h1>業界別 AI活用コラム</h1><p>製造・建設・不動産・小売・物流・医療・士業…。業界ごとに「どの業務に、どうAIを使い、どこは人が判断するか」を、実務目線でまとめています。</p></section>
 <section class="cards">${cards || '<p style="color:#5b6472">記事は準備中です。</p>'}</section>
 <section class="wrap" style="margin-top:56px">
-<div class="cta">
+${SHOW_DIAGNOSIS ? `<div class="cta">
 <span class="cta-eyebrow">無料・所要3分・その場で結果</span>
 <h2>自社のAI活用、どこから始める？ まず3分の無料診断で確かめる</h2>
 <p>業種と課題を入力するだけで、AIが最適な活用施策・導入後のワークフロー・削減できる工数とコストを、提案書レベルのレポートにしてその場でお返しします。ITに詳しくない方でも大丈夫です。</p>
 <div class="btns"><a class="btn btn-primary" href="/diagnosis">無料でAI活用診断を受ける</a><a class="btn btn-ghost" href="/#contact">30分の無料相談を予約する</a></div>
-</div>
+</div>` : `<div class="cta">
+<span class="cta-eyebrow">初回相談・お見積もりまで無料</span>
+<h2>自社のAI活用、どこから始める？ まず30分お話しませんか</h2>
+<p>今の業務を伺い、どこからAIに任せられるか、どこは人が持つべきかを整理してお返しします。ITに詳しくない方でも大丈夫です。</p>
+<div class="btns"><a class="btn btn-primary" href="/#contact">30分の無料相談を予約する</a><a class="btn btn-ghost" href="/cases">導入事例を見る</a></div>
+</div>`}
 </section>
 ${FOOTER}
 </body>
@@ -370,7 +388,7 @@ function updateLlmsTxt() {
   }
   lines.push('');
   lines.push('## サービス・問い合わせ');
-  lines.push(`- [AI活用診断（無料）](${site.baseUrl}/diagnosis): 業種と課題を入力すると、AIが最適なAI活用施策・導入後ワークフロー・工数/コスト削減の試算を「要件定義レポート」として即時に返す無料診断`);
+  if (SHOW_DIAGNOSIS) lines.push(`- [AI活用診断（無料）](${site.baseUrl}/diagnosis): 業種と課題を入力すると、AIが最適なAI活用施策・導入後ワークフロー・工数/コスト削減の試算を「要件定義レポート」として即時に返す無料診断`);
   lines.push(`- [AI活用リスキリング研修](${site.baseUrl}/training): 企業向けのAI活用研修（OFF-JT、人材開発支援助成金の対象訓練に対応）`);
   lines.push(`- [導入事例](${site.baseUrl}/cases): 実際の案件の課題・打ち手・設計上の要点。社名は掲載許諾が取れるまで伏せ、業種で紹介`);
   lines.push(`- [AI営業サービス](${site.baseUrl}/service/ai-sales): リスト作成・初回接触・追客・日程調整まで、営業の前工程をAIが担うサービス`);
