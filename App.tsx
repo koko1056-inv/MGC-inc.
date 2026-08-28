@@ -2085,6 +2085,15 @@ const CasesView: React.FC = () => {
                     <h2 className="text-2xl md:text-3xl font-bold text-[#111418] leading-[1.5]">{cs.industry}</h2>
                     <p className="text-sm md:text-base text-gray-600 leading-[1.8] mt-2">{cs.scale}</p>
                     <p className="text-[15px] md:text-base text-[#1A2233] leading-[1.9] mt-5 max-w-3xl">{cs.summary}</p>
+                    {cs.result && (
+                      <div className="mt-6 rounded-2xl bg-white border-l-4 border-[#2D6CDF] px-6 py-5">
+                        <span className="text-xs font-bold tracking-widest uppercase text-[#2D6CDF]">
+                          {lang === 'ja' ? '成果' : 'Result'}
+                        </span>
+                        <p className="text-xl md:text-2xl font-bold text-[#111418] leading-[1.5] mt-2">{cs.result.label}</p>
+                        <p className="text-[15px] text-gray-600 leading-[1.9] mt-2.5">{cs.result.desc}</p>
+                      </div>
+                    )}
                   </div>
 
                   <div className="px-6 md:px-10 py-8 md:py-10 grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">

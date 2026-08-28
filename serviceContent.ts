@@ -169,7 +169,7 @@ export const serviceContent: Content = {
           eyebrow: 'Case',
           heading: '関連する事例',
           lead: '同じ課題に取り組んでいる案件です。',
-          links: [{ slug: 'distributor-ai-outreach', label: '海外製品の総代理店', desc: 'リスト枯渇と重複接触を解き、AIで新規開拓を回している事例' }],
+          links: [{ slug: 'distributor-ai-outreach', label: '総合代理店', desc: '海外メーカーの発掘をAIで自動化し、1ヶ月で商談10件につなげた事例' }],
         },
         {
           type: 'related',
@@ -342,7 +342,7 @@ export const serviceContent: Content = {
           eyebrow: 'Case',
           heading: '関連する事例',
           lead: '同じ課題に取り組んでいる案件です。',
-          links: [{ slug: 'callcenter-voice-ai', label: 'コールセンター運営', desc: '6種類ある定型的な架電業務を、1つに絞って音声AIで自動化している事例' }],
+          links: [{ slug: 'callcenter-voice-ai', label: 'コールセンター運営', desc: '催促架電をAIが自動で行い、通話後の記録・通知（ACW）まで自動化した事例' }],
         },
         {
           type: 'related',
@@ -530,7 +530,7 @@ export const serviceContent: Content = {
           eyebrow: 'Case',
           heading: '関連する事例',
           lead: '同じ課題に取り組んでいる案件です。',
-          links: [{ slug: 'callcenter-voice-ai', label: 'コールセンター運営', desc: '顧客・契約データを参照し、対応結果を書き戻す構成にしている事例' }],
+          links: [{ slug: 'callcenter-voice-ai', label: 'コールセンター運営', desc: 'Salesforceと音声AIを統合し、架電から通話後処理までを自動化した事例' }],
         },
         {
           type: 'related',
@@ -699,7 +699,7 @@ export const serviceContent: Content = {
           type: 'cases',
           eyebrow: 'Case',
           heading: 'Related case study',
-          links: [{ slug: 'distributor-ai-outreach', label: 'Sole distributor of overseas products', desc: 'Solving list exhaustion and duplicate contact with AI-driven prospecting' }],
+          links: [{ slug: 'distributor-ai-outreach', label: 'Distributor', desc: 'Automated discovery of overseas manufacturers — 10 meetings in one month' }],
         },
         {
           type: 'related',
@@ -869,7 +869,7 @@ export const serviceContent: Content = {
           type: 'cases',
           eyebrow: 'Case',
           heading: 'Related case study',
-          links: [{ slug: 'callcenter-voice-ai', label: 'Call centre operator', desc: 'Automating one of six routine outbound call flows with voice AI' }],
+          links: [{ slug: 'callcenter-voice-ai', label: 'Call centre operator', desc: 'AI places reminder calls and automates the after-call work' }],
         },
         {
           type: 'related',
@@ -1054,7 +1054,7 @@ export const serviceContent: Content = {
           type: 'cases',
           eyebrow: 'Case',
           heading: 'Related case study',
-          links: [{ slug: 'callcenter-voice-ai', label: 'Call centre operator', desc: 'Reading contract data and writing call results back into the CRM' }],
+          links: [{ slug: 'callcenter-voice-ai', label: 'Call centre operator', desc: 'Salesforce integrated with voice AI, from the call through after-call work' }],
         },
         {
           type: 'related',
