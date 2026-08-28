@@ -40,6 +40,7 @@
 ## サービス・問い合わせ
 - [AI活用診断（無料）](https://mgc-global01.com/diagnosis): 業種と課題を入力すると、AIが最適なAI活用施策・導入後ワークフロー・工数/コスト削減の試算を「要件定義レポート」として即時に返す無料診断
 - [AI活用リスキリング研修](https://mgc-global01.com/training): 企業向けのAI活用研修（OFF-JT、人材開発支援助成金の対象訓練に対応）
+- [導入事例](https://mgc-global01.com/cases): 実際の案件の課題・打ち手・設計上の要点。社名は掲載許諾が取れるまで伏せ、業種で紹介
 - [AI営業サービス](https://mgc-global01.com/service/ai-sales): リスト作成・初回接触・追客・日程調整まで、営業の前工程をAIが担うサービス
 - [AI電話（音声AI）](https://mgc-global01.com/service/ai-phone): 電話の一次対応を音声AIが引き受け、用件を聞き取って要約し担当者に引き渡すサービス
 - [Salesforce AI活用支援](https://mgc-global01.com/service/salesforce-ai): Salesforceの入力負担を下げ、貯まったデータから示唆を出し、エージェントによる実行まで支援するサービス

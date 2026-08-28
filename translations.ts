@@ -5,6 +5,7 @@ export const translations = {
     nav: {
       works: '事業内容',
       diagnosis: 'AI診断',
+      cases: '導入事例',
       training: '研修',
       column: 'コラム',
       blog: 'Journal',
@@ -498,6 +499,7 @@ export const translations = {
     nav: {
       works: 'Services',
       diagnosis: 'AI Diagnosis',
+      cases: 'Case Studies',
       training: 'Training',
       column: 'Column',
       blog: 'Journal',

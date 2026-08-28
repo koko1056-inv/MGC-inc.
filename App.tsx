@@ -3,6 +3,7 @@ import { ArrowRight, Globe, Zap, Layers, X, Send, Menu, Anchor, Check, Heart, Ma
 
 import { translations, Lang } from './translations';
 import { serviceContent, ServiceKey, ServiceSection } from './serviceContent';
+import { caseContent } from './caseContent';
 export const LanguageContext = React.createContext<{ lang: Lang; setLang: (l: Lang) => void; t: typeof translations['ja'] }>({
   lang: 'ja',
   setLang: () => {},
@@ -11,7 +12,7 @@ export const LanguageContext = React.createContext<{ lang: Lang; setLang: (l: La
 export const useLanguage = () => React.useContext(LanguageContext);
 // --- Types & Interfaces ---
 
-type ViewState = 'home' | 'works' | 'training' | 'diagnosis' | 'mission' | 'partners' | 'company' | 'career' | 'contact' | 'blog' | ServiceKey;
+type ViewState = 'home' | 'works' | 'training' | 'diagnosis' | 'mission' | 'partners' | 'company' | 'career' | 'contact' | 'blog' | 'cases' | ServiceKey;
 
 const SERVICE_KEYS: ServiceKey[] = ['ai-sales', 'ai-phone', 'salesforce-ai'];
 const isServiceKey = (v: string): v is ServiceKey => (SERVICE_KEYS as string[]).includes(v);
@@ -1944,6 +1945,34 @@ const ServiceSectionBlock: React.FC<{ section: ServiceSection }> = ({ section })
     );
   }
 
+  if (s.type === 'cases') {
+    return (
+      <>
+        <Reveal><SectionHead eyebrow={s.eyebrow} heading={s.heading} lead={s.lead} /></Reveal>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {s.links.map((link, i) => (
+            <Reveal key={i} delay={i * 80}>
+              <a
+                href={`#cases/${link.slug}`}
+                className="group flex flex-col h-full rounded-2xl border-2 border-gray-200 bg-[#F4F6FB] p-6 md:p-8 hover:border-[#2D6CDF]/50 transition-colors duration-300"
+              >
+                <span className="text-[11px] font-bold tracking-widest uppercase text-[#2D6CDF]">Case Study</span>
+                <span className="text-lg md:text-xl font-bold text-[#111418] leading-[1.6] mt-3 group-hover:text-[#2D6CDF] transition-colors">
+                  {link.label}
+                </span>
+                <span className="text-[15px] text-gray-600 leading-[1.9] mt-2.5 flex-1">{link.desc}</span>
+                <span className="inline-flex items-center gap-2 text-sm font-bold text-[#111418] mt-5 group-hover:text-[#2D6CDF] transition-colors">
+                  事例を見る
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                </span>
+              </a>
+            </Reveal>
+          ))}
+        </div>
+      </>
+    );
+  }
+
   if (s.type === 'related') {
     return (
       <>
@@ -1992,6 +2021,179 @@ const ServiceSectionBlock: React.FC<{ section: ServiceSection }> = ({ section })
         ))}
       </dl>
     </>
+  );
+};
+
+// ============================================================
+// Cases (導入事例)
+// 社名は掲載許諾が取れるまで伏せ、業種と進め方で示す。本文は caseContent.ts。
+// ============================================================
+
+const CasesView: React.FC = () => {
+  const { lang } = useLanguage();
+  const c = caseContent[lang];
+
+  // #cases/<slug> で来たときは、その事例まで送る
+  useEffect(() => {
+    const slug = window.location.hash.slice(1).split('/')[1];
+    if (!slug) return;
+    const t = window.setTimeout(() => {
+      document.getElementById(slug)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 300);
+    return () => window.clearTimeout(t);
+  }, []);
+
+  useEffect(() => {
+    const prevTitle = document.title;
+    document.title = lang === 'ja'
+      ? '導入事例｜AI導入の進め方と実例 - ＭＧＣ株式会社'
+      : 'Case studies | How AI projects actually run - MGC Inc.';
+    return () => { document.title = prevTitle; };
+  }, [lang]);
+
+  return (
+    <PageTransition>
+      <div className="text-[#111418] px-6 md:px-12">
+        <div className="max-w-screen-xl mx-auto">
+          {/* Head */}
+          <Reveal>
+            <div className="pt-2 pb-10 md:pb-14">
+              <span className="text-[#2D6CDF] font-bold tracking-[0.2em] text-xs uppercase">{c.eyebrow}</span>
+              <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-[#111418] mt-3 leading-[1.4]">{c.heading}</h1>
+              <div className="w-16 h-1.5 bg-[#2D6CDF] mt-5 rounded-full" />
+              <p className="text-base md:text-lg text-gray-600 leading-[1.9] mt-7 max-w-3xl">{c.lead}</p>
+            </div>
+          </Reveal>
+
+          {/* Cases */}
+          <div className="space-y-8 md:space-y-10">
+            {c.cases.map((cs, i) => (
+              <Reveal key={cs.slug} delay={i * 80}>
+                <article id={cs.slug} className="scroll-mt-28 rounded-3xl border-2 border-gray-200 bg-white overflow-hidden">
+                  {/* Header band */}
+                  <div className="bg-[#F4F6FB] px-6 md:px-10 py-7 md:py-8 border-b border-gray-200">
+                    <div className="flex flex-wrap items-center gap-2.5 mb-4">
+                      {cs.services.map((s) => (
+                        <span key={s} className="inline-flex items-center px-3 py-1 rounded-full bg-[#2D6CDF] text-white text-xs font-bold tracking-tight">
+                          {s}
+                        </span>
+                      ))}
+                      <span className="inline-flex items-center px-3 py-1 rounded-full border border-gray-300 text-gray-600 text-xs font-bold">
+                        {cs.status}
+                      </span>
+                    </div>
+                    <h2 className="text-2xl md:text-3xl font-bold text-[#111418] leading-[1.5]">{cs.industry}</h2>
+                    <p className="text-sm md:text-base text-gray-600 leading-[1.8] mt-2">{cs.scale}</p>
+                    <p className="text-[15px] md:text-base text-[#1A2233] leading-[1.9] mt-5 max-w-3xl">{cs.summary}</p>
+                  </div>
+
+                  <div className="px-6 md:px-10 py-8 md:py-10 grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">
+                    {/* 課題 */}
+                    <div className="lg:col-span-2">
+                      <span className="text-xs font-bold tracking-widest uppercase text-[#2D6CDF]">
+                        {lang === 'ja' ? '課題' : 'Challenge'}
+                      </span>
+                      <ul className="mt-4 space-y-3.5">
+                        {cs.challenge.map((x, j) => (
+                          <li key={j} className="flex items-start gap-3">
+                            <span aria-hidden className="w-1.5 h-1.5 rounded-full bg-gray-400 flex-shrink-0 mt-2.5" />
+                            <span className="text-[15px] text-[#1A2233] leading-[1.9]">{x}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      {cs.stack && (
+                        <div className="mt-7 pt-6 border-t border-gray-200">
+                          <span className="text-xs font-bold tracking-widest uppercase text-gray-500">
+                            {lang === 'ja' ? '主な構成' : 'Stack'}
+                          </span>
+                          <p className="text-sm text-[#1A2233] leading-[1.9] mt-3">{cs.stack}</p>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* 打ち手 */}
+                    <div className="lg:col-span-3">
+                      <span className="text-xs font-bold tracking-widest uppercase text-[#2D6CDF]">
+                        {lang === 'ja' ? '打ち手' : 'What we did'}
+                      </span>
+                      <ol className="mt-4 space-y-5">
+                        {cs.approach.map((a, j) => (
+                          <li key={j} className="flex gap-4">
+                            <span className="flex-shrink-0 w-7 h-7 rounded-full bg-[#2D6CDF]/10 text-[#2D6CDF] text-xs font-bold flex items-center justify-center mt-0.5 tabular-nums">
+                              {j + 1}
+                            </span>
+                            <div>
+                              <h3 className="text-base md:text-lg font-bold text-[#111418] leading-[1.6]">{a.title}</h3>
+                              <p className="text-[15px] text-gray-600 leading-[1.9] mt-1.5">{a.desc}</p>
+                            </div>
+                          </li>
+                        ))}
+                      </ol>
+                    </div>
+                  </div>
+
+                  {/* 設計上の要点 */}
+                  <div className="px-6 md:px-10 pb-8 md:pb-10">
+                    <div className="rounded-2xl bg-[#F4F6FB] p-6 md:p-7">
+                      <span className="text-xs font-bold tracking-widest uppercase text-gray-500">
+                        {lang === 'ja' ? '設計上の要点' : 'Design decisions'}
+                      </span>
+                      <ul className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3.5">
+                        {cs.points.map((x, j) => (
+                          <li key={j} className="flex items-start gap-3">
+                            <Check className="w-4 h-4 text-[#2D6CDF] flex-shrink-0 mt-1.5" strokeWidth={3} />
+                            <span className="text-[15px] text-[#1A2233] leading-[1.9]">{x}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    {cs.note && (
+                      <p className="mt-5 text-sm text-gray-500 leading-[1.9] border-l-2 border-gray-300 pl-4">{cs.note}</p>
+                    )}
+                  </div>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+
+          {/* 掲載方針 */}
+          <Reveal>
+            <p className="mt-10 text-xs md:text-sm text-gray-500 leading-[1.9] border-l-2 border-gray-300 pl-4 max-w-3xl">
+              {c.disclaimer}
+            </p>
+          </Reveal>
+
+          {/* CTA */}
+          <Reveal>
+            <div className="mt-16 md:mt-20 rounded-[1.75rem] md:rounded-[2.5rem] bg-[#2D6CDF] text-white px-7 py-12 md:px-16 md:py-16 text-center">
+              <h2 className="text-2xl md:text-4xl font-bold tracking-tight leading-[1.5]">
+                {lang === 'ja' ? '同じような課題、お持ちではありませんか' : 'Facing something similar?'}
+              </h2>
+              <p className="text-base md:text-lg text-white/90 leading-[1.9] mt-5 max-w-2xl mx-auto">
+                {lang === 'ja'
+                  ? '現状を伺い、どこからAIに任せられるかを整理してお返しします。初回のご相談は無料です。'
+                  : 'Tell us where you are and we will map what can be handed to AI. The first consultation is free.'}
+              </p>
+              <div className="flex flex-col sm:flex-row sm:justify-center items-stretch sm:items-center gap-3 sm:gap-4 mt-9">
+                <a
+                  href="#contact"
+                  className="group inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-white text-[#111418] font-bold text-sm md:text-base tracking-tight hover:bg-[#111418] hover:text-white transition-all duration-300"
+                >
+                  {lang === 'ja' ? '無料で相談する' : 'Book a free consultation'}
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                </a>
+                <a
+                  href="/diagnosis"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full border border-white/40 text-white font-bold text-sm tracking-tight hover:bg-white/10 transition-colors duration-300"
+                >
+                  {lang === 'ja' ? '無料のAI活用診断を試す（3分）' : 'Try the free AI diagnosis (3 min)'}
+                </a>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </div>
+    </PageTransition>
   );
 };
 
@@ -2396,13 +2598,14 @@ const DiagnosisView: React.FC = () => {
 const App: React.FC = () => {
   // Helper to parse view from hash
   const getViewFromHash = (): ViewState => {
-    const validViews: ViewState[] = ['home', 'works', 'training', 'diagnosis', 'mission', 'partners', 'company', 'career', 'contact', 'blog', ...SERVICE_KEYS];
+    const validViews: ViewState[] = ['home', 'works', 'training', 'diagnosis', 'mission', 'partners', 'company', 'career', 'contact', 'blog', 'cases', ...SERVICE_KEYS];
     const hash = window.location.hash.slice(1).split('/')[0];
     if (validViews.includes(hash as ViewState)) return hash as ViewState;
     // Support clean path URLs (e.g. /training, /diagnosis) via Vercel SPA rewrite
     const path = window.location.pathname.replace(/\/+$/, '');
     if (path === '/training') return 'training';
     if (path === '/diagnosis') return 'diagnosis';
+    if (path === '/cases') return 'cases';
     const svc = path.match(/^\/service\/([a-z-]+)$/);
     if (svc && isServiceKey(svc[1])) return svc[1];
     return 'home';
@@ -2445,6 +2648,7 @@ const App: React.FC = () => {
   const navItems: { id?: ViewState; href?: string; label: string }[] = [
     { id: 'works', label: t.nav.works },
     { id: 'diagnosis', label: t.nav.diagnosis },
+    { id: 'cases', label: t.nav.cases },
     { id: 'training', label: t.nav.training },
     { href: '/column', label: t.nav.column },
     { id: 'mission', label: t.nav.mission },
@@ -2553,6 +2757,7 @@ const App: React.FC = () => {
         {view === 'works' && <WorksView />}
         {view === 'training' && <TrainingView />}
         {isServiceKey(view) && <ServiceView serviceKey={view} />}
+        {view === 'cases' && <CasesView />}
         {view === 'diagnosis' && <DiagnosisView />}
         {view === 'blog' && <BlogView />}
         {view === 'mission' && <MissionView />}
