@@ -3,7 +3,7 @@ import { ArrowRight, Globe, Zap, Layers, X, Send, Menu, Anchor, Check, Heart, Ma
 
 import { translations, Lang } from './translations';
 import { serviceContent, ServiceKey, ServiceSection } from './serviceContent';
-import { caseContent } from './caseContent';
+import { caseContent, CaseStudy } from './caseContent';
 export const LanguageContext = React.createContext<{ lang: Lang; setLang: (l: Lang) => void; t: typeof translations['ja'] }>({
   lang: 'ja',
   setLang: () => {},
@@ -2040,6 +2040,67 @@ const ServiceSectionBlock: React.FC<{ section: ServiceSection }> = ({ section })
 // 社名は掲載許諾が取れるまで伏せ、業種と進め方で示す。本文は caseContent.ts。
 // ============================================================
 
+// Before / After のフロー図。
+// 事実を表す図のため画像生成は使わず、図形とテキストで組む（DESIGN.md §4）。
+// 青 = AIが担う工程、濃グレー = 人が担う工程。色は §2 の6ロールから外さない。
+const CaseFlow: React.FC<{ flow: NonNullable<CaseStudy['flow']>; lang: 'ja' | 'en' }> = ({ flow, lang }) => {
+  const Row: React.FC<{ label: string; steps: { label: string; by: 'human' | 'ai' }[]; dim?: boolean }> = ({ label, steps, dim }) => (
+    <div className="flex flex-col lg:flex-row lg:items-stretch gap-3 lg:gap-0">
+      <div className="lg:w-24 flex-shrink-0 flex lg:items-center">
+        <span className={`text-xs font-bold tracking-widest uppercase ${dim ? 'text-gray-400' : 'text-[#2D6CDF]'}`}>
+          {label}
+        </span>
+      </div>
+      <ol className="flex-1 flex flex-col lg:flex-row lg:items-stretch gap-2 lg:gap-0">
+        {steps.map((s, i) => (
+          <li key={i} className="flex lg:flex-1 items-center lg:items-stretch gap-2 lg:gap-0 min-w-0">
+            <div
+              className={`flex-1 min-w-0 rounded-xl px-3 py-3 lg:px-2.5 lg:py-3.5 text-[13px] leading-[1.6] font-medium border text-center lg:flex lg:items-center lg:justify-center ${
+                s.by === 'ai'
+                  ? 'bg-[#2D6CDF] border-[#2D6CDF] text-white'
+                  : dim
+                    ? 'bg-white border-gray-300 text-gray-500'
+                    : 'bg-white border-[#111418] text-[#111418]'
+              }`}
+            >
+              <span className="break-words">{s.label}</span>
+            </div>
+            {i < steps.length - 1 && (
+              <span aria-hidden className="flex-shrink-0 flex items-center justify-center w-6 lg:w-5 rotate-90 lg:rotate-0">
+                <ArrowRight className={`w-4 h-4 ${dim ? 'text-gray-300' : 'text-gray-400'}`} />
+              </span>
+            )}
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+
+  return (
+    <div className="rounded-2xl bg-white border border-gray-200 p-5 md:p-7">
+      {/* 凡例 */}
+      <div className="flex flex-wrap items-center gap-4 mb-5">
+        <span className="inline-flex items-center gap-2 text-xs font-bold text-gray-500">
+          <span aria-hidden className="w-3.5 h-3.5 rounded bg-[#2D6CDF]" />
+          {lang === 'ja' ? 'AIが担う' : 'Handled by AI'}
+        </span>
+        <span className="inline-flex items-center gap-2 text-xs font-bold text-gray-500">
+          <span aria-hidden className="w-3.5 h-3.5 rounded border-2 border-[#111418] bg-white" />
+          {lang === 'ja' ? '人が担う' : 'Handled by people'}
+        </span>
+      </div>
+
+      <div className="space-y-4">
+        <Row label={flow.beforeLabel} steps={flow.before} dim />
+        <div className="hidden lg:block border-t border-dashed border-gray-200" />
+        <Row label={flow.afterLabel} steps={flow.after} />
+      </div>
+
+      <p className="text-[15px] text-gray-600 leading-[1.9] mt-6 pt-5 border-t border-gray-200">{flow.caption}</p>
+    </div>
+  );
+};
+
 const CasesView: React.FC = () => {
   const { lang } = useLanguage();
   const c = caseContent[lang];
@@ -2106,6 +2167,18 @@ const CasesView: React.FC = () => {
                       </div>
                     )}
                   </div>
+
+                  {/* Before / After のフロー図 */}
+                  {cs.flow && (
+                    <div className="px-6 md:px-10 pt-8 md:pt-10">
+                      <span className="text-xs font-bold tracking-widest uppercase text-[#2D6CDF]">
+                        {lang === 'ja' ? '業務の流れ' : 'How the work flows'}
+                      </span>
+                      <div className="mt-4">
+                        <CaseFlow flow={cs.flow} lang={lang} />
+                      </div>
+                    </div>
+                  )}
 
                   <div className="px-6 md:px-10 py-8 md:py-10 grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">
                     {/* 課題 */}
