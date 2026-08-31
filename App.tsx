@@ -2150,9 +2150,6 @@ const CasesView: React.FC = () => {
                           {s}
                         </span>
                       ))}
-                      <span className="inline-flex items-center px-3 py-1 rounded-full border border-gray-300 text-gray-600 text-xs font-bold">
-                        {cs.status}
-                      </span>
                     </div>
                     <h2 className="text-2xl md:text-3xl font-bold text-[#111418] leading-[1.5]">{cs.industry}</h2>
                     <p className="text-sm md:text-base text-gray-600 leading-[1.8] mt-2">{cs.scale}</p>
