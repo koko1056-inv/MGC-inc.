@@ -17,6 +17,15 @@ export type CaseStudy = {
   approach: { title: string; desc: string }[];
   stack?: string;            // 使った主な技術
   result?: { label: string; desc: string };  // 先方の確認が取れた成果のみ
+  // Before/After のフロー図。by: 'human' は人、'ai' はAIが担う工程。
+  // 事実を表す図のため画像生成は使わず、テキストと図形で組む（DESIGN.md §4）。
+  flow?: {
+    beforeLabel: string;
+    afterLabel: string;
+    before: { label: string; by: 'human' | 'ai' }[];
+    after: { label: string; by: 'human' | 'ai' }[];
+    caption: string;
+  };
   points: string[];          // 設計上の要点（MGCの効かせどころ）
   note?: string;             // 掲載上の但し書き
 };
@@ -38,6 +47,25 @@ export const caseContent: Content = {
         status: '進行中（2026年6月〜）',
         summary:
           'CRMと音声AIを統合し、催促の架電をAIが自動で行う仕組みです。架電して終わりではなく、通話内容に応じた有人対応へのエスカレーションと、通話後の記録・通知（ACW）までを自動化しています。',
+        flow: {
+          beforeLabel: '導入前',
+          afterLabel: '導入後',
+          before: [
+            { label: '対象者を抽出', by: 'human' },
+            { label: '電話をかける', by: 'human' },
+            { label: '通話内容を記録', by: 'human' },
+            { label: '関係者へ共有', by: 'human' },
+            { label: '次のアクションを起票', by: 'human' },
+          ],
+          after: [
+            { label: '対象者を抽出', by: 'ai' },
+            { label: '電話をかける', by: 'ai' },
+            { label: '要対応か判定', by: 'ai' },
+            { label: '判断が要る通話に対応', by: 'human' },
+            { label: '記録・Teams通知', by: 'ai' },
+          ],
+          caption: '人が残るのは「判断が要る通話」だけになりました。記録・共有・起票（ACW）が丸ごと自動化された点が、人件費の削減に最も効いています。',
+        },
         challenge: [
           '契約に関する催促の架電（解約手続きの追いかけ、継続確認、未払いの督促、機器の未着確認、返却の催促など）が人手に依存していた',
           '架電そのものより、通話後の後処理（ACW）に時間が取られていた。記録の入力、関係者への共有、次のアクションの起票など',
@@ -69,6 +97,25 @@ export const caseContent: Content = {
         status: '進行中',
         summary:
           '取り扱う候補となる海外メーカーの発掘を、AIで自動化している案件です。条件に合うメーカーを見つけ、接触し、商談の場をつくるまでを仕組みとして回しています。',
+        flow: {
+          beforeLabel: '導入前',
+          afterLabel: '導入後',
+          before: [
+            { label: '人脈をたどって候補を探す', by: 'human' },
+            { label: 'リストを手作業で作る', by: 'human' },
+            { label: '文面を書いて送る', by: 'human' },
+            { label: '返信を捌く', by: 'human' },
+            { label: '商談', by: 'human' },
+          ],
+          after: [
+            { label: '狙う条件を決める', by: 'human' },
+            { label: '条件に合うメーカーを発掘', by: 'ai' },
+            { label: '重複・既存先を除外', by: 'ai' },
+            { label: '1社ずつ文面を生成し送信', by: 'ai' },
+            { label: '商談', by: 'human' },
+          ],
+          caption: '担当者の仕事は「狙う条件を決めること」と「商談」に集約されました。探す・送る・捌くの工程が仕組みに置き換わっています。',
+        },
         challenge: [
           '取り扱い候補となる海外メーカーを探す作業が、担当者の手作業と人脈に依存していた',
           '新規開拓のリストが枯渇し、接触できる先が頭打ちになっていた',
@@ -98,6 +145,25 @@ export const caseContent: Content = {
         status: '進行中',
         summary:
           '現場でのトラブルシューティングを、音声AIとの対話で解決できるシステムです。機種と言語に応じた技術情報をAIが引き当て、話しかけるだけで答えが返ります。',
+        flow: {
+          beforeLabel: '導入前',
+          afterLabel: '導入後',
+          before: [
+            { label: '現場でトラブル発生', by: 'human' },
+            { label: '事務所へ戻る', by: 'human' },
+            { label: '手袋を外して端末を操作', by: 'human' },
+            { label: '機種の資料を探す', by: 'human' },
+            { label: '対処する', by: 'human' },
+          ],
+          after: [
+            { label: '現場でトラブル発生', by: 'human' },
+            { label: 'その場で話しかける', by: 'human' },
+            { label: '機種・言語から該当情報を特定', by: 'ai' },
+            { label: '音声で手順を返す', by: 'ai' },
+            { label: '対処する', by: 'human' },
+          ],
+          caption: '「事務所へ戻る」「手袋を外す」の2工程が消えました。現場は手がふさがっているという前提から設計しています。',
+        },
         challenge: [
           '現場でトラブルが起きたとき、対処法を調べるために事務所へ戻る必要があった',
           '手袋を外してスマートフォンを操作しないと調べられず、その手間が現場の負担になっていた',
@@ -133,6 +199,25 @@ export const caseContent: Content = {
         status: 'In progress (from June 2026)',
         summary:
           'CRM and voice AI integrated so that AI places reminder calls automatically. It does not stop at the call: escalation to a person, and the after-call work of logging and notifying, are automated too.',
+        flow: {
+          beforeLabel: 'Before',
+          afterLabel: 'After',
+          before: [
+            { label: 'Select who to call', by: 'human' },
+            { label: 'Place the call', by: 'human' },
+            { label: 'Log the call', by: 'human' },
+            { label: 'Share with the team', by: 'human' },
+            { label: 'Raise the next action', by: 'human' },
+          ],
+          after: [
+            { label: 'Select who to call', by: 'ai' },
+            { label: 'Place the call', by: 'ai' },
+            { label: 'Decide if a person is needed', by: 'ai' },
+            { label: 'Handle calls needing judgement', by: 'human' },
+            { label: 'Log and notify via Teams', by: 'ai' },
+          ],
+          caption: 'People are left with only the calls that need judgement. Automating the after-call work — logging, sharing, raising actions — is what produced the payroll saving.',
+        },
         challenge: [
           'Contract reminder calls — chasing cancellations, confirming renewals, payment reminders, undelivered and unreturned equipment — all depended on people',
           'More time went into after-call work than the calls themselves: logging, sharing with colleagues, raising the next action',
@@ -164,6 +249,25 @@ export const caseContent: Content = {
         status: 'In progress',
         summary:
           'Automating the discovery of overseas manufacturers worth representing — finding companies that fit, reaching out, and getting to a meeting, all as one system.',
+        flow: {
+          beforeLabel: 'Before',
+          afterLabel: 'After',
+          before: [
+            { label: 'Search through personal networks', by: 'human' },
+            { label: 'Build the list by hand', by: 'human' },
+            { label: 'Write and send outreach', by: 'human' },
+            { label: 'Handle replies', by: 'human' },
+            { label: 'Meeting', by: 'human' },
+          ],
+          after: [
+            { label: 'Define the criteria', by: 'human' },
+            { label: 'Surface matching manufacturers', by: 'ai' },
+            { label: 'Screen duplicates and existing accounts', by: 'ai' },
+            { label: 'Write and send per company', by: 'ai' },
+            { label: 'Meeting', by: 'human' },
+          ],
+          caption: 'The team’s work narrows to defining criteria and holding the meeting. Searching, sending and triaging moved into the system.',
+        },
         challenge: [
           'Finding candidate overseas manufacturers relied on manual work and personal networks',
           'The prospect list ran dry and reachable companies plateaued',
@@ -193,6 +297,25 @@ export const caseContent: Content = {
         status: 'In progress',
         summary:
           'A system that lets field staff troubleshoot by talking to a voice AI. It pulls the right technical information for the machine model and language, so an answer comes back from speaking alone.',
+        flow: {
+          beforeLabel: 'Before',
+          afterLabel: 'After',
+          before: [
+            { label: 'Problem occurs on site', by: 'human' },
+            { label: 'Walk back to the office', by: 'human' },
+            { label: 'Remove gloves, use a device', by: 'human' },
+            { label: 'Search for the right document', by: 'human' },
+            { label: 'Fix it', by: 'human' },
+          ],
+          after: [
+            { label: 'Problem occurs on site', by: 'human' },
+            { label: 'Just speak, on the spot', by: 'human' },
+            { label: 'Match model and language', by: 'ai' },
+            { label: 'Answer back by voice', by: 'ai' },
+            { label: 'Fix it', by: 'human' },
+          ],
+          caption: 'Two steps disappear: walking back and taking off gloves. Designed from the premise that hands are full on site.',
+        },
         challenge: [
           'When something went wrong on site, staff had to return to the office to look up how to fix it',
           'Looking it up meant removing gloves to operate a phone — a real burden in the field',
