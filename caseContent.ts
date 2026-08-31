@@ -3,7 +3,7 @@
 // 掲載方針（重要）:
 // - 社名・製品名・所在地は書かない。特定につながる固有名詞も避ける。
 // - 数値の成果は、実測して先方の確認が取れたものだけを載せる。
-//   未確定のものは status に「進行中」と書き、成果欄は作らない。
+//   未確定のものは成果欄を作らず、note にその旨を書く。
 // - 各事例の内容は、Notionのプロジェクト／商談ページに残っている事実に基づく。
 
 export type CaseStudy = {
@@ -11,7 +11,6 @@ export type CaseStudy = {
   industry: string;          // 業種（社名の代わりに出す見出し）
   scale: string;             // 規模・立ち位置の一言
   services: string[];        // 関連するサービス
-  status: string;            // 進行中 / 実施中 など
   summary: string;
   challenge: string[];
   approach: { title: string; desc: string }[];
@@ -44,7 +43,6 @@ export const caseContent: Content = {
         industry: 'コールセンター運営',
         scale: '契約者への電話対応業務を担う事業者',
         services: ['AI電話（音声AI）', 'Salesforce AI', 'AI活用研修'],
-        status: '進行中（2026年6月〜）',
         summary:
           'CRMと音声AIを統合し、催促の架電をAIが自動で行う仕組みです。架電して終わりではなく、通話内容に応じた有人対応へのエスカレーションと、通話後の記録・通知（ACW）までを自動化しています。',
         flow: {
@@ -94,7 +92,6 @@ export const caseContent: Content = {
         industry: '総合代理店',
         scale: '海外メーカーの製品を日本市場で扱う事業者',
         services: ['AI営業'],
-        status: '進行中',
         summary:
           '取り扱う候補となる海外メーカーの発掘を、AIで自動化している案件です。条件に合うメーカーを見つけ、接触し、商談の場をつくるまでを仕組みとして回しています。',
         flow: {
@@ -142,7 +139,6 @@ export const caseContent: Content = {
         industry: '大手建設機械メーカー',
         scale: '海外展開している機械メーカー',
         services: ['AI電話（音声AI）', 'AI開発（受託）'],
-        status: '進行中',
         summary:
           '現場でのトラブルシューティングを、音声AIとの対話で解決できるシステムです。機種と言語に応じた技術情報をAIが引き当て、話しかけるだけで答えが返ります。',
         flow: {
@@ -196,7 +192,6 @@ export const caseContent: Content = {
         industry: 'Call centre operator',
         scale: 'Handles outbound calls to contract holders',
         services: ['Voice AI', 'Salesforce AI', 'AI training'],
-        status: 'In progress (from June 2026)',
         summary:
           'CRM and voice AI integrated so that AI places reminder calls automatically. It does not stop at the call: escalation to a person, and the after-call work of logging and notifying, are automated too.',
         flow: {
@@ -246,7 +241,6 @@ export const caseContent: Content = {
         industry: 'Distributor',
         scale: 'Brings overseas manufacturers’ products to the Japanese market',
         services: ['AI Sales'],
-        status: 'In progress',
         summary:
           'Automating the discovery of overseas manufacturers worth representing — finding companies that fit, reaching out, and getting to a meeting, all as one system.',
         flow: {
@@ -294,7 +288,6 @@ export const caseContent: Content = {
         industry: 'Major construction machinery manufacturer',
         scale: 'A machinery manufacturer operating internationally',
         services: ['Voice AI', 'Custom AI development'],
-        status: 'In progress',
         summary:
           'A system that lets field staff troubleshoot by talking to a voice AI. It pulls the right technical information for the machine model and language, so an answer comes back from speaking alone.',
         flow: {
