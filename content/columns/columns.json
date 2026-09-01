@@ -7,7 +7,7 @@
   },
   "rotation": {
     "note": "日次で industries を順番に回す。lastIndex は最後に公開した業種の添字。次回は (lastIndex+1)%12 の業種で、usedTopics に無いテーマを選ぶ。",
-    "lastIndex": 10,
+    "lastIndex": 11,
     "industries": [
       {
         "key": "manufacturing",
@@ -130,7 +130,8 @@
     ],
     "public": [
       "public-dx-ai-implementation",
-      "public-ai-efficiency-governance"
+      "public-ai-efficiency-governance",
+      "public-local-government-ai-practical-guide"
     ]
   },
   "articles": [
@@ -349,6 +350,12 @@
       "industry": "hr",
       "date": "2026-08-31",
       "file": "hr-ai-matching-optimization.json"
+    },
+    {
+      "slug": "public-local-government-ai-practical-guide",
+      "industry": "public",
+      "date": "2026-09-01",
+      "file": "public-local-government-ai-practical-guide.json"
     }
   ]
 }
