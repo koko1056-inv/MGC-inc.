@@ -7,7 +7,7 @@
   },
   "rotation": {
     "note": "日次で industries を順番に回す。lastIndex は最後に公開した業種の添字。次回は (lastIndex+1)%12 の業種で、usedTopics に無いテーマを選ぶ。",
-    "lastIndex": 11,
+    "lastIndex": 0,
     "industries": [
       {
         "key": "manufacturing",
@@ -75,7 +75,8 @@
     "manufacturing": [
       "manufacturing-inspection-ai",
       "manufacturing-predictive-maintenance",
-      "manufacturing-production-scheduling-ai"
+      "manufacturing-production-scheduling-ai",
+      "manufacturing-skill-transfer-ai"
     ],
     "construction": [
       "construction-site-efficiency-ai",
@@ -356,6 +357,12 @@
       "industry": "public",
       "date": "2026-09-01",
       "file": "public-local-government-ai-practical-guide.json"
+    },
+    {
+      "slug": "manufacturing-skill-transfer-ai",
+      "industry": "manufacturing",
+      "date": "2026-09-02",
+      "file": "manufacturing-skill-transfer-ai.json"
     }
   ]
 }
