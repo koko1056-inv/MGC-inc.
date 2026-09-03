@@ -139,8 +139,8 @@ h1.title{font-size:2rem;line-height:1.45;font-weight:800;letter-spacing:-.01em;m
 // false の間はコラム側の導線（ヘッダー・フッター・CTA・llms.txt）から診断を外す。
 const SHOW_DIAGNOSIS = false;
 
-const HEADER = `<header class="site-header"><a class="brand" href="/">MGC Inc.</a><nav><a href="/column">コラム</a>${SHOW_DIAGNOSIS ? '<a href="/diagnosis">AI診断</a>' : ''}<a href="/training">研修</a><a href="/#works">事業内容</a><a href="/#contact">お問い合わせ</a></nav></header>`;
-const FOOTER = `<footer class="site-footer"><div class="wrap"><p><strong>${esc(site.brandFull)}</strong></p><p>${esc(site.address || '')}</p><p style="margin-top:10px"><a href="/">${esc(site.baseUrl)}</a> ・ <a href="/column">コラム一覧</a>${SHOW_DIAGNOSIS ? ' ・ <a href="/diagnosis">AI活用診断</a>' : ''} ・ <a href="/training">研修</a></p><p style="margin-top:10px">© 2026 MGC Inc. All Rights Reserved.</p></div></footer>`;
+const HEADER = `<header class="site-header"><a class="brand" href="/">MGC Inc.</a><nav><a href="/service/ai-sales">サービス</a><a href="/cases">導入事例</a><a href="/column">コラム</a>${SHOW_DIAGNOSIS ? '<a href="/diagnosis">AI診断</a>' : ''}<a href="/training">研修</a><a href="/#works">事業内容</a><a href="/#contact">お問い合わせ</a></nav></header>`;
+const FOOTER = `<footer class="site-footer"><div class="wrap"><p><strong>${esc(site.brandFull)}</strong></p><p>${esc(site.address || '')}</p><p style="margin-top:10px"><a href="/">${esc(site.baseUrl)}</a> ・ <a href="/column">コラム一覧</a> ・ <a href="/cases">導入事例</a> ・ <a href="/service/ai-sales">AI営業</a> ・ <a href="/service/ai-phone">AI電話</a> ・ <a href="/service/salesforce-ai">Salesforce AI</a>${SHOW_DIAGNOSIS ? ' ・ <a href="/diagnosis">AI活用診断</a>' : ''} ・ <a href="/training">研修</a></p><p style="margin-top:10px">© 2026 MGC Inc. All Rights Reserved.</p></div></footer>`;
 
 // ---- render article body blocks ----
 function renderBody(blocks = []) {
