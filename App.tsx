@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState, ReactNode } from 'react';
 import { ArrowRight, Globe, Zap, Layers, X, Send, Menu, Anchor, Check, Heart, MapPin, Calendar, User, Sparkles, Plus, Minus } from 'lucide-react';
 
 import { translations, Lang } from './translations';
+import { track } from '@vercel/analytics';
 import { serviceContent, ServiceKey, ServiceSection } from './serviceContent';
 import { caseContent, CaseStudy } from './caseContent';
 export const LanguageContext = React.createContext<{ lang: Lang; setLang: (l: Lang) => void; t: typeof translations['ja'] }>({
@@ -685,7 +686,7 @@ const WorksView: React.FC = () => {
             index="02"
             serviceKey="service_lab"
             icon={<Zap className="w-5 h-5 text-accent stroke-[1.75]" />}
-            image="/assets/service_lab.png"
+            image="/assets/service_lab.jpg"
             onDetail={() => setSelectedId('service_lab')}
           />
         </div>
@@ -1248,6 +1249,7 @@ const ContactView: React.FC = () => {
         }),
       });
       if (!response.ok) throw new Error('Failed to send message');
+      track('contact_submit', { topic: formState.topic || '(unspecified)' });
       setIsSent(true);
       setFormState({ name: '', email: '', company: '', topic: '', message: '' });
       setTimeout(() => setIsSent(false), 8000);
@@ -2863,7 +2865,7 @@ const App: React.FC = () => {
       </main>
 
       {/* Floating CTA — visible on every page except contact itself */}
-      {view !== 'contact' && (
+      {view !== 'contact' && view !== 'home' && (
         <button
           onClick={() => navigate('contact')}
           aria-label={t.floatingCta.label}

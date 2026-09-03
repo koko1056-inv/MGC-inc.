@@ -12,7 +12,7 @@
     "画像認識 検査",
     "AI導入 製造"
   ],
-  "image": "/assets/column/manufacturing-inspection-ai.png",
+  "image": "/assets/column/manufacturing-inspection-ai.jpg",
   "imageAlt": "製造ラインの外観検査を人とAIで分担するイメージ図",
   "readTime": "8分",
   "lead": "外観検査へのAI導入で最初につまずくのは「AIの精度」ではなく、「どこまでAIに判定させ、どこから人が見るか」の線引きでした。全数検査を人とAIで分担する、その設計の勘所を実務目線でまとめます。",
