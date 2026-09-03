@@ -377,14 +377,28 @@ export const translations = {
         heading: 'コース例',
         eyebrow: 'Course',
         nameLabel: 'コース名（例）',
-        name: 'AI活用リスキリング研修（基礎〜実践）',
         overviewLabel: 'どんな訓練か',
-        overview: 'AIの全体像から、データ連携による業務での戦力化までを、解説・業界別の実例・デモで学ぶOFF-JT（通常の業務を離れて行う実践型の座学・演習）です。',
-        specs: [
-          { label: '対象', value: '経営者、管理者、従業員（AIを業務に取り入れたい方）' },
-          { label: '実施形態', value: '通学（対面）／オンライン（同時双方向）／eラーニング' },
-          { label: '標準時間', value: '10時間以上（企業のニーズに合わせて設計・OFF-JT）' },
-          { label: '主なテーマ', value: 'AIツールの全体像／生成AI・AIエージェントの使い分け／データ連携（API）による業務活用／セキュリティと権限設計／業務への適用の考え方' },
+        items: [
+          {
+            name: 'AI活用リスキリング研修（基礎〜実践）',
+            overview: 'AIの全体像から、データ連携による業務での戦力化までを、解説・業界別の実例・デモで学ぶOFF-JT（通常の業務を離れて行う実践型の座学・演習）です。',
+            specs: [
+              { label: '対象', value: '経営者、管理者、従業員（AIを業務に取り入れたい方）' },
+              { label: '実施形態', value: '通学（対面）／オンライン（同時双方向）／eラーニング' },
+              { label: '標準時間', value: '10時間以上（企業のニーズに合わせて設計・OFF-JT）' },
+              { label: '主なテーマ', value: 'AIツールの全体像／生成AI・AIエージェントの使い分け／データ連携（API）による業務活用／セキュリティと権限設計／業務への適用の考え方' },
+            ],
+          },
+          {
+            name: 'DX推進・生成AI活用人材養成講座',
+            overview: '社内のDXを進める中心人物を育てる講座です。業務の棚卸しからデジタル化・自動化の設計、生成AIを使った実装と定着までを、演習を交えて学ぶOFF-JTです。',
+            specs: [
+              { label: '対象', value: 'DX推進の担当者・候補者、部門のリーダー層、情報システム／企画部門の方' },
+              { label: '実施形態', value: '通学（対面）／オンライン（同時双方向）／eラーニング' },
+              { label: '標準時間', value: '10時間以上（企業のニーズに合わせて設計・OFF-JT）' },
+              { label: '主なテーマ', value: 'DXの全体像と進め方／業務の棚卸しと課題の見つけ方／生成AIによる業務プロセスの再設計／ノーコード・自動化ツールの活用／社内定着と効果測定／情報セキュリティとルールづくり' },
+            ],
+          },
         ],
         note: '上記は標準的な構成の一例です。実際のカリキュラムは、ご要望や受講者のレベルに合わせて設計します。',
       },
@@ -866,17 +880,31 @@ export const translations = {
         cta: 'Request materials / Contact us',
       },
       course: {
-        heading: 'Example course',
+        heading: 'Example courses',
         eyebrow: 'Course',
         nameLabel: 'Course name (example)',
-        name: 'AI Reskilling Program (Foundations to Practice)',
         overviewLabel: 'What the training covers',
-        overview: 'An OFF-JT course — lectures, industry examples, and demos — taking you from the big picture of AI to making AI a real working asset through data integration.',
-        specs: [
-          { label: 'Audience', value: 'Executives, managers, and employees who want to bring AI into their work' },
-          { label: 'Format', value: 'In-person / Live online / e-learning' },
-          { label: 'Standard hours', value: '10+ hours (designed to your needs, OFF-JT)' },
-          { label: 'Key themes', value: 'Overview of AI tools / Generative AI vs. AI agents / Using data via API / Security & permission design / How to apply AI to business processes' },
+        items: [
+          {
+            name: 'AI Reskilling Program (Foundations to Practice)',
+            overview: 'An OFF-JT course — lectures, industry examples, and demos — taking you from the big picture of AI to making AI a real working asset through data integration.',
+            specs: [
+              { label: 'Audience', value: 'Executives, managers, and employees who want to bring AI into their work' },
+              { label: 'Format', value: 'In-person / Live online / e-learning' },
+              { label: 'Standard hours', value: '10+ hours (designed to your needs, OFF-JT)' },
+              { label: 'Key themes', value: 'Overview of AI tools / Generative AI vs. AI agents / Using data via API / Security & permission design / How to apply AI to business processes' },
+            ],
+          },
+          {
+            name: 'DX Leadership & Generative AI Practitioner Program',
+            overview: 'A program for the people who will drive DX inside your company. Through hands-on exercises, participants learn to map current work, design digitalization and automation, and implement and embed generative AI in daily operations.',
+            specs: [
+              { label: 'Audience', value: 'DX leads and candidates, department leaders, IT and planning teams' },
+              { label: 'Format', value: 'In-person / Live online / e-learning' },
+              { label: 'Standard hours', value: '10+ hours (designed to your needs, OFF-JT)' },
+              { label: 'Key themes', value: 'What DX is and how to drive it / Mapping work and finding bottlenecks / Redesigning processes with generative AI / No-code and automation tools / Driving adoption and measuring impact / Security and internal rules' },
+            ],
+          },
         ],
         note: 'The above is one example of a standard structure. The actual curriculum is designed to match your requirements and participants’ levels.',
       },
