@@ -19,6 +19,39 @@ type ViewState = 'home' | 'works' | 'training' | 'diagnosis' | 'mission' | 'part
 // ページ自体（/diagnosis）は残るため、true に戻せば元の状態に復帰する。
 export const SHOW_DIAGNOSIS = false;
 
+// ビューごとの title / description。cases とサービス3本は各ビュー側で設定する。
+const PAGE_META: Record<Lang, Partial<Record<string, { title: string; description: string }>>> = {
+  ja: {
+    home: { title: 'ＭＧＣ株式会社（MGC Inc.）| AIとテクノロジーで、日本と世界をつなぐ', description: 'ＭＧＣ株式会社は、AIコンサルティングから開発・運用・研修まで一気通貫のAIソリューションと、双方向のクロスボーダー事業を展開する京都の会社。初回相談は無料。' },
+    works: { title: '事業内容｜AIソリューションとクロスボーダー事業 - ＭＧＣ株式会社', description: 'AIコンサルティング・開発・運用・研修を一気通貫で提供するAIソリューションと、海外企業の日本総代理店・日本企業の海外進出を支援するクロスボーダー事業。' },
+    training: { title: 'AI活用リスキリング研修｜人材開発支援助成金対応 - ＭＧＣ株式会社', description: 'ITに詳しくない経営者・従業員がAIを業務に導入・活用できるようになる実践型研修（OFF-JT）。人材開発支援助成金の対象訓練に対応。' },
+    mission: { title: '会社理念｜AIとテクノロジーで、日本と世界をつなぐ - ＭＧＣ株式会社', description: 'MGCのビジョン・ミッション・バリュー。AIは手段であり、目的は未来をより良くすること。受け継がれ、続いていく取り組みをつくります。' },
+    company: { title: '会社概要 - ＭＧＣ株式会社（MGC Inc.）', description: 'ＭＧＣ株式会社の会社概要。商号・代表者・所在地（京都府京都市）・設立・事業内容。' },
+    career: { title: '採用情報｜AIネイティブに働く仲間を募集 - ＭＧＣ株式会社', description: 'MGCが求める人物像・マインドセット・スキル。AIを同僚として使いこなし、日本と世界をつなぐ仕事に挑む仲間を募集しています。' },
+    contact: { title: 'お問い合わせ｜30分の無料相談 - ＭＧＣ株式会社', description: 'AI導入・研修・海外展開のご相談は無料です。現状を伺い、どこからAIに任せられるかを整理してお返しします。' },
+    blog: { title: 'ジャーナル - ＭＧＣ株式会社', description: 'MGCの考えとビジョンを綴るジャーナル。' },
+    diagnosis: { title: 'AI活用診断 - ＭＧＣ株式会社', description: '業種と課題を入力するだけで、AI活用施策と導入後の効果をその場で診断します。' },
+  },
+  en: {
+    home: { title: 'MGC Inc. | Connect Japan & The World through AI and Tech', description: 'MGC Inc. delivers end-to-end AI solutions — consulting, development, operations and training — and cross-border business from Kyoto, Japan. First consultation is free.' },
+    works: { title: 'Business | AI Solutions and Cross-Border - MGC Inc.', description: 'End-to-end AI solutions and two-way cross-border business: representing overseas companies in Japan and helping Japanese companies expand abroad.' },
+    training: { title: 'AI Reskilling Program - MGC Inc.', description: 'Hands-on AI training (OFF-JT) for managers and employees who are not IT specialists. Designed to qualify for Japan’s Human Resource Development subsidy.' },
+    mission: { title: 'Mission | Connect Japan & The World through AI and Tech - MGC Inc.', description: 'MGC’s vision, mission and values. AI is a means; the goal is a better future that outlasts us.' },
+    company: { title: 'Company Profile - MGC Inc.', description: 'Corporate profile of MGC Inc.: name, representative, location (Kyoto, Japan), founding date and business.' },
+    career: { title: 'Careers | Work AI-natively with us - MGC Inc.', description: 'Who we look for, the mindset and the skills. Join us in connecting Japan and the world with AI as a colleague.' },
+    contact: { title: 'Contact | Free 30-minute consultation - MGC Inc.', description: 'Consultations on AI adoption, training and overseas expansion are free. Tell us where you are and we will map what AI can take on.' },
+    blog: { title: 'Journal - MGC Inc.', description: 'Thoughts and vision from MGC.' },
+    diagnosis: { title: 'AI Diagnosis - MGC Inc.', description: 'Enter your industry and challenges to get an instant AI adoption diagnosis.' },
+  },
+};
+
+// ビューとクリーンURLの対応。ハッシュ（#works 等）は互換のため引き続き受け付ける。
+const PATH_TO_VIEW: Record<string, ViewState> = {
+  '/works': 'works', '/training': 'training', '/diagnosis': 'diagnosis', '/cases': 'cases',
+  '/mission': 'mission', '/company': 'company', '/career': 'career', '/contact': 'contact', '/blog': 'blog',
+};
+const pathForView = (v: ViewState): string => (isServiceKey(v) ? `/service/${v}` : v === 'home' ? '/' : `/${v}`);
+
 const SERVICE_KEYS: ServiceKey[] = ['ai-sales', 'ai-phone', 'salesforce-ai'];
 const isServiceKey = (v: string): v is ServiceKey => (SERVICE_KEYS as string[]).includes(v);
 
@@ -76,11 +109,11 @@ const PageTransition: React.FC<{ children: ReactNode }> = ({ children }) => (
   </div>
 );
 
-const SectionHeading: React.FC<{ title: string; subtitle?: ReactNode; dark?: boolean }> = ({ title, subtitle, dark = false }) => (
+const SectionHeading: React.FC<{ title: string; subtitle?: ReactNode; dark?: boolean; as?: 'h1' | 'h2' }> = ({ title, subtitle, dark = false, as: Tag = 'h2' }) => (
   <Reveal>
     <div className={`flex flex-col md:flex-row items-end justify-between border-b ${dark ? 'border-gray-800' : 'border-gray-200'} pb-8 mb-16`}>
       <div className="relative">
-        <h2 className={`text-6xl md:text-8xl font-bold tracking-tighter mb-2 ${dark ? 'text-white' : 'text-offblack'}`}>{title}</h2>
+        <Tag className={`text-6xl md:text-8xl font-bold tracking-tighter mb-2 ${dark ? 'text-white' : 'text-offblack'}`}>{title}</Tag>
         <div className="w-24 h-2 bg-accent mt-4"></div>
       </div>
       {subtitle && (
@@ -542,7 +575,7 @@ const ServiceBlock: React.FC<{
   const data = t.works[serviceKey];
   return (
     <Reveal>
-      <section className="border-t border-gray-800 pt-16 md:pt-20 pb-4">
+      <section className="border-t border-gray-200 pt-16 md:pt-20 pb-4">
         <div className="grid md:grid-cols-12 gap-8 md:gap-12">
           {/* Left column: index + headline */}
           <div className="md:col-span-5 lg:col-span-5">
@@ -551,11 +584,11 @@ const ServiceBlock: React.FC<{
                 SERVICE / {index}
               </span>
             </div>
-            <div className="text-[7rem] md:text-[9rem] font-bold text-gray-800/60 leading-[0.85] mb-8 select-none tracking-tighter">
+            <div className="text-[7rem] md:text-[9rem] font-bold text-gray-200 leading-[0.85] mb-8 select-none tracking-tighter">
               {index}
             </div>
             {image && (
-              <div className="rounded-2xl overflow-hidden mb-8 border border-gray-800">
+              <div className="rounded-2xl overflow-hidden mb-8 border border-gray-200">
                 <img src={image} alt={data.title} loading="lazy" className="w-full aspect-[4/3] object-cover" />
               </div>
             )}
@@ -564,7 +597,7 @@ const ServiceBlock: React.FC<{
                 {icon}
               </div>
             </div>
-            <h3 className="text-4xl md:text-5xl font-bold text-white tracking-tight mb-4 leading-[1.1]">
+            <h3 className="text-4xl md:text-5xl font-bold text-offblack tracking-tight mb-4 leading-[1.1]">
               {data.title}
             </h3>
             <p className="text-lg md:text-xl text-accent font-bold leading-snug">
@@ -572,26 +605,26 @@ const ServiceBlock: React.FC<{
             </p>
           </div>
           {/* Right column: description + features */}
-          <div className="md:col-span-7 lg:col-span-7 md:pl-6 md:border-l md:border-gray-900">
-            <p className="text-gray-300 text-base md:text-lg leading-relaxed mb-10 font-normal">
+          <div className="md:col-span-7 lg:col-span-7 md:pl-6 md:border-l md:border-gray-200">
+            <p className="text-gray-700 text-base md:text-lg leading-relaxed mb-10 font-normal">
               {data.desc}
             </p>
             <div className="space-y-6 mb-8">
               {data.items.map((item, i) => (
-                <div key={i} className="group flex gap-4 md:gap-6 pb-6 border-b border-gray-900 last:border-b-0">
+                <div key={i} className="group flex gap-4 md:gap-6 pb-6 border-b border-gray-200 last:border-b-0">
                   <div className="flex-shrink-0">
                     <span className="font-mono text-xs font-bold text-accent">
                       0{i + 1}
                     </span>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h4 className="text-lg md:text-xl font-bold text-white mb-1 tracking-tight">
+                    <h4 className="text-lg md:text-xl font-bold text-offblack mb-1 tracking-tight">
                       {item.title}
                     </h4>
                     <p className="text-[11px] font-mono uppercase tracking-widest text-accent/80 mb-2">
                       {item.sub}
                     </p>
-                    <p className="text-gray-400 text-sm md:text-base leading-relaxed">
+                    <p className="text-gray-600 text-sm md:text-base leading-relaxed">
                       {item.text}
                     </p>
                   </div>
@@ -601,7 +634,7 @@ const ServiceBlock: React.FC<{
             <div className="flex flex-wrap items-center gap-4 pt-2">
               <button
                 onClick={onDetail}
-                className="group inline-flex items-center gap-3 text-white font-bold text-sm tracking-tight border-b-2 border-white/30 pb-1 hover:border-accent hover:text-accent transition-colors"
+                className="group inline-flex items-center gap-3 text-offblack font-bold text-sm tracking-tight border-b-2 border-offblack/30 pb-1 hover:border-accent hover:text-accent transition-colors"
               >
                 {t.worksIntro.detailLink}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -631,11 +664,11 @@ const WorksView: React.FC = () => {
                 {t.worksIntro.eyebrow}
               </span>
             </div>
-            <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-white leading-[0.9] mb-8">
+            <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-offblack leading-[0.9] mb-8">
               {t.headings.works.title}
               <span className="block text-accent">{t.headings.works.sub}</span>
             </h1>
-            <p className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-3xl font-medium">
+            <p className="text-lg md:text-xl text-gray-700 leading-relaxed max-w-3xl font-medium">
               {t.worksIntro.lead}
             </p>
           </div>
@@ -643,7 +676,7 @@ const WorksView: React.FC = () => {
 
         {/* === Index Strip === */}
         <Reveal delay={150}>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-20 md:mb-32 pt-8 border-t border-gray-800">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-20 md:mb-32 pt-8 border-t border-gray-200">
             <div className="md:col-span-1 col-span-2 flex items-center mb-2 md:mb-0">
               <span className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-gray-500">
                 {t.worksIntro.indexLabel}
@@ -657,12 +690,12 @@ const WorksView: React.FC = () => {
                   e.preventDefault();
                   document.getElementById(`service-0${i + 1}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }}
-                className="group flex items-center gap-3 p-4 rounded-xl border border-gray-800 hover:border-accent transition-colors"
+                className="group flex items-center gap-3 p-4 rounded-xl border border-gray-200 hover:border-accent transition-colors"
               >
                 <span className="font-mono text-xs text-accent font-bold">
                   0{i + 1}
                 </span>
-                <span className="text-sm font-bold text-white group-hover:text-accent transition-colors leading-snug">
+                <span className="text-sm font-bold text-offblack group-hover:text-accent transition-colors leading-snug">
                   {t.works[key].title}
                 </span>
               </a>
@@ -692,10 +725,10 @@ const WorksView: React.FC = () => {
         </div>
 
         {/* === 個別サービスページへの導線 === */}
-        <div className="mt-24 md:mt-32 border-t border-gray-800 pt-16">
+        <div className="mt-24 md:mt-32 border-t border-gray-200 pt-16">
           <Reveal>
             <span className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-accent">Service Details</span>
-            <h3 className="text-3xl md:text-4xl font-bold text-white tracking-tighter mt-3 mb-10 leading-tight">
+            <h3 className="text-3xl md:text-4xl font-bold text-offblack tracking-tighter mt-3 mb-10 leading-tight">
               {lang === 'ja' ? '個別のサービス' : 'Individual services'}
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -705,14 +738,14 @@ const WorksView: React.FC = () => {
                   <a
                     key={key}
                     href={`#${key}`}
-                    className="group flex flex-col bg-gray-900/40 rounded-xl p-6 border border-gray-800 hover:border-accent transition-colors"
+                    className="group flex flex-col bg-white rounded-xl p-6 border border-gray-200 hover:border-accent transition-colors"
                   >
                     <span className="text-[10px] font-bold uppercase tracking-widest text-accent">{p.hero.badge}</span>
-                    <h4 className="text-xl font-bold text-white mt-3 mb-2 tracking-tight leading-snug group-hover:text-accent transition-colors">
+                    <h4 className="text-xl font-bold text-offblack mt-3 mb-2 tracking-tight leading-snug group-hover:text-accent transition-colors">
                       {p.navLabel}
                     </h4>
-                    <p className="text-gray-400 text-sm leading-relaxed flex-1">{p.hero.title}</p>
-                    <span className="inline-flex items-center gap-2 text-sm font-bold text-white mt-5 group-hover:text-accent transition-colors">
+                    <p className="text-gray-600 text-sm leading-relaxed flex-1">{p.hero.title}</p>
+                    <span className="inline-flex items-center gap-2 text-sm font-bold text-offblack mt-5 group-hover:text-accent transition-colors">
                       {t.worksIntro.detailLink}
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                     </span>
@@ -723,21 +756,21 @@ const WorksView: React.FC = () => {
           </Reveal>
         </div>
 
-        {/* === One-Stop Flow (dark variant) === */}
-        <div className="mt-24 md:mt-32 border-t border-gray-800 pt-16">
+        {/* === One-Stop Flow === */}
+        <div className="mt-24 md:mt-32 border-t border-gray-200 pt-16">
           <Reveal>
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
-              <h3 className="text-3xl md:text-4xl font-bold text-white tracking-tighter max-w-xl leading-tight">{t.oneStop.title}</h3>
-              <p className="text-gray-400 leading-relaxed max-w-md font-medium">{t.oneStop.lead}</p>
+              <h3 className="text-3xl md:text-4xl font-bold text-offblack tracking-tighter max-w-xl leading-tight">{t.oneStop.title}</h3>
+              <p className="text-gray-600 leading-relaxed max-w-md font-medium">{t.oneStop.lead}</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               {t.oneStop.steps.map((s, i) => (
-                <div key={s.step} className="relative bg-gray-900/40 rounded-xl p-6 border border-gray-800 hover:border-gray-700 transition-colors">
+                <div key={s.step} className="relative bg-white rounded-xl p-6 border border-gray-200 hover:border-gray-300 transition-colors">
                   <span className="text-[10px] font-bold uppercase tracking-widest text-accent">STEP {s.step}</span>
-                  <h4 className="text-xl font-bold text-white mt-3 mb-2 tracking-tight leading-snug">{s.title}</h4>
-                  <p className="text-gray-400 text-sm leading-relaxed">{s.desc}</p>
+                  <h4 className="text-xl font-bold text-offblack mt-3 mb-2 tracking-tight leading-snug">{s.title}</h4>
+                  <p className="text-gray-600 text-sm leading-relaxed">{s.desc}</p>
                   {i < t.oneStop.steps.length - 1 && (
-                    <ArrowRight className="hidden lg:block absolute top-1/2 -right-3 -translate-y-1/2 w-5 h-5 text-gray-700" />
+                    <ArrowRight className="hidden lg:block absolute top-1/2 -right-3 -translate-y-1/2 w-5 h-5 text-gray-300" />
                   )}
                 </div>
               ))}
@@ -757,29 +790,25 @@ const MissionView: React.FC = () => {
   const values = t.mission.values;
   return (
     <PageTransition>
-      <div className="bg-offblack min-h-screen text-white pb-20">
+      <div className="min-h-screen text-offblack pb-20">
         <div className="px-6 md:px-12 max-w-screen-xl mx-auto pt-10">
-          <SectionHeading 
-            title={t.headings.mission.title}
-            subtitle={t.headings.mission.sub}
-            dark 
-          />
+          <SectionHeading as="h1" title={t.headings.mission.title} subtitle={t.headings.mission.sub} />
 
           <Reveal>
             <div className="mb-24 grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
                <div>
                  <h3 className="text-3xl md:text-5xl font-bold mb-6 text-accent">{t.mission.intro.title}</h3>
-                 <p className="text-xl leading-relaxed text-gray-300">
+                 <p className="text-xl leading-relaxed text-gray-700">
                    {t.mission.intro.desc}
                  </p>
                </div>
-               <div className="bg-gray-900 p-8 rounded-2xl border border-gray-800">
+               <div className="bg-white p-8 rounded-2xl border border-gray-200">
                  <h4 className="text-xl font-bold mb-4 flex items-center gap-3">
                    <Anchor className="w-6 h-6 text-accent" />
                    Mission
                  </h4>
                  <p className="text-2xl font-bold mb-4">{t.mission.intro.mission_title}</p>
-                 <p className="text-gray-400 leading-relaxed">
+                 <p className="text-gray-600 leading-relaxed">
                    {t.mission.intro.mission_desc}
                  </p>
                </div>
@@ -789,15 +818,15 @@ const MissionView: React.FC = () => {
           <div className="space-y-12 mb-32">
             {values.map((v, i) => (
               <Reveal key={i} delay={i * 100}>
-                <div className="group border-t border-gray-800 pt-10 hover:border-accent transition-colors duration-500">
+                <div className="group border-t border-gray-200 pt-10 hover:border-accent transition-colors duration-500">
                   <div className="flex flex-col md:flex-row gap-8">
                     <div className="md:w-1/3">
-                      <span className="text-6xl font-bold text-gray-800 group-hover:text-accent transition-colors duration-500">0{i + 1}</span>
+                      <span className="text-6xl font-bold text-gray-200 group-hover:text-accent transition-colors duration-500">0{i + 1}</span>
                       <h3 className="text-2xl md:text-3xl font-bold mt-4 mb-1">{v.title}</h3>
                       <p className="text-sm font-bold uppercase tracking-widest text-accent">{v.sub}</p>
                     </div>
                     <div className="md:w-2/3">
-                      <p className="text-lg md:text-xl text-gray-400 leading-relaxed group-hover:text-gray-200 transition-colors duration-300">
+                      <p className="text-lg md:text-xl text-gray-600 leading-relaxed group-hover:text-gray-900 transition-colors duration-300">
                         {v.desc}
                       </p>
                     </div>
@@ -935,7 +964,7 @@ const CompanyView: React.FC = () => {
   return (
     <PageTransition>
       <div className="px-6 md:px-12 max-w-screen-xl mx-auto">
-        <SectionHeading title={t.headings.company.title} subtitle={t.headings.company.sub} />
+        <SectionHeading as="h1" title={t.headings.company.title} subtitle={t.headings.company.sub} />
         <div className="grid grid-cols-1">
           {info.map((item, index) => (
             <Reveal key={index} delay={index * 100}>
@@ -963,8 +992,8 @@ const CareerView: React.FC = () => {
 
   return (
     <PageTransition>
-      <div className="px-6 md:px-12 max-w-screen-xl mx-auto text-white">
-        <SectionHeading title={t.headings.career.title} subtitle={t.headings.career.sub} dark />
+      <div className="px-6 md:px-12 max-w-screen-xl mx-auto text-offblack">
+        <SectionHeading as="h1" title={t.headings.career.title} subtitle={t.headings.career.sub} />
 
         {/* Introduction */}
         <Reveal>
@@ -973,7 +1002,7 @@ const CareerView: React.FC = () => {
                 <p className="text-2xl md:text-4xl font-light leading-snug">
                    {t.career.intro.desc}
                    <br/>
-                   <span className="text-white font-bold mt-4 block">{t.career.intro.call}</span>
+                   <span className="text-offblack font-bold mt-4 block">{t.career.intro.call}</span>
                 </p>
             </div>
           </div>
@@ -981,36 +1010,36 @@ const CareerView: React.FC = () => {
 
         {/* Mindset Section */}
         <div className="mb-40">
-          <SectionHeading title="" subtitle={<span className="flex items-center gap-3 text-2xl font-bold"><Heart className="text-accent w-8 h-8"/> {t.career.subheadings.mindset}</span>} dark />
+          <SectionHeading title="" subtitle={<span className="flex items-center gap-3 text-2xl font-bold"><Heart className="text-accent w-8 h-8"/> {t.career.subheadings.mindset}</span>} />
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {mindsets.map((m, i) => (
                <Reveal key={i} delay={i * 100} className="h-full">
-                 <div className="group relative h-full bg-gray-900 rounded-[2rem] p-8 md:p-12 shadow-sm hover:shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-all duration-500 border border-gray-800 overflow-hidden flex flex-col justify-between">
+                 <div className="group relative h-full bg-white rounded-[2rem] p-8 md:p-12 shadow-sm hover:shadow-[0_20px_50px_rgba(17,20,24,0.10)] transition-all duration-500 border border-gray-200 overflow-hidden flex flex-col justify-between">
                     
                     {/* Background Pattern appearing on hover */}
                     <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-700 pointer-events-none">
-                        <GridPattern dark />
+                        <GridPattern />
                     </div>
 
                     <div className="relative z-10">
                         <div className="flex justify-end items-start mb-8">
-                             <span className="text-6xl font-mono font-bold text-gray-800 group-hover:text-gray-700 transition-colors duration-500">0{i+1}</span>
+                             <span className="text-6xl font-mono font-bold text-gray-200 group-hover:text-gray-600 transition-colors duration-500">0{i+1}</span>
                         </div>
                         
-                        <h4 className="text-3xl font-bold mb-6 tracking-tight text-white group-hover:translate-x-2 transition-transform duration-500">{m.title}</h4>
+                        <h4 className="text-3xl font-bold mb-6 tracking-tight text-offblack group-hover:translate-x-2 transition-transform duration-500">{m.title}</h4>
                         
                         <div className="space-y-6">
                             <div className="relative pl-6 transition-all duration-500 group-hover:pl-8">
                                 <div className="absolute left-0 top-0 bottom-0 w-1 bg-accent rounded-full"></div>
-                                <p className="text-lg font-bold text-white mb-2">{m.req}</p>
-                                <p className="text-gray-400 leading-relaxed">{m.desc}</p>
+                                <p className="text-lg font-bold text-offblack mb-2">{m.req}</p>
+                                <p className="text-gray-600 leading-relaxed">{m.desc}</p>
                             </div>
 
-                            <div className="relative pl-6 pt-6 border-t border-gray-800 transition-all duration-500 opacity-60 group-hover:opacity-100">
-                                <div className="absolute left-0 top-6 bottom-0 w-1 bg-gray-700 rounded-full group-hover:bg-gray-600 transition-colors"></div>
+                            <div className="relative pl-6 pt-6 border-t border-gray-200 transition-all duration-500 opacity-60 group-hover:opacity-100">
+                                <div className="absolute left-0 top-6 bottom-0 w-1 bg-gray-300 rounded-full group-hover:bg-gray-400 transition-colors"></div>
                                 <p className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-1">Anti-Pattern</p>
-                                <p className="text-gray-400 font-medium">NG: {m.ng}</p>
+                                <p className="text-gray-600 font-medium">NG: {m.ng}</p>
                                 <p className="text-gray-500 text-sm mt-1">{m.ngDesc}</p>
                             </div>
                         </div>
@@ -1023,32 +1052,32 @@ const CareerView: React.FC = () => {
 
         {/* Skills Section */}
         <div className="mb-40">
-          <SectionHeading title="" subtitle={<span className="flex items-center gap-3 text-2xl font-bold"><Zap className="text-accent w-8 h-8"/> {t.career.subheadings.skills}</span>} dark />
+          <SectionHeading title="" subtitle={<span className="flex items-center gap-3 text-2xl font-bold"><Zap className="text-accent w-8 h-8"/> {t.career.subheadings.skills}</span>} />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
              {skills.map((s, i) => (
                 <Reveal key={i} delay={i * 100} className="h-full">
-                  <div className="group relative h-full bg-gray-900 text-white rounded-[2rem] p-10 overflow-hidden border border-gray-800 hover:border-gray-600 transition-colors duration-500 flex flex-col">
+                  <div className="group relative h-full bg-white text-offblack rounded-[2rem] p-10 overflow-hidden border border-gray-200 hover:border-gray-400 transition-colors duration-500 flex flex-col">
                      {/* Dynamic Background */}
                      <div className="absolute inset-0 opacity-20 group-hover:opacity-40 transition-opacity duration-700">
-                        <GridPattern dark />
+                        <GridPattern />
                      </div>
                      <div className="absolute -top-24 -right-24 w-48 h-48 bg-accent/20 rounded-full blur-[80px] group-hover:bg-accent/40 transition-all duration-700"></div>
 
                      <div className="relative z-10 flex flex-col h-full">
                         <div className="mb-auto">
-                            <span className="inline-block px-3 py-1 rounded-full border border-gray-700 text-xs font-mono mb-6 text-gray-400 group-hover:border-accent group-hover:text-accent transition-all duration-500">Skill 0{i+1}</span>
+                            <span className="inline-block px-3 py-1 rounded-full border border-gray-300 text-xs font-mono mb-6 text-gray-600 group-hover:border-accent group-hover:text-accent transition-all duration-500">Skill 0{i+1}</span>
                             <h4 className="text-3xl font-bold tracking-tighter mb-4 group-hover:text-accent transition-colors duration-300">{s.title}</h4>
-                            <p className="text-xl font-medium text-white mb-4">{s.sub}</p>
-                            <p className="text-gray-400 text-sm leading-relaxed">{s.desc}</p>
+                            <p className="text-xl font-medium text-offblack mb-4">{s.sub}</p>
+                            <p className="text-gray-600 text-sm leading-relaxed">{s.desc}</p>
                         </div>
 
-                        <div className="mt-8 p-4 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm transform translate-y-2 opacity-80 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                        <div className="mt-8 p-4 rounded-xl bg-offblack/5 border border-offblack/10 backdrop-blur-sm transform translate-y-2 opacity-80 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
                             <div className="flex items-start gap-3">
                                 <X className="w-5 h-5 text-gray-500 mt-0.5 flex-shrink-0" />
                                 <div>
                                     <span className="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">Mismatch</span>
-                                    <p className="text-sm text-gray-400">{s.ng}</p>
+                                    <p className="text-sm text-gray-600">{s.ng}</p>
                                 </div>
                             </div>
                         </div>
@@ -2695,67 +2724,85 @@ const DiagnosisView: React.FC = () => {
 
 const App: React.FC = () => {
   // Helper to parse view from hash
-  const getViewFromHash = (): ViewState => {
+  // URL からビューを決める。ハッシュに有効なビュー名があればそれを優先（旧リンク互換）、
+  // なければクリーンURL（/works, /service/<slug> など）で解決する。
+  const getViewFromLocation = (): ViewState => {
     const validViews: ViewState[] = ['home', 'works', 'training', 'diagnosis', 'mission', 'partners', 'company', 'career', 'contact', 'blog', 'cases', ...SERVICE_KEYS];
     const hash = window.location.hash.slice(1).split('/')[0];
     if (validViews.includes(hash as ViewState)) return hash as ViewState;
-    // Support clean path URLs (e.g. /training, /diagnosis) via Vercel SPA rewrite
-    const path = window.location.pathname.replace(/\/+$/, '');
-    if (path === '/training') return 'training';
-    if (path === '/diagnosis') return 'diagnosis';
-    if (path === '/cases') return 'cases';
+    const path = window.location.pathname.replace(/\/+$/, '') || '/';
+    if (PATH_TO_VIEW[path]) return PATH_TO_VIEW[path];
     const svc = path.match(/^\/service\/([a-z-]+)$/);
     if (svc && isServiceKey(svc[1])) return svc[1];
     return 'home';
   };
 
-  const [view, setView] = useState<ViewState>(getViewFromHash());
+  const [view, setView] = useState<ViewState>(getViewFromLocation());
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [lang, setLang] = useState<Lang>('ja');
   const t = translations[lang];
 
-  // Listen for hash changes to handle browser back/forward and direct URL access
+  // ハッシュ変更（旧リンク・ページ内リンク）とブラウザの戻る/進む（popstate）の両方に追従する
   useEffect(() => {
-    const handleHashChange = () => {
-      const newView = getViewFromHash();
-      setView(newView);
-      window.scrollTo(0, 0); // Reset scroll on view change
-      setIsMenuOpen(false);  // Close mobile menu on nav
+    const sync = () => {
+      setView(getViewFromLocation());
+      window.scrollTo(0, 0);
+      setIsMenuOpen(false);
     };
-
-    window.addEventListener('hashchange', handleHashChange);
-    
-    // Initial scroll reset if hash exists
-    if (window.location.hash) {
-       window.scrollTo(0, 0);
-    }
-
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    window.addEventListener('hashchange', sync);
+    window.addEventListener('popstate', sync);
+    if (window.location.hash) window.scrollTo(0, 0);
+    return () => {
+      window.removeEventListener('hashchange', sync);
+      window.removeEventListener('popstate', sync);
+    };
   }, []);
+
+  // ビューごとの title / description / canonical（cases とサービスは各ビュー側で設定）
+  useEffect(() => {
+    document.querySelector('link[rel="canonical"]')?.setAttribute('href', 'https://mgc-global01.com' + (view === 'home' ? '' : pathForView(view)));
+    if (isServiceKey(view) || view === 'cases') return; // title/description は各ビュー側で設定
+    const m = PAGE_META[lang][view] ?? PAGE_META[lang].home!;
+    document.title = m.title;
+    document.querySelector('meta[name="description"]')?.setAttribute('content', m.description);
+  }, [view, lang]);
 
   // Update HTML lang attribute
   useEffect(() => {
     document.documentElement.lang = lang;
   }, [lang]);
 
+  // クリーンURLへ遷移する。ハッシュは付けない（旧ハッシュ付きURLから来た場合はここで消える）
   const navigate = (id: ViewState) => {
-    window.location.hash = id;
+    const path = pathForView(id);
+    if (window.location.pathname !== path || window.location.hash) {
+      window.history.pushState({}, '', path);
+    }
+    setView(id);
+    window.scrollTo(0, 0);
+    setIsMenuOpen(false);
   };
 
   // 情報ナビ（お問い合わせはCTAボタンとして分離、Journalはフッターへ集約）
-  const navItems: { id?: ViewState; href?: string; label: string }[] = [
+  type NavLeaf = { id?: ViewState; href?: string; label: string };
+  type NavItem = NavLeaf & { children?: NavLeaf[] };
+  const navItems: NavItem[] = [
     { id: 'works', label: t.nav.works },
+    { label: t.nav.services, children: SERVICE_KEYS.map((k) => ({ id: k as ViewState, label: serviceContent[lang][k].navLabel })) },
     { id: 'cases', label: t.nav.cases },
     { id: 'training', label: t.nav.training },
     { href: '/column', label: t.nav.column },
-    { id: 'mission', label: t.nav.mission },
-    { id: 'company', label: t.nav.company },
-    { id: 'career', label: t.nav.career },
+    { label: t.nav.companyGroup, children: [
+      { id: 'mission', label: t.nav.mission },
+      { id: 'company', label: t.nav.company },
+      { id: 'career', label: t.nav.career },
+    ] },
   ];
+  const isGroupActive = (item: NavItem) => !!item.children?.some((c) => c.id === view);
 
   return (
     <LanguageContext.Provider value={{ lang, setLang, t }}>
-    <div className={`min-h-screen transition-colors duration-500 font-sans ${view === 'mission' || view === 'career' || view === 'works' || view === 'blog' ? 'bg-offblack text-white' : 'bg-offwhite text-offblack'}`}>
+    <div className={`min-h-screen transition-colors duration-500 font-sans ${view === 'blog' ? 'bg-offblack text-white' : 'bg-offwhite text-offblack'}`}>
       
       {/* Header */}
       <header className="fixed top-0 left-0 w-full py-6 px-6 md:px-12 z-50 flex justify-between items-center mix-blend-difference text-white">
@@ -2771,7 +2818,33 @@ const App: React.FC = () => {
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-7">
-          {navItems.map((item) => item.href ? (
+          {navItems.map((item) => item.children ? (
+            <div key={item.label} className="relative group">
+              <button
+                type="button"
+                aria-haspopup="true"
+                className={`relative py-1 inline-flex items-center gap-1 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${isGroupActive(item) ? 'opacity-100 font-bold' : 'opacity-60 hover:opacity-100 font-medium'}`}
+              >
+                {item.label}
+                <span aria-hidden className="text-[10px] translate-y-px">▾</span>
+                <span className={`absolute -bottom-1 left-0 h-[2px] bg-white transition-all duration-500 ${isGroupActive(item) ? 'w-full' : 'w-0'}`} />
+              </button>
+              {/* mix-blend-difference の配下なので、白地では黒パネル・黒地では白パネルに見える */}
+              <div className="absolute left-1/2 -translate-x-1/2 top-full pt-3 hidden group-hover:block group-focus-within:block">
+                <div className="min-w-[13rem] rounded-2xl bg-offblack text-white border border-white/20 p-2 shadow-2xl">
+                  {item.children.map((c) => (
+                    <button
+                      key={c.id ?? c.href}
+                      onClick={() => c.id && navigate(c.id)}
+                      className={`w-full text-left px-4 py-2.5 rounded-xl text-sm transition-colors ${view === c.id ? 'font-bold bg-white/15' : 'font-medium opacity-80 hover:opacity-100 hover:bg-white/10'}`}
+                    >
+                      {c.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ) : item.href ? (
             <a
               key={item.href}
               href={item.href}
@@ -2820,8 +2893,21 @@ const App: React.FC = () => {
 
       {/* Mobile Menu Overlay */}
       <div className={`fixed inset-0 bg-white z-40 flex flex-col items-center justify-center transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}>
-        <nav className="flex flex-col items-center gap-7">
-           {navItems.map((item) => item.href ? (
+        <nav className="flex flex-col items-center gap-7 max-h-[80vh] overflow-y-auto px-6">
+           {navItems.map((item) => item.children ? (
+            <div key={item.label} className="flex flex-col items-center gap-3">
+              <span className="text-xs font-bold uppercase tracking-[0.3em] text-gray-400">{item.label}</span>
+              {item.children.map((c) => (
+                <button
+                  key={c.id ?? c.href}
+                  onClick={() => c.id && navigate(c.id)}
+                  className="text-2xl font-bold tracking-tighter text-offblack hover:text-accent transition-colors"
+                >
+                  {c.label}
+                </button>
+              ))}
+            </div>
+          ) : item.href ? (
             <a
               key={item.href}
               href={item.href}
@@ -2884,16 +2970,16 @@ const App: React.FC = () => {
         </button>
       )}
 
-      <footer className={`px-6 md:px-12 py-12 border-t ${view === 'mission' || view === 'career' || view === 'works' || view === 'blog' ? 'border-gray-800 text-gray-400' : 'border-gray-200 text-gray-500'}`}>
+      <footer className={`px-6 md:px-12 py-12 border-t ${view === 'blog' ? 'border-gray-800 text-gray-400' : 'border-gray-200 text-gray-500'}`}>
         <div className="max-w-screen-xl mx-auto flex flex-col md:flex-row md:items-start md:justify-between gap-8">
           <div>
-            <p className={`font-bold text-base mb-2 ${view === 'mission' || view === 'career' || view === 'works' || view === 'blog' ? 'text-white' : 'text-offblack'}`}>
+            <p className={`font-bold text-base mb-2 ${view === 'blog' ? 'text-white' : 'text-offblack'}`}>
               {t.footer.corp}
             </p>
             <p className="text-sm leading-relaxed">{t.footer.address}</p>
           </div>
           <nav className="flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium">
-            {navItems.map((item) => item.href ? (
+            {navItems.flatMap((item) => item.children ?? [item]).map((item) => item.href ? (
               <a key={item.href} href={item.href} className="hover:text-accent transition-colors">{item.label}</a>
             ) : (
               <button key={item.id} onClick={() => item.id && navigate(item.id)} className="hover:text-accent transition-colors">

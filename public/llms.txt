@@ -49,5 +49,5 @@
 - [AI営業サービス](https://mgc-global01.com/service/ai-sales): リスト作成・初回接触・追客・日程調整まで、営業の前工程をAIが担うサービス
 - [AI電話（音声AI）](https://mgc-global01.com/service/ai-phone): 電話の一次対応を音声AIが引き受け、用件を聞き取って要約し担当者に引き渡すサービス
 - [Salesforce AI活用支援](https://mgc-global01.com/service/salesforce-ai): Salesforceの入力負担を下げ、貯まったデータから示唆を出し、エージェントによる実行まで支援するサービス
-- [30分の無料オンライン相談](https://mgc-global01.com/#contact): AI活用・社内研修の相談窓口（初回無料）
+- [30分の無料オンライン相談](https://mgc-global01.com/contact): AI活用・社内研修の相談窓口（初回無料）
 

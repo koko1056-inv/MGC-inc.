@@ -4,6 +4,8 @@ export const translations = {
   ja: {
     nav: {
       works: '事業内容',
+      services: 'サービス',
+      companyGroup: '会社情報',
       diagnosis: 'AI診断',
       cases: '導入事例',
       training: '研修',
@@ -497,14 +499,16 @@ export const translations = {
   },
   en: {
     nav: {
-      works: 'Services',
+      works: 'Business',
+      services: 'Services',
+      companyGroup: 'Company',
       diagnosis: 'AI Diagnosis',
       cases: 'Case Studies',
       training: 'Training',
       column: 'Column',
       blog: 'Journal',
       mission: 'Mission',
-      company: 'Company',
+      company: 'Company Profile',
       career: 'Careers',
       contact: 'Contact',
     },
