@@ -139,7 +139,7 @@ h1.title{font-size:2rem;line-height:1.45;font-weight:800;letter-spacing:-.01em;m
 // false の間はコラム側の導線（ヘッダー・フッター・CTA・llms.txt）から診断を外す。
 const SHOW_DIAGNOSIS = false;
 
-const HEADER = `<header class="site-header"><a class="brand" href="/">MGC Inc.</a><nav><a href="/service/ai-sales">サービス</a><a href="/cases">導入事例</a><a href="/column">コラム</a>${SHOW_DIAGNOSIS ? '<a href="/diagnosis">AI診断</a>' : ''}<a href="/training">研修</a><a href="/#works">事業内容</a><a href="/#contact">お問い合わせ</a></nav></header>`;
+const HEADER = `<header class="site-header"><a class="brand" href="/">MGC Inc.</a><nav><a href="/service/ai-sales">サービス</a><a href="/cases">導入事例</a><a href="/column">コラム</a>${SHOW_DIAGNOSIS ? '<a href="/diagnosis">AI診断</a>' : ''}<a href="/training">研修</a><a href="/#works">事業内容</a><a href="/contact">お問い合わせ</a></nav></header>`;
 const FOOTER = `<footer class="site-footer"><div class="wrap"><p><strong>${esc(site.brandFull)}</strong></p><p>${esc(site.address || '')}</p><p style="margin-top:10px"><a href="/">${esc(site.baseUrl)}</a> ・ <a href="/column">コラム一覧</a> ・ <a href="/cases">導入事例</a> ・ <a href="/service/ai-sales">AI営業</a> ・ <a href="/service/ai-phone">AI電話</a> ・ <a href="/service/salesforce-ai">Salesforce AI</a>${SHOW_DIAGNOSIS ? ' ・ <a href="/diagnosis">AI活用診断</a>' : ''} ・ <a href="/training">研修</a></p><p style="margin-top:10px">© 2026 MGC Inc. All Rights Reserved.</p></div></footer>`;
 
 // ---- render article body blocks ----
@@ -267,7 +267,7 @@ ${SHOW_DIAGNOSIS ? `<section class="cta">
 <p>業種と今の課題を入力するだけで、AIが「${esc(ind.ja)}の御社に向いたAI活用施策・導入後のワークフロー・削減できる工数とコスト」を、提案書レベルの診断レポートにしてその場でお返しします。無料です。</p>
 <div class="btns">
 <a class="btn btn-primary" href="/diagnosis">無料でAI活用診断を受ける</a>
-<a class="btn btn-ghost" href="/#contact">30分の無料相談を予約する</a>
+<a class="btn btn-ghost" href="/contact">30分の無料相談を予約する</a>
 </div>
 <p class="cta-foot">診断は登録不要・その場で結果表示。もちろん、いきなり相談していただいても構いません（初回相談・お見積もりまで無料）。</p>
 </section>` : `<section class="cta">
@@ -275,7 +275,7 @@ ${SHOW_DIAGNOSIS ? `<section class="cta">
 <h2>では、御社の場合はどうか？ まず30分お話しませんか</h2>
 <p>${esc(ind.ja)}の業務のどこにAIを使えるか、どこは人が持つべきかを整理してお返しします。現状を伺うところから始められます。</p>
 <div class="btns">
-<a class="btn btn-primary" href="/#contact">30分の無料相談を予約する</a>
+<a class="btn btn-primary" href="/contact">30分の無料相談を予約する</a>
 <a class="btn btn-ghost" href="/cases">導入事例を見る</a>
 </div>
 <p class="cta-foot">初回のご相談・お見積もりまで無料です。具体的な資料がなくても構いません。</p>
@@ -335,12 +335,12 @@ ${SHOW_DIAGNOSIS ? `<div class="cta">
 <span class="cta-eyebrow">無料・所要3分・その場で結果</span>
 <h2>自社のAI活用、どこから始める？ まず3分の無料診断で確かめる</h2>
 <p>業種と課題を入力するだけで、AIが最適な活用施策・導入後のワークフロー・削減できる工数とコストを、提案書レベルのレポートにしてその場でお返しします。ITに詳しくない方でも大丈夫です。</p>
-<div class="btns"><a class="btn btn-primary" href="/diagnosis">無料でAI活用診断を受ける</a><a class="btn btn-ghost" href="/#contact">30分の無料相談を予約する</a></div>
+<div class="btns"><a class="btn btn-primary" href="/diagnosis">無料でAI活用診断を受ける</a><a class="btn btn-ghost" href="/contact">30分の無料相談を予約する</a></div>
 </div>` : `<div class="cta">
 <span class="cta-eyebrow">初回相談・お見積もりまで無料</span>
 <h2>自社のAI活用、どこから始める？ まず30分お話しませんか</h2>
 <p>今の業務を伺い、どこからAIに任せられるか、どこは人が持つべきかを整理してお返しします。ITに詳しくない方でも大丈夫です。</p>
-<div class="btns"><a class="btn btn-primary" href="/#contact">30分の無料相談を予約する</a><a class="btn btn-ghost" href="/cases">導入事例を見る</a></div>
+<div class="btns"><a class="btn btn-primary" href="/contact">30分の無料相談を予約する</a><a class="btn btn-ghost" href="/cases">導入事例を見る</a></div>
 </div>`}
 </section>
 ${FOOTER}
@@ -394,7 +394,7 @@ function updateLlmsTxt() {
   lines.push(`- [AI営業サービス](${site.baseUrl}/service/ai-sales): リスト作成・初回接触・追客・日程調整まで、営業の前工程をAIが担うサービス`);
   lines.push(`- [AI電話（音声AI）](${site.baseUrl}/service/ai-phone): 電話の一次対応を音声AIが引き受け、用件を聞き取って要約し担当者に引き渡すサービス`);
   lines.push(`- [Salesforce AI活用支援](${site.baseUrl}/service/salesforce-ai): Salesforceの入力負担を下げ、貯まったデータから示唆を出し、エージェントによる実行まで支援するサービス`);
-  lines.push(`- [30分の無料オンライン相談](${site.baseUrl}/#contact): AI活用・社内研修の相談窓口（初回無料）`);
+  lines.push(`- [30分の無料オンライン相談](${site.baseUrl}/contact): AI活用・社内研修の相談窓口（初回無料）`);
   lines.push('');
   writeFileSync(join(ROOT, 'public', 'llms.txt'), lines.join('\n') + '\n');
 }
