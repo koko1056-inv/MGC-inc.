@@ -1545,35 +1545,39 @@ const TrainingView: React.FC = () => {
         <section className="px-6 md:px-12 mt-20 md:mt-28">
           <div className="max-w-screen-xl mx-auto">
             <Reveal><Head eyebrow={tr.course.eyebrow} title={tr.course.heading} /></Reveal>
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
-              <Reveal className="lg:col-span-1">
-                <div className="rounded-3xl border-2 border-[#2D6CDF]/20 bg-[#2D6CDF]/[0.04] p-7 md:p-8 h-full">
-                  <span className="text-xs font-bold tracking-widest uppercase text-[#2D6CDF]">{tr.course.nameLabel}</span>
-                  <p className="text-xl md:text-2xl font-bold text-[#111418] mt-3 leading-[1.6]">{tr.course.name}</p>
-                  <div className="mt-6 pt-6 border-t border-[#2D6CDF]/15">
-                    <span className="text-xs font-bold tracking-widest uppercase text-gray-500">{tr.course.overviewLabel}</span>
-                    <p className="text-[15px] md:text-base text-gray-700 mt-3 leading-[1.9]">{tr.course.overview}</p>
+            <div className="space-y-14 md:space-y-20">
+              {tr.course.items.map((course, ci) => (
+                <div key={ci} className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+                  <Reveal className="lg:col-span-1">
+                    <div className="rounded-3xl border-2 border-[#2D6CDF]/20 bg-[#2D6CDF]/[0.04] p-7 md:p-8 h-full">
+                      <span className="text-xs font-bold tracking-widest uppercase text-[#2D6CDF]">{tr.course.nameLabel}</span>
+                      <p className="text-xl md:text-2xl font-bold text-[#111418] mt-3 leading-[1.6]">{course.name}</p>
+                      <div className="mt-6 pt-6 border-t border-[#2D6CDF]/15">
+                        <span className="text-xs font-bold tracking-widest uppercase text-gray-500">{tr.course.overviewLabel}</span>
+                        <p className="text-[15px] md:text-base text-gray-700 mt-3 leading-[1.9]">{course.overview}</p>
+                      </div>
+                    </div>
+                  </Reveal>
+                  <div className="lg:col-span-2">
+                    <dl className="grid grid-cols-1">
+                      {course.specs.map((s, i) => (
+                        <Reveal key={i} delay={i * 80}>
+                          <div className="flex flex-col md:flex-row gap-2 md:gap-8 py-6 border-b border-gray-200">
+                            <dt className="md:w-40 flex-shrink-0 text-sm font-bold text-[#2D6CDF] pt-0.5">{s.label}</dt>
+                            <dd className="flex-1 text-base md:text-lg text-[#111418] leading-[1.8]">{s.value}</dd>
+                          </div>
+                        </Reveal>
+                      ))}
+                    </dl>
                   </div>
                 </div>
-              </Reveal>
-              <div className="lg:col-span-2">
-                <dl className="grid grid-cols-1">
-                  {tr.course.specs.map((s, i) => (
-                    <Reveal key={i} delay={i * 80}>
-                      <div className="flex flex-col md:flex-row gap-2 md:gap-8 py-6 border-b border-gray-200">
-                        <dt className="md:w-40 flex-shrink-0 text-sm font-bold text-[#2D6CDF] pt-0.5">{s.label}</dt>
-                        <dd className="flex-1 text-base md:text-lg text-[#111418] leading-[1.8]">{s.value}</dd>
-                      </div>
-                    </Reveal>
-                  ))}
-                </dl>
-                {tr.course.note && (
-                  <Reveal delay={tr.course.specs.length * 80}>
-                    <p className="text-sm text-gray-500 leading-[1.9] mt-6">{tr.course.note}</p>
-                  </Reveal>
-                )}
-              </div>
+              ))}
             </div>
+            {tr.course.note && (
+              <Reveal>
+                <p className="text-sm text-gray-500 leading-[1.9] mt-10">{tr.course.note}</p>
+              </Reveal>
+            )}
           </div>
         </section>
 
