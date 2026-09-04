@@ -145,7 +145,7 @@ export const translations = {
     },
     worksIntro: {
       eyebrow: "Services",
-      lead: "MGCは、AIソリューション（コンサルティング・開発・運用・研修）と、クロスボーダー事業（Inbound/Outbound）の2つの事業で、AIとテクノロジーによって日本と世界をつなぎます。",
+      lead: "MGCは、AIソリューション（コンサルティング・開発・運用）、研修事業、クロスボーダー事業（Inbound/Outbound）の3つの事業で、AIとテクノロジーによって日本と世界をつなぎます。",
       indexLabel: "事業領域",
       detailLink: "詳しく見る",
     },
@@ -158,6 +158,16 @@ export const translations = {
           { title: "AI Consulting", sub: "AIコンサルティング", text: "業務プロセスを棚卸しし、AI導入の優先順位と現実的なロードマップを設計。経営課題に直結する打ち手から着手します。" },
           { title: "AI Development", sub: "AI開発（音声・テキスト・CRM連携）", text: "電話業務を代行する音声AI、CRMを操作するAI、アポイントを獲得する営業AIなど、業務を実際に代行するAIを開発します。" },
           { title: "Training & Enablement", sub: "運用・内製化研修", text: "導入して終わりにせず、運用の改善と、社員がAIを使いこなすための研修まで。成果が社内に受け継がれる状態をつくります。" }
+        ]
+      },
+      service_training: {
+        title: "研修事業",
+        subtitle: "AIを業務で使いこなす人材を、社内に育てる。",
+        desc: "ITに詳しくない経営者・従業員が、AIを業務に導入・活用できるようになるための実践型研修（OFF-JT）です。解説・業界別の実例・デモを通じて、基礎から実務での活用までを学びます。各コースは、受講いただくすべての企業に同一の内容・時間・費用で提供します。",
+        items: [
+          { title: "AI Reskilling", sub: "AI活用リスキリング研修", text: "AIツールの全体像から、生成AI・AIエージェントの使い分け、データ連携（API）による業務活用、セキュリティと権限設計まで。基礎から実践までを扱います。" },
+          { title: "DX Enablement", sub: "DX推進・生成AI活用人材養成講座", text: "社内のDXを進める中心人物を育てる講座です。業務の棚卸しから、生成AIによる業務プロセスの再設計、社内定着と効果測定までを演習を交えて学びます。" },
+          { title: "Delivery", sub: "実施形態・進め方", text: "通学（対面）／オンライン（同時双方向）に対応。ヒアリング → 日程・実施方法の確定 → 研修実施（OFF-JT） → 実践支援・振り返り、の流れで進めます。" }
         ]
       },
       service_lab: {
@@ -181,6 +191,16 @@ export const translations = {
           { title: "AI Consulting", sub: "AIコンサルティング", text: "業務プロセスを棚卸しし、AI導入の優先順位とROI、現実的なロードマップを設計します。PoC倒れを起こさない投資判断を支援します。" },
           { title: "AI Development", sub: "AI開発（音声・テキスト・CRM連携）", text: "電話業務を代行する音声AI、CRMを適切なタイミングで操作するAI、アポイントを獲得する営業AI。Salesforce・kintoneなどのAPI連携を含め、業務に組み込まれて動くAIを開発します。" },
           { title: "Training & Enablement", sub: "運用・内製化研修", text: "経営層・管理職・現場それぞれに合わせた研修プログラムで、AIを「同僚」として使いこなせる組織文化を社内に残します。研修のみのご依頼も可能です。" }
+        ]
+      },
+      service_training: {
+        title: "研修事業",
+        subtitle: "AIを業務で使いこなす人材を、社内に育てる。",
+        p1: "ITに詳しくない経営者・従業員が、AIを業務に導入・活用できるようになるための実践型研修（OFF-JT）です。\n解説・業界別の実例・デモを通じて、基礎から実務での活用までを学びます。各コースは、受講いただくすべての企業に同一の内容・時間・費用で提供します。",
+        features: [
+          { title: "AI Reskilling", sub: "AI活用リスキリング研修", text: "AIツールの全体像から、生成AI・AIエージェントの使い分け、データ連携（API）による業務活用、セキュリティと権限設計、業務への適用の考え方まで。20時間のOFF-JTで、基礎から実践までを扱います。" },
+          { title: "DX Enablement", sub: "DX推進・生成AI活用人材養成講座", text: "社内のDXを進める中心人物を育てる講座です。業務の棚卸しと課題の見つけ方、生成AIによる業務プロセスの再設計、ノーコード・自動化ツールの活用、社内定着と効果測定までを、演習を交えて学びます。" },
+          { title: "Delivery", sub: "実施形態・進め方", text: "通学（対面）／オンライン（同時双方向）に対応します。ヒアリングで現状の業務課題と目的を整理し、日程・実施方法を確定してから研修を実施。終了後は、学んだ内容を業務で実践するための支援まで行います。" }
         ]
       },
       service_lab: {
@@ -214,7 +234,7 @@ export const translations = {
         { label: '所在地', value: '京都府京都市上京区西辰巳町111\nアビタシオンオンズアン106' },
         { label: '設立', value: '2025年12月' },
         { label: '法人番号', value: '4130001081155' },
-        { label: '事業内容', value: 'AIソリューション（コンサルティング・開発・運用・研修）\nクロスボーダー事業（海外企業 日本総代理店・日本企業の海外進出支援）' },
+        { label: '事業内容', value: 'AIソリューション（コンサルティング・開発・運用）\n研修事業（AI活用リスキリング研修・DX推進人材の養成）\nクロスボーダー事業（海外企業 日本総代理店・日本企業の海外進出支援）' },
         { label: 'お問い合わせ', value: 'kokomu.matsuo@mgc-global01.com' },
       ]
     },
@@ -677,7 +697,7 @@ export const translations = {
     },
     worksIntro: {
       eyebrow: "Services",
-      lead: "Two businesses — AI Solutions (consulting, development, operations, training) and Cross-Border Business (Inbound/Outbound) — connecting Japan and the world through AI and tech.",
+      lead: "Three businesses — AI Solutions (consulting, development, operations), Training, and Cross-Border Business (Inbound/Outbound) — connecting Japan and the world through AI and tech.",
       indexLabel: "Domains",
       detailLink: "Learn more",
     },
@@ -690,6 +710,16 @@ export const translations = {
           { title: "AI Consulting", sub: "Strategy & prioritization", text: "We audit your operations and design a realistic roadmap with clear priorities, starting where it moves the business most." },
           { title: "AI Development", sub: "Voice · Text · CRM integration", text: "Voice AI that handles phone work, agents that operate your CRM, sales AI that books appointments — AI that actually does the work." },
           { title: "Training & Enablement", sub: "Operations & in-house training", text: "We don't stop at launch: operational improvement plus training, so results are passed on inside your team." }
+        ]
+      },
+      service_training: {
+        title: "Training",
+        subtitle: "Growing people who can put AI to work, inside your company.",
+        desc: "Hands-on training (OFF-JT) for managers and employees who are not IT specialists, taking them from the foundations to putting AI to work through lectures, industry examples, and demos. Every course is offered to all companies on the same terms — same content, hours, and price.",
+        items: [
+          { title: "AI Reskilling", sub: "AI Reskilling Program", text: "From the big picture of AI tools to choosing between generative AI and agents, using data via API, and security and permission design — foundations through practice." },
+          { title: "DX Enablement", sub: "DX Leadership & Generative AI Practitioner Program", text: "For the people who will drive DX inside your company: mapping current work, redesigning processes with generative AI, and driving adoption and measuring impact." },
+          { title: "Delivery", sub: "Format and process", text: "In-person or live online. Hearing → confirming dates and format → training (OFF-JT) → practice support and review." }
         ]
       },
       service_lab: {
@@ -712,6 +742,16 @@ export const translations = {
           { title: "AI Consulting", sub: "Strategy & prioritization", text: "We audit your operations and design a realistic roadmap with clear priorities and ROI — supporting investment decisions that don't end in PoC graveyards." },
           { title: "AI Development", sub: "Voice · Text · CRM integration", text: "Voice AI that handles phone work, agents that operate your CRM at the right moments, sales AI that books appointments. Including API integration with Salesforce, kintone and more — AI built into your actual operations." },
           { title: "Training & Enablement", sub: "Operations & in-house training", text: "Training programs tailored to executives, managers, and hands-on staff — building a culture where AI is treated as a colleague. Training-only engagements are welcome." }
+        ]
+      },
+      service_training: {
+        title: "Training",
+        subtitle: "Growing people who can put AI to work, inside your company.",
+        p1: "Hands-on training (OFF-JT) for managers and employees who are not IT specialists.\nLectures, industry examples, and demos take participants from the foundations to putting AI to work. Every course is offered to all companies on the same terms — same content, hours, and price.",
+        features: [
+          { title: "AI Reskilling", sub: "AI Reskilling Program", text: "From the big picture of AI tools to choosing between generative AI and agents, using data via API, security and permission design, and how to apply AI to business processes — 20 hours of OFF-JT covering foundations through practice." },
+          { title: "DX Enablement", sub: "DX Leadership & Generative AI Practitioner Program", text: "For the people who will drive DX inside your company: mapping work and finding bottlenecks, redesigning processes with generative AI, no-code and automation tools, and driving adoption while measuring impact." },
+          { title: "Delivery", sub: "Format and process", text: "In-person or live online. We start by clarifying your operational challenges and goals, confirm dates and format, run the training, then support putting what was learned into practice." }
         ]
       },
       service_lab: {
@@ -745,7 +785,7 @@ export const translations = {
         { label: 'Headquarters', value: 'Kyoto, Japan' },
         { label: 'Established', value: 'December 2025' },
         { label: 'Corporate Number', value: '4130001081155' },
-        { label: 'Business Domains', value: 'AI Solutions (Consulting / Development / Operations / Training)\nCross-Border Business (Japan Distributorship / Overseas Expansion Support)' },
+        { label: 'Business Domains', value: 'AI Solutions (Consulting / Development / Operations)\nTraining (AI reskilling / DX enablement)\nCross-Border Business (Japan Distributorship / Overseas Expansion Support)' },
         { label: 'Contact', value: 'kokomu.matsuo@mgc-global01.com' },
       ]
     },
