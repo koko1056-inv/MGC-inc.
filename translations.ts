@@ -407,6 +407,7 @@ export const translations = {
             specs: [
               { label: '対象', value: '経営者、管理者、従業員（AIを業務に取り入れたい方）' },
               { label: '実施形態', value: '通学（対面）／オンライン（同時双方向）／eラーニング' },
+              { label: '受講料', value: '1名 398,000円' },
               { label: '標準時間', value: '20時間（OFF-JT）' },
               { label: '主なテーマ', value: 'AIツールの全体像／生成AI・AIエージェントの使い分け／データ連携（API）による業務活用／セキュリティと権限設計／業務への適用の考え方' },
             ],
@@ -417,6 +418,7 @@ export const translations = {
             specs: [
               { label: '対象', value: 'DX推進の担当者・候補者、部門のリーダー層、情報システム／企画部門の方' },
               { label: '実施形態', value: '通学（対面）／オンライン（同時双方向）／eラーニング' },
+              { label: '受講料', value: '1名 398,000円' },
               { label: '標準時間', value: '20時間（OFF-JT）' },
               { label: '主なテーマ', value: 'DXの全体像と進め方／業務の棚卸しと課題の見つけ方／生成AIによる業務プロセスの再設計／ノーコード・自動化ツールの活用／社内定着と効果測定／情報セキュリティとルールづくり' },
             ],
@@ -933,6 +935,7 @@ export const translations = {
             specs: [
               { label: 'Audience', value: 'Executives, managers, and employees who want to bring AI into their work' },
               { label: 'Format', value: 'In-person / Live online / e-learning' },
+              { label: 'Fee', value: '¥398,000 per participant' },
               { label: 'Standard hours', value: '20 hours (OFF-JT)' },
               { label: 'Key themes', value: 'Overview of AI tools / Generative AI vs. AI agents / Using data via API / Security & permission design / How to apply AI to business processes' },
             ],
@@ -943,6 +946,7 @@ export const translations = {
             specs: [
               { label: 'Audience', value: 'DX leads and candidates, department leaders, IT and planning teams' },
               { label: 'Format', value: 'In-person / Live online / e-learning' },
+              { label: 'Fee', value: '¥398,000 per participant' },
               { label: 'Standard hours', value: '20 hours (OFF-JT)' },
               { label: 'Key themes', value: 'What DX is and how to drive it / Mapping work and finding bottlenecks / Redesigning processes with generative AI / No-code and automation tools / Driving adoption and measuring impact / Security and internal rules' },
             ],
