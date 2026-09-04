@@ -389,10 +389,10 @@ export const translations = {
     },
     training: {
       hero: {
-        badge: '人材開発支援助成金 対応（事業展開等リスキリング支援コース）',
+        badge: 'ITに詳しくない方のための実践型OFF-JT研修',
         title: 'AI活用リスキリング研修',
         titleSub: '― AIを「従業員」として雇い・育てる ―',
-        lead: 'ITに詳しくない経営者・従業員が、AIを業務に導入・活用できるようになるための実践型研修（OFF-JT）。人材開発支援助成金の対象となる訓練にも対応します。',
+        lead: 'ITに詳しくない経営者・従業員が、AIを業務に導入・活用できるようになるための実践型研修（OFF-JT）。解説・業界別の実例・デモを通じて、基礎から実務での活用までを学びます。',
         cta: '資料請求・お問い合わせ',
       },
       course: {
@@ -407,7 +407,8 @@ export const translations = {
             specs: [
               { label: '対象', value: '経営者、管理者、従業員（AIを業務に取り入れたい方）' },
               { label: '実施形態', value: '通学（対面）／オンライン（同時双方向）／eラーニング' },
-              { label: '標準時間', value: '10時間以上（企業のニーズに合わせて設計・OFF-JT）' },
+              { label: '受講料', value: '1名 398,000円' },
+              { label: '標準時間', value: '20時間（OFF-JT）' },
               { label: '主なテーマ', value: 'AIツールの全体像／生成AI・AIエージェントの使い分け／データ連携（API）による業務活用／セキュリティと権限設計／業務への適用の考え方' },
             ],
           },
@@ -417,12 +418,13 @@ export const translations = {
             specs: [
               { label: '対象', value: 'DX推進の担当者・候補者、部門のリーダー層、情報システム／企画部門の方' },
               { label: '実施形態', value: '通学（対面）／オンライン（同時双方向）／eラーニング' },
-              { label: '標準時間', value: '10時間以上（企業のニーズに合わせて設計・OFF-JT）' },
+              { label: '受講料', value: '1名 398,000円' },
+              { label: '標準時間', value: '20時間（OFF-JT）' },
               { label: '主なテーマ', value: 'DXの全体像と進め方／業務の棚卸しと課題の見つけ方／生成AIによる業務プロセスの再設計／ノーコード・自動化ツールの活用／社内定着と効果測定／情報セキュリティとルールづくり' },
             ],
           },
         ],
-        note: '上記は標準的な構成の一例です。実際のカリキュラムは、ご要望や受講者のレベルに合わせて設計します。',
+        note: '各コースは、受講いただくすべての企業に同一の内容・時間・費用で提供します。',
       },
       skills: {
         heading: 'この研修で習得できる知識・技能',
@@ -441,16 +443,15 @@ export const translations = {
         eyebrow: 'Process',
         steps: [
           { no: '01', title: 'ヒアリング', desc: '現状の業務課題とAI活用の目的を整理します。' },
-          { no: '02', title: 'カリキュラム設計', desc: 'ご要望に合わせて内容・時間を設計します（OFF-JT）。' },
+          { no: '02', title: '日程・実施方法の確定', desc: '受講者・日程・実施形態（対面／オンライン／eラーニング）を決めます。' },
           { no: '03', title: '研修実施（OFF-JT）', desc: '解説・業界別実例・デモで、基礎から実践まで学びます。' },
           { no: '04', title: '実践支援・振り返り', desc: '学んだ内容を業務で実践するための支援を行い、定着まで伴走します。' },
         ],
-        note: '人材開発支援助成金の活用を希望される場合は、要件に沿ったカリキュラム・記録整備を支援します（申請手続きは提携社労士と連携して行います）。',
       },
       contact: {
         heading: 'お申し込み・資料請求',
         eyebrow: 'Contact',
-        lead: '受講のご相談、カリキュラムのご要望、助成金活用のご質問など、お気軽にお問い合わせください。',
+        lead: '受講のご相談、日程のご希望など、お気軽にお問い合わせください。',
         corp: 'ＭＧＣ株式会社',
         rows: [
           { label: '所在地', value: '京都府京都市上京区西辰巳町111 アビタシオンオンズアン106' },
@@ -461,7 +462,6 @@ export const translations = {
         cta: '資料請求・お問い合わせ',
         ctaHref: '#contact',
       },
-      footnote: '掲載の研修は、企業のご要望に応じて内容・時間を設計します。助成金の支給・可否は、受講企業の要件・訓練内容・審査により決まります（詳細は提携社労士がご案内します）。',
     },
     diagnosisBanner: {
       badge: '無料・所要3分・その場で結果',
@@ -917,10 +917,10 @@ export const translations = {
     },
     training: {
       hero: {
-        badge: 'Eligible for Japan’s Human Resource Development subsidy (Reskilling course)',
+        badge: 'Hands-on OFF-JT training for non-specialists',
         title: 'AI Reskilling Program',
         titleSub: '— Hire and raise AI as a member of your team —',
-        lead: 'A hands-on training program (OFF-JT) that helps managers and employees who are not IT specialists introduce and use AI at work. Designed to qualify as subsidized training under Japan’s Human Resource Development grant.',
+        lead: 'A hands-on training program (OFF-JT) that helps managers and employees who are not IT specialists introduce and use AI at work — from the foundations to putting AI to work, through lectures, industry examples, and demos.',
         cta: 'Request materials / Contact us',
       },
       course: {
@@ -935,7 +935,8 @@ export const translations = {
             specs: [
               { label: 'Audience', value: 'Executives, managers, and employees who want to bring AI into their work' },
               { label: 'Format', value: 'In-person / Live online / e-learning' },
-              { label: 'Standard hours', value: '10+ hours (designed to your needs, OFF-JT)' },
+              { label: 'Fee', value: '¥398,000 per participant' },
+              { label: 'Standard hours', value: '20 hours (OFF-JT)' },
               { label: 'Key themes', value: 'Overview of AI tools / Generative AI vs. AI agents / Using data via API / Security & permission design / How to apply AI to business processes' },
             ],
           },
@@ -945,12 +946,13 @@ export const translations = {
             specs: [
               { label: 'Audience', value: 'DX leads and candidates, department leaders, IT and planning teams' },
               { label: 'Format', value: 'In-person / Live online / e-learning' },
-              { label: 'Standard hours', value: '10+ hours (designed to your needs, OFF-JT)' },
+              { label: 'Fee', value: '¥398,000 per participant' },
+              { label: 'Standard hours', value: '20 hours (OFF-JT)' },
               { label: 'Key themes', value: 'What DX is and how to drive it / Mapping work and finding bottlenecks / Redesigning processes with generative AI / No-code and automation tools / Driving adoption and measuring impact / Security and internal rules' },
             ],
           },
         ],
-        note: 'The above is one example of a standard structure. The actual curriculum is designed to match your requirements and participants’ levels.',
+        note: 'Every course is offered to all companies on the same terms — same content, hours, and price.',
       },
       skills: {
         heading: 'Knowledge & skills you will gain',
@@ -969,16 +971,15 @@ export const translations = {
         eyebrow: 'Process',
         steps: [
           { no: '01', title: 'Hearing', desc: 'We clarify your current operational challenges and goals for AI.' },
-          { no: '02', title: 'Curriculum design', desc: 'We design content and hours to your requirements (OFF-JT).' },
+          { no: '02', title: 'Scheduling', desc: 'We confirm participants, dates, and the format (in-person / live online / e-learning).' },
           { no: '03', title: 'Training (OFF-JT)', desc: 'Learn from foundations to practice through lectures, examples, and demos.' },
           { no: '04', title: 'Practice support & review', desc: 'We support putting what you learned into practice and stay with you until it sticks.' },
         ],
-        note: 'If you wish to use the Human Resource Development subsidy, we support building the curriculum and records to meet the requirements (applications are handled together with a partner labor & social-security attorney).',
       },
       contact: {
         heading: 'Apply / Request materials',
         eyebrow: 'Contact',
-        lead: 'Feel free to reach out about enrollment, curriculum requests, or questions on using the subsidy.',
+        lead: 'Feel free to reach out about enrollment or preferred dates.',
         corp: 'MGC Inc.',
         rows: [
           { label: 'Address', value: '111 Nishitatsumi-cho, Kamigyo-ku, Kyoto, Japan' },
@@ -989,7 +990,6 @@ export const translations = {
         cta: 'Request materials / Contact us',
         ctaHref: '#contact',
       },
-      footnote: 'Program content and hours are designed to each company’s needs. Whether the subsidy is granted depends on the enrolling company’s eligibility, the training content, and screening (details are provided by our partner labor & social-security attorney).',
     },
     diagnosisBanner: {
       badge: 'Free · 3 minutes · Instant results',
