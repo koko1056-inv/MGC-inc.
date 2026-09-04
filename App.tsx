@@ -768,12 +768,11 @@ const WorksView: React.FC = () => {
 
         {/* === Index Strip === */}
         <Reveal delay={150}>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-20 md:mb-32 pt-8 border-t border-gray-200">
-            <div className="md:col-span-1 col-span-2 flex items-center mb-2 md:mb-0">
-              <span className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-gray-500">
-                {t.worksIntro.indexLabel}
-              </span>
-            </div>
+          <div className="mb-20 md:mb-32 pt-8 border-t border-gray-200">
+            <span className="block text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-gray-500 mb-4">
+              {t.worksIntro.indexLabel}
+            </span>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {(['service_ai', 'service_training', 'service_lab'] as const).map((key, i) => (
               <a
                 key={key}
@@ -792,6 +791,7 @@ const WorksView: React.FC = () => {
                 </span>
               </a>
             ))}
+            </div>
           </div>
         </Reveal>
 
