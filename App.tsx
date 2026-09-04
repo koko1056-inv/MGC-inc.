@@ -31,6 +31,7 @@ const PAGE_META: Record<Lang, Partial<Record<string, { title: string; descriptio
     contact: { title: 'お問い合わせ｜30分の無料相談 - ＭＧＣ株式会社', description: 'AI導入・研修・海外展開のご相談は無料です。現状を伺い、どこからAIに任せられるかを整理してお返しします。' },
     blog: { title: 'ジャーナル - ＭＧＣ株式会社', description: 'MGCの考えとビジョンを綴るジャーナル。' },
     diagnosis: { title: 'AI活用診断 - ＭＧＣ株式会社', description: '業種と課題を入力するだけで、AI活用施策と導入後の効果をその場で診断します。' },
+    cases: { title: '導入事例｜AI導入の進め方と実例 - ＭＧＣ株式会社', description: 'MGCが実際に進めている案件の進め方と設計の要点。コールセンターの音声AI、海外メーカー発掘の自動化、現場のトラブルシューティング。' },
   },
   en: {
     home: { title: 'MGC Inc. | Connect Japan & The World through AI and Tech', description: 'MGC Inc. delivers end-to-end AI solutions — consulting, development, operations and training — and cross-border business from Kyoto, Japan. First consultation is free.' },
@@ -42,7 +43,32 @@ const PAGE_META: Record<Lang, Partial<Record<string, { title: string; descriptio
     contact: { title: 'Contact | Free 30-minute consultation - MGC Inc.', description: 'Consultations on AI adoption, training and overseas expansion are free. Tell us where you are and we will map what AI can take on.' },
     blog: { title: 'Journal - MGC Inc.', description: 'Thoughts and vision from MGC.' },
     diagnosis: { title: 'AI Diagnosis - MGC Inc.', description: 'Enter your industry and challenges to get an instant AI adoption diagnosis.' },
+    cases: { title: 'Case studies | How AI projects actually run - MGC Inc.', description: 'How MGC runs real projects: voice AI in a call centre, automated overseas supplier outreach, and field troubleshooting by voice.' },
   },
+};
+
+// OGP画像。指定がないビューは既定の1枚を使う。
+const OG_IMAGE_DEFAULT = '/assets/service_ai.jpg';
+const OG_IMAGE_BY_VIEW: Partial<Record<string, string>> = {
+  cases: '/assets/service_lab.jpg',
+  works: '/assets/service_lab.jpg',
+};
+
+// SPAのため、ビューが変わるたびに title / description / canonical / OGP を書き換える。
+const applyMeta = (m: { title: string; description: string; url: string; image: string }) => {
+  document.title = m.title;
+  const set = (selector: string, attr: 'content' | 'href', value: string) =>
+    document.querySelector(selector)?.setAttribute(attr, value);
+  set('meta[name="description"]', 'content', m.description);
+  set('link[rel="canonical"]', 'href', m.url);
+  set('meta[property="og:title"]', 'content', m.title);
+  set('meta[property="og:description"]', 'content', m.description);
+  set('meta[property="og:url"]', 'content', m.url);
+  set('meta[property="og:image"]', 'content', m.image);
+  set('meta[name="twitter:title"]', 'content', m.title);
+  set('meta[name="twitter:description"]', 'content', m.description);
+  set('meta[name="twitter:url"]', 'content', m.url);
+  set('meta[name="twitter:image"]', 'content', m.image);
 };
 
 // ビューとクリーンURLの対応。ハッシュ（#works 等）は互換のため引き続き受け付ける。
@@ -214,6 +240,14 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
   const goTo = (id: ViewState) => {
     if (onNavigate) onNavigate(id);
     else window.location.hash = id;
+  };
+
+  // 事例カードから、導入事例ページの該当箇所まで送る
+  const goToCase = (slug: string) => {
+    goTo('cases');
+    window.setTimeout(() => {
+      document.getElementById(slug)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 350);
   };
 
   const services = [
@@ -484,6 +518,63 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
           ))}
         </div>
       </Reveal>
+    </div>
+  </section>
+
+  {/* === Case Studies (実績ダイジェスト) === */}
+  <section className="px-6 md:px-12 py-24 md:py-32">
+    <div className="max-w-screen-xl mx-auto">
+      <Reveal>
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <Sparkles className="w-4 h-4 text-accent" />
+              <span className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-accent">
+                {t.homeCases.eyebrow}
+              </span>
+            </div>
+            <h2 className="text-5xl md:text-7xl font-bold tracking-tighter text-offblack leading-[0.95]">
+              {t.homeCases.title}
+            </h2>
+            <p className="text-base md:text-lg text-gray-600 leading-relaxed mt-6 max-w-2xl">{t.homeCases.lead}</p>
+          </div>
+          <button
+            onClick={() => goTo('cases')}
+            className="flex-shrink-0 inline-flex items-center gap-2 text-sm font-bold text-accent hover:gap-3 transition-all"
+          >
+            {t.homeCases.cta} <ArrowRight className="w-4 h-4" />
+          </button>
+        </div>
+      </Reveal>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {caseContent[lang].cases.map((cs, i) => (
+          <Reveal key={cs.slug} delay={i * 90} className="h-full">
+            <button
+              onClick={() => goToCase(cs.slug)}
+              className="group h-full w-full text-left bg-white rounded-3xl border border-gray-200 p-8 flex flex-col hover:border-accent transition-colors duration-500"
+            >
+              <div className="flex flex-wrap gap-2 mb-5">
+                {cs.services.slice(0, 2).map((sv) => (
+                  <span key={sv} className="inline-flex items-center px-3 py-1 rounded-full bg-accent/10 text-accent text-[11px] font-bold tracking-tight">
+                    {sv}
+                  </span>
+                ))}
+              </div>
+              <h3 className="text-xl md:text-2xl font-bold tracking-tight text-offblack leading-snug">{cs.industry}</h3>
+              <p className="text-sm text-gray-500 leading-relaxed mt-2">{cs.scale}</p>
+              <p className="text-sm text-gray-600 leading-relaxed mt-5 line-clamp-4 flex-grow">{cs.summary}</p>
+              {cs.result && (
+                <p className="mt-6 pt-5 border-t border-gray-200 text-base font-bold text-offblack leading-snug">
+                  {cs.result.label}
+                </p>
+              )}
+              <span className="mt-6 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-400 group-hover:text-accent transition-colors">
+                {t.homeCases.detail} <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+              </span>
+            </button>
+          </Reveal>
+        ))}
+      </div>
     </div>
   </section>
 
@@ -1137,7 +1228,7 @@ const BlogView: React.FC = () => {
   return (
     <PageTransition>
       <div className="px-6 md:px-12 max-w-screen-xl mx-auto py-20">
-        <SectionHeading title="Journal" subtitle="Thoughts & Vision" dark />
+        <SectionHeading title="Journal" subtitle="Thoughts & Vision" dark as="h1" />
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {posts.map((post, i) => (
@@ -1244,7 +1335,7 @@ const BlogView: React.FC = () => {
 // どのサービスページ経由の問い合わせかを、受信メール側で判別できるようにする。
 const SERVICE_TOPIC_INDEX: Record<string, number> = { 'ai-sales': 0, 'ai-phone': 1, 'salesforce-ai': 2 };
 
-const ContactView: React.FC = () => {
+const ContactView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavigate }) => {
   const { t } = useLanguage();
   const initialTopic = (() => {
     const seg = window.location.hash.slice(1).split('/')[1];
@@ -1254,7 +1345,7 @@ const ContactView: React.FC = () => {
   const [formState, setFormState] = useState({ name: '', email: '', company: '', topic: initialTopic, message: '' });
   const [emailError, setEmailError] = useState('');
   const [isSending, setIsSending] = useState(false);
-  const [isSent, setIsSent] = useState(false);
+  const [isSent, setIsSent] = useState(() => window.location.pathname === '/contact/thanks');
 
   const validateEmail = (email: string) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -1281,7 +1372,11 @@ const ContactView: React.FC = () => {
       track('contact_submit', { topic: formState.topic || '(unspecified)' });
       setIsSent(true);
       setFormState({ name: '', email: '', company: '', topic: '', message: '' });
-      setTimeout(() => setIsSent(false), 8000);
+      // 完了状態を専用URLにする（計測でCVを分けられるようにする。戻る操作でフォームへ戻れる）
+      if (window.location.pathname !== '/contact/thanks') {
+        window.history.pushState({}, '', '/contact/thanks');
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (error) {
       console.error('Contact error:', error);
       alert('Sorry, there was an error sending your message. Please try again later.');
@@ -1295,6 +1390,67 @@ const ContactView: React.FC = () => {
     setFormState(prev => ({ ...prev, [id]: value }));
     if (id === 'email') setEmailError('');
   };
+
+  // 戻る／進むで /contact と /contact/thanks を行き来できるようにする
+  useEffect(() => {
+    const sync = () => setIsSent(window.location.pathname === '/contact/thanks');
+    window.addEventListener('popstate', sync);
+    return () => window.removeEventListener('popstate', sync);
+  }, []);
+
+  const th = t.contact.form.thanks;
+
+  if (isSent) {
+    return (
+      <PageTransition>
+        <div className="px-6 md:px-12 max-w-screen-xl mx-auto">
+          <div className="max-w-3xl">
+            <Reveal>
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-accent/10 border border-accent/30 rounded-full mb-6">
+                <Check className="w-3.5 h-3.5 text-accent" strokeWidth={3} />
+                <span className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-accent">{th.eyebrow}</span>
+              </div>
+              <h1 className="text-5xl md:text-7xl font-bold tracking-tighter text-offblack mb-6 leading-[1.05]">{th.title}</h1>
+              <p className="text-lg md:text-xl text-gray-600 leading-relaxed font-medium">{th.lead}</p>
+            </Reveal>
+
+            <Reveal delay={120}>
+              <div className="mt-12 bg-white rounded-3xl border border-gray-200 p-8 md:p-10">
+                <span className="text-xs font-bold uppercase tracking-widest text-gray-500">{th.nextTitle}</span>
+                <ol className="mt-6 space-y-5">
+                  {th.steps.map((step, i) => (
+                    <li key={i} className="flex items-start gap-4">
+                      <span className="flex-shrink-0 w-8 h-8 rounded-full bg-accent/10 text-accent font-mono text-sm font-bold flex items-center justify-center">
+                        {i + 1}
+                      </span>
+                      <span className="text-[15px] md:text-base text-gray-700 leading-relaxed pt-1">{step}</span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            </Reveal>
+
+            <Reveal delay={200}>
+              <div className="mt-10 pt-8 border-t border-gray-200">
+                <span className="text-xs font-bold uppercase tracking-widest text-gray-500">{th.linksTitle}</span>
+                <div className="flex flex-wrap gap-x-8 gap-y-4 mt-5">
+                  <button onClick={() => onNavigate?.('cases')} className="inline-flex items-center gap-2 text-sm font-bold text-accent hover:gap-3 transition-all">
+                    {th.caseLink} <ArrowRight className="w-4 h-4" />
+                  </button>
+                  <a href="/column" className="inline-flex items-center gap-2 text-sm font-bold text-accent hover:gap-3 transition-all">
+                    {th.columnLink} <ArrowRight className="w-4 h-4" />
+                  </a>
+                  <button onClick={() => onNavigate?.('home')} className="inline-flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-offblack transition-colors">
+                    {th.homeLink} <ArrowRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </PageTransition>
+    );
+  }
 
   return (
     <PageTransition>
@@ -2150,14 +2306,6 @@ const CasesView: React.FC = () => {
     return () => window.clearTimeout(t);
   }, []);
 
-  useEffect(() => {
-    const prevTitle = document.title;
-    document.title = lang === 'ja'
-      ? '導入事例｜AI導入の進め方と実例 - ＭＧＣ株式会社'
-      : 'Case studies | How AI projects actually run - MGC Inc.';
-    return () => { document.title = prevTitle; };
-  }, [lang]);
-
   return (
     <PageTransition>
       <div className="text-[#111418] px-6 md:px-12">
@@ -2327,19 +2475,6 @@ const CasesView: React.FC = () => {
 const ServiceView: React.FC<{ serviceKey: ServiceKey }> = ({ serviceKey }) => {
   const { lang } = useLanguage();
   const page = serviceContent[lang][serviceKey];
-
-  // ページ固有のtitle/descriptionを反映する（SPAのため手動で書き換える）
-  useEffect(() => {
-    const prevTitle = document.title;
-    document.title = page.seoTitle;
-    const meta = document.querySelector('meta[name="description"]');
-    const prevDesc = meta?.getAttribute('content') ?? null;
-    meta?.setAttribute('content', page.seoDescription);
-    return () => {
-      document.title = prevTitle;
-      if (prevDesc !== null) meta?.setAttribute('content', prevDesc);
-    };
-  }, [page.seoTitle, page.seoDescription]);
 
   return (
     <PageTransition>
@@ -2736,6 +2871,7 @@ const App: React.FC = () => {
     if (validViews.includes(hash as ViewState)) return hash as ViewState;
     const path = window.location.pathname.replace(/\/+$/, '') || '/';
     if (PATH_TO_VIEW[path]) return PATH_TO_VIEW[path];
+    if (path === '/contact/thanks') return 'contact';
     const svc = path.match(/^\/service\/([a-z-]+)$/);
     if (svc && isServiceKey(svc[1])) return svc[1];
     return 'home';
@@ -2762,13 +2898,19 @@ const App: React.FC = () => {
     };
   }, []);
 
-  // ビューごとの title / description / canonical（cases とサービスは各ビュー側で設定）
+  // ビューごとの title / description / canonical / OGP をまとめて反映する
   useEffect(() => {
-    document.querySelector('link[rel="canonical"]')?.setAttribute('href', 'https://mgc-global01.com' + (view === 'home' ? '' : pathForView(view)));
-    if (isServiceKey(view) || view === 'cases') return; // title/description は各ビュー側で設定
-    const m = PAGE_META[lang][view] ?? PAGE_META[lang].home!;
-    document.title = m.title;
-    document.querySelector('meta[name="description"]')?.setAttribute('content', m.description);
+    const origin = 'https://mgc-global01.com';
+    const page = isServiceKey(view) ? serviceContent[lang][view] : null;
+    const base = page
+      ? { title: page.seoTitle, description: page.seoDescription }
+      : (PAGE_META[lang][view] ?? PAGE_META[lang].home!);
+    applyMeta({
+      title: base.title,
+      description: base.description,
+      url: origin + (view === 'home' ? '' : pathForView(view)),
+      image: origin + (page?.image ?? OG_IMAGE_BY_VIEW[view] ?? OG_IMAGE_DEFAULT),
+    });
   }, [view, lang]);
 
   // Update HTML lang attribute
@@ -2951,7 +3093,7 @@ const App: React.FC = () => {
         {/* PartnersView is hidden */}
         {view === 'company' && <CompanyView />}
         {view === 'career' && <CareerView />}
-        {view === 'contact' && <ContactView />}
+        {view === 'contact' && <ContactView onNavigate={navigate} />}
       </main>
 
       {/* Floating CTA — visible on every page except contact itself */}

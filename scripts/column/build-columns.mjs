@@ -123,6 +123,11 @@ h1.title{font-size:2rem;line-height:1.45;font-weight:800;letter-spacing:-.01em;m
 .index-hero{max-width:820px;margin:40px auto 8px;padding:0 22px}
 .index-hero h1{font-size:2rem;font-weight:800;margin-bottom:10px}
 .index-hero p{color:var(--muted);max-width:640px}
+.filters{max-width:900px;margin:26px auto 0;padding:0 22px;display:flex;flex-wrap:wrap;gap:8px}
+.filters button{font:inherit;cursor:pointer;background:#fff;border:1px solid var(--line);color:var(--muted);font-weight:700;font-size:.8rem;border-radius:999px;padding:7px 14px;transition:border-color .2s,color .2s,background .2s}
+.filters button:hover{border-color:var(--blue);color:var(--blue)}
+.filters button[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
+.cards[data-empty="true"]::after{content:"該当する記事はまだありません。";color:var(--muted);font-size:.9rem}
 .cards{max-width:900px;margin:26px auto 0;padding:0 22px;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
 .card{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff;display:flex;flex-direction:column;text-decoration:none;color:var(--ink);transition:border-color .2s}
 .card:hover{border-color:var(--blue);text-decoration:none}
@@ -301,8 +306,48 @@ function indexHtml() {
   const cards = articles.map((a) => {
     const ind = industriesByKey[a.industry];
     const img = a.image || ind.fallbackImage;
-    return `<a class="card" href="/column/${a.slug}"><img src="${esc(img)}" alt="${esc(a.imageAlt || a.title)}" loading="lazy"/><div class="body"><span class="k">${esc(ind.ja)}</span><h3>${esc(a.title)}</h3><p class="d">${esc(a.description || plainText(a).slice(0, 80))}</p><span class="date">${esc(a.date.replace(/-/g, '.'))}</span></div></a>`;
+    return `<a class="card" data-ind="${esc(a.industry)}" href="/column/${a.slug}"><img src="${esc(img)}" alt="${esc(a.imageAlt || a.title)}" loading="lazy"/><div class="body"><span class="k">${esc(ind.ja)}</span><h3>${esc(a.title)}</h3><p class="d">${esc(a.description || plainText(a).slice(0, 80))}</p><span class="date">${esc(a.date.replace(/-/g, '.'))}</span></div></a>`;
   }).join('');
+
+  // 業種フィルタ。記事が存在する業種だけを、記事数の多い順に並べる。
+  const counts = articles.reduce((acc, a) => ({ ...acc, [a.industry]: (acc[a.industry] || 0) + 1 }), {});
+  const usedIndustries = Object.keys(counts).sort((x, y) => counts[y] - counts[x] || industriesByKey[x].ja.localeCompare(industriesByKey[y].ja, 'ja'));
+  const filtersHtml = usedIndustries.length > 1
+    ? `<nav class="filters" aria-label="業種でしぼり込む">
+<button type="button" data-f="all" aria-pressed="true">すべて（${articles.length}）</button>
+${usedIndustries.map((k) => `<button type="button" data-f="${esc(k)}" aria-pressed="false">${esc(industriesByKey[k].ja)}（${counts[k]}）</button>`).join('\n')}
+</nav>`
+    : '';
+  // JSが無い環境では全記事がそのまま並ぶ（フィルタは加点機能）
+  const filterScript = filtersHtml
+    ? `<script>
+(function(){
+  var nav=document.querySelector('.filters'); if(!nav) return;
+  var cards=[].slice.call(document.querySelectorAll('.cards .card'));
+  var grid=document.querySelector('.cards');
+  function apply(key){
+    var shown=0;
+    cards.forEach(function(c){
+      var on = key==='all' || c.getAttribute('data-ind')===key;
+      c.style.display = on ? '' : 'none';
+      if(on) shown++;
+    });
+    grid.setAttribute('data-empty', shown===0 ? 'true' : 'false');
+    [].forEach.call(nav.querySelectorAll('button'),function(b){
+      b.setAttribute('aria-pressed', b.getAttribute('data-f')===key ? 'true' : 'false');
+    });
+  }
+  nav.addEventListener('click',function(e){
+    var b=e.target.closest('button'); if(!b) return;
+    var key=b.getAttribute('data-f');
+    apply(key);
+    history.replaceState(null,'', key==='all' ? location.pathname : location.pathname+'#'+key);
+  });
+  var initial=location.hash.slice(1);
+  if(initial && document.querySelector('.filters button[data-f="'+initial.replace(/"/g,'')+'"]')) apply(initial);
+})();
+<\/script>`
+    : '';
 
   return `<!DOCTYPE html>
 <html lang="ja">
@@ -329,7 +374,9 @@ function indexHtml() {
 <body>
 ${HEADER}
 <section class="index-hero"><span class="eyebrow">AI Column</span><h1>業界別 AI活用コラム</h1><p>製造・建設・不動産・小売・物流・医療・士業…。業界ごとに「どの業務に、どうAIを使い、どこは人が判断するか」を、実務目線でまとめています。</p></section>
+${filtersHtml}
 <section class="cards">${cards || '<p style="color:#5b6472">記事は準備中です。</p>'}</section>
+${filterScript}
 <section class="wrap" style="margin-top:56px">
 ${SHOW_DIAGNOSIS ? `<div class="cta">
 <span class="cta-eyebrow">無料・所要3分・その場で結果</span>
