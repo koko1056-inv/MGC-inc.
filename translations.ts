@@ -406,7 +406,7 @@ export const translations = {
             overview: 'AIの全体像から、データ連携による業務での戦力化までを、解説・業界別の実例・デモで学ぶOFF-JT（通常の業務を離れて行う実践型の座学・演習）です。',
             specs: [
               { label: '対象', value: '経営者、管理者、従業員（AIを業務に取り入れたい方）' },
-              { label: '実施形態', value: '通学（対面）／オンライン（同時双方向）／eラーニング' },
+              { label: '実施形態', value: '通学（対面）／オンライン（同時双方向）' },
               { label: '受講料', value: '1名 398,000円（税込）' },
               { label: '標準時間', value: '20時間（OFF-JT）' },
               { label: '主なテーマ', value: 'AIツールの全体像／生成AI・AIエージェントの使い分け／データ連携（API）による業務活用／セキュリティと権限設計／業務への適用の考え方' },
@@ -417,7 +417,7 @@ export const translations = {
             overview: '社内のDXを進める中心人物を育てる講座です。業務の棚卸しからデジタル化・自動化の設計、生成AIを使った実装と定着までを、演習を交えて学ぶOFF-JTです。',
             specs: [
               { label: '対象', value: 'DX推進の担当者・候補者、部門のリーダー層、情報システム／企画部門の方' },
-              { label: '実施形態', value: '通学（対面）／オンライン（同時双方向）／eラーニング' },
+              { label: '実施形態', value: '通学（対面）／オンライン（同時双方向）' },
               { label: '受講料', value: '1名 398,000円（税込）' },
               { label: '標準時間', value: '20時間（OFF-JT）' },
               { label: '主なテーマ', value: 'DXの全体像と進め方／業務の棚卸しと課題の見つけ方／生成AIによる業務プロセスの再設計／ノーコード・自動化ツールの活用／社内定着と効果測定／情報セキュリティとルールづくり' },
@@ -443,7 +443,7 @@ export const translations = {
         eyebrow: 'Process',
         steps: [
           { no: '01', title: 'ヒアリング', desc: '現状の業務課題とAI活用の目的を整理します。' },
-          { no: '02', title: '日程・実施方法の確定', desc: '受講者・日程・実施形態（対面／オンライン／eラーニング）を決めます。' },
+          { no: '02', title: '日程・実施方法の確定', desc: '受講者・日程・実施形態（対面／オンライン）を決めます。' },
           { no: '03', title: '研修実施（OFF-JT）', desc: '解説・業界別実例・デモで、基礎から実践まで学びます。' },
           { no: '04', title: '実践支援・振り返り', desc: '学んだ内容を業務で実践するための支援を行い、定着まで伴走します。' },
         ],
@@ -934,7 +934,7 @@ export const translations = {
             overview: 'An OFF-JT course — lectures, industry examples, and demos — taking you from the big picture of AI to making AI a real working asset through data integration.',
             specs: [
               { label: 'Audience', value: 'Executives, managers, and employees who want to bring AI into their work' },
-              { label: 'Format', value: 'In-person / Live online / e-learning' },
+              { label: 'Format', value: 'In-person / Live online' },
               { label: 'Fee', value: '¥398,000 per participant (incl. tax)' },
               { label: 'Standard hours', value: '20 hours (OFF-JT)' },
               { label: 'Key themes', value: 'Overview of AI tools / Generative AI vs. AI agents / Using data via API / Security & permission design / How to apply AI to business processes' },
@@ -945,7 +945,7 @@ export const translations = {
             overview: 'A program for the people who will drive DX inside your company. Through hands-on exercises, participants learn to map current work, design digitalization and automation, and implement and embed generative AI in daily operations.',
             specs: [
               { label: 'Audience', value: 'DX leads and candidates, department leaders, IT and planning teams' },
-              { label: 'Format', value: 'In-person / Live online / e-learning' },
+              { label: 'Format', value: 'In-person / Live online' },
               { label: 'Fee', value: '¥398,000 per participant (incl. tax)' },
               { label: 'Standard hours', value: '20 hours (OFF-JT)' },
               { label: 'Key themes', value: 'What DX is and how to drive it / Mapping work and finding bottlenecks / Redesigning processes with generative AI / No-code and automation tools / Driving adoption and measuring impact / Security and internal rules' },
@@ -971,7 +971,7 @@ export const translations = {
         eyebrow: 'Process',
         steps: [
           { no: '01', title: 'Hearing', desc: 'We clarify your current operational challenges and goals for AI.' },
-          { no: '02', title: 'Scheduling', desc: 'We confirm participants, dates, and the format (in-person / live online / e-learning).' },
+          { no: '02', title: 'Scheduling', desc: 'We confirm participants, dates, and the format (in-person / live online).' },
           { no: '03', title: 'Training (OFF-JT)', desc: 'Learn from foundations to practice through lectures, examples, and demos.' },
           { no: '04', title: 'Practice support & review', desc: 'We support putting what you learned into practice and stay with you until it sticks.' },
         ],
