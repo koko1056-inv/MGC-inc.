@@ -2,8 +2,7 @@
    以前は index.html の <style> と Tailwind CDN で賄っていたものを、
    ビルド時に静的CSSへ出力する形に移した。トークン・値は変更していない。 */
 
-/* Inter for Latin glyphs, Noto Sans JP for CJK — Google Fonts subsets each per char-set */
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;600;700;800&display=swap");
+/* フォント（Inter / Noto Sans JP）はセルフホストし、index.html から /fonts/fonts.css を読み込む。 */
 
 @tailwind base;
 @tailwind components;

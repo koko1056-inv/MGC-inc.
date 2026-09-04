@@ -1,17 +1,57 @@
 {
   "version": 2,
   "functions": {
-    "api/index.ts": { "maxDuration": 60 }
+    "api/index.ts": {
+      "maxDuration": 60
+    }
   },
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/index.ts" },
-    { "source": "/privacy-policy", "destination": "/privacy-policy.html" },
-    { "source": "/terms-of-service", "destination": "/terms-of-service.html" },
-    { "source": "/tiktok-callback", "destination": "/tiktok-callback.html" },
-    { "source": "/tiktok-developers-site-verification=XTXhOKY6dU5oJbp1LOu746E3EvjUi3NU", "destination": "/tiktok-developers-site-verification=XTXhOKY6dU5oJbp1LOu746E3EvjUi3NU.html" },
-    { "source": "/column", "destination": "/column/index.html" },
-    { "source": "/column/", "destination": "/column/index.html" },
-    { "source": "/column/:slug", "destination": "/column/:slug.html" },
-    { "source": "/(.*)", "destination": "/" }
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/index.ts"
+    },
+    {
+      "source": "/privacy-policy",
+      "destination": "/privacy-policy.html"
+    },
+    {
+      "source": "/terms-of-service",
+      "destination": "/terms-of-service.html"
+    },
+    {
+      "source": "/tiktok-callback",
+      "destination": "/tiktok-callback.html"
+    },
+    {
+      "source": "/tiktok-developers-site-verification=XTXhOKY6dU5oJbp1LOu746E3EvjUi3NU",
+      "destination": "/tiktok-developers-site-verification=XTXhOKY6dU5oJbp1LOu746E3EvjUi3NU.html"
+    },
+    {
+      "source": "/column",
+      "destination": "/column/index.html"
+    },
+    {
+      "source": "/column/",
+      "destination": "/column/index.html"
+    },
+    {
+      "source": "/column/:slug",
+      "destination": "/column/:slug.html"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/fonts/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
   ]
 }

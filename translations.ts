@@ -89,6 +89,13 @@ export const translations = {
       label: '無料相談',
       sub: '30分・無料',
     },
+    homeCases: {
+      eyebrow: 'Case Studies',
+      title: '導入事例',
+      lead: '実際に進行している案件です。社名は掲載許諾の手続き中のため伏せ、業種と進め方をご紹介します。',
+      cta: '導入事例をすべて見る',
+      detail: '詳しく見る',
+    },
     faq: {
       eyebrow: 'FAQ',
       title: 'よくあるご質問',
@@ -363,6 +370,21 @@ export const translations = {
         sending: "送信中…",
         success: "ありがとうございます。1営業日以内にご返信いたします。",
         privacyNote: "送信いただいた情報は、ご相談対応の目的のみに使用します。",
+        thanks: {
+          eyebrow: "Thank you",
+          title: "送信しました",
+          lead: "お問い合わせありがとうございます。担当者が内容を確認し、1営業日以内にご返信いたします。",
+          nextTitle: "このあとの流れ",
+          steps: [
+            "内容を確認し、1営業日以内にメールでご返信します。",
+            "30分のオンライン相談で、現状と課題を伺います。",
+            "どこからAIに任せられるかを整理し、進め方をご提案します。",
+          ],
+          linksTitle: "あわせてご覧ください",
+          caseLink: "導入事例を見る",
+          columnLink: "業界別コラムを読む",
+          homeLink: "トップページへ戻る",
+        },
       }
     },
     training: {
@@ -598,6 +620,13 @@ export const translations = {
     floatingCta: {
       label: 'Free Consult',
       sub: '30-min · free',
+    },
+    homeCases: {
+      eyebrow: 'Case Studies',
+      title: 'Case studies',
+      lead: 'Projects we are actually running. Company names are withheld while permission to publish is arranged, so we describe the industry and the approach.',
+      cta: 'See all case studies',
+      detail: 'Read more',
     },
     faq: {
       eyebrow: 'FAQ',
@@ -869,6 +898,21 @@ export const translations = {
         sending: "Sending…",
         success: "Thank you. We'll get back to you within one business day.",
         privacyNote: "We use your information only for responding to your inquiry.",
+        thanks: {
+          eyebrow: "Thank you",
+          title: "Message sent",
+          lead: "Thank you for reaching out. We will review your message and reply within one business day.",
+          nextTitle: "What happens next",
+          steps: [
+            "We review your message and reply by email within one business day.",
+            "A 30-minute online consultation to understand where you are today.",
+            "We map what AI can take on and propose how to proceed.",
+          ],
+          linksTitle: "While you wait",
+          caseLink: "See case studies",
+          columnLink: "Read industry columns",
+          homeLink: "Back to home",
+        },
       }
     },
     training: {
