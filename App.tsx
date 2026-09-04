@@ -24,7 +24,7 @@ const PAGE_META: Record<Lang, Partial<Record<string, { title: string; descriptio
   ja: {
     home: { title: 'ＭＧＣ株式会社（MGC Inc.）| AIとテクノロジーで、日本と世界をつなぐ', description: 'ＭＧＣ株式会社は、AIコンサルティングから開発・運用・研修まで一気通貫のAIソリューションと、双方向のクロスボーダー事業を展開する京都の会社。初回相談は無料。' },
     works: { title: '事業内容｜AIソリューションとクロスボーダー事業 - ＭＧＣ株式会社', description: 'AIコンサルティング・開発・運用・研修を一気通貫で提供するAIソリューションと、海外企業の日本総代理店・日本企業の海外進出を支援するクロスボーダー事業。' },
-    training: { title: 'AI活用リスキリング研修｜人材開発支援助成金対応 - ＭＧＣ株式会社', description: 'ITに詳しくない経営者・従業員がAIを業務に導入・活用できるようになる実践型研修（OFF-JT）。人材開発支援助成金の対象訓練に対応。' },
+    training: { title: 'AI活用リスキリング研修｜実践型のOFF-JT研修 - ＭＧＣ株式会社', description: 'ITに詳しくない経営者・従業員がAIを業務に導入・活用できるようになる実践型研修（OFF-JT）。基礎から実務での活用までを、解説・実例・デモで学びます。' },
     mission: { title: '会社理念｜AIとテクノロジーで、日本と世界をつなぐ - ＭＧＣ株式会社', description: 'MGCのビジョン・ミッション・バリュー。AIは手段であり、目的は未来をより良くすること。受け継がれ、続いていく取り組みをつくります。' },
     company: { title: '会社概要 - ＭＧＣ株式会社（MGC Inc.）', description: 'ＭＧＣ株式会社の会社概要。商号・代表者・所在地（京都府京都市）・設立・事業内容。' },
     career: { title: '採用情報｜AIネイティブに働く仲間を募集 - ＭＧＣ株式会社', description: 'MGCが求める人物像・マインドセット・スキル。AIを同僚として使いこなし、日本と世界をつなぐ仕事に挑む仲間を募集しています。' },
@@ -36,7 +36,7 @@ const PAGE_META: Record<Lang, Partial<Record<string, { title: string; descriptio
   en: {
     home: { title: 'MGC Inc. | Connect Japan & The World through AI and Tech', description: 'MGC Inc. delivers end-to-end AI solutions — consulting, development, operations and training — and cross-border business from Kyoto, Japan. First consultation is free.' },
     works: { title: 'Business | AI Solutions and Cross-Border - MGC Inc.', description: 'End-to-end AI solutions and two-way cross-border business: representing overseas companies in Japan and helping Japanese companies expand abroad.' },
-    training: { title: 'AI Reskilling Program - MGC Inc.', description: 'Hands-on AI training (OFF-JT) for managers and employees who are not IT specialists. Designed to qualify for Japan’s Human Resource Development subsidy.' },
+    training: { title: 'AI Reskilling Program - MGC Inc.', description: 'Hands-on AI training (OFF-JT) for managers and employees who are not IT specialists, from the foundations to putting AI to work.' },
     mission: { title: 'Mission | Connect Japan & The World through AI and Tech - MGC Inc.', description: 'MGC’s vision, mission and values. AI is a means; the goal is a better future that outlasts us.' },
     company: { title: 'Company Profile - MGC Inc.', description: 'Corporate profile of MGC Inc.: name, representative, location (Kyoto, Japan), founding date and business.' },
     career: { title: 'Careers | Work AI-natively with us - MGC Inc.', description: 'Who we look for, the mindset and the skills. Join us in connecting Japan and the world with AI as a colleague.' },
@@ -1771,11 +1771,6 @@ const TrainingView: React.FC = () => {
                 </Reveal>
               ))}
             </div>
-            <Reveal>
-              <div className="mt-8 rounded-2xl border border-[#2D6CDF]/30 bg-[#2D6CDF]/[0.05] p-6 md:p-7">
-                <p className="text-[15px] md:text-base text-[#111418] leading-[1.9]">{tr.flow.note}</p>
-              </div>
-            </Reveal>
           </div>
         </section>
 
@@ -1823,13 +1818,6 @@ const TrainingView: React.FC = () => {
                   </div>
                 </div>
               </div>
-            </Reveal>
-
-            {/* Footnote */}
-            <Reveal>
-              <p className="mt-10 text-xs md:text-sm text-gray-500 leading-[1.9] border-l-2 border-gray-300 pl-4">
-                {tr.footnote}
-              </p>
             </Reveal>
           </div>
         </section>
