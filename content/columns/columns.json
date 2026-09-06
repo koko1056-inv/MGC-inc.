@@ -7,7 +7,7 @@
   },
   "rotation": {
     "note": "日次で industries を順番に回す。lastIndex は最後に公開した業種の添字。次回は (lastIndex+1)%12 の業種で、usedTopics に無いテーマを選ぶ。",
-    "lastIndex": 4,
+    "lastIndex": 5,
     "industries": [
       {
         "key": "manufacturing",
@@ -104,7 +104,8 @@
     "healthcare": [
       "healthcare-documentation-efficiency-ai",
       "healthcare-care-planning-risk-prediction-ai",
-      "healthcare-staff-scheduling-shift-optimization-ai"
+      "healthcare-staff-scheduling-shift-optimization-ai",
+      "healthcare-incident-reporting-safety-ai"
     ],
     "hospitality": [
       "hospitality-service-automation",
@@ -391,6 +392,12 @@
       "industry": "logistics",
       "date": "2026-09-06",
       "file": "logistics-document-automation-ai.json"
+    },
+    {
+      "slug": "healthcare-incident-reporting-safety-ai",
+      "industry": "healthcare",
+      "date": "2026-09-07",
+      "file": "healthcare-incident-reporting-safety-ai.json"
     }
   ]
 }
