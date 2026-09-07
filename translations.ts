@@ -92,7 +92,6 @@ export const translations = {
     homeCases: {
       eyebrow: 'Case Studies',
       title: '導入事例',
-      lead: '実際に進行している案件です。社名は掲載許諾の手続き中のため伏せ、業種と進め方をご紹介します。',
       cta: '導入事例をすべて見る',
       detail: '詳しく見る',
     },
@@ -644,7 +643,6 @@ export const translations = {
     homeCases: {
       eyebrow: 'Case Studies',
       title: 'Case studies',
-      lead: 'Projects we are actually running. Company names are withheld while permission to publish is arranged, so we describe the industry and the approach.',
       cta: 'See all case studies',
       detail: 'Read more',
     },

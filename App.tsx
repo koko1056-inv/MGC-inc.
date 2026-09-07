@@ -537,7 +537,6 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
             <h2 className="text-5xl md:text-7xl font-bold tracking-tighter text-offblack leading-[0.95]">
               {t.homeCases.title}
             </h2>
-            <p className="text-base md:text-lg text-gray-600 leading-relaxed mt-6 max-w-2xl">{t.homeCases.lead}</p>
           </div>
           <button
             onClick={() => goTo('cases')}
