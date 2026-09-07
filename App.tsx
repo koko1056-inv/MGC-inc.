@@ -2955,6 +2955,38 @@ const App: React.FC = () => {
     setIsMenuOpen(false);
   };
 
+  // ジャーナルだけ背景が暗いため、フッターの配色を切り替える
+  const dark = view === 'blog';
+
+  // フッターのリンク。ヘッダーより広く、役割ごとにまとめて並べる。
+  const footerGroups: { title: string; links: NavLeaf[] }[] = [
+    {
+      title: t.footer.groups.business,
+      links: [
+        { id: 'works', label: t.nav.works },
+        ...SERVICE_KEYS.map((k) => ({ id: k as ViewState, label: serviceContent[lang][k].navLabel })),
+      ],
+    },
+    {
+      title: t.footer.groups.insights,
+      links: [
+        { id: 'cases', label: t.nav.cases },
+        { id: 'training', label: t.nav.training },
+        { href: '/column', label: t.nav.column },
+        { id: 'blog', label: t.nav.blog },
+      ],
+    },
+    {
+      title: t.footer.groups.company,
+      links: [
+        { id: 'mission', label: t.nav.mission },
+        { id: 'company', label: t.nav.company },
+        { id: 'career', label: t.nav.career },
+        { id: 'contact', label: t.nav.contact },
+      ],
+    },
+  ];
+
   // 情報ナビ（お問い合わせはCTAボタンとして分離、Journalはフッターへ集約）
   type NavLeaf = { id?: ViewState; href?: string; label: string };
   type NavItem = NavLeaf & { children?: NavLeaf[] };
@@ -3142,27 +3174,68 @@ const App: React.FC = () => {
         </button>
       )}
 
-      <footer className={`px-6 md:px-12 py-12 border-t ${view === 'blog' ? 'border-gray-800 text-gray-400' : 'border-gray-200 text-gray-500'}`}>
-        <div className="max-w-screen-xl mx-auto flex flex-col md:flex-row md:items-start md:justify-between gap-8">
-          <div>
-            <p className={`font-bold text-base mb-2 ${view === 'blog' ? 'text-white' : 'text-offblack'}`}>
-              {t.footer.corp}
-            </p>
-            <p className="text-sm leading-relaxed">{t.footer.address}</p>
-          </div>
-          <nav className="flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium">
-            {navItems.flatMap((item) => item.children ?? [item]).map((item) => item.href ? (
-              <a key={item.href} href={item.href} className="hover:text-accent transition-colors">{item.label}</a>
-            ) : (
-              <button key={item.id} onClick={() => item.id && navigate(item.id)} className="hover:text-accent transition-colors">
-                {item.label}
+      <footer className={`px-6 md:px-12 pt-16 md:pt-20 pb-10 border-t ${dark ? 'border-gray-800 text-gray-400' : 'border-gray-200 text-gray-500'}`}>
+        <div className="max-w-screen-xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8">
+            {/* ブランド・所在地・相談への導線 */}
+            <div className="md:col-span-4 lg:col-span-5">
+              <button onClick={() => navigate('home')} className="flex items-center gap-3 group">
+                <span className={`w-12 h-8 flex items-center justify-center ${dark ? 'bg-white' : 'bg-offblack'}`}>
+                  <span className={`w-4 h-4 rounded-full ${dark ? 'bg-black' : 'bg-white'}`} />
+                </span>
+                <span className={`text-lg font-bold tracking-tighter ${dark ? 'text-white' : 'text-offblack'} group-hover:text-accent transition-colors`}>
+                  MGC Inc.
+                </span>
               </button>
+              <p className={`text-sm font-bold mt-6 ${dark ? 'text-gray-300' : 'text-offblack'}`}>{t.footer.tagline}</p>
+              <p className="text-sm leading-relaxed mt-4">{t.footer.corp}</p>
+              <p className="text-sm leading-relaxed">{t.footer.address}</p>
+              <button
+                onClick={() => navigate('contact')}
+                className="group inline-flex items-center gap-2 mt-8 px-5 py-2.5 rounded-full bg-accent text-white text-sm font-bold hover:bg-blue-700 transition-colors"
+              >
+                {t.footer.contactCta}
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+              </button>
+            </div>
+
+            {/* リンク集 */}
+            {footerGroups.map((group) => (
+              <div key={group.title} className="md:col-span-4 lg:col-span-2 lg:col-start-auto">
+                <h2 className={`text-[10px] font-mono font-bold uppercase tracking-[0.25em] mb-5 ${dark ? 'text-gray-500' : 'text-gray-400'}`}>
+                  {group.title}
+                </h2>
+                <ul className="space-y-3">
+                  {group.links.map((link) => (
+                    <li key={link.href ?? link.id}>
+                      {link.href ? (
+                        <a href={link.href} className={`text-sm font-medium hover:text-accent transition-colors ${dark ? 'text-gray-300' : 'text-gray-700'}`}>
+                          {link.label}
+                        </a>
+                      ) : (
+                        <button
+                          onClick={() => link.id && navigate(link.id)}
+                          className={`text-sm font-medium text-left hover:text-accent transition-colors ${dark ? 'text-gray-300' : 'text-gray-700'}`}
+                        >
+                          {link.label}
+                        </button>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ))}
-            <button onClick={() => navigate('blog')} className="hover:text-accent transition-colors">{t.nav.blog}</button>
-            <button onClick={() => navigate('contact')} className="hover:text-accent transition-colors">{t.nav.contact}</button>
-          </nav>
+          </div>
+
+          {/* 最下段 */}
+          <div className={`mt-14 md:mt-16 pt-6 border-t flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 ${dark ? 'border-gray-800' : 'border-gray-200'}`}>
+            <p className="text-xs opacity-70">{t.footer.rights}</p>
+            <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs">
+              <a href="/privacy-policy" className="hover:text-accent transition-colors">{t.footer.privacy}</a>
+              <a href="/terms-of-service" className="hover:text-accent transition-colors">{t.footer.terms}</a>
+            </div>
+          </div>
         </div>
-        <p className="max-w-screen-xl mx-auto text-xs mt-10 opacity-70">{t.footer.rights}</p>
       </footer>
     </div>
     </LanguageContext.Provider>
