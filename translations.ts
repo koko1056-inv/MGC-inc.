@@ -550,6 +550,11 @@ export const translations = {
       corp: 'ＭＧＣ株式会社（MGC Inc.）',
       address: '京都府京都市上京区西辰巳町111 アビタシオンオンズアン106',
       rights: '© 2026 MGC Inc. All Rights Reserved.',
+      tagline: 'AIとテクノロジーで、日本と世界をつなぐ。',
+      groups: { business: '事業・サービス', insights: '実績・ナレッジ', company: '会社情報' },
+      contactCta: '30分の無料相談',
+      privacy: 'プライバシーポリシー',
+      terms: '利用規約',
     }
   },
   en: {
@@ -1097,6 +1102,11 @@ export const translations = {
       corp: 'MGC Inc. (ＭＧＣ株式会社)',
       address: '111 Nishitatsumi-cho, Kamigyo-ku, Kyoto, Japan',
       rights: '© 2026 MGC Inc. All Rights Reserved.',
+      tagline: 'Connect Japan & The World through AI and Tech.',
+      groups: { business: 'Business & Services', insights: 'Work & Knowledge', company: 'Company' },
+      contactCta: 'Book a free 30-min consult',
+      privacy: 'Privacy Policy',
+      terms: 'Terms of Service',
     }
   }
 };
