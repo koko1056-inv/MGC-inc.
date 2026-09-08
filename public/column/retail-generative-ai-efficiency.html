@@ -136,114 +136,231 @@
   ]
 }</script>
 <style>*{box-sizing:border-box;margin:0;padding:0}
-:root{--ink:#111418;--blue:#2D6CDF;--muted:#5b6472;--line:#e6e8ec;--bg:#ffffff;--soft:#f6f8fb}
-html{-webkit-text-size-adjust:100%}
-body{font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",Meiryo,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.85;-webkit-font-smoothing:antialiased}
+:root{--ink:#111418;--blue:#2D6CDF;--muted:#5b6472;--line:#e6e8ec;--bg:#ffffff;--soft:#f6f8fb;--maxw:1200px}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",Meiryo,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.9;letter-spacing:.01em;-webkit-font-smoothing:antialiased;font-feature-settings:"palt" 1,"kern" 1}
 a{color:var(--blue);text-decoration:none}
 a:hover{text-decoration:underline}
-.site-header{position:sticky;top:0;z-index:20;background:var(--ink);display:flex;align-items:center;justify-content:space-between;padding:16px 24px}
-.site-header a.brand{color:#fff;font-size:1.15rem;font-weight:800;letter-spacing:.04em;text-decoration:none}
-.site-header nav a{color:rgba(255,255,255,.8);font-size:.85rem;font-weight:600;margin-left:20px;text-decoration:none}
-.site-header nav a:hover{color:#fff}
-.wrap{max-width:760px;margin:0 auto;padding:0 22px}
-.crumbs{font-size:.8rem;color:var(--muted);margin:26px auto 0;max-width:760px;padding:0 22px}
+img{max-width:100%}
+
+/* ── ヘッダー ───────────────────────── */
+.site-header{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid var(--line)}
+.site-header .inner{max-width:var(--maxw);margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:24px}
+.site-header a.brand{display:flex;align-items:center;gap:10px;color:var(--ink);font-size:1.05rem;font-weight:800;letter-spacing:-.02em;text-decoration:none;flex-shrink:0}
+.site-header a.brand .mark{width:38px;height:25px;background:var(--ink);display:flex;align-items:center;justify-content:center;border-radius:2px}
+.site-header a.brand .mark i{width:11px;height:11px;background:#fff;border-radius:50%;display:block}
+.site-header nav{margin-left:auto;display:flex;align-items:center;gap:22px;overflow-x:auto;scrollbar-width:none}
+.site-header nav::-webkit-scrollbar{display:none}
+.site-header nav a{color:var(--ink);font-size:.85rem;font-weight:700;text-decoration:none;white-space:nowrap;opacity:.7;transition:opacity .2s,color .2s}
+.site-header nav a:hover{opacity:1;color:var(--blue)}
+.site-header nav a.is-current{opacity:1;color:var(--blue)}
+.site-header nav a.nav-cta{opacity:1;background:var(--ink);color:#fff;border-radius:999px;padding:9px 18px}
+.site-header nav a.nav-cta:hover{background:var(--blue);color:#fff}
+
+/* 読了プログレス */
+.progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--blue);z-index:40;transition:width .1s linear}
+
+/* ── 共通レイアウト ─────────────────── */
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.crumbs{font-size:.78rem;color:var(--muted);max-width:var(--maxw);margin:22px auto 0;padding:0 24px}
 .crumbs a{color:var(--muted)}
-.eyebrow{display:inline-block;font-size:.72rem;font-weight:800;letter-spacing:.16em;color:var(--blue);text-transform:uppercase;margin-bottom:14px}
-h1.title{font-size:2rem;line-height:1.45;font-weight:800;letter-spacing:-.01em;margin:8px 0 16px}
-.meta{display:flex;flex-wrap:wrap;gap:14px;align-items:center;font-size:.82rem;color:var(--muted);margin-bottom:26px}
-.chip{background:var(--soft);color:var(--blue);font-weight:700;border-radius:999px;padding:4px 12px;font-size:.78rem}
-.hero{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:16px;background:var(--soft);margin:6px 0 30px;display:block}
-.lead{font-size:1.08rem;color:#2a3340;font-weight:500;border-left:3px solid var(--blue);padding-left:16px;margin:0 0 30px}
-.keypoints{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:0 0 34px}
-.keypoints h2{font-size:.95rem;font-weight:800;color:var(--blue);margin:0 0 12px;letter-spacing:.02em}
-.keypoints ul{margin:0;padding-left:20px}
-.keypoints li{margin:0 0 8px;color:#1b2430;font-weight:500}
+.crumbs a:hover{color:var(--blue)}
+.eyebrow{display:inline-block;font-size:.7rem;font-weight:800;letter-spacing:.24em;color:var(--blue);text-transform:uppercase}
+
+/* ── 記事ページ ─────────────────────── */
+.article-head{max-width:var(--maxw);margin:0 auto;padding:26px 24px 0}
+.article-head .meta{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;font-size:.8rem;color:var(--muted);margin:16px 0 0}
+h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;letter-spacing:-.02em;margin:14px 0 0;max-width:22em}
+.chip{background:var(--soft);color:var(--blue);font-weight:800;border-radius:999px;padding:4px 12px;font-size:.75rem}
+.hero{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:20px;background:var(--soft);margin:28px 0 0;display:block;max-width:var(--maxw)}
+.hero-wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+.layout{max-width:var(--maxw);margin:0 auto;padding:44px 24px 0;display:grid;grid-template-columns:minmax(0,1fr) 292px;gap:56px;align-items:start}
+.col-main{min-width:0}
+.col-side{position:sticky;top:96px}
+
+.lead{font-size:1.1rem;color:#2a3340;font-weight:600;line-height:1.95;border-left:3px solid var(--blue);padding-left:18px;margin:0 0 32px}
+.keypoints{background:var(--soft);border-radius:18px;padding:24px 26px;margin:0 0 40px}
+.keypoints h2{font-size:.78rem;font-weight:800;color:var(--blue);margin:0 0 14px;letter-spacing:.18em;text-transform:uppercase}
+.keypoints ul{margin:0;padding:0;list-style:none}
+.keypoints li{position:relative;margin:0 0 12px;padding-left:24px;color:#1b2430;font-weight:600}
+.keypoints li::before{content:"";position:absolute;left:2px;top:.72em;width:8px;height:8px;border-radius:50%;background:var(--blue)}
 .keypoints li:last-child{margin-bottom:0}
-.article h2{font-size:1.35rem;font-weight:800;line-height:1.5;margin:44px 0 14px;padding-top:6px}
-.article h3{font-size:1.1rem;font-weight:700;margin:30px 0 10px;color:#1b2430}
-.article p{margin:0 0 18px;color:#313a46}
-.article ul,.article ol{margin:0 0 20px;padding-left:22px}
-.article li{margin:0 0 9px;color:#313a46}
-.article blockquote{margin:26px 0;padding:16px 20px;background:var(--soft);border-radius:12px;border-left:4px solid var(--blue);color:#1b2430;font-weight:600}
-.faq{margin:48px 0 8px}
-.faq h2{font-size:1.35rem;font-weight:800;margin-bottom:16px}
-.faq details{border:1px solid var(--line);border-radius:12px;padding:0;margin-bottom:12px;overflow:hidden}
-.faq summary{cursor:pointer;list-style:none;padding:16px 18px;font-weight:700;color:var(--ink);display:flex;justify-content:space-between;gap:12px}
+
+.article{max-width:none}
+.article > h2{font-size:1.45rem;font-weight:800;line-height:1.55;margin:56px 0 18px;padding-top:22px;border-top:1px solid var(--line);scroll-margin-top:96px}
+.article > h3{font-size:1.12rem;font-weight:800;margin:34px 0 10px;color:#1b2430}
+.article p{margin:0 0 20px;color:#313a46}
+.article ul,.article ol{margin:0 0 22px;padding-left:22px}
+.article li{margin:0 0 10px;color:#313a46}
+.article blockquote{margin:28px 0;padding:20px 24px;background:var(--soft);border-radius:14px;border-left:4px solid var(--blue);color:#1b2430;font-weight:600}
+
+/* 目次 */
+.toc{border:1px solid var(--line);border-radius:18px;padding:20px 22px}
+.toc h2{font-size:.72rem;font-weight:800;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;margin:0 0 14px}
+.toc ol{list-style:none;margin:0;padding:0;counter-reset:toc}
+.toc li{counter-increment:toc;margin:0 0 11px;line-height:1.6}
+.toc li:last-child{margin-bottom:0}
+.toc a{display:flex;gap:10px;color:var(--muted);font-size:.84rem;font-weight:600;text-decoration:none}
+.toc a::before{content:counter(toc,decimal-leading-zero);color:var(--blue);font-weight:800;font-size:.72rem;padding-top:.18em}
+.toc a:hover{color:var(--ink);text-decoration:none}
+.toc a.is-active{color:var(--blue)}
+.side-cta{margin-top:18px;background:var(--ink);color:#fff;border-radius:18px;padding:22px}
+.side-cta p{color:rgba(255,255,255,.78);font-size:.82rem;margin:0 0 14px;line-height:1.8}
+.side-cta strong{display:block;color:#fff;font-size:1rem;font-weight:800;margin-bottom:8px;line-height:1.6}
+.side-cta a{display:inline-flex;align-items:center;gap:6px;background:var(--blue);color:#fff;border-radius:999px;padding:10px 18px;font-size:.82rem;font-weight:800;text-decoration:none}
+.toc-mobile{display:none}
+
+/* FAQ */
+.faq{margin:56px 0 8px}
+.faq h2{font-size:1.45rem;font-weight:800;margin-bottom:18px}
+.faq details{border:1px solid var(--line);border-radius:14px;margin-bottom:12px;overflow:hidden;transition:border-color .2s}
+.faq details[open]{border-color:var(--blue)}
+.faq summary{cursor:pointer;list-style:none;padding:18px 20px;font-weight:700;color:var(--ink);display:flex;justify-content:space-between;gap:12px;line-height:1.7}
 .faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"＋";color:var(--blue);font-weight:800}
+.faq summary::after{content:"＋";color:var(--blue);font-weight:800;flex-shrink:0}
 .faq details[open] summary::after{content:"−"}
-.faq .a{padding:0 18px 18px;color:#313a46}
-.cta{margin:52px 0;background:var(--ink);color:#fff;border-radius:20px;padding:30px 26px}
-.cta h2{color:#fff;font-size:1.3rem;font-weight:800;margin-bottom:10px}
-.cta p{color:rgba(255,255,255,.82);margin-bottom:20px}
-.cta .cta-eyebrow{display:inline-block;background:var(--blue);color:#fff;font-size:.72rem;font-weight:800;letter-spacing:.08em;border-radius:999px;padding:5px 12px;margin-bottom:14px}
+.faq .a{padding:0 20px 20px;color:#313a46}
+
+/* CTA */
+.cta{margin:60px 0;background:var(--ink);color:#fff;border-radius:24px;padding:40px 34px}
+.cta h2{color:#fff;font-size:1.5rem;font-weight:800;margin-bottom:12px;line-height:1.6}
+.cta p{color:rgba(255,255,255,.8);margin-bottom:22px}
+.cta .cta-eyebrow{display:inline-block;background:var(--blue);color:#fff;font-size:.7rem;font-weight:800;letter-spacing:.1em;border-radius:999px;padding:6px 14px;margin-bottom:16px}
 .cta .btns{display:flex;flex-wrap:wrap;gap:12px}
-.cta .cta-foot{color:rgba(255,255,255,.6);font-size:.8rem;margin:14px 0 0}
-.btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:13px 22px;font-weight:800;font-size:.92rem;text-decoration:none}
+.cta .cta-foot{color:rgba(255,255,255,.55);font-size:.78rem;margin:16px 0 0}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:14px 24px;font-weight:800;font-size:.92rem;text-decoration:none;transition:transform .2s,background .2s}
+.btn:hover{text-decoration:none;transform:translateY(-2px)}
 .btn-primary{background:var(--blue);color:#fff}
 .btn-ghost{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.25)}
-.related{margin:44px 0}
-.related h2{font-size:1.2rem;font-weight:800;margin-bottom:14px}
-.related a{display:block;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px;color:var(--ink);text-decoration:none}
-.related a:hover{border-color:var(--blue)}
-.related .k{font-size:.74rem;color:var(--blue);font-weight:700}
-.disclaimer{font-size:.8rem;color:var(--muted);border-top:1px solid var(--line);margin-top:44px;padding-top:20px}
-.site-footer{border-top:1px solid var(--line);margin-top:60px;padding:30px 22px;color:var(--muted);font-size:.82rem}
-.site-footer .wrap{max-width:760px}
-/* index */
-.index-hero{max-width:820px;margin:40px auto 8px;padding:0 22px}
-.index-hero h1{font-size:2rem;font-weight:800;margin-bottom:10px}
-.index-hero p{color:var(--muted);max-width:640px}
-.filters{max-width:900px;margin:26px auto 0;padding:0 22px;display:flex;flex-wrap:wrap;gap:8px}
-.filters button{font:inherit;cursor:pointer;background:#fff;border:1px solid var(--line);color:var(--muted);font-weight:700;font-size:.8rem;border-radius:999px;padding:7px 14px;transition:border-color .2s,color .2s,background .2s}
+
+/* 関連記事 */
+.related{margin:56px 0 0;padding-top:36px;border-top:1px solid var(--line)}
+.related h2{font-size:1.25rem;font-weight:800;margin-bottom:20px}
+.related .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
+.disclaimer{font-size:.78rem;color:var(--muted);border-top:1px solid var(--line);margin-top:44px;padding-top:20px;line-height:1.9}
+.back-link{display:inline-flex;align-items:center;gap:8px;margin-top:34px;font-size:.86rem;font-weight:700}
+
+/* ── カード ─────────────────────────── */
+.card{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#fff;display:flex;flex-direction:column;text-decoration:none;color:var(--ink);transition:border-color .25s,box-shadow .25s,transform .25s}
+.card:hover{border-color:var(--blue);text-decoration:none;box-shadow:0 12px 32px rgba(17,20,24,.08);transform:translateY(-3px)}
+.card .thumb{position:relative;overflow:hidden;background:var(--soft)}
+.card .thumb img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.22,1,.36,1)}
+.card:hover .thumb img{transform:scale(1.05)}
+.card .thumb .k{position:absolute;left:12px;top:12px;background:rgba(255,255,255,.94);color:var(--blue);font-size:.7rem;font-weight:800;border-radius:999px;padding:5px 12px;letter-spacing:.02em}
+.card .body{padding:18px 18px 20px;display:flex;flex-direction:column;gap:9px;flex:1}
+.card h3{font-size:1rem;font-weight:800;line-height:1.65;letter-spacing:-.01em;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.card .d{font-size:.82rem;color:var(--muted);line-height:1.8;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card .foot{display:flex;align-items:center;gap:12px;font-size:.74rem;color:#9aa3b0;margin-top:auto;padding-top:6px}
+
+/* ── 一覧ページ ─────────────────────── */
+.index-hero{max-width:var(--maxw);margin:26px auto 0;padding:0 24px}
+.index-hero h1{font-size:clamp(2rem,4.6vw,3.2rem);font-weight:800;letter-spacing:-.03em;line-height:1.35;margin:14px 0 0}
+.index-hero p{color:var(--muted);max-width:44em;margin-top:16px}
+.index-hero .count{display:inline-block;margin-top:18px;font-size:.78rem;font-weight:700;color:var(--muted)}
+.index-hero .count b{color:var(--ink);font-size:1rem}
+
+.featured{max-width:var(--maxw);margin:40px auto 0;padding:0 24px}
+.featured a{display:grid;grid-template-columns:1.15fr 1fr;gap:0;border:1px solid var(--line);border-radius:24px;overflow:hidden;color:var(--ink);text-decoration:none;transition:border-color .25s,box-shadow .25s}
+.featured a:hover{border-color:var(--blue);text-decoration:none;box-shadow:0 16px 40px rgba(17,20,24,.08)}
+.featured .thumb{overflow:hidden;background:var(--soft)}
+.featured .thumb img{width:100%;height:100%;min-height:280px;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.22,1,.36,1)}
+.featured a:hover .thumb img{transform:scale(1.04)}
+.featured .body{padding:36px 38px;display:flex;flex-direction:column;justify-content:center;gap:14px}
+.featured .tag{display:flex;align-items:center;gap:10px}
+.featured .tag .pill{background:var(--blue);color:#fff;font-size:.68rem;font-weight:800;letter-spacing:.12em;border-radius:999px;padding:5px 12px;text-transform:uppercase}
+.featured h2{font-size:clamp(1.2rem,2vw,1.6rem);font-weight:800;line-height:1.6;letter-spacing:-.01em}
+.featured p{color:var(--muted);font-size:.9rem;line-height:1.85;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.featured .foot{display:flex;gap:14px;font-size:.76rem;color:#9aa3b0}
+
+.filters{max-width:var(--maxw);margin:52px auto 0;padding:0 24px}
+.filters .label{display:block;font-size:.7rem;font-weight:800;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;margin-bottom:14px}
+.filters .row{display:flex;flex-wrap:wrap;gap:8px}
+.filters button{font:inherit;cursor:pointer;background:#fff;border:1px solid var(--line);color:var(--muted);font-weight:700;font-size:.8rem;border-radius:999px;padding:8px 15px;transition:border-color .2s,color .2s,background .2s}
 .filters button:hover{border-color:var(--blue);color:var(--blue)}
-.filters button[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
+.filters button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.filters button .n{opacity:.55;font-size:.74rem;margin-left:5px}
+
+.cards{max-width:var(--maxw);margin:26px auto 0;padding:0 24px;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px}
 .cards[data-empty="true"]::after{content:"該当する記事はまだありません。";color:var(--muted);font-size:.9rem}
-.cards{max-width:900px;margin:26px auto 0;padding:0 22px;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
-.card{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff;display:flex;flex-direction:column;text-decoration:none;color:var(--ink);transition:border-color .2s}
-.card:hover{border-color:var(--blue);text-decoration:none}
-.card img{width:100%;aspect-ratio:16/9;object-fit:cover;background:var(--soft)}
-.card .body{padding:16px 16px 20px;display:flex;flex-direction:column;gap:8px;flex:1}
-.card .k{font-size:.72rem;color:var(--blue);font-weight:800}
-.card h3{font-size:1.02rem;font-weight:700;line-height:1.5}
-.card .d{font-size:.84rem;color:var(--muted);line-height:1.7}
-.card .date{font-size:.74rem;color:#9aa3b0;margin-top:auto}
-@media(max-width:640px){h1.title{font-size:1.55rem}.wrap{padding:0 18px}.cta{padding:24px 20px}}</style>
+.more{max-width:var(--maxw);margin:36px auto 0;padding:0 24px;display:flex;justify-content:center}
+.more button{font:inherit;cursor:pointer;background:#fff;border:1px solid var(--ink);color:var(--ink);font-weight:800;font-size:.88rem;border-radius:999px;padding:14px 34px;transition:background .2s,color .2s}
+.more button:hover{background:var(--ink);color:#fff}
+
+/* ── フッター ───────────────────────── */
+.site-footer{border-top:1px solid var(--line);margin-top:80px;padding:56px 0 32px;color:var(--muted);font-size:.84rem}
+.site-footer .cols{max-width:var(--maxw);margin:0 auto;padding:0 24px;display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px}
+.site-footer .brand-col strong{display:block;color:var(--ink);font-size:1rem;margin-bottom:12px}
+.site-footer .brand-col p{line-height:1.9}
+.site-footer h2{font-size:.68rem;font-weight:800;letter-spacing:.22em;color:#9aa3b0;text-transform:uppercase;margin-bottom:16px}
+.site-footer ul{list-style:none;margin:0;padding:0}
+.site-footer li{margin-bottom:11px}
+.site-footer li a{color:#313a46;font-weight:600;text-decoration:none}
+.site-footer li a:hover{color:var(--blue)}
+.site-footer .bottom{max-width:var(--maxw);margin:44px auto 0;padding:22px 24px 0;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:.76rem}
+.site-footer .bottom a{color:var(--muted)}
+
+@media(max-width:1024px){
+  .layout{grid-template-columns:minmax(0,1fr);gap:0}
+  .col-side{display:none}
+  .toc-mobile{display:block;border:1px solid var(--line);border-radius:16px;padding:6px 20px;margin:0 0 34px}
+  .toc-mobile summary{cursor:pointer;list-style:none;padding:14px 0;font-size:.8rem;font-weight:800;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;display:flex;justify-content:space-between}
+  .toc-mobile summary::-webkit-details-marker{display:none}
+  .toc-mobile summary::after{content:"＋";color:var(--blue)}
+  .toc-mobile[open] summary::after{content:"−"}
+  .toc-mobile .toc{border:0;padding:0 0 18px}
+  .toc-mobile .toc h2{display:none}
+  .featured a{grid-template-columns:1fr}
+  .featured .thumb img{min-height:0;aspect-ratio:16/9}
+  .site-footer .cols{grid-template-columns:1fr 1fr;gap:32px}
+}
+@media(max-width:640px){
+  .wrap,.crumbs,.article-head,.hero-wrap,.layout,.index-hero,.featured,.filters,.cards,.more{padding-left:18px;padding-right:18px}
+  .cta{padding:28px 22px;border-radius:20px}
+  .featured .body{padding:26px 24px}
+  .article > h2{font-size:1.25rem;margin-top:44px}
+  .site-footer .cols{grid-template-columns:1fr}
+}</style>
 </head>
 <body>
-<header class="site-header"><a class="brand" href="/">MGC Inc.</a><nav><a href="/service/ai-sales">サービス</a><a href="/cases">導入事例</a><a href="/column">コラム</a><a href="/training">研修</a><a href="/#works">事業内容</a><a href="/contact">お問い合わせ</a></nav></header>
+<div class="progress" id="progress"></div>
+<header class="site-header"><div class="inner"><a class="brand" href="/"><span class="mark"><i></i></span>MGC Inc.</a><nav><a href="/works">事業内容</a><a href="/service/ai-sales">AI営業</a><a href="/service/ai-phone">AI電話</a><a href="/service/salesforce-ai">Salesforce AI</a><a href="/cases">導入事例</a><a href="/training">研修</a><a href="/column" class="is-current">コラム</a><a class="nav-cta" href="/contact">お問い合わせ</a></nav></div></header>
 <nav class="crumbs"><a href="/">ホーム</a> ／ <a href="/column">AI活用コラム</a> ／ 小売・EC</nav>
-<main class="wrap">
-<article class="article">
+<header class="article-head">
 <span class="eyebrow">小売・EC × AI活用</span>
 <h1 class="title">小売・ECの現場を支える生成AI活用 — 顧客対応と業務効率を両立する</h1>
 <div class="meta"><span class="chip">小売・EC</span><span>2026.08.22</span><span>読了目安 15分</span></div>
-<img class="hero" src="/assets/column/ind_retail.jpg" alt="小売店舗とオンラインショップのオペレーションを支える生成AIの活用イメージ" width="1200" height="675"/>
+</header>
+<div class="hero-wrap"><img class="hero" src="/assets/column/ind_retail.jpg" alt="小売店舗とオンラインショップのオペレーションを支える生成AIの活用イメージ" width="1200" height="675"/></div>
+<main class="layout">
+<div class="col-main">
+<article class="article">
 <p class="lead">小売・EC業界は今、深刻な人手不足と、多様化する顧客ニーズの板挟みにあっています。膨大なSKU（商品管理単位）の管理、SNSやレビューを通じた顧客との絶え間ないコミュニケーション、そして店舗スタッフの教育。これらの業務は、これまで「人の経験」と「膨大な時間」に依存してきました。しかし、生成AI（LLM）の登場により、これらの『言葉』を扱う業務の在り方が劇的に変わろうとしています。本稿では、MGCの視点から、単なる効率化を超えて、顧客満足度と従業員の働きやすさを同時に向上させるための、具体的かつ実務的な生成AI導入プロセスを解説します。AIを「魔法の杖」としてではなく、現場の頼れる「デジタル・アシスタント」として定着させるための道筋を提示します。</p>
+<details class="toc-mobile"><summary>目次</summary><nav class="toc"><h2>目次</h2><ol><li><a href="#s1">EC運営の「商品登録」を劇的に変える：10倍のスピードで魅力を伝える</a></li><li><a href="#s2">店舗スタッフの「教育コスト」を削減：ベテランの知恵をAIでデジタル化</a></li><li><a href="#s3">顧客の声（VOC）を「利益」に変える：感情分析による商品開発の高度化</a></li><li><a href="#s4">接客のパーソナライズ：一人ひとりに寄り添うレコメンド</a></li><li><a href="#s5">技術的ハードルを越える：RAGによる正確な情報の担保</a></li><li><a href="#s6">導入時に陥りやすい「3つの罠」と回避策</a></li><li><a href="#s7">導入前に確認すべき「実務チェックリスト」</a></li></ol></nav></details>
 <aside class="keypoints"><h2>この記事の要点</h2><ul><li>生成AIは、ECの商品説明文作成やSNS投稿案の量産において、従来の10倍以上のスピードを実現します。</li><li>店舗スタッフのナレッジ共有にRAG（検索拡張生成）を用いることで、新人でもベテラン並みの接客対応が可能になります。</li><li>顧客の声（VOC）を定性分析し、経営判断に直結するインサイトを抽出する「仕組み」が構築できます。</li><li>導入の成否は「現場の小さな成功体験」と「安全なデータ活用環境の整備」にかかっています。</li></ul></aside>
 <p>小売業やECサイトの運営現場では、毎日膨大な「テキストデータ」がやり取りされています。新商品のスペック情報、顧客からの問い合わせメール、店舗での日報、そしてSNS上の口コミ。これらは企業の資産であるはずですが、その情報の多さゆえに、活用しきれずに埋もれてしまうことが少なくありません。生成AIは、これらの非構造化データを瞬時に理解・整理し、価値あるアウトプットに変える能力を持っています。</p>
-<h2>EC運営の「商品登録」を劇的に変える：10倍のスピードで魅力を伝える</h2>
+<h2 id="s1">EC運営の「商品登録」を劇的に変える：10倍のスピードで魅力を伝える</h2>
 <p>EC運営において、最もリソースを消費するのが「商品ページ制作」です。特に、数百、数千のアイテムを扱うシーズンごとの入れ替え時期、担当者はスペック表を読み込み、SEOキーワードを盛り込み、ブランドの世界観に合わせた説明文を書き起こさなければなりません。生成AIはこのプロセスを劇的に短縮します。</p>
 <ul><li>**スペック情報の変換：** 素材やサイズ、機能の箇条書きを投げ込むだけで、ベネフィット（顧客が得られる体験）を強調した魅力的な紹介文を自動生成します。</li><li>**多媒体への書き分け：** 自社サイト用、Amazon/楽天用、Instagram投稿用、メールマガジン用など、各プラットフォームの文字数制限や文化に合わせて、一度の指示で全てのパターンを出力可能です。</li><li>**SEOの自動最適化：** 検索ボリュームの多いキーワードを自然な文脈で組み込むようAIに指示することで、検索順位の向上を狙いつつ、読みやすさも担保します。</li></ul>
 <p>例えば、これまで1人で1日に5点程度しか書けなかった商品紹介が、AIを「下書き作成」に活用することで、50点以上の監修が可能になります。人間は「事実の整合性チェック」と「エモーショナルな味付け」という、より高度な編集作業に集中できるようになります。</p>
-<h2>店舗スタッフの「教育コスト」を削減：ベテランの知恵をAIでデジタル化</h2>
+<h2 id="s2">店舗スタッフの「教育コスト」を削減：ベテランの知恵をAIでデジタル化</h2>
 <p>実店舗における課題は、スタッフのスキル格差と教育時間の不足です。分厚いマニュアルを作成しても、接客中にそれをめくる余裕はありません。ここで有効なのが、生成AIを「社内専用のナレッジ検索機」として活用する方法です。これを実現するのが、自社独自のドキュメントをAIに参照させるRAG（Retrieval-Augmented Generation）という技術です。</p>
 <p>具体的な場面を想定してみましょう。新人の店舗スタッフが、顧客から「この素材の洗濯時の注意点は？」や「このワインに合うお手頃なチーズはどれ？」と聞かれた際、バックヤードに戻る必要はありません。手元のタブレットでAIに質問すれば、社内のマニュアルや過去の熟練スタッフの対応履歴から、数秒で最適な回答案が表示されます。</p>
 <p>これにより、OJT（実地訓練）の負担を減らしつつ、顧客をお待たせしない接客が可能になります。また、多言語対応のAIを導入すれば、インバウンド顧客への多言語接客もスムーズに行えるようになり、機会損失を最小化できます。</p>
-<h2>顧客の声（VOC）を「利益」に変える：感情分析による商品開発の高度化</h2>
+<h2 id="s3">顧客の声（VOC）を「利益」に変える：感情分析による商品開発の高度化</h2>
 <p>カスタマーセンターに届くメールや、ECサイトのレビュー欄には、商品改善のヒントが詰まっています。しかし、月に数千件届くコメントをすべて精読し、傾向を分析するのは至難の業です。生成AIは、この「定性データの定量化」に非常に長けています。</p>
 <ul><li>**感情のグラデーション分析：** 単なる『良い・悪い』の分類ではなく、『期待していたが、サイズ感が合わずに落胆している』といった複雑な顧客感情を汲み取り、優先順位をつけます。</li><li>**課題の自動抽出：** 『ファスナーが壊れやすい』『梱包が過剰』など、具体的な改善ポイントを自動でグルーピングし、開発部門や物流部門へ即座にフィードバックできるレポートを作成します。</li><li>**「隠れたニーズ」の発見：** 顧客が意外な使い方をしている事例や、セットで購入されている商品の組み合わせをAIが発見し、新しいプロモーションの提案につなげます。</li></ul>
 <p>この分析を週次、あるいは日次で行うことで、流行の変化やトラブルの兆候をいち早く捉え、迅速な経営判断（MD計画の修正や在庫調整）を下すことが可能になります。</p>
-<h2>接客のパーソナライズ：一人ひとりに寄り添うレコメンド</h2>
+<h2 id="s4">接客のパーソナライズ：一人ひとりに寄り添うレコメンド</h2>
 <p>従来のレコメンドエンジンは「この商品を買った人はこれも買っています」という統計的な推奨が限界でした。生成AIを活用すれば、個々の顧客の購買履歴や過去のやり取り、現在の悩みに基づいた「対話型の提案」が可能になります。</p>
 <p>例えば、チャットボットが単に商品を検索するだけでなく、「来週のキャンプに行くのですが、初心者でも設営しやすいテントと、それに合う防寒着を教えてください」といった抽象的な相談に対し、在庫データと連携しながら、最適なセットを提案し、その理由まで丁寧に説明します。あたかも、優秀なコンシェルジュがオンライン上に常駐しているような体験を提供できるのです。</p>
-<h2>技術的ハードルを越える：RAGによる正確な情報の担保</h2>
+<h2 id="s5">技術的ハードルを越える：RAGによる正確な情報の担保</h2>
 <p>小売業でのAI活用において最大の懸念は、AIが嘘をつく「ハルシネーション（幻覚）」です。間違った商品説明や、存在しないキャンペーン情報を伝えてしまうことは、ブランドへの信頼を致命的に損ないます。これを防ぐための標準的な手法が「RAG」です。</p>
 <p>RAGは、AIに「カンニングペーパー」を渡す仕組みです。AIが自らの記憶だけで答えるのではなく、質問に関連する社内の「商品データベース」や「最新の在庫表」をまず検索し、その内容に基づいて回答を構成します。回答には必ず「参照元：2024年春夏カタログ P.45」といった根拠を表示させることで、正確性を担保し、スタッフも安心して利用できるようになります。</p>
-<h2>導入時に陥りやすい「3つの罠」と回避策</h2>
+<h2 id="s6">導入時に陥りやすい「3つの罠」と回避策</h2>
 <p>AI導入を失敗させないためには、技術よりも「運用」の設計が重要です。多くの企業が陥りやすい罠を共有します。</p>
 <ol><li>**「全知全能のAI」を期待しすぎる：** AIに全てを丸投げしようとすると、例外対応ができずに破綻します。あくまで『初稿作成』や『下調べ』をAIが担い、最終判断は人間が行う『Human-in-the-loop』の設計が必須です。</li><li>**データの整備を後回しにする：** AIの回答精度は、参照させるマニュアルの質に依存します。古くなったマニュアルや、画像だけのPDFはAIが読み取れません。データの「デジタル化・最新化」が導入の第一歩です。</li><li>**現場のベテランを疎外する：** AI導入を『自分たちの仕事が奪われるもの』と感じさせてしまうと、現場の協力が得られません。『あなたの知恵をAIに学習させることで、新人が早く育ち、あなたの負担が減る』というメリットを明確に伝える必要があります。</li></ol>
-<h2>導入前に確認すべき「実務チェックリスト」</h2>
+<h2 id="s7">導入前に確認すべき「実務チェックリスト」</h2>
 <p>生成AIのプロジェクトをスタートさせる前に、以下の項目をチェックしてください。これが埋まっていない状態でのツール導入は、コストの浪費に終わるリスクがあります。</p>
 <ul><li>□ **具体的ユースケース：** 「AIで何かしたい」ではなく、「ECのキャッチコピー作成時間を半分にする」などの具体的な目標があるか？</li><li>□ **データの所在：** AIに読み込ませるための商品マニュアルやQA集が、テキスト抽出可能な形式で整理されているか？</li><li>□ **セキュリティポリシー：** 個人情報や機密情報をAIに入力しないためのガイドラインが策定されているか？</li><li>□ **推進体制：** IT部門だけでなく、現場（店舗やEC運営）のリーダーがプロジェクトに参画しているか？</li><li>□ **評価指標（KPI）：** 削減時間、応答速度、顧客満足度の変化など、導入効果をどう測るか決まっているか？</li></ul>
 <p>小売・ECにおける生成AI活用は、もはや「未来の話」ではありません。既に取り組んでいる企業とそうでない企業の差は、オペレーションコストと顧客体験の質において、今後さらに広がっていくでしょう。MGCは、貴社の現場に最適なツールの選定から、安全なデータ活用基盤の構築、そして現場への定着までをトータルでサポートします。</p>
@@ -258,10 +375,41 @@ h1.title{font-size:2rem;line-height:1.45;font-weight:800;letter-spacing:-.01em;m
 </div>
 <p class="cta-foot">初回のご相談・お見積もりまで無料です。具体的な資料がなくても構いません。</p>
 </section>
-<section class="related"><h2>小売・ECの関連コラム</h2><a href="/column/retail-store-operation-staff-ai"><span class="k">小売・EC</span><br>実店舗の価値をAIで最大化する — 接客支援とオペレーション効率化の現実解</a><a href="/column/retail-ai-driven-personalization"><span class="k">小売・EC</span><br>小売・ECのパーソナライズ化にAIをどう活用するか — 「個」に寄り添う接客を自動化する</a><a href="/column/retail-demand-forecasting-inventory"><span class="k">小売・EC</span><br>小売・ECの需要予測AI活用 — 勘とデータをつなぐ在庫最適化</a></section>
+<section class="related"><h2>小売・ECの関連コラム</h2><div class="grid"><a class="card" href="/column/retail-store-operation-staff-ai"><span class="thumb"><img src="/assets/column/ind_retail.jpg" alt="AIを活用して来店客の動線を分析し、スタッフの配置を最適化する店舗のイメージ" loading="lazy"/><span class="k">小売・EC</span></span><span class="body"><h3>実店舗の価値をAIで最大化する — 接客支援とオペレーション効率化の現実解</h3><span class="foot">2026.09.05</span></span></a><a class="card" href="/column/retail-ai-driven-personalization"><span class="thumb"><img src="/assets/column/ind_retail.jpg" alt="オンラインとオフラインの顧客データを統合し、AIが最適な提案を行うイメージ" loading="lazy"/><span class="k">小売・EC</span></span><span class="body"><h3>小売・ECのパーソナライズ化にAIをどう活用するか — 「個」に寄り添う接客を自動化する</h3><span class="foot">2026.08.07</span></span></a><a class="card" href="/column/retail-demand-forecasting-inventory"><span class="thumb"><img src="/assets/column/ind_retail.jpg" alt="店舗とECの需要予測・在庫管理をAIとスタッフで分担するイメージ図" loading="lazy"/><span class="k">小売・EC</span></span><span class="body"><h3>小売・ECの需要予測AI活用 — 勘とデータをつなぐ在庫最適化</h3><span class="foot">2026.07.25</span></span></a></div></section>
 <p class="disclaimer">本コラムは一般的な情報提供を目的としたもので、特定の成果を保証するものではありません。導入可否や効果は、企業の状況・データ・体制により異なります。具体的なご相談は個別にお問い合わせください。</p>
+<a class="back-link" href="/column">← コラム一覧へ戻る</a>
 </article>
+</div>
+<aside class="col-side">
+<nav class="toc"><h2>目次</h2><ol><li><a href="#s1">EC運営の「商品登録」を劇的に変える：10倍のスピードで魅力を伝える</a></li><li><a href="#s2">店舗スタッフの「教育コスト」を削減：ベテランの知恵をAIでデジタル化</a></li><li><a href="#s3">顧客の声（VOC）を「利益」に変える：感情分析による商品開発の高度化</a></li><li><a href="#s4">接客のパーソナライズ：一人ひとりに寄り添うレコメンド</a></li><li><a href="#s5">技術的ハードルを越える：RAGによる正確な情報の担保</a></li><li><a href="#s6">導入時に陥りやすい「3つの罠」と回避策</a></li><li><a href="#s7">導入前に確認すべき「実務チェックリスト」</a></li></ol></nav>
+<div class="side-cta"><strong>小売・ECのAI活用、どこから始めるか</strong><p>現状を伺い、どの業務をAIに任せられるかを整理してお返しします。初回相談は無料です。</p><a href="/contact">30分の無料相談 →</a></div>
+</aside>
 </main>
-<footer class="site-footer"><div class="wrap"><p><strong>ＭＧＣ株式会社（MGC Inc.）</strong></p><p>京都府京都市上京区西辰巳町111 アビタシオンオンズアン106</p><p style="margin-top:10px"><a href="/">https://mgc-global01.com</a> ・ <a href="/column">コラム一覧</a> ・ <a href="/cases">導入事例</a> ・ <a href="/service/ai-sales">AI営業</a> ・ <a href="/service/ai-phone">AI電話</a> ・ <a href="/service/salesforce-ai">Salesforce AI</a> ・ <a href="/training">研修</a></p><p style="margin-top:10px">© 2026 MGC Inc. All Rights Reserved.</p></div></footer>
+<footer class="site-footer">
+<div class="cols">
+<div class="brand-col"><strong>ＭＧＣ株式会社（MGC Inc.）</strong><p>AIとテクノロジーで、日本と世界をつなぐ。</p><p>京都府京都市上京区西辰巳町111 アビタシオンオンズアン106</p></div>
+<div><h2>事業・サービス</h2><ul><li><a href="/works">事業内容</a></li><li><a href="/service/ai-sales">AI営業</a></li><li><a href="/service/ai-phone">AI電話</a></li><li><a href="/service/salesforce-ai">Salesforce AI</a></li></ul></div>
+<div><h2>実績・ナレッジ</h2><ul><li><a href="/cases">導入事例</a></li><li><a href="/training">研修</a></li><li><a href="/column">コラム</a></li></ul></div>
+<div><h2>会社情報</h2><ul><li><a href="/mission">会社理念</a></li><li><a href="/company">会社概要</a></li><li><a href="/career">採用情報</a></li><li><a href="/contact">お問い合わせ</a></li></ul></div>
+</div>
+<div class="bottom"><span>© 2026 MGC Inc. All Rights Reserved.</span><span><a href="/privacy-policy">プライバシーポリシー</a>　<a href="/terms-of-service">利用規約</a></span></div>
+</footer>
+<script>
+(function(){
+  var bar=document.getElementById('progress');
+  var links=[].slice.call(document.querySelectorAll('.col-side .toc a'));
+  var heads=links.map(function(a){return document.getElementById(a.getAttribute('href').slice(1));});
+  function onScroll(){
+    var h=document.documentElement;
+    var max=h.scrollHeight-h.clientHeight;
+    if(bar) bar.style.width=(max>0?(h.scrollTop/max*100):0)+'%';
+    var i=heads.length-1;
+    for(;i>=0;i--){ if(heads[i] && heads[i].getBoundingClientRect().top<140) break; }
+    links.forEach(function(a,n){ a.classList.toggle('is-active', n===i); });
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+})();
+</script>
 </body>
 </html>
