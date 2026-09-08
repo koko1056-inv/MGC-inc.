@@ -54,3 +54,90 @@ h1, h2, h3, h4 {
   width: 0px;
   background: transparent;
 }
+
+/* ── ヒーローのモーション ──────────────────────────────
+   白背景・青アクセントの世界観を崩さず、動きだけを足す。
+   端末の「視差効果を減らす」設定では、すべて停止する。 */
+
+/* 背景の光。ゆっくり漂わせる */
+@keyframes mgc-float-a {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50%      { transform: translate3d(-48px, 36px, 0) scale(1.12); }
+}
+@keyframes mgc-float-b {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50%      { transform: translate3d(52px, -30px, 0) scale(1.08); }
+}
+.mgc-orb-a { animation: mgc-float-a 26s ease-in-out infinite; }
+.mgc-orb-b { animation: mgc-float-b 32s ease-in-out infinite; }
+
+/* 背景のグリッド。1マスぶん流して継ぎ目なくループさせる */
+@keyframes mgc-grid-drift {
+  from { background-position: 0 0; }
+  to   { background-position: 40px 40px; }
+}
+.mgc-grid { animation: mgc-grid-drift 24s linear infinite; }
+
+/* マウスに合わせた微パララックス（外側の器だけを動かす） */
+.mgc-parallax {
+  transform: translate3d(calc(var(--mx, 0) * 26px), calc(var(--my, 0) * 26px), 0);
+  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.mgc-parallax-soft {
+  transform: translate3d(calc(var(--mx, 0) * -12px), calc(var(--my, 0) * -12px), 0);
+  transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* 見出しを行ごとに立ち上げる */
+@keyframes mgc-rise {
+  from { opacity: 0; transform: translateY(115%); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.mgc-line { display: block; overflow: hidden; }
+.mgc-line > span {
+  display: inline-block;
+  animation: mgc-rise 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* 青いキーワードの下線を左から引く */
+@keyframes mgc-sweep { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.mgc-underline { position: relative; }
+.mgc-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.06em;
+  height: 0.06em;
+  background: currentColor;
+  transform-origin: left;
+  animation: mgc-sweep 900ms cubic-bezier(0.22, 1, 0.36, 1) 900ms both;
+}
+
+/* 補助テキスト・チップのフェードアップ */
+@keyframes mgc-fade-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.mgc-fade-up { animation: mgc-fade-up 800ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+.mgc-chip { transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1), background-color 300ms; }
+.mgc-chip:hover { transform: translateY(-3px); }
+
+/* スクロールを促す縦線 */
+@keyframes mgc-cue {
+  0%   { transform: scaleY(0); transform-origin: top; }
+  45%  { transform: scaleY(1); transform-origin: top; }
+  55%  { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+.mgc-cue-line { animation: mgc-cue 2.4s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mgc-orb-a, .mgc-orb-b, .mgc-grid, .mgc-cue-line,
+  .mgc-line > span, .mgc-underline::after, .mgc-fade-up {
+    animation: none !important;
+  }
+  .mgc-parallax, .mgc-parallax-soft { transform: none !important; }
+  .mgc-line > span, .mgc-fade-up { opacity: 1; }
+  .mgc-underline::after { transform: scaleX(1); }
+}
