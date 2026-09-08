@@ -29,13 +29,12 @@ export type CaseStudy = {
   note?: string;             // 掲載上の但し書き
 };
 
-type Content = Record<'ja' | 'en', { heading: string; lead: string; eyebrow: string; disclaimer: string; cases: CaseStudy[] }>;
+type Content = Record<'ja' | 'en', { heading: string; eyebrow: string; disclaimer: string; cases: CaseStudy[] }>;
 
 export const caseContent: Content = {
   ja: {
     eyebrow: 'Case Studies',
     heading: '導入事例',
-    lead: 'MGCが実際に取り組んでいる案件です。社名は掲載許諾の手続き中のため伏せ、業種と進め方をご紹介します。',
     disclaimer: '掲載内容は各社の許諾を得た範囲で随時更新します。数値での成果は、実測して先方の確認が取れたものだけを掲載する方針のため、集計中の案件には記載していません。',
     cases: [
       {
@@ -184,7 +183,6 @@ export const caseContent: Content = {
   en: {
     eyebrow: 'Case Studies',
     heading: 'Case studies',
-    lead: 'Projects MGC is actually working on. Company names are withheld while permission to publish is arranged, so we describe the industry and the approach.',
     disclaimer: 'We update these as each client approves what may be published. Figures are only published once measured and confirmed by the client, so projects still being measured have no results section.',
     cases: [
       {
