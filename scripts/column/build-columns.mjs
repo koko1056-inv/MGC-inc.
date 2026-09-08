@@ -65,93 +65,228 @@ if (!existsSync(OUT_DIR)) mkdirSync(OUT_DIR, { recursive: true });
 // ---- shared CSS (self-contained, Tailwind非依存) ----
 const CSS = `
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--ink:#111418;--blue:#2D6CDF;--muted:#5b6472;--line:#e6e8ec;--bg:#ffffff;--soft:#f6f8fb}
-html{-webkit-text-size-adjust:100%}
-body{font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",Meiryo,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.85;-webkit-font-smoothing:antialiased}
+:root{--ink:#111418;--blue:#2D6CDF;--muted:#5b6472;--line:#e6e8ec;--bg:#ffffff;--soft:#f6f8fb;--maxw:1200px}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",Meiryo,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.9;letter-spacing:.01em;-webkit-font-smoothing:antialiased;font-feature-settings:"palt" 1,"kern" 1}
 a{color:var(--blue);text-decoration:none}
 a:hover{text-decoration:underline}
-.site-header{position:sticky;top:0;z-index:20;background:var(--ink);display:flex;align-items:center;justify-content:space-between;padding:16px 24px}
-.site-header a.brand{color:#fff;font-size:1.15rem;font-weight:800;letter-spacing:.04em;text-decoration:none}
-.site-header nav a{color:rgba(255,255,255,.8);font-size:.85rem;font-weight:600;margin-left:20px;text-decoration:none}
-.site-header nav a:hover{color:#fff}
-.wrap{max-width:760px;margin:0 auto;padding:0 22px}
-.crumbs{font-size:.8rem;color:var(--muted);margin:26px auto 0;max-width:760px;padding:0 22px}
+img{max-width:100%}
+
+/* ── ヘッダー ───────────────────────── */
+.site-header{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid var(--line)}
+.site-header .inner{max-width:var(--maxw);margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:24px}
+.site-header a.brand{display:flex;align-items:center;gap:10px;color:var(--ink);font-size:1.05rem;font-weight:800;letter-spacing:-.02em;text-decoration:none;flex-shrink:0}
+.site-header a.brand .mark{width:38px;height:25px;background:var(--ink);display:flex;align-items:center;justify-content:center;border-radius:2px}
+.site-header a.brand .mark i{width:11px;height:11px;background:#fff;border-radius:50%;display:block}
+.site-header nav{margin-left:auto;display:flex;align-items:center;gap:22px;overflow-x:auto;scrollbar-width:none}
+.site-header nav::-webkit-scrollbar{display:none}
+.site-header nav a{color:var(--ink);font-size:.85rem;font-weight:700;text-decoration:none;white-space:nowrap;opacity:.7;transition:opacity .2s,color .2s}
+.site-header nav a:hover{opacity:1;color:var(--blue)}
+.site-header nav a.is-current{opacity:1;color:var(--blue)}
+.site-header nav a.nav-cta{opacity:1;background:var(--ink);color:#fff;border-radius:999px;padding:9px 18px}
+.site-header nav a.nav-cta:hover{background:var(--blue);color:#fff}
+
+/* 読了プログレス */
+.progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--blue);z-index:40;transition:width .1s linear}
+
+/* ── 共通レイアウト ─────────────────── */
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.crumbs{font-size:.78rem;color:var(--muted);max-width:var(--maxw);margin:22px auto 0;padding:0 24px}
 .crumbs a{color:var(--muted)}
-.eyebrow{display:inline-block;font-size:.72rem;font-weight:800;letter-spacing:.16em;color:var(--blue);text-transform:uppercase;margin-bottom:14px}
-h1.title{font-size:2rem;line-height:1.45;font-weight:800;letter-spacing:-.01em;margin:8px 0 16px}
-.meta{display:flex;flex-wrap:wrap;gap:14px;align-items:center;font-size:.82rem;color:var(--muted);margin-bottom:26px}
-.chip{background:var(--soft);color:var(--blue);font-weight:700;border-radius:999px;padding:4px 12px;font-size:.78rem}
-.hero{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:16px;background:var(--soft);margin:6px 0 30px;display:block}
-.lead{font-size:1.08rem;color:#2a3340;font-weight:500;border-left:3px solid var(--blue);padding-left:16px;margin:0 0 30px}
-.keypoints{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:0 0 34px}
-.keypoints h2{font-size:.95rem;font-weight:800;color:var(--blue);margin:0 0 12px;letter-spacing:.02em}
-.keypoints ul{margin:0;padding-left:20px}
-.keypoints li{margin:0 0 8px;color:#1b2430;font-weight:500}
+.crumbs a:hover{color:var(--blue)}
+.eyebrow{display:inline-block;font-size:.7rem;font-weight:800;letter-spacing:.24em;color:var(--blue);text-transform:uppercase}
+
+/* ── 記事ページ ─────────────────────── */
+.article-head{max-width:var(--maxw);margin:0 auto;padding:26px 24px 0}
+.article-head .meta{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;font-size:.8rem;color:var(--muted);margin:16px 0 0}
+h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;letter-spacing:-.02em;margin:14px 0 0;max-width:22em}
+.chip{background:var(--soft);color:var(--blue);font-weight:800;border-radius:999px;padding:4px 12px;font-size:.75rem}
+.hero{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:20px;background:var(--soft);margin:28px 0 0;display:block;max-width:var(--maxw)}
+.hero-wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+.layout{max-width:var(--maxw);margin:0 auto;padding:44px 24px 0;display:grid;grid-template-columns:minmax(0,1fr) 292px;gap:56px;align-items:start}
+.col-main{min-width:0}
+.col-side{position:sticky;top:96px}
+
+.lead{font-size:1.1rem;color:#2a3340;font-weight:600;line-height:1.95;border-left:3px solid var(--blue);padding-left:18px;margin:0 0 32px}
+.keypoints{background:var(--soft);border-radius:18px;padding:24px 26px;margin:0 0 40px}
+.keypoints h2{font-size:.78rem;font-weight:800;color:var(--blue);margin:0 0 14px;letter-spacing:.18em;text-transform:uppercase}
+.keypoints ul{margin:0;padding:0;list-style:none}
+.keypoints li{position:relative;margin:0 0 12px;padding-left:24px;color:#1b2430;font-weight:600}
+.keypoints li::before{content:"";position:absolute;left:2px;top:.72em;width:8px;height:8px;border-radius:50%;background:var(--blue)}
 .keypoints li:last-child{margin-bottom:0}
-.article h2{font-size:1.35rem;font-weight:800;line-height:1.5;margin:44px 0 14px;padding-top:6px}
-.article h3{font-size:1.1rem;font-weight:700;margin:30px 0 10px;color:#1b2430}
-.article p{margin:0 0 18px;color:#313a46}
-.article ul,.article ol{margin:0 0 20px;padding-left:22px}
-.article li{margin:0 0 9px;color:#313a46}
-.article blockquote{margin:26px 0;padding:16px 20px;background:var(--soft);border-radius:12px;border-left:4px solid var(--blue);color:#1b2430;font-weight:600}
-.faq{margin:48px 0 8px}
-.faq h2{font-size:1.35rem;font-weight:800;margin-bottom:16px}
-.faq details{border:1px solid var(--line);border-radius:12px;padding:0;margin-bottom:12px;overflow:hidden}
-.faq summary{cursor:pointer;list-style:none;padding:16px 18px;font-weight:700;color:var(--ink);display:flex;justify-content:space-between;gap:12px}
+
+.article{max-width:none}
+.article > h2{font-size:1.45rem;font-weight:800;line-height:1.55;margin:56px 0 18px;padding-top:22px;border-top:1px solid var(--line);scroll-margin-top:96px}
+.article > h3{font-size:1.12rem;font-weight:800;margin:34px 0 10px;color:#1b2430}
+.article p{margin:0 0 20px;color:#313a46}
+.article ul,.article ol{margin:0 0 22px;padding-left:22px}
+.article li{margin:0 0 10px;color:#313a46}
+.article blockquote{margin:28px 0;padding:20px 24px;background:var(--soft);border-radius:14px;border-left:4px solid var(--blue);color:#1b2430;font-weight:600}
+
+/* 目次 */
+.toc{border:1px solid var(--line);border-radius:18px;padding:20px 22px}
+.toc h2{font-size:.72rem;font-weight:800;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;margin:0 0 14px}
+.toc ol{list-style:none;margin:0;padding:0;counter-reset:toc}
+.toc li{counter-increment:toc;margin:0 0 11px;line-height:1.6}
+.toc li:last-child{margin-bottom:0}
+.toc a{display:flex;gap:10px;color:var(--muted);font-size:.84rem;font-weight:600;text-decoration:none}
+.toc a::before{content:counter(toc,decimal-leading-zero);color:var(--blue);font-weight:800;font-size:.72rem;padding-top:.18em}
+.toc a:hover{color:var(--ink);text-decoration:none}
+.toc a.is-active{color:var(--blue)}
+.side-cta{margin-top:18px;background:var(--ink);color:#fff;border-radius:18px;padding:22px}
+.side-cta p{color:rgba(255,255,255,.78);font-size:.82rem;margin:0 0 14px;line-height:1.8}
+.side-cta strong{display:block;color:#fff;font-size:1rem;font-weight:800;margin-bottom:8px;line-height:1.6}
+.side-cta a{display:inline-flex;align-items:center;gap:6px;background:var(--blue);color:#fff;border-radius:999px;padding:10px 18px;font-size:.82rem;font-weight:800;text-decoration:none}
+.toc-mobile{display:none}
+
+/* FAQ */
+.faq{margin:56px 0 8px}
+.faq h2{font-size:1.45rem;font-weight:800;margin-bottom:18px}
+.faq details{border:1px solid var(--line);border-radius:14px;margin-bottom:12px;overflow:hidden;transition:border-color .2s}
+.faq details[open]{border-color:var(--blue)}
+.faq summary{cursor:pointer;list-style:none;padding:18px 20px;font-weight:700;color:var(--ink);display:flex;justify-content:space-between;gap:12px;line-height:1.7}
 .faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"＋";color:var(--blue);font-weight:800}
+.faq summary::after{content:"＋";color:var(--blue);font-weight:800;flex-shrink:0}
 .faq details[open] summary::after{content:"−"}
-.faq .a{padding:0 18px 18px;color:#313a46}
-.cta{margin:52px 0;background:var(--ink);color:#fff;border-radius:20px;padding:30px 26px}
-.cta h2{color:#fff;font-size:1.3rem;font-weight:800;margin-bottom:10px}
-.cta p{color:rgba(255,255,255,.82);margin-bottom:20px}
-.cta .cta-eyebrow{display:inline-block;background:var(--blue);color:#fff;font-size:.72rem;font-weight:800;letter-spacing:.08em;border-radius:999px;padding:5px 12px;margin-bottom:14px}
+.faq .a{padding:0 20px 20px;color:#313a46}
+
+/* CTA */
+.cta{margin:60px 0;background:var(--ink);color:#fff;border-radius:24px;padding:40px 34px}
+.cta h2{color:#fff;font-size:1.5rem;font-weight:800;margin-bottom:12px;line-height:1.6}
+.cta p{color:rgba(255,255,255,.8);margin-bottom:22px}
+.cta .cta-eyebrow{display:inline-block;background:var(--blue);color:#fff;font-size:.7rem;font-weight:800;letter-spacing:.1em;border-radius:999px;padding:6px 14px;margin-bottom:16px}
 .cta .btns{display:flex;flex-wrap:wrap;gap:12px}
-.cta .cta-foot{color:rgba(255,255,255,.6);font-size:.8rem;margin:14px 0 0}
-.btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:13px 22px;font-weight:800;font-size:.92rem;text-decoration:none}
+.cta .cta-foot{color:rgba(255,255,255,.55);font-size:.78rem;margin:16px 0 0}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:14px 24px;font-weight:800;font-size:.92rem;text-decoration:none;transition:transform .2s,background .2s}
+.btn:hover{text-decoration:none;transform:translateY(-2px)}
 .btn-primary{background:var(--blue);color:#fff}
 .btn-ghost{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.25)}
-.related{margin:44px 0}
-.related h2{font-size:1.2rem;font-weight:800;margin-bottom:14px}
-.related a{display:block;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px;color:var(--ink);text-decoration:none}
-.related a:hover{border-color:var(--blue)}
-.related .k{font-size:.74rem;color:var(--blue);font-weight:700}
-.disclaimer{font-size:.8rem;color:var(--muted);border-top:1px solid var(--line);margin-top:44px;padding-top:20px}
-.site-footer{border-top:1px solid var(--line);margin-top:60px;padding:30px 22px;color:var(--muted);font-size:.82rem}
-.site-footer .wrap{max-width:760px}
-/* index */
-.index-hero{max-width:820px;margin:40px auto 8px;padding:0 22px}
-.index-hero h1{font-size:2rem;font-weight:800;margin-bottom:10px}
-.index-hero p{color:var(--muted);max-width:640px}
-.filters{max-width:900px;margin:26px auto 0;padding:0 22px;display:flex;flex-wrap:wrap;gap:8px}
-.filters button{font:inherit;cursor:pointer;background:#fff;border:1px solid var(--line);color:var(--muted);font-weight:700;font-size:.8rem;border-radius:999px;padding:7px 14px;transition:border-color .2s,color .2s,background .2s}
+
+/* 関連記事 */
+.related{margin:56px 0 0;padding-top:36px;border-top:1px solid var(--line)}
+.related h2{font-size:1.25rem;font-weight:800;margin-bottom:20px}
+.related .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
+.disclaimer{font-size:.78rem;color:var(--muted);border-top:1px solid var(--line);margin-top:44px;padding-top:20px;line-height:1.9}
+.back-link{display:inline-flex;align-items:center;gap:8px;margin-top:34px;font-size:.86rem;font-weight:700}
+
+/* ── カード ─────────────────────────── */
+.card{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#fff;display:flex;flex-direction:column;text-decoration:none;color:var(--ink);transition:border-color .25s,box-shadow .25s,transform .25s}
+.card:hover{border-color:var(--blue);text-decoration:none;box-shadow:0 12px 32px rgba(17,20,24,.08);transform:translateY(-3px)}
+.card .thumb{position:relative;overflow:hidden;background:var(--soft)}
+.card .thumb img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.22,1,.36,1)}
+.card:hover .thumb img{transform:scale(1.05)}
+.card .thumb .k{position:absolute;left:12px;top:12px;background:rgba(255,255,255,.94);color:var(--blue);font-size:.7rem;font-weight:800;border-radius:999px;padding:5px 12px;letter-spacing:.02em}
+.card .body{padding:18px 18px 20px;display:flex;flex-direction:column;gap:9px;flex:1}
+.card h3{font-size:1rem;font-weight:800;line-height:1.65;letter-spacing:-.01em;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.card .d{font-size:.82rem;color:var(--muted);line-height:1.8;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card .foot{display:flex;align-items:center;gap:12px;font-size:.74rem;color:#9aa3b0;margin-top:auto;padding-top:6px}
+
+/* ── 一覧ページ ─────────────────────── */
+.index-hero{max-width:var(--maxw);margin:26px auto 0;padding:0 24px}
+.index-hero h1{font-size:clamp(2rem,4.6vw,3.2rem);font-weight:800;letter-spacing:-.03em;line-height:1.35;margin:14px 0 0}
+.index-hero p{color:var(--muted);max-width:44em;margin-top:16px}
+.index-hero .count{display:inline-block;margin-top:18px;font-size:.78rem;font-weight:700;color:var(--muted)}
+.index-hero .count b{color:var(--ink);font-size:1rem}
+
+.featured{max-width:var(--maxw);margin:40px auto 0;padding:0 24px}
+.featured a{display:grid;grid-template-columns:1.15fr 1fr;gap:0;border:1px solid var(--line);border-radius:24px;overflow:hidden;color:var(--ink);text-decoration:none;transition:border-color .25s,box-shadow .25s}
+.featured a:hover{border-color:var(--blue);text-decoration:none;box-shadow:0 16px 40px rgba(17,20,24,.08)}
+.featured .thumb{overflow:hidden;background:var(--soft)}
+.featured .thumb img{width:100%;height:100%;min-height:280px;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.22,1,.36,1)}
+.featured a:hover .thumb img{transform:scale(1.04)}
+.featured .body{padding:36px 38px;display:flex;flex-direction:column;justify-content:center;gap:14px}
+.featured .tag{display:flex;align-items:center;gap:10px}
+.featured .tag .pill{background:var(--blue);color:#fff;font-size:.68rem;font-weight:800;letter-spacing:.12em;border-radius:999px;padding:5px 12px;text-transform:uppercase}
+.featured h2{font-size:clamp(1.2rem,2vw,1.6rem);font-weight:800;line-height:1.6;letter-spacing:-.01em}
+.featured p{color:var(--muted);font-size:.9rem;line-height:1.85;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.featured .foot{display:flex;gap:14px;font-size:.76rem;color:#9aa3b0}
+
+.filters{max-width:var(--maxw);margin:52px auto 0;padding:0 24px}
+.filters .label{display:block;font-size:.7rem;font-weight:800;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;margin-bottom:14px}
+.filters .row{display:flex;flex-wrap:wrap;gap:8px}
+.filters button{font:inherit;cursor:pointer;background:#fff;border:1px solid var(--line);color:var(--muted);font-weight:700;font-size:.8rem;border-radius:999px;padding:8px 15px;transition:border-color .2s,color .2s,background .2s}
 .filters button:hover{border-color:var(--blue);color:var(--blue)}
-.filters button[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
+.filters button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.filters button .n{opacity:.55;font-size:.74rem;margin-left:5px}
+
+.cards{max-width:var(--maxw);margin:26px auto 0;padding:0 24px;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px}
 .cards[data-empty="true"]::after{content:"該当する記事はまだありません。";color:var(--muted);font-size:.9rem}
-.cards{max-width:900px;margin:26px auto 0;padding:0 22px;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
-.card{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff;display:flex;flex-direction:column;text-decoration:none;color:var(--ink);transition:border-color .2s}
-.card:hover{border-color:var(--blue);text-decoration:none}
-.card img{width:100%;aspect-ratio:16/9;object-fit:cover;background:var(--soft)}
-.card .body{padding:16px 16px 20px;display:flex;flex-direction:column;gap:8px;flex:1}
-.card .k{font-size:.72rem;color:var(--blue);font-weight:800}
-.card h3{font-size:1.02rem;font-weight:700;line-height:1.5}
-.card .d{font-size:.84rem;color:var(--muted);line-height:1.7}
-.card .date{font-size:.74rem;color:#9aa3b0;margin-top:auto}
-@media(max-width:640px){h1.title{font-size:1.55rem}.wrap{padding:0 18px}.cta{padding:24px 20px}}
+.more{max-width:var(--maxw);margin:36px auto 0;padding:0 24px;display:flex;justify-content:center}
+.more button{font:inherit;cursor:pointer;background:#fff;border:1px solid var(--ink);color:var(--ink);font-weight:800;font-size:.88rem;border-radius:999px;padding:14px 34px;transition:background .2s,color .2s}
+.more button:hover{background:var(--ink);color:#fff}
+
+/* ── フッター ───────────────────────── */
+.site-footer{border-top:1px solid var(--line);margin-top:80px;padding:56px 0 32px;color:var(--muted);font-size:.84rem}
+.site-footer .cols{max-width:var(--maxw);margin:0 auto;padding:0 24px;display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px}
+.site-footer .brand-col strong{display:block;color:var(--ink);font-size:1rem;margin-bottom:12px}
+.site-footer .brand-col p{line-height:1.9}
+.site-footer h2{font-size:.68rem;font-weight:800;letter-spacing:.22em;color:#9aa3b0;text-transform:uppercase;margin-bottom:16px}
+.site-footer ul{list-style:none;margin:0;padding:0}
+.site-footer li{margin-bottom:11px}
+.site-footer li a{color:#313a46;font-weight:600;text-decoration:none}
+.site-footer li a:hover{color:var(--blue)}
+.site-footer .bottom{max-width:var(--maxw);margin:44px auto 0;padding:22px 24px 0;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:.76rem}
+.site-footer .bottom a{color:var(--muted)}
+
+@media(max-width:1024px){
+  .layout{grid-template-columns:minmax(0,1fr);gap:0}
+  .col-side{display:none}
+  .toc-mobile{display:block;border:1px solid var(--line);border-radius:16px;padding:6px 20px;margin:0 0 34px}
+  .toc-mobile summary{cursor:pointer;list-style:none;padding:14px 0;font-size:.8rem;font-weight:800;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;display:flex;justify-content:space-between}
+  .toc-mobile summary::-webkit-details-marker{display:none}
+  .toc-mobile summary::after{content:"＋";color:var(--blue)}
+  .toc-mobile[open] summary::after{content:"−"}
+  .toc-mobile .toc{border:0;padding:0 0 18px}
+  .toc-mobile .toc h2{display:none}
+  .featured a{grid-template-columns:1fr}
+  .featured .thumb img{min-height:0;aspect-ratio:16/9}
+  .site-footer .cols{grid-template-columns:1fr 1fr;gap:32px}
+}
+@media(max-width:640px){
+  .wrap,.crumbs,.article-head,.hero-wrap,.layout,.index-hero,.featured,.filters,.cards,.more{padding-left:18px;padding-right:18px}
+  .cta{padding:28px 22px;border-radius:20px}
+  .featured .body{padding:26px 24px}
+  .article > h2{font-size:1.25rem;margin-top:44px}
+  .site-footer .cols{grid-template-columns:1fr}
+}
 `.trim();
 
 // AI診断の表示切り替え。App.tsx の SHOW_DIAGNOSIS と揃えること。
 // false の間はコラム側の導線（ヘッダー・フッター・CTA・llms.txt）から診断を外す。
 const SHOW_DIAGNOSIS = false;
 
-const HEADER = `<header class="site-header"><a class="brand" href="/">MGC Inc.</a><nav><a href="/service/ai-sales">サービス</a><a href="/cases">導入事例</a><a href="/column">コラム</a>${SHOW_DIAGNOSIS ? '<a href="/diagnosis">AI診断</a>' : ''}<a href="/training">研修</a><a href="/#works">事業内容</a><a href="/contact">お問い合わせ</a></nav></header>`;
-const FOOTER = `<footer class="site-footer"><div class="wrap"><p><strong>${esc(site.brandFull)}</strong></p><p>${esc(site.address || '')}</p><p style="margin-top:10px"><a href="/">${esc(site.baseUrl)}</a> ・ <a href="/column">コラム一覧</a> ・ <a href="/cases">導入事例</a> ・ <a href="/service/ai-sales">AI営業</a> ・ <a href="/service/ai-phone">AI電話</a> ・ <a href="/service/salesforce-ai">Salesforce AI</a>${SHOW_DIAGNOSIS ? ' ・ <a href="/diagnosis">AI活用診断</a>' : ''} ・ <a href="/training">研修</a></p><p style="margin-top:10px">© 2026 MGC Inc. All Rights Reserved.</p></div></footer>`;
+const MARK = '<span class="mark"><i></i></span>';
+const navLink = (href, label, current) => `<a href="${href}"${current === href ? ' class="is-current"' : ''}>${label}</a>`;
+const header = (current = '') => `<header class="site-header"><div class="inner"><a class="brand" href="/">${MARK}MGC Inc.</a><nav>${[
+  ['/works', '事業内容'],
+  ['/service/ai-sales', 'AI営業'],
+  ['/service/ai-phone', 'AI電話'],
+  ['/service/salesforce-ai', 'Salesforce AI'],
+  ['/cases', '導入事例'],
+  ['/training', '研修'],
+  ['/column', 'コラム'],
+].map(([h, l]) => navLink(h, l, current)).join('')}${SHOW_DIAGNOSIS ? navLink('/diagnosis', 'AI診断', current) : ''}<a class="nav-cta" href="/contact">お問い合わせ</a></nav></div></header>`;
+
+const FOOTER = `<footer class="site-footer">
+<div class="cols">
+<div class="brand-col"><strong>${esc(site.brandFull)}</strong><p>AIとテクノロジーで、日本と世界をつなぐ。</p><p>${esc(site.address || '')}</p></div>
+<div><h2>事業・サービス</h2><ul><li><a href="/works">事業内容</a></li><li><a href="/service/ai-sales">AI営業</a></li><li><a href="/service/ai-phone">AI電話</a></li><li><a href="/service/salesforce-ai">Salesforce AI</a></li></ul></div>
+<div><h2>実績・ナレッジ</h2><ul><li><a href="/cases">導入事例</a></li><li><a href="/training">研修</a></li><li><a href="/column">コラム</a></li>${SHOW_DIAGNOSIS ? '<li><a href="/diagnosis">AI活用診断</a></li>' : ''}</ul></div>
+<div><h2>会社情報</h2><ul><li><a href="/mission">会社理念</a></li><li><a href="/company">会社概要</a></li><li><a href="/career">採用情報</a></li><li><a href="/contact">お問い合わせ</a></li></ul></div>
+</div>
+<div class="bottom"><span>© 2026 MGC Inc. All Rights Reserved.</span><span><a href="/privacy-policy">プライバシーポリシー</a>　<a href="/terms-of-service">利用規約</a></span></div>
+</footer>`;
 
 // ---- render article body blocks ----
-function renderBody(blocks = []) {
+function renderBody(blocks = [], headings = []) {
   const out = [];
   for (const b of blocks) {
-    if (b.type === 'h2') out.push(`<h2>${esc(b.text)}</h2>`);
+    if (b.type === 'h2') {
+      const id = `s${headings.length + 1}`;
+      headings.push({ id, text: b.text });
+      out.push(`<h2 id="${id}">${esc(b.text)}</h2>`);
+    }
     else if (b.type === 'h3') out.push(`<h3>${esc(b.text)}</h3>`);
     else if (b.type === 'p') out.push(`<p>${esc(b.text)}</p>`);
     else if (b.type === 'quote') out.push(`<blockquote>${esc(b.text)}</blockquote>`);
@@ -214,9 +349,18 @@ function articleHtml(a) {
   const related = articles
     .filter((x) => x.industry === a.industry && x.slug !== a.slug)
     .slice(0, 3);
-  const relatedHtml = related.length ? `<section class="related"><h2>${esc(ind.ja)}の関連コラム</h2>${related
-    .map((r) => `<a href="/column/${r.slug}"><span class="k">${esc(industriesByKey[r.industry].ja)}</span><br>${esc(r.title)}</a>`)
-    .join('')}</section>` : '';
+  const relatedHtml = related.length ? `<section class="related"><h2>${esc(ind.ja)}の関連コラム</h2><div class="grid">${related
+    .map((r) => {
+      const rimg = r.image || industriesByKey[r.industry].fallbackImage;
+      return `<a class="card" href="/column/${r.slug}"><span class="thumb"><img src="${esc(rimg)}" alt="${esc(r.imageAlt || r.title)}" loading="lazy"/><span class="k">${esc(industriesByKey[r.industry].ja)}</span></span><span class="body"><h3>${esc(r.title)}</h3><span class="foot">${esc(r.date.replace(/-/g, '.'))}</span></span></a>`;
+    })
+    .join('')}</div></section>` : '';
+
+  const headings = [];
+  const bodyHtml = renderBody(a.body, headings);
+  const tocItems = headings.map((h) => `<li><a href="#${h.id}">${esc(h.text)}</a></li>`).join('');
+  const tocHtml = headings.length >= 3 ? `<nav class="toc"><h2>目次</h2><ol>${tocItems}</ol></nav>` : '';
+  const tocMobile = headings.length >= 3 ? `<details class="toc-mobile"><summary>目次</summary><nav class="toc"><h2>目次</h2><ol>${tocItems}</ol></nav></details>` : '';
 
   const faqHtml = (a.faq && a.faq.length) ? `<section class="faq"><h2>よくあるご質問</h2>${a.faq
     .map((f) => `<details><summary>${esc(f.q)}</summary><div class="a">${esc(f.a)}</div></details>`)
@@ -254,17 +398,22 @@ ${faqLd ? `<script type="application/ld+json">${jsonld(faqLd)}</script>` : ''}
 <style>${CSS}</style>
 </head>
 <body>
-${HEADER}
+<div class="progress" id="progress"></div>
+${header('/column')}
 <nav class="crumbs"><a href="/">ホーム</a> ／ <a href="/column">AI活用コラム</a> ／ ${esc(ind.ja)}</nav>
-<main class="wrap">
-<article class="article">
+<header class="article-head">
 <span class="eyebrow">${esc(ind.ja)} × AI活用</span>
 <h1 class="title">${esc(a.title)}</h1>
 <div class="meta"><span class="chip">${esc(ind.ja)}</span><span>${esc(a.date.replace(/-/g, '.'))}</span>${a.readTime ? `<span>読了目安 ${esc(a.readTime)}</span>` : ''}</div>
-<img class="hero" src="${esc(img)}" alt="${esc(a.imageAlt || a.title)}" width="1200" height="675"/>
+</header>
+<div class="hero-wrap"><img class="hero" src="${esc(img)}" alt="${esc(a.imageAlt || a.title)}" width="1200" height="675"/></div>
+<main class="layout">
+<div class="col-main">
+<article class="article">
 <p class="lead">${esc(a.lead)}</p>
+${tocMobile}
 ${(a.summary && a.summary.length) ? `<aside class="keypoints"><h2>この記事の要点</h2><ul>${a.summary.map((s) => `<li>${esc(s)}</li>`).join('')}</ul></aside>` : ''}
-${renderBody(a.body)}
+${bodyHtml}
 ${faqHtml}
 ${SHOW_DIAGNOSIS ? `<section class="cta">
 <span class="cta-eyebrow">無料・所要3分・その場で結果</span>
@@ -287,9 +436,32 @@ ${SHOW_DIAGNOSIS ? `<section class="cta">
 </section>`}
 ${relatedHtml}
 <p class="disclaimer">本コラムは一般的な情報提供を目的としたもので、特定の成果を保証するものではありません。導入可否や効果は、企業の状況・データ・体制により異なります。具体的なご相談は個別にお問い合わせください。</p>
+<a class="back-link" href="/column">← コラム一覧へ戻る</a>
 </article>
+</div>
+<aside class="col-side">
+${tocHtml}
+<div class="side-cta"><strong>${esc(ind.ja)}のAI活用、どこから始めるか</strong><p>現状を伺い、どの業務をAIに任せられるかを整理してお返しします。初回相談は無料です。</p><a href="/contact">30分の無料相談 →</a></div>
+</aside>
 </main>
 ${FOOTER}
+<script>
+(function(){
+  var bar=document.getElementById('progress');
+  var links=[].slice.call(document.querySelectorAll('.col-side .toc a'));
+  var heads=links.map(function(a){return document.getElementById(a.getAttribute('href').slice(1));});
+  function onScroll(){
+    var h=document.documentElement;
+    var max=h.scrollHeight-h.clientHeight;
+    if(bar) bar.style.width=(max>0?(h.scrollTop/max*100):0)+'%';
+    var i=heads.length-1;
+    for(;i>=0;i--){ if(heads[i] && heads[i].getBoundingClientRect().top<140) break; }
+    links.forEach(function(a,n){ a.classList.toggle('is-active', n===i); });
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+})();
+<\/script>
 </body>
 </html>`;
 }
@@ -303,51 +475,85 @@ function indexHtml() {
       '@type': 'ListItem', position: i + 1, url: `${site.baseUrl}/column/${a.slug}`, name: a.title,
     })),
   };
-  const cards = articles.map((a) => {
+  const excerpt = (a) => a.description || `${plainText(a).slice(0, 90)}…`;
+  const cardHtml = (a) => {
     const ind = industriesByKey[a.industry];
     const img = a.image || ind.fallbackImage;
-    return `<a class="card" data-ind="${esc(a.industry)}" href="/column/${a.slug}"><img src="${esc(img)}" alt="${esc(a.imageAlt || a.title)}" loading="lazy"/><div class="body"><span class="k">${esc(ind.ja)}</span><h3>${esc(a.title)}</h3><p class="d">${esc(a.description || plainText(a).slice(0, 80))}</p><span class="date">${esc(a.date.replace(/-/g, '.'))}</span></div></a>`;
-  }).join('');
+    return `<a class="card" data-ind="${esc(a.industry)}" href="/column/${a.slug}"><span class="thumb"><img src="${esc(img)}" alt="${esc(a.imageAlt || a.title)}" loading="lazy"/><span class="k">${esc(ind.ja)}</span></span><span class="body"><h3>${esc(a.title)}</h3><span class="d">${esc(excerpt(a))}</span><span class="foot"><span>${esc(a.date.replace(/-/g, '.'))}</span>${a.readTime ? `<span>読了 ${esc(a.readTime)}</span>` : ''}</span></span></a>`;
+  };
+
+  // 最新の1本は大きく見せる
+  const top = articles[0];
+  const featuredHtml = top ? (() => {
+    const ind = industriesByKey[top.industry];
+    const img = top.image || ind.fallbackImage;
+    return `<section class="featured"><a href="/column/${top.slug}"><span class="thumb"><img src="${esc(img)}" alt="${esc(top.imageAlt || top.title)}"/></span><span class="body"><span class="tag"><span class="pill">Featured</span><span class="chip">${esc(ind.ja)}</span></span><h2>${esc(top.title)}</h2><p>${esc(excerpt(top))}</p><span class="foot"><span>${esc(top.date.replace(/-/g, '.'))}</span>${top.readTime ? `<span>読了 ${esc(top.readTime)}</span>` : ''}</span></span></a></section>`;
+  })() : '';
+
+  const rest = articles.slice(1);
+  const cards = rest.map(cardHtml).join('');
 
   // 業種フィルタ。記事が存在する業種だけを、記事数の多い順に並べる。
-  const counts = articles.reduce((acc, a) => ({ ...acc, [a.industry]: (acc[a.industry] || 0) + 1 }), {});
+  const counts = rest.reduce((acc, a) => ({ ...acc, [a.industry]: (acc[a.industry] || 0) + 1 }), {});
   const usedIndustries = Object.keys(counts).sort((x, y) => counts[y] - counts[x] || industriesByKey[x].ja.localeCompare(industriesByKey[y].ja, 'ja'));
   const filtersHtml = usedIndustries.length > 1
     ? `<nav class="filters" aria-label="業種でしぼり込む">
-<button type="button" data-f="all" aria-pressed="true">すべて（${articles.length}）</button>
-${usedIndustries.map((k) => `<button type="button" data-f="${esc(k)}" aria-pressed="false">${esc(industriesByKey[k].ja)}（${counts[k]}）</button>`).join('\n')}
+<span class="label">業種でしぼり込む</span>
+<div class="row">
+<button type="button" data-f="all" aria-pressed="true">すべて<span class="n">${rest.length}</span></button>
+${usedIndustries.map((k) => `<button type="button" data-f="${esc(k)}" aria-pressed="false">${esc(industriesByKey[k].ja)}<span class="n">${counts[k]}</span></button>`).join('\n')}
+</div>
 </nav>`
     : '';
-  // JSが無い環境では全記事がそのまま並ぶ（フィルタは加点機能）
-  const filterScript = filtersHtml
-    ? `<script>
+  // JSが無い環境では全記事がそのまま並ぶ（フィルタと「もっと見る」は加点機能）
+  const filterScript = `<script>
 (function(){
-  var nav=document.querySelector('.filters'); if(!nav) return;
-  var cards=[].slice.call(document.querySelectorAll('.cards .card'));
+  var STEP=12;
   var grid=document.querySelector('.cards');
-  function apply(key){
-    var shown=0;
-    cards.forEach(function(c){
-      var on = key==='all' || c.getAttribute('data-ind')===key;
-      c.style.display = on ? '' : 'none';
-      if(on) shown++;
-    });
-    grid.setAttribute('data-empty', shown===0 ? 'true' : 'false');
-    [].forEach.call(nav.querySelectorAll('button'),function(b){
-      b.setAttribute('aria-pressed', b.getAttribute('data-f')===key ? 'true' : 'false');
+  var nav=document.querySelector('.filters');
+  var moreWrap=document.querySelector('.more');
+  var moreBtn=moreWrap && moreWrap.querySelector('button');
+  var featured=document.querySelector('.featured');
+  if(!grid) return;
+  var cards=[].slice.call(grid.querySelectorAll('.card'));
+  var key='all', shownCount=STEP;
+
+  function matched(){
+    return cards.filter(function(c){ return key==='all' || c.getAttribute('data-ind')===key; });
+  }
+  function render(){
+    var list=matched();
+    cards.forEach(function(c){ c.style.display='none'; });
+    list.slice(0,shownCount).forEach(function(c){ c.style.display=''; });
+    grid.setAttribute('data-empty', list.length===0 ? 'true' : 'false');
+    if(featured) featured.style.display = key==='all' ? '' : 'none';
+    if(moreWrap){
+      var remain=list.length-shownCount;
+      moreWrap.style.display = remain>0 ? '' : 'none';
+      if(moreBtn) moreBtn.textContent='もっと見る（残り'+remain+'件）';
+    }
+    if(nav){
+      [].forEach.call(nav.querySelectorAll('button'),function(b){
+        b.setAttribute('aria-pressed', b.getAttribute('data-f')===key ? 'true' : 'false');
+      });
+    }
+  }
+  if(nav){
+    nav.addEventListener('click',function(e){
+      var b=e.target.closest('button'); if(!b) return;
+      key=b.getAttribute('data-f'); shownCount=STEP; render();
+      history.replaceState(null,'', key==='all' ? location.pathname : location.pathname+'#'+key);
+      window.scrollTo({top:nav.getBoundingClientRect().top+window.pageYOffset-100,behavior:'smooth'});
     });
   }
-  nav.addEventListener('click',function(e){
-    var b=e.target.closest('button'); if(!b) return;
-    var key=b.getAttribute('data-f');
-    apply(key);
-    history.replaceState(null,'', key==='all' ? location.pathname : location.pathname+'#'+key);
-  });
+  if(moreBtn){
+    moreBtn.addEventListener('click',function(){ shownCount+=STEP; render(); });
+  }
   var initial=location.hash.slice(1);
-  if(initial && document.querySelector('.filters button[data-f="'+initial.replace(/"/g,'')+'"]')) apply(initial);
+  if(initial && nav && nav.querySelector('button[data-f="'+initial.replace(/"/g,'')+'"]')) key=initial;
+  render();
 })();
-<\/script>`
-    : '';
+<\/script>`;
 
   return `<!DOCTYPE html>
 <html lang="ja">
@@ -372,10 +578,13 @@ ${usedIndustries.map((k) => `<button type="button" data-f="${esc(k)}" aria-press
 <style>${CSS}</style>
 </head>
 <body>
-${HEADER}
-<section class="index-hero"><span class="eyebrow">AI Column</span><h1>業界別 AI活用コラム</h1><p>製造・建設・不動産・小売・物流・医療・士業…。業界ごとに「どの業務に、どうAIを使い、どこは人が判断するか」を、実務目線でまとめています。</p></section>
+${header('/column')}
+<nav class="crumbs"><a href="/">ホーム</a> ／ AI活用コラム</nav>
+<section class="index-hero"><span class="eyebrow">AI Column</span><h1>業界別 AI活用コラム</h1><p>製造・建設・不動産・小売・物流・医療・士業…。業界ごとに「どの業務に、どうAIを使い、どこは人が判断するか」を、実務目線でまとめています。</p><span class="count">全 <b>${articles.length}</b> 記事</span></section>
+${featuredHtml}
 ${filtersHtml}
 <section class="cards">${cards || '<p style="color:#5b6472">記事は準備中です。</p>'}</section>
+<div class="more"><button type="button">もっと見る</button></div>
 ${filterScript}
 <section class="wrap" style="margin-top:56px">
 ${SHOW_DIAGNOSIS ? `<div class="cta">

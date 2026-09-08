@@ -136,120 +136,237 @@
   ]
 }</script>
 <style>*{box-sizing:border-box;margin:0;padding:0}
-:root{--ink:#111418;--blue:#2D6CDF;--muted:#5b6472;--line:#e6e8ec;--bg:#ffffff;--soft:#f6f8fb}
-html{-webkit-text-size-adjust:100%}
-body{font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",Meiryo,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.85;-webkit-font-smoothing:antialiased}
+:root{--ink:#111418;--blue:#2D6CDF;--muted:#5b6472;--line:#e6e8ec;--bg:#ffffff;--soft:#f6f8fb;--maxw:1200px}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",Meiryo,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.9;letter-spacing:.01em;-webkit-font-smoothing:antialiased;font-feature-settings:"palt" 1,"kern" 1}
 a{color:var(--blue);text-decoration:none}
 a:hover{text-decoration:underline}
-.site-header{position:sticky;top:0;z-index:20;background:var(--ink);display:flex;align-items:center;justify-content:space-between;padding:16px 24px}
-.site-header a.brand{color:#fff;font-size:1.15rem;font-weight:800;letter-spacing:.04em;text-decoration:none}
-.site-header nav a{color:rgba(255,255,255,.8);font-size:.85rem;font-weight:600;margin-left:20px;text-decoration:none}
-.site-header nav a:hover{color:#fff}
-.wrap{max-width:760px;margin:0 auto;padding:0 22px}
-.crumbs{font-size:.8rem;color:var(--muted);margin:26px auto 0;max-width:760px;padding:0 22px}
+img{max-width:100%}
+
+/* ── ヘッダー ───────────────────────── */
+.site-header{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid var(--line)}
+.site-header .inner{max-width:var(--maxw);margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:24px}
+.site-header a.brand{display:flex;align-items:center;gap:10px;color:var(--ink);font-size:1.05rem;font-weight:800;letter-spacing:-.02em;text-decoration:none;flex-shrink:0}
+.site-header a.brand .mark{width:38px;height:25px;background:var(--ink);display:flex;align-items:center;justify-content:center;border-radius:2px}
+.site-header a.brand .mark i{width:11px;height:11px;background:#fff;border-radius:50%;display:block}
+.site-header nav{margin-left:auto;display:flex;align-items:center;gap:22px;overflow-x:auto;scrollbar-width:none}
+.site-header nav::-webkit-scrollbar{display:none}
+.site-header nav a{color:var(--ink);font-size:.85rem;font-weight:700;text-decoration:none;white-space:nowrap;opacity:.7;transition:opacity .2s,color .2s}
+.site-header nav a:hover{opacity:1;color:var(--blue)}
+.site-header nav a.is-current{opacity:1;color:var(--blue)}
+.site-header nav a.nav-cta{opacity:1;background:var(--ink);color:#fff;border-radius:999px;padding:9px 18px}
+.site-header nav a.nav-cta:hover{background:var(--blue);color:#fff}
+
+/* 読了プログレス */
+.progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--blue);z-index:40;transition:width .1s linear}
+
+/* ── 共通レイアウト ─────────────────── */
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.crumbs{font-size:.78rem;color:var(--muted);max-width:var(--maxw);margin:22px auto 0;padding:0 24px}
 .crumbs a{color:var(--muted)}
-.eyebrow{display:inline-block;font-size:.72rem;font-weight:800;letter-spacing:.16em;color:var(--blue);text-transform:uppercase;margin-bottom:14px}
-h1.title{font-size:2rem;line-height:1.45;font-weight:800;letter-spacing:-.01em;margin:8px 0 16px}
-.meta{display:flex;flex-wrap:wrap;gap:14px;align-items:center;font-size:.82rem;color:var(--muted);margin-bottom:26px}
-.chip{background:var(--soft);color:var(--blue);font-weight:700;border-radius:999px;padding:4px 12px;font-size:.78rem}
-.hero{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:16px;background:var(--soft);margin:6px 0 30px;display:block}
-.lead{font-size:1.08rem;color:#2a3340;font-weight:500;border-left:3px solid var(--blue);padding-left:16px;margin:0 0 30px}
-.keypoints{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:0 0 34px}
-.keypoints h2{font-size:.95rem;font-weight:800;color:var(--blue);margin:0 0 12px;letter-spacing:.02em}
-.keypoints ul{margin:0;padding-left:20px}
-.keypoints li{margin:0 0 8px;color:#1b2430;font-weight:500}
+.crumbs a:hover{color:var(--blue)}
+.eyebrow{display:inline-block;font-size:.7rem;font-weight:800;letter-spacing:.24em;color:var(--blue);text-transform:uppercase}
+
+/* ── 記事ページ ─────────────────────── */
+.article-head{max-width:var(--maxw);margin:0 auto;padding:26px 24px 0}
+.article-head .meta{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;font-size:.8rem;color:var(--muted);margin:16px 0 0}
+h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;letter-spacing:-.02em;margin:14px 0 0;max-width:22em}
+.chip{background:var(--soft);color:var(--blue);font-weight:800;border-radius:999px;padding:4px 12px;font-size:.75rem}
+.hero{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:20px;background:var(--soft);margin:28px 0 0;display:block;max-width:var(--maxw)}
+.hero-wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+.layout{max-width:var(--maxw);margin:0 auto;padding:44px 24px 0;display:grid;grid-template-columns:minmax(0,1fr) 292px;gap:56px;align-items:start}
+.col-main{min-width:0}
+.col-side{position:sticky;top:96px}
+
+.lead{font-size:1.1rem;color:#2a3340;font-weight:600;line-height:1.95;border-left:3px solid var(--blue);padding-left:18px;margin:0 0 32px}
+.keypoints{background:var(--soft);border-radius:18px;padding:24px 26px;margin:0 0 40px}
+.keypoints h2{font-size:.78rem;font-weight:800;color:var(--blue);margin:0 0 14px;letter-spacing:.18em;text-transform:uppercase}
+.keypoints ul{margin:0;padding:0;list-style:none}
+.keypoints li{position:relative;margin:0 0 12px;padding-left:24px;color:#1b2430;font-weight:600}
+.keypoints li::before{content:"";position:absolute;left:2px;top:.72em;width:8px;height:8px;border-radius:50%;background:var(--blue)}
 .keypoints li:last-child{margin-bottom:0}
-.article h2{font-size:1.35rem;font-weight:800;line-height:1.5;margin:44px 0 14px;padding-top:6px}
-.article h3{font-size:1.1rem;font-weight:700;margin:30px 0 10px;color:#1b2430}
-.article p{margin:0 0 18px;color:#313a46}
-.article ul,.article ol{margin:0 0 20px;padding-left:22px}
-.article li{margin:0 0 9px;color:#313a46}
-.article blockquote{margin:26px 0;padding:16px 20px;background:var(--soft);border-radius:12px;border-left:4px solid var(--blue);color:#1b2430;font-weight:600}
-.faq{margin:48px 0 8px}
-.faq h2{font-size:1.35rem;font-weight:800;margin-bottom:16px}
-.faq details{border:1px solid var(--line);border-radius:12px;padding:0;margin-bottom:12px;overflow:hidden}
-.faq summary{cursor:pointer;list-style:none;padding:16px 18px;font-weight:700;color:var(--ink);display:flex;justify-content:space-between;gap:12px}
+
+.article{max-width:none}
+.article > h2{font-size:1.45rem;font-weight:800;line-height:1.55;margin:56px 0 18px;padding-top:22px;border-top:1px solid var(--line);scroll-margin-top:96px}
+.article > h3{font-size:1.12rem;font-weight:800;margin:34px 0 10px;color:#1b2430}
+.article p{margin:0 0 20px;color:#313a46}
+.article ul,.article ol{margin:0 0 22px;padding-left:22px}
+.article li{margin:0 0 10px;color:#313a46}
+.article blockquote{margin:28px 0;padding:20px 24px;background:var(--soft);border-radius:14px;border-left:4px solid var(--blue);color:#1b2430;font-weight:600}
+
+/* 目次 */
+.toc{border:1px solid var(--line);border-radius:18px;padding:20px 22px}
+.toc h2{font-size:.72rem;font-weight:800;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;margin:0 0 14px}
+.toc ol{list-style:none;margin:0;padding:0;counter-reset:toc}
+.toc li{counter-increment:toc;margin:0 0 11px;line-height:1.6}
+.toc li:last-child{margin-bottom:0}
+.toc a{display:flex;gap:10px;color:var(--muted);font-size:.84rem;font-weight:600;text-decoration:none}
+.toc a::before{content:counter(toc,decimal-leading-zero);color:var(--blue);font-weight:800;font-size:.72rem;padding-top:.18em}
+.toc a:hover{color:var(--ink);text-decoration:none}
+.toc a.is-active{color:var(--blue)}
+.side-cta{margin-top:18px;background:var(--ink);color:#fff;border-radius:18px;padding:22px}
+.side-cta p{color:rgba(255,255,255,.78);font-size:.82rem;margin:0 0 14px;line-height:1.8}
+.side-cta strong{display:block;color:#fff;font-size:1rem;font-weight:800;margin-bottom:8px;line-height:1.6}
+.side-cta a{display:inline-flex;align-items:center;gap:6px;background:var(--blue);color:#fff;border-radius:999px;padding:10px 18px;font-size:.82rem;font-weight:800;text-decoration:none}
+.toc-mobile{display:none}
+
+/* FAQ */
+.faq{margin:56px 0 8px}
+.faq h2{font-size:1.45rem;font-weight:800;margin-bottom:18px}
+.faq details{border:1px solid var(--line);border-radius:14px;margin-bottom:12px;overflow:hidden;transition:border-color .2s}
+.faq details[open]{border-color:var(--blue)}
+.faq summary{cursor:pointer;list-style:none;padding:18px 20px;font-weight:700;color:var(--ink);display:flex;justify-content:space-between;gap:12px;line-height:1.7}
 .faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"＋";color:var(--blue);font-weight:800}
+.faq summary::after{content:"＋";color:var(--blue);font-weight:800;flex-shrink:0}
 .faq details[open] summary::after{content:"−"}
-.faq .a{padding:0 18px 18px;color:#313a46}
-.cta{margin:52px 0;background:var(--ink);color:#fff;border-radius:20px;padding:30px 26px}
-.cta h2{color:#fff;font-size:1.3rem;font-weight:800;margin-bottom:10px}
-.cta p{color:rgba(255,255,255,.82);margin-bottom:20px}
-.cta .cta-eyebrow{display:inline-block;background:var(--blue);color:#fff;font-size:.72rem;font-weight:800;letter-spacing:.08em;border-radius:999px;padding:5px 12px;margin-bottom:14px}
+.faq .a{padding:0 20px 20px;color:#313a46}
+
+/* CTA */
+.cta{margin:60px 0;background:var(--ink);color:#fff;border-radius:24px;padding:40px 34px}
+.cta h2{color:#fff;font-size:1.5rem;font-weight:800;margin-bottom:12px;line-height:1.6}
+.cta p{color:rgba(255,255,255,.8);margin-bottom:22px}
+.cta .cta-eyebrow{display:inline-block;background:var(--blue);color:#fff;font-size:.7rem;font-weight:800;letter-spacing:.1em;border-radius:999px;padding:6px 14px;margin-bottom:16px}
 .cta .btns{display:flex;flex-wrap:wrap;gap:12px}
-.cta .cta-foot{color:rgba(255,255,255,.6);font-size:.8rem;margin:14px 0 0}
-.btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:13px 22px;font-weight:800;font-size:.92rem;text-decoration:none}
+.cta .cta-foot{color:rgba(255,255,255,.55);font-size:.78rem;margin:16px 0 0}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:14px 24px;font-weight:800;font-size:.92rem;text-decoration:none;transition:transform .2s,background .2s}
+.btn:hover{text-decoration:none;transform:translateY(-2px)}
 .btn-primary{background:var(--blue);color:#fff}
 .btn-ghost{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.25)}
-.related{margin:44px 0}
-.related h2{font-size:1.2rem;font-weight:800;margin-bottom:14px}
-.related a{display:block;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px;color:var(--ink);text-decoration:none}
-.related a:hover{border-color:var(--blue)}
-.related .k{font-size:.74rem;color:var(--blue);font-weight:700}
-.disclaimer{font-size:.8rem;color:var(--muted);border-top:1px solid var(--line);margin-top:44px;padding-top:20px}
-.site-footer{border-top:1px solid var(--line);margin-top:60px;padding:30px 22px;color:var(--muted);font-size:.82rem}
-.site-footer .wrap{max-width:760px}
-/* index */
-.index-hero{max-width:820px;margin:40px auto 8px;padding:0 22px}
-.index-hero h1{font-size:2rem;font-weight:800;margin-bottom:10px}
-.index-hero p{color:var(--muted);max-width:640px}
-.filters{max-width:900px;margin:26px auto 0;padding:0 22px;display:flex;flex-wrap:wrap;gap:8px}
-.filters button{font:inherit;cursor:pointer;background:#fff;border:1px solid var(--line);color:var(--muted);font-weight:700;font-size:.8rem;border-radius:999px;padding:7px 14px;transition:border-color .2s,color .2s,background .2s}
+
+/* 関連記事 */
+.related{margin:56px 0 0;padding-top:36px;border-top:1px solid var(--line)}
+.related h2{font-size:1.25rem;font-weight:800;margin-bottom:20px}
+.related .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
+.disclaimer{font-size:.78rem;color:var(--muted);border-top:1px solid var(--line);margin-top:44px;padding-top:20px;line-height:1.9}
+.back-link{display:inline-flex;align-items:center;gap:8px;margin-top:34px;font-size:.86rem;font-weight:700}
+
+/* ── カード ─────────────────────────── */
+.card{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#fff;display:flex;flex-direction:column;text-decoration:none;color:var(--ink);transition:border-color .25s,box-shadow .25s,transform .25s}
+.card:hover{border-color:var(--blue);text-decoration:none;box-shadow:0 12px 32px rgba(17,20,24,.08);transform:translateY(-3px)}
+.card .thumb{position:relative;overflow:hidden;background:var(--soft)}
+.card .thumb img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.22,1,.36,1)}
+.card:hover .thumb img{transform:scale(1.05)}
+.card .thumb .k{position:absolute;left:12px;top:12px;background:rgba(255,255,255,.94);color:var(--blue);font-size:.7rem;font-weight:800;border-radius:999px;padding:5px 12px;letter-spacing:.02em}
+.card .body{padding:18px 18px 20px;display:flex;flex-direction:column;gap:9px;flex:1}
+.card h3{font-size:1rem;font-weight:800;line-height:1.65;letter-spacing:-.01em;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.card .d{font-size:.82rem;color:var(--muted);line-height:1.8;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card .foot{display:flex;align-items:center;gap:12px;font-size:.74rem;color:#9aa3b0;margin-top:auto;padding-top:6px}
+
+/* ── 一覧ページ ─────────────────────── */
+.index-hero{max-width:var(--maxw);margin:26px auto 0;padding:0 24px}
+.index-hero h1{font-size:clamp(2rem,4.6vw,3.2rem);font-weight:800;letter-spacing:-.03em;line-height:1.35;margin:14px 0 0}
+.index-hero p{color:var(--muted);max-width:44em;margin-top:16px}
+.index-hero .count{display:inline-block;margin-top:18px;font-size:.78rem;font-weight:700;color:var(--muted)}
+.index-hero .count b{color:var(--ink);font-size:1rem}
+
+.featured{max-width:var(--maxw);margin:40px auto 0;padding:0 24px}
+.featured a{display:grid;grid-template-columns:1.15fr 1fr;gap:0;border:1px solid var(--line);border-radius:24px;overflow:hidden;color:var(--ink);text-decoration:none;transition:border-color .25s,box-shadow .25s}
+.featured a:hover{border-color:var(--blue);text-decoration:none;box-shadow:0 16px 40px rgba(17,20,24,.08)}
+.featured .thumb{overflow:hidden;background:var(--soft)}
+.featured .thumb img{width:100%;height:100%;min-height:280px;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.22,1,.36,1)}
+.featured a:hover .thumb img{transform:scale(1.04)}
+.featured .body{padding:36px 38px;display:flex;flex-direction:column;justify-content:center;gap:14px}
+.featured .tag{display:flex;align-items:center;gap:10px}
+.featured .tag .pill{background:var(--blue);color:#fff;font-size:.68rem;font-weight:800;letter-spacing:.12em;border-radius:999px;padding:5px 12px;text-transform:uppercase}
+.featured h2{font-size:clamp(1.2rem,2vw,1.6rem);font-weight:800;line-height:1.6;letter-spacing:-.01em}
+.featured p{color:var(--muted);font-size:.9rem;line-height:1.85;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.featured .foot{display:flex;gap:14px;font-size:.76rem;color:#9aa3b0}
+
+.filters{max-width:var(--maxw);margin:52px auto 0;padding:0 24px}
+.filters .label{display:block;font-size:.7rem;font-weight:800;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;margin-bottom:14px}
+.filters .row{display:flex;flex-wrap:wrap;gap:8px}
+.filters button{font:inherit;cursor:pointer;background:#fff;border:1px solid var(--line);color:var(--muted);font-weight:700;font-size:.8rem;border-radius:999px;padding:8px 15px;transition:border-color .2s,color .2s,background .2s}
 .filters button:hover{border-color:var(--blue);color:var(--blue)}
-.filters button[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
+.filters button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.filters button .n{opacity:.55;font-size:.74rem;margin-left:5px}
+
+.cards{max-width:var(--maxw);margin:26px auto 0;padding:0 24px;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px}
 .cards[data-empty="true"]::after{content:"該当する記事はまだありません。";color:var(--muted);font-size:.9rem}
-.cards{max-width:900px;margin:26px auto 0;padding:0 22px;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
-.card{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff;display:flex;flex-direction:column;text-decoration:none;color:var(--ink);transition:border-color .2s}
-.card:hover{border-color:var(--blue);text-decoration:none}
-.card img{width:100%;aspect-ratio:16/9;object-fit:cover;background:var(--soft)}
-.card .body{padding:16px 16px 20px;display:flex;flex-direction:column;gap:8px;flex:1}
-.card .k{font-size:.72rem;color:var(--blue);font-weight:800}
-.card h3{font-size:1.02rem;font-weight:700;line-height:1.5}
-.card .d{font-size:.84rem;color:var(--muted);line-height:1.7}
-.card .date{font-size:.74rem;color:#9aa3b0;margin-top:auto}
-@media(max-width:640px){h1.title{font-size:1.55rem}.wrap{padding:0 18px}.cta{padding:24px 20px}}</style>
+.more{max-width:var(--maxw);margin:36px auto 0;padding:0 24px;display:flex;justify-content:center}
+.more button{font:inherit;cursor:pointer;background:#fff;border:1px solid var(--ink);color:var(--ink);font-weight:800;font-size:.88rem;border-radius:999px;padding:14px 34px;transition:background .2s,color .2s}
+.more button:hover{background:var(--ink);color:#fff}
+
+/* ── フッター ───────────────────────── */
+.site-footer{border-top:1px solid var(--line);margin-top:80px;padding:56px 0 32px;color:var(--muted);font-size:.84rem}
+.site-footer .cols{max-width:var(--maxw);margin:0 auto;padding:0 24px;display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px}
+.site-footer .brand-col strong{display:block;color:var(--ink);font-size:1rem;margin-bottom:12px}
+.site-footer .brand-col p{line-height:1.9}
+.site-footer h2{font-size:.68rem;font-weight:800;letter-spacing:.22em;color:#9aa3b0;text-transform:uppercase;margin-bottom:16px}
+.site-footer ul{list-style:none;margin:0;padding:0}
+.site-footer li{margin-bottom:11px}
+.site-footer li a{color:#313a46;font-weight:600;text-decoration:none}
+.site-footer li a:hover{color:var(--blue)}
+.site-footer .bottom{max-width:var(--maxw);margin:44px auto 0;padding:22px 24px 0;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:.76rem}
+.site-footer .bottom a{color:var(--muted)}
+
+@media(max-width:1024px){
+  .layout{grid-template-columns:minmax(0,1fr);gap:0}
+  .col-side{display:none}
+  .toc-mobile{display:block;border:1px solid var(--line);border-radius:16px;padding:6px 20px;margin:0 0 34px}
+  .toc-mobile summary{cursor:pointer;list-style:none;padding:14px 0;font-size:.8rem;font-weight:800;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;display:flex;justify-content:space-between}
+  .toc-mobile summary::-webkit-details-marker{display:none}
+  .toc-mobile summary::after{content:"＋";color:var(--blue)}
+  .toc-mobile[open] summary::after{content:"−"}
+  .toc-mobile .toc{border:0;padding:0 0 18px}
+  .toc-mobile .toc h2{display:none}
+  .featured a{grid-template-columns:1fr}
+  .featured .thumb img{min-height:0;aspect-ratio:16/9}
+  .site-footer .cols{grid-template-columns:1fr 1fr;gap:32px}
+}
+@media(max-width:640px){
+  .wrap,.crumbs,.article-head,.hero-wrap,.layout,.index-hero,.featured,.filters,.cards,.more{padding-left:18px;padding-right:18px}
+  .cta{padding:28px 22px;border-radius:20px}
+  .featured .body{padding:26px 24px}
+  .article > h2{font-size:1.25rem;margin-top:44px}
+  .site-footer .cols{grid-template-columns:1fr}
+}</style>
 </head>
 <body>
-<header class="site-header"><a class="brand" href="/">MGC Inc.</a><nav><a href="/service/ai-sales">サービス</a><a href="/cases">導入事例</a><a href="/column">コラム</a><a href="/training">研修</a><a href="/#works">事業内容</a><a href="/contact">お問い合わせ</a></nav></header>
+<div class="progress" id="progress"></div>
+<header class="site-header"><div class="inner"><a class="brand" href="/"><span class="mark"><i></i></span>MGC Inc.</a><nav><a href="/works">事業内容</a><a href="/service/ai-sales">AI営業</a><a href="/service/ai-phone">AI電話</a><a href="/service/salesforce-ai">Salesforce AI</a><a href="/cases">導入事例</a><a href="/training">研修</a><a href="/column" class="is-current">コラム</a><a class="nav-cta" href="/contact">お問い合わせ</a></nav></div></header>
 <nav class="crumbs"><a href="/">ホーム</a> ／ <a href="/column">AI活用コラム</a> ／ 医療・介護</nav>
-<main class="wrap">
-<article class="article">
+<header class="article-head">
 <span class="eyebrow">医療・介護 × AI活用</span>
 <h1 class="title">医療・介護の安全管理をAIで強化する — インシデント報告を「負担」から「資産」へ</h1>
 <div class="meta"><span class="chip">医療・介護</span><span>2026.09.07</span><span>読了目安 15分</span></div>
-<img class="hero" src="/assets/column/ind_healthcare.jpg" alt="電子カルテやタブレットを使いながら、AIがインシデントの傾向を分析しているイメージ" width="1200" height="675"/>
+</header>
+<div class="hero-wrap"><img class="hero" src="/assets/column/ind_healthcare.jpg" alt="電子カルテやタブレットを使いながら、AIがインシデントの傾向を分析しているイメージ" width="1200" height="675"/></div>
+<main class="layout">
+<div class="col-main">
+<article class="article">
 <p class="lead">医療・介護の現場において、インシデント（事故につながりかねない事態）の報告は安全管理の要です。しかし、多忙な現場では「報告書を書く時間がない」「書くことが心理的負担になる」という課題が根強く、貴重な情報が埋もれてしまうことが少なくありません。本記事では、AIを活用して報告のハードルを下げ、蓄積されたデータを「事故予防」という価値に変えるための現実的なアプローチを、実務上の注意点や具体的な導入ステップを交えて解説します。AIを単なる効率化ツールではなく、現場のスタッフを守り、組織の安全文化を醸成するためのパートナーとして活用する方法を探ります。</p>
+<details class="toc-mobile"><summary>目次</summary><nav class="toc"><h2>目次</h2><ol><li><a href="#s1">報告書の作成を「書く」から「話す」へ：生成AIによる入力支援</a></li><li><a href="#s2">埋もれたデータから「事故の予兆」を掘り起こす：多角的な相関分析</a></li><li><a href="#s3">プライバシー保護と倫理面での設計：スタッフの信頼を得るために</a></li><li><a href="#s4">実務的な導入ステップ：3つのフェーズで進める</a></li><li><a href="#s5">つまずきやすい点と回避策：よくある失敗例</a></li><li><a href="#s6">AIに任せる領域、人が担うべき「対話」という聖域</a></li><li><a href="#s7">チェック項目：AI導入に向けた準備状況の確認</a></li></ol></nav></details>
 <aside class="keypoints"><h2>この記事の要点</h2><ul><li>インシデント報告に音声入力や生成AIによる自動整形を導入することで、現場の事務負担を50%以上削減し、報告の心理的障壁を大幅に軽減できます。</li><li>蓄積された膨大なテキストデータをAI（自然言語処理）で分析し、人間では気づきにくい『事故の予兆』や『構造的な原因』を可視化。根拠に基づいた対策立案が可能になります。</li><li>導入の成否は「監視」ではなく「支援」という目的の共有にあります。個人情報の匿名化と、報告を評価に直結させない『非罰的文化』の構築が不可欠です。</li></ul></aside>
 <p>医療・介護の質を担保する上で、ヒヤリとした、ハッとしたという「ヒヤリ・ハット（インシデント）」の収集は欠かせません。ハインリッヒの法則が示す通り、1件の重大な事故の背後には、29件の軽微な事故と、300件のヒヤリ・ハットが隠れています。しかし、現実の現場では、その300件を正確に拾い上げることが最も困難です。</p>
 <p>スタッフが「忙しいから後で書こう」と思い、結局忘れてしまったり、自身のミスを報告することに負い目を感じて筆が止まったりすることは珍しくありません。また、提出された報告書を分析する管理者側も、多忙のために「目を通すだけで精一杯」になり、有効な再発防止策にまで手が回らないのが実情です。AIの導入は、こうした「報告文化」の停滞を打破し、科学的な改善プロセスへと変貌させる可能性を秘めています。</p>
-<h2>報告書の作成を「書く」から「話す」へ：生成AIによる入力支援</h2>
+<h2 id="s1">報告書の作成を「書く」から「話す」へ：生成AIによる入力支援</h2>
 <p>AI導入の第一歩として最も効果的なのは、報告書の入力支援です。従来のPCでの文字入力に代わり、スマートフォンやウェアラブルデバイスへの音声入力を活用します。ここでのAIの役割は、単なる文字起こし（音声認識）に留まらず、その後の「整形」と「分類」にあります。</p>
 <p>例えば、看護師が処置の合間に「〇〇さんのベッドサイドで、車椅子への移乗時に足が滑りそうになった。床に水滴があった。怪我はなし。」とマイクに向かって話すと、生成AIが以下のように自動で構造化します。</p>
 <ul><li>【発生場面】車椅子への移乗時</li><li>【対象者】〇〇様</li><li>【事象】転倒未遂（ヒヤリハット）</li><li>【直接原因】床の濡れによるスリップ</li><li>【状況詳細】ベッドサイドでの介助中に足元が不安定になったが、支えることで事なきを得た。</li></ul>
 <p>このように、断片的な情報を「報告書の体裁」に整えるプロセスをAIが肩代わりすることで、作成時間は劇的に短縮されます。現場スタッフにとっては、記憶が鮮明なうちに、かつ手を止めることなく報告を完了できるというメリットがあります。医療・介護特有の専門用語や略語（エコー、吸引、ADLなど）をあらかじめ学習させたモデルを使用することで、変換ミスのストレスも最小限に抑えられます。</p>
-<h2>埋もれたデータから「事故の予兆」を掘り起こす：多角的な相関分析</h2>
+<h2 id="s2">埋もれたデータから「事故の予兆」を掘り起こす：多角的な相関分析</h2>
 <p>報告書が集まっても、それを安全管理者がすべて読み込み、傾向を分析するには限界があります。AI（機械学習）の強みは、数千、数万件の報告書の中から、人間が意識していなかったパターンを見つけ出すことにあります。</p>
 <p>例えば、以下のような「見えないリスク」の可視化が可能です。</p>
 <ul><li>特定の時間帯（例：深夜3時〜4時）に、特定のフロアで点滴の自己抜去が頻発している。</li><li>特定の介助動作の際、新人スタッフだけでなくベテランスタッフも腰痛リスクを感じている（手順に構造的な無理がある可能性）。</li><li>天候（気圧の変化）や、特定のメニューの食事の後に、転倒インシデントが増加する傾向がある。</li><li>薬剤のパッケージ変更後に、特定の薬剤間での取り違え報告が有意に増えている。</li></ul>
 <blockquote>AIは過去の記録を『予測の地図』に変える。管理者はその地図を見て、場当たり的な注意喚起ではなく、ピンポイントで設備投資や人員配置の最適化を行えるようになる。</blockquote>
 <p>テキストマイニング技術を用いれば、スタッフが自由記述欄に書いた「なんとなく危ないと感じた」という直感的な言葉を抽出し、キーワードの出現頻度やその変化を追跡できます。これは、大きな事故が起きる前の「組織の緩み」や「環境の変化」を察知する早期警戒システムとして機能します。</p>
-<h2>プライバシー保護と倫理面での設計：スタッフの信頼を得るために</h2>
+<h2 id="s3">プライバシー保護と倫理面での設計：スタッフの信頼を得るために</h2>
 <p>医療・介護データは極めて機微な個人情報です。AI導入にあたっては、技術的な精度以上に、セキュリティと倫理面の設計が重要になります。「誰が、いつ、どのようなミスをしたか」という情報が不適切に扱われれば、現場の不信感を招き、かえって報告が隠蔽される事態を招きかねません。</p>
 <p>導入時に必ず確認すべきポイントは以下の通りです。</p>
 <ul><li>【匿名化処理】AIが分析を行う前に、患者名やスタッフ名を自動的に識別不能なIDへ変換する。特定の個人を特定した「犯人捜し」にAIを使わないことをシステム的に保証する。</li><li>【アクセス権限の厳格化】分析結果を閲覧できる範囲を限定し、人事評価や処罰に直結させない運用の徹底。あくまで「教育」と「改善」のためのツールであることを明確にする。</li><li>【データの利用目的の明示】スタッフや利用者、家族に対し、AIがどのように安全向上に貢献するかを丁寧に説明し、同意を得る（オプトアウトの仕組みなど）。</li></ul>
 <p>AIはあくまで「傾向」を出すものであり、個人の能力を裁く道具ではありません。この前提が組織全体で共有されていることが、システムを機能させるための最低条件です。技術の導入と並行して、心理的安全性を担保する組織文化（Just Culture：公正な文化）の醸成が不可欠となります。</p>
-<h2>実務的な導入ステップ：3つのフェーズで進める</h2>
+<h2 id="s4">実務的な導入ステップ：3つのフェーズで進める</h2>
 <p>いきなり全自動の予測システムを目指すのは、現場の負担とコストの観点から現実的ではありません。MGCでは、段階的にステップアップする「スモールスタート」を推奨しています。</p>
 <ol><li>【フェーズ1：データのデジタル化と整理】過去2〜3年分の紙や不揃いな形式の報告書をテキストデータ化します。AIに読み込ませて、現在のカテゴリ分類（転倒、誤薬、皮膚トラブル等）が適切かどうか、AIによる自動分類の精度を検証します。</li><li>【フェーズ2：入力支援のパイロット導入】特定の病棟やフロアを限定し、音声入力による報告作成を試験導入します。ここで「報告完了までの時間」がどれだけ短縮されたか、スタッフのストレスがどう変化したかのアンケートを取り、運用をブラッシュアップします。</li><li>【フェーズ3：分析結果の活用と予測】AIが抽出した月次サマリーを安全対策委員会などの会議体で活用します。「人間が見落としていたリスク」の発見を目標とし、精度が安定してきた段階で、リアルタイムの注意喚起（例：今日は転倒リスクが高い日です、という通知）へと拡張します。</li></ol>
 <p>この過程で重要なのは、現場のベテラン職員や安全管理責任者が「AIの出した答え」をチェックし、フィードバックを与えることです。現場の知恵をAIに学習させ続けることで、その施設特有の事情（建物の構造、入居者の特性など）に即した「賢い安全装置」へと育っていきます。</p>
-<h2>つまずきやすい点と回避策：よくある失敗例</h2>
+<h2 id="s5">つまずきやすい点と回避策：よくある失敗例</h2>
 <p>AI導入プロジェクトが頓挫する原因には、共通のパターンがあります。これらを事前に把握しておくことで、成功率を格段に高めることができます。</p>
 <ul><li>【失敗1：現場への説明不足】「管理者がスタッフを監視するために導入した」と誤解される。→ 対策：導入前に「報告書作成の手間を減らすためのツール」であることを強調し、現場の意見を反映したUI/UXを選択する。</li><li>【失敗2：Garbage In, Garbage Out】元の報告内容が極端に短い、または不正確なため、AIが誤った分析をする。→ 対策：音声入力時に「5W1H」を補完するようなプロンプト（AIへの指示出し）を設定し、情報の質を底上げする。</li><li>【失敗3：AIの結果に依存しすぎる】AIが「異常なし」としたから対策をしない、といった思考停止に陥る。→ 対策：AIはあくまで「気づき」を与える補助ツール。最終的な判断と対策の実行は、必ず人間が行うルールを徹底する。</li></ul>
-<h2>AIに任せる領域、人が担うべき「対話」という聖域</h2>
+<h2 id="s6">AIに任せる領域、人が担うべき「対話」という聖域</h2>
 <p>AIはデータの処理やパターンの発見には優れていますが、事故の「背景にある文脈」を理解し、当事者の「心情」に配慮することはできません。例えば、ミスをしたスタッフへのメンタルケアや、再発防止に向けた多職種チーム内での深い議論、そして患者・家族への誠実な説明は、人間にしかできない最も重要な仕事です。</p>
 <p>AIを導入することで得られる最大のメリットは、実は「時間の創出」にあります。事務作業や単純な集計作業をAIに任せることで、浮いた時間をスタッフ同士のコミュニケーションや、患者・利用者と向き合う時間、そして創造的なケアの検討に充てることができます。ツールに振り回されるのではなく、AIによって生まれた「心の余裕」を、本来の対人ケアに還元する。これこそが、医療・介護現場におけるAI活用の真の目的であるべきです。</p>
-<h2>チェック項目：AI導入に向けた準備状況の確認</h2>
+<h2 id="s7">チェック項目：AI導入に向けた準備状況の確認</h2>
 <p>導入を検討する際、まずは自組織の現状を以下のチェックリストで確認してみてください。1つでも不足している場合は、そこから整備を始めるのが近道です。</p>
 <ul><li>□ 過去のインシデント報告書がデジタルデータ（Excel, CSV等）で保存されているか？</li><li>□ 現場スタッフが使用できるタブレットやスマートフォン等の端末が整備されているか？</li><li>□ 「ミスを報告しても不当な評価を受けない」という信頼関係が組織にあるか？</li><li>□ 安全管理責任者が、AIの分析結果をもとに具体的な改善策を議論する時間を確保できているか？</li><li>□ IT導入を推進する担当者と、現場のリーダーが連携できる体制があるか？</li></ul>
 <p>MGCでは、ツールの選定だけでなく、こうした組織体制の整備や心理的安全性の構築を含めたコンサルティングを行っています。技術と人間の知恵を融合させ、誰もが安心して働ける現場を共に作っていきましょう。</p>
@@ -264,10 +381,41 @@ h1.title{font-size:2rem;line-height:1.45;font-weight:800;letter-spacing:-.01em;m
 </div>
 <p class="cta-foot">初回のご相談・お見積もりまで無料です。具体的な資料がなくても構いません。</p>
 </section>
-<section class="related"><h2>医療・介護の関連コラム</h2><a href="/column/healthcare-staff-scheduling-shift-optimization-ai"><span class="k">医療・介護</span><br>医療・介護のシフト作成をAIで効率化する — 現場の納得感と公平性をどう両立するか</a><a href="/column/healthcare-care-planning-risk-prediction-ai"><span class="k">医療・介護</span><br>医療・介護の現場でAIをどう活かすか — ケアプラン作成とリスク予測の現実解</a><a href="/column/healthcare-documentation-efficiency-ai"><span class="k">医療・介護</span><br>医療・介護の記録業務をAIで効率化する — ケアの時間を守るための現実的な進め方</a></section>
+<section class="related"><h2>医療・介護の関連コラム</h2><div class="grid"><a class="card" href="/column/healthcare-staff-scheduling-shift-optimization-ai"><span class="thumb"><img src="/assets/column/ind_healthcare.jpg" alt="複雑な条件を整理しながらAIでシフト表を作成する医療・介護施設の管理者のイメージ" loading="lazy"/><span class="k">医療・介護</span></span><span class="body"><h3>医療・介護のシフト作成をAIで効率化する — 現場の納得感と公平性をどう両立するか</h3><span class="foot">2026.08.25</span></span></a><a class="card" href="/column/healthcare-care-planning-risk-prediction-ai"><span class="thumb"><img src="/assets/column/ind_healthcare.jpg" alt="医療・介護の現場でスタッフがAIの予測データを確認しながらケア方針を検討している様子" loading="lazy"/><span class="k">医療・介護</span></span><span class="body"><h3>医療・介護の現場でAIをどう活かすか — ケアプラン作成とリスク予測の現実解</h3><span class="foot">2026.08.09</span></span></a><a class="card" href="/column/healthcare-documentation-efficiency-ai"><span class="thumb"><img src="/assets/column/ind_healthcare.jpg" alt="タブレット端末を使ってAIで介護記録を入力するスタッフのイメージ" loading="lazy"/><span class="k">医療・介護</span></span><span class="body"><h3>医療・介護の記録業務をAIで効率化する — ケアの時間を守るための現実的な進め方</h3><span class="foot">2026.07.26</span></span></a></div></section>
 <p class="disclaimer">本コラムは一般的な情報提供を目的としたもので、特定の成果を保証するものではありません。導入可否や効果は、企業の状況・データ・体制により異なります。具体的なご相談は個別にお問い合わせください。</p>
+<a class="back-link" href="/column">← コラム一覧へ戻る</a>
 </article>
+</div>
+<aside class="col-side">
+<nav class="toc"><h2>目次</h2><ol><li><a href="#s1">報告書の作成を「書く」から「話す」へ：生成AIによる入力支援</a></li><li><a href="#s2">埋もれたデータから「事故の予兆」を掘り起こす：多角的な相関分析</a></li><li><a href="#s3">プライバシー保護と倫理面での設計：スタッフの信頼を得るために</a></li><li><a href="#s4">実務的な導入ステップ：3つのフェーズで進める</a></li><li><a href="#s5">つまずきやすい点と回避策：よくある失敗例</a></li><li><a href="#s6">AIに任せる領域、人が担うべき「対話」という聖域</a></li><li><a href="#s7">チェック項目：AI導入に向けた準備状況の確認</a></li></ol></nav>
+<div class="side-cta"><strong>医療・介護のAI活用、どこから始めるか</strong><p>現状を伺い、どの業務をAIに任せられるかを整理してお返しします。初回相談は無料です。</p><a href="/contact">30分の無料相談 →</a></div>
+</aside>
 </main>
-<footer class="site-footer"><div class="wrap"><p><strong>ＭＧＣ株式会社（MGC Inc.）</strong></p><p>京都府京都市上京区西辰巳町111 アビタシオンオンズアン106</p><p style="margin-top:10px"><a href="/">https://mgc-global01.com</a> ・ <a href="/column">コラム一覧</a> ・ <a href="/cases">導入事例</a> ・ <a href="/service/ai-sales">AI営業</a> ・ <a href="/service/ai-phone">AI電話</a> ・ <a href="/service/salesforce-ai">Salesforce AI</a> ・ <a href="/training">研修</a></p><p style="margin-top:10px">© 2026 MGC Inc. All Rights Reserved.</p></div></footer>
+<footer class="site-footer">
+<div class="cols">
+<div class="brand-col"><strong>ＭＧＣ株式会社（MGC Inc.）</strong><p>AIとテクノロジーで、日本と世界をつなぐ。</p><p>京都府京都市上京区西辰巳町111 アビタシオンオンズアン106</p></div>
+<div><h2>事業・サービス</h2><ul><li><a href="/works">事業内容</a></li><li><a href="/service/ai-sales">AI営業</a></li><li><a href="/service/ai-phone">AI電話</a></li><li><a href="/service/salesforce-ai">Salesforce AI</a></li></ul></div>
+<div><h2>実績・ナレッジ</h2><ul><li><a href="/cases">導入事例</a></li><li><a href="/training">研修</a></li><li><a href="/column">コラム</a></li></ul></div>
+<div><h2>会社情報</h2><ul><li><a href="/mission">会社理念</a></li><li><a href="/company">会社概要</a></li><li><a href="/career">採用情報</a></li><li><a href="/contact">お問い合わせ</a></li></ul></div>
+</div>
+<div class="bottom"><span>© 2026 MGC Inc. All Rights Reserved.</span><span><a href="/privacy-policy">プライバシーポリシー</a>　<a href="/terms-of-service">利用規約</a></span></div>
+</footer>
+<script>
+(function(){
+  var bar=document.getElementById('progress');
+  var links=[].slice.call(document.querySelectorAll('.col-side .toc a'));
+  var heads=links.map(function(a){return document.getElementById(a.getAttribute('href').slice(1));});
+  function onScroll(){
+    var h=document.documentElement;
+    var max=h.scrollHeight-h.clientHeight;
+    if(bar) bar.style.width=(max>0?(h.scrollTop/max*100):0)+'%';
+    var i=heads.length-1;
+    for(;i>=0;i--){ if(heads[i] && heads[i].getBoundingClientRect().top<140) break; }
+    links.forEach(function(a,n){ a.classList.toggle('is-active', n===i); });
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+})();
+</script>
 </body>
 </html>
