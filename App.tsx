@@ -250,6 +250,28 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
     }, 350);
   };
 
+  // ヒーローの背景を、マウス位置にわずかに追従させる（動きを減らす設定では止める）
+  const heroRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const el = heroRef.current;
+    if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const onMove = (e: PointerEvent) => {
+      const r = el.getBoundingClientRect();
+      el.style.setProperty('--mx', String((e.clientX - r.left) / r.width - 0.5));
+      el.style.setProperty('--my', String((e.clientY - r.top) / r.height - 0.5));
+    };
+    const onLeave = () => {
+      el.style.setProperty('--mx', '0');
+      el.style.setProperty('--my', '0');
+    };
+    el.addEventListener('pointermove', onMove);
+    el.addEventListener('pointerleave', onLeave);
+    return () => {
+      el.removeEventListener('pointermove', onMove);
+      el.removeEventListener('pointerleave', onLeave);
+    };
+  }, []);
+
   const services: { icon: ReactNode; title: string; subtitle: string; view: ViewState }[] = [
     { icon: <Globe className="w-6 h-6" />, title: t.works.service_ai.title, subtitle: t.works.service_ai.subtitle, view: 'works' },
     { icon: <User className="w-6 h-6" />, title: t.works.service_training.title, subtitle: t.works.service_training.subtitle, view: 'training' },
@@ -258,13 +280,17 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
 
   return (
   <>
-  <section className="min-h-screen flex flex-col justify-center px-6 md:px-12 relative overflow-hidden pt-40 pb-20">
-    {/* Decorative orb backdrop — subtle visual accent without distracting from copy */}
+  <section ref={heroRef} className="min-h-screen flex flex-col justify-center px-6 md:px-12 relative overflow-hidden pt-40 pb-20">
+    {/* 背景。光をゆっくり漂わせ、グリッドを流し、マウスにわずかに追従させる */}
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
-      <div className="absolute -top-40 -right-40 w-[600px] h-[600px] bg-accent/5 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-20 -left-40 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-3xl"></div>
+      <div className="absolute -top-40 -right-40 mgc-parallax">
+        <div className="w-[600px] h-[600px] bg-accent/5 rounded-full blur-3xl mgc-orb-a" />
+      </div>
+      <div className="absolute bottom-20 -left-40 mgc-parallax">
+        <div className="w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-3xl mgc-orb-b" />
+      </div>
       <div
-        className="absolute inset-0 opacity-[0.025] pointer-events-none"
+        className="absolute -inset-10 opacity-[0.025] pointer-events-none mgc-grid mgc-parallax-soft"
         style={{
           backgroundImage: `linear-gradient(#050505 1px, transparent 1px), linear-gradient(90deg, #050505 1px, transparent 1px)`,
           backgroundSize: '40px 40px'
@@ -282,32 +308,35 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
         </div>
       </Reveal>
 
-      <Reveal delay={50}>
-        <h1 className={`${lang === 'ja' ? 'text-[10vw] md:text-[6.5vw] leading-[1.15]' : 'text-[12vw] md:text-[10vw] leading-[0.9]'} font-bold tracking-tighter text-offblack mb-6`}>
-          {t.hero.title_1} <br />
-          <span className="text-accent transition-colors duration-500">{t.hero.title_2}</span>{lang === 'ja' ? '' : ' '}{t.hero.title_3}
-        </h1>
-        {lang === 'ja' && (
-          <p className="font-mono text-xs md:text-sm font-bold tracking-[0.2em] uppercase text-gray-400 mb-8">
-            {t.hero.subtitle_en}
-          </p>
-        )}
-      </Reveal>
+      <h1 className={`${lang === 'ja' ? 'text-[10vw] md:text-[6.5vw] leading-[1.15]' : 'text-[12vw] md:text-[10vw] leading-[0.9]'} font-bold tracking-tighter text-offblack mb-6`}>
+        <span className="mgc-line">
+          <span style={{ animationDelay: '80ms' }}>{t.hero.title_1}</span>
+        </span>
+        <span className="mgc-line">
+          <span style={{ animationDelay: '220ms' }}>
+            <span className="text-accent mgc-underline">{t.hero.title_2}</span>{lang === 'ja' ? '' : ' '}{t.hero.title_3}
+          </span>
+        </span>
+      </h1>
+      {lang === 'ja' && (
+        <p className="font-mono text-xs md:text-sm font-bold tracking-[0.2em] uppercase text-gray-400 mb-8 mgc-fade-up" style={{ animationDelay: '700ms' }}>
+          {t.hero.subtitle_en}
+        </p>
+      )}
 
       {/* Service chips — "what we do" at a glance */}
-      <Reveal delay={150}>
-        <div className="flex flex-wrap gap-2 md:gap-3 mb-10">
+      <div className="flex flex-wrap gap-2 md:gap-3 mb-10">
           {t.hero.chips.map((chip, i) => (
             <span
               key={i}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-offblack text-white rounded-full text-xs md:text-sm font-bold tracking-tight"
+              style={{ animationDelay: `${900 + i * 110}ms` }}
+              className="mgc-chip mgc-fade-up inline-flex items-center gap-2 px-4 py-2 bg-offblack text-white rounded-full text-xs md:text-sm font-bold tracking-tight hover:bg-accent"
             >
               <span className="w-1.5 h-1.5 bg-accent rounded-full"></span>
               {chip}
             </span>
           ))}
-        </div>
-      </Reveal>
+      </div>
 
       <Reveal delay={250}>
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between border-t border-gray-200 pt-8 mt-8 gap-6">
@@ -340,6 +369,14 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
           </div>
         </div>
       </Reveal>
+    </div>
+
+    {/* スクロールを促す線 */}
+    <div className="hidden md:flex absolute bottom-10 left-6 md:left-12 items-center gap-4 mgc-fade-up" style={{ animationDelay: '1400ms' }}>
+      <span className="block w-px h-12 bg-gray-300 overflow-hidden">
+        <span className="block w-px h-full bg-accent mgc-cue-line" />
+      </span>
+      <span className="font-mono text-[10px] font-bold uppercase tracking-[0.3em] text-gray-400">Scroll</span>
     </div>
   </section>
 
