@@ -2379,7 +2379,6 @@ const CasesView: React.FC = () => {
               <span className="text-[#2D6CDF] font-bold tracking-[0.2em] text-xs uppercase">{c.eyebrow}</span>
               <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-[#111418] mt-3 leading-[1.4]">{c.heading}</h1>
               <div className="w-16 h-1.5 bg-[#2D6CDF] mt-5 rounded-full" />
-              <p className="text-base md:text-lg text-gray-600 leading-[1.9] mt-7 max-w-3xl">{c.lead}</p>
             </div>
           </Reveal>
 
