@@ -23,7 +23,7 @@ export const SHOW_DIAGNOSIS = false;
 const PAGE_META: Record<Lang, Partial<Record<string, { title: string; description: string }>>> = {
   ja: {
     home: { title: 'ＭＧＣ株式会社（MGC Inc.）| AIとテクノロジーで、日本と世界をつなぐ', description: 'ＭＧＣ株式会社は、AIコンサルティングから開発・運用・研修まで一気通貫のAIソリューションと、双方向のクロスボーダー事業を展開する京都の会社。初回相談は無料。' },
-    works: { title: '事業内容｜AIソリューション・研修事業・クロスボーダー事業 - ＭＧＣ株式会社', description: 'AIコンサルティング・開発・運用を一気通貫で提供するAIソリューション、AI活用の実践型研修（OFF-JT）を行う研修事業、海外企業の日本総代理店・日本企業の海外進出を支援するクロスボーダー事業。' },
+    works: { title: '事業内容｜AIソリューション・AI事業立ち上げ支援・研修・クロスボーダー - ＭＧＣ株式会社', description: 'AIコンサルティング・開発・運用を一気通貫で提供するAIソリューション、導入実績を同業他社向けの商材に変えるAI事業立ち上げ支援、AI活用の実践型研修、海外企業の日本総代理店・日本企業の海外進出を支援するクロスボーダー事業。' },
     training: { title: 'AI活用リスキリング研修｜実践型のOFF-JT研修 - ＭＧＣ株式会社', description: 'ITに詳しくない経営者・従業員がAIを業務に導入・活用できるようになる実践型研修（OFF-JT）。基礎から実務での活用までを、解説・実例・デモで学びます。' },
     mission: { title: '会社理念｜AIとテクノロジーで、日本と世界をつなぐ - ＭＧＣ株式会社', description: 'MGCのビジョン・ミッション・バリュー。AIは手段であり、目的は未来をより良くすること。受け継がれ、続いていく取り組みをつくります。' },
     company: { title: '会社概要 - ＭＧＣ株式会社（MGC Inc.）', description: 'ＭＧＣ株式会社の会社概要。商号・代表者・所在地（京都府京都市）・設立・事業内容。' },
@@ -35,7 +35,7 @@ const PAGE_META: Record<Lang, Partial<Record<string, { title: string; descriptio
   },
   en: {
     home: { title: 'MGC Inc. | Connect Japan & The World through AI and Tech', description: 'MGC Inc. delivers end-to-end AI solutions — consulting, development, operations and training — and cross-border business from Kyoto, Japan. First consultation is free.' },
-    works: { title: 'Business | AI Solutions, Training and Cross-Border - MGC Inc.', description: 'End-to-end AI solutions, hands-on AI training (OFF-JT), and two-way cross-border business: representing overseas companies in Japan and helping Japanese companies expand abroad.' },
+    works: { title: 'Business | AI Solutions, Business Launch, Training and Cross-Border - MGC Inc.', description: 'End-to-end AI solutions, AI business launch support that turns a proven deployment into a product for the industry, hands-on AI training, and two-way cross-border business.' },
     training: { title: 'AI Reskilling Program - MGC Inc.', description: 'Hands-on AI training (OFF-JT) for managers and employees who are not IT specialists, from the foundations to putting AI to work.' },
     mission: { title: 'Mission | Connect Japan & The World through AI and Tech - MGC Inc.', description: 'MGC’s vision, mission and values. AI is a means; the goal is a better future that outlasts us.' },
     company: { title: 'Company Profile - MGC Inc.', description: 'Corporate profile of MGC Inc.: name, representative, location (Kyoto, Japan), founding date and business.' },
@@ -81,7 +81,7 @@ const pathForView = (v: ViewState): string => (isServiceKey(v) ? `/service/${v}`
 const SERVICE_KEYS: ServiceKey[] = ['ai-sales', 'ai-phone', 'salesforce-ai'];
 const isServiceKey = (v: string): v is ServiceKey => (SERVICE_KEYS as string[]).includes(v);
 
-type ContentKey = 'service_ai' | 'service_training' | 'service_lab';
+type ContentKey = 'service_ai' | 'service_newbiz' | 'service_training' | 'service_lab';
 
 interface ContentItem {
   title: string;
@@ -274,6 +274,7 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
 
   const services: { icon: ReactNode; title: string; subtitle: string; view: ViewState }[] = [
     { icon: <Globe className="w-6 h-6" />, title: t.works.service_ai.title, subtitle: t.works.service_ai.subtitle, view: 'works' },
+    { icon: <Sparkles className="w-6 h-6" />, title: t.works.service_newbiz.title, subtitle: t.works.service_newbiz.subtitle, view: 'works' },
     { icon: <User className="w-6 h-6" />, title: t.works.service_training.title, subtitle: t.works.service_training.subtitle, view: 'training' },
     { icon: <Layers className="w-6 h-6" />, title: t.works.service_lab.title, subtitle: t.works.service_lab.subtitle, view: 'works' },
   ];
@@ -383,7 +384,7 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
   {/* === Service Index (under hero) === */}
   <div className="px-6 md:px-12 pb-24 max-w-screen-xl mx-auto w-full">
     <Reveal>
-      <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-gray-200 border border-gray-200 rounded-[2rem] overflow-hidden">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-gray-200 border border-gray-200 rounded-[2rem] overflow-hidden">
         {services.map((s, i) => (
           <button
             key={i}
@@ -693,7 +694,7 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
 
 // --- Service Block (uniform structure for each service) ---
 const ServiceBlock: React.FC<{
-  index: '01' | '02' | '03';
+  index: '01' | '02' | '03' | '04';
   serviceKey: ContentKey;
   icon: ReactNode;
   image?: string;
@@ -808,8 +809,8 @@ const WorksView: React.FC = () => {
             <span className="block text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-gray-500 mb-4">
               {t.worksIntro.indexLabel}
             </span>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            {(['service_ai', 'service_training', 'service_lab'] as const).map((key, i) => (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            {(['service_ai', 'service_newbiz', 'service_training', 'service_lab'] as const).map((key, i) => (
               <a
                 key={key}
                 href={`#service-0${i + 1}`}
@@ -845,6 +846,16 @@ const WorksView: React.FC = () => {
         <div id="service-02" className="scroll-mt-24 mt-24 md:mt-32">
           <ServiceBlock
             index="02"
+            serviceKey="service_newbiz"
+            icon={<Sparkles className="w-5 h-5 text-accent stroke-[1.75]" />}
+            image="/assets/service_newbiz.jpg"
+            onDetail={() => setSelectedId('service_newbiz')}
+          />
+        </div>
+
+        <div id="service-03" className="scroll-mt-24 mt-24 md:mt-32">
+          <ServiceBlock
+            index="03"
             serviceKey="service_training"
             icon={<User className="w-5 h-5 text-accent stroke-[1.75]" />}
             image="/assets/service_training.jpg"
@@ -852,9 +863,9 @@ const WorksView: React.FC = () => {
           />
         </div>
 
-        <div id="service-03" className="scroll-mt-24 mt-24 md:mt-32">
+        <div id="service-04" className="scroll-mt-24 mt-24 md:mt-32">
           <ServiceBlock
-            index="03"
+            index="04"
             serviceKey="service_lab"
             icon={<Zap className="w-5 h-5 text-accent stroke-[1.75]" />}
             image="/assets/service_lab.jpg"
@@ -1672,10 +1683,38 @@ const getContentData = (t: typeof translations['ja']) => ({
       </>
     )
   },
+  service_newbiz: {
+    ...t.details.service_newbiz,
+    theme: 'light' as const,
+    number: "02",
+    icon: <Sparkles className="w-6 h-6 text-accent stroke-[1.5]" />,
+    details: (
+      <>
+        <p className="text-xl md:text-3xl font-light leading-relaxed mb-12 whitespace-pre-line text-gray-700">
+          {t.details.service_newbiz.p1}
+        </p>
+        <div className="space-y-12">
+          {t.details.service_newbiz.features.map((f, i) => (
+             <div key={i} className="border-t border-gray-200 pt-8">
+               <div className="flex flex-col md:flex-row gap-8">
+                 <div className="md:w-1/3">
+                   <span className="text-accent font-bold tracking-widest text-sm mb-2 block">0{i+1}</span>
+                   <h4 className="text-2xl font-bold text-offblack">{f.title}<br/><span className="text-base text-gray-500 font-normal">{f.sub}</span></h4>
+                 </div>
+                 <div className="md:w-2/3">
+                   <p className="text-gray-600 text-lg leading-relaxed">{f.text}</p>
+                 </div>
+               </div>
+             </div>
+          ))}
+        </div>
+      </>
+    ),
+  },
   service_training: {
     ...t.details.service_training,
     theme: 'light' as const,
-    number: "02",
+    number: "03",
     icon: <User className="w-6 h-6 text-accent stroke-[1.5]" />,
     details: (
       <>
@@ -1703,7 +1742,7 @@ const getContentData = (t: typeof translations['ja']) => ({
   service_lab: {
     ...t.details.service_lab,
     theme: 'dark' as const,
-    number: "03",
+    number: "04",
     icon: <Zap className="w-6 h-6 text-white stroke-[1.5]" />,
     details: (
       <>
