@@ -144,7 +144,7 @@ export const translations = {
     },
     worksIntro: {
       eyebrow: "Services",
-      lead: "MGCは、AIソリューション（コンサルティング・開発・運用）、研修事業、クロスボーダー事業（Inbound/Outbound）の3つの事業で、AIとテクノロジーによって日本と世界をつなぎます。",
+      lead: "MGCは、AIソリューション（コンサルティング・開発・運用）、AI事業立ち上げ支援、研修事業、クロスボーダー事業（Inbound/Outbound）の4つの事業で、AIとテクノロジーによって日本と世界をつなぎます。",
       indexLabel: "事業領域",
       detailLink: "詳しく見る",
     },
@@ -157,6 +157,16 @@ export const translations = {
           { title: "AI Consulting", sub: "AIコンサルティング", text: "業務プロセスを棚卸しし、AI導入の優先順位と現実的なロードマップを設計。経営課題に直結する打ち手から着手します。" },
           { title: "AI Development", sub: "AI開発（音声・テキスト・CRM連携）", text: "電話業務を代行する音声AI、CRMを操作するAI、アポイントを獲得する営業AIなど、業務を実際に代行するAIを開発します。" },
           { title: "Training & Enablement", sub: "運用・内製化研修", text: "導入して終わりにせず、運用の改善と、社員がAIを使いこなすための研修まで。成果が社内に受け継がれる状態をつくります。" }
+        ]
+      },
+      service_newbiz: {
+        title: "AI事業立ち上げ支援",
+        subtitle: "自社で導入したAIを、同業他社へ届ける事業に変える。",
+        desc: "一社のために作ったAIは、同じ業種の会社にも効きます。導入して効果が出たAIを、同業他社へそのまま提供できる商材の形にまとめ、御社の新しい事業として立ち上げるところまで伴走します。AI側の実務はMGCが担うため、専任のエンジニアを抱えずに始められます。",
+        items: [
+          { title: "Packaging", sub: "実例のパッケージ化", text: "自社で導入したAIの構成・運用・効果を整理し、同業他社へ提供できる商材にまとめます。どこまでを標準とし、どこを個社対応にするかの線引きから設計します。" },
+          { title: "Operations", sub: "AI事業の実務巻き取り", text: "開発・導入・保守・問い合わせ対応といったAI側の実務はMGCが担います。御社は、既存の顧客基盤と業界での信用を活かした提案に集中できます。" },
+          { title: "Go-to-Market", sub: "販売の立ち上げ伴走", text: "サービスサイト・LP、営業資料、提供範囲と価格の設計、営業体制づくりまでを一緒に組み立てます。売り方が固まるまで伴走します。" }
         ]
       },
       service_training: {
@@ -190,6 +200,17 @@ export const translations = {
           { title: "AI Consulting", sub: "AIコンサルティング", text: "業務プロセスを棚卸しし、AI導入の優先順位とROI、現実的なロードマップを設計します。PoC倒れを起こさない投資判断を支援します。" },
           { title: "AI Development", sub: "AI開発（音声・テキスト・CRM連携）", text: "電話業務を代行する音声AI、CRMを適切なタイミングで操作するAI、アポイントを獲得する営業AI。Salesforce・kintoneなどのAPI連携を含め、業務に組み込まれて動くAIを開発します。" },
           { title: "Training & Enablement", sub: "運用・内製化研修", text: "経営層・管理職・現場それぞれに合わせた研修プログラムで、AIを「同僚」として使いこなせる組織文化を社内に残します。研修のみのご依頼も可能です。" }
+        ]
+      },
+      service_newbiz: {
+        title: "AI事業立ち上げ支援",
+        subtitle: "自社で導入したAIを、同業他社へ届ける事業に変える。",
+        p1: "一社のために作ったAIは、同じ業種の会社にも効きます。\n導入して効果が出たAIを、同業他社へそのまま提供できる商材の形にまとめ、御社の新しい事業として立ち上げるところまで伴走します。AI側の実務はMGCが担うため、専任のエンジニアを抱えずに始められます。",
+        features: [
+          { title: "Packaging", sub: "実例のパッケージ化", text: "自社で導入したAIの構成・運用・効果を整理し、同業他社へ提供できる商材にまとめます。標準で提供する範囲と個社対応にする範囲を切り分け、再現できる形に落とします。業種の事情を分かっている会社が売るからこそ、導入の説得力が違います。" },
+          { title: "Operations", sub: "AI事業の実務巻き取り", text: "開発・導入・保守・問い合わせ対応といったAI側の実務はMGCが担います。御社は、既存の顧客基盤と業界での信用を活かした提案に集中できます。専任のエンジニア採用や開発部門の新設をせずに始められるため、初期の負担を抑えられます。" },
+          { title: "Go-to-Market", sub: "販売の立ち上げ伴走", text: "サービスサイト・LP、営業資料、提供範囲と価格の設計、営業体制づくりまでを一緒に組み立てます。誰に何をいくらで売るかが固まるまで伴走し、立ち上がったあとの改善にも付き合います。" },
+          { title: "Outcome", sub: "得られるもの", text: "既存の顧客基盤に新しい商材が乗ることによる売上機会。「AIを使っている会社」ではなく「AIを提供している会社」として業界で見られることによる、採用・営業でのブランディング価値。そして、自社の業務改善で得た知見が、そのまま売れる資産に変わります。" }
         ]
       },
       service_training: {
@@ -233,7 +254,7 @@ export const translations = {
         { label: '所在地', value: '京都府京都市上京区西辰巳町111\nアビタシオンオンズアン106' },
         { label: '設立', value: '2025年12月' },
         { label: '法人番号', value: '4130001081155' },
-        { label: '事業内容', value: 'AIソリューション（コンサルティング・開発・運用）\n研修事業（AI活用リスキリング研修・DX推進人材の養成）\nクロスボーダー事業（海外企業 日本総代理店・日本企業の海外進出支援）' },
+        { label: '事業内容', value: 'AIソリューション（コンサルティング・開発・運用）\nAI事業立ち上げ支援（AIサービスのパッケージ化・事業化支援）\n研修事業（AI活用リスキリング研修・DX推進人材の養成）\nクロスボーダー事業（海外企業 日本総代理店・日本企業の海外進出支援）' },
         { label: 'お問い合わせ', value: 'kokomu.matsuo@mgc-global01.com' },
       ]
     },
@@ -700,7 +721,7 @@ export const translations = {
     },
     worksIntro: {
       eyebrow: "Services",
-      lead: "Three businesses — AI Solutions (consulting, development, operations), Training, and Cross-Border Business (Inbound/Outbound) — connecting Japan and the world through AI and tech.",
+      lead: "Four businesses — AI Solutions (consulting, development, operations), AI Business Launch Support, Training, and Cross-Border Business (Inbound/Outbound) — connecting Japan and the world through AI and tech.",
       indexLabel: "Domains",
       detailLink: "Learn more",
     },
@@ -713,6 +734,16 @@ export const translations = {
           { title: "AI Consulting", sub: "Strategy & prioritization", text: "We audit your operations and design a realistic roadmap with clear priorities, starting where it moves the business most." },
           { title: "AI Development", sub: "Voice · Text · CRM integration", text: "Voice AI that handles phone work, agents that operate your CRM, sales AI that books appointments — AI that actually does the work." },
           { title: "Training & Enablement", sub: "Operations & in-house training", text: "We don't stop at launch: operational improvement plus training, so results are passed on inside your team." }
+        ]
+      },
+      service_newbiz: {
+        title: "AI Business Launch Support",
+        subtitle: "Turn the AI you adopted into a business you sell to your industry.",
+        desc: "AI built for one company tends to work for its peers as well. We package the AI you have already proven in your own operations into something you can sell to others in your industry, and stay with you until it runs as a business. MGC carries the technical work, so you can start without hiring a dedicated engineering team.",
+        items: [
+          { title: "Packaging", sub: "Turning your case into a product", text: "We document how your AI is built, run and what it delivers, then shape it into an offering your peers can buy — drawing the line between what is standard and what is configured per customer." },
+          { title: "Operations", sub: "We carry the AI work", text: "Development, onboarding, maintenance and support sit with MGC. You focus on selling into the customer base and industry standing you already have." },
+          { title: "Go-to-Market", sub: "Launching the sales side", text: "Service site and landing pages, sales collateral, scope and pricing, and building the sales motion — we put it together with you and stay until it is working." }
         ]
       },
       service_training: {
@@ -745,6 +776,17 @@ export const translations = {
           { title: "AI Consulting", sub: "Strategy & prioritization", text: "We audit your operations and design a realistic roadmap with clear priorities and ROI — supporting investment decisions that don't end in PoC graveyards." },
           { title: "AI Development", sub: "Voice · Text · CRM integration", text: "Voice AI that handles phone work, agents that operate your CRM at the right moments, sales AI that books appointments. Including API integration with Salesforce, kintone and more — AI built into your actual operations." },
           { title: "Training & Enablement", sub: "Operations & in-house training", text: "Training programs tailored to executives, managers, and hands-on staff — building a culture where AI is treated as a colleague. Training-only engagements are welcome." }
+        ]
+      },
+      service_newbiz: {
+        title: "AI Business Launch Support",
+        subtitle: "Turn the AI you adopted into a business you sell to your industry.",
+        p1: "AI built for one company tends to work for its peers as well.\nWe package the AI you have already proven in your own operations into something you can sell to others in your industry, and stay with you until it runs as a business. MGC carries the technical work, so you can start without hiring a dedicated engineering team.",
+        features: [
+          { title: "Packaging", sub: "Turning your case into a product", text: "We document how your AI is built, how it runs and what it delivers, then shape it into an offering your peers can buy. We separate what ships as standard from what is configured per customer, so it can be delivered again and again. A company that understands the industry selling it is what makes the pitch land." },
+          { title: "Operations", sub: "We carry the AI work", text: "Development, onboarding, maintenance and support sit with MGC. You focus on selling into the customer base and industry standing you already have — no dedicated engineering hires or new development department needed to get started." },
+          { title: "Go-to-Market", sub: "Launching the sales side", text: "Service site and landing pages, sales collateral, scope and pricing, and building the sales motion. We put it together with you, stay until who-buys-what-at-what-price is settled, and keep improving it after launch." },
+          { title: "Outcome", sub: "What you get", text: "A new revenue stream on the customer base you already have. Standing in your industry as a company that provides AI rather than one that merely uses it — which pays off in both hiring and sales. And the knowledge from improving your own operations becomes an asset you can sell." }
         ]
       },
       service_training: {
@@ -788,7 +830,7 @@ export const translations = {
         { label: 'Headquarters', value: 'Kyoto, Japan' },
         { label: 'Established', value: 'December 2025' },
         { label: 'Corporate Number', value: '4130001081155' },
-        { label: 'Business Domains', value: 'AI Solutions (Consulting / Development / Operations)\nTraining (AI reskilling / DX enablement)\nCross-Border Business (Japan Distributorship / Overseas Expansion Support)' },
+        { label: 'Business Domains', value: 'AI Solutions (Consulting / Development / Operations)\nAI Business Launch Support (Packaging and commercializing AI services)\nTraining (AI reskilling / DX enablement)\nCross-Border Business (Japan Distributorship / Overseas Expansion Support)' },
         { label: 'Contact', value: 'kokomu.matsuo@mgc-global01.com' },
       ]
     },
