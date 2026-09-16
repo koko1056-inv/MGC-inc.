@@ -458,20 +458,34 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
         {t.oneStop.lead}
       </p>
     </Reveal>
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 lg:gap-6">
       {t.oneStop.steps.map((s, i) => (
-        <Reveal key={s.step} delay={i * 100} className="h-full">
-          <div className="relative h-full bg-white rounded-xl p-6 border border-gray-200 hover:border-accent transition-colors">
-            <span className="text-[10px] font-bold uppercase tracking-widest text-accent">STEP {s.step}</span>
-            <h4 className="text-lg font-bold text-offblack mt-3 mb-2 tracking-tight leading-snug">{s.title}</h4>
-            <p className="text-gray-500 text-sm leading-relaxed">{s.desc}</p>
+        <Reveal key={s.step} delay={i * 120} className="h-full">
+          <div className="relative h-full bg-white rounded-2xl p-7 md:p-8 border border-gray-200 hover:border-accent transition-colors">
+            <div className="flex items-baseline gap-3 mb-4">
+              <span className="font-mono text-4xl md:text-5xl font-bold text-accent/20 leading-none tabular-nums">{s.step}</span>
+              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-accent">Step</span>
+            </div>
+            <h3 className="text-xl md:text-2xl font-bold text-offblack mb-3 tracking-tight leading-snug">{s.title}</h3>
+            <p className="text-gray-600 text-sm md:text-base leading-relaxed">{s.desc}</p>
+            <ul className="mt-6 pt-6 border-t border-gray-200 space-y-3">
+              {s.items.map((item, j) => (
+                <li key={j} className="flex items-start gap-3">
+                  <Check className="w-4 h-4 text-accent flex-shrink-0 mt-1" strokeWidth={3} />
+                  <span className="text-sm text-gray-600 leading-relaxed">{item}</span>
+                </li>
+              ))}
+            </ul>
             {i < t.oneStop.steps.length - 1 && (
-              <ArrowRight className="hidden lg:block absolute top-1/2 -right-3 -translate-y-1/2 w-5 h-5 text-gray-300" />
+              <ArrowRight className="hidden lg:block absolute top-16 -right-4 w-6 h-6 text-gray-300" />
             )}
           </div>
         </Reveal>
       ))}
     </div>
+    <Reveal>
+      <p className="text-sm text-gray-500 leading-relaxed mt-6">{t.oneStop.note}</p>
+    </Reveal>
   </section>
 
   {/* === Stack / Coverage Section === */}
@@ -912,18 +926,30 @@ const WorksView: React.FC = () => {
               <h3 className="text-3xl md:text-4xl font-bold text-offblack tracking-tighter max-w-xl leading-tight">{t.oneStop.title}</h3>
               <p className="text-gray-600 leading-relaxed max-w-md font-medium">{t.oneStop.lead}</p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 lg:gap-6">
               {t.oneStop.steps.map((s, i) => (
-                <div key={s.step} className="relative bg-white rounded-xl p-6 border border-gray-200 hover:border-gray-300 transition-colors">
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-accent">STEP {s.step}</span>
-                  <h4 className="text-xl font-bold text-offblack mt-3 mb-2 tracking-tight leading-snug">{s.title}</h4>
-                  <p className="text-gray-600 text-sm leading-relaxed">{s.desc}</p>
+                <div key={s.step} className="relative h-full bg-white rounded-2xl p-7 md:p-8 border border-gray-200 hover:border-accent transition-colors">
+                  <div className="flex items-baseline gap-3 mb-4">
+                    <span className="font-mono text-4xl md:text-5xl font-bold text-accent/20 leading-none tabular-nums">{s.step}</span>
+                    <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-accent">Step</span>
+                  </div>
+                  <h4 className="text-xl md:text-2xl font-bold text-offblack mb-3 tracking-tight leading-snug">{s.title}</h4>
+                  <p className="text-gray-600 text-sm md:text-base leading-relaxed">{s.desc}</p>
+                  <ul className="mt-6 pt-6 border-t border-gray-200 space-y-3">
+                    {s.items.map((item, j) => (
+                      <li key={j} className="flex items-start gap-3">
+                        <Check className="w-4 h-4 text-accent flex-shrink-0 mt-1" strokeWidth={3} />
+                        <span className="text-sm text-gray-600 leading-relaxed">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
                   {i < t.oneStop.steps.length - 1 && (
-                    <ArrowRight className="hidden lg:block absolute top-1/2 -right-3 -translate-y-1/2 w-5 h-5 text-gray-300" />
+                    <ArrowRight className="hidden lg:block absolute top-16 -right-4 w-6 h-6 text-gray-300" />
                   )}
                 </div>
               ))}
             </div>
+            <p className="text-sm text-gray-500 leading-relaxed mt-6">{t.oneStop.note}</p>
           </Reveal>
         </div>
 

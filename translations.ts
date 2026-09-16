@@ -58,14 +58,41 @@ export const translations = {
     },
     oneStop: {
       eyebrow: 'One-Stop Support',
-      title: 'コンサルティングから運用まで、一気通貫。',
-      lead: '「作って終わり」にしません。戦略の立案から開発、運用、社内に定着させる研修まで、同じチームが最後まで伴走します。',
+      title: '業務の棚卸しから、事業化まで。',
+      lead: '「作って終わり」にしません。どの業務をAIに任せるかを決めるところから、現場で使われる状態にし、最後はその実績を同業他社へ届ける事業に育てるところまで、同じチームが伴走します。',
       steps: [
-        { step: '01', title: 'ヒアリング・AIコンサルティング', desc: '業務を棚卸しし、AIを活かせる領域と優先順位を整理。経営課題に直結する打ち手から着手します。' },
-        { step: '02', title: '要件定義・PoC', desc: '小さく試して効果を確かめる。対象業務を1つ選び、2〜4週間で実際に動くもので検証します。' },
-        { step: '03', title: '開発・導入', desc: '音声・テキスト・CRM連携など、課題に合う形でAIを開発。既存システムへの統合まで担います。' },
-        { step: '04', title: '運用・内製化研修', desc: '導入後の運用改善と、社内でAIを使いこなすための研修まで。成果が続く状態をつくります。' },
+        {
+          step: '01',
+          title: '業務ヒアリング・要件整理',
+          desc: 'どの業務を、どこまでAIに任せるかを決める段階です。',
+          items: [
+            '業務を棚卸しし、AIを活かせる領域と優先順位を整理する',
+            '対象業務を1つに絞り、今の工数と件数を数えて効果を見立てる',
+            '要件・進め方・費用を整理し、着手するかを判断できる形にする',
+          ],
+        },
+        {
+          step: '02',
+          title: 'コンサルティング・実装・定着支援',
+          desc: '作って終わりにせず、現場で使われる状態にする段階です。',
+          items: [
+            '2〜4週間のPoCで、実際に動くもので効果を確かめる',
+            '音声・テキスト・CRM連携など、課題に合う形で開発し既存システムへ統合する',
+            '運用の改善と社内研修まで行い、成果が続く状態をつくる',
+          ],
+        },
+        {
+          step: '03',
+          title: 'AI事業立ち上げ支援',
+          desc: '自社で効果が出たAIを、同業他社へ届ける事業に変える段階です。',
+          items: [
+            '導入実績を、同業他社へ提供できる商材にパッケージ化する',
+            '開発・保守・問い合わせ対応といったAI側の実務はMGCが巻き取る',
+            'サービスサイト・LP、営業資料、営業体制づくりまで伴走する',
+          ],
+        },
       ],
+      note: '03は、事業化を目指す企業向けの段階です。01・02だけのご依頼でも問題ありません。',
     },
     stack: {
       eyebrow: 'Coverage',
@@ -635,14 +662,41 @@ export const translations = {
     },
     oneStop: {
       eyebrow: 'One-Stop Support',
-      title: 'From consulting to operations, end-to-end.',
-      lead: "We don't build and leave. From strategy to development, operations, and the training that makes AI stick — the same team stays with you to the end.",
+      title: 'From mapping the work to launching a business.',
+      lead: "We don't build and leave. From deciding which tasks AI should take on, to getting it genuinely used on the floor, to turning that track record into a business you sell to your industry — the same team stays with you.",
       steps: [
-        { step: '01', title: 'Discovery & AI Consulting', desc: 'We audit your operations and map where AI helps most, starting with initiatives tied to business outcomes.' },
-        { step: '02', title: 'Scoping & PoC', desc: 'Start small and prove value: pick one task and validate it with a working system in 2–4 weeks.' },
-        { step: '03', title: 'Development & Rollout', desc: 'Voice, text, CRM integration — we build AI in the shape your problem needs, integrated with your existing systems.' },
-        { step: '04', title: 'Operations & Training', desc: 'Post-launch improvement plus training that makes your team self-sufficient — so results keep compounding.' },
+        {
+          step: '01',
+          title: 'Discovery & scoping',
+          desc: 'Deciding which work AI takes on, and how far.',
+          items: [
+            'Audit the work and map where AI helps most, in priority order',
+            'Narrow to one process, and size the opportunity by counting current hours and volume',
+            'Turn requirements, approach and cost into something you can decide on',
+          ],
+        },
+        {
+          step: '02',
+          title: 'Consulting, build & adoption',
+          desc: 'Not building and leaving — getting it used on the floor.',
+          items: [
+            'Prove the value with a working system in a 2–4 week PoC',
+            'Build in the shape the problem needs — voice, text, CRM — and integrate with existing systems',
+            'Improve operations and train the team, so the results keep compounding',
+          ],
+        },
+        {
+          step: '03',
+          title: 'AI business launch support',
+          desc: 'Turning what worked in-house into a business for your industry.',
+          items: [
+            'Package the deployment into an offering your peers can buy',
+            'MGC carries the technical work: development, maintenance and support',
+            'Service site and landing pages, sales collateral and the sales motion',
+          ],
+        },
       ],
+      note: 'Step 03 is for companies aiming to commercialize. Engaging us for 01 and 02 alone is perfectly fine.',
     },
     stack: {
       eyebrow: 'Coverage',
