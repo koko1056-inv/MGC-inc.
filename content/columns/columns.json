@@ -7,7 +7,7 @@
   },
   "rotation": {
     "note": "日次で industries を順番に回す。lastIndex は最後に公開した業種の添字。次回は (lastIndex+1)%12 の業種で、usedTopics に無いテーマを選ぶ。",
-    "lastIndex": 10,
+    "lastIndex": 11,
     "industries": [
       {
         "key": "manufacturing",
@@ -142,7 +142,8 @@
     "public": [
       "public-dx-ai-implementation",
       "public-ai-efficiency-governance",
-      "public-local-government-ai-practical-guide"
+      "public-local-government-ai-practical-guide",
+      "public-resident-service-ai-efficiency"
     ]
   },
   "articles": [
@@ -433,6 +434,12 @@
       "industry": "hr",
       "date": "2026-09-16",
       "file": "hr-career-counseling-ai-support.json"
+    },
+    {
+      "slug": "public-resident-service-ai-efficiency",
+      "industry": "public",
+      "date": "2026-09-17",
+      "file": "public-resident-service-ai-efficiency.json"
     }
   ]
 }
