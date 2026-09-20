@@ -7,7 +7,7 @@
   },
   "rotation": {
     "note": "日次で industries を順番に回す。lastIndex は最後に公開した業種の添字。次回は (lastIndex+1)%12 の業種で、usedTopics に無いテーマを選ぶ。",
-    "lastIndex": 1,
+    "lastIndex": 2,
     "industries": [
       {
         "key": "manufacturing",
@@ -89,7 +89,8 @@
       "real-estate-inquiry-response-ai",
       "real-estate-property-listing-matching-ai",
       "real-estate-valuation-market-analysis-ai",
-      "real-estate-contract-document-ai"
+      "real-estate-contract-document-ai",
+      "real-estate-property-maintenance-inspection-ai"
     ],
     "retail": [
       "retail-demand-forecasting-inventory",
@@ -454,6 +455,12 @@
       "industry": "construction",
       "date": "2026-09-19",
       "file": "construction-knowledge-transfer-ai.json"
+    },
+    {
+      "slug": "real-estate-property-maintenance-inspection-ai",
+      "industry": "real-estate",
+      "date": "2026-09-20",
+      "file": "real-estate-property-maintenance-inspection-ai.json"
     }
   ]
 }
