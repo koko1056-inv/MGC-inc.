@@ -7,7 +7,7 @@
   },
   "rotation": {
     "note": "日次で industries を順番に回す。lastIndex は最後に公開した業種の添字。次回は (lastIndex+1)%12 の業種で、usedTopics に無いテーマを選ぶ。",
-    "lastIndex": 2,
+    "lastIndex": 3,
     "industries": [
       {
         "key": "manufacturing",
@@ -96,7 +96,8 @@
       "retail-demand-forecasting-inventory",
       "retail-ai-driven-personalization",
       "retail-generative-ai-efficiency",
-      "retail-store-operation-staff-ai"
+      "retail-store-operation-staff-ai",
+      "retail-customer-support-hybrid-ai"
     ],
     "logistics": [
       "logistics-dispatch-planning-ai",
@@ -461,6 +462,12 @@
       "industry": "real-estate",
       "date": "2026-09-20",
       "file": "real-estate-property-maintenance-inspection-ai.json"
+    },
+    {
+      "slug": "retail-customer-support-hybrid-ai",
+      "industry": "retail",
+      "date": "2026-09-21",
+      "file": "retail-customer-support-hybrid-ai.json"
     }
   ]
 }
