@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef, useState, ReactNode } from 'react';
+import React, { useEffect, useRef, useState, ReactNode } from 'react';
 import { ArrowRight, Globe, Zap, Layers, X, Send, Menu, Anchor, Check, Heart, MapPin, Calendar, User, Sparkles, Plus, Minus } from 'lucide-react';
 
 import { translations, Lang } from './translations';
@@ -13,7 +13,7 @@ export const LanguageContext = React.createContext<{ lang: Lang; setLang: (l: La
 export const useLanguage = () => React.useContext(LanguageContext);
 // --- Types & Interfaces ---
 
-export type ViewState = 'home' | 'works' | 'training' | 'diagnosis' | 'mission' | 'partners' | 'company' | 'career' | 'contact' | 'blog' | 'cases' | ServiceKey;
+type ViewState = 'home' | 'works' | 'training' | 'diagnosis' | 'mission' | 'partners' | 'company' | 'career' | 'contact' | 'blog' | 'cases' | ServiceKey;
 
 // AI診断の表示切り替え。false の間は、サイト内の導線をすべて隠す。
 // ページ自体（/diagnosis）は残るため、true に戻せば元の状態に復帰する。
@@ -22,7 +22,7 @@ export const SHOW_DIAGNOSIS = false;
 // ビューごとの title / description。cases とサービス3本は各ビュー側で設定する。
 const PAGE_META: Record<Lang, Partial<Record<string, { title: string; description: string }>>> = {
   ja: {
-    home: { title: 'ＭＧＣ株式会社（MGC Inc.）| AIとテクノロジーで、日本と世界をつなぐ', description: 'ＭＧＣ株式会社は、AIソリューション・AI事業立ち上げ支援・AI活用研修・クロスボーダー事業を展開する京都の会社。業務の棚卸しから開発・定着、事業化まで一気通貫で支援します。初回相談は無料。' },
+    home: { title: 'ＭＧＣ株式会社（MGC Inc.）| AIとテクノロジーで、日本と世界をつなぐ', description: 'ＭＧＣ株式会社は、AIコンサルティングから開発・運用・研修まで一気通貫のAIソリューションと、双方向のクロスボーダー事業を展開する京都の会社。初回相談は無料。' },
     works: { title: '事業内容｜AIソリューション・AI事業立ち上げ支援・研修・クロスボーダー - ＭＧＣ株式会社', description: 'AIコンサルティング・開発・運用を一気通貫で提供するAIソリューション、導入実績を同業他社向けの商材に変えるAI事業立ち上げ支援、AI活用の実践型研修、海外企業の日本総代理店・日本企業の海外進出を支援するクロスボーダー事業。' },
     training: { title: 'AI活用リスキリング研修｜実践型のOFF-JT研修 - ＭＧＣ株式会社', description: 'ITに詳しくない経営者・従業員がAIを業務に導入・活用できるようになる実践型研修（OFF-JT）。基礎から実務での活用までを、解説・実例・デモで学びます。' },
     mission: { title: '会社理念｜AIとテクノロジーで、日本と世界をつなぐ - ＭＧＣ株式会社', description: 'MGCのビジョン・ミッション・バリュー。AIは手段であり、目的は未来をより良くすること。受け継がれ、続いていく取り組みをつくります。' },
@@ -34,7 +34,7 @@ const PAGE_META: Record<Lang, Partial<Record<string, { title: string; descriptio
     cases: { title: '導入事例｜AI導入の進め方と実例 - ＭＧＣ株式会社', description: 'MGCが実際に進めている案件の進め方と設計の要点。コールセンターの音声AI、海外メーカー発掘の自動化、現場のトラブルシューティング。' },
   },
   en: {
-    home: { title: 'MGC Inc. | Connect Japan & The World through AI and Tech', description: 'MGC Inc. runs AI Solutions, AI Business Launch Support, AI Training and Cross-Border Business from Kyoto, Japan — from mapping the work to launching a business. First consultation is free.' },
+    home: { title: 'MGC Inc. | Connect Japan & The World through AI and Tech', description: 'MGC Inc. delivers end-to-end AI solutions — consulting, development, operations and training — and cross-border business from Kyoto, Japan. First consultation is free.' },
     works: { title: 'Business | AI Solutions, Business Launch, Training and Cross-Border - MGC Inc.', description: 'End-to-end AI solutions, AI business launch support that turns a proven deployment into a product for the industry, hands-on AI training, and two-way cross-border business.' },
     training: { title: 'AI Reskilling Program - MGC Inc.', description: 'Hands-on AI training (OFF-JT) for managers and employees who are not IT specialists, from the foundations to putting AI to work.' },
     mission: { title: 'Mission | Connect Japan & The World through AI and Tech - MGC Inc.', description: 'MGC’s vision, mission and values. AI is a means; the goal is a better future that outlasts us.' },
@@ -72,39 +72,14 @@ const applyMeta = (m: { title: string; description: string; url: string; image: 
 };
 
 // ビューとクリーンURLの対応。ハッシュ（#works 等）は互換のため引き続き受け付ける。
-export const PATH_TO_VIEW: Record<string, ViewState> = {
+const PATH_TO_VIEW: Record<string, ViewState> = {
   '/works': 'works', '/training': 'training', '/diagnosis': 'diagnosis', '/cases': 'cases',
   '/mission': 'mission', '/company': 'company', '/career': 'career', '/contact': 'contact', '/blog': 'blog',
 };
-export const pathForView = (v: ViewState): string => (isServiceKey(v) ? `/service/${v}` : v === 'home' ? '/' : `/${v}`);
+const pathForView = (v: ViewState): string => (isServiceKey(v) ? `/service/${v}` : v === 'home' ? '/' : `/${v}`);
 
-export const SERVICE_KEYS: ServiceKey[] = ['ai-sales', 'ai-phone', 'salesforce-ai'];
+const SERVICE_KEYS: ServiceKey[] = ['ai-sales', 'ai-phone', 'salesforce-ai'];
 const isServiceKey = (v: string): v is ServiceKey => (SERVICE_KEYS as string[]).includes(v);
-
-// クリーンURLのパスからビューを決める（ブラウザと事前描画で共通）
-export const viewForPath = (rawPath: string): ViewState => {
-  const path = rawPath.replace(/\/+$/, '') || '/';
-  if (PATH_TO_VIEW[path]) return PATH_TO_VIEW[path];
-  if (path === '/contact/thanks') return 'contact';
-  const svc = path.match(/^\/service\/([a-z-]+)$/);
-  if (svc && isServiceKey(svc[1])) return svc[1];
-  return 'home';
-};
-
-// ビューごとの title / description / URL / OGP画像（ブラウザと事前描画で共通）
-export const SITE_ORIGIN = 'https://mgc-global01.com';
-export const metaFor = (view: ViewState, lang: Lang) => {
-  const page = isServiceKey(view) ? serviceContent[lang][view] : null;
-  const base = page
-    ? { title: page.seoTitle, description: page.seoDescription }
-    : (PAGE_META[lang][view] ?? PAGE_META[lang].home!);
-  return {
-    title: base.title,
-    description: base.description,
-    url: SITE_ORIGIN + (view === 'home' ? '' : pathForView(view)),
-    image: SITE_ORIGIN + (page?.image ?? OG_IMAGE_BY_VIEW[view] ?? OG_IMAGE_DEFAULT),
-  };
-};
 
 type ContentKey = 'service_ai' | 'service_newbiz' | 'service_training' | 'service_lab';
 
@@ -123,26 +98,9 @@ interface ContentItem {
 
 // --- Shared Components ---
 
-// 事前描画したHTMLをそのまま引き継ぐ（ハイドレーション）間は true。
-// この間に描画される要素は「表示された状態」から始め、クローラやJS実行前でも本文が見えるようにする。
-// ハイドレーション後（ページ遷移など）に現れる要素は、従来どおり下からふわっと出す。
-let isHydrating = true;
-export const markHydrated = () => { isHydrating = false; };
-
-// SSR では useLayoutEffect が警告を出すため、サーバーでは useEffect に置き換える
-const useIsoLayoutEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect;
-
 const Reveal: React.FC<{ children: ReactNode; delay?: number; className?: string }> = ({ children, delay = 0, className = '' }) => {
-  const [isVisible, setIsVisible] = useState(isHydrating);
+  const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
-
-  // ハイドレーション時に画面外にある要素だけ、いったん隠してスクロールで出す（画面内は表示したまま）
-  useIsoLayoutEffect(() => {
-    const el = ref.current;
-    if (!el || !isVisible) return;
-    if (el.getBoundingClientRect().top > window.innerHeight) setIsVisible(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -1472,7 +1430,6 @@ const SERVICE_TOPIC_INDEX: Record<string, number> = { 'ai-sales': 0, 'ai-phone':
 const ContactView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavigate }) => {
   const { t } = useLanguage();
   const initialTopic = (() => {
-    if (typeof window === 'undefined') return '';
     const seg = window.location.hash.slice(1).split('/')[1];
     const i = seg !== undefined ? SERVICE_TOPIC_INDEX[seg] : undefined;
     return i !== undefined ? (t.contact.form.topicOptions[i] ?? '') : '';
@@ -1480,7 +1437,7 @@ const ContactView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onN
   const [formState, setFormState] = useState({ name: '', email: '', company: '', topic: initialTopic, message: '' });
   const [emailError, setEmailError] = useState('');
   const [isSending, setIsSending] = useState(false);
-  const [isSent, setIsSent] = useState(() => typeof window !== 'undefined' && window.location.pathname === '/contact/thanks');
+  const [isSent, setIsSent] = useState(() => window.location.pathname === '/contact/thanks');
 
   const validateEmail = (email: string) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -3039,16 +2996,20 @@ const DiagnosisView: React.FC = () => {
   );
 };
 
-const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
+const App: React.FC = () => {
+  // Helper to parse view from hash
   // URL からビューを決める。ハッシュに有効なビュー名があればそれを優先（旧リンク互換）、
   // なければクリーンURL（/works, /service/<slug> など）で解決する。
-  // 事前描画（サーバー）では window が無いため、渡されたパスで決める。
   const getViewFromLocation = (): ViewState => {
-    if (typeof window === 'undefined') return viewForPath(initialPath ?? '/');
     const validViews: ViewState[] = ['home', 'works', 'training', 'diagnosis', 'mission', 'partners', 'company', 'career', 'contact', 'blog', 'cases', ...SERVICE_KEYS];
     const hash = window.location.hash.slice(1).split('/')[0];
     if (validViews.includes(hash as ViewState)) return hash as ViewState;
-    return viewForPath(window.location.pathname);
+    const path = window.location.pathname.replace(/\/+$/, '') || '/';
+    if (PATH_TO_VIEW[path]) return PATH_TO_VIEW[path];
+    if (path === '/contact/thanks') return 'contact';
+    const svc = path.match(/^\/service\/([a-z-]+)$/);
+    if (svc && isServiceKey(svc[1])) return svc[1];
+    return 'home';
   };
 
   const [view, setView] = useState<ViewState>(getViewFromLocation());
@@ -3074,11 +3035,18 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
 
   // ビューごとの title / description / canonical / OGP をまとめて反映する
   useEffect(() => {
-    applyMeta(metaFor(view, lang));
+    const origin = 'https://mgc-global01.com';
+    const page = isServiceKey(view) ? serviceContent[lang][view] : null;
+    const base = page
+      ? { title: page.seoTitle, description: page.seoDescription }
+      : (PAGE_META[lang][view] ?? PAGE_META[lang].home!);
+    applyMeta({
+      title: base.title,
+      description: base.description,
+      url: origin + (view === 'home' ? '' : pathForView(view)),
+      image: origin + (page?.image ?? OG_IMAGE_BY_VIEW[view] ?? OG_IMAGE_DEFAULT),
+    });
   }, [view, lang]);
-
-  // ハイドレーションが終わったら、以降に現れる要素はスクロールで出す演出に戻す
-  useEffect(() => { markHydrated(); }, []);
 
   // Update HTML lang attribute
   useEffect(() => {
