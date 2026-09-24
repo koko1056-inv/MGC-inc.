@@ -5,6 +5,8 @@ export const translations = {
     nav: {
       works: '事業内容',
       services: 'サービス',
+      worksTop: '事業内容トップ',
+      aiSolutions: 'AIソリューション',
       companyGroup: '会社情報',
       diagnosis: 'AI診断',
       cases: '導入事例',
@@ -174,16 +176,18 @@ export const translations = {
       lead: "MGCは、AIソリューション（コンサルティング・開発・運用）、AI事業立ち上げ支援、研修事業、クロスボーダー事業（Inbound/Outbound）の4つの事業で、AIとテクノロジーによって日本と世界をつなぎます。",
       indexLabel: "事業領域",
       detailLink: "詳しく見る",
+      serviceLink: "サービスの詳細を見る",
     },
     works: {
       service_ai: {
         title: "AIソリューション",
         subtitle: "コンサルティングから開発・運用まで、一気通貫。",
-        desc: "「何にAIを使うべきか」の整理から、音声・テキスト・画像に対応するAIの開発、導入後の運用・社内研修まで。特定の技術に縛られず、課題に合うスタックを選んで、企業のAI活用を最後まで支援します。",
+        desc: "「何にAIを使うべきか」の整理から、音声・テキスト・CRM連携に対応するAIの開発、導入後の運用まで。実績のある業務はサービスとして、それ以外の業務は個別の設計で、企業のAI活用を最後まで支援します。",
         items: [
-          { title: "AI Consulting", sub: "AIコンサルティング", text: "業務プロセスを棚卸しし、AI導入の優先順位と現実的なロードマップを設計。経営課題に直結する打ち手から着手します。" },
-          { title: "AI Development", sub: "AI開発（音声・テキスト・CRM連携）", text: "電話業務を代行する音声AI、CRMを操作するAI、アポイントを獲得する営業AIなど、業務を実際に代行するAIを開発します。" },
-          { title: "Training & Enablement", sub: "運用・内製化研修", text: "導入して終わりにせず、運用の改善と、社員がAIを使いこなすための研修まで。成果が社内に受け継がれる状態をつくります。" }
+          { title: "AI Sales", sub: "AI営業", text: "リスト作成から初回接触・返信対応・日程調整まで、営業の前工程をAIが担います。人は商談に集中できます。", link: "ai-sales" },
+          { title: "AI Phone", sub: "AI電話（音声AI）", text: "電話の一次対応を音声AIが引き受けます。用件を話し言葉のまま聞き取り、要約して担当者に渡します。", link: "ai-phone" },
+          { title: "Salesforce AI", sub: "Salesforce・CRMのAI活用", text: "入力の自動化から示唆の提示、エージェントによる実行まで。CRMを「入力する箱」から動く仕組みに変えます。", link: "salesforce-ai" },
+          { title: "Consulting & Development", sub: "個別のAIコンサルティング・開発", text: "上の3つに当てはまらない業務も、棚卸しと優先順位づけから、音声・テキスト・CRM連携のAI開発、運用まで個別に設計します。" }
         ]
       },
       service_newbiz: {
@@ -222,11 +226,12 @@ export const translations = {
       service_ai: {
         title: "AIソリューション",
         subtitle: "コンサルティングから開発・運用まで、一気通貫。",
-        p1: "「何にAIを使うべきか」の整理から、音声・テキスト・画像に対応するAIの開発、導入後の運用・社内研修まで。\n特定の技術に縛られず、課題に合うスタックを選んで、企業のAI活用を最後まで支援します。",
+        p1: "「何にAIを使うべきか」の整理から、音声・テキスト・CRM連携に対応するAIの開発、導入後の運用まで。\n実績のある業務はサービスとして、それ以外の業務は個別の設計で、企業のAI活用を最後まで支援します。",
         features: [
-          { title: "AI Consulting", sub: "AIコンサルティング", text: "業務プロセスを棚卸しし、AI導入の優先順位とROI、現実的なロードマップを設計します。PoC倒れを起こさない投資判断を支援します。" },
-          { title: "AI Development", sub: "AI開発（音声・テキスト・CRM連携）", text: "電話業務を代行する音声AI、CRMを適切なタイミングで操作するAI、アポイントを獲得する営業AI。Salesforce・kintoneなどのAPI連携を含め、業務に組み込まれて動くAIを開発します。" },
-          { title: "Training & Enablement", sub: "運用・内製化研修", text: "経営層・管理職・現場それぞれに合わせた研修プログラムで、AIを「同僚」として使いこなせる組織文化を社内に残します。研修のみのご依頼も可能です。" }
+          { title: "AI Sales", sub: "AI営業", text: "リスト作成から初回接触・返信対応・日程調整まで、アポイントが取れるまでの前工程をAIが担います。人は商談そのものに時間を使えます。" },
+          { title: "AI Phone", sub: "AI電話（音声AI）", text: "鳴り続ける電話の一次対応を音声AIが引き受けます。プッシュ操作のIVRとは違い、用件を話し言葉のまま聞き取り、要約して担当者に渡します。" },
+          { title: "Salesforce AI", sub: "Salesforce・CRMのAI活用", text: "入力の自動化、示唆の提示、エージェントによる実行まで。標準機能で足りるかの判断から始め、CRMを動く仕組みに変えます。" },
+          { title: "Consulting & Development", sub: "個別のAIコンサルティング・開発", text: "業務プロセスを棚卸しし、AI導入の優先順位と現実的なロードマップを設計します。音声・テキスト・CRM連携のAIを開発し、kintone などのAPI連携を含めて業務に組み込みます。" }
         ]
       },
       service_newbiz: {
@@ -682,6 +687,8 @@ export const translations = {
     nav: {
       works: 'Business',
       services: 'Services',
+      worksTop: 'All businesses',
+      aiSolutions: 'AI Solutions',
       companyGroup: 'Company',
       diagnosis: 'AI Diagnosis',
       cases: 'Case Studies',
@@ -851,16 +858,18 @@ export const translations = {
       lead: "Four businesses — AI Solutions (consulting, development, operations), AI Business Launch Support, Training, and Cross-Border Business (Inbound/Outbound) — connecting Japan and the world through AI and tech.",
       indexLabel: "Domains",
       detailLink: "Learn more",
+      serviceLink: "See the service",
     },
     works: {
       service_ai: {
         title: "AI Solutions",
         subtitle: "Consulting, development and operations — end-to-end.",
-        desc: "From working out where AI should be used, to building AI that handles text, voice, and image, to post-launch operations and staff training. Vendor-neutral, end-to-end support for enterprise AI adoption. This is MGC's core business.",
+        desc: "From working out where AI should be used, to building AI for voice, text and CRM, to running it after launch. Proven use cases are offered as services; everything else is designed case by case.",
         items: [
-          { title: "AI Consulting", sub: "Strategy & prioritization", text: "We audit your operations and design a realistic roadmap with clear priorities, starting where it moves the business most." },
-          { title: "AI Development", sub: "Voice · Text · CRM integration", text: "Voice AI that handles phone work, agents that operate your CRM, sales AI that books appointments — AI that actually does the work." },
-          { title: "Training & Enablement", sub: "Operations & in-house training", text: "We don't stop at launch: operational improvement plus training, so results are passed on inside your team." }
+          { title: "AI Sales", sub: "Automating appointment setting", text: "AI handles the work before the meeting — list building, first contact, replies and scheduling — so people can focus on the meeting itself.", link: "ai-sales" },
+          { title: "AI Phone", sub: "Voice AI for first response", text: "Voice AI takes the first response on calls, understands the request in natural speech, and hands a summary to the right person.", link: "ai-phone" },
+          { title: "Salesforce AI", sub: "AI for Salesforce / CRM", text: "From automating input to surfacing insights and acting through agents — turning your CRM from a box you fill in into a system that moves.", link: "salesforce-ai" },
+          { title: "Consulting & Development", sub: "Custom AI consulting and development", text: "For work outside the three above: we map the work, set priorities, build AI for voice, text and CRM, and run it with you." }
         ]
       },
       service_newbiz: {
@@ -898,11 +907,12 @@ export const translations = {
       service_ai: {
         title: "AI Solutions",
         subtitle: "Consulting, development and operations — end-to-end.",
-        p1: "From working out where AI should be used, to building AI that handles text, voice, and image, to post-launch operations and staff training.\nVendor-neutral, end-to-end support for enterprise AI adoption.",
+        p1: "From working out where AI should be used, to building AI for voice, text and CRM, to running it after launch.\nProven use cases are offered as services; everything else is designed case by case.",
         features: [
-          { title: "AI Consulting", sub: "Strategy & prioritization", text: "We audit your operations and design a realistic roadmap with clear priorities and ROI — supporting investment decisions that don't end in PoC graveyards." },
-          { title: "AI Development", sub: "Voice · Text · CRM integration", text: "Voice AI that handles phone work, agents that operate your CRM at the right moments, sales AI that books appointments. Including API integration with Salesforce, kintone and more — AI built into your actual operations." },
-          { title: "Training & Enablement", sub: "Operations & in-house training", text: "Training programs tailored to executives, managers, and hands-on staff — building a culture where AI is treated as a colleague. Training-only engagements are welcome." }
+          { title: "AI Sales", sub: "Automating appointment setting", text: "AI handles everything before the meeting — list building, first contact, replies and scheduling — so your team spends its time in the meeting itself." },
+          { title: "AI Phone", sub: "Voice AI for first response", text: "Voice AI takes the first response on the calls that never stop. Unlike push-button IVR, it understands the request in natural speech and hands a summary to the right person." },
+          { title: "Salesforce AI", sub: "AI for Salesforce / CRM", text: "Automating input, surfacing insights, and acting through agents — starting from whether standard features are enough — so your CRM actually moves work forward." },
+          { title: "Consulting & Development", sub: "Custom AI consulting and development", text: "We audit your operations and design a realistic roadmap with clear priorities, then build voice, text and CRM-integrated AI into your actual operations, including API integration with tools such as kintone." }
         ]
       },
       service_newbiz: {
