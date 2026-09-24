@@ -13,7 +13,7 @@ export const LanguageContext = React.createContext<{ lang: Lang; setLang: (l: La
 export const useLanguage = () => React.useContext(LanguageContext);
 // --- Types & Interfaces ---
 
-export type ViewState = 'home' | 'works' | 'training' | 'diagnosis' | 'mission' | 'partners' | 'company' | 'career' | 'contact' | 'blog' | 'cases' | ServiceKey;
+export type ViewState = 'home' | 'works' | 'training' | 'diagnosis' | 'mission' | 'partners' | 'company' | 'career' | 'contact' | 'blog' | 'cases' | 'notfound' | ServiceKey;
 
 // AI診断の表示切り替え。false の間は、サイト内の導線をすべて隠す。
 // ページ自体（/diagnosis）は残るため、true に戻せば元の状態に復帰する。
@@ -31,6 +31,7 @@ const PAGE_META: Record<Lang, Partial<Record<string, { title: string; descriptio
     contact: { title: 'お問い合わせ｜30分の無料相談 - ＭＧＣ株式会社', description: 'AI導入・研修・海外展開のご相談は無料です。現状を伺い、どこからAIに任せられるかを整理してお返しします。' },
     blog: { title: 'お知らせ・ジャーナル - ＭＧＣ株式会社', description: 'ＭＧＣ株式会社のお知らせ（サービス開始・研修・サイト更新など）と、MGCの考え方を綴るジャーナル。' },
     diagnosis: { title: 'AI活用診断 - ＭＧＣ株式会社', description: '業種と課題を入力するだけで、AI活用施策と導入後の効果をその場で診断します。' },
+    notfound: { title: 'ページが見つかりません - ＭＧＣ株式会社', description: 'お探しのページは移動したか、削除された可能性があります。' },
     cases: { title: '導入事例｜AI導入の進め方と実例 - ＭＧＣ株式会社', description: 'MGCが実際に進めている案件の進め方と設計の要点。コールセンターの音声AI、海外メーカー発掘の自動化、現場のトラブルシューティング。' },
   },
   en: {
@@ -43,16 +44,15 @@ const PAGE_META: Record<Lang, Partial<Record<string, { title: string; descriptio
     contact: { title: 'Contact | Free 30-minute consultation - MGC Inc.', description: 'Consultations on AI adoption, training and overseas expansion are free. Tell us where you are and we will map what AI can take on.' },
     blog: { title: 'News & Journal - MGC Inc.', description: 'News from MGC Inc. — service launches, training and site updates — and our journal on how we think about AI.' },
     diagnosis: { title: 'AI Diagnosis - MGC Inc.', description: 'Enter your industry and challenges to get an instant AI adoption diagnosis.' },
+    notfound: { title: 'Page not found - MGC Inc.', description: 'The page you are looking for may have moved or no longer exists.' },
     cases: { title: 'Case studies | How AI projects actually run - MGC Inc.', description: 'How MGC runs real projects: voice AI in a call centre, automated overseas supplier outreach, and field troubleshooting by voice.' },
   },
 };
 
-// OGP画像。指定がないビューは既定の1枚を使う。
-const OG_IMAGE_DEFAULT = '/assets/service_ai.jpg';
-const OG_IMAGE_BY_VIEW: Partial<Record<string, string>> = {
-  cases: '/assets/service_lab.jpg',
-  works: '/assets/service_lab.jpg',
-};
+// OGP画像。SNSで共有したときにページごとの画像を出す（1200×630。public/assets/og/）。
+const OG_IMAGE_DEFAULT = '/assets/og/home.jpg';
+const OG_IMAGE_VIEWS = ['home', 'works', 'cases', 'training', 'mission', 'company', 'career', 'blog', 'contact', 'ai-sales', 'ai-phone', 'salesforce-ai'];
+const ogImageFor = (view: string) => (OG_IMAGE_VIEWS.includes(view) ? `/assets/og/${view}.jpg` : OG_IMAGE_DEFAULT);
 
 // SPAのため、ビューが変わるたびに title / description / canonical / OGP を書き換える。
 const applyMeta = (m: { title: string; description: string; url: string; image: string }) => {
@@ -76,7 +76,7 @@ export const PATH_TO_VIEW: Record<string, ViewState> = {
   '/works': 'works', '/training': 'training', '/diagnosis': 'diagnosis', '/cases': 'cases',
   '/mission': 'mission', '/company': 'company', '/career': 'career', '/contact': 'contact', '/blog': 'blog',
 };
-export const pathForView = (v: ViewState): string => (isServiceKey(v) ? `/service/${v}` : v === 'home' ? '/' : `/${v}`);
+export const pathForView = (v: ViewState): string => (isServiceKey(v) ? `/service/${v}` : v === 'home' ? '/' : v === 'notfound' ? '/404' : `/${v}`);
 
 export const SERVICE_KEYS: ServiceKey[] = ['ai-sales', 'ai-phone', 'salesforce-ai'];
 const isServiceKey = (v: string): v is ServiceKey => (SERVICE_KEYS as string[]).includes(v);
@@ -88,7 +88,9 @@ export const viewForPath = (rawPath: string): ViewState => {
   if (path === '/contact/thanks') return 'contact';
   const svc = path.match(/^\/service\/([a-z-]+)$/);
   if (svc && isServiceKey(svc[1])) return svc[1];
-  return 'home';
+  if (path === '/' || path === '/index.html' || path === '/200.html') return 'home';
+  // 知らないURLはトップを見せず「見つからない」ページにする（本番では 404.html として配信）
+  return 'notfound';
 };
 
 // ビューごとの title / description / URL / OGP画像（ブラウザと事前描画で共通）
@@ -102,7 +104,7 @@ export const metaFor = (view: ViewState, lang: Lang) => {
     title: base.title,
     description: base.description,
     url: SITE_ORIGIN + (view === 'home' ? '' : pathForView(view)),
-    image: SITE_ORIGIN + (page?.image ?? OG_IMAGE_BY_VIEW[view] ?? OG_IMAGE_DEFAULT),
+    image: SITE_ORIGIN + ogImageFor(view),
   };
 };
 
@@ -939,7 +941,7 @@ const WorksView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNav
             index="01"
             serviceKey="service_ai"
             icon={<Globe className="w-5 h-5 text-accent stroke-[1.75]" />}
-            image="/assets/service_ai.jpg"
+            image="/assets/service_ai.webp"
             onDetail={() => setSelectedId('service_ai')}
             onNavigate={onNavigate}
           />
@@ -950,7 +952,7 @@ const WorksView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNav
             index="02"
             serviceKey="service_newbiz"
             icon={<Sparkles className="w-5 h-5 text-accent stroke-[1.75]" />}
-            image="/assets/service_newbiz.jpg"
+            image="/assets/service_newbiz.webp"
             onDetail={() => setSelectedId('service_newbiz')}
           />
         </div>
@@ -960,7 +962,7 @@ const WorksView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNav
             index="03"
             serviceKey="service_training"
             icon={<User className="w-5 h-5 text-accent stroke-[1.75]" />}
-            image="/assets/service_training.jpg"
+            image="/assets/service_training.webp"
             onDetail={() => setSelectedId('service_training')}
           />
         </div>
@@ -970,7 +972,7 @@ const WorksView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNav
             index="04"
             serviceKey="service_lab"
             icon={<Zap className="w-5 h-5 text-accent stroke-[1.75]" />}
-            image="/assets/service_lab.jpg"
+            image="/assets/service_lab.webp"
             onDetail={() => setSelectedId('service_lab')}
           />
         </div>
@@ -1505,17 +1507,17 @@ const BlogView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
   const { t } = useLanguage();
 
   const staticImages = [
-     "/assets/blog_strategy.jpg",
-     "/assets/blog_automation.jpg",
-     "/assets/blog_ai__transforming_the_future.jpg",
-     "/assets/blog_japan_s_future_in_sales_ai.jpg",
-     "/assets/blog_sales_ai.jpg",
-     "/assets/blog_automation.jpg",
-     "/assets/blog_voice_app.jpg",
-     "/assets/blog_vision.jpg",
-     "/assets/blog_philosophy.jpg",
-     "/assets/blog_strategy.jpg",
-     "/assets/blog_methodology.jpg"
+     "/assets/blog_strategy.webp",
+     "/assets/blog_automation.webp",
+     "/assets/blog_ai__transforming_the_future.webp",
+     "/assets/blog_japan_s_future_in_sales_ai.webp",
+     "/assets/blog_sales_ai.webp",
+     "/assets/blog_automation.webp",
+     "/assets/blog_voice_app.webp",
+     "/assets/blog_vision.webp",
+     "/assets/blog_philosophy.webp",
+     "/assets/blog_strategy.webp",
+     "/assets/blog_methodology.webp"
   ];
 
   const posts = t.blog.items.map((item, i) => ({
@@ -2779,12 +2781,6 @@ const CasesView: React.FC = () => {
             ))}
           </div>
 
-          {/* 掲載方針 */}
-          <Reveal>
-            <p className="mt-10 text-xs md:text-sm text-gray-500 leading-[1.9] border-l-2 border-gray-300 pl-4 max-w-3xl">
-              {c.disclaimer}
-            </p>
-          </Reveal>
 
           {/* CTA */}
           <Reveal>
@@ -2841,19 +2837,19 @@ const ServiceView: React.FC<{ serviceKey: ServiceKey; onNavigate?: (view: ViewSt
               <span className="text-offblack font-bold">{page.navLabel}</span>
             </nav>
             <Reveal>
-              <div className="relative overflow-hidden rounded-[1.75rem] md:rounded-[2.5rem] bg-[#111418] text-white">
-                <GridPattern dark />
+              <div className="relative overflow-hidden rounded-[1.75rem] md:rounded-[2.5rem] bg-[#F4F6FB] text-[#111418] border border-gray-200">
+                <GridPattern />
                 <div className="relative px-6 md:px-16 py-14 md:py-24">
-                  <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/20 bg-white/5 text-white/80 text-xs md:text-sm font-medium">
+                  <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#2D6CDF]/25 bg-white text-[#2D6CDF] text-xs md:text-sm font-bold">
                     <span className="w-2 h-2 rounded-full bg-[#2D6CDF]" />
                     {page.hero.badge}
                   </span>
                   <h1 className="text-3xl md:text-6xl font-bold tracking-tight leading-[1.25] mt-6 max-w-4xl">{page.hero.title}</h1>
-                  <p className="text-base md:text-2xl text-white/55 font-medium mt-3 leading-[1.6]">{page.hero.titleSub}</p>
-                  <p className="max-w-3xl text-base md:text-lg text-white/85 leading-[1.9] mt-8">{page.hero.lead}</p>
+                  <p className="text-base md:text-2xl text-[#5B6472] font-medium mt-3 leading-[1.6]">{page.hero.titleSub}</p>
+                  <p className="max-w-3xl text-base md:text-lg text-[#1A2233] leading-[1.9] mt-8">{page.hero.lead}</p>
                   <ul className="flex flex-wrap gap-3 mt-8">
                     {page.hero.points.map((p, i) => (
-                      <li key={i} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 text-white/90 text-sm font-medium">
+                      <li key={i} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-gray-200 text-[#1A2233] text-sm font-medium">
                         <Check className="w-3.5 h-3.5 text-[#2D6CDF]" strokeWidth={3} />
                         {p}
                       </li>
@@ -2862,7 +2858,7 @@ const ServiceView: React.FC<{ serviceKey: ServiceKey; onNavigate?: (view: ViewSt
                   <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 mt-10">
                     <a
                       href={`#contact/${page.slug}`}
-                      className="group inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full bg-[#2D6CDF] text-white font-bold text-sm md:text-base tracking-tight shadow-xl shadow-[#2D6CDF]/25 hover:bg-white hover:text-[#111418] transition-all duration-300"
+                      className="group inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full bg-[#2D6CDF] text-white font-bold text-sm md:text-base tracking-tight shadow-xl shadow-[#2D6CDF]/25 hover:bg-[#111418] transition-all duration-300"
                     >
                       {page.cta.button}
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
@@ -2870,7 +2866,7 @@ const ServiceView: React.FC<{ serviceKey: ServiceKey; onNavigate?: (view: ViewSt
                     {SHOW_DIAGNOSIS && (
                       <a
                         href={page.cta.secondaryHref}
-                        className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full border border-white/25 text-white/90 font-bold text-sm tracking-tight hover:bg-white/10 transition-colors duration-300"
+                        className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full border border-gray-300 bg-white text-[#111418] font-bold text-sm tracking-tight hover:border-[#111418] transition-colors duration-300"
                       >
                         {page.cta.secondary}
                       </a>
@@ -3219,6 +3215,57 @@ const DiagnosisView: React.FC = () => {
   );
 };
 
+// 知らないURLで表示するページ。本番では 404.html として配信され、ステータスも 404 になる。
+const NotFoundView: React.FC<{ onNavigate: (view: ViewState) => void }> = ({ onNavigate }) => {
+  const { lang } = useLanguage();
+  const ja = lang === 'ja';
+  // 検索結果に載せない（離れるときに元の値へ戻す）
+  useEffect(() => {
+    const m = document.querySelector('meta[name="robots"]');
+    m?.setAttribute('content', 'noindex');
+    // 404.html から来た場合も元が noindex なので、通常ページの既定値に戻す（index.html と同じ値）
+    return () => { m?.setAttribute('content', 'index, follow, max-image-preview:large, max-snippet:-1'); };
+  }, []);
+  const links: { id?: ViewState; href?: string; label: string }[] = [
+    { id: 'home', label: ja ? 'トップページ' : 'Home' },
+    { id: 'works', label: ja ? '事業内容' : 'What we do' },
+    { id: 'cases', label: ja ? '導入事例' : 'Case studies' },
+    { href: '/column', label: ja ? 'コラム' : 'Column' },
+    { id: 'contact', label: ja ? 'お問い合わせ' : 'Contact' },
+  ];
+  return (
+    <PageTransition>
+      <section className="min-h-[70vh] px-6 pt-40 pb-24 md:pt-48">
+        <div className="max-w-3xl mx-auto">
+          <p className="text-sm font-bold tracking-widest text-[#2D6CDF]">404 — NOT FOUND</p>
+          <h1 className="text-3xl md:text-5xl font-bold tracking-tight leading-[1.4] text-[#111418] mt-4">
+            {ja ? 'お探しのページが見つかりませんでした' : 'We couldn’t find that page'}
+          </h1>
+          <p className="text-base md:text-lg text-[#1A2233] leading-[1.9] mt-6">
+            {ja
+              ? 'ページが移動したか、URLが変わった可能性があります。以下からお探しの情報へお進みください。'
+              : 'The page may have moved or the address may have changed. Try one of these instead.'}
+          </p>
+          <ul className="mt-10 border-t border-gray-200">
+            {links.map((l) => (
+              <li key={l.label} className="border-b border-gray-200">
+                <a
+                  href={l.href ?? pathForView(l.id!)}
+                  onClick={(e) => { if (l.id) { e.preventDefault(); onNavigate(l.id); } }}
+                  className="group flex items-center justify-between py-5 text-base md:text-lg font-bold text-[#111418] hover:text-[#2D6CDF] transition-colors"
+                >
+                  {l.label}
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    </PageTransition>
+  );
+};
+
 const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
   // URL からビューを決める。ハッシュに有効なビュー名があればそれを優先（旧リンク互換）、
   // なければクリーンURL（/works, /service/<slug> など）で解決する。
@@ -3516,6 +3563,7 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
         {view === 'company' && <CompanyView onNavigate={navigate} />}
         {view === 'career' && <CareerView />}
         {view === 'contact' && <ContactView onNavigate={navigate} />}
+        {view === 'notfound' && <NotFoundView onNavigate={navigate} />}
       </main>
 
       {/* Floating CTA — visible on every page except contact itself */}
