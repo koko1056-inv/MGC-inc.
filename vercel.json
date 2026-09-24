@@ -39,11 +39,56 @@
       "destination": "/column/:slug.html"
     },
     {
+      "source": "/works",
+      "destination": "/works.html"
+    },
+    {
+      "source": "/training",
+      "destination": "/training.html"
+    },
+    {
+      "source": "/cases",
+      "destination": "/cases.html"
+    },
+    {
+      "source": "/mission",
+      "destination": "/mission.html"
+    },
+    {
+      "source": "/company",
+      "destination": "/company.html"
+    },
+    {
+      "source": "/career",
+      "destination": "/career.html"
+    },
+    {
+      "source": "/contact",
+      "destination": "/contact.html"
+    },
+    {
+      "source": "/blog",
+      "destination": "/blog.html"
+    },
+    {
+      "source": "/service/:slug",
+      "destination": "/service/:slug.html"
+    },
+    {
       "source": "/(.*)",
-      "destination": "/"
+      "destination": "/200.html"
     }
   ],
   "headers": [
+    {
+      "source": "/assets/(.*)\\.(js|css)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
     {
       "source": "/fonts/(.*)",
       "headers": [
