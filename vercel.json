@@ -40,10 +40,19 @@
     },
     {
       "source": "/(.*)",
-      "destination": "/"
+      "destination": "/200.html"
     }
   ],
   "headers": [
+    {
+      "source": "/assets/(.*)\\.(js|css)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
     {
       "source": "/fonts/(.*)",
       "headers": [
@@ -53,5 +62,6 @@
         }
       ]
     }
-  ]
+  ],
+  "cleanUrls": true
 }
