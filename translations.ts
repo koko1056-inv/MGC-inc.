@@ -21,9 +21,9 @@ export const translations = {
       title_2: '日本と世界',
       title_3: 'をつなぐ。',
       subtitle_en: 'Connect Japan & The World through AI and Tech.',
-      desc: '私たちにとってAIは手段です。目的は、未来をより良くすること。\n企業のAI活用を、コンサルティングから開発・運用・研修まで一気通貫で支援します。',
+      desc: '私たちにとってAIは手段です。目的は、未来をより良くすること。\n業務の棚卸しから開発・定着、そして事業化まで、企業のAI活用を一気通貫で支援します。',
       whatWeDo: '私たちがやっていること',
-      chips: ['AIコンサルティング・研修', 'AI開発（音声・テキスト・CRM連携）', 'クロスボーダー事業（海外進出支援）'],
+      chips: ['AIソリューション（コンサルティング・開発・運用）', 'AI事業立ち上げ支援', 'AI活用研修', 'クロスボーダー事業'],
       viewProjects: '事業内容を見る',
       tryDiagnosis: '無料でAI活用診断',
       bookConsult: '30分の無料相談を予約',
@@ -51,7 +51,7 @@ export const translations = {
         },
       ],
       stats: [
-        { value: '2', unit: '事業', label: 'AIソリューション / クロスボーダー事業' },
+        { value: '4', unit: '事業', label: 'AIソリューション / AI事業立ち上げ支援 / 研修 / クロスボーダー' },
         { value: '3', unit: 'モダリティ', label: 'テキスト・音声・画像に対応するAIを構築' },
         { value: '2025', unit: '年設立', label: '京都から、日本と世界をつなぐ' },
       ],
@@ -178,7 +178,7 @@ export const translations = {
     works: {
       service_ai: {
         title: "AIソリューション",
-        subtitle: "コンサルティングから開発・運用・研修まで、一気通貫。",
+        subtitle: "コンサルティングから開発・運用まで、一気通貫。",
         desc: "「何にAIを使うべきか」の整理から、音声・テキスト・画像に対応するAIの開発、導入後の運用・社内研修まで。特定の技術に縛られず、課題に合うスタックを選んで、企業のAI活用を最後まで支援します。",
         items: [
           { title: "AI Consulting", sub: "AIコンサルティング", text: "業務プロセスを棚卸しし、AI導入の優先順位と現実的なロードマップを設計。経営課題に直結する打ち手から着手します。" },
@@ -221,7 +221,7 @@ export const translations = {
     details: {
       service_ai: {
         title: "AIソリューション",
-        subtitle: "コンサルティングから開発・運用・研修まで、一気通貫。",
+        subtitle: "コンサルティングから開発・運用まで、一気通貫。",
         p1: "「何にAIを使うべきか」の整理から、音声・テキスト・画像に対応するAIの開発、導入後の運用・社内研修まで。\n特定の技術に縛られず、課題に合うスタックを選んで、企業のAI活用を最後まで支援します。",
         features: [
           { title: "AI Consulting", sub: "AIコンサルティング", text: "業務プロセスを棚卸しし、AI導入の優先順位とROI、現実的なロードマップを設計します。PoC倒れを起こさない投資判断を支援します。" },
@@ -287,26 +287,26 @@ export const translations = {
     },
     career: {
       mindsets: [
-        { title: "Will・原動力", req: "「Why」を語れる偏愛家", desc: "内なる衝動や「なぜ」という問いから動ける。", ng: "受動的な優等生", ngDesc: "指示待ち、言われたことしかやらない。" },
-        { title: "Grit・突破力", req: "壁を遊具と捉える「冒険心」", desc: "トラブルを面白がれるレジリエンス。", ng: "正解を求める性質", ngDesc: "正解がないと動けない。失敗を極度に恐れる。" },
-        { title: "Time・時間感覚", req: "「今日」と「10年先」の複眼思考", desc: "今日の成果に全力を尽くしながら、10年先の視点で物事を考えられる。", ng: "目先の数字/夢想のみ", ngDesc: "目先の数字しか見えない、または夢だけで手が動かない。" },
-        { title: "Humanity", req: "他者を裁かず、愛を持てる人", desc: "自分・他者・社会・歴史へのリスペクト。", ng: "他責・冷笑的", ngDesc: "他責思考、冷笑的な評論家タイプ。" },
+        { title: "原動力（Will）", req: "「Why」を語れる偏愛家", desc: "内なる衝動や「なぜ」という問いから動ける。", ng: "受動的な優等生", ngDesc: "指示待ち、言われたことしかやらない。" },
+        { title: "突破力（Grit）", req: "壁を遊具と捉える「冒険心」", desc: "トラブルを面白がれるレジリエンス。", ng: "正解を求める性質", ngDesc: "正解がないと動けない。失敗を極度に恐れる。" },
+        { title: "時間感覚（Time）", req: "「今日」と「10年先」の複眼思考", desc: "今日の成果に全力を尽くしながら、10年先の視点で物事を考えられる。", ng: "目先の数字/夢想のみ", ngDesc: "目先の数字しか見えない、または夢だけで手が動かない。" },
+        { title: "人間性（Humanity）", req: "他者を裁かず、愛を持てる人", desc: "自分・他者・社会・歴史へのリスペクト。", ng: "他責・冷笑的", ngDesc: "他責思考、冷笑的な評論家タイプ。" },
       ],
       skills: [
-        { title: "AI Native", sub: "AIを「同僚」にする力", desc: "AIを拡張ツールとして息をするように使う。", ng: "AIアレルギー (技術への好奇心がない)" },
-        { title: "Global", sub: "異文化への敬意と適応力", desc: "異なる価値観の間に入り、滑らかに調整・融合できる。", ng: "語学力のみ/排他的 (中身がない、特定の価値観を押し付ける)" },
-        { title: "Concept", sub: "「技術」を「文化」にする構想力", desc: "技術が生活をどう豊かにするか、ストーリーを描ける。", ng: "機能重視 (機能の話しかできない、人間への興味が薄い)" },
+        { title: "AIネイティブ", sub: "AIを「同僚」にする力", desc: "AIを拡張ツールとして息をするように使う。", ng: "AIアレルギー（技術への好奇心がない）" },
+        { title: "グローバル", sub: "異文化への敬意と適応力", desc: "異なる価値観の間に入り、滑らかに調整・融合できる。", ng: "語学力のみ／排他的（中身がない、特定の価値観を押し付ける）" },
+        { title: "構想力", sub: "「技術」を「文化」にする力", desc: "技術が生活をどう豊かにするか、ストーリーを描ける。", ng: "機能重視（機能の話しかできない、人間への興味が薄い）" },
       ],
       intro: {
         desc: "既存の枠組みを疑い、AIという新たな武器を手に、世界を驚かせるプロダクトを共に実装する仲間を求めています。",
-        call: "Are you the one?"
+        call: "その仲間に、あなたがなりませんか。"
       },
       subheadings: {
-        mindset: "Mindset / 求める資質",
-        skills: "Competency / 必須技術"
+        mindset: "求める資質",
+        skills: "求めるスキル"
       },
       cta: {
-        title: "Are you ready?",
+        title: "一緒に、形にしませんか。",
         desc: "考えるだけで終わらせず、手を動かして形にする。\nそんな仲間の「Why」を聞かせてください。",
         button: "採用に応募する"
       }
@@ -425,8 +425,9 @@ export const translations = {
           "AI営業（アポイント獲得の自動化）",
           "AI電話（音声AIによる一次対応）",
           "Salesforce・CRMのAI活用",
-          "AIコンサルティング・研修",
-          "AI開発（音声・テキスト・CRM連携）",
+          "AIコンサルティング・AI開発",
+          "AI事業立ち上げ支援",
+          "AI活用研修（受講のご相談・資料請求）",
           "海外企業の日本市場参入（Inbound）",
           "日本企業の海外進出支援（Outbound）",
           "その他・複合的なご相談",
@@ -527,7 +528,7 @@ export const translations = {
           { label: 'Web', value: 'https://mgc-global01.com/', href: 'https://mgc-global01.com/' },
         ],
         cta: '資料請求・お問い合わせ',
-        ctaHref: '#contact',
+        ctaHref: '#contact/training',
       },
     },
     diagnosisBanner: {
@@ -625,9 +626,9 @@ export const translations = {
       title_2: 'Japan & The World',
       title_3: 'through AI and Tech.',
       subtitle_en: 'Connect Japan & The World through AI and Tech.',
-      desc: 'For us, AI is a means — the goal is to make the future better.\nWe support enterprise AI adoption end-to-end: consulting, development, operations, and training.',
+      desc: 'For us, AI is a means — the goal is to make the future better.\nFrom mapping the work to building, adoption and launching a business — we support enterprise AI end-to-end.',
       whatWeDo: 'What we do',
-      chips: ['AI Consulting & Training', 'AI Development (Voice · Text · CRM)', 'Cross-Border Business (Global Expansion)'],
+      chips: ['AI Solutions (Consulting · Build · Operations)', 'AI Business Launch Support', 'AI Training', 'Cross-Border Business'],
       viewProjects: 'View Services',
       tryDiagnosis: 'Free AI Diagnosis',
       bookConsult: 'Book a 30-min Free Consultation',
@@ -655,7 +656,7 @@ export const translations = {
         },
       ],
       stats: [
-        { value: '2', unit: 'Businesses', label: 'AI Solutions / Cross-Border Business' },
+        { value: '4', unit: 'Businesses', label: 'AI Solutions / Business Launch / Training / Cross-Border' },
         { value: '3', unit: 'Modalities', label: 'AI built for text, voice, and image' },
         { value: '2025', unit: 'Founded', label: 'From Kyoto, connecting Japan and the world' },
       ],
@@ -782,7 +783,7 @@ export const translations = {
     works: {
       service_ai: {
         title: "AI Solutions",
-        subtitle: "Consulting, development, operations, and training — end-to-end.",
+        subtitle: "Consulting, development and operations — end-to-end.",
         desc: "From working out where AI should be used, to building AI that handles text, voice, and image, to post-launch operations and staff training. Vendor-neutral, end-to-end support for enterprise AI adoption. This is MGC's core business.",
         items: [
           { title: "AI Consulting", sub: "Strategy & prioritization", text: "We audit your operations and design a realistic roadmap with clear priorities, starting where it moves the business most." },
@@ -824,7 +825,7 @@ export const translations = {
     details: {
       service_ai: {
         title: "AI Solutions",
-        subtitle: "Consulting, development, operations, and training — end-to-end.",
+        subtitle: "Consulting, development and operations — end-to-end.",
         p1: "From working out where AI should be used, to building AI that handles text, voice, and image, to post-launch operations and staff training.\nVendor-neutral, end-to-end support for enterprise AI adoption.",
         features: [
           { title: "AI Consulting", sub: "Strategy & prioritization", text: "We audit your operations and design a realistic roadmap with clear priorities and ROI — supporting investment decisions that don't end in PoC graveyards." },
@@ -1025,8 +1026,12 @@ export const translations = {
         companyPlaceholder: "Acme Co., Ltd.",
         topic: "Topic",
         topicOptions: [
-          "AI Consulting & Training",
-          "AI Development (Voice / Text / CRM)",
+          "AI Sales (automating appointment setting)",
+          "AI Phone (voice AI for first response)",
+          "AI for Salesforce / CRM",
+          "AI consulting & development",
+          "AI Business Launch Support",
+          "AI training (enrollment / materials)",
           "Japan Market Entry (Inbound)",
           "Overseas Expansion Support (Outbound)",
           "Other / mixed topics",
@@ -1127,7 +1132,7 @@ export const translations = {
           { label: 'Web', value: 'https://mgc-global01.com/', href: 'https://mgc-global01.com/' },
         ],
         cta: 'Request materials / Contact us',
-        ctaHref: '#contact',
+        ctaHref: '#contact/training',
       },
     },
     diagnosisBanner: {

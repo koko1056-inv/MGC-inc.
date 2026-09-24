@@ -1185,7 +1185,11 @@ const CareerView: React.FC = () => {
 
         {/* Mindset Section */}
         <div className="mb-40">
-          <SectionHeading title="" subtitle={<span className="flex items-center gap-3 text-2xl font-bold"><Heart className="text-accent w-8 h-8"/> {t.career.subheadings.mindset}</span>} />
+          <Reveal>
+            <h2 className="flex items-center gap-3 text-2xl md:text-3xl font-bold text-offblack tracking-tight border-b border-gray-200 pb-6 mb-10">
+              <Heart className="text-accent w-7 h-7" /> {t.career.subheadings.mindset}
+            </h2>
+          </Reveal>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {mindsets.map((m, i) => (
@@ -1227,7 +1231,11 @@ const CareerView: React.FC = () => {
 
         {/* Skills Section */}
         <div className="mb-40">
-          <SectionHeading title="" subtitle={<span className="flex items-center gap-3 text-2xl font-bold"><Zap className="text-accent w-8 h-8"/> {t.career.subheadings.skills}</span>} />
+          <Reveal>
+            <h2 className="flex items-center gap-3 text-2xl md:text-3xl font-bold text-offblack tracking-tight border-b border-gray-200 pb-6 mb-10">
+              <Zap className="text-accent w-7 h-7" /> {t.career.subheadings.skills}
+            </h2>
+          </Reveal>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
              {skills.map((s, i) => (
@@ -1417,7 +1425,7 @@ const BlogView: React.FC = () => {
 
 // #contact/<slug> で来たとき、その相談内容を初期選択する。
 // どのサービスページ経由の問い合わせかを、受信メール側で判別できるようにする。
-const SERVICE_TOPIC_INDEX: Record<string, number> = { 'ai-sales': 0, 'ai-phone': 1, 'salesforce-ai': 2 };
+const SERVICE_TOPIC_INDEX: Record<string, number> = { 'ai-sales': 0, 'ai-phone': 1, 'salesforce-ai': 2, 'newbiz': 4, 'training': 5 };
 
 const ContactView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavigate }) => {
   const { t } = useLanguage();
