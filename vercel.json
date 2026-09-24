@@ -39,6 +39,42 @@
       "destination": "/column/:slug.html"
     },
     {
+      "source": "/works",
+      "destination": "/works.html"
+    },
+    {
+      "source": "/training",
+      "destination": "/training.html"
+    },
+    {
+      "source": "/cases",
+      "destination": "/cases.html"
+    },
+    {
+      "source": "/mission",
+      "destination": "/mission.html"
+    },
+    {
+      "source": "/company",
+      "destination": "/company.html"
+    },
+    {
+      "source": "/career",
+      "destination": "/career.html"
+    },
+    {
+      "source": "/contact",
+      "destination": "/contact.html"
+    },
+    {
+      "source": "/blog",
+      "destination": "/blog.html"
+    },
+    {
+      "source": "/service/:slug",
+      "destination": "/service/:slug.html"
+    },
+    {
       "source": "/(.*)",
       "destination": "/200.html"
     }
@@ -62,6 +98,5 @@
         }
       ]
     }
-  ],
-  "cleanUrls": true
+  ]
 }

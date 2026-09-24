@@ -13,10 +13,28 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
 const { render, routes } = await import(pathToFileURL(path.join(root, 'dist-ssr', 'entry-server.js')).href);
 
-const template = fs.readFileSync(path.join(dist, 'index.html'), 'utf-8');
+// 器となるHTML。再実行時は index.html が事前描画済みなので、先に保存した 200.html を使う
+const shellPath = path.join(dist, '200.html');
+const indexPath = path.join(dist, 'index.html');
+const indexHtml = fs.readFileSync(indexPath, 'utf-8');
+const template = indexHtml.includes('<div id="root"></div>') ? indexHtml : fs.readFileSync(shellPath, 'utf-8');
+
+// vercel.json に、事前描画したページへの書き換えがあるかを確かめる。
+// 無いまま出すと、そのURLは 200.html（空の器）で配信され、事前描画が効かない。
+// 注意: cleanUrls は使わない。有効にすると .html / .ts 宛ての書き換え（/column, /api 等）が404になった（PR #46 で取り消し）。
+const vercel = JSON.parse(fs.readFileSync(path.join(root, 'vercel.json'), 'utf-8'));
+if (vercel.cleanUrls) throw new Error('vercel.json の cleanUrls は使わない（既存の書き換えが壊れる）');
+const rewrites = vercel.rewrites ?? [];
+const matchRewrite = (route) => rewrites.find((r) => {
+  const re = new RegExp('^' + r.source.replace(/:[a-z]+/g, '[^/]+') + '$');
+  return re.test(route) && r.destination.endsWith('.html') && r.source !== '/(.*)';
+});
+const missing = routes().filter((r) => r !== '/' && !matchRewrite(r));
+if (missing.length) throw new Error(`vercel.json に書き換えが無いページ: ${missing.join(', ')}`);
 
 // 事前描画しないURL（/contact/thanks など）向けの空の器。vercel.json のフォールバック先
-fs.writeFileSync(path.join(dist, '200.html'), template);
+if (!template.includes('<div id="root"></div>')) throw new Error('空の器が見つからない。先に vite build を実行する');
+fs.writeFileSync(shellPath, template);
 
 const esc = (v) => String(v).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const setAttr = (html, re, value) => {
