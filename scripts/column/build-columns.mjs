@@ -256,6 +256,19 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 // false の間はコラム側の導線（ヘッダー・フッター・CTA・llms.txt）から診断を外す。
 const SHOW_DIAGNOSIS = false;
 
+// 計測: Vercel Web Analytics（本体サイトと同じ）。静的ページなのでスクリプトを直接読み込む
+const ANALYTICS_HEAD = `<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+<script defer src="/_vercel/insights/script.js"></script>`;
+// 計測: コラムから相談・事例・サービスへ進んだクリック（個人情報は送らない）
+const ANALYTICS_CLICK = `<script>
+document.addEventListener('click',function(e){
+  var a=e.target&&e.target.closest?e.target.closest('a'):null; if(!a) return;
+  var h=a.getAttribute('href')||'';
+  var name = h.indexOf('/contact')===0 ? 'contact_cta' : h.indexOf('/cases')===0 ? 'cases_click' : h.indexOf('/service/')===0 ? 'service_click' : null;
+  if(name) window.va('event',{name:name,data:{from:'column',page:location.pathname}});
+});
+<\/script>`;
+
 const MARK = '<span class="mark"><i></i></span>';
 const navLink = (href, label, current) => `<a href="${href}"${current === href ? ' class="is-current"' : ''}>${label}</a>`;
 const header = (current = '') => `<header class="site-header"><div class="inner"><a class="brand" href="/">${MARK}MGC Inc.</a><nav>${[
@@ -396,6 +409,7 @@ ${kw ? `<meta name="keywords" content="${esc(kw)}"/>` : ''}
 <script type="application/ld+json">${jsonld(posting)}</script>
 ${faqLd ? `<script type="application/ld+json">${jsonld(faqLd)}</script>` : ''}
 <style>${CSS}</style>
+${ANALYTICS_HEAD}
 </head>
 <body>
 <div class="progress" id="progress"></div>
@@ -445,6 +459,7 @@ ${tocHtml}
 </aside>
 </main>
 ${FOOTER}
+${ANALYTICS_CLICK}
 <script>
 (function(){
   var bar=document.getElementById('progress');
@@ -576,6 +591,7 @@ ${usedIndustries.map((k) => `<button type="button" data-f="${esc(k)}" aria-press
 <link rel="icon" href="/favicon.ico"/>
 <script type="application/ld+json">${jsonld(itemList)}</script>
 <style>${CSS}</style>
+${ANALYTICS_HEAD}
 </head>
 <body>
 ${header('/column')}
@@ -600,6 +616,7 @@ ${SHOW_DIAGNOSIS ? `<div class="cta">
 </div>`}
 </section>
 ${FOOTER}
+${ANALYTICS_CLICK}
 </body>
 </html>`;
 }

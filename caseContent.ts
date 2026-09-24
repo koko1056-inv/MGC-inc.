@@ -16,6 +16,10 @@ export type CaseStudy = {
   approach: { title: string; desc: string }[];
   stack?: string;            // 使った主な技術
   result?: { label: string; desc: string };  // 先方の確認が取れた成果のみ
+  // 以下は、掲載許諾が取れたものから埋める。空のままなら表示されない。
+  company?: { name: string; logo?: string; url?: string };  // 社名・ロゴ（/assets/cases/ に置く）
+  metrics?: { value: string; unit: string; label: string }[];  // 数値の成果（先方確認済みのみ）
+  voice?: { text: string; person: string };  // お客様の声（役職・部署まで。氏名は許諾があれば）
   // Before/After のフロー図。by: 'human' は人、'ai' はAIが担う工程。
   // 事実を表す図のため画像生成は使わず、テキストと図形で組む（DESIGN.md §4）。
   flow?: {
@@ -124,6 +128,7 @@ export const caseContent: Content = {
           { title: '文面を1社ずつ生成', desc: 'テンプレートの差し込みではなく、相手企業の製品や事業内容を踏まえて切り口を変える形にしました。' },
           { title: '接触データを自社側に蓄積する運用へ移行', desc: '送って終わりにせず、反応の履歴を自社のデータベースに残し、次の打ち手に使える形へ切り替えを進めています。' },
         ],
+        metrics: [{ value: '10', unit: '件', label: '1ヶ月で生まれた、海外メーカーとの商談' }],
         result: {
           label: '1ヶ月で海外メーカーとの商談 10件',
           desc: '人脈に頼らず、条件から発掘して商談まで至った件数です。担当者は発掘や初回接触ではなく、商談そのものに時間を使える状態になりました。',
@@ -272,6 +277,7 @@ export const caseContent: Content = {
           { title: 'Write per company', desc: 'The angle changes based on each manufacturer’s products and business, rather than swapping fields in a template.' },
           { title: 'Move contact data in-house', desc: 'Responses accumulate in the client’s own database rather than disappearing after each send.' },
         ],
+        metrics: [{ value: '10', unit: 'meetings', label: 'with overseas manufacturers in one month' }],
         result: {
           label: '10 meetings with overseas manufacturers in one month',
           desc: 'Sourced from criteria rather than personal networks. The team now spends its time in the meetings themselves rather than on discovery and first contact.',
