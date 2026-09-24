@@ -787,7 +787,8 @@ const ServiceBlock: React.FC<{
   icon: ReactNode;
   image?: string;
   onDetail: () => void;
-}> = ({ index, serviceKey, icon, image, onDetail }) => {
+  onNavigate?: (view: ViewState) => void;
+}> = ({ index, serviceKey, icon, image, onDetail, onNavigate }) => {
   const { t } = useLanguage();
   const data = t.works[serviceKey];
   return (
@@ -844,6 +845,18 @@ const ServiceBlock: React.FC<{
                     <p className="text-gray-600 text-sm md:text-base leading-relaxed">
                       {item.text}
                     </p>
+                    {(() => {
+                      // AIソリューションの各サービスは、個別のサービスページへつなぐ
+                      const link = (item as { link?: string }).link;
+                      return link && isServiceKey(link) ? (
+                        <button
+                          onClick={() => onNavigate?.(link)}
+                          className="mt-3 inline-flex items-center gap-2 text-sm font-bold text-accent hover:gap-3 transition-all"
+                        >
+                          {t.worksIntro.serviceLink} <ArrowRight className="w-4 h-4" />
+                        </button>
+                      ) : null;
+                    })()}
                   </div>
                 </div>
               ))}
@@ -864,7 +877,7 @@ const ServiceBlock: React.FC<{
   );
 };
 
-const WorksView: React.FC = () => {
+const WorksView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavigate }) => {
   const [selectedId, setSelectedId] = useState<ContentKey | null>(null);
   const { t, lang } = useLanguage();
   const contentData = getContentData(t);
@@ -928,6 +941,7 @@ const WorksView: React.FC = () => {
             icon={<Globe className="w-5 h-5 text-accent stroke-[1.75]" />}
             image="/assets/service_ai.jpg"
             onDetail={() => setSelectedId('service_ai')}
+            onNavigate={onNavigate}
           />
         </div>
 
@@ -959,38 +973,6 @@ const WorksView: React.FC = () => {
             image="/assets/service_lab.jpg"
             onDetail={() => setSelectedId('service_lab')}
           />
-        </div>
-
-        {/* === 個別サービスページへの導線 === */}
-        <div className="mt-24 md:mt-32 border-t border-gray-200 pt-16">
-          <Reveal>
-            <span className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-accent">Service Details</span>
-            <h3 className="text-3xl md:text-4xl font-bold text-offblack tracking-tighter mt-3 mb-10 leading-tight">
-              {lang === 'ja' ? '個別のサービス' : 'Individual services'}
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {SERVICE_KEYS.map((key) => {
-                const p = serviceContent[lang][key];
-                return (
-                  <a
-                    key={key}
-                    href={`#${key}`}
-                    className="group flex flex-col bg-white rounded-xl p-6 border border-gray-200 hover:border-accent transition-colors"
-                  >
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-accent">{p.hero.badge}</span>
-                    <h4 className="text-xl font-bold text-offblack mt-3 mb-2 tracking-tight leading-snug group-hover:text-accent transition-colors">
-                      {p.navLabel}
-                    </h4>
-                    <p className="text-gray-600 text-sm leading-relaxed flex-1">{p.hero.title}</p>
-                    <span className="inline-flex items-center gap-2 text-sm font-bold text-offblack mt-5 group-hover:text-accent transition-colors">
-                      {t.worksIntro.detailLink}
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-                    </span>
-                  </a>
-                );
-              })}
-            </div>
-          </Reveal>
         </div>
 
         {/* === One-Stop Flow === */}
@@ -2840,8 +2822,8 @@ const CasesView: React.FC = () => {
   );
 };
 
-const ServiceView: React.FC<{ serviceKey: ServiceKey }> = ({ serviceKey }) => {
-  const { lang } = useLanguage();
+const ServiceView: React.FC<{ serviceKey: ServiceKey; onNavigate?: (view: ViewState) => void }> = ({ serviceKey, onNavigate }) => {
+  const { lang, t } = useLanguage();
   const page = serviceContent[lang][serviceKey];
 
   return (
@@ -2850,6 +2832,14 @@ const ServiceView: React.FC<{ serviceKey: ServiceKey }> = ({ serviceKey }) => {
         {/* Hero */}
         <section className="px-6 md:px-12">
           <div className="max-w-screen-xl mx-auto">
+            {/* 事業内容 → AIソリューション の中のサービスであることを示す */}
+            <nav aria-label="breadcrumb" className="flex flex-wrap items-center gap-2 text-sm text-gray-500 mb-5">
+              <button onClick={() => onNavigate?.('works')} className="hover:text-accent transition-colors">{t.nav.works}</button>
+              <span aria-hidden>／</span>
+              <button onClick={() => onNavigate?.('works')} className="hover:text-accent transition-colors">{t.nav.aiSolutions}</button>
+              <span aria-hidden>／</span>
+              <span className="text-offblack font-bold">{page.navLabel}</span>
+            </nav>
             <Reveal>
               <div className="relative overflow-hidden rounded-[1.75rem] md:rounded-[2.5rem] bg-[#111418] text-white">
                 <GridPattern dark />
@@ -3342,17 +3332,22 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
   ];
 
   // 情報ナビ（お問い合わせはCTAボタンとして分離、Journalはフッターへ集約）
-  type NavLeaf = { id?: ViewState; href?: string; label: string };
+  // heading: 押せない小見出し / indent: 小見出しの下に字下げして並べる
+  type NavLeaf = { id?: ViewState; href?: string; label: string; heading?: boolean; indent?: boolean };
   type NavItem = NavLeaf & { children?: NavLeaf[] };
   const navItems: NavItem[] = [
-    { id: 'works', label: t.nav.works },
-    { label: t.nav.services, children: SERVICE_KEYS.map((k) => ({ id: k as ViewState, label: serviceContent[lang][k].navLabel })) },
+    { label: t.nav.works, children: [
+      { id: 'works', label: t.nav.worksTop },
+      { label: t.nav.aiSolutions, heading: true },
+      ...SERVICE_KEYS.map((k) => ({ id: k as ViewState, label: serviceContent[lang][k].navLabel, indent: true })),
+    ] },
     { id: 'cases', label: t.nav.cases },
     { id: 'training', label: t.nav.training },
     { href: '/column', label: t.nav.column },
     { label: t.nav.companyGroup, children: [
       { id: 'mission', label: t.nav.mission },
       { id: 'company', label: t.nav.company },
+      { id: 'blog', label: t.nav.blog },
       { id: 'career', label: t.nav.career },
     ] },
   ];
@@ -3362,14 +3357,17 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
     <LanguageContext.Provider value={{ lang, setLang, t }}>
     <div className="min-h-screen font-sans bg-offwhite text-offblack">
       
-      {/* Header */}
-      <header className="fixed top-0 left-0 w-full py-6 px-6 md:px-12 z-50 flex justify-between items-center mix-blend-difference text-white">
-        <button 
+      {/* Header
+          以前は mix-blend-difference（背景に応じて色を反転）だったため、ドロップダウンが
+          下の本文と混ざって読みにくかった。白地の固定ヘッダーにして、常に同じ見え方にする。 */}
+      <header className="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-gray-200 text-offblack">
+        <div className="py-4 px-6 md:px-12 flex justify-between items-center">
+        <button
           onClick={() => navigate('home')}
           className="flex items-center gap-4 group z-50 relative"
         >
-          <div className="w-16 h-10 bg-white flex items-center justify-center transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:rotate-180">
-            <div className="w-5 h-5 bg-black rounded-full" />
+          <div className="w-14 h-9 bg-offblack flex items-center justify-center transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:rotate-180">
+            <div className="w-4 h-4 bg-white rounded-full" />
           </div>
           <span className="text-xl font-bold tracking-tighter hover:opacity-70 transition-opacity">MGC Inc.</span>
         </button>
@@ -3381,21 +3379,28 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
               <button
                 type="button"
                 aria-haspopup="true"
-                className={`relative py-1 inline-flex items-center gap-1 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${isGroupActive(item) ? 'opacity-100 font-bold' : 'opacity-60 hover:opacity-100 font-medium'}`}
+                className={`relative py-1 inline-flex items-center gap-1 transition-colors ${isGroupActive(item) ? 'text-offblack font-bold' : 'text-gray-600 hover:text-offblack font-medium'}`}
               >
                 {item.label}
-                <span aria-hidden className="text-[10px] translate-y-px">▾</span>
-                <span className={`absolute -bottom-1 left-0 h-[2px] bg-white transition-all duration-500 ${isGroupActive(item) ? 'w-full' : 'w-0'}`} />
+                <span aria-hidden className="text-[10px] translate-y-px transition-transform group-hover:rotate-180">▾</span>
+                <span className={`absolute -bottom-1 left-0 h-[2px] bg-accent transition-all duration-300 ${isGroupActive(item) ? 'w-full' : 'w-0'}`} />
               </button>
-              {/* mix-blend-difference の配下なので、白地では黒パネル・黒地では白パネルに見える */}
               <div className="absolute left-1/2 -translate-x-1/2 top-full pt-3 hidden group-hover:block group-focus-within:block">
-                <div className="min-w-[13rem] rounded-2xl bg-offblack text-white border border-white/20 p-2 shadow-2xl">
-                  {item.children.map((c) => (
+                <div className="min-w-[15rem] rounded-2xl bg-white border border-gray-200 p-2 shadow-[0_12px_32px_rgba(17,20,24,0.12)]">
+                  {item.children.map((c) => c.heading ? (
+                    <span key={c.label} className="block px-4 pt-3 pb-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400">{c.label}</span>
+                  ) : (
                     <button
                       key={c.id ?? c.href}
                       onClick={() => c.id && navigate(c.id)}
-                      className={`w-full text-left px-4 py-2.5 rounded-xl text-sm transition-colors ${view === c.id ? 'font-bold bg-white/15' : 'font-medium opacity-80 hover:opacity-100 hover:bg-white/10'}`}
+                      aria-current={view === c.id ? 'page' : undefined}
+                      className={`relative w-full text-left ${c.indent ? 'pl-8 pr-4' : 'px-4'} py-2.5 rounded-xl text-sm transition-colors ${
+                        view === c.id
+                          ? 'font-bold text-accent bg-accent/10'
+                          : 'font-medium text-gray-700 hover:text-offblack hover:bg-[#F4F6FB]'
+                      }`}
                     >
+                      {view === c.id && <span className="absolute left-1.5 top-2.5 bottom-2.5 w-1 rounded-full bg-accent" />}
                       {c.label}
                     </button>
                   ))}
@@ -3406,7 +3411,7 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
             <a
               key={item.href}
               href={item.href}
-              className="relative py-1 opacity-60 hover:opacity-100 font-medium transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+              className="relative py-1 text-gray-600 hover:text-offblack font-medium transition-colors"
             >
               {item.label}
             </a>
@@ -3414,16 +3419,17 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
             <button
               key={item.id}
               onClick={() => item.id && navigate(item.id)}
-              className={`relative py-1 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] origin-center ${view === item.id ? 'opacity-100 font-bold scale-110' : 'opacity-60 hover:opacity-100 font-medium scale-100'}`}
+              aria-current={view === item.id ? 'page' : undefined}
+              className={`relative py-1 transition-colors ${view === item.id ? 'text-offblack font-bold' : 'text-gray-600 hover:text-offblack font-medium'}`}
             >
               {item.label}
-               <span className={`absolute -bottom-1 left-0 h-[2px] bg-white transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${view === item.id ? 'w-full' : 'w-0'}`} />
+              <span className={`absolute -bottom-1 left-0 h-[2px] bg-accent transition-all duration-300 ${view === item.id ? 'w-full' : 'w-0'}`} />
             </button>
           ))}
           {/* Contact CTA（主導線） */}
           <button
             onClick={() => navigate('contact')}
-            className="ml-1 px-5 py-1.5 rounded-full border border-white/50 font-bold hover:bg-white hover:text-offblack transition-colors duration-300"
+            className="ml-1 px-5 py-2 rounded-full bg-offblack text-white font-bold hover:bg-accent transition-colors duration-300"
           >
             {t.nav.contact}
           </button>
@@ -3434,32 +3440,36 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
              {/* Language Switcher (Desktop/Mobile) */}
              <button
                onClick={() => setLang(lang === 'ja' ? 'en' : 'ja')}
-               className="font-mono text-sm font-bold border border-white/30 rounded-full flex overflow-hidden backdrop-blur-md z-50 hover:border-white/50 transition-colors"
+               className="font-mono text-sm font-bold border border-gray-300 rounded-full flex overflow-hidden z-50 hover:border-gray-400 transition-colors"
              >
-               <span className={`px-3 py-1 transition-colors ${lang === 'ja' ? 'bg-white text-offblack' : 'text-white/60 hover:text-white'}`}>JP</span>
-               <span className={`px-3 py-1 transition-colors ${lang === 'en' ? 'bg-white text-offblack' : 'text-white/60 hover:text-white'}`}>EN</span>
+               <span className={`px-3 py-1 transition-colors ${lang === 'ja' ? 'bg-offblack text-white' : 'text-gray-500 hover:text-offblack'}`}>JP</span>
+               <span className={`px-3 py-1 transition-colors ${lang === 'en' ? 'bg-offblack text-white' : 'text-gray-500 hover:text-offblack'}`}>EN</span>
              </button>
 
-             <button 
+             <button
                className="md:hidden z-50 p-2 hover:opacity-70 transition-opacity"
                onClick={() => setIsMenuOpen(!isMenuOpen)}
+               aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
              >
                {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
              </button>
         </div>
+        </div>
       </header>
 
       {/* Mobile Menu Overlay */}
-      <div className={`fixed inset-0 bg-white z-40 flex flex-col items-center justify-center transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}>
-        <nav className="flex flex-col items-center gap-7 max-h-[80vh] overflow-y-auto px-6">
+      <div className={`fixed inset-0 bg-white z-40 overflow-y-auto transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}>
+        <nav className="flex flex-col items-center gap-7 px-6 pt-28 pb-16">
            {navItems.map((item) => item.children ? (
             <div key={item.label} className="flex flex-col items-center gap-3">
               <span className="text-xs font-bold uppercase tracking-[0.3em] text-gray-400">{item.label}</span>
-              {item.children.map((c) => (
+              {item.children.map((c) => c.heading ? (
+                <span key={c.label} className="text-[11px] font-bold tracking-[0.2em] text-accent mt-1">{c.label}</span>
+              ) : (
                 <button
                   key={c.id ?? c.href}
                   onClick={() => c.id && navigate(c.id)}
-                  className="text-2xl font-bold tracking-tighter text-offblack hover:text-accent transition-colors"
+                  className={`${c.indent ? 'text-xl' : 'text-2xl'} font-bold tracking-tighter text-offblack hover:text-accent transition-colors`}
                 >
                   {c.label}
                 </button>
@@ -3495,9 +3505,9 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
       {/* Main Content */}
       <main>
         {view === 'home' && <HomeView onNavigate={navigate} />}
-        {view === 'works' && <WorksView />}
+        {view === 'works' && <WorksView onNavigate={navigate} />}
         {view === 'training' && <TrainingView />}
-        {isServiceKey(view) && <ServiceView serviceKey={view} />}
+        {isServiceKey(view) && <ServiceView serviceKey={view} onNavigate={navigate} />}
         {view === 'cases' && <CasesView />}
         {view === 'diagnosis' && <DiagnosisView />}
         {view === 'blog' && <BlogView onNavigate={navigate} />}
