@@ -5,6 +5,13 @@
       "maxDuration": 60
     }
   },
+  "redirects": [
+    {
+      "source": "/:path(.+)/",
+      "destination": "/:path",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/api/(.*)",
@@ -75,7 +82,11 @@
       "destination": "/service/:slug.html"
     },
     {
-      "source": "/(.*)",
+      "source": "/diagnosis",
+      "destination": "/200.html"
+    },
+    {
+      "source": "/contact/thanks",
       "destination": "/200.html"
     }
   ],
