@@ -29,7 +29,7 @@ const PAGE_META: Record<Lang, Partial<Record<string, { title: string; descriptio
     company: { title: '会社概要 - ＭＧＣ株式会社（MGC Inc.）', description: 'ＭＧＣ株式会社の会社概要。商号・代表者・所在地（京都府京都市）・設立・事業内容。' },
     career: { title: '採用情報｜AIネイティブに働く仲間を募集 - ＭＧＣ株式会社', description: 'MGCが求める人物像・マインドセット・スキル。AIを同僚として使いこなし、日本と世界をつなぐ仕事に挑む仲間を募集しています。' },
     contact: { title: 'お問い合わせ｜30分の無料相談 - ＭＧＣ株式会社', description: 'AI導入・研修・海外展開のご相談は無料です。現状を伺い、どこからAIに任せられるかを整理してお返しします。' },
-    blog: { title: 'ジャーナル - ＭＧＣ株式会社', description: 'MGCの考えとビジョンを綴るジャーナル。' },
+    blog: { title: 'お知らせ・ジャーナル - ＭＧＣ株式会社', description: 'ＭＧＣ株式会社のお知らせ（サービス開始・研修・サイト更新など）と、MGCの考え方を綴るジャーナル。' },
     diagnosis: { title: 'AI活用診断 - ＭＧＣ株式会社', description: '業種と課題を入力するだけで、AI活用施策と導入後の効果をその場で診断します。' },
     cases: { title: '導入事例｜AI導入の進め方と実例 - ＭＧＣ株式会社', description: 'MGCが実際に進めている案件の進め方と設計の要点。コールセンターの音声AI、海外メーカー発掘の自動化、現場のトラブルシューティング。' },
   },
@@ -41,7 +41,7 @@ const PAGE_META: Record<Lang, Partial<Record<string, { title: string; descriptio
     company: { title: 'Company Profile - MGC Inc.', description: 'Corporate profile of MGC Inc.: name, representative, location (Kyoto, Japan), founding date and business.' },
     career: { title: 'Careers | Work AI-natively with us - MGC Inc.', description: 'Who we look for, the mindset and the skills. Join us in connecting Japan and the world with AI as a colleague.' },
     contact: { title: 'Contact | Free 30-minute consultation - MGC Inc.', description: 'Consultations on AI adoption, training and overseas expansion are free. Tell us where you are and we will map what AI can take on.' },
-    blog: { title: 'Journal - MGC Inc.', description: 'Thoughts and vision from MGC.' },
+    blog: { title: 'News & Journal - MGC Inc.', description: 'News from MGC Inc. — service launches, training and site updates — and our journal on how we think about AI.' },
     diagnosis: { title: 'AI Diagnosis - MGC Inc.', description: 'Enter your industry and challenges to get an instant AI adoption diagnosis.' },
     cases: { title: 'Case studies | How AI projects actually run - MGC Inc.', description: 'How MGC runs real projects: voice AI in a call centre, automated overseas supplier outreach, and field troubleshooting by voice.' },
   },
@@ -565,7 +565,7 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
   </section>
 
   {/* === Why MGC Section === */}
-  <section className="bg-offblack text-white py-24 md:py-32 px-6 md:px-12">
+  <section className="bg-white border-y border-gray-200 py-24 md:py-32 px-6 md:px-12">
     <div className="max-w-screen-xl mx-auto">
       <Reveal>
         <div className="flex items-center gap-3 mb-6">
@@ -574,10 +574,10 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
             {t.whyMgc.eyebrow}
           </span>
         </div>
-        <h2 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter mb-6 leading-[0.95]">
+        <h2 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter mb-6 leading-[0.95] text-offblack">
           {t.whyMgc.title}
         </h2>
-        <p className="text-xl md:text-2xl text-gray-300 max-w-3xl leading-relaxed mb-16 font-medium">
+        <p className="text-xl md:text-2xl text-gray-600 max-w-3xl leading-relaxed mb-16 font-medium">
           {t.whyMgc.lead}
         </p>
       </Reveal>
@@ -586,14 +586,14 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
         {t.whyMgc.reasons.map((r, i) => (
           <Reveal key={r.number} delay={i * 100} className="h-full">
-            <div className="group h-full bg-gray-900/60 rounded-2xl p-8 border border-gray-800 hover:border-accent transition-colors duration-500 flex flex-col">
+            <div className="group h-full bg-offwhite rounded-2xl p-8 border border-gray-200 hover:border-accent transition-colors duration-500 flex flex-col">
               <div className="flex items-center gap-3 mb-6">
                 <span className="font-mono text-2xl font-bold text-accent">{r.number}</span>
               </div>
-              <h3 className="text-2xl font-bold text-white mb-4 tracking-tight leading-snug">
+              <h3 className="text-2xl font-bold text-offblack mb-4 tracking-tight leading-snug">
                 {r.title}
               </h3>
-              <p className="text-gray-400 text-base leading-relaxed">{r.desc}</p>
+              <p className="text-gray-600 text-base leading-relaxed">{r.desc}</p>
             </div>
           </Reveal>
         ))}
@@ -601,14 +601,14 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
 
       {/* Stats Strip */}
       <Reveal>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-gray-800 border border-gray-800 rounded-2xl overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-gray-200 border border-gray-200 rounded-2xl overflow-hidden">
           {t.whyMgc.stats.map((s, i) => (
-            <div key={i} className="bg-offblack p-8 md:p-10 flex flex-col items-start">
+            <div key={i} className="bg-white p-8 md:p-10 flex flex-col items-start">
               <div className="flex items-baseline gap-2 mb-2">
-                <span className="text-5xl md:text-7xl font-bold tracking-tighter text-white leading-none">{s.value}</span>
+                <span className="text-5xl md:text-7xl font-bold tracking-tighter text-offblack leading-none">{s.value}</span>
                 <span className="text-xl md:text-2xl font-bold text-accent">{s.unit}</span>
               </div>
-              <p className="text-sm md:text-base text-gray-400 leading-relaxed mt-3">{s.label}</p>
+              <p className="text-sm md:text-base text-gray-500 leading-relaxed mt-3">{s.label}</p>
             </div>
           ))}
         </div>
@@ -669,6 +669,29 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
           </Reveal>
         ))}
       </div>
+    </div>
+  </section>
+
+  {/* === お知らせ === */}
+  <section className="px-6 md:px-12 pb-24 md:pb-32">
+    <div className="max-w-screen-xl mx-auto">
+      <Reveal>
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+          <div>
+            <div className="flex items-center gap-3 mb-3">
+              <Sparkles className="w-4 h-4 text-accent" />
+              <span className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-accent">{t.news.eyebrow}</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tighter text-offblack leading-tight">{t.news.title}</h2>
+          </div>
+          <button onClick={() => goTo('blog')} className="flex-shrink-0 inline-flex items-center gap-2 text-sm font-bold text-accent hover:gap-3 transition-all">
+            {t.news.more} <ArrowRight className="w-4 h-4" />
+          </button>
+        </div>
+      </Reveal>
+      <Reveal>
+        <NewsList limit={4} onNavigate={goTo} />
+      </Reveal>
     </div>
   </section>
 
@@ -1004,54 +1027,91 @@ const WorksView: React.FC = () => {
 
 const MissionView: React.FC = () => {
   const { t } = useLanguage();
-  const values = t.mission.values;
+  const m = t.mission;
   return (
     <PageTransition>
       <div className="min-h-screen text-offblack pb-20">
         <div className="px-6 md:px-12 max-w-screen-xl mx-auto pt-10">
           <SectionHeading as="h1" title={t.headings.mission.title} subtitle={t.headings.mission.sub} />
 
+          {/* ビジョン・ミッション */}
           <Reveal>
-            <div className="mb-24 grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
-               <div>
-                 <h3 className="text-3xl md:text-5xl font-bold mb-6 text-accent">{t.mission.intro.title}</h3>
-                 <p className="text-xl leading-relaxed text-gray-700">
-                   {t.mission.intro.desc}
-                 </p>
-               </div>
-               <div className="bg-white p-8 rounded-2xl border border-gray-200">
-                 <h4 className="text-xl font-bold mb-4 flex items-center gap-3">
-                   <Anchor className="w-6 h-6 text-accent" />
-                   Mission
-                 </h4>
-                 <p className="text-2xl font-bold mb-4">{t.mission.intro.mission_title}</p>
-                 <p className="text-gray-600 leading-relaxed">
-                   {t.mission.intro.mission_desc}
-                 </p>
-               </div>
+            <div className="mb-24 md:mb-32 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-start">
+              <div>
+                <span className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-accent">{m.visionLabel}</span>
+                <h2 className="text-3xl md:text-5xl font-bold mt-4 mb-6 text-offblack leading-tight tracking-tight">{m.intro.title}</h2>
+                <p className="text-lg md:text-xl leading-relaxed text-gray-700">{m.intro.desc}</p>
+              </div>
+              <div className="bg-white p-8 md:p-10 rounded-2xl border border-gray-200">
+                <h3 className="text-sm font-bold uppercase tracking-[0.2em] mb-5 flex items-center gap-3 text-accent">
+                  <Anchor className="w-5 h-5" />
+                  Mission
+                </h3>
+                <p className="text-2xl font-bold mb-4 leading-snug">{m.intro.mission_title}</p>
+                <p className="text-gray-600 leading-relaxed">{m.intro.mission_desc}</p>
+              </div>
             </div>
           </Reveal>
 
-          <div className="space-y-12 mb-32">
-            {values.map((v, i) => (
-              <Reveal key={i} delay={i * 100}>
-                <div className="group border-t border-gray-200 pt-10 hover:border-accent transition-colors duration-500">
-                  <div className="flex flex-col md:flex-row gap-8">
-                    <div className="md:w-1/3">
-                      <span className="text-6xl font-bold text-gray-200 group-hover:text-accent transition-colors duration-500">0{i + 1}</span>
-                      <h3 className="text-2xl md:text-3xl font-bold mt-4 mb-1">{v.title}</h3>
-                      <p className="text-sm font-bold uppercase tracking-widest text-accent">{v.sub}</p>
-                    </div>
-                    <div className="md:w-2/3">
-                      <p className="text-lg md:text-xl text-gray-600 leading-relaxed group-hover:text-gray-900 transition-colors duration-300">
-                        {v.desc}
-                      </p>
+          {/* 基本思想 */}
+          <Reveal>
+            <div className="mb-24 md:mb-32 border-l-4 border-accent pl-6 md:pl-10 py-2">
+              <span className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-accent">{m.principle.eyebrow}</span>
+              <h2 className="text-2xl md:text-4xl font-bold text-offblack tracking-tight mt-3 leading-snug">{m.principle.title}</h2>
+              <p className="text-base md:text-lg text-gray-700 leading-[2] mt-5 max-w-3xl">{m.principle.desc}</p>
+            </div>
+          </Reveal>
+
+          {/* 届ける価値 */}
+          <section className="mb-24 md:mb-32">
+            <Reveal>
+              <h2 className="text-2xl md:text-3xl font-bold text-offblack tracking-tight mb-8">{m.offer.title}</h2>
+            </Reveal>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              {m.offer.items.map((o, i) => (
+                <Reveal key={i} delay={i * 90} className="h-full">
+                  <div className="h-full bg-white rounded-2xl border border-gray-200 p-7">
+                    <span className="font-mono text-sm font-bold text-accent">0{i + 1}</span>
+                    <h3 className="text-xl font-bold text-offblack mt-3 mb-2">{o.title}</h3>
+                    <p className="text-gray-600 leading-relaxed">{o.desc}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </section>
+
+          {/* バリュー */}
+          <section className="mb-24 md:mb-32">
+            <Reveal>
+              <h2 className="text-2xl md:text-3xl font-bold text-offblack tracking-tight mb-4">{m.valuesTitle}</h2>
+            </Reveal>
+            <div className="space-y-12">
+              {m.values.map((v, i) => (
+                <Reveal key={i} delay={i * 100}>
+                  <div className="group border-t border-gray-200 pt-10 hover:border-accent transition-colors duration-500">
+                    <div className="flex flex-col md:flex-row gap-8">
+                      <div className="md:w-1/3">
+                        <span className="text-6xl font-bold text-gray-200 group-hover:text-accent transition-colors duration-500">0{i + 1}</span>
+                        <h3 className="text-2xl md:text-3xl font-bold mt-4 mb-1">{v.title}</h3>
+                        <p className="text-sm font-bold uppercase tracking-widest text-accent">{v.sub}</p>
+                      </div>
+                      <div className="md:w-2/3">
+                        <p className="text-lg md:text-xl text-gray-600 leading-relaxed group-hover:text-gray-900 transition-colors duration-300">{v.desc}</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+                </Reveal>
+              ))}
+            </div>
+          </section>
+
+          {/* 選ぶ仕事 */}
+          <Reveal>
+            <div className="rounded-2xl bg-[#F4F6FB] p-8 md:p-10">
+              <h2 className="text-xl md:text-2xl font-bold text-offblack tracking-tight">{m.choice.title}</h2>
+              <p className="text-base md:text-lg text-gray-700 leading-[2] mt-4 max-w-3xl">{m.choice.desc}</p>
+            </div>
+          </Reveal>
         </div>
       </div>
     </PageTransition>
@@ -1174,28 +1234,110 @@ const PartnersView: React.FC = () => {
   )
 }
 
-const CompanyView: React.FC = () => {
+const CompanyView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavigate }) => {
   const { t } = useLanguage();
-  const info = t.company.items;
+  const c = t.company;
+  const mapQuery = encodeURIComponent('京都府京都市上京区西辰巳町111');
 
   return (
     <PageTransition>
       <div className="px-6 md:px-12 max-w-screen-xl mx-auto">
         <SectionHeading as="h1" title={t.headings.company.title} subtitle={t.headings.company.sub} />
-        <div className="grid grid-cols-1">
-          {info.map((item, index) => (
-            <Reveal key={index} delay={index * 100}>
-                <div className="group flex flex-col md:flex-row py-10 border-b border-gray-200 hover:border-accent transition-colors duration-500">
-                  <div className="md:w-1/3 mb-4 md:mb-0">
-                      <span className="text-sm font-bold uppercase tracking-widest text-gray-400 group-hover:text-accent transition-colors">{item.label}</span>
-                  </div>
-                  <div className="md:w-2/3">
-                      <p className="text-2xl md:text-3xl font-medium text-offblack whitespace-pre-line leading-relaxed">{item.value}</p>
+
+        {/* 代表メッセージ */}
+        <section className="mb-24 md:mb-32">
+          <Reveal>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
+              <div className="lg:col-span-4">
+                <span className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-accent">{c.message.eyebrow}</span>
+                <h2 className="text-3xl md:text-4xl font-bold text-offblack tracking-tight mt-3 leading-snug">{c.message.title}</h2>
+                <div className="w-16 h-1.5 bg-accent mt-5 rounded-full" />
+              </div>
+              <div className="lg:col-span-8">
+                <div className="space-y-6">
+                  {c.message.paragraphs.map((para, i) => (
+                    <p key={i} className="text-base md:text-lg text-gray-700 leading-[2]">{para}</p>
+                  ))}
+                </div>
+                <div className="mt-10 pt-8 border-t border-gray-200 flex items-end justify-between gap-6">
+                  <div>
+                    <p className="text-sm text-gray-500">{c.message.role}</p>
+                    <p className="text-2xl md:text-3xl font-bold text-offblack tracking-tight mt-1">{c.message.name}</p>
+                    <p className="text-xs font-mono uppercase tracking-[0.2em] text-gray-400 mt-2">{c.message.nameEn}</p>
                   </div>
                 </div>
-            </Reveal>
-          ))}
-        </div>
+              </div>
+            </div>
+          </Reveal>
+        </section>
+
+        {/* 会社情報 */}
+        <section className="mb-24 md:mb-32">
+          <Reveal>
+            <h2 className="text-2xl md:text-3xl font-bold text-offblack tracking-tight mb-4">{c.profileTitle}</h2>
+          </Reveal>
+          <dl className="grid grid-cols-1 border-t border-gray-200">
+            {c.items.map((item, index) => (
+              <Reveal key={index} delay={index * 60}>
+                <div className="flex flex-col md:flex-row gap-2 md:gap-8 py-7 border-b border-gray-200">
+                  <dt className="md:w-1/4 text-sm font-bold text-gray-500 pt-1">{item.label}</dt>
+                  <dd className="md:w-3/4 text-lg md:text-xl font-medium text-offblack whitespace-pre-line leading-relaxed">{item.value}</dd>
+                </div>
+              </Reveal>
+            ))}
+          </dl>
+        </section>
+
+        {/* 沿革 */}
+        <section className="mb-24 md:mb-32">
+          <Reveal>
+            <h2 className="text-2xl md:text-3xl font-bold text-offblack tracking-tight mb-10">{c.history.title}</h2>
+          </Reveal>
+          <ol className="relative border-l-2 border-gray-200 ml-2 space-y-8">
+            {c.history.items.map((h, i) => (
+              <Reveal key={i} delay={i * 60}>
+                <li className="pl-8 relative">
+                  <span className="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-white border-2 border-accent" />
+                  <p className="text-sm font-mono font-bold text-accent tracking-wide">{h.date}</p>
+                  <p className="text-base md:text-lg text-offblack font-medium mt-1 leading-relaxed">{h.text}</p>
+                </li>
+              </Reveal>
+            ))}
+          </ol>
+        </section>
+
+        {/* アクセス */}
+        <section className="mb-16">
+          <Reveal>
+            <h2 className="text-2xl md:text-3xl font-bold text-offblack tracking-tight mb-6">{c.access.title}</h2>
+            <p className="text-base md:text-lg text-gray-700 leading-relaxed">{c.access.address}</p>
+            <div className="mt-6 rounded-2xl overflow-hidden border border-gray-200 bg-gray-100 aspect-[16/9] md:aspect-[21/9]">
+              <iframe
+                title={c.access.mapTitle}
+                src={`https://www.google.com/maps?q=${mapQuery}&output=embed`}
+                className="w-full h-full border-0"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
+            <div className="flex flex-wrap gap-x-8 gap-y-3 mt-5">
+              <a
+                href={`https://www.google.com/maps/search/?api=1&query=${mapQuery}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm font-bold text-accent hover:gap-3 transition-all"
+              >
+                {c.access.mapLabel} <ArrowRight className="w-4 h-4" />
+              </a>
+              <button
+                onClick={() => onNavigate?.('mission')}
+                className="inline-flex items-center gap-2 text-sm font-bold text-offblack hover:text-accent transition-colors"
+              >
+                {c.missionLink} <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          </Reveal>
+        </section>
       </div>
     </PageTransition>
   );
@@ -1336,7 +1478,38 @@ const CareerView: React.FC = () => {
   )
 }
 
-const BlogView: React.FC = () => {
+// お知らせの一覧。内部リンクはSPA遷移、/column は静的ページなので通常のリンク
+const NewsList: React.FC<{ limit?: number; onNavigate?: (view: ViewState) => void }> = ({ limit, onNavigate }) => {
+  const { t } = useLanguage();
+  const items = limit ? t.news.items.slice(0, limit) : t.news.items;
+  return (
+    <ul className="border-t border-gray-200">
+      {items.map((n, i) => {
+        const isStatic = n.href.startsWith('/column');
+        const inner = (
+          <>
+            <span className="font-mono text-sm text-gray-500 tabular-nums w-24 flex-shrink-0">{n.date}</span>
+            <span className="inline-flex items-center justify-center min-w-[4.5rem] px-2.5 py-0.5 rounded-full bg-accent/10 text-accent text-[11px] font-bold flex-shrink-0">{n.category}</span>
+            <span className="flex-1 text-base text-offblack font-medium leading-relaxed group-hover:text-accent transition-colors">{n.title}</span>
+            <ArrowRight className="hidden sm:block w-4 h-4 text-gray-300 group-hover:text-accent group-hover:translate-x-1 transition-all flex-shrink-0" />
+          </>
+        );
+        const cls = 'group flex flex-wrap sm:flex-nowrap items-center gap-x-5 gap-y-2 py-5 border-b border-gray-200 w-full text-left';
+        return (
+          <li key={i}>
+            {isStatic ? (
+              <a href={n.href} className={cls}>{inner}</a>
+            ) : (
+              <button onClick={() => onNavigate?.(viewForPath(n.href))} className={cls}>{inner}</button>
+            )}
+          </li>
+        );
+      })}
+    </ul>
+  );
+};
+
+const BlogView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavigate }) => {
   const [selectedPost, setSelectedPost] = useState<number | null>(null);
   const { t } = useLanguage();
 
@@ -1353,107 +1526,88 @@ const BlogView: React.FC = () => {
      "/assets/blog_strategy.jpg",
      "/assets/blog_methodology.jpg"
   ];
-  
+
   const posts = t.blog.items.map((item, i) => ({
     ...item,
     image: staticImages[i] || staticImages[0]
   }));
+  const post = selectedPost !== null ? posts[selectedPost] : null;
 
   return (
     <PageTransition>
-      <div className="px-6 md:px-12 max-w-screen-xl mx-auto py-20">
-        <SectionHeading title="Journal" subtitle="Thoughts & Vision" dark as="h1" />
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {posts.map((post, i) => (
-            <Reveal key={post.id} delay={i * 100}>
-              <div 
-                onClick={() => setSelectedPost(i)}
-                className="group cursor-pointer bg-gray-900/50 rounded-[2.5rem] border border-gray-800 p-2 hover:border-accent/40 transition-all duration-700 hover:shadow-2xl flex flex-col h-full"
-              >
-                <div className="relative aspect-[4/3] rounded-[2rem] overflow-hidden mb-6">
-                  <img src={post.image} loading="lazy" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2s]" alt={post.title} />
-                  <div className="absolute top-6 left-6 px-4 py-1.5 bg-accent/90 backdrop-blur-md text-white text-[10px] font-bold tracking-widest uppercase rounded-full">
-                    {post.category}
-                  </div>
-                </div>
-                
-                <div className="px-6 pb-8 flex flex-col flex-grow">
-                  <div className="flex items-center gap-2 text-gray-500 font-mono text-xs mb-4">
-                    <Calendar className="w-3.5 h-3.5" />
-                    <span>{post.date}</span>
-                  </div>
-                  <h3 className="text-2xl font-bold tracking-tighter text-white mb-4 leading-tight group-hover:text-accent transition-colors duration-300">
-                    {post.title}
-                  </h3>
-                  <p className="text-gray-400 text-sm leading-relaxed mb-6 line-clamp-3">
-                    {post.excerpt}
-                  </p>
-                  <div className="mt-auto flex items-center gap-2 text-accent font-bold text-sm tracking-tight group-hover:translate-x-2 transition-transform duration-300">
-                    Read More <ArrowRight className="w-4 h-4" />
-                  </div>
-                </div>
-              </div>
-            </Reveal>
-          ))}
-        </div>
+      <div className="px-6 md:px-12 max-w-screen-xl mx-auto">
+        <SectionHeading as="h1" title={t.headings.blog.title} subtitle={t.headings.blog.sub} />
 
-        {/* Post Detail Modal */}
-        {selectedPost !== null && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-12 overflow-y-auto">
-            <div 
-              className="fixed inset-0 bg-offblack/95 backdrop-blur-2xl animate-in fade-in duration-500" 
-              onClick={() => setSelectedPost(null)}
-            />
-            <div className="relative w-full max-w-4xl bg-gray-900 rounded-[3rem] border border-gray-800 overflow-hidden shadow-2xl animate-in fade-in zoom-in-95 duration-500 flex flex-col md:flex-row max-h-[90vh]">
-              <button 
+        {/* お知らせ */}
+        <section className="mb-24 md:mb-32">
+          <Reveal>
+            <span className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-accent">{t.news.eyebrow}</span>
+            <h2 className="text-2xl md:text-3xl font-bold text-offblack tracking-tight mt-3 mb-8">{t.news.title}</h2>
+          </Reveal>
+          <Reveal>
+            <NewsList onNavigate={onNavigate} />
+          </Reveal>
+        </section>
+
+        {/* ジャーナル */}
+        <section>
+          <Reveal>
+            <span className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-accent">{t.journal.eyebrow}</span>
+            <h2 className="text-2xl md:text-3xl font-bold text-offblack tracking-tight mt-3">{t.journal.title}</h2>
+            <p className="text-gray-600 leading-relaxed mt-3 mb-10">{t.journal.lead}</p>
+          </Reveal>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {posts.map((p, i) => (
+              <Reveal key={p.id} delay={(i % 3) * 90} className="h-full">
+                <button
+                  onClick={() => setSelectedPost(i)}
+                  className="group h-full w-full text-left bg-white rounded-3xl border border-gray-200 overflow-hidden hover:border-accent hover:shadow-lg transition-all duration-300 flex flex-col"
+                >
+                  <div className="relative aspect-[16/10] overflow-hidden bg-gray-100">
+                    <img src={p.image} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt={p.title} />
+                    <span className="absolute top-4 left-4 px-3 py-1 bg-white/95 text-accent text-[10px] font-bold tracking-widest uppercase rounded-full">{p.category}</span>
+                  </div>
+                  <div className="p-6 flex flex-col flex-grow">
+                    <span className="font-mono text-xs text-gray-400">{p.date}</span>
+                    <h3 className="text-lg font-bold text-offblack mt-2 mb-3 leading-snug group-hover:text-accent transition-colors">{p.title}</h3>
+                    <p className="text-gray-600 text-sm leading-relaxed line-clamp-3 flex-grow">{p.excerpt}</p>
+                    <span className="mt-5 inline-flex items-center gap-2 text-accent font-bold text-sm">
+                      {t.journal.readMore} <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </span>
+                  </div>
+                </button>
+              </Reveal>
+            ))}
+          </div>
+        </section>
+
+        {/* 記事の本文 */}
+        {post && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10">
+            <div className="fixed inset-0 bg-offblack/50 backdrop-blur-sm" onClick={() => setSelectedPost(null)} />
+            <div role="dialog" aria-modal="true" aria-label={post.title} className="relative w-full max-w-3xl bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+              <button
                 onClick={() => setSelectedPost(null)}
-                className="absolute top-8 right-8 z-10 w-12 h-12 rounded-full bg-white/10 hover:bg-accent text-white flex items-center justify-center backdrop-blur-md transition-all duration-300 group"
+                aria-label={t.journal.close}
+                className="absolute top-5 right-5 z-10 w-11 h-11 rounded-full bg-white/90 border border-gray-200 hover:bg-offblack hover:text-white text-offblack flex items-center justify-center transition-colors"
               >
-                <X className="w-6 h-6 group-hover:rotate-90 transition-transform duration-300" />
+                <X className="w-5 h-5" />
               </button>
-              
-              <div className="md:w-1/2 h-64 md:h-auto relative">
-                <img src={posts[selectedPost].image} className="w-full h-full object-cover" alt="" />
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent md:hidden" />
+              <div className="h-48 md:h-64 flex-shrink-0 bg-gray-100">
+                <img src={post.image} className="w-full h-full object-cover" alt="" />
               </div>
-              
-              <div className="md:w-1/2 p-8 md:p-16 overflow-y-auto custom-scrollbar">
-                <div className="flex items-center gap-4 mb-8">
-                  <span className="px-3 py-1 bg-accent/20 text-accent text-[10px] font-bold tracking-widest uppercase rounded-full border border-accent/30">
-                    {posts[selectedPost].category}
-                  </span>
-                  <span className="text-gray-500 font-mono text-xs">{posts[selectedPost].date}</span>
+              <div className="p-7 md:p-12 overflow-y-auto">
+                <div className="flex items-center gap-3 mb-5">
+                  <span className="px-3 py-1 bg-accent/10 text-accent text-[10px] font-bold tracking-widest uppercase rounded-full">{post.category}</span>
+                  <span className="text-gray-400 font-mono text-xs">{post.date}</span>
                 </div>
-                
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-white mb-8 leading-tight">
-                  {posts[selectedPost].title}
-                </h2>
-                
-                <div className="prose prose-invert max-w-none">
-                  <p className="text-gray-300 text-lg leading-relaxed font-medium mb-8 italic border-l-4 border-accent pl-6">
-                    {posts[selectedPost].excerpt}
-                  </p>
-                  <p className="text-gray-400 leading-relaxed whitespace-pre-line text-base">
-                    {posts[selectedPost].content}
-                  </p>
-                </div>
-
-                <div className="mt-12 pt-12 border-t border-gray-800 flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center">
-                      <User className="w-5 h-5 text-white" />
-                    </div>
-                    <div>
-                      <span className="block text-white font-bold text-sm">Editorial Team</span>
-                      <span className="block text-gray-500 text-xs tracking-wide">MGC Journal</span>
-                    </div>
-                  </div>
-                  <button 
-                    onClick={() => setSelectedPost(null)}
-                    className="text-gray-400 hover:text-white transition-colors text-sm font-bold flex items-center gap-2"
-                  >
-                    Close
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-offblack mb-6 leading-snug">{post.title}</h2>
+                <p className="text-gray-700 text-lg leading-relaxed font-medium mb-8 border-l-4 border-accent pl-5">{post.excerpt}</p>
+                <p className="text-gray-700 leading-[2] whitespace-pre-line">{post.content}</p>
+                <div className="mt-10 pt-8 border-t border-gray-200 flex items-center justify-between">
+                  <span className="text-sm font-bold text-gray-500">{t.journal.author}</span>
+                  <button onClick={() => setSelectedPost(null)} className="text-sm font-bold text-offblack hover:text-accent transition-colors">
+                    {t.journal.close}
                   </button>
                 </div>
               </div>
@@ -1734,24 +1888,24 @@ const ContactView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onN
 const getContentData = (t: typeof translations['ja']) => ({
   service_ai: {
     ...t.details.service_ai,
-    theme: 'dark' as const,
+    theme: 'light' as const,
     number: "01",
-    icon: <Globe className="w-6 h-6 text-white stroke-[1.5]" />,
+    icon: <Globe className="w-6 h-6 text-accent stroke-[1.5]" />,
     details: (
       <>
-        <p className="text-xl md:text-3xl font-light leading-relaxed mb-12 whitespace-pre-line text-gray-300">
+        <p className="text-xl md:text-3xl font-light leading-relaxed mb-12 whitespace-pre-line text-gray-700">
           {t.details.service_ai.p1}
         </p>
         <div className="space-y-12">
           {t.details.service_ai.features.map((f, i) => (
-             <div key={i} className="border-t border-gray-800 pt-8">
+             <div key={i} className="border-t border-gray-200 pt-8">
                <div className="flex flex-col md:flex-row gap-8">
                  <div className="md:w-1/3">
                    <span className="text-accent font-bold tracking-widest text-sm mb-2 block">0{i+1}</span>
-                   <h4 className="text-2xl font-bold">{f.title}<br/><span className="text-base text-gray-400 font-normal">{f.sub}</span></h4>
+                   <h4 className="text-2xl font-bold text-offblack">{f.title}<br/><span className="text-base text-gray-500 font-normal">{f.sub}</span></h4>
                  </div>
                  <div className="md:w-2/3">
-                   <p className="text-gray-400 text-lg leading-relaxed">{f.text}</p>
+                   <p className="text-gray-600 text-lg leading-relaxed">{f.text}</p>
                  </div>
                </div>
              </div>
@@ -1818,24 +1972,24 @@ const getContentData = (t: typeof translations['ja']) => ({
   },
   service_lab: {
     ...t.details.service_lab,
-    theme: 'dark' as const,
+    theme: 'light' as const,
     number: "04",
-    icon: <Zap className="w-6 h-6 text-white stroke-[1.5]" />,
+    icon: <Zap className="w-6 h-6 text-accent stroke-[1.5]" />,
     details: (
       <>
-        <p className="text-xl md:text-3xl font-light leading-relaxed mb-12 whitespace-pre-line text-gray-300">
+        <p className="text-xl md:text-3xl font-light leading-relaxed mb-12 whitespace-pre-line text-gray-700">
           {t.details.service_lab.p1}
         </p>
         <div className="space-y-12">
           {t.details.service_lab.features.map((f, i) => (
-             <div key={i} className="border-t border-gray-800 pt-8">
+             <div key={i} className="border-t border-gray-200 pt-8">
                <div className="flex flex-col md:flex-row gap-8">
                  <div className="md:w-1/3">
                    <span className="text-accent font-bold tracking-widest text-sm mb-2 block">0{i+1}</span>
-                   <h4 className="text-2xl font-bold">{f.title}<br/><span className="text-base text-gray-400 font-normal">{f.sub}</span></h4>
+                   <h4 className="text-2xl font-bold text-offblack">{f.title}<br/><span className="text-base text-gray-500 font-normal">{f.sub}</span></h4>
                  </div>
                  <div className="md:w-2/3">
-                   <p className="text-gray-400 text-lg leading-relaxed">{f.text}</p>
+                   <p className="text-gray-600 text-lg leading-relaxed">{f.text}</p>
                  </div>
                </div>
              </div>
@@ -1865,19 +2019,19 @@ const TrainingView: React.FC = () => {
         <section className="px-6 md:px-12">
           <div className="max-w-screen-xl mx-auto">
             <Reveal>
-              <div className="relative overflow-hidden rounded-[1.75rem] md:rounded-[2.5rem] bg-[#111418] text-white">
-                <GridPattern dark />
+              <div className="relative overflow-hidden rounded-[1.75rem] md:rounded-[2.5rem] bg-[#F4F6FB] border border-gray-200 text-[#111418]">
+                <GridPattern />
                 <div className="relative px-6 md:px-16 py-14 md:py-24">
-                  <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/20 bg-white/5 text-white/80 text-xs md:text-sm font-medium">
+                  <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#2D6CDF]/20 bg-white text-gray-600 text-xs md:text-sm font-medium">
                     <span className="w-2 h-2 rounded-full bg-[#2D6CDF]" />
                     {tr.hero.badge}
                   </span>
                   <h1 className="text-3xl md:text-6xl font-bold tracking-tight leading-[1.25] mt-6">{tr.hero.title}</h1>
-                  <p className="text-base md:text-2xl text-white/55 font-medium mt-3 leading-[1.6]">{tr.hero.titleSub}</p>
-                  <p className="max-w-3xl text-base md:text-lg text-white/85 leading-[1.9] mt-8">{tr.hero.lead}</p>
+                  <p className="text-base md:text-2xl text-gray-500 font-medium mt-3 leading-[1.6]">{tr.hero.titleSub}</p>
+                  <p className="max-w-3xl text-base md:text-lg text-gray-700 leading-[1.9] mt-8">{tr.hero.lead}</p>
                   <a
                     href={tr.contact.ctaHref}
-                    className="group inline-flex items-center gap-2.5 mt-10 px-7 py-4 rounded-full bg-[#2D6CDF] text-white font-bold text-sm md:text-base tracking-tight shadow-xl shadow-[#2D6CDF]/25 hover:bg-white hover:text-[#111418] transition-all duration-300"
+                    className="group inline-flex items-center gap-2.5 mt-10 px-7 py-4 rounded-full bg-[#2D6CDF] text-white font-bold text-sm md:text-base tracking-tight shadow-xl shadow-[#2D6CDF]/25 hover:bg-[#111418] transition-all duration-300"
                   >
                     {tr.hero.cta}
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
@@ -1954,10 +2108,10 @@ const TrainingView: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
               {tr.flow.steps.map((step, i) => (
                 <Reveal key={i} delay={i * 90}>
-                  <div className="relative rounded-2xl bg-[#111418] text-white p-6 md:p-7 h-full">
+                  <div className="relative rounded-2xl bg-white border border-gray-200 text-[#111418] p-6 md:p-7 h-full">
                     <span className="text-[#2D6CDF] font-bold tracking-widest text-sm">{step.no}</span>
                     <h3 className="text-lg md:text-xl font-bold mt-2 leading-[1.5]">{step.title}</h3>
-                    <p className="text-sm text-white/70 mt-3 leading-[1.8]">{step.desc}</p>
+                    <p className="text-sm text-gray-600 mt-3 leading-[1.8]">{step.desc}</p>
                   </div>
                 </Reveal>
               ))}
@@ -1970,14 +2124,14 @@ const TrainingView: React.FC = () => {
           <div className="max-w-screen-xl mx-auto">
             <Reveal><Head eyebrow={tr.contact.eyebrow} title={tr.contact.heading} /></Reveal>
             <Reveal>
-              <div className="rounded-[1.75rem] md:rounded-[2.5rem] bg-[#111418] text-white overflow-hidden">
+              <div className="rounded-[1.75rem] md:rounded-[2.5rem] bg-white border border-gray-200 text-[#111418] overflow-hidden">
                 <div className="grid grid-cols-1 lg:grid-cols-5">
                   <div className="lg:col-span-3 p-7 md:p-12">
-                    <p className="text-base md:text-lg text-white/85 leading-[1.9]">{tr.contact.lead}</p>
+                    <p className="text-base md:text-lg text-gray-700 leading-[1.9]">{tr.contact.lead}</p>
                     <p className="text-2xl md:text-3xl font-bold mt-8 mb-6">{tr.contact.corp}</p>
                     <dl className="space-y-4">
                       {tr.contact.rows.map((row, i) => (
-                        <div key={i} className="flex flex-col md:flex-row md:items-baseline gap-1 md:gap-6 border-b border-white/10 pb-4">
+                        <div key={i} className="flex flex-col md:flex-row md:items-baseline gap-1 md:gap-6 border-b border-gray-200 pb-4">
                           <dt className="md:w-24 flex-shrink-0 text-xs font-bold tracking-widest uppercase text-[#2D6CDF]">{row.label}</dt>
                           <dd className="flex-1 text-base md:text-lg leading-[1.7] break-words">
                             {'href' in row && row.href ? (
@@ -1985,12 +2139,12 @@ const TrainingView: React.FC = () => {
                                 href={row.href}
                                 target={row.href.startsWith('http') ? '_blank' : undefined}
                                 rel={row.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                                className="text-white hover:text-[#2D6CDF] transition-colors underline decoration-white/20 underline-offset-4"
+                                className="text-[#111418] hover:text-[#2D6CDF] transition-colors underline decoration-gray-300 underline-offset-4"
                               >
                                 {row.value}
                               </a>
                             ) : (
-                              <span className="text-white">{row.value}</span>
+                              <span className="text-[#111418]">{row.value}</span>
                             )}
                           </dd>
                         </div>
@@ -3096,9 +3250,6 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
     setIsMenuOpen(false);
   };
 
-  // ジャーナルだけ背景が暗いため、フッターの配色を切り替える
-  const dark = view === 'blog';
-
   // フッターのリンク。ヘッダーより広く、役割ごとにまとめて並べる。
   const footerGroups: { title: string; links: NavLeaf[] }[] = [
     {
@@ -3147,7 +3298,7 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
 
   return (
     <LanguageContext.Provider value={{ lang, setLang, t }}>
-    <div className={`min-h-screen transition-colors duration-500 font-sans ${view === 'blog' ? 'bg-offblack text-white' : 'bg-offwhite text-offblack'}`}>
+    <div className="min-h-screen font-sans bg-offwhite text-offblack">
       
       {/* Header */}
       <header className="fixed top-0 left-0 w-full py-6 px-6 md:px-12 z-50 flex justify-between items-center mix-blend-difference text-white">
@@ -3287,10 +3438,10 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
         {isServiceKey(view) && <ServiceView serviceKey={view} />}
         {view === 'cases' && <CasesView />}
         {view === 'diagnosis' && <DiagnosisView />}
-        {view === 'blog' && <BlogView />}
+        {view === 'blog' && <BlogView onNavigate={navigate} />}
         {view === 'mission' && <MissionView />}
         {/* PartnersView is hidden */}
-        {view === 'company' && <CompanyView />}
+        {view === 'company' && <CompanyView onNavigate={navigate} />}
         {view === 'career' && <CareerView />}
         {view === 'contact' && <ContactView onNavigate={navigate} />}
       </main>
@@ -3315,20 +3466,20 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
         </button>
       )}
 
-      <footer className={`px-6 md:px-12 pt-16 md:pt-20 pb-10 border-t ${dark ? 'border-gray-800 text-gray-400' : 'border-gray-200 text-gray-500'}`}>
+      <footer className={`px-6 md:px-12 pt-16 md:pt-20 pb-10 border-t border-gray-200 text-gray-500`}>
         <div className="max-w-screen-xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8">
             {/* ブランド・所在地・相談への導線 */}
             <div className="md:col-span-4 lg:col-span-5">
               <button onClick={() => navigate('home')} className="flex items-center gap-3 group">
-                <span className={`w-12 h-8 flex items-center justify-center ${dark ? 'bg-white' : 'bg-offblack'}`}>
-                  <span className={`w-4 h-4 rounded-full ${dark ? 'bg-black' : 'bg-white'}`} />
+                <span className={`w-12 h-8 flex items-center justify-center bg-offblack`}>
+                  <span className={`w-4 h-4 rounded-full bg-white`} />
                 </span>
-                <span className={`text-lg font-bold tracking-tighter ${dark ? 'text-white' : 'text-offblack'} group-hover:text-accent transition-colors`}>
+                <span className={`text-lg font-bold tracking-tighter text-offblack group-hover:text-accent transition-colors`}>
                   MGC Inc.
                 </span>
               </button>
-              <p className={`text-sm font-bold mt-6 ${dark ? 'text-gray-300' : 'text-offblack'}`}>{t.footer.tagline}</p>
+              <p className={`text-sm font-bold mt-6 text-offblack`}>{t.footer.tagline}</p>
               <p className="text-sm leading-relaxed mt-4">{t.footer.corp}</p>
               <p className="text-sm leading-relaxed">{t.footer.address}</p>
               <button
@@ -3343,20 +3494,20 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
             {/* リンク集 */}
             {footerGroups.map((group) => (
               <div key={group.title} className="md:col-span-4 lg:col-span-2 lg:col-start-auto">
-                <h2 className={`text-[10px] font-mono font-bold uppercase tracking-[0.25em] mb-5 ${dark ? 'text-gray-500' : 'text-gray-400'}`}>
+                <h2 className={`text-[10px] font-mono font-bold uppercase tracking-[0.25em] mb-5 text-gray-400`}>
                   {group.title}
                 </h2>
                 <ul className="space-y-3">
                   {group.links.map((link) => (
                     <li key={link.href ?? link.id}>
                       {link.href ? (
-                        <a href={link.href} className={`text-sm font-medium hover:text-accent transition-colors ${dark ? 'text-gray-300' : 'text-gray-700'}`}>
+                        <a href={link.href} className={`text-sm font-medium hover:text-accent transition-colors text-gray-700`}>
                           {link.label}
                         </a>
                       ) : (
                         <button
                           onClick={() => link.id && navigate(link.id)}
-                          className={`text-sm font-medium text-left hover:text-accent transition-colors ${dark ? 'text-gray-300' : 'text-gray-700'}`}
+                          className={`text-sm font-medium text-left hover:text-accent transition-colors text-gray-700`}
                         >
                           {link.label}
                         </button>
@@ -3369,7 +3520,7 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
           </div>
 
           {/* 最下段 */}
-          <div className={`mt-14 md:mt-16 pt-6 border-t flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 ${dark ? 'border-gray-800' : 'border-gray-200'}`}>
+          <div className={`mt-14 md:mt-16 pt-6 border-t flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-gray-200`}>
             <p className="text-xs opacity-70">{t.footer.rights}</p>
             <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs">
               <a href="/privacy-policy" className="hover:text-accent transition-colors">{t.footer.privacy}</a>
