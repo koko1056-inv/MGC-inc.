@@ -654,10 +654,19 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
                   </span>
                 ))}
               </div>
+              {cs.company && <p className="text-xs font-bold text-gray-500 mb-1">{cs.company.name}</p>}
               <h3 className="text-xl md:text-2xl font-bold tracking-tight text-offblack leading-snug">{cs.industry}</h3>
               <p className="text-sm text-gray-500 leading-relaxed mt-2">{cs.scale}</p>
               <p className="text-sm text-gray-600 leading-relaxed mt-5 line-clamp-4 flex-grow">{cs.summary}</p>
-              {cs.result && (
+              {cs.metrics?.length ? (
+                <div className="mt-6 pt-5 border-t border-gray-200">
+                  <p className="flex items-baseline gap-1 leading-none">
+                    <span className="text-4xl font-bold tracking-tight text-offblack tabular-nums">{cs.metrics[0].value}</span>
+                    <span className="text-base font-bold text-accent">{cs.metrics[0].unit}</span>
+                  </p>
+                  <p className="text-xs text-gray-500 mt-2">{cs.metrics[0].label}</p>
+                </div>
+              ) : cs.result && (
                 <p className="mt-6 pt-5 border-t border-gray-200 text-base font-bold text-offblack leading-snug">
                   {cs.result.label}
                 </p>
@@ -2666,6 +2675,12 @@ const CasesView: React.FC = () => {
                         </span>
                       ))}
                     </div>
+                    {cs.company && (
+                      <div className="flex items-center gap-3 mb-3">
+                        {cs.company.logo && <img src={cs.company.logo} alt={cs.company.name} className="h-8 w-auto object-contain" loading="lazy" />}
+                        <span className="text-sm font-bold text-gray-600">{cs.company.name}</span>
+                      </div>
+                    )}
                     <h2 className="text-2xl md:text-3xl font-bold text-[#111418] leading-[1.5]">{cs.industry}</h2>
                     <p className="text-sm md:text-base text-gray-600 leading-[1.8] mt-2">{cs.scale}</p>
                     <p className="text-[15px] md:text-base text-[#1A2233] leading-[1.9] mt-5 max-w-3xl">{cs.summary}</p>
@@ -2674,8 +2689,22 @@ const CasesView: React.FC = () => {
                         <span className="text-xs font-bold tracking-widest uppercase text-[#2D6CDF]">
                           {lang === 'ja' ? '成果' : 'Result'}
                         </span>
-                        <p className="text-xl md:text-2xl font-bold text-[#111418] leading-[1.5] mt-2">{cs.result.label}</p>
-                        <p className="text-[15px] text-gray-600 leading-[1.9] mt-2.5">{cs.result.desc}</p>
+                        {cs.metrics?.length ? (
+                          <div className="flex flex-wrap gap-x-10 gap-y-4 mt-3">
+                            {cs.metrics.map((m, mi) => (
+                              <div key={mi}>
+                                <p className="flex items-baseline gap-1.5 leading-none">
+                                  <span className="text-5xl md:text-6xl font-bold tracking-tight text-[#111418] tabular-nums">{m.value}</span>
+                                  <span className="text-lg md:text-xl font-bold text-[#2D6CDF]">{m.unit}</span>
+                                </p>
+                                <p className="text-sm text-gray-600 mt-2">{m.label}</p>
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <p className="text-xl md:text-2xl font-bold text-[#111418] leading-[1.5] mt-2">{cs.result.label}</p>
+                        )}
+                        <p className="text-[15px] text-gray-600 leading-[1.9] mt-4">{cs.result.desc}</p>
                       </div>
                     )}
                   </div>
@@ -2754,6 +2783,13 @@ const CasesView: React.FC = () => {
                     </div>
                     {cs.note && (
                       <p className="mt-5 text-sm text-gray-500 leading-[1.9] border-l-2 border-gray-300 pl-4">{cs.note}</p>
+                    )}
+                    {cs.voice && (
+                      <figure className="mt-8 rounded-2xl bg-[#F4F6FB] px-6 md:px-8 py-6 md:py-7">
+                        <span className="text-xs font-bold tracking-widest uppercase text-[#2D6CDF]">{lang === 'ja' ? 'お客様の声' : 'Client voice'}</span>
+                        <blockquote className="text-base md:text-lg text-[#111418] font-medium leading-[1.9] mt-3">「{cs.voice.text}」</blockquote>
+                        <figcaption className="text-sm text-gray-500 mt-3">{cs.voice.person}</figcaption>
+                      </figure>
                     )}
                   </div>
                 </article>
@@ -3213,7 +3249,12 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
   // ハッシュ変更（旧リンク・ページ内リンク）とブラウザの戻る/進む（popstate）の両方に追従する
   useEffect(() => {
     const sync = () => {
-      setView(getViewFromLocation());
+      const next = getViewFromLocation();
+      // サービスページ等の「#contact/…」リンクから相談フォームへ来た導線を計測する
+      if (next === 'contact' && viewRef.current !== 'contact' && window.location.hash.startsWith('#contact')) {
+        track('contact_cta', { from: viewRef.current, via: window.location.hash.slice(1) });
+      }
+      setView(next);
       window.scrollTo(0, 0);
       setIsMenuOpen(false);
     };
@@ -3234,6 +3275,25 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
   // ハイドレーションが終わったら、以降に現れる要素はスクロールで出す演出に戻す
   useEffect(() => { markHydrated(); }, []);
 
+  // 計測: イベントハンドラから最新のビューを読むための参照
+  const viewRef = useRef(view);
+  useEffect(() => { viewRef.current = view; }, [view]);
+
+  // 計測: 電話・メール・外部サイトへのクリック（個人情報は送らず、種類とページだけ）
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      const a = (e.target as HTMLElement | null)?.closest?.('a');
+      const href = a?.getAttribute('href') ?? '';
+      if (!href) return;
+      if (href.startsWith('tel:')) track('tel_click', { page: viewRef.current });
+      else if (href.startsWith('mailto:')) track('mail_click', { page: viewRef.current });
+      else if (href === '/column' || href.startsWith('/column/')) track('column_click', { page: viewRef.current });
+      else if (/^https?:\/\//.test(href) && !href.startsWith(SITE_ORIGIN)) track('outbound_click', { page: viewRef.current, host: new URL(href).hostname });
+    };
+    document.addEventListener('click', onClick);
+    return () => document.removeEventListener('click', onClick);
+  }, []);
+
   // Update HTML lang attribute
   useEffect(() => {
     document.documentElement.lang = lang;
@@ -3241,6 +3301,8 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
 
   // クリーンURLへ遷移する。ハッシュは付けない（旧ハッシュ付きURLから来た場合はここで消える）
   const navigate = (id: ViewState) => {
+    // どのページから相談フォームへ来たかを計測する（ボタンごとに印を付けず、遷移の一か所で取る）
+    if (id === 'contact' && view !== 'contact') track('contact_cta', { from: view });
     const path = pathForView(id);
     if (window.location.pathname !== path || window.location.hash) {
       window.history.pushState({}, '', path);

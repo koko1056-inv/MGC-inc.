@@ -321,6 +321,8 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
   .article > h2{font-size:1.25rem;margin-top:44px}
   .site-footer .cols{grid-template-columns:1fr}
 }</style>
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 <div class="progress" id="progress"></div>
@@ -391,6 +393,14 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 </div>
 <div class="bottom"><span>© 2026 MGC Inc. All Rights Reserved.</span><span><a href="/privacy-policy">プライバシーポリシー</a>　<a href="/terms-of-service">利用規約</a></span></div>
 </footer>
+<script>
+document.addEventListener('click',function(e){
+  var a=e.target&&e.target.closest?e.target.closest('a'):null; if(!a) return;
+  var h=a.getAttribute('href')||'';
+  var name = h.indexOf('/contact')===0 ? 'contact_cta' : h.indexOf('/cases')===0 ? 'cases_click' : h.indexOf('/service/')===0 ? 'service_click' : null;
+  if(name) window.va('event',{name:name,data:{from:'column',page:location.pathname}});
+});
+</script>
 <script>
 (function(){
   var bar=document.getElementById('progress');
