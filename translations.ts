@@ -10,7 +10,7 @@ export const translations = {
       cases: '導入事例',
       training: '研修',
       column: 'コラム',
-      blog: 'Journal',
+      blog: 'お知らせ・ジャーナル',
       mission: '会社理念',
       company: '会社概要',
       career: '採用情報',
@@ -166,7 +166,7 @@ export const translations = {
       alliance: { title: 'アライアンス', sub: 'Alliance' },
       company: { title: '会社概要', sub: 'Corporate Profile' },
       career: { title: '採用情報', sub: 'Careers' },
-      blog: { title: 'ジャーナル', sub: 'Journal' },
+      blog: { title: 'お知らせ・ジャーナル', sub: 'News & Journal' },
       contact: { title: 'お問い合わせ', sub: 'Contact' },
     },
     worksIntro: {
@@ -272,18 +272,68 @@ export const translations = {
         { title: "楽観主義", sub: "Optimism", desc: "未来は技術でより良くできると信じ、前向きに挑む。楽しく働けている状態を大切にする。" },
         { title: "誠実さ", sub: "Integrity", desc: "顧客にも仲間にも、ごまかさず真摯に向き合う。" },
         { title: "思考の枠を超える", sub: "Think Beyond", desc: "普通のやり方・既存の前提にとらわれず、独自の視点と新しい発想で考える。" },
-      ]
+      ],
+      visionLabel: "Vision",
+      valuesTitle: "バリュー（行動指針）",
+      principle: {
+        eyebrow: "Principle",
+        title: "まず、AIネイティブにやってみる。",
+        desc: "新しい仕事・事業・課題に向き合うとき、最初からAIに任せる前提で組み立てます。人がやる前提で作ってからAIを足すのではなく、AIネイティブに設計してから、人が判断すべき箇所を決める。お客様の業務も、私たち自身の業務も、この順番で考えます。",
+      },
+      offer: {
+        title: "私たちが届ける価値",
+        items: [
+          { title: "スピード", desc: "AIネイティブだからこそ出せる速さで、価値を届けます。" },
+          { title: "世界中への展開", desc: "日本にとどまらず、世界へ。日本と世界をつなぐことを前提に設計します。" },
+          { title: "新しい発想", desc: "独自の視点・世界観から生まれる、これまでにない発想を届けます。" },
+        ],
+      },
+      choice: {
+        title: "続いていく取り組みを選ぶ",
+        desc: "単発で終わる仕事よりも、横展開や事業化につながる取り組みを優先します。自分たちが実現したことが人から人へ受け継がれ、ずっと続いていくことを目指しているからです。",
+      },
     },
     company: {
       items: [
         { label: '商号', value: 'ＭＧＣ株式会社（MGC Inc.）' },
         { label: '代表者', value: '代表取締役 松尾 心夢' },
-        { label: '所在地', value: '京都府京都市上京区西辰巳町111\nアビタシオンオンズアン106' },
-        { label: '設立', value: '2025年12月' },
+        { label: '所在地', value: '〒602-8107\n京都府京都市上京区西辰巳町111\nアビタシオンオンズアン106' },
+        { label: '設立', value: '2025年12月1日' },
         { label: '法人番号', value: '4130001081155' },
         { label: '事業内容', value: 'AIソリューション（コンサルティング・開発・運用）\nAI事業立ち上げ支援（AIサービスのパッケージ化・事業化支援）\n研修事業（AI活用リスキリング研修・DX推進人材の養成）\nクロスボーダー事業（海外企業 日本総代理店・日本企業の海外進出支援）' },
         { label: 'お問い合わせ', value: 'kokomu.matsuo@mgc-global01.com' },
-      ]
+      ],
+      message: {
+        eyebrow: 'Message',
+        title: '代表メッセージ',
+        paragraphs: [
+          'AIは新しい技術ですが、私たちにとってはあくまで手段です。目的は、未来をより良くすること。使い方次第で、その手段は必ず未来を良くするものになると信じています。',
+          'MGCは、目の前のお客様の課題を一つずつ解決しながら、どこに技術を活かせば世界が良くなるかを中長期の視点で考え続ける会社でありたいと考えています。電話対応や営業、CRMの運用といった現場の仕事にAIを組み込み、成果が出たものは同じ業界へ広げ、事業として育てていく。業務の改善で終わらせず、続いていく取り組みにすることを大切にしています。',
+          'ただ技術を出すのではなく、独自の視点と信念を持って世の中に届けること。そして、自分たちが実現したことが人から人へ受け継がれ、ずっと続いていくこと。京都から、AIとテクノロジーで日本と世界をつなぐ挑戦を続けていきます。',
+        ],
+        role: 'ＭＧＣ株式会社 代表取締役',
+        name: '松尾 心夢',
+        nameEn: 'Kokomu Matsuo',
+      },
+      profileTitle: '会社情報',
+      history: {
+        title: '沿革',
+        items: [
+          { date: '2025年12月', text: 'ＭＧＣ株式会社を京都市に設立' },
+          { date: '2026年7月', text: 'AI活用リスキリング研修の提供を開始' },
+          { date: '2026年8月', text: '業界別AI活用コラムの配信を開始' },
+          { date: '2026年8月', text: 'AI営業・AI電話・Salesforce AI活用支援のサービスを公開' },
+          { date: '2026年9月', text: '研修に「DX推進・生成AI活用人材養成講座」を追加' },
+          { date: '2026年9月', text: 'AI事業立ち上げ支援を開始' },
+        ],
+      },
+      access: {
+        title: 'アクセス',
+        address: '〒602-8107 京都府京都市上京区西辰巳町111 アビタシオンオンズアン106',
+        mapLabel: 'Google マップで開く',
+        mapTitle: 'ＭＧＣ株式会社の所在地（地図）',
+      },
+      missionLink: '会社理念を見る',
     },
     career: {
       mindsets: [
@@ -310,6 +360,28 @@ export const translations = {
         desc: "考えるだけで終わらせず、手を動かして形にする。\nそんな仲間の「Why」を聞かせてください。",
         button: "採用に応募する"
       }
+    },
+    news: {
+      eyebrow: 'News',
+      title: 'お知らせ',
+      more: 'お知らせ・ジャーナルをすべて見る',
+      items: [
+        { date: '2026.09.15', category: 'サービス', title: 'AI事業立ち上げ支援を開始しました', href: '/works' },
+        { date: '2026.09.03', category: '研修', title: '研修に「DX推進・生成AI活用人材養成講座」を追加しました', href: '/training' },
+        { date: '2026.08.28', category: 'サイト', title: '導入事例ページを公開しました', href: '/cases' },
+        { date: '2026.08.27', category: 'サービス', title: 'AI営業・AI電話・Salesforce AI活用支援のサービスページを公開しました', href: '/service/ai-sales' },
+        { date: '2026.08.08', category: 'コラム', title: '業界別AI活用コラムの配信を開始しました', href: '/column' },
+        { date: '2026.07.23', category: '研修', title: 'AI活用リスキリング研修の提供を開始しました', href: '/training' },
+        { date: '2025.12.01', category: '会社', title: 'ＭＧＣ株式会社を設立しました', href: '/company' },
+      ],
+    },
+    journal: {
+      eyebrow: 'Journal',
+      title: 'ジャーナル',
+      lead: 'MGCの考え方や、AIとの向き合い方を綴っています。',
+      readMore: '続きを読む',
+      close: '閉じる',
+      author: 'MGC 編集部',
     },
     blog: {
       items: [
@@ -615,7 +687,7 @@ export const translations = {
       cases: 'Case Studies',
       training: 'Training',
       column: 'Column',
-      blog: 'Journal',
+      blog: 'News & Journal',
       mission: 'Mission',
       company: 'Company Profile',
       career: 'Careers',
@@ -771,7 +843,7 @@ export const translations = {
       alliance: { title: 'Alliance', sub: 'Global Network Nodes' },
       company: { title: 'Profile', sub: 'Corporate Overview' },
       career: { title: 'Careers', sub: 'Join the Collective.' },
-      blog: { title: 'Journal', sub: 'Thoughts & Vision' },
+      blog: { title: 'News & Journal', sub: 'News & Journal' },
       contact: { title: 'Contact', sub: 'Start the Conversation' },
     },
     worksIntro: {
@@ -876,18 +948,68 @@ export const translations = {
         { title: "Optimism", sub: "楽観主義", desc: "We believe technology can make the future better, and we take it on with a positive spirit — valuing a state where we genuinely enjoy our work." },
         { title: "Integrity", sub: "誠実さ", desc: "With customers and teammates alike, we engage sincerely — no glossing over." },
         { title: "Think Beyond the Frame", sub: "思考の枠を超える", desc: "Unbound by conventional methods and existing assumptions, we think with our own perspective and fresh ideas." },
-      ]
+      ],
+      visionLabel: "Vision",
+      valuesTitle: "Values",
+      principle: {
+        eyebrow: "Principle",
+        title: "Start AI-native.",
+        desc: "When we take on new work, a new business or a new problem, we design it assuming AI does the work from the start. Rather than building for people and adding AI later, we design AI-native first and then decide where a person must judge. We think this way about our clients' work and our own.",
+      },
+      offer: {
+        title: "What we deliver",
+        items: [
+          { title: "Speed", desc: "The pace only an AI-native team can offer." },
+          { title: "Global reach", desc: "Beyond Japan — everything we build assumes connecting Japan and the world." },
+          { title: "Fresh thinking", desc: "Ideas born from our own perspective and worldview." },
+        ],
+      },
+      choice: {
+        title: "We choose work that lasts",
+        desc: "We prioritize work that can be rolled out further or grown into a business over one-off engagements — because we want what we build to be passed on and to keep going.",
+      },
     },
     company: {
       items: [
         { label: 'Company Name', value: 'MGC Inc. (ＭＧＣ株式会社)' },
         { label: 'CEO', value: 'Kokomu Matsuo' },
-        { label: 'Headquarters', value: 'Kyoto, Japan' },
-        { label: 'Established', value: 'December 2025' },
+        { label: 'Headquarters', value: '111 Nishitatsumi-cho, Kamigyo-ku, Kyoto 602-8107, Japan' },
+        { label: 'Established', value: 'December 1, 2025' },
         { label: 'Corporate Number', value: '4130001081155' },
         { label: 'Business Domains', value: 'AI Solutions (Consulting / Development / Operations)\nAI Business Launch Support (Packaging and commercializing AI services)\nTraining (AI reskilling / DX enablement)\nCross-Border Business (Japan Distributorship / Overseas Expansion Support)' },
         { label: 'Contact', value: 'kokomu.matsuo@mgc-global01.com' },
-      ]
+      ],
+      message: {
+        eyebrow: 'Message',
+        title: 'Message from the CEO',
+        paragraphs: [
+          'AI is a new technology, but for us it is only a means. The goal is to make the future better — and used well, that means can always make it so.',
+          'MGC wants to be a company that solves the problem in front of each client while thinking, over the long term, about where technology can make the world better. We build AI into front-line work — phone handling, sales, running a CRM — and when it works, we take it to the rest of the industry and grow it into a business. We care about making it last, not stopping at an operational fix.',
+          'Not just shipping technology, but bringing it to the world with our own perspective and conviction — and having what we build passed on from person to person. From Kyoto, we will keep connecting Japan and the world through AI and technology.',
+        ],
+        role: 'CEO, MGC Inc.',
+        name: 'Kokomu Matsuo',
+        nameEn: '松尾 心夢',
+      },
+      profileTitle: 'Company information',
+      history: {
+        title: 'History',
+        items: [
+          { date: 'Dec 2025', text: 'MGC Inc. founded in Kyoto' },
+          { date: 'Jul 2026', text: 'Launched the AI Reskilling Program' },
+          { date: 'Aug 2026', text: 'Started publishing industry AI columns' },
+          { date: 'Aug 2026', text: 'Launched AI Sales, AI Phone and Salesforce AI services' },
+          { date: 'Sep 2026', text: 'Added the DX Leadership & Generative AI Practitioner Program' },
+          { date: 'Sep 2026', text: 'Launched AI Business Launch Support' },
+        ],
+      },
+      access: {
+        title: 'Access',
+        address: '111 Nishitatsumi-cho, Kamigyo-ku, Kyoto 602-8107, Japan (Habitation Ons Un 106)',
+        mapLabel: 'Open in Google Maps',
+        mapTitle: 'Map of MGC Inc.',
+      },
+      missionLink: 'See our mission',
     },
     career: {
       mindsets: [
@@ -914,6 +1036,28 @@ export const translations = {
         desc: "Thinking isn't enough — we build.\nTell us your 'Why'.",
         button: "Apply Now"
       }
+    },
+    news: {
+      eyebrow: 'News',
+      title: 'News',
+      more: 'See all news & journal',
+      items: [
+        { date: '2026.09.15', category: 'Service', title: 'Launched AI Business Launch Support', href: '/works' },
+        { date: '2026.09.03', category: 'Training', title: 'Added the DX Leadership & Generative AI Practitioner Program', href: '/training' },
+        { date: '2026.08.28', category: 'Site', title: 'Published our case studies', href: '/cases' },
+        { date: '2026.08.27', category: 'Service', title: 'Published service pages for AI Sales, AI Phone and Salesforce AI', href: '/service/ai-sales' },
+        { date: '2026.08.08', category: 'Column', title: 'Started publishing industry AI columns (Japanese)', href: '/column' },
+        { date: '2026.07.23', category: 'Training', title: 'Launched the AI Reskilling Program', href: '/training' },
+        { date: '2025.12.01', category: 'Company', title: 'MGC Inc. was founded', href: '/company' },
+      ],
+    },
+    journal: {
+      eyebrow: 'Journal',
+      title: 'Journal',
+      lead: 'How we think, and how we work with AI.',
+      readMore: 'Read more',
+      close: 'Close',
+      author: 'MGC Editorial',
     },
     blog: {
       items: [
