@@ -7,7 +7,7 @@
   },
   "rotation": {
     "note": "日次で industries を順番に回す。lastIndex は最後に公開した業種の添字。次回は (lastIndex+1)%12 の業種で、usedTopics に無いテーマを選ぶ。",
-    "lastIndex": 7,
+    "lastIndex": 8,
     "industries": [
       {
         "key": "manufacturing",
@@ -132,7 +132,8 @@
       "finance-ai-implementation-guide",
       "finance-backoffice-ai-automation",
       "finance-risk-assessment-customer-support-ai",
-      "finance-unstructured-data-compliance"
+      "finance-unstructured-data-compliance",
+      "finance-personalized-proposal-governance"
     ],
     "education": [
       "education-personalized-learning-support",
@@ -496,6 +497,12 @@
       "industry": "professional",
       "date": "2026-09-25",
       "file": "professional-high-value-advisory-ai.json"
+    },
+    {
+      "slug": "finance-personalized-proposal-governance",
+      "industry": "finance",
+      "date": "2026-09-26",
+      "file": "finance-personalized-proposal-governance.json"
     }
   ]
 }
