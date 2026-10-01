@@ -7,7 +7,7 @@
   },
   "rotation": {
     "note": "日次で industries を順番に回す。lastIndex は最後に公開した業種の添字。次回は (lastIndex+1)%12 の業種で、usedTopics に無いテーマを選ぶ。",
-    "lastIndex": 0,
+    "lastIndex": 1,
     "industries": [
       {
         "key": "manufacturing",
@@ -84,7 +84,8 @@
       "construction-site-efficiency-ai",
       "construction-safety-quality-ai-vision",
       "construction-document-ai-automation",
-      "construction-knowledge-transfer-ai"
+      "construction-knowledge-transfer-ai",
+      "construction-logistics-material-ai"
     ],
     "real-estate": [
       "real-estate-inquiry-response-ai",
@@ -531,6 +532,12 @@
       "industry": "manufacturing",
       "date": "2026-09-30",
       "file": "manufacturing-process-optimization-ai.json"
+    },
+    {
+      "slug": "construction-logistics-material-ai",
+      "industry": "construction",
+      "date": "2026-10-01",
+      "file": "construction-logistics-material-ai.json"
     }
   ]
 }
