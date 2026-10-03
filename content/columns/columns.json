@@ -7,7 +7,7 @@
   },
   "rotation": {
     "note": "日次で industries を順番に回す。lastIndex は最後に公開した業種の添字。次回は (lastIndex+1)%12 の業種で、usedTopics に無いテーマを選ぶ。",
-    "lastIndex": 2,
+    "lastIndex": 3,
     "industries": [
       {
         "key": "manufacturing",
@@ -100,7 +100,8 @@
       "retail-ai-driven-personalization",
       "retail-generative-ai-efficiency",
       "retail-store-operation-staff-ai",
-      "retail-customer-support-hybrid-ai"
+      "retail-customer-support-hybrid-ai",
+      "retail-omo-customer-journey-ai"
     ],
     "logistics": [
       "logistics-dispatch-planning-ai",
@@ -545,6 +546,12 @@
       "industry": "real-estate",
       "date": "2026-10-02",
       "file": "real-estate-internal-knowledge-sharing-ai.json"
+    },
+    {
+      "slug": "retail-omo-customer-journey-ai",
+      "industry": "retail",
+      "date": "2026-10-03",
+      "file": "retail-omo-customer-journey-ai.json"
     }
   ]
 }
