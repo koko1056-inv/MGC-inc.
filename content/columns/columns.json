@@ -7,7 +7,7 @@
   },
   "rotation": {
     "note": "日次で industries を順番に回す。lastIndex は最後に公開した業種の添字。次回は (lastIndex+1)%12 の業種で、usedTopics に無いテーマを選ぶ。",
-    "lastIndex": 5,
+    "lastIndex": 6,
     "industries": [
       {
         "key": "manufacturing",
@@ -124,7 +124,8 @@
       "hospitality-demand-forecasting",
       "hospitality-operational-efficiency-ai",
       "hospitality-guest-experience-and-training",
-      "hospitality-customer-feedback-analysis"
+      "hospitality-customer-feedback-analysis",
+      "hospitality-personalized-guest-service-ai"
     ],
     "professional": [
       "professional-accounting-ai",
@@ -566,6 +567,12 @@
       "industry": "healthcare",
       "date": "2026-10-05",
       "file": "healthcare-multilingual-staff-training-ai.json"
+    },
+    {
+      "slug": "hospitality-personalized-guest-service-ai",
+      "industry": "hospitality",
+      "date": "2026-10-06",
+      "file": "hospitality-personalized-guest-service-ai.json"
     }
   ]
 }
