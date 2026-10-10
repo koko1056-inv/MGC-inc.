@@ -7,7 +7,7 @@
   },
   "rotation": {
     "note": "日次で industries を順番に回す。lastIndex は最後に公開した業種の添字。次回は (lastIndex+1)%12 の業種で、usedTopics に無いテーマを選ぶ。",
-    "lastIndex": 9,
+    "lastIndex": 10,
     "industries": [
       {
         "key": "manufacturing",
@@ -158,7 +158,8 @@
       "hr-talent-management-retention-ai",
       "hr-ai-matching-optimization",
       "hr-career-counseling-ai-support",
-      "hr-interview-evaluation-standardization-ai"
+      "hr-interview-evaluation-standardization-ai",
+      "hr-employee-experience-knowledge-ai"
     ],
     "public": [
       "public-dx-ai-implementation",
@@ -594,6 +595,12 @@
       "industry": "education",
       "date": "2026-10-09",
       "file": "education-teacher-skill-upgrading-ai.json"
+    },
+    {
+      "slug": "hr-employee-experience-knowledge-ai",
+      "industry": "hr",
+      "date": "2026-10-10",
+      "file": "hr-employee-experience-knowledge-ai.json"
     }
   ]
 }
