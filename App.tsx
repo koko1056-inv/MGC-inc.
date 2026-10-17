@@ -5,6 +5,7 @@ import { translations, Lang } from './translations';
 import { track } from '@vercel/analytics';
 import { serviceContent, ServiceKey, ServiceSection } from './serviceContent';
 import { caseContent, CaseStudy } from './caseContent';
+import { legalContent, LegalDoc } from './legalContent';
 export const LanguageContext = React.createContext<{ lang: Lang; setLang: (l: Lang) => void; t: typeof translations['ja'] }>({
   lang: 'ja',
   setLang: () => {},
@@ -13,7 +14,7 @@ export const LanguageContext = React.createContext<{ lang: Lang; setLang: (l: La
 export const useLanguage = () => React.useContext(LanguageContext);
 // --- Types & Interfaces ---
 
-export type ViewState = 'home' | 'works' | 'training' | 'diagnosis' | 'mission' | 'partners' | 'company' | 'career' | 'contact' | 'blog' | 'cases' | 'notfound' | ServiceKey;
+export type ViewState = 'home' | 'works' | 'training' | 'diagnosis' | 'mission' | 'partners' | 'company' | 'career' | 'contact' | 'blog' | 'cases' | 'notfound' | 'privacy-policy' | 'terms-of-service' | ServiceKey;
 
 // AI診断の表示切り替え。false の間は、サイト内の導線をすべて隠す。
 // ページ自体（/diagnosis）は残るため、true に戻せば元の状態に復帰する。
@@ -31,6 +32,9 @@ const PAGE_META: Record<Lang, Partial<Record<string, { title: string; descriptio
     contact: { title: 'お問い合わせ｜30分の無料相談 - ＭＧＣ株式会社', description: 'AI導入・研修・海外展開のご相談は無料です。現状を伺い、どこからAIに任せられるかを整理してお返しします。' },
     blog: { title: 'お知らせ・ジャーナル - ＭＧＣ株式会社', description: 'ＭＧＣ株式会社のお知らせ（サービス開始・研修・サイト更新など）と、MGCの考え方を綴るジャーナル。' },
     diagnosis: { title: 'AI活用診断 - ＭＧＣ株式会社', description: '業種と課題を入力するだけで、AI活用施策と導入後の効果をその場で診断します。' },
+    'privacy-policy': { title: 'プライバシーポリシー - ＭＧＣ株式会社', description: 'ＭＧＣ株式会社のプライバシーポリシー。問い合わせフォーム・AI活用診断で取得する情報、利用目的、外部サービス、保管期間、開示等のご請求について。' },
+    'terms-of-service': { title: 'サイト利用規約 - ＭＧＣ株式会社', description: 'ＭＧＣ株式会社ウェブサイトの利用規約。著作権、禁止事項、AI活用診断の位置づけ、免責事項について。' },
+    thanks: { title: '送信完了 - ＭＧＣ株式会社', description: 'お問い合わせを受け付けました。内容を確認し、1営業日以内にメールでご返信します。' },
     notfound: { title: 'ページが見つかりません - ＭＧＣ株式会社', description: 'お探しのページは移動したか、削除された可能性があります。' },
     cases: { title: '導入事例｜AI導入の進め方と実例 - ＭＧＣ株式会社', description: 'MGCが実際に進めている案件の進め方と設計の要点。コールセンターの音声AI、海外メーカー発掘の自動化、現場のトラブルシューティング。' },
   },
@@ -44,6 +48,9 @@ const PAGE_META: Record<Lang, Partial<Record<string, { title: string; descriptio
     contact: { title: 'Contact | Free 30-minute consultation - MGC Inc.', description: 'Consultations on AI adoption, training and overseas expansion are free. Tell us where you are and we will map what AI can take on.' },
     blog: { title: 'News & Journal - MGC Inc.', description: 'News from MGC Inc. — service launches, training and site updates — and our journal on how we think about AI.' },
     diagnosis: { title: 'AI Diagnosis - MGC Inc.', description: 'Enter your industry and challenges to get an instant AI adoption diagnosis.' },
+    'privacy-policy': { title: 'Privacy Policy - MGC Inc.', description: 'How MGC Inc. handles information collected through the contact form, AI diagnosis and analytics.' },
+    'terms-of-service': { title: 'Terms of Use - MGC Inc.', description: 'Terms of use for the MGC Inc. website.' },
+    thanks: { title: 'Message sent - MGC Inc.', description: 'We received your message and will reply within one business day.' },
     notfound: { title: 'Page not found - MGC Inc.', description: 'The page you are looking for may have moved or no longer exists.' },
     cases: { title: 'Case studies | How AI projects actually run - MGC Inc.', description: 'How MGC runs real projects: voice AI in a call centre, automated overseas supplier outreach, and field troubleshooting by voice.' },
   },
@@ -55,10 +62,12 @@ const OG_IMAGE_VIEWS = ['home', 'works', 'cases', 'training', 'mission', 'compan
 const ogImageFor = (view: string) => (OG_IMAGE_VIEWS.includes(view) ? `/assets/og/${view}.jpg` : OG_IMAGE_DEFAULT);
 
 // SPAのため、ビューが変わるたびに title / description / canonical / OGP を書き換える。
-const applyMeta = (m: { title: string; description: string; url: string; image: string }) => {
+export const ROBOTS_INDEX = 'index, follow, max-image-preview:large, max-snippet:-1';
+const applyMeta = (m: { title: string; description: string; url: string; image: string; noindex: boolean }) => {
   document.title = m.title;
   const set = (selector: string, attr: 'content' | 'href', value: string) =>
     document.querySelector(selector)?.setAttribute(attr, value);
+  set('meta[name="robots"]', 'content', m.noindex ? 'noindex' : ROBOTS_INDEX);
   set('meta[name="description"]', 'content', m.description);
   set('link[rel="canonical"]', 'href', m.url);
   set('meta[property="og:title"]', 'content', m.title);
@@ -75,6 +84,7 @@ const applyMeta = (m: { title: string; description: string; url: string; image: 
 export const PATH_TO_VIEW: Record<string, ViewState> = {
   '/works': 'works', '/training': 'training', '/diagnosis': 'diagnosis', '/cases': 'cases',
   '/mission': 'mission', '/company': 'company', '/career': 'career', '/contact': 'contact', '/blog': 'blog',
+  '/privacy-policy': 'privacy-policy', '/terms-of-service': 'terms-of-service',
 };
 export const pathForView = (v: ViewState): string => (isServiceKey(v) ? `/service/${v}` : v === 'home' ? '/' : v === 'notfound' ? '/404' : `/${v}`);
 
@@ -95,16 +105,21 @@ export const viewForPath = (rawPath: string): ViewState => {
 
 // ビューごとの title / description / URL / OGP画像（ブラウザと事前描画で共通）
 export const SITE_ORIGIN = 'https://mgc-global01.com';
-export const metaFor = (view: ViewState, lang: Lang) => {
+// path は同じビューで別ページになるもの（/contact/thanks）の判定に使う
+export const THANKS_PATH = '/contact/thanks';
+export const metaFor = (view: ViewState, lang: Lang, path?: string) => {
   const page = isServiceKey(view) ? serviceContent[lang][view] : null;
+  const isThanks = view === 'contact' && path?.replace(/\/+$/, '') === THANKS_PATH;
   const base = page
     ? { title: page.seoTitle, description: page.seoDescription }
-    : (PAGE_META[lang][view] ?? PAGE_META[lang].home!);
+    : (PAGE_META[lang][isThanks ? 'thanks' : view] ?? PAGE_META[lang].home!);
   return {
     title: base.title,
     description: base.description,
-    url: SITE_ORIGIN + (view === 'home' ? '' : pathForView(view)),
+    url: SITE_ORIGIN + (isThanks ? THANKS_PATH : view === 'home' ? '' : pathForView(view)),
     image: SITE_ORIGIN + ogImageFor(view),
+    // 検索結果に出さないページ（送信完了・404）
+    noindex: isThanks || view === 'notfound',
   };
 };
 
@@ -1616,8 +1631,9 @@ const BlogView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
 // どのサービスページ経由の問い合わせかを、受信メール側で判別できるようにする。
 const SERVICE_TOPIC_INDEX: Record<string, number> = { 'ai-sales': 0, 'ai-phone': 1, 'salesforce-ai': 2, 'newbiz': 4, 'training': 5 };
 
-const ContactView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavigate }) => {
-  const { t } = useLanguage();
+const ContactView: React.FC<{ onNavigate?: (view: ViewState) => void; initialSent?: boolean }> = ({ onNavigate, initialSent = false }) => {
+  const { t, lang } = useLanguage();
+  const f = t.contact.form;
   const initialTopic = (() => {
     if (typeof window === 'undefined') return '';
     const seg = window.location.hash.slice(1).split('/')[1];
@@ -1626,8 +1642,15 @@ const ContactView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onN
   })();
   const [formState, setFormState] = useState({ name: '', email: '', company: '', topic: initialTopic, message: '' });
   const [emailError, setEmailError] = useState('');
+  const [sendError, setSendError] = useState('');
+  const [agreed, setAgreed] = useState(false);
   const [isSending, setIsSending] = useState(false);
-  const [isSent, setIsSent] = useState(() => typeof window !== 'undefined' && window.location.pathname === '/contact/thanks');
+  const [isSent, setIsSent] = useState(initialSent);
+
+  // 送信完了は /contact/thanks（検索結果に出さない）。表示が切り替わるたびに title 等を合わせる
+  useEffect(() => {
+    applyMeta(metaFor('contact', lang, isSent ? THANKS_PATH : '/contact'));
+  }, [isSent, lang]);
 
   const validateEmail = (email: string) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -1636,9 +1659,14 @@ const ContactView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onN
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateEmail(formState.email)) {
-      setEmailError('Please enter a valid email address.');
+      setEmailError(f.emailError);
       return;
     }
+    if (!agreed) {
+      setSendError(f.consentError);
+      return;
+    }
+    setSendError('');
     setIsSending(true);
     try {
       const response = await fetch('/api/contact', {
@@ -1655,13 +1683,13 @@ const ContactView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onN
       setIsSent(true);
       setFormState({ name: '', email: '', company: '', topic: '', message: '' });
       // 完了状態を専用URLにする（計測でCVを分けられるようにする。戻る操作でフォームへ戻れる）
-      if (window.location.pathname !== '/contact/thanks') {
-        window.history.pushState({}, '', '/contact/thanks');
+      if (window.location.pathname !== THANKS_PATH) {
+        window.history.pushState({}, '', THANKS_PATH);
       }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (error) {
       console.error('Contact error:', error);
-      alert('Sorry, there was an error sending your message. Please try again later.');
+      setSendError(f.sendError);
     } finally {
       setIsSending(false);
     }
@@ -1675,7 +1703,7 @@ const ContactView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onN
 
   // 戻る／進むで /contact と /contact/thanks を行き来できるようにする
   useEffect(() => {
-    const sync = () => setIsSent(window.location.pathname === '/contact/thanks');
+    const sync = () => setIsSent(window.location.pathname === THANKS_PATH);
     window.addEventListener('popstate', sync);
     return () => window.removeEventListener('popstate', sync);
   }, []);
@@ -1829,7 +1857,7 @@ const ContactView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onN
                     onChange={handleChange}
                     className="w-full border-b border-gray-300 py-3 text-base font-medium bg-transparent focus:outline-none focus:border-accent transition-colors text-offblack"
                   >
-                    <option value="">— Select —</option>
+                    <option value="">{f.topicPlaceholder}</option>
                     {t.contact.form.topicOptions.map((opt, i) => (
                       <option key={i} value={opt}>{opt}</option>
                     ))}
@@ -1849,6 +1877,27 @@ const ContactView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onN
                     placeholder={t.contact.form.messagePlaceholder}
                   ></textarea>
                 </div>
+
+                <div className="mb-6">
+                  <label htmlFor="consent" className="flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      id="consent"
+                      checked={agreed}
+                      onChange={(e) => { setAgreed(e.target.checked); if (e.target.checked) setSendError(''); }}
+                      required
+                      className="mt-1 w-4 h-4 accent-accent flex-shrink-0"
+                    />
+                    <span className="text-sm text-[#1A2233] leading-[1.8]">
+                      <a href="/privacy-policy" target="_blank" rel="noopener" className="text-accent font-bold underline underline-offset-4">{f.consentLink}</a>
+                      {f.consentText}
+                    </span>
+                  </label>
+                </div>
+
+                {sendError && (
+                  <p role="alert" className="mb-6 text-sm font-medium text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-3 leading-[1.8]">{sendError}</p>
+                )}
 
                 <button
                   type="submit"
@@ -2798,7 +2847,7 @@ const CasesView: React.FC = () => {
                   href="#contact"
                   className="group inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-white text-[#111418] font-bold text-sm md:text-base tracking-tight hover:bg-[#111418] hover:text-white transition-all duration-300"
                 >
-                  {lang === 'ja' ? '無料で相談する' : 'Book a free consultation'}
+                  {lang === 'ja' ? '無料で相談する' : 'Request a free consultation'}
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                 </a>
                 {SHOW_DIAGNOSIS && (
@@ -3215,17 +3264,93 @@ const DiagnosisView: React.FC = () => {
   );
 };
 
+// プライバシーポリシー・サイト利用規約（本文は legalContent.ts）
+const LegalView: React.FC<{ doc: 'privacy' | 'terms'; onNavigate: (view: ViewState) => void }> = ({ doc, onNavigate }) => {
+  const { lang } = useLanguage();
+  const d: LegalDoc = legalContent[lang][doc];
+  const other = doc === 'privacy' ? legalContent[lang].terms : legalContent[lang].privacy;
+  const otherView: ViewState = doc === 'privacy' ? 'terms-of-service' : 'privacy-policy';
+  // 本文中の「プライバシーポリシー」はリンクにする（利用規約から辿れるように）
+  const withLinks = (text: string) => {
+    const word = lang === 'ja' ? 'プライバシーポリシー' : 'Privacy Policy';
+    if (doc !== 'terms' || !text.includes(word)) return text;
+    const [before, after] = text.split(word);
+    return (
+      <>
+        {before}
+        <a href="/privacy-policy" onClick={(e) => { e.preventDefault(); onNavigate('privacy-policy'); }} className="text-accent underline underline-offset-4">{word}</a>
+        {after}
+      </>
+    );
+  };
+  return (
+    <PageTransition>
+      <div className="px-6 md:px-12 max-w-screen-xl mx-auto">
+        <header className="border-b border-gray-200 pb-8 mb-12">
+          <span className="text-xs font-bold tracking-widest uppercase text-accent">{d.sub}</span>
+          <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-offblack leading-[1.4] mt-3">{d.title}</h1>
+          <div className="w-16 h-1.5 bg-accent mt-5 rounded-full" />
+        </header>
+        <article className="max-w-3xl pb-24 md:pb-32">
+          <p className="text-sm text-gray-500">{d.updated}</p>
+          <p className="text-base md:text-[17px] text-[#1A2233] leading-[2] mt-6">{d.intro}</p>
+          {d.sections.map((sec, i) => (
+            <section key={i} className={sec.heading ? 'mt-12' : 'mt-5'}>
+              {sec.heading && (
+                <h2 className="text-lg md:text-xl font-bold text-offblack tracking-tight leading-[1.5] pl-4 border-l-4 border-accent">{sec.heading}</h2>
+              )}
+              {sec.paragraphs?.map((para, j) => (
+                <p key={j} className="text-[15px] md:text-base text-[#1A2233] leading-[2] mt-4">{withLinks(para)}</p>
+              ))}
+              {sec.list && (
+                <ul className="mt-4 space-y-2">
+                  {sec.list.map((item, j) => (
+                    <li key={j} className="flex gap-3 text-[15px] md:text-base text-[#1A2233] leading-[1.9]">
+                      <span className="mt-[0.8em] w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {sec.table && (
+                <div className="mt-5 overflow-x-auto">
+                  <table className="w-full min-w-[560px] text-left text-sm border-t border-gray-200">
+                    <thead>
+                      <tr className="bg-[#F4F6FB]">
+                        {sec.table.head.map((h) => <th key={h} className="px-4 py-3 font-bold text-offblack border-b border-gray-200">{h}</th>)}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {sec.table.rows.map((row, j) => (
+                        <tr key={j}>
+                          {row.map((cell, k) => <td key={k} className={`px-4 py-3 border-b border-gray-200 leading-[1.8] align-top ${k === 0 ? 'font-bold text-offblack' : 'text-[#1A2233]'}`}>{cell}</td>)}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </section>
+          ))}
+          <div className="mt-16 pt-8 border-t border-gray-200">
+            <a
+              href={pathForView(otherView)}
+              onClick={(e) => { e.preventDefault(); onNavigate(otherView); }}
+              className="inline-flex items-center gap-2 text-sm font-bold text-accent hover:gap-3 transition-all"
+            >
+              {other.title} <ArrowRight className="w-4 h-4" />
+            </a>
+          </div>
+        </article>
+      </div>
+    </PageTransition>
+  );
+};
+
 // 知らないURLで表示するページ。本番では 404.html として配信され、ステータスも 404 になる。
 const NotFoundView: React.FC<{ onNavigate: (view: ViewState) => void }> = ({ onNavigate }) => {
   const { lang } = useLanguage();
   const ja = lang === 'ja';
-  // 検索結果に載せない（離れるときに元の値へ戻す）
-  useEffect(() => {
-    const m = document.querySelector('meta[name="robots"]');
-    m?.setAttribute('content', 'noindex');
-    // 404.html から来た場合も元が noindex なので、通常ページの既定値に戻す（index.html と同じ値）
-    return () => { m?.setAttribute('content', 'index, follow, max-image-preview:large, max-snippet:-1'); };
-  }, []);
   const links: { id?: ViewState; href?: string; label: string }[] = [
     { id: 'home', label: ja ? 'トップページ' : 'Home' },
     { id: 'works', label: ja ? '事業内容' : 'What we do' },
@@ -3270,6 +3395,7 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
   // URL からビューを決める。ハッシュに有効なビュー名があればそれを優先（旧リンク互換）、
   // なければクリーンURL（/works, /service/<slug> など）で解決する。
   // 事前描画（サーバー）では window が無いため、渡されたパスで決める。
+  const currentPath = () => (typeof window === 'undefined' ? (initialPath ?? '/') : window.location.pathname).replace(/\/+$/, '');
   const getViewFromLocation = (): ViewState => {
     if (typeof window === 'undefined') return viewForPath(initialPath ?? '/');
     const validViews: ViewState[] = ['home', 'works', 'training', 'diagnosis', 'mission', 'partners', 'company', 'career', 'contact', 'blog', 'cases', ...SERVICE_KEYS];
@@ -3306,7 +3432,7 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
 
   // ビューごとの title / description / canonical / OGP をまとめて反映する
   useEffect(() => {
-    applyMeta(metaFor(view, lang));
+    applyMeta(metaFor(view, lang, window.location.pathname));
   }, [view, lang]);
 
   // ハイドレーションが終わったら、以降に現れる要素はスクロールで出す演出に戻す
@@ -3562,8 +3688,10 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
         {/* PartnersView is hidden */}
         {view === 'company' && <CompanyView onNavigate={navigate} />}
         {view === 'career' && <CareerView />}
-        {view === 'contact' && <ContactView onNavigate={navigate} />}
+        {view === 'contact' && <ContactView onNavigate={navigate} initialSent={currentPath() === THANKS_PATH} />}
         {view === 'notfound' && <NotFoundView onNavigate={navigate} />}
+        {view === 'privacy-policy' && <LegalView doc="privacy" onNavigate={navigate} />}
+        {view === 'terms-of-service' && <LegalView doc="terms" onNavigate={navigate} />}
       </main>
 
       {/* Floating CTA — visible on every page except contact itself */}

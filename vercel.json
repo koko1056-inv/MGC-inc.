@@ -87,7 +87,7 @@
     },
     {
       "source": "/contact/thanks",
-      "destination": "/200.html"
+      "destination": "/contact/thanks.html"
     }
   ],
   "headers": [

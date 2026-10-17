@@ -60,7 +60,7 @@ for (const route of [...routes(), NOT_FOUND]) {
   out = setAttr(out, /(<meta name="twitter:description" content=")[^"]*(")/, meta.description);
   out = setAttr(out, /(<meta name="twitter:image" content=")[^"]*(")/, meta.image);
   if (route !== '/') out = out.replace('<meta property="og:type" content="website" />', '<meta property="og:type" content="article" />');
-  if (route === NOT_FOUND) out = setAttr(out, /(<meta name="robots" content=")[^"]*(")/, 'noindex');
+  if (meta.noindex) out = setAttr(out, /(<meta name="robots" content=")[^"]*(")/, 'noindex');
   const ld = jsonLd.map((o) => `<script type="application/ld+json">${JSON.stringify(o).replace(/</g, '\\u003c')}</script>`).join('\n    ');
   if (ld) out = out.replace('</head>', `    ${ld}\n  </head>`);
   if (!out.includes('<div id="root"></div>')) throw new Error('テンプレートに <div id="root"></div> が無い');

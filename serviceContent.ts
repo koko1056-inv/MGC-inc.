@@ -726,7 +726,7 @@ export const serviceContent: Content = {
       cta: {
         heading: 'Let’s see what can come off your team',
         lead: 'Tell us how sales runs today and we will map which stages AI can take and which should stay with people. The first consultation is free.',
-        button: 'Book a free consultation',
+        button: 'Request a free consultation',
         sub: 'Not ready to talk? Start with the free AI diagnosis.',
         secondary: 'Try the free AI diagnosis (3 min)',
         secondaryHref: '/diagnosis',
@@ -896,7 +896,7 @@ export const serviceContent: Content = {
       cta: {
         heading: 'Let’s work out which calls AI can take',
         lead: 'Tell us what is coming in and how much, and we will separate what AI can answer from what should stay with your team. The first consultation is free.',
-        button: 'Book a free consultation',
+        button: 'Request a free consultation',
         sub: 'Not ready to talk? Start with the free AI diagnosis.',
         secondary: 'Try the free AI diagnosis (3 min)',
         secondaryHref: '/diagnosis',
@@ -1081,7 +1081,7 @@ export const serviceContent: Content = {
       cta: {
         heading: 'Show us how Salesforce is used today',
         lead: 'We will look at the real data and the way it is run, then separate what AI can fix from what it cannot. The first consultation is free.',
-        button: 'Book a free consultation',
+        button: 'Request a free consultation',
         sub: 'If standard features are enough, we will tell you.',
         secondary: 'Try the free AI diagnosis (3 min)',
         secondaryHref: '/diagnosis',
