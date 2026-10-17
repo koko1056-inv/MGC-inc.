@@ -2,7 +2,7 @@
 // ページごとに HTML と、<head> に入れる title / OGP などを返す。
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import App, { viewForPath, metaFor, PATH_TO_VIEW, SERVICE_KEYS, pathForView, SITE_ORIGIN } from './App';
+import App, { viewForPath, metaFor, PATH_TO_VIEW, SERVICE_KEYS, pathForView, SITE_ORIGIN, THANKS_PATH } from './App';
 import { serviceContent } from './serviceContent';
 import { translations } from './translations';
 
@@ -13,6 +13,7 @@ export const routes = (): string[] => [
   '/',
   ...Object.keys(PATH_TO_VIEW).filter((p) => p !== '/diagnosis'),
   ...SERVICE_KEYS.map((k) => pathForView(k)),
+  THANKS_PATH,
 ];
 
 export const render = (path: string) => {
@@ -22,14 +23,15 @@ export const render = (path: string) => {
     </React.StrictMode>
   );
   const view = viewForPath(path);
-  return { html, meta: metaFor(view, 'ja'), jsonLd: jsonLdFor(path) };
+  return { html, meta: metaFor(view, 'ja', path), jsonLd: jsonLdFor(path) };
 };
 
 // ページごとの構造化データ（パンくず＋ページの種類に応じたもの）
 const jsonLdFor = (path: string): object[] => {
   const view = viewForPath(path);
-  const meta = metaFor(view, 'ja');
+  const meta = metaFor(view, 'ja', path);
   const out: object[] = [];
+  if (meta.noindex) return out;
   if (path !== '/') {
     out.push({
       '@context': 'https://schema.org',
