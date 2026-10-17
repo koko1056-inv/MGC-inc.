@@ -7,7 +7,7 @@
   },
   "rotation": {
     "note": "日次で industries を順番に回す。lastIndex は最後に公開した業種の添字。次回は (lastIndex+1)%12 の業種で、usedTopics に無いテーマを選ぶ。",
-    "lastIndex": 4,
+    "lastIndex": 5,
     "industries": [
       {
         "key": "manufacturing",
@@ -122,7 +122,8 @@
       "healthcare-staff-scheduling-shift-optimization-ai",
       "healthcare-incident-reporting-safety-ai",
       "healthcare-monitoring-sensing-ai",
-      "healthcare-multilingual-staff-training-ai"
+      "healthcare-multilingual-staff-training-ai",
+      "healthcare-discharge-planning-coordination-ai"
     ],
     "hospitality": [
       "hospitality-service-automation",
@@ -643,6 +644,12 @@
       "industry": "logistics",
       "date": "2026-10-16",
       "file": "logistics-loading-optimization-ai.json"
+    },
+    {
+      "slug": "healthcare-discharge-planning-coordination-ai",
+      "industry": "healthcare",
+      "date": "2026-10-17",
+      "file": "healthcare-discharge-planning-coordination-ai.json"
     }
   ]
 }
