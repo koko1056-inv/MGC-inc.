@@ -271,6 +271,14 @@ document.addEventListener('click',function(e){
 
 const MARK = '<span class="mark"><i></i></span>';
 const navLink = (href, label, current) => `<a href="${href}"${current === href ? ' class="is-current"' : ''}>${label}</a>`;
+// 著者。社員は代表1人のため、コラムの執筆者は代表とする（構造化データ・meta・本文の署名で共通）
+const AUTHOR = { name: '松尾 心夢', role: '代表取締役', org: 'ＭＧＣ株式会社' };
+const AUTHOR_LD = {
+  '@type': 'Person', name: AUTHOR.name, alternateName: 'Kokomu Matsuo', jobTitle: AUTHOR.role,
+  worksFor: { '@type': 'Organization', name: 'ＭＧＣ株式会社', alternateName: 'MGC Inc.', url: 'https://mgc-global01.com' },
+  url: 'https://mgc-global01.com/company',
+};
+
 const header = (current = '') => `<header class="site-header"><div class="inner"><a class="brand" href="/">${MARK}MGC Inc.</a><nav>${[
   ['/works', '事業内容'],
   ['/service/ai-sales', 'AI営業'],
@@ -343,7 +351,7 @@ function articleHtml(a) {
     headline: a.title, description: desc, abstract: desc, image: [imgAbs],
     datePublished: a.date, dateModified: a.dateModified || a.date,
     inLanguage: 'ja', isAccessibleForFree: true, wordCount: plainText(a).length,
-    author: { '@type': 'Organization', name: 'MGC Inc.', alternateName: 'ＭＧＣ株式会社', url: site.baseUrl, sameAs: [site.baseUrl] },
+    author: AUTHOR_LD,
     publisher: { '@type': 'Organization', name: 'MGC Inc.', url: site.baseUrl, logo: { '@type': 'ImageObject', url: `${site.baseUrl}/logo.png` } },
     mainEntityOfPage: { '@type': 'WebPage', '@id': url },
     articleSection: ind.ja,
@@ -388,7 +396,7 @@ function articleHtml(a) {
 <meta name="description" content="${esc(desc)}"/>
 ${kw ? `<meta name="keywords" content="${esc(kw)}"/>` : ''}
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1"/>
-<meta name="author" content="MGC Inc."/>
+<meta name="author" content="${AUTHOR.name}（${AUTHOR.org} ${AUTHOR.role}）"/>
 <link rel="canonical" href="${esc(url)}"/>
 <meta property="og:type" content="article"/>
 <meta property="og:locale" content="ja_JP"/>
@@ -418,7 +426,7 @@ ${header('/column')}
 <header class="article-head">
 <span class="eyebrow">${esc(ind.ja)} × AI活用</span>
 <h1 class="title">${esc(a.title)}</h1>
-<div class="meta"><span class="chip">${esc(ind.ja)}</span><span>${esc(a.date.replace(/-/g, '.'))}</span>${a.readTime ? `<span>読了目安 ${esc(a.readTime)}</span>` : ''}</div>
+<div class="meta"><span class="chip">${esc(ind.ja)}</span><span>${esc(a.date.replace(/-/g, '.'))}</span>${a.readTime ? `<span>読了目安 ${esc(a.readTime)}</span>` : ''}<span>執筆：${AUTHOR.role} ${AUTHOR.name}</span></div>
 </header>
 <div class="hero-wrap"><img class="hero" src="${esc(img)}" alt="${esc(a.imageAlt || a.title)}" width="1200" height="675"/></div>
 <main class="layout">

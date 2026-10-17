@@ -39,7 +39,7 @@ export const translations = {
         {
           number: '01',
           title: 'スピード',
-          desc: 'AIネイティブな組織だからこそ出せる速さで、価値を届けます。目の前のお客様の課題に、最短ルートで応えます。',
+          desc: '最初からAIに任せる前提で仕事を組み立てているから出せる速さで、価値を届けます。代表が直接お話を伺い、目の前の課題に最短ルートで応えます。',
         },
         {
           number: '02',
@@ -61,7 +61,7 @@ export const translations = {
     oneStop: {
       eyebrow: 'One-Stop Support',
       title: '業務の棚卸しから、事業化まで。',
-      lead: '「作って終わり」にしません。どの業務をAIに任せるかを決めるところから、現場で使われる状態にし、最後はその実績を同業他社へ届ける事業に育てるところまで、同じチームが伴走します。',
+      lead: '「作って終わり」にしません。どの業務をAIに任せるかを決めるところから、現場で使われる状態にし、最後はその実績を同業他社へ届ける事業に育てるところまで、代表が一貫して担当します。窓口が途中で変わることはありません。',
       steps: [
         {
           step: '01',
@@ -138,7 +138,7 @@ export const translations = {
         },
         {
           q: '研修だけの依頼も可能ですか？',
-          a: '可能です。経営層・管理職・現場それぞれに合わせたAI研修を単体でご提供しています。研修から始めて、コンサルティングや開発に広げるお客様も多くいらっしゃいます。',
+          a: '可能です。経営層・管理職・現場それぞれに合わせたAI研修を単体でご提供しています。研修から始めて、コンサルティングや開発へ広げていくこともできます。',
         },
         {
           q: '既存のシステムと連携できますか？',
@@ -386,7 +386,7 @@ export const translations = {
       lead: 'MGCの考え方や、AIとの向き合い方を綴っています。',
       readMore: '続きを読む',
       close: '閉じる',
-      author: 'MGC 編集部',
+      author: '代表取締役 松尾 心夢',
     },
     blog: {
       items: [
@@ -524,7 +524,7 @@ export const translations = {
         thanks: {
           eyebrow: "Thank you",
           title: "送信しました",
-          lead: "お問い合わせありがとうございます。担当者が内容を確認し、1営業日以内にご返信いたします。",
+          lead: "お問い合わせありがとうございます。代表が内容を確認し、1営業日以内にご返信いたします。",
           nextTitle: "このあとの流れ",
           steps: [
             "内容を確認し、1営業日以内にメールでご返信します。",
@@ -727,7 +727,7 @@ export const translations = {
         {
           number: '01',
           title: 'Speed',
-          desc: 'We deliver value at the pace only an AI-native organization can — answering the challenges in front of our customers by the shortest path.',
+          desc: 'Because we design every job assuming AI does the work from day one, we move fast. Our CEO talks with you directly and takes the shortest path to the challenge in front of you.',
         },
         {
           number: '02',
@@ -749,7 +749,7 @@ export const translations = {
     oneStop: {
       eyebrow: 'One-Stop Support',
       title: 'From mapping the work to launching a business.',
-      lead: "We don't build and leave. From deciding which tasks AI should take on, to getting it genuinely used on the floor, to turning that track record into a business you sell to your industry — the same team stays with you.",
+      lead: "We don't build and leave. From deciding which tasks AI should take on, to getting it genuinely used on the floor, to turning that track record into a business you sell to your industry — our CEO handles it personally, end to end.",
       steps: [
         {
           step: '01',
@@ -826,7 +826,7 @@ export const translations = {
         },
         {
           q: 'Can we ask for training only?',
-          a: 'Yes. We offer standalone AI training programs tailored to executives, managers, and hands-on staff. Many clients start with training and expand into consulting or development later.',
+          a: 'Yes. We offer standalone AI training programs tailored to executives, managers, and hands-on staff. You can start with training and expand into consulting or development later.',
         },
         {
           q: 'Can you integrate with our existing systems?',
@@ -834,7 +834,7 @@ export const translations = {
         },
         {
           q: 'How long does deployment take?',
-          a: 'Depending on scope: a pilot runs 2–4 weeks, and production rollouts take 1–3 months. We design for speed-to-value above all — the pace only an AI-native team can deliver.',
+          a: 'Depending on scope: a pilot runs 2–4 weeks, and production rollouts take 1–3 months. We design for speed-to-value above all — the pace that comes from working AI-natively.',
         },
         {
           q: 'Can we talk to you about overseas products?',
@@ -975,7 +975,7 @@ export const translations = {
       offer: {
         title: "What we deliver",
         items: [
-          { title: "Speed", desc: "The pace only an AI-native team can offer." },
+          { title: "Speed", desc: "The pace that comes from working AI-natively." },
           { title: "Global reach", desc: "Beyond Japan — everything we build assumes connecting Japan and the world." },
           { title: "Fresh thinking", desc: "Ideas born from our own perspective and worldview." },
         ],
@@ -1073,7 +1073,7 @@ export const translations = {
       lead: 'How we think, and how we work with AI.',
       readMore: 'Read more',
       close: 'Close',
-      author: 'MGC Editorial',
+      author: 'Kokomu Matsuo, CEO',
     },
     blog: {
       items: [

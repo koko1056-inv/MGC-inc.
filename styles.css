@@ -9,8 +9,8 @@
 @tailwind utilities;
 
 :root {
-  --color-accent: #2563eb; /* Default Swiss Blue */
-  --color-accent-rgb: 37 99 235; /* 同じ色のRGB。Tailwindの透過指定用 */
+  --color-accent: #2D6CDF; /* MGCブランドの青（DESIGN.md の Accent / Blue）。アクセントはこの1色のみ */
+  --color-accent-rgb: 45 108 223; /* 同じ色のRGB。Tailwindの透過指定用 */
 }
 
 html {
