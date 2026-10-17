@@ -194,6 +194,22 @@ const PageTransition: React.FC<{ children: ReactNode }> = ({ children }) => (
   </div>
 );
 
+// ページ遷移のリンク。href を持たせて検索エンジン・新しいタブ・右クリックに対応しつつ、
+// 通常のクリックはページを読み直さずに画面内で切り替える（onGo）。
+const NavLink: React.FC<React.AnchorHTMLAttributes<HTMLAnchorElement> & { onGo: () => void }> = ({ onGo, onClick, children, ...rest }) => (
+  <a
+    {...rest}
+    onClick={(e) => {
+      onClick?.(e);
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      e.preventDefault();
+      onGo();
+    }}
+  >
+    {children}
+  </a>
+);
+
 const SectionHeading: React.FC<{ title: string; subtitle?: ReactNode; dark?: boolean; as?: 'h1' | 'h2' }> = ({ title, subtitle, dark = false, as: Tag = 'h2' }) => (
   <Reveal>
     <div className={`flex flex-col md:flex-row items-end justify-between border-b ${dark ? 'border-gray-800' : 'border-gray-200'} pb-8 mb-16`}>
@@ -347,7 +363,7 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
         <div className="w-[600px] h-[600px] bg-accent/5 rounded-full blur-3xl mgc-orb-a" />
       </div>
       <div className="absolute bottom-20 -left-40 mgc-parallax">
-        <div className="w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-3xl mgc-orb-b" />
+        <div className="w-[500px] h-[500px] bg-accent/5 rounded-full blur-3xl mgc-orb-b" />
       </div>
       <div
         className="absolute -inset-10 opacity-[0.025] pointer-events-none mgc-grid mgc-parallax-soft"
@@ -405,27 +421,27 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
           </p>
           <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
             {SHOW_DIAGNOSIS && (
-              <button
-                onClick={() => goTo('diagnosis')}
-                className="group inline-flex items-center justify-center gap-3 px-6 py-4 bg-accent text-white rounded-full font-bold text-base tracking-tight hover:bg-offblack transition-all shadow-lg shadow-accent/20 whitespace-nowrap"
+              <NavLink
+                href={pathForView('diagnosis')} onGo={() => goTo('diagnosis')}
+                className="group inline-flex items-center justify-center gap-3 px-6 py-4 bg-accent text-white rounded-full font-bold text-base tracking-tight hover:opacity-90 transition-all shadow-lg shadow-accent/20 whitespace-nowrap"
               >
                 <Sparkles className="w-5 h-5" />
                 {t.hero.tryDiagnosis}
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </NavLink>
             )}
             {/* 診断を隠している間は、相談ボタンを主導線に格上げする */}
-            <button
-              onClick={() => goTo('contact')}
+            <NavLink
+              href={pathForView('contact')} onGo={() => goTo('contact')}
               className={
                 SHOW_DIAGNOSIS
                   ? 'group inline-flex items-center justify-center gap-2 text-offblack font-bold text-sm tracking-tight border-b-2 border-offblack pb-1 hover:text-accent hover:border-accent transition-colors whitespace-nowrap'
-                  : 'group inline-flex items-center justify-center gap-3 px-6 py-4 bg-accent text-white rounded-full font-bold text-base tracking-tight hover:bg-offblack transition-all shadow-lg shadow-accent/20 whitespace-nowrap'
+                  : 'group inline-flex items-center justify-center gap-3 px-6 py-4 bg-accent text-white rounded-full font-bold text-base tracking-tight hover:opacity-90 transition-all shadow-lg shadow-accent/20 whitespace-nowrap'
               }
             >
               {t.hero.bookConsult}
               <ArrowRight className={SHOW_DIAGNOSIS ? 'w-4 h-4 group-hover:translate-x-1 transition-transform' : 'w-5 h-5 group-hover:translate-x-1 transition-transform'} />
-            </button>
+            </NavLink>
           </div>
         </div>
       </Reveal>
@@ -445,9 +461,9 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
     <Reveal>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-gray-200 border border-gray-200 rounded-[2rem] overflow-hidden">
         {services.map((s, i) => (
-          <button
+          <NavLink
             key={i}
-            onClick={() => goTo(s.view)}
+            href={pathForView(s.view)} onGo={() => goTo(s.view)}
             className="group bg-offwhite hover:bg-offblack transition-colors duration-500 p-10 text-left flex flex-col gap-4"
           >
             <div className="flex items-center justify-between">
@@ -459,7 +475,7 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
             <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-400 group-hover:text-gray-200 transition-colors">
               Learn More <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
             </div>
-          </button>
+          </NavLink>
         ))}
       </div>
     </Reveal>
@@ -468,8 +484,8 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
   {/* === Free AI Diagnosis Banner (無料フロントエンド) === */}
   <div className={`px-6 md:px-12 pb-24 max-w-screen-xl mx-auto w-full${SHOW_DIAGNOSIS ? '' : ' hidden'}`}>
     <Reveal>
-      <button
-        onClick={() => goTo('diagnosis')}
+      <NavLink
+        href={pathForView('diagnosis')} onGo={() => goTo('diagnosis')}
         className="group w-full relative overflow-hidden rounded-[2rem] bg-offblack text-left p-8 md:p-12 hover:bg-accent transition-colors duration-500"
       >
         <div
@@ -497,7 +513,7 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </span>
         </div>
-      </button>
+      </NavLink>
     </Reveal>
   </div>
 
@@ -649,19 +665,19 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
               {t.homeCases.title}
             </h2>
           </div>
-          <button
-            onClick={() => goTo('cases')}
+          <NavLink
+            href={pathForView('cases')} onGo={() => goTo('cases')}
             className="flex-shrink-0 inline-flex items-center gap-2 text-sm font-bold text-accent hover:gap-3 transition-all"
           >
             {t.homeCases.cta} <ArrowRight className="w-4 h-4" />
-          </button>
+          </NavLink>
         </div>
       </Reveal>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {caseContent[lang].cases.map((cs, i) => (
           <Reveal key={cs.slug} delay={i * 90} className="h-full">
-            <button
-              onClick={() => goToCase(cs.slug)}
+            <NavLink
+              href={`/cases#${cs.slug}`} onGo={() => goToCase(cs.slug)}
               className="group h-full w-full text-left bg-white rounded-3xl border border-gray-200 p-8 flex flex-col hover:border-accent transition-colors duration-500"
             >
               <div className="flex flex-wrap gap-2 mb-5">
@@ -691,7 +707,7 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
               <span className="mt-6 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-400 group-hover:text-accent transition-colors">
                 {t.homeCases.detail} <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
               </span>
-            </button>
+            </NavLink>
           </Reveal>
         ))}
       </div>
@@ -710,9 +726,9 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
             </div>
             <h2 className="text-4xl md:text-5xl font-bold tracking-tighter text-offblack leading-tight">{t.news.title}</h2>
           </div>
-          <button onClick={() => goTo('blog')} className="flex-shrink-0 inline-flex items-center gap-2 text-sm font-bold text-accent hover:gap-3 transition-all">
+          <NavLink href={pathForView('blog')} onGo={() => goTo('blog')} className="flex-shrink-0 inline-flex items-center gap-2 text-sm font-bold text-accent hover:gap-3 transition-all">
             {t.news.more} <ArrowRight className="w-4 h-4" />
-          </button>
+          </NavLink>
         </div>
       </Reveal>
       <Reveal>
@@ -753,7 +769,7 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
   <section className="px-6 md:px-12 py-24 md:py-32">
     <div className="max-w-screen-xl mx-auto">
       <Reveal>
-        <div className="relative bg-gradient-to-br from-accent via-blue-600 to-blue-700 rounded-[2.5rem] p-12 md:p-20 overflow-hidden">
+        <div className="relative bg-accent rounded-[2.5rem] p-12 md:p-20 overflow-hidden">
           <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-black/10 rounded-full blur-3xl"></div>
           <div className="relative z-10 max-w-4xl">
@@ -770,20 +786,20 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
               {t.homeCTA.desc}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center mb-6">
-              <button
-                onClick={() => goTo('contact')}
+              <NavLink
+                href={pathForView('contact')} onGo={() => goTo('contact')}
                 className="group inline-flex items-center gap-3 px-7 py-4 bg-white text-offblack rounded-full font-bold tracking-tight hover:bg-offwhite transition-colors whitespace-nowrap shadow-xl"
               >
                 {t.homeCTA.primary}
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
-              <button
-                onClick={() => goTo('works')}
+              </NavLink>
+              <NavLink
+                href={pathForView('works')} onGo={() => goTo('works')}
                 className="group inline-flex items-center gap-2 text-white font-bold text-sm tracking-tight border-b-2 border-white/40 pb-1 hover:border-white transition-colors whitespace-nowrap"
               >
                 {t.homeCTA.secondary}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </NavLink>
             </div>
             <p className="text-xs md:text-sm text-white/70 leading-relaxed">
               {t.homeCTA.foot}
@@ -866,12 +882,12 @@ const ServiceBlock: React.FC<{
                       // AIソリューションの各サービスは、個別のサービスページへつなぐ
                       const link = (item as { link?: string }).link;
                       return link && isServiceKey(link) ? (
-                        <button
-                          onClick={() => onNavigate?.(link)}
+                        <NavLink
+                          href={pathForView(link)} onGo={() => onNavigate?.(link)}
                           className="mt-3 inline-flex items-center gap-2 text-sm font-bold text-accent hover:gap-3 transition-all"
                         >
                           {t.worksIntro.serviceLink} <ArrowRight className="w-4 h-4" />
-                        </button>
+                        </NavLink>
                       ) : null;
                     })()}
                   </div>
@@ -1197,7 +1213,7 @@ const PartnersView: React.FC = () => {
                     onMouseLeave={() => setActiveCity(null)}
                 >
                     <div className="relative -translate-x-1/2 -translate-y-1/2 cursor-pointer p-4">
-                        <div className={`w-4 h-4 rounded-full ${p.code === 'TYO' ? 'bg-accent shadow-[0_0_20px_rgba(37,99,235,0.4)]' : 'bg-gray-800 shadow-[0_0_20px_rgba(0,0,0,0.2)]'} relative z-10 transition-transform duration-300 group-hover:scale-150`}></div>
+                        <div className={`w-4 h-4 rounded-full ${p.code === 'TYO' ? 'bg-accent shadow-[0_0_20px_rgba(45,108,223,0.4)]' : 'bg-gray-800 shadow-[0_0_20px_rgba(0,0,0,0.2)]'} relative z-10 transition-transform duration-300 group-hover:scale-150`}></div>
                         <div className={`absolute inset-0 m-4 w-4 h-4 rounded-full ${p.code === 'TYO' ? 'bg-accent' : 'bg-gray-800'} animate-ping opacity-20`}></div>
                         <div className="absolute top-8 left-1/2 -translate-x-1/2 whitespace-nowrap transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:top-10">
                             <span className="text-xs font-mono font-bold text-white bg-black px-2 py-1 rounded backdrop-blur-sm shadow-md">{p.code}</span>
@@ -1337,12 +1353,12 @@ const CompanyView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onN
               >
                 {c.access.mapLabel} <ArrowRight className="w-4 h-4" />
               </a>
-              <button
-                onClick={() => onNavigate?.('mission')}
+              <NavLink
+                href={pathForView('mission')} onGo={() => onNavigate?.('mission')}
                 className="inline-flex items-center gap-2 text-sm font-bold text-offblack hover:text-accent transition-colors"
               >
                 {c.missionLink} <ArrowRight className="w-4 h-4" />
-              </button>
+              </NavLink>
             </div>
           </Reveal>
         </section>
@@ -1508,7 +1524,7 @@ const NewsList: React.FC<{ limit?: number; onNavigate?: (view: ViewState) => voi
             {isStatic ? (
               <a href={n.href} className={cls}>{inner}</a>
             ) : (
-              <button onClick={() => onNavigate?.(viewForPath(n.href))} className={cls}>{inner}</button>
+              <NavLink href={n.href} onGo={() => onNavigate?.(viewForPath(n.href))} className={cls}>{inner}</NavLink>
             )}
           </li>
         );
@@ -1744,15 +1760,15 @@ const ContactView: React.FC<{ onNavigate?: (view: ViewState) => void; initialSen
               <div className="mt-10 pt-8 border-t border-gray-200">
                 <span className="text-xs font-bold uppercase tracking-widest text-gray-500">{th.linksTitle}</span>
                 <div className="flex flex-wrap gap-x-8 gap-y-4 mt-5">
-                  <button onClick={() => onNavigate?.('cases')} className="inline-flex items-center gap-2 text-sm font-bold text-accent hover:gap-3 transition-all">
+                  <NavLink href={pathForView('cases')} onGo={() => onNavigate?.('cases')} className="inline-flex items-center gap-2 text-sm font-bold text-accent hover:gap-3 transition-all">
                     {th.caseLink} <ArrowRight className="w-4 h-4" />
-                  </button>
+                  </NavLink>
                   <a href="/column" className="inline-flex items-center gap-2 text-sm font-bold text-accent hover:gap-3 transition-all">
                     {th.columnLink} <ArrowRight className="w-4 h-4" />
                   </a>
-                  <button onClick={() => onNavigate?.('home')} className="inline-flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-offblack transition-colors">
+                  <NavLink href={pathForView('home')} onGo={() => onNavigate?.('home')} className="inline-flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-offblack transition-colors">
                     {th.homeLink} <ArrowRight className="w-4 h-4" />
-                  </button>
+                  </NavLink>
                 </div>
               </div>
             </Reveal>
@@ -1902,7 +1918,7 @@ const ContactView: React.FC<{ onNavigate?: (view: ViewState) => void; initialSen
                 <button
                   type="submit"
                   disabled={isSent || isSending}
-                  className="group w-full inline-flex items-center justify-center gap-3 px-6 py-4 bg-accent text-white rounded-full font-bold text-base tracking-tight hover:bg-offblack transition-all shadow-lg shadow-accent/20 disabled:opacity-70"
+                  className="group w-full inline-flex items-center justify-center gap-3 px-6 py-4 bg-accent text-white rounded-full font-bold text-base tracking-tight hover:opacity-90 transition-all shadow-lg shadow-accent/20 disabled:opacity-70"
                 >
                   {isSent ? (
                     <>
@@ -2073,7 +2089,7 @@ const TrainingView: React.FC = () => {
                   <p className="max-w-3xl text-base md:text-lg text-gray-700 leading-[1.9] mt-8">{tr.hero.lead}</p>
                   <a
                     href={tr.contact.ctaHref}
-                    className="group inline-flex items-center gap-2.5 mt-10 px-7 py-4 rounded-full bg-[#2D6CDF] text-white font-bold text-sm md:text-base tracking-tight shadow-xl shadow-[#2D6CDF]/25 hover:bg-[#111418] transition-all duration-300"
+                    className="group inline-flex items-center gap-2.5 mt-10 px-7 py-4 rounded-full bg-[#2D6CDF] text-white font-bold text-sm md:text-base tracking-tight shadow-xl shadow-[#2D6CDF]/25 hover:opacity-90 transition-all duration-300"
                   >
                     {tr.hero.cta}
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
@@ -2879,9 +2895,9 @@ const ServiceView: React.FC<{ serviceKey: ServiceKey; onNavigate?: (view: ViewSt
           <div className="max-w-screen-xl mx-auto">
             {/* 事業内容 → AIソリューション の中のサービスであることを示す */}
             <nav aria-label="breadcrumb" className="flex flex-wrap items-center gap-2 text-sm text-gray-500 mb-5">
-              <button onClick={() => onNavigate?.('works')} className="hover:text-accent transition-colors">{t.nav.works}</button>
+              <NavLink href={pathForView('works')} onGo={() => onNavigate?.('works')} className="hover:text-accent transition-colors">{t.nav.works}</NavLink>
               <span aria-hidden>／</span>
-              <button onClick={() => onNavigate?.('works')} className="hover:text-accent transition-colors">{t.nav.aiSolutions}</button>
+              <NavLink href={pathForView('works')} onGo={() => onNavigate?.('works')} className="hover:text-accent transition-colors">{t.nav.aiSolutions}</NavLink>
               <span aria-hidden>／</span>
               <span className="text-offblack font-bold">{page.navLabel}</span>
             </nav>
@@ -2907,7 +2923,7 @@ const ServiceView: React.FC<{ serviceKey: ServiceKey; onNavigate?: (view: ViewSt
                   <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 mt-10">
                     <a
                       href={`#contact/${page.slug}`}
-                      className="group inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full bg-[#2D6CDF] text-white font-bold text-sm md:text-base tracking-tight shadow-xl shadow-[#2D6CDF]/25 hover:bg-[#111418] transition-all duration-300"
+                      className="group inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full bg-[#2D6CDF] text-white font-bold text-sm md:text-base tracking-tight shadow-xl shadow-[#2D6CDF]/25 hover:opacity-90 transition-all duration-300"
                     >
                       {page.cta.button}
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
@@ -3139,7 +3155,7 @@ const DiagnosisView: React.FC = () => {
                   {error && <p className="text-red-500 text-sm mt-5">{error}</p>}
 
                   <button type="submit" disabled={loading}
-                    className="group w-full mt-8 px-7 py-4 rounded-full bg-[#2D6CDF] text-white font-bold text-base tracking-tight shadow-xl shadow-[#2D6CDF]/25 hover:bg-[#111418] transition-all duration-300 disabled:opacity-60 flex items-center justify-center gap-2.5">
+                    className="group w-full mt-8 px-7 py-4 rounded-full bg-[#2D6CDF] text-white font-bold text-base tracking-tight shadow-xl shadow-[#2D6CDF]/25 hover:opacity-90 transition-all duration-300 disabled:opacity-60 flex items-center justify-center gap-2.5">
                     {loading ? d.form.loading : d.form.submit}
                     {!loading && <Sparkles className="w-5 h-5 group-hover:scale-110 transition-transform" />}
                   </button>
@@ -3535,15 +3551,15 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
           下の本文と混ざって読みにくかった。白地の固定ヘッダーにして、常に同じ見え方にする。 */}
       <header className="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-gray-200 text-offblack">
         <div className="py-4 px-6 md:px-12 flex justify-between items-center">
-        <button
-          onClick={() => navigate('home')}
+        <NavLink
+          href={pathForView('home')} onGo={() => navigate('home')}
           className="flex items-center gap-4 group z-50 relative"
         >
           <div className="w-14 h-9 bg-offblack flex items-center justify-center transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:rotate-180">
             <div className="w-4 h-4 bg-white rounded-full" />
           </div>
           <span className="text-xl font-bold tracking-tighter hover:opacity-70 transition-opacity">MGC Inc.</span>
-        </button>
+        </NavLink>
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-7">
@@ -3563,11 +3579,11 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
                   {item.children.map((c) => c.heading ? (
                     <span key={c.label} className="block px-4 pt-3 pb-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400">{c.label}</span>
                   ) : (
-                    <button
+                    <NavLink
                       key={c.id ?? c.href}
-                      onClick={() => c.id && navigate(c.id)}
+                      href={c.id ? pathForView(c.id) : undefined} onGo={() => c.id && navigate(c.id)}
                       aria-current={view === c.id ? 'page' : undefined}
-                      className={`relative w-full text-left ${c.indent ? 'pl-8 pr-4' : 'px-4'} py-2.5 rounded-xl text-sm transition-colors ${
+                      className={`relative block w-full text-left ${c.indent ? 'pl-8 pr-4' : 'px-4'} py-2.5 rounded-xl text-sm transition-colors ${
                         view === c.id
                           ? 'font-bold text-accent bg-accent/10'
                           : 'font-medium text-gray-700 hover:text-offblack hover:bg-[#F4F6FB]'
@@ -3575,7 +3591,7 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
                     >
                       {view === c.id && <span className="absolute left-1.5 top-2.5 bottom-2.5 w-1 rounded-full bg-accent" />}
                       {c.label}
-                    </button>
+                    </NavLink>
                   ))}
                 </div>
               </div>
@@ -3589,23 +3605,23 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
               {item.label}
             </a>
           ) : (
-            <button
+            <NavLink
               key={item.id}
-              onClick={() => item.id && navigate(item.id)}
+              href={item.id ? pathForView(item.id) : undefined} onGo={() => item.id && navigate(item.id)}
               aria-current={view === item.id ? 'page' : undefined}
               className={`relative py-1 transition-colors ${view === item.id ? 'text-offblack font-bold' : 'text-gray-600 hover:text-offblack font-medium'}`}
             >
               {item.label}
               <span className={`absolute -bottom-1 left-0 h-[2px] bg-accent transition-all duration-300 ${view === item.id ? 'w-full' : 'w-0'}`} />
-            </button>
+            </NavLink>
           ))}
           {/* Contact CTA（主導線） */}
-          <button
-            onClick={() => navigate('contact')}
+          <NavLink
+            href={pathForView('contact')} onGo={() => navigate('contact')}
             className="ml-1 px-5 py-2 rounded-full bg-offblack text-white font-bold hover:bg-accent transition-colors duration-300"
           >
             {t.nav.contact}
-          </button>
+          </NavLink>
         </nav>
 
         {/* Mobile Menu Toggle */}
@@ -3639,13 +3655,13 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
               {item.children.map((c) => c.heading ? (
                 <span key={c.label} className="text-[11px] font-bold tracking-[0.2em] text-accent mt-1">{c.label}</span>
               ) : (
-                <button
+                <NavLink
                   key={c.id ?? c.href}
-                  onClick={() => c.id && navigate(c.id)}
+                  href={c.id ? pathForView(c.id) : undefined} onGo={() => c.id && navigate(c.id)}
                   className={`${c.indent ? 'text-xl' : 'text-2xl'} font-bold tracking-tighter text-offblack hover:text-accent transition-colors`}
                 >
                   {c.label}
-                </button>
+                </NavLink>
               ))}
             </div>
           ) : item.href ? (
@@ -3658,20 +3674,20 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
               {item.label}
             </a>
           ) : (
-            <button
+            <NavLink
               key={item.id}
-              onClick={() => item.id && navigate(item.id)}
+              href={item.id ? pathForView(item.id) : undefined} onGo={() => item.id && navigate(item.id)}
               className="text-4xl font-bold tracking-tighter text-offblack hover:text-accent transition-colors"
             >
               {item.label}
-            </button>
+            </NavLink>
           ))}
-          <button
-            onClick={() => navigate('contact')}
-            className="mt-3 px-8 py-4 rounded-full bg-accent text-white text-2xl font-bold hover:bg-offblack transition-colors"
+          <NavLink
+            href={pathForView('contact')} onGo={() => navigate('contact')}
+            className="mt-3 px-8 py-4 rounded-full bg-accent text-white text-2xl font-bold hover:opacity-90 transition-colors"
           >
             {t.nav.contact}
-          </button>
+          </NavLink>
         </nav>
       </div>
 
@@ -3696,10 +3712,10 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
 
       {/* Floating CTA — visible on every page except contact itself */}
       {view !== 'contact' && view !== 'home' && (
-        <button
-          onClick={() => navigate('contact')}
+        <NavLink
+          href={pathForView('contact')} onGo={() => navigate('contact')}
           aria-label={t.floatingCta.label}
-          className="group fixed bottom-6 right-6 md:bottom-8 md:right-8 z-40 inline-flex items-center gap-3 px-5 py-3.5 md:px-6 md:py-4 bg-accent text-white rounded-full font-bold text-sm md:text-base tracking-tight shadow-2xl shadow-accent/30 hover:bg-offblack hover:shadow-offblack/40 transition-all duration-300"
+          className="group fixed bottom-6 right-6 md:bottom-8 md:right-8 z-40 inline-flex items-center gap-3 px-5 py-3.5 md:px-6 md:py-4 bg-accent text-white rounded-full font-bold text-sm md:text-base tracking-tight shadow-2xl shadow-accent/30 hover:opacity-90 hover:shadow-offblack/40 transition-all duration-300"
         >
           <span className="relative flex items-center justify-center w-2.5 h-2.5">
             <span className="absolute inset-0 bg-white/40 rounded-full animate-ping"></span>
@@ -3711,7 +3727,7 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
           </span>
           <span className="sm:hidden">{t.floatingCta.label}</span>
           <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-        </button>
+        </NavLink>
       )}
 
       <footer className={`px-6 md:px-12 pt-16 md:pt-20 pb-10 border-t border-gray-200 text-gray-500`}>
@@ -3719,24 +3735,24 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8">
             {/* ブランド・所在地・相談への導線 */}
             <div className="md:col-span-4 lg:col-span-5">
-              <button onClick={() => navigate('home')} className="flex items-center gap-3 group">
+              <NavLink href={pathForView('home')} onGo={() => navigate('home')} className="flex items-center gap-3 group">
                 <span className={`w-12 h-8 flex items-center justify-center bg-offblack`}>
                   <span className={`w-4 h-4 rounded-full bg-white`} />
                 </span>
                 <span className={`text-lg font-bold tracking-tighter text-offblack group-hover:text-accent transition-colors`}>
                   MGC Inc.
                 </span>
-              </button>
+              </NavLink>
               <p className={`text-sm font-bold mt-6 text-offblack`}>{t.footer.tagline}</p>
               <p className="text-sm leading-relaxed mt-4">{t.footer.corp}</p>
               <p className="text-sm leading-relaxed">{t.footer.address}</p>
-              <button
-                onClick={() => navigate('contact')}
-                className="group inline-flex items-center gap-2 mt-8 px-5 py-2.5 rounded-full bg-accent text-white text-sm font-bold hover:bg-blue-700 transition-colors"
+              <NavLink
+                href={pathForView('contact')} onGo={() => navigate('contact')}
+                className="group inline-flex items-center gap-2 mt-8 px-5 py-2.5 rounded-full bg-accent text-white text-sm font-bold hover:opacity-90 transition-colors"
               >
                 {t.footer.contactCta}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-              </button>
+              </NavLink>
             </div>
 
             {/* リンク集 */}
@@ -3753,12 +3769,12 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
                           {link.label}
                         </a>
                       ) : (
-                        <button
-                          onClick={() => link.id && navigate(link.id)}
+                        <NavLink
+                          href={link.id ? pathForView(link.id) : undefined} onGo={() => link.id && navigate(link.id)}
                           className={`text-sm font-medium text-left hover:text-accent transition-colors text-gray-700`}
                         >
                           {link.label}
-                        </button>
+                        </NavLink>
                       )}
                     </li>
                   ))}

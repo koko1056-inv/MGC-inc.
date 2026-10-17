@@ -44,7 +44,7 @@ ${message}
         `.trim(),
         html: `
           <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
-            <h2 style="color: #1e3a8a;">[MGC Contact] New message from ${name}</h2>
+            <h2 style="color: #2D6CDF;">[MGC Contact] New message from ${name}</h2>
             <p><strong>Name:</strong> ${name}</p>
             <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
             <hr style="border: 1px solid #e5e7eb;" />
