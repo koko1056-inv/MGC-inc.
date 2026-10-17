@@ -7,7 +7,7 @@
   },
   "rotation": {
     "note": "日次で industries を順番に回す。lastIndex は最後に公開した業種の添字。次回は (lastIndex+1)%12 の業種で、usedTopics に無いテーマを選ぶ。",
-    "lastIndex": 5,
+    "lastIndex": 6,
     "industries": [
       {
         "key": "manufacturing",
@@ -131,7 +131,8 @@
       "hospitality-operational-efficiency-ai",
       "hospitality-guest-experience-and-training",
       "hospitality-customer-feedback-analysis",
-      "hospitality-personalized-guest-service-ai"
+      "hospitality-personalized-guest-service-ai",
+      "hospitality-shift-optimization-and-labor-management"
     ],
     "professional": [
       "professional-accounting-ai",
@@ -650,6 +651,12 @@
       "industry": "healthcare",
       "date": "2026-10-17",
       "file": "healthcare-discharge-planning-coordination-ai.json"
+    },
+    {
+      "slug": "hospitality-shift-optimization-and-labor-management",
+      "industry": "hospitality",
+      "date": "2026-10-18",
+      "file": "hospitality-shift-optimization-and-labor-management.json"
     }
   ]
 }

@@ -136,7 +136,8 @@
     <priority>0.4</priority>
   </url>
   <!-- COLUMNS:START -->
-  <url><loc>https://mgc-global01.com/column</loc><lastmod>2026-10-17</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mgc-global01.com/column</loc><lastmod>2026-10-18</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mgc-global01.com/column/hospitality-shift-optimization-and-labor-management</loc><lastmod>2026-10-18</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://mgc-global01.com/column/healthcare-discharge-planning-coordination-ai</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://mgc-global01.com/column/logistics-loading-optimization-ai</loc><lastmod>2026-10-16</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://mgc-global01.com/column/retail-dynamic-pricing-markdown-optimization</loc><lastmod>2026-10-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
