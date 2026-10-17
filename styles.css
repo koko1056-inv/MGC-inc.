@@ -2,7 +2,7 @@
    以前は index.html の <style> と Tailwind CDN で賄っていたものを、
    ビルド時に静的CSSへ出力する形に移した。トークン・値は変更していない。 */
 
-/* フォント（Inter / Noto Sans JP）はセルフホストし、index.html から /fonts/fonts.css を読み込む。 */
+/* 英数字の Inter だけをセルフホストし（index.html から /fonts/fonts.css）、和文は端末のフォントを使う。 */
 
 @tailwind base;
 @tailwind components;
@@ -18,7 +18,7 @@ html {
 }
 
 body {
-  font-family: "Inter", "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", "Helvetica Neue", Arial, sans-serif;
+  font-family: "Inter", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "MGC Yu Gothic", "Yu Gothic", Meiryo, "Noto Sans JP", "Noto Sans CJK JP", sans-serif;
   background-color: #fafafa;
   color: #0a0a0f;
   -webkit-font-smoothing: antialiased;

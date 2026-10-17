@@ -20,7 +20,9 @@ export default defineConfig(({ isSsrBuild }) => {
             manualChunks: isSsrBuild ? undefined : (id: string) => {
               if (id.includes('node_modules/react-dom') || id.includes('node_modules/react/') || id.includes('node_modules/scheduler')) return 'react';
               if (id.includes('node_modules/lucide-react')) return 'icons';
-              if (/[\\/](translations|serviceContent|caseContent)\.ts$/.test(id)) return 'content';
+              // 英語版は言語切替時にだけ読み込む（i18n.ts）
+              if (/[\\/](translations|serviceContent|caseContent|legalContent)\.en\.ts$/.test(id)) return 'content-en';
+              if (/[\\/](translations|serviceContent|caseContent|legalContent|journal)\.ts$/.test(id)) return 'content';
               return undefined;
             },
           },
