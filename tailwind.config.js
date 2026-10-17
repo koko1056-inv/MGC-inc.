@@ -14,13 +14,15 @@ export default {
     extend: {
       fontFamily: {
         sans: [
+          // 英数字は Inter、和文は端末のフォント（DESIGN.md の連鎖に準拠。public/fonts/fonts.css 参照）
           'Inter',
-          'Noto Sans JP',
           'Hiragino Kaku Gothic ProN',
           'Hiragino Sans',
+          'MGC Yu Gothic',
           'Yu Gothic',
-          'Helvetica Neue',
-          'Arial',
+          'Meiryo',
+          'Noto Sans JP',
+          'Noto Sans CJK JP',
           'sans-serif',
         ],
         jp: ['Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic', 'Inter', 'sans-serif'],

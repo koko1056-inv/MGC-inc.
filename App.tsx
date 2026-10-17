@@ -7,6 +7,7 @@ import { serviceContent, ServiceKey, ServiceSection } from './serviceContent';
 import { caseContent, CaseStudy } from './caseContent';
 import { legalContent, LegalDoc } from './legalContent';
 import { journalPosts, JOURNAL_SLUGS, journalPath, findJournalPost } from './journal';
+import { loadLang } from './i18n';
 export const LanguageContext = React.createContext<{ lang: Lang; setLang: (l: Lang) => void; t: typeof translations['ja'] }>({
   lang: 'ja',
   setLang: () => {},
@@ -3656,7 +3657,7 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
         <div className="flex items-center gap-4">
              {/* Language Switcher (Desktop/Mobile) */}
              <button
-               onClick={() => setLang(lang === 'ja' ? 'en' : 'ja')}
+               onClick={() => { const next: Lang = lang === 'ja' ? 'en' : 'ja'; loadLang(next).then(() => setLang(next)); }}
                className="font-mono text-sm font-bold border border-gray-300 rounded-full flex overflow-hidden z-50 hover:border-gray-400 transition-colors"
              >
                <span className={`px-3 py-1 transition-colors ${lang === 'ja' ? 'bg-offblack text-white' : 'text-gray-500 hover:text-offblack'}`}>JP</span>
@@ -3816,8 +3817,8 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
           <div className={`mt-14 md:mt-16 pt-6 border-t flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-gray-200`}>
             <p className="text-xs opacity-70">{t.footer.rights}</p>
             <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs">
-              <a href="/privacy-policy" className="hover:text-accent transition-colors">{t.footer.privacy}</a>
-              <a href="/terms-of-service" className="hover:text-accent transition-colors">{t.footer.terms}</a>
+              <NavLink href="/privacy-policy" onGo={() => navigate('privacy-policy')} className="hover:text-accent transition-colors">{t.footer.privacy}</NavLink>
+              <NavLink href="/terms-of-service" onGo={() => navigate('terms-of-service')} className="hover:text-accent transition-colors">{t.footer.terms}</NavLink>
             </div>
           </div>
         </div>
