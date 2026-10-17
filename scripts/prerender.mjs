@@ -74,6 +74,17 @@ for (const route of [...routes(), NOT_FOUND]) {
 }
 console.log(`事前描画: ${count}ページ`);
 
+// コラムへのリンク切れを検査する（サービスページの「関連するコラム」等）
+const columnDir = path.join(dist, 'column');
+const deadColumns = new Set();
+for (const route of [...routes(), NOT_FOUND]) {
+  const file = route === '/' ? 'index.html' : `${route.slice(1)}.html`;
+  for (const [, slug] of fs.readFileSync(path.join(dist, file), 'utf-8').matchAll(/href="\/column\/([a-z0-9-]+)"/g)) {
+    if (!fs.existsSync(path.join(columnDir, `${slug}.html`))) deadColumns.add(`${route} → /column/${slug}`);
+  }
+}
+if (deadColumns.size) throw new Error(`存在しないコラムへのリンク: ${[...deadColumns].join(', ')}`);
+
 // サイトマップの載せ漏れを検査する（検索に出すページはすべて載せる）
 const sitemap = fs.readFileSync(path.join(dist, 'sitemap.xml'), 'utf-8');
 const unlisted = routes().filter((r) => !render(r).meta.noindex && !sitemap.includes(`<loc>${render(r).meta.url.replace(/\/$/, '')}${r === '/' ? '/' : ''}</loc>`));

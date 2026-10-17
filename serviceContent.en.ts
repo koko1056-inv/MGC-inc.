@@ -141,8 +141,8 @@ export const en: Content['en'] = {
         heading: 'Related articles',
         links: [
           { slug: 'real-estate-inquiry-response-ai', title: 'Automating inbound response in real estate — 24/7 handling and structured first contact' },
-          { slug: 'manufacturing-inspection-ai', title: 'AI in visual inspection — splitting full inspection between people and AI' },
-          { slug: 'hr-reskilling-ai', title: 'Turning reskilling into real AI adoption' },
+          { slug: 'real-estate-internal-knowledge-sharing-ai', title: 'Ending one-person sales know-how in real estate — sharing veterans’ knowledge across the team with AI' },
+          { slug: 'finance-personalized-proposal-governance', title: 'Personalised proposals in finance and insurance — persuasive, accountable, and run in practice' },
         ],
       },
       {
@@ -310,9 +310,9 @@ export const en: Content['en'] = {
         eyebrow: 'Related',
         heading: 'Related articles',
         links: [
-          { slug: 'real-estate-inquiry-response-ai', title: 'Automating inbound response in real estate — 24/7 handling and structured first contact' },
+          { slug: 'public-resident-window-ai-automation', title: 'AI at the local-government counter — better service for residents, less load on staff' },
+          { slug: 'retail-customer-support-hybrid-ai', title: 'AI customer support in retail and e-commerce — designing the hand-off to people' },
           { slug: 'hospitality-service-automation', title: 'AI in hospitality — balancing automation with genuine service' },
-          { slug: 'public-dx-ai-implementation', title: 'A realistic path to AI in local government — starting at the counter' },
         ],
       },
       {
@@ -495,9 +495,9 @@ export const en: Content['en'] = {
         eyebrow: 'Related',
         heading: 'Related articles',
         links: [
-          { slug: 'retail-demand-forecasting-inventory', title: 'Demand forecasting in retail — connecting judgement and data' },
-          { slug: 'hr-talent-management-retention-ai', title: 'Reducing attrition with AI — talent management beyond gut feel' },
-          { slug: 'finance-backoffice-ai-automation', title: 'AI in finance back-office work — changing it without lowering the guard' },
+          { slug: 'real-estate-property-listing-matching-ai', title: 'AI in real-estate operations — from automated listing entry to smarter matching' },
+          { slug: 'hospitality-personalized-guest-service-ai', title: 'Standardising hospitality with AI — using customer data to lift the guest experience' },
+          { slug: 'retail-omo-customer-journey-ai', title: 'AI for OMO in retail — connecting the in-store and online customer experience' },
         ],
       },
       {
