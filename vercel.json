@@ -83,7 +83,11 @@
     },
     {
       "source": "/diagnosis",
-      "destination": "/200.html"
+      "destination": "/diagnosis.html"
+    },
+    {
+      "source": "/blog/:slug",
+      "destination": "/blog/:slug.html"
     },
     {
       "source": "/contact/thanks",

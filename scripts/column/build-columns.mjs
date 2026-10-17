@@ -334,7 +334,8 @@ function articleHtml(a) {
   const url = `${site.baseUrl}/column/${a.slug}`;
   const img = a.image || ind.fallbackImage;
   const imgAbs = img.startsWith('http') ? img : `${site.baseUrl}${img}`;
-  const seoTitle = a.seoTitle || `${a.title} - MGCコラム`;
+  // タイトル末尾はサイト全体で「 - ＭＧＣ株式会社」に揃える（記事データ側の「 - MGCコラム」等は付け替える）
+  const seoTitle = `${(a.seoTitle || a.title).replace(/\s*[-–—|｜]\s*MGC(コラム| Inc\.)?\s*$/, '')} - ＭＧＣ株式会社`;
   const desc = a.description || plainText(a).slice(0, 110);
   const kw = (a.keywords || []).join(', ');
 
@@ -583,7 +584,7 @@ ${usedIndustries.map((k) => `<button type="button" data-f="${esc(k)}" aria-press
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>AI活用コラム｜業界別のAI導入・活用の実践知 - MGC</title>
+<title>AI活用コラム｜業界別のAI導入・活用の実践知 - ＭＧＣ株式会社</title>
 <meta name="description" content="製造・建設・不動産・小売・物流・医療・士業など、業界別にAIの現実的な活用方法を解説するMGCのコラム。どの業務に、どうAIを使い、どこは人が判断するか。実務目線でまとめています。"/>
 <meta name="robots" content="index, follow, max-image-preview:large"/>
 <link rel="canonical" href="${esc(url)}"/>
@@ -591,7 +592,7 @@ ${usedIndustries.map((k) => `<button type="button" data-f="${esc(k)}" aria-press
 <meta property="og:locale" content="ja_JP"/>
 <meta property="og:site_name" content="MGC Inc."/>
 <meta property="og:url" content="${esc(url)}"/>
-<meta property="og:title" content="AI活用コラム｜業界別のAI導入・活用の実践知 - MGC"/>
+<meta property="og:title" content="AI活用コラム｜業界別のAI導入・活用の実践知 - ＭＧＣ株式会社"/>
 <meta property="og:description" content="業界別に、AIの現実的な活用方法を実務目線で解説するMGCのコラム。"/>
 <meta property="og:image" content="${esc(site.baseUrl)}/assets/service_ai.jpg"/>
 <meta name="twitter:card" content="summary_large_image"/>
@@ -634,7 +635,7 @@ function updateSitemap() {
   const START = '<!-- COLUMNS:START -->';
   const END = '<!-- COLUMNS:END -->';
   const urls = [
-    `  <url><loc>${site.baseUrl}/column</loc><changefreq>daily</changefreq><priority>0.8</priority></url>`,
+    `  <url><loc>${site.baseUrl}/column</loc><lastmod>${articles.map((a) => a.date).sort().pop()}</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>`,
     ...articles.map((a) =>
       `  <url><loc>${site.baseUrl}/column/${a.slug}</loc><lastmod>${a.date}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>`),
   ].join('\n');

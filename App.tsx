@@ -6,6 +6,7 @@ import { track } from '@vercel/analytics';
 import { serviceContent, ServiceKey, ServiceSection } from './serviceContent';
 import { caseContent, CaseStudy } from './caseContent';
 import { legalContent, LegalDoc } from './legalContent';
+import { journalPosts, JOURNAL_SLUGS, journalPath, findJournalPost } from './journal';
 export const LanguageContext = React.createContext<{ lang: Lang; setLang: (l: Lang) => void; t: typeof translations['ja'] }>({
   lang: 'ja',
   setLang: () => {},
@@ -14,7 +15,7 @@ export const LanguageContext = React.createContext<{ lang: Lang; setLang: (l: La
 export const useLanguage = () => React.useContext(LanguageContext);
 // --- Types & Interfaces ---
 
-export type ViewState = 'home' | 'works' | 'training' | 'diagnosis' | 'mission' | 'partners' | 'company' | 'career' | 'contact' | 'blog' | 'cases' | 'notfound' | 'privacy-policy' | 'terms-of-service' | ServiceKey;
+export type ViewState = 'home' | 'works' | 'training' | 'diagnosis' | 'mission' | 'partners' | 'company' | 'career' | 'contact' | 'blog' | 'cases' | 'notfound' | 'privacy-policy' | 'terms-of-service' | 'journal' | ServiceKey;
 
 // AI診断の表示切り替え。false の間は、サイト内の導線をすべて隠す。
 // ページ自体（/diagnosis）は残るため、true に戻せば元の状態に復帰する。
@@ -27,11 +28,11 @@ const PAGE_META: Record<Lang, Partial<Record<string, { title: string; descriptio
     works: { title: '事業内容｜AIソリューション・AI事業立ち上げ支援・研修・クロスボーダー - ＭＧＣ株式会社', description: 'AIコンサルティング・開発・運用を一気通貫で提供するAIソリューション、導入実績を同業他社向けの商材に変えるAI事業立ち上げ支援、AI活用の実践型研修、海外企業の日本総代理店・日本企業の海外進出を支援するクロスボーダー事業。' },
     training: { title: 'AI活用リスキリング研修｜実践型のOFF-JT研修 - ＭＧＣ株式会社', description: 'ITに詳しくない経営者・従業員がAIを業務に導入・活用できるようになる実践型研修（OFF-JT）。基礎から実務での活用までを、解説・実例・デモで学びます。' },
     mission: { title: '会社理念｜AIとテクノロジーで、日本と世界をつなぐ - ＭＧＣ株式会社', description: 'MGCのビジョン・ミッション・バリュー。AIは手段であり、目的は未来をより良くすること。受け継がれ、続いていく取り組みをつくります。' },
-    company: { title: '会社概要 - ＭＧＣ株式会社（MGC Inc.）', description: 'ＭＧＣ株式会社の会社概要。商号・代表者・所在地（京都府京都市）・設立・事業内容。' },
+    company: { title: '会社概要 - ＭＧＣ株式会社', description: 'ＭＧＣ株式会社の会社概要。商号・代表者・所在地（京都府京都市）・設立・事業内容。' },
     career: { title: '採用情報｜AIネイティブに働く仲間を募集 - ＭＧＣ株式会社', description: 'MGCが求める人物像・マインドセット・スキル。AIを同僚として使いこなし、日本と世界をつなぐ仕事に挑む仲間を募集しています。' },
     contact: { title: 'お問い合わせ｜30分の無料相談 - ＭＧＣ株式会社', description: 'AI導入・研修・海外展開のご相談は無料です。現状を伺い、どこからAIに任せられるかを整理してお返しします。' },
     blog: { title: 'お知らせ・ジャーナル - ＭＧＣ株式会社', description: 'ＭＧＣ株式会社のお知らせ（サービス開始・研修・サイト更新など）と、MGCの考え方を綴るジャーナル。' },
-    diagnosis: { title: 'AI活用診断 - ＭＧＣ株式会社', description: '業種と課題を入力するだけで、AI活用施策と導入後の効果をその場で診断します。' },
+    diagnosis: { title: 'AI活用診断｜業種と課題から導入効果をその場で試算 - ＭＧＣ株式会社', description: '業種・事業内容・課題を入力するだけで、AIに任せられる業務、導入後のワークフロー、期待できる効果をその場で診断します。無料・所要3分。' },
     'privacy-policy': { title: 'プライバシーポリシー - ＭＧＣ株式会社', description: 'ＭＧＣ株式会社のプライバシーポリシー。問い合わせフォーム・AI活用診断で取得する情報、利用目的、外部サービス、保管期間、開示等のご請求について。' },
     'terms-of-service': { title: 'サイト利用規約 - ＭＧＣ株式会社', description: 'ＭＧＣ株式会社ウェブサイトの利用規約。著作権、禁止事項、AI活用診断の位置づけ、免責事項について。' },
     thanks: { title: '送信完了 - ＭＧＣ株式会社', description: 'お問い合わせを受け付けました。内容を確認し、1営業日以内にメールでご返信します。' },
@@ -47,7 +48,7 @@ const PAGE_META: Record<Lang, Partial<Record<string, { title: string; descriptio
     career: { title: 'Careers | Work AI-natively with us - MGC Inc.', description: 'Who we look for, the mindset and the skills. Join us in connecting Japan and the world with AI as a colleague.' },
     contact: { title: 'Contact | Free 30-minute consultation - MGC Inc.', description: 'Consultations on AI adoption, training and overseas expansion are free. Tell us where you are and we will map what AI can take on.' },
     blog: { title: 'News & Journal - MGC Inc.', description: 'News from MGC Inc. — service launches, training and site updates — and our journal on how we think about AI.' },
-    diagnosis: { title: 'AI Diagnosis - MGC Inc.', description: 'Enter your industry and challenges to get an instant AI adoption diagnosis.' },
+    diagnosis: { title: 'AI Diagnosis | Estimate the impact of AI for your business - MGC Inc.', description: 'Enter your industry, business and challenges to see which work AI can take on, the workflow after adoption and the expected impact. Free, about 3 minutes.' },
     'privacy-policy': { title: 'Privacy Policy - MGC Inc.', description: 'How MGC Inc. handles information collected through the contact form, AI diagnosis and analytics.' },
     'terms-of-service': { title: 'Terms of Use - MGC Inc.', description: 'Terms of use for the MGC Inc. website.' },
     thanks: { title: 'Message sent - MGC Inc.', description: 'We received your message and will reply within one business day.' },
@@ -98,6 +99,8 @@ export const viewForPath = (rawPath: string): ViewState => {
   if (path === '/contact/thanks') return 'contact';
   const svc = path.match(/^\/service\/([a-z-]+)$/);
   if (svc && isServiceKey(svc[1])) return svc[1];
+  const post = path.match(/^\/blog\/([a-z0-9-]+)$/);
+  if (post && JOURNAL_SLUGS.includes(post[1])) return 'journal';
   if (path === '/' || path === '/index.html' || path === '/200.html') return 'home';
   // 知らないURLはトップを見せず「見つからない」ページにする（本番では 404.html として配信）
   return 'notfound';
@@ -110,6 +113,18 @@ export const THANKS_PATH = '/contact/thanks';
 export const metaFor = (view: ViewState, lang: Lang, path?: string) => {
   const page = isServiceKey(view) ? serviceContent[lang][view] : null;
   const isThanks = view === 'contact' && path?.replace(/\/+$/, '') === THANKS_PATH;
+  if (view === 'journal') {
+    const post = findJournalPost(lang, (path ?? '').replace(/\/+$/, '').split('/').pop() ?? '');
+    if (post) {
+      return {
+        title: `${post.title}${lang === 'ja' ? ' - ＭＧＣ株式会社' : ' - MGC Inc.'}`,
+        description: post.excerpt,
+        url: SITE_ORIGIN + journalPath(post.slug),
+        image: SITE_ORIGIN + post.imageJpg,
+        noindex: false,
+      };
+    }
+  }
   const base = page
     ? { title: page.seoTitle, description: page.seoDescription }
     : (PAGE_META[lang][isThanks ? 'thanks' : view] ?? PAGE_META[lang].home!);
@@ -1533,29 +1548,9 @@ const NewsList: React.FC<{ limit?: number; onNavigate?: (view: ViewState) => voi
   );
 };
 
-const BlogView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavigate }) => {
-  const [selectedPost, setSelectedPost] = useState<number | null>(null);
-  const { t } = useLanguage();
-
-  const staticImages = [
-     "/assets/blog_strategy.webp",
-     "/assets/blog_automation.webp",
-     "/assets/blog_ai__transforming_the_future.webp",
-     "/assets/blog_japan_s_future_in_sales_ai.webp",
-     "/assets/blog_sales_ai.webp",
-     "/assets/blog_automation.webp",
-     "/assets/blog_voice_app.webp",
-     "/assets/blog_vision.webp",
-     "/assets/blog_philosophy.webp",
-     "/assets/blog_strategy.webp",
-     "/assets/blog_methodology.webp"
-  ];
-
-  const posts = t.blog.items.map((item, i) => ({
-    ...item,
-    image: staticImages[i] || staticImages[0]
-  }));
-  const post = selectedPost !== null ? posts[selectedPost] : null;
+const BlogView: React.FC<{ onNavigate?: (view: ViewState) => void; onNavigatePath: (path: string) => void }> = ({ onNavigate, onNavigatePath }) => {
+  const { t, lang } = useLanguage();
+  const posts = journalPosts(lang);
 
   return (
     <PageTransition>
@@ -1573,72 +1568,94 @@ const BlogView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
           </Reveal>
         </section>
 
-        {/* ジャーナル */}
+        {/* ジャーナル（記事は /blog/<slug> の個別ページ） */}
         <section>
           <Reveal>
             <span className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-accent">{t.journal.eyebrow}</span>
             <h2 className="text-2xl md:text-3xl font-bold text-offblack tracking-tight mt-3">{t.journal.title}</h2>
             <p className="text-gray-600 leading-relaxed mt-3 mb-10">{t.journal.lead}</p>
           </Reveal>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {posts.map((p, i) => (
-              <Reveal key={p.id} delay={(i % 3) * 90} className="h-full">
-                <button
-                  onClick={() => setSelectedPost(i)}
-                  className="group h-full w-full text-left bg-white rounded-3xl border border-gray-200 overflow-hidden hover:border-accent hover:shadow-lg transition-all duration-300 flex flex-col"
-                >
-                  <div className="relative aspect-[16/10] overflow-hidden bg-gray-100">
-                    <img src={p.image} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt={p.title} />
-                    <span className="absolute top-4 left-4 px-3 py-1 bg-white/95 text-accent text-[10px] font-bold tracking-widest uppercase rounded-full">{p.category}</span>
-                  </div>
-                  <div className="p-6 flex flex-col flex-grow">
-                    <span className="font-mono text-xs text-gray-400">{p.date}</span>
-                    <h3 className="text-lg font-bold text-offblack mt-2 mb-3 leading-snug group-hover:text-accent transition-colors">{p.title}</h3>
-                    <p className="text-gray-600 text-sm leading-relaxed line-clamp-3 flex-grow">{p.excerpt}</p>
-                    <span className="mt-5 inline-flex items-center gap-2 text-accent font-bold text-sm">
-                      {t.journal.readMore} <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    </span>
-                  </div>
-                </button>
-              </Reveal>
+          <JournalCards posts={posts} onNavigatePath={onNavigatePath} />
+        </section>
+      </div>
+    </PageTransition>
+  );
+};
+
+const JournalCards: React.FC<{ posts: ReturnType<typeof journalPosts>; onNavigatePath: (path: string) => void }> = ({ posts, onNavigatePath }) => {
+  const { t } = useLanguage();
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {posts.map((p, i) => (
+        <Reveal key={p.id} delay={(i % 3) * 90} className="h-full">
+          <NavLink
+            href={journalPath(p.slug)}
+            onGo={() => onNavigatePath(journalPath(p.slug))}
+            className="group h-full w-full text-left bg-white rounded-3xl border border-gray-200 overflow-hidden hover:border-accent hover:shadow-lg transition-all duration-300 flex flex-col"
+          >
+            <div className="relative aspect-[16/10] overflow-hidden bg-gray-100">
+              <img src={p.image} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="" />
+              <span className="absolute top-4 left-4 px-3 py-1 bg-white/95 text-accent text-[10px] font-bold tracking-widest uppercase rounded-full">{p.category}</span>
+            </div>
+            <div className="p-6 flex flex-col flex-grow">
+              <time dateTime={p.isoDate} className="font-mono text-xs text-gray-400">{p.date}</time>
+              <h3 className="text-lg font-bold text-offblack mt-2 mb-3 leading-snug group-hover:text-accent transition-colors">{p.title}</h3>
+              <p className="text-gray-600 text-sm leading-relaxed line-clamp-3 flex-grow">{p.excerpt}</p>
+              <span className="mt-5 inline-flex items-center gap-2 text-accent font-bold text-sm">
+                {t.journal.readMore} <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </span>
+            </div>
+          </NavLink>
+        </Reveal>
+      ))}
+    </div>
+  );
+};
+
+// ジャーナル記事の個別ページ（/blog/<slug>）
+const JournalPostView: React.FC<{ slug: string; onNavigate: (view: ViewState) => void; onNavigatePath: (path: string) => void }> = ({ slug, onNavigate, onNavigatePath }) => {
+  const { t, lang } = useLanguage();
+  const post = findJournalPost(lang, slug);
+  if (!post) return <NotFoundView onNavigate={onNavigate} />;
+  const others = journalPosts(lang).filter((p) => p.slug !== slug).slice(0, 3);
+  return (
+    <PageTransition>
+      <article className="px-6 md:px-12 max-w-screen-xl mx-auto">
+        <nav aria-label="breadcrumb" className="flex flex-wrap items-center gap-2 text-sm text-gray-500 mb-8">
+          <NavLink href="/" onGo={() => onNavigate('home')} className="hover:text-accent transition-colors">{lang === 'ja' ? 'ホーム' : 'Home'}</NavLink>
+          <span aria-hidden>／</span>
+          <NavLink href="/blog" onGo={() => onNavigate('blog')} className="hover:text-accent transition-colors">{t.headings.blog.title}</NavLink>
+        </nav>
+        <div className="max-w-3xl">
+          <div className="flex items-center gap-3">
+            <span className="px-3 py-1 bg-accent/10 text-accent text-[10px] font-bold tracking-widest uppercase rounded-full">{post.category}</span>
+            <time dateTime={post.isoDate} className="text-gray-500 font-mono text-sm">{post.date}</time>
+          </div>
+          <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-offblack leading-[1.4] mt-5">{post.title}</h1>
+          <p className="text-sm text-gray-500 mt-5">{t.journal.author}</p>
+        </div>
+        <div className="mt-10 rounded-[1.75rem] md:rounded-[2.5rem] overflow-hidden bg-gray-100 aspect-[16/9] md:aspect-[21/9]">
+          <img src={post.image} className="w-full h-full object-cover" alt="" />
+        </div>
+        <div className="max-w-3xl mt-12">
+          <p className="text-lg md:text-xl text-offblack leading-[1.9] font-medium border-l-4 border-accent pl-5">{post.excerpt}</p>
+          <div className="mt-10 space-y-6">
+            {post.content.split(/\n{2,}/).map((para, i) => (
+              <p key={i} className="text-base md:text-[17px] text-[#1A2233] leading-[2] whitespace-pre-line">{para}</p>
             ))}
           </div>
-        </section>
-
-        {/* 記事の本文 */}
-        {post && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10">
-            <div className="fixed inset-0 bg-offblack/50 backdrop-blur-sm" onClick={() => setSelectedPost(null)} />
-            <div role="dialog" aria-modal="true" aria-label={post.title} className="relative w-full max-w-3xl bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
-              <button
-                onClick={() => setSelectedPost(null)}
-                aria-label={t.journal.close}
-                className="absolute top-5 right-5 z-10 w-11 h-11 rounded-full bg-white/90 border border-gray-200 hover:bg-offblack hover:text-white text-offblack flex items-center justify-center transition-colors"
-              >
-                <X className="w-5 h-5" />
-              </button>
-              <div className="h-48 md:h-64 flex-shrink-0 bg-gray-100">
-                <img src={post.image} className="w-full h-full object-cover" alt="" />
-              </div>
-              <div className="p-7 md:p-12 overflow-y-auto">
-                <div className="flex items-center gap-3 mb-5">
-                  <span className="px-3 py-1 bg-accent/10 text-accent text-[10px] font-bold tracking-widest uppercase rounded-full">{post.category}</span>
-                  <span className="text-gray-400 font-mono text-xs">{post.date}</span>
-                </div>
-                <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-offblack mb-6 leading-snug">{post.title}</h2>
-                <p className="text-gray-700 text-lg leading-relaxed font-medium mb-8 border-l-4 border-accent pl-5">{post.excerpt}</p>
-                <p className="text-gray-700 leading-[2] whitespace-pre-line">{post.content}</p>
-                <div className="mt-10 pt-8 border-t border-gray-200 flex items-center justify-between">
-                  <span className="text-sm font-bold text-gray-500">{t.journal.author}</span>
-                  <button onClick={() => setSelectedPost(null)} className="text-sm font-bold text-offblack hover:text-accent transition-colors">
-                    {t.journal.close}
-                  </button>
-                </div>
-              </div>
-            </div>
+          <div className="mt-14 pt-8 border-t border-gray-200 flex flex-wrap items-center justify-between gap-4">
+            <span className="text-sm font-bold text-gray-500">{t.journal.author}</span>
+            <NavLink href="/blog" onGo={() => onNavigate('blog')} className="inline-flex items-center gap-2 text-sm font-bold text-accent hover:gap-3 transition-all">
+              {lang === 'ja' ? 'お知らせ・ジャーナル一覧へ' : 'All news & journal'} <ArrowRight className="w-4 h-4" />
+            </NavLink>
           </div>
-        )}
-      </div>
+        </div>
+        <section className="mt-24 md:mt-32">
+          <h2 className="text-2xl md:text-3xl font-bold text-offblack tracking-tight mb-8">{lang === 'ja' ? 'ほかの記事' : 'More from the journal'}</h2>
+          <JournalCards posts={others} onNavigatePath={onNavigatePath} />
+        </section>
+      </article>
     </PageTransition>
   );
 };
@@ -3159,7 +3176,10 @@ const DiagnosisView: React.FC = () => {
                     {loading ? d.form.loading : d.form.submit}
                     {!loading && <Sparkles className="w-5 h-5 group-hover:scale-110 transition-transform" />}
                   </button>
-                  <p className="text-xs text-gray-400 text-center mt-4 leading-relaxed">{d.form.privacyNote}</p>
+                  <p className="text-xs text-gray-500 text-center mt-4 leading-relaxed">
+                    {d.form.privacyNote}{' '}
+                    <a href="/privacy-policy" target="_blank" rel="noopener" className="text-accent underline underline-offset-4">{t.footer.privacy}</a>
+                  </p>
                 </form>
               </Reveal>
             </div>
@@ -3421,6 +3441,8 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
   };
 
   const [view, setView] = useState<ViewState>(getViewFromLocation());
+  // 同じビューで中身が変わるページ（/blog/<slug>）のために、現在のパスも持つ
+  const [path, setPath] = useState<string>(currentPath());
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [lang, setLang] = useState<Lang>('ja');
   const t = translations[lang];
@@ -3434,6 +3456,7 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
         track('contact_cta', { from: viewRef.current, via: window.location.hash.slice(1) });
       }
       setView(next);
+      setPath(currentPath());
       window.scrollTo(0, 0);
       setIsMenuOpen(false);
     };
@@ -3449,7 +3472,7 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
   // ビューごとの title / description / canonical / OGP をまとめて反映する
   useEffect(() => {
     applyMeta(metaFor(view, lang, window.location.pathname));
-  }, [view, lang]);
+  }, [view, lang, path]);
 
   // ハイドレーションが終わったら、以降に現れる要素はスクロールで出す演出に戻す
   useEffect(() => { markHydrated(); }, []);
@@ -3479,16 +3502,21 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
   }, [lang]);
 
   // クリーンURLへ遷移する。ハッシュは付けない（旧ハッシュ付きURLから来た場合はここで消える）
+  // パスで遷移する（/blog/<slug> のようにビュー名だけでは決まらないページ用）
+  const navigatePath = (to: string) => {
+    if (window.location.pathname !== to || window.location.hash) {
+      window.history.pushState({}, '', to);
+    }
+    setView(viewForPath(to));
+    setPath(to);
+    window.scrollTo(0, 0);
+    setIsMenuOpen(false);
+  };
+
   const navigate = (id: ViewState) => {
     // どのページから相談フォームへ来たかを計測する（ボタンごとに印を付けず、遷移の一か所で取る）
     if (id === 'contact' && view !== 'contact') track('contact_cta', { from: view });
-    const path = pathForView(id);
-    if (window.location.pathname !== path || window.location.hash) {
-      window.history.pushState({}, '', path);
-    }
-    setView(id);
-    window.scrollTo(0, 0);
-    setIsMenuOpen(false);
+    navigatePath(pathForView(id));
   };
 
   // フッターのリンク。ヘッダーより広く、役割ごとにまとめて並べる。
@@ -3699,7 +3727,8 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
         {isServiceKey(view) && <ServiceView serviceKey={view} onNavigate={navigate} />}
         {view === 'cases' && <CasesView />}
         {view === 'diagnosis' && <DiagnosisView />}
-        {view === 'blog' && <BlogView onNavigate={navigate} />}
+        {view === 'blog' && <BlogView onNavigate={navigate} onNavigatePath={navigatePath} />}
+        {view === 'journal' && <JournalPostView slug={path.split('/').pop() ?? ''} onNavigate={navigate} onNavigatePath={navigatePath} />}
         {view === 'mission' && <MissionView />}
         {/* PartnersView is hidden */}
         {view === 'company' && <CompanyView onNavigate={navigate} />}
