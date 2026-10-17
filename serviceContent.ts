@@ -177,8 +177,8 @@ const ja: Content['ja'] = {
         lead: '導入の考え方をより詳しく書いた記事です。',
         links: [
           { slug: 'real-estate-inquiry-response-ai', title: '不動産仲介の反響対応をAIで効率化する — 24時間対応と初期ヒアリングの仕組み化' },
-          { slug: 'manufacturing-inspection-ai', title: '製造業の外観検査にAIをどう使うか — 全数検査を「人とAI」で分担する' },
-          { slug: 'hr-reskilling-ai', title: 'リスキリングをAI活用につなげる — 「研修を受けさせる」で終わらせない設計' },
+          { slug: 'real-estate-internal-knowledge-sharing-ai', title: '不動産営業の「属人化」をAIで解消する — 熟練の知恵を全社で共有・活用する仕組み' },
+          { slug: 'finance-personalized-proposal-governance', title: '金融・保険のパーソナライズをAIで加速する — 「納得感」のある提案と運用の実務' },
         ],
       },
       {
@@ -349,9 +349,9 @@ const ja: Content['ja'] = {
         heading: '関連するコラム',
         lead: '一次対応の自動化について、業種別に書いた記事です。',
         links: [
-          { slug: 'real-estate-inquiry-response-ai', title: '不動産仲介の反響対応をAIで効率化する — 24時間対応と初期ヒアリングの仕組み化' },
+          { slug: 'public-resident-window-ai-automation', title: '自治体の窓口業務AI導入 — 住民利便性と職員の負担軽減を両立する' },
+          { slug: 'retail-customer-support-hybrid-ai', title: '小売・ECのカスタマーサポートAI化 — 顧客体験を損なわない「有人連携」の設計図' },
           { slug: 'hospitality-service-automation', title: '飲食・ホテルのAI活用 — 予約・シフト・接客の「自動化」と「おもてなし」を両立する' },
-          { slug: 'public-dx-ai-implementation', title: '自治体DXを加速させるAI活用の現実解 — 窓口と内部事務から着手する' },
         ],
       },
       {
@@ -537,9 +537,9 @@ const ja: Content['ja'] = {
         heading: '関連するコラム',
         lead: 'データ活用の進め方について書いた記事です。',
         links: [
-          { slug: 'retail-demand-forecasting-inventory', title: '小売・ECの需要予測AI活用 — 勘とデータをつなぐ在庫最適化' },
-          { slug: 'hr-talent-management-retention-ai', title: '人材の流出を防ぎ活躍を促すAI活用 — 経験と勘に頼らないタレントマネジメント' },
-          { slug: 'finance-backoffice-ai-automation', title: '金融・保険業務をAIで効率化する — 事務作業と顧客対応を「守りながら」変える' },
+          { slug: 'real-estate-property-listing-matching-ai', title: '不動産実務をAIで効率化する — 物件登録の自動化から高度なマッチングまで' },
+          { slug: 'hospitality-personalized-guest-service-ai', title: '飲食・ホテルの「おもてなし」をAIで標準化する — 顧客体験を高めるデータ活用術' },
+          { slug: 'retail-omo-customer-journey-ai', title: '小売・ECのOMOを加速するAI活用 — 実店舗とネットの「顧客体験」をどう繋ぐか' },
         ],
       },
       {

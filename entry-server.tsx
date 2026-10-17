@@ -28,6 +28,14 @@ export const render = (path: string) => {
   return { html, meta: metaFor(view, 'ja', path), jsonLd: jsonLdFor(path) };
 };
 
+export const ORG_ID = `${SITE_ORIGIN}/#organization`;
+export const LOGO_URL = `${SITE_ORIGIN}/assets/brand/mgc-logo.png`;
+const SERVICE_TYPE: Record<string, string> = {
+  'ai-sales': '営業代行・アポイント獲得の自動化（AI営業）',
+  'ai-phone': '電話一次対応の自動化（音声AI）',
+  'salesforce-ai': 'Salesforce・CRMのAI活用支援',
+};
+
 // ページごとの構造化データ（パンくず＋ページの種類に応じたもの）
 const jsonLdFor = (path: string): object[] => {
   const view = viewForPath(path);
@@ -74,23 +82,39 @@ const jsonLdFor = (path: string): object[] => {
         '@type': 'Organization',
         name: 'ＭＧＣ株式会社',
         url: SITE_ORIGIN,
-        logo: { '@type': 'ImageObject', url: `${SITE_ORIGIN}/logo.png` },
+        '@id': ORG_ID,
+        logo: { '@type': 'ImageObject', url: LOGO_URL, width: 512, height: 512 },
       },
       mainEntityOfPage: { '@type': 'WebPage', '@id': meta.url },
     });
   }
-  const provider = { '@type': 'Organization', name: 'ＭＧＣ株式会社', url: SITE_ORIGIN };
+  // index.html の Organization（@id）を参照する
+  const provider = { '@type': 'Organization', '@id': ORG_ID, name: 'ＭＧＣ株式会社', url: SITE_ORIGIN };
+  const faqPage = (items: { q: string; a: string }[]) => ({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: items.map((x) => ({ '@type': 'Question', name: x.q, acceptedAnswer: { '@type': 'Answer', text: x.a } })),
+  });
+  if (view === 'home') out.push(faqPage(translations.ja.faq.items.map((x) => ({ q: x.q, a: x.a }))));
   if ((SERVICE_KEYS as string[]).includes(view)) {
     const page = serviceContent.ja[view as keyof typeof serviceContent.ja];
     out.push({
       '@context': 'https://schema.org',
       '@type': 'Service',
+      '@id': `${meta.url}#service`,
       name: page.navLabel,
+      serviceType: SERVICE_TYPE[view] ?? page.navLabel,
       description: page.seoDescription,
       url: meta.url,
+      image: meta.image,
       provider,
+      brand: { '@type': 'Brand', name: 'MGC Inc.' },
       areaServed: { '@type': 'Country', name: 'Japan' },
+      audience: { '@type': 'BusinessAudience', audienceType: '法人' },
+      isRelatedTo: { '@type': 'Service', name: 'AIソリューション', url: `${SITE_ORIGIN}/works` },
     });
+    const faq = page.sections.find((x) => x.type === 'faq');
+    if (faq && faq.type === 'faq') out.push(faqPage(faq.items));
   }
   if (view === 'training') {
     const tr = translations.ja.training;

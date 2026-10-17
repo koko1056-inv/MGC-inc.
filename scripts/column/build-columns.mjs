@@ -353,7 +353,7 @@ function articleHtml(a) {
     datePublished: a.date, dateModified: a.dateModified || a.date,
     inLanguage: 'ja', isAccessibleForFree: true, wordCount: plainText(a).length,
     author: AUTHOR_LD,
-    publisher: { '@type': 'Organization', name: 'MGC Inc.', url: site.baseUrl, logo: { '@type': 'ImageObject', url: `${site.baseUrl}/logo.png` } },
+    publisher: { '@type': 'Organization', '@id': `${site.baseUrl}/#organization`, name: 'ＭＧＣ株式会社', alternateName: 'MGC Inc.', url: site.baseUrl, logo: { '@type': 'ImageObject', url: `${site.baseUrl}/assets/brand/mgc-logo.png`, width: 512, height: 512 } },
     mainEntityOfPage: { '@type': 'WebPage', '@id': url },
     articleSection: ind.ja,
     about: [
