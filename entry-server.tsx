@@ -5,13 +5,15 @@ import { renderToString } from 'react-dom/server';
 import App, { viewForPath, metaFor, PATH_TO_VIEW, SERVICE_KEYS, pathForView, SITE_ORIGIN, THANKS_PATH } from './App';
 import { serviceContent } from './serviceContent';
 import { translations } from './translations';
+import { journalPosts, journalPath, findJournalPost } from './journal';
 
 export { SITE_ORIGIN };
 
-// 事前描画するパス。/diagnosis は非表示中のため含めない
+// 事前描画するパス
 export const routes = (): string[] => [
   '/',
-  ...Object.keys(PATH_TO_VIEW).filter((p) => p !== '/diagnosis'),
+  ...Object.keys(PATH_TO_VIEW),
+  ...journalPosts('ja').map((p) => journalPath(p.slug)),
   ...SERVICE_KEYS.map((k) => pathForView(k)),
   THANKS_PATH,
 ];
@@ -32,14 +34,49 @@ const jsonLdFor = (path: string): object[] => {
   const meta = metaFor(view, 'ja', path);
   const out: object[] = [];
   if (meta.noindex) return out;
+  const post = view === 'journal' ? findJournalPost('ja', path.split('/').pop() ?? '') : undefined;
   if (path !== '/') {
+    const crumbs = post
+      ? [
+          { name: 'お知らせ・ジャーナル', item: `${SITE_ORIGIN}/blog` },
+          { name: post.title, item: meta.url },
+        ]
+      : [{ name: meta.title.split(/[｜|]| - /)[0].trim(), item: meta.url }];
     out.push({
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'ホーム', item: `${SITE_ORIGIN}/` },
-        { '@type': 'ListItem', position: 2, name: meta.title.split(/[｜|]| - /)[0].trim(), item: meta.url },
+        ...crumbs.map((c, i) => ({ '@type': 'ListItem', position: i + 2, ...c })),
       ],
+    });
+  }
+  if (post) {
+    out.push({
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: post.title,
+      description: post.excerpt,
+      image: [SITE_ORIGIN + post.imageJpg],
+      datePublished: post.isoDate,
+      dateModified: post.isoDate,
+      inLanguage: 'ja',
+      articleSection: post.category,
+      author: {
+        '@type': 'Person',
+        name: '松尾 心夢',
+        alternateName: 'Kokomu Matsuo',
+        jobTitle: '代表取締役',
+        url: `${SITE_ORIGIN}/company`,
+        worksFor: { '@type': 'Organization', name: 'ＭＧＣ株式会社', url: SITE_ORIGIN },
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'ＭＧＣ株式会社',
+        url: SITE_ORIGIN,
+        logo: { '@type': 'ImageObject', url: `${SITE_ORIGIN}/logo.png` },
+      },
+      mainEntityOfPage: { '@type': 'WebPage', '@id': meta.url },
     });
   }
   const provider = { '@type': 'Organization', name: 'ＭＧＣ株式会社', url: SITE_ORIGIN };

@@ -73,3 +73,8 @@ for (const route of [...routes(), NOT_FOUND]) {
   console.log(`  prerender ${route.padEnd(24)} → ${path.relative(dist, file)}  (${Math.round(out.length / 1024)}KB)`);
 }
 console.log(`事前描画: ${count}ページ`);
+
+// サイトマップの載せ漏れを検査する（検索に出すページはすべて載せる）
+const sitemap = fs.readFileSync(path.join(dist, 'sitemap.xml'), 'utf-8');
+const unlisted = routes().filter((r) => !render(r).meta.noindex && !sitemap.includes(`<loc>${render(r).meta.url.replace(/\/$/, '')}${r === '/' ? '/' : ''}</loc>`));
+if (unlisted.length) throw new Error(`public/sitemap.xml に載っていないページ: ${unlisted.join(', ')}`);

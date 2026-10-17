@@ -88,7 +88,7 @@ const SCHEMA = `# 出力スキーマ（このキー構成のJSONのみ）
   "slug": "${ind.key}-<テーマの半角英小文字ハイフン>",   // 例 ${ind.key}-foo-bar。必ず "${ind.key}-" で始める
   "industry": "${ind.key}",
   "title": "日本語の記事タイトル（32字前後、具体的に）",
-  "seoTitle": "検索向けタイトル（60字以内、業界×AIのキーワードを前寄せ、末尾に - MGCコラム）",
+  "seoTitle": "検索向けタイトル（60字以内、業界×AIのキーワードを前寄せ、末尾に - ＭＧＣ株式会社）",
   "description": "meta description（80〜120字、読むと内容が分かる自然な一文）",
   "keywords": ["5個前後", "業界 AI", "..."],
   "imageAlt": "アイキャッチ画像の代替テキスト（日本語）",
