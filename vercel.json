@@ -50,6 +50,10 @@
       "destination": "/works.html"
     },
     {
+      "source": "/works/:slug",
+      "destination": "/works/:slug.html"
+    },
+    {
       "source": "/training",
       "destination": "/training.html"
     },

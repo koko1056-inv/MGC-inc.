@@ -16,7 +16,7 @@ export const LanguageContext = React.createContext<{ lang: Lang; setLang: (l: La
 export const useLanguage = () => React.useContext(LanguageContext);
 // --- Types & Interfaces ---
 
-export type ViewState = 'home' | 'works' | 'training' | 'diagnosis' | 'mission' | 'partners' | 'company' | 'career' | 'contact' | 'blog' | 'cases' | 'notfound' | 'privacy-policy' | 'terms-of-service' | 'journal' | ServiceKey;
+export type ViewState = 'home' | 'works' | 'training' | 'diagnosis' | 'mission' | 'partners' | 'company' | 'career' | 'contact' | 'blog' | 'cases' | 'notfound' | 'privacy-policy' | 'terms-of-service' | 'journal' | BizView | ServiceKey;
 
 // AI診断の表示切り替え。false の間は、サイト内の導線をすべて隠す。
 // ページ自体（/diagnosis）は残るため、true に戻せば元の状態に復帰する。
@@ -34,6 +34,9 @@ const PAGE_META: Record<Lang, Partial<Record<string, { title: string; descriptio
     contact: { title: 'お問い合わせ｜30分の無料相談 - ＭＧＣ株式会社', description: 'AI導入・研修・海外展開のご相談は無料です。現状を伺い、どこからAIに任せられるかを整理してお返しします。' },
     blog: { title: 'お知らせ・ジャーナル - ＭＧＣ株式会社', description: 'ＭＧＣ株式会社のお知らせ（サービス開始・研修・サイト更新など）と、MGCの考え方を綴るジャーナル。' },
     diagnosis: { title: 'AI活用診断｜業種と課題から導入効果をその場で試算 - ＭＧＣ株式会社', description: '業種・事業内容・課題を入力するだけで、AIに任せられる業務、導入後のワークフロー、期待できる効果をその場で診断します。無料・所要3分。' },
+    'biz-ai': { title: 'AIソリューション｜AIコンサルティング・開発・運用 - ＭＧＣ株式会社', description: '「何にAIを使うべきか」の整理から、音声・テキスト・CRM連携に対応するAIの開発、導入後の運用まで。AI営業・AI電話・Salesforce AI活用支援と、個別のAIコンサルティング・開発を提供します。' },
+    'biz-newbiz': { title: 'AI事業立ち上げ支援｜導入したAIを同業他社へ届ける事業に - ＭＧＣ株式会社', description: '自社で導入して効果が出たAIを、同業他社へ提供できる商材にまとめ、新しい事業として立ち上げます。パッケージ化、AI側の実務の巻き取り、販売の立ち上げまで支援します。' },
+    'biz-crossborder': { title: 'クロスボーダー事業｜海外企業の日本参入・日本企業の海外進出支援 - ＭＧＣ株式会社', description: '海外の優れたプロダクトを日本市場へ届ける「Inbound」と、日本企業の海外進出を支援する「Outbound」。双方向で日本と世界のビジネスをつなぎます。' },
     'privacy-policy': { title: 'プライバシーポリシー - ＭＧＣ株式会社', description: 'ＭＧＣ株式会社のプライバシーポリシー。問い合わせフォーム・AI活用診断で取得する情報、利用目的、外部サービス、保管期間、開示等のご請求について。' },
     'terms-of-service': { title: 'サイト利用規約 - ＭＧＣ株式会社', description: 'ＭＧＣ株式会社ウェブサイトの利用規約。著作権、禁止事項、AI活用診断の位置づけ、免責事項について。' },
     thanks: { title: '送信完了 - ＭＧＣ株式会社', description: 'お問い合わせを受け付けました。内容を確認し、1営業日以内にメールでご返信します。' },
@@ -50,6 +53,9 @@ const PAGE_META: Record<Lang, Partial<Record<string, { title: string; descriptio
     contact: { title: 'Contact | Free 30-minute consultation - MGC Inc.', description: 'Consultations on AI adoption, training and overseas expansion are free. Tell us where you are and we will map what AI can take on.' },
     blog: { title: 'News & Journal - MGC Inc.', description: 'News from MGC Inc. — service launches, training and site updates — and our journal on how we think about AI.' },
     diagnosis: { title: 'AI Diagnosis | Estimate the impact of AI for your business - MGC Inc.', description: 'Enter your industry, business and challenges to see which work AI can take on, the workflow after adoption and the expected impact. Free, about 3 minutes.' },
+    'biz-ai': { title: 'AI Solutions | AI consulting, development and operation - MGC Inc.', description: 'From deciding what AI should do, to building voice, text and CRM-connected AI, to running it after launch. AI Sales, AI Phone, Salesforce AI and bespoke AI consulting and development.' },
+    'biz-newbiz': { title: 'AI Business Launch | Turn the AI you adopted into a business - MGC Inc.', description: 'We package AI that worked in your company into a product you can sell to your industry, take on the AI-side operations, and help you launch sales.' },
+    'biz-crossborder': { title: 'Cross-Border | Japan market entry and overseas expansion - MGC Inc.', description: 'Inbound: bringing excellent overseas products to Japan. Outbound: helping Japanese companies expand overseas. Connecting business between Japan and the world in both directions.' },
     'privacy-policy': { title: 'Privacy Policy - MGC Inc.', description: 'How MGC Inc. handles information collected through the contact form, AI diagnosis and analytics.' },
     'terms-of-service': { title: 'Terms of Use - MGC Inc.', description: 'Terms of use for the MGC Inc. website.' },
     thanks: { title: 'Message sent - MGC Inc.', description: 'We received your message and will reply within one business day.' },
@@ -60,7 +66,7 @@ const PAGE_META: Record<Lang, Partial<Record<string, { title: string; descriptio
 
 // OGP画像。SNSで共有したときにページごとの画像を出す（1200×630。public/assets/og/）。
 const OG_IMAGE_DEFAULT = '/assets/og/home.jpg';
-const OG_IMAGE_VIEWS = ['home', 'works', 'cases', 'training', 'mission', 'company', 'career', 'blog', 'contact', 'ai-sales', 'ai-phone', 'salesforce-ai'];
+const OG_IMAGE_VIEWS = ['home', 'works', 'cases', 'training', 'mission', 'company', 'career', 'blog', 'contact', 'ai-sales', 'ai-phone', 'salesforce-ai', 'biz-ai', 'biz-newbiz', 'biz-crossborder'];
 const ogImageFor = (view: string) => (OG_IMAGE_VIEWS.includes(view) ? `/assets/og/${view}.jpg` : OG_IMAGE_DEFAULT);
 
 // SPAのため、ビューが変わるたびに title / description / canonical / OGP を書き換える。
@@ -87,8 +93,18 @@ export const PATH_TO_VIEW: Record<string, ViewState> = {
   '/works': 'works', '/training': 'training', '/diagnosis': 'diagnosis', '/cases': 'cases',
   '/mission': 'mission', '/company': 'company', '/career': 'career', '/contact': 'contact', '/blog': 'blog',
   '/privacy-policy': 'privacy-policy', '/terms-of-service': 'terms-of-service',
+  '/works/ai-solutions': 'biz-ai', '/works/ai-business-launch': 'biz-newbiz', '/works/cross-border': 'biz-crossborder',
 };
-export const pathForView = (v: ViewState): string => (isServiceKey(v) ? `/service/${v}` : v === 'home' ? '/' : v === 'notfound' ? '/404' : `/${v}`);
+// 事業ごとのページ（事業内容 › 各事業）。研修は専用ページ（/training）があるため含めない
+export type BizView = 'biz-ai' | 'biz-newbiz' | 'biz-crossborder';
+export const BUSINESS_PAGES: Record<BizView, { path: string; key: 'service_ai' | 'service_newbiz' | 'service_lab'; no: string; image: string; topic?: string }> = {
+  'biz-ai': { path: '/works/ai-solutions', key: 'service_ai', no: '01', image: '/assets/service_ai.webp', topic: 'ai-solutions' },
+  'biz-newbiz': { path: '/works/ai-business-launch', key: 'service_newbiz', no: '02', image: '/assets/service_newbiz.webp', topic: 'newbiz' },
+  'biz-crossborder': { path: '/works/cross-border', key: 'service_lab', no: '04', image: '/assets/service_lab.webp' },
+};
+export const isBizView = (v: string): v is BizView => v in BUSINESS_PAGES;
+export const pathForView = (v: ViewState): string =>
+  isServiceKey(v) ? `/service/${v}` : isBizView(v) ? BUSINESS_PAGES[v].path : v === 'home' ? '/' : v === 'notfound' ? '/404' : `/${v}`;
 
 export const SERVICE_KEYS: ServiceKey[] = ['ai-sales', 'ai-phone', 'salesforce-ai'];
 const isServiceKey = (v: string): v is ServiceKey => (SERVICE_KEYS as string[]).includes(v);
@@ -135,20 +151,13 @@ export const metaFor = (view: ViewState, lang: Lang, path?: string) => {
     url: SITE_ORIGIN + (isThanks ? THANKS_PATH : view === 'home' ? '' : pathForView(view)),
     image: SITE_ORIGIN + ogImageFor(view),
     // 検索結果に出さないページ（送信完了・404）
-    noindex: isThanks || view === 'notfound',
+    // 診断は入口を隠している間（SHOW_DIAGNOSIS=false）は検索にも出さない
+    noindex: isThanks || view === 'notfound' || (view === 'diagnosis' && !SHOW_DIAGNOSIS),
   };
 };
 
 type ContentKey = 'service_ai' | 'service_newbiz' | 'service_training' | 'service_lab';
 
-interface ContentItem {
-  title: string;
-  subtitle: string;
-  theme: 'light' | 'dark' | 'gray';
-  details: ReactNode;
-  number?: string;
-  icon?: ReactNode;
-}
 
 // --- Data ---
 
@@ -252,41 +261,6 @@ const GridPattern = ({ dark = false }: { dark?: boolean }) => (
   />
 );
 
-const DetailModal: React.FC<{ id: ContentKey | null; onClose: () => void }> = ({ id, onClose }) => {
-  const { t } = useLanguage();
-  const contentData = getContentData(t);
-  if (!id) return null;
-  const content = contentData[id];
-  if (!content) return null;
-
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8">
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
-      <div className={`relative w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl shadow-2xl animate-[fadeIn_0.3s_ease-out] ${content.theme === 'dark' ? 'bg-gray-900 text-white' : content.theme === 'gray' ? 'bg-gray-100 text-offblack' : 'bg-white text-offblack'}`}>
-        <button onClick={onClose} className="absolute top-6 right-6 p-2 rounded-full hover:bg-black/10 transition-colors z-10">
-          <X className="w-6 h-6" />
-        </button>
-        <div className="p-8 md:p-12">
-           <div className="flex items-start gap-6 mb-8">
-              {content.icon && (
-                <div className={`p-4 rounded-2xl ${content.theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100'}`}>
-                  {content.icon}
-                </div>
-              )}
-              <div>
-                {content.number && <span className="text-accent font-bold tracking-widest text-sm mb-2 block">{content.number}</span>}
-                <h3 className="text-3xl md:text-5xl font-bold tracking-tighter mb-2">{content.title}</h3>
-                <p className={`text-xl font-medium ${content.theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>{content.subtitle}</p>
-              </div>
-           </div>
-           <div className="prose prose-lg max-w-none">
-             {content.details}
-           </div>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 // --- Feature Components (Pages) ---
 
@@ -364,10 +338,10 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
   }, []);
 
   const services: { icon: ReactNode; title: string; subtitle: string; view: ViewState }[] = [
-    { icon: <Globe className="w-6 h-6" />, title: t.works.service_ai.title, subtitle: t.works.service_ai.subtitle, view: 'works' },
-    { icon: <Sparkles className="w-6 h-6" />, title: t.works.service_newbiz.title, subtitle: t.works.service_newbiz.subtitle, view: 'works' },
+    { icon: <Globe className="w-6 h-6" />, title: t.works.service_ai.title, subtitle: t.works.service_ai.subtitle, view: 'biz-ai' },
+    { icon: <Sparkles className="w-6 h-6" />, title: t.works.service_newbiz.title, subtitle: t.works.service_newbiz.subtitle, view: 'biz-newbiz' },
     { icon: <User className="w-6 h-6" />, title: t.works.service_training.title, subtitle: t.works.service_training.subtitle, view: 'training' },
-    { icon: <Layers className="w-6 h-6" />, title: t.works.service_lab.title, subtitle: t.works.service_lab.subtitle, view: 'works' },
+    { icon: <Layers className="w-6 h-6" />, title: t.works.service_lab.title, subtitle: t.works.service_lab.subtitle, view: 'biz-crossborder' },
   ];
 
   return (
@@ -631,9 +605,17 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
         <h2 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter mb-6 leading-[0.95] text-offblack">
           {t.whyMgc.title}
         </h2>
-        <p className="text-xl md:text-2xl text-gray-600 max-w-3xl leading-relaxed mb-16 font-medium">
+        <p className="text-xl md:text-2xl text-gray-600 max-w-3xl leading-relaxed font-medium">
           {t.whyMgc.lead}
         </p>
+        {/* 理念・価値観そのものは会社理念ページで詳しく伝える（トップでは重複させない） */}
+        <NavLink
+          href={pathForView('mission')}
+          onGo={() => goTo('mission')}
+          className="inline-flex items-center gap-2 mt-6 mb-16 text-sm font-bold text-accent hover:gap-3 transition-all"
+        >
+          {t.whyMgc.missionLink} <ArrowRight className="w-4 h-4" />
+        </NavLink>
       </Reveal>
 
       {/* 3 Reasons */}
@@ -840,9 +822,10 @@ const ServiceBlock: React.FC<{
   serviceKey: ContentKey;
   icon: ReactNode;
   image?: string;
-  onDetail: () => void;
+  /** 「詳しく見る」の行き先（各事業のページ） */
+  detailView: ViewState;
   onNavigate?: (view: ViewState) => void;
-}> = ({ index, serviceKey, icon, image, onDetail, onNavigate }) => {
+}> = ({ index, serviceKey, icon, image, detailView, onNavigate }) => {
   const { t } = useLanguage();
   const data = t.works[serviceKey];
   return (
@@ -916,24 +899,14 @@ const ServiceBlock: React.FC<{
               ))}
             </div>
             <div className="flex flex-wrap items-center gap-x-6 gap-y-4 pt-2">
-              {/* 専用ページがある事業は、そのページへの導線を先に置く */}
-              {serviceKey === 'service_training' && (
-                <NavLink
-                  href={pathForView('training')}
-                  onGo={() => onNavigate?.('training')}
-                  className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-accent text-white font-bold text-sm tracking-tight hover:opacity-90 transition-opacity"
-                >
-                  {t.worksIntro.trainingLink}
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-                </NavLink>
-              )}
-              <button
-                onClick={onDetail}
-                className="group inline-flex items-center gap-3 text-offblack font-bold text-sm tracking-tight border-b-2 border-offblack/30 pb-1 hover:border-accent hover:text-accent transition-colors"
+              <NavLink
+                href={pathForView(detailView)}
+                onGo={() => onNavigate?.(detailView)}
+                className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-accent text-white font-bold text-sm tracking-tight hover:opacity-90 transition-opacity"
               >
-                {t.worksIntro.detailLink}
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
+                {serviceKey === 'service_training' ? t.worksIntro.trainingLink : t.worksIntro.detailLink}
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+              </NavLink>
             </div>
           </div>
         </div>
@@ -943,9 +916,7 @@ const ServiceBlock: React.FC<{
 };
 
 const WorksView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavigate }) => {
-  const [selectedId, setSelectedId] = useState<ContentKey | null>(null);
   const { t, lang } = useLanguage();
-  const contentData = getContentData(t);
 
   return (
     <PageTransition>
@@ -1005,7 +976,7 @@ const WorksView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNav
             serviceKey="service_ai"
             icon={<Globe className="w-5 h-5 text-accent stroke-[1.75]" />}
             image="/assets/service_ai.webp"
-            onDetail={() => setSelectedId('service_ai')}
+            detailView="biz-ai"
             onNavigate={onNavigate}
           />
         </div>
@@ -1016,7 +987,8 @@ const WorksView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNav
             serviceKey="service_newbiz"
             icon={<Sparkles className="w-5 h-5 text-accent stroke-[1.75]" />}
             image="/assets/service_newbiz.webp"
-            onDetail={() => setSelectedId('service_newbiz')}
+            detailView="biz-newbiz"
+            onNavigate={onNavigate}
           />
         </div>
 
@@ -1026,7 +998,7 @@ const WorksView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNav
             serviceKey="service_training"
             icon={<User className="w-5 h-5 text-accent stroke-[1.75]" />}
             image="/assets/service_training.webp"
-            onDetail={() => setSelectedId('service_training')}
+            detailView="training"
             onNavigate={onNavigate}
           />
         </div>
@@ -1037,7 +1009,8 @@ const WorksView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNav
             serviceKey="service_lab"
             icon={<Zap className="w-5 h-5 text-accent stroke-[1.75]" />}
             image="/assets/service_lab.webp"
-            onDetail={() => setSelectedId('service_lab')}
+            detailView="biz-crossborder"
+            onNavigate={onNavigate}
           />
         </div>
 
@@ -1100,7 +1073,6 @@ const WorksView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNav
           </div>
         </Reveal>
 
-        <DetailModal id={selectedId} onClose={() => setSelectedId(null)} />
       </div>
     </PageTransition>
   );
@@ -1705,7 +1677,7 @@ const JournalPostView: React.FC<{ slug: string; onNavigate: (view: ViewState) =>
 
 // #contact/<slug> で来たとき、その相談内容を初期選択する。
 // どのサービスページ経由の問い合わせかを、受信メール側で判別できるようにする。
-const SERVICE_TOPIC_INDEX: Record<string, number> = { 'ai-sales': 0, 'ai-phone': 1, 'salesforce-ai': 2, 'newbiz': 4, 'training': 5 };
+const SERVICE_TOPIC_INDEX: Record<string, number> = { 'ai-sales': 0, 'ai-phone': 1, 'salesforce-ai': 2, 'ai-solutions': 3, 'newbiz': 4, 'training': 5 };
 
 const ContactView: React.FC<{ onNavigate?: (view: ViewState) => void; initialSent?: boolean }> = ({ onNavigate, initialSent = false }) => {
   const { t, lang } = useLanguage();
@@ -2003,120 +1975,6 @@ const ContactView: React.FC<{ onNavigate?: (view: ViewState) => void; initialSen
   );
 };
 
-const getContentData = (t: typeof translations['ja']) => ({
-  service_ai: {
-    ...t.details.service_ai,
-    theme: 'light' as const,
-    number: "01",
-    icon: <Globe className="w-6 h-6 text-accent stroke-[1.5]" />,
-    details: (
-      <>
-        <p className="text-xl md:text-3xl font-light leading-relaxed mb-12 whitespace-pre-line text-gray-700">
-          {t.details.service_ai.p1}
-        </p>
-        <div className="space-y-12">
-          {t.details.service_ai.features.map((f, i) => (
-             <div key={i} className="border-t border-gray-200 pt-8">
-               <div className="flex flex-col md:flex-row gap-8">
-                 <div className="md:w-1/3">
-                   <span className="text-accent font-bold tracking-widest text-sm mb-2 block">0{i+1}</span>
-                   <h4 className="text-2xl font-bold text-offblack">{f.title}<br/><span className="text-base text-gray-500 font-normal">{f.sub}</span></h4>
-                 </div>
-                 <div className="md:w-2/3">
-                   <p className="text-gray-600 text-lg leading-relaxed">{f.text}</p>
-                 </div>
-               </div>
-             </div>
-          ))}
-        </div>
-      </>
-    )
-  },
-  service_newbiz: {
-    ...t.details.service_newbiz,
-    theme: 'light' as const,
-    number: "02",
-    icon: <Sparkles className="w-6 h-6 text-accent stroke-[1.5]" />,
-    details: (
-      <>
-        <p className="text-xl md:text-3xl font-light leading-relaxed mb-12 whitespace-pre-line text-gray-700">
-          {t.details.service_newbiz.p1}
-        </p>
-        <div className="space-y-12">
-          {t.details.service_newbiz.features.map((f, i) => (
-             <div key={i} className="border-t border-gray-200 pt-8">
-               <div className="flex flex-col md:flex-row gap-8">
-                 <div className="md:w-1/3">
-                   <span className="text-accent font-bold tracking-widest text-sm mb-2 block">0{i+1}</span>
-                   <h4 className="text-2xl font-bold text-offblack">{f.title}<br/><span className="text-base text-gray-500 font-normal">{f.sub}</span></h4>
-                 </div>
-                 <div className="md:w-2/3">
-                   <p className="text-gray-600 text-lg leading-relaxed">{f.text}</p>
-                 </div>
-               </div>
-             </div>
-          ))}
-        </div>
-      </>
-    ),
-  },
-  service_training: {
-    ...t.details.service_training,
-    theme: 'light' as const,
-    number: "03",
-    icon: <User className="w-6 h-6 text-accent stroke-[1.5]" />,
-    details: (
-      <>
-        <p className="text-xl md:text-3xl font-light leading-relaxed mb-12 whitespace-pre-line text-gray-700">
-          {t.details.service_training.p1}
-        </p>
-        <div className="space-y-12">
-          {t.details.service_training.features.map((f, i) => (
-             <div key={i} className="border-t border-gray-200 pt-8">
-               <div className="flex flex-col md:flex-row gap-8">
-                 <div className="md:w-1/3">
-                   <span className="text-accent font-bold tracking-widest text-sm mb-2 block">0{i+1}</span>
-                   <h4 className="text-2xl font-bold text-offblack">{f.title}<br/><span className="text-base text-gray-500 font-normal">{f.sub}</span></h4>
-                 </div>
-                 <div className="md:w-2/3">
-                   <p className="text-gray-600 text-lg leading-relaxed">{f.text}</p>
-                 </div>
-               </div>
-             </div>
-          ))}
-        </div>
-      </>
-    ),
-  },
-  service_lab: {
-    ...t.details.service_lab,
-    theme: 'light' as const,
-    number: "04",
-    icon: <Zap className="w-6 h-6 text-accent stroke-[1.5]" />,
-    details: (
-      <>
-        <p className="text-xl md:text-3xl font-light leading-relaxed mb-12 whitespace-pre-line text-gray-700">
-          {t.details.service_lab.p1}
-        </p>
-        <div className="space-y-12">
-          {t.details.service_lab.features.map((f, i) => (
-             <div key={i} className="border-t border-gray-200 pt-8">
-               <div className="flex flex-col md:flex-row gap-8">
-                 <div className="md:w-1/3">
-                   <span className="text-accent font-bold tracking-widest text-sm mb-2 block">0{i+1}</span>
-                   <h4 className="text-2xl font-bold text-offblack">{f.title}<br/><span className="text-base text-gray-500 font-normal">{f.sub}</span></h4>
-                 </div>
-                 <div className="md:w-2/3">
-                   <p className="text-gray-600 text-lg leading-relaxed">{f.text}</p>
-                 </div>
-               </div>
-             </div>
-          ))}
-        </div>
-      </>
-    )
-  },
-});
 
 const TrainingView: React.FC = () => {
   const { t } = useLanguage();
@@ -2957,7 +2815,7 @@ const ServiceView: React.FC<{ serviceKey: ServiceKey; onNavigate?: (view: ViewSt
             <nav aria-label="breadcrumb" className="flex flex-wrap items-center gap-2 text-sm text-gray-500 mb-5">
               <NavLink href={pathForView('works')} onGo={() => onNavigate?.('works')} className="hover:text-accent transition-colors">{t.nav.works}</NavLink>
               <span aria-hidden>／</span>
-              <NavLink href={pathForView('works')} onGo={() => onNavigate?.('works')} className="hover:text-accent transition-colors">{t.nav.aiSolutions}</NavLink>
+              <NavLink href={pathForView('biz-ai')} onGo={() => onNavigate?.('biz-ai')} className="hover:text-accent transition-colors">{t.nav.aiSolutions}</NavLink>
               <span aria-hidden>／</span>
               <span className="text-offblack font-bold">{page.navLabel}</span>
             </nav>
@@ -3343,6 +3201,126 @@ const DiagnosisView: React.FC = () => {
   );
 };
 
+// 事業ごとのページ（/works/ai-solutions など）。以前は事業内容ページのポップアップで見せていた内容
+const BusinessView: React.FC<{ biz: BizView; onNavigate: (view: ViewState) => void }> = ({ biz, onNavigate }) => {
+  const { t, lang } = useLanguage();
+  const ja = lang === 'ja';
+  const meta = BUSINESS_PAGES[biz];
+  const d = t.details[meta.key];
+  const w = t.works[meta.key];
+  const others: { view: ViewState; no: string; title: string; subtitle: string }[] = [
+    ...(Object.keys(BUSINESS_PAGES) as BizView[]).map((v) => ({ view: v as ViewState, no: BUSINESS_PAGES[v].no, title: t.works[BUSINESS_PAGES[v].key].title, subtitle: t.works[BUSINESS_PAGES[v].key].subtitle })),
+    { view: 'training' as ViewState, no: '03', title: t.works.service_training.title, subtitle: t.works.service_training.subtitle },
+  ].filter((o) => o.view !== biz).sort((a, b) => a.no.localeCompare(b.no));
+  const contactHref = `#contact${meta.topic ? `/${meta.topic}` : ''}`;
+  return (
+    <PageTransition>
+      <div className="px-6 md:px-12 max-w-screen-xl mx-auto text-[#111418]">
+        <nav aria-label="breadcrumb" className="flex flex-wrap items-center gap-2 text-sm text-gray-500 mb-5">
+          <NavLink href={pathForView('works')} onGo={() => onNavigate('works')} className="hover:text-accent transition-colors">{t.nav.works}</NavLink>
+          <span aria-hidden>／</span>
+          <span className="text-offblack font-bold">{w.title}</span>
+        </nav>
+
+        {/* Hero */}
+        <Reveal>
+          <div className="rounded-[1.75rem] md:rounded-[2.5rem] bg-[#F4F6FB] border border-gray-200 px-6 md:px-16 py-14 md:py-20">
+            <span className="text-xs md:text-sm font-bold tracking-[0.2em] uppercase text-accent">Business {meta.no}</span>
+            <h1 className="text-3xl md:text-6xl font-bold tracking-tight leading-[1.25] mt-4">{w.title}</h1>
+            <p className="text-base md:text-2xl text-[#5B6472] font-medium mt-3 leading-[1.6]">{w.subtitle}</p>
+            <p className="max-w-3xl text-base md:text-lg text-[#1A2233] leading-[1.9] mt-8 whitespace-pre-line">{d.p1}</p>
+            <a
+              href={contactHref}
+              className="group inline-flex items-center justify-center gap-2.5 mt-10 px-7 py-4 rounded-full bg-accent text-white font-bold text-sm md:text-base tracking-tight hover:opacity-90 transition-opacity"
+            >
+              {t.homeCTA.primary}
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+            </a>
+          </div>
+        </Reveal>
+        <div className="mt-6 md:mt-8 rounded-[1.75rem] md:rounded-[2.5rem] overflow-hidden border border-gray-200 bg-white aspect-[16/9] md:aspect-[21/9]">
+          <img src={meta.image} alt="" className="w-full h-full object-cover" />
+        </div>
+
+        {/* 提供内容 */}
+        <section className="mt-24 md:mt-32">
+          <Reveal>
+            <span className="text-xs font-bold tracking-[0.2em] uppercase text-accent">{ja ? 'What we do' : 'What we do'}</span>
+            <h2 className="text-2xl md:text-4xl font-bold tracking-tight leading-[1.5] mt-2">{ja ? '提供内容' : 'What we provide'}</h2>
+            <div className="w-16 h-1.5 bg-accent mt-4 rounded-full" />
+          </Reveal>
+          <div className="mt-10 border-t border-gray-200">
+            {d.features.map((f, i) => {
+              // AIソリューションの各サービスは、個別のサービスページへつなぐ
+              const link = (w.items.find((x) => x.title === f.title) as { link?: string } | undefined)?.link;
+              return (
+                <Reveal key={f.title}>
+                  <div className="grid md:grid-cols-12 gap-4 md:gap-10 py-10 border-b border-gray-200">
+                    <div className="md:col-span-4">
+                      <span className="font-mono text-sm font-bold text-accent">{String(i + 1).padStart(2, '0')}</span>
+                      <h3 className="text-xl md:text-2xl font-bold tracking-tight leading-[1.5] mt-2">{f.sub}</h3>
+                      <p className="text-xs font-bold tracking-[0.15em] uppercase text-gray-400 mt-1">{f.title}</p>
+                    </div>
+                    <div className="md:col-span-8">
+                      <p className="text-base md:text-lg text-[#1A2233] leading-[1.9]">{f.text}</p>
+                      {link && isServiceKey(link) && (
+                        <NavLink
+                          href={pathForView(link)}
+                          onGo={() => onNavigate(link)}
+                          className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-accent hover:gap-3 transition-all"
+                        >
+                          {t.worksIntro.serviceLink} <ArrowRight className="w-4 h-4" />
+                        </NavLink>
+                      )}
+                    </div>
+                  </div>
+                </Reveal>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* 相談・事例への導線 */}
+        <Reveal>
+          <div className="mt-24 md:mt-32 rounded-[1.75rem] md:rounded-[2.5rem] bg-accent text-white px-7 py-12 md:px-16 md:py-16">
+            <h2 className="text-2xl md:text-4xl font-bold tracking-tight leading-[1.5]">{t.worksIntro.ctaTitle}</h2>
+            <p className="text-base md:text-lg text-white/90 leading-[1.9] mt-4 max-w-2xl">{t.worksIntro.ctaLead}</p>
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-8">
+              <a href={contactHref} className="group inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full bg-white text-[#111418] font-bold text-sm md:text-base tracking-tight hover:opacity-90 transition-opacity">
+                {t.homeCTA.primary}
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+              </a>
+              <NavLink href={pathForView('cases')} onGo={() => onNavigate('cases')} className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full border border-white/50 text-white font-bold text-sm tracking-tight hover:bg-white/10 transition-colors">
+                {t.homeCases.cta}
+              </NavLink>
+            </div>
+          </div>
+        </Reveal>
+
+        {/* ほかの事業 */}
+        <section className="mt-24 md:mt-32">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-8">{ja ? 'ほかの事業' : 'Our other businesses'}</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {others.map((o) => (
+              <NavLink
+                key={o.view}
+                href={pathForView(o.view)}
+                onGo={() => onNavigate(o.view)}
+                className="group flex flex-col bg-white rounded-2xl border border-gray-200 p-7 hover:border-accent transition-colors"
+              >
+                <span className="font-mono text-xs font-bold text-accent">{o.no}</span>
+                <span className="text-lg font-bold tracking-tight mt-2 group-hover:text-accent transition-colors">{o.title}</span>
+                <span className="text-sm text-gray-500 leading-relaxed mt-2 flex-grow">{o.subtitle}</span>
+                <ArrowRight className="w-4 h-4 text-gray-300 group-hover:text-accent group-hover:translate-x-1 transition-all mt-4" />
+              </NavLink>
+            ))}
+          </div>
+        </section>
+      </div>
+    </PageTransition>
+  );
+};
+
 // プライバシーポリシー・サイト利用規約（本文は legalContent.ts）
 const LegalView: React.FC<{ doc: 'privacy' | 'terms'; onNavigate: (view: ViewState) => void }> = ({ doc, onNavigate }) => {
   const { lang } = useLanguage();
@@ -3580,11 +3558,11 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
       // 事業内容ページの4事業と同じ並び。AIソリューションの下に個別サービスを置く
       links: [
         { id: 'works', label: t.nav.works },
-        { id: 'works', hash: 'service-01', label: t.nav.aiSolutions },
+        { id: 'biz-ai', label: t.nav.aiSolutions },
         ...SERVICE_KEYS.map((k) => ({ id: k as ViewState, label: serviceContent[lang][k].navLabel, indent: true })),
-        { id: 'works', hash: 'service-02', label: t.nav.newBiz },
+        { id: 'biz-newbiz', label: t.nav.newBiz },
         { id: 'training', label: t.nav.training },
-        { id: 'works', hash: 'service-04', label: t.nav.crossBorder },
+        { id: 'biz-crossborder', label: t.nav.crossBorder },
       ],
     },
     {
@@ -3617,10 +3595,10 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
   const navItems: NavItem[] = [
     { label: t.nav.works, children: [
       { id: 'works', label: t.nav.worksTop },
-      { id: 'works', hash: 'service-01', label: t.nav.aiSolutions },
-      { id: 'works', hash: 'service-02', label: t.nav.newBiz },
+      { id: 'biz-ai', label: t.nav.aiSolutions },
+      { id: 'biz-newbiz', label: t.nav.newBiz },
       { id: 'training', label: t.nav.training },
-      { id: 'works', hash: 'service-04', label: t.nav.crossBorder },
+      { id: 'biz-crossborder', label: t.nav.crossBorder },
     ] },
     { id: 'cases', label: t.nav.cases },
     { href: '/column', label: t.nav.column },
@@ -3632,7 +3610,7 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
     ] },
   ];
   // サービスページ（AI営業など）は事業内容の中のページとして扱う
-  const isGroupActive = (item: NavItem) => !!item.children?.some((c) => c.id === view || (c.id === 'works' && isServiceKey(view)));
+  const isGroupActive = (item: NavItem) => !!item.children?.some((c) => c.id === view || (c.id === 'works' && (isServiceKey(view) || isBizView(view))));
 
   return (
     <LanguageContext.Provider value={{ lang, setLang, t }}>
@@ -3798,6 +3776,7 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
         {view === 'company' && <CompanyView onNavigate={navigate} />}
         {view === 'career' && <CareerView />}
         {view === 'contact' && <ContactView onNavigate={navigate} initialSent={currentPath() === THANKS_PATH} />}
+        {isBizView(view) && <BusinessView biz={view} onNavigate={navigate} />}
         {view === 'notfound' && <NotFoundView onNavigate={navigate} />}
         {view === 'privacy-policy' && <LegalView doc="privacy" onNavigate={navigate} />}
         {view === 'terms-of-service' && <LegalView doc="terms" onNavigate={navigate} />}
