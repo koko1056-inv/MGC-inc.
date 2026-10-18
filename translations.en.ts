@@ -34,24 +34,25 @@ export const en: Translation = {
     bookConsultSub: 'Talk to us first',
   },
   whyMgc: {
-    eyebrow: 'Why MGC',
-    title: 'Three values we deliver',
-    lead: 'AI is only a means. The goal is to make the future better — and we deliver technology with our own worldview and conviction.',
+    eyebrow: 'How we work',
+    title: 'How MGC works',
+    lead: 'AI is only a means; the goal is a better future. We build that belief into how we work every day.',
+    missionLink: 'Read our mission',
     reasons: [
       {
         number: '01',
-        title: 'Speed',
-        desc: 'Because we design every job assuming AI does the work from day one, we move fast. Our CEO talks with you directly and takes the shortest path to the challenge in front of you.',
+        title: 'Our CEO handles it end to end',
+        desc: 'From the first conversation through design, build and adoption, our CEO works with you directly. Your point of contact never changes, so decisions reach the floor intact.',
       },
       {
         number: '02',
-        title: 'Global Reach',
-        desc: 'Not just Japan — the world. Every business we run is designed around connecting Japan and the world.',
+        title: 'Not tied to any tool',
+        desc: 'We do not depend on a particular vendor or AI model, and choose the setup that fits your work and existing systems — including the CRM and chat tools you already use.',
       },
       {
         number: '03',
-        title: 'Fresh Thinking',
-        desc: 'Unbound by conventional methods and existing assumptions, we deliver ideas born from our own perspective and worldview.',
+        title: 'We do not build and leave',
+        desc: 'We stay until the AI is genuinely used on the floor, and help turn what works into a business you can offer to your industry.',
       },
     ],
     stats: [
@@ -375,7 +376,7 @@ export const en: Translation = {
     title: 'News',
     more: 'See all news & journal',
     items: [
-      { date: '2026.09.15', category: 'Service', title: 'Launched AI Business Launch Support', href: '/works' },
+      { date: '2026.09.15', category: 'Service', title: 'Launched AI Business Launch Support', href: '/works/ai-business-launch' },
       { date: '2026.09.03', category: 'Training', title: 'Added the DX Leadership & Generative AI Practitioner Program', href: '/training' },
       { date: '2026.08.28', category: 'Site', title: 'Published our case studies', href: '/cases' },
       { date: '2026.08.27', category: 'Service', title: 'Published service pages for AI Sales, AI Phone and Salesforce AI', href: '/service/ai-sales' },

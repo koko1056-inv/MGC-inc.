@@ -33,24 +33,25 @@ const ja = {
     bookConsultSub: 'まずはお気軽にご相談ください',
   },
   whyMgc: {
-    eyebrow: 'Why MGC',
-    title: 'MGCが届ける、3つの価値',
-    lead: 'AIはあくまで手段です。目的は、未来をより良くすること。私たちは独自の世界観と信念をもって、技術を世の中に届けます。',
+    eyebrow: 'How we work',
+    title: 'MGCの進め方',
+    lead: 'AIはあくまで手段で、目的は未来をより良くすること。その考え方を、日々の進め方に落とし込んでいます。',
+    missionLink: '会社理念を見る',
     reasons: [
       {
         number: '01',
-        title: 'スピード',
-        desc: '最初からAIに任せる前提で仕事を組み立てているから出せる速さで、価値を届けます。代表が直接お話を伺い、目の前の課題に最短ルートで応えます。',
+        title: '代表が最初から最後まで担当',
+        desc: 'ヒアリングから設計・実装・定着まで、代表が直接担当します。窓口が途中で変わらず、決めたことがそのまま現場に届きます。',
       },
       {
         number: '02',
-        title: '世界中への展開',
-        desc: '日本にとどまらず、世界へ。「日本と世界をつなぐ」ことを前提に、すべての事業を設計しています。',
+        title: '特定のツールに縛られない',
+        desc: '特定のベンダーやAIモデルに依存せず、業務と既存のシステムに合う構成を選びます。お使いのCRMやチャットツールともつなぎます。',
       },
       {
         number: '03',
-        title: '新しい発想',
-        desc: '普通のやり方・既存の前提にとらわれず、独自の視点・世界観から生まれる、これまでにない発想を届けます。',
+        title: '作って終わりにしない',
+        desc: '現場で使われる状態になるまで運用を見届けます。効果が出たものは、同業他社へ届ける事業に育てるところまで支援します。',
       },
     ],
     stats: [
@@ -225,7 +226,7 @@ const ja = {
       ]
     }
   },
-  // Detailed Modal Content (JSX Text Parts)
+  // 各事業のページ（/works/ai-solutions など。App.tsx の BusinessView）の本文
   details: {
     service_ai: {
       title: "AIソリューション",
@@ -375,7 +376,7 @@ const ja = {
     title: 'お知らせ',
     more: 'お知らせ・ジャーナルをすべて見る',
     items: [
-      { date: '2026.09.15', category: 'サービス', title: 'AI事業立ち上げ支援を開始しました', href: '/works' },
+      { date: '2026.09.15', category: 'サービス', title: 'AI事業立ち上げ支援を開始しました', href: '/works/ai-business-launch' },
       { date: '2026.09.03', category: '研修', title: '研修に「DX推進・生成AI活用人材養成講座」を追加しました', href: '/training' },
       { date: '2026.08.28', category: 'サイト', title: '導入事例ページを公開しました', href: '/cases' },
       { date: '2026.08.27', category: 'サービス', title: 'AI営業・AI電話・Salesforce AI活用支援のサービスページを公開しました', href: '/service/ai-sales' },

@@ -2,7 +2,7 @@
 // ページごとに HTML と、<head> に入れる title / OGP などを返す。
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import App, { viewForPath, metaFor, PATH_TO_VIEW, SERVICE_KEYS, pathForView, SITE_ORIGIN, THANKS_PATH } from './App';
+import App, { viewForPath, metaFor, PATH_TO_VIEW, SERVICE_KEYS, pathForView, SITE_ORIGIN, THANKS_PATH, BUSINESS_PAGES, isBizView } from './App';
 import { serviceContent } from './serviceContent';
 import { translations } from './translations';
 import { journalPosts, journalPath, findJournalPost } from './journal';
@@ -49,7 +49,13 @@ const jsonLdFor = (path: string): object[] => {
           { name: 'お知らせ・ジャーナル', item: `${SITE_ORIGIN}/blog` },
           { name: post.title, item: meta.url },
         ]
-      : [{ name: meta.title.split(/[｜|]| - /)[0].trim(), item: meta.url }];
+      : isBizView(view) || (SERVICE_KEYS as string[]).includes(view)
+        ? [
+            { name: '事業内容', item: `${SITE_ORIGIN}/works` },
+            ...((SERVICE_KEYS as string[]).includes(view) ? [{ name: 'AIソリューション', item: `${SITE_ORIGIN}${BUSINESS_PAGES['biz-ai'].path}` }] : []),
+            { name: meta.title.split(/[｜|]| - /)[0].trim(), item: meta.url },
+          ]
+        : [{ name: meta.title.split(/[｜|]| - /)[0].trim(), item: meta.url }];
     out.push({
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
@@ -57,6 +63,26 @@ const jsonLdFor = (path: string): object[] => {
         { '@type': 'ListItem', position: 1, name: 'ホーム', item: `${SITE_ORIGIN}/` },
         ...crumbs.map((c, i) => ({ '@type': 'ListItem', position: i + 2, ...c })),
       ],
+    });
+  }
+  if (isBizView(view)) {
+    const d = translations.ja.details[BUSINESS_PAGES[view].key];
+    out.push({
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      '@id': `${meta.url}#service`,
+      name: d.title,
+      description: meta.description,
+      url: meta.url,
+      image: meta.image,
+      provider: { '@type': 'Organization', '@id': ORG_ID, name: 'ＭＧＣ株式会社', url: SITE_ORIGIN },
+      areaServed: { '@type': 'Country', name: 'Japan' },
+      audience: { '@type': 'BusinessAudience', audienceType: '法人' },
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: `${d.title}の提供内容`,
+        itemListElement: d.features.map((f) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: f.sub, description: f.text } })),
+      },
     });
   }
   if (post) {
@@ -111,7 +137,7 @@ const jsonLdFor = (path: string): object[] => {
       brand: { '@type': 'Brand', name: 'MGC Inc.' },
       areaServed: { '@type': 'Country', name: 'Japan' },
       audience: { '@type': 'BusinessAudience', audienceType: '法人' },
-      isRelatedTo: { '@type': 'Service', name: 'AIソリューション', url: `${SITE_ORIGIN}/works` },
+      isRelatedTo: { '@type': 'Service', name: 'AIソリューション', url: `${SITE_ORIGIN}${BUSINESS_PAGES['biz-ai'].path}` },
     });
     const faq = page.sections.find((x) => x.type === 'faq');
     if (faq && faq.type === 'faq') out.push(faqPage(faq.items));
