@@ -7,6 +7,7 @@ const ja = {
     worksTop: '事業内容トップ',
     aiSolutions: 'AIソリューション',
     crossBorder: 'クロスボーダー',
+    newBiz: 'AI事業立ち上げ支援',
     companyGroup: '会社情報',
     diagnosis: 'AI診断',
     cases: '導入事例',
@@ -176,6 +177,9 @@ const ja = {
     lead: "MGCは、AIソリューション（コンサルティング・開発・運用）、AI事業立ち上げ支援、研修事業、クロスボーダー事業（Inbound/Outbound）の4つの事業で、AIとテクノロジーによって日本と世界をつなぎます。",
     indexLabel: "事業領域",
     detailLink: "詳しく見る",
+    trainingLink: "研修の詳細・受講料を見る",
+    ctaTitle: "どの事業から相談すればよいか、迷ったら",
+    ctaLead: "現状を伺い、どこからAIに任せられるか、どの支援が合うかを整理してお返しします。初回のご相談は無料です。",
     serviceLink: "サービスの詳細を見る",
   },
   works: {
@@ -320,7 +324,7 @@ const ja = {
       name: '松尾 心夢',
       nameEn: 'Kokomu Matsuo',
     },
-    profileTitle: '会社情報',
+    profileTitle: '基本情報',
     history: {
       title: '沿革',
       items: [

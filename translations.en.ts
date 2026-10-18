@@ -8,6 +8,7 @@ export const en: Translation = {
     worksTop: 'All businesses',
     aiSolutions: 'AI Solutions',
     crossBorder: 'Cross-Border',
+    newBiz: 'AI Business Launch',
     companyGroup: 'Company',
     diagnosis: 'AI Diagnosis',
     cases: 'Case Studies',
@@ -177,6 +178,9 @@ export const en: Translation = {
     lead: "Four businesses — AI Solutions (consulting, development, operations), AI Business Launch Support, Training, and Cross-Border Business (Inbound/Outbound) — connecting Japan and the world through AI and tech.",
     indexLabel: "Domains",
     detailLink: "Learn more",
+    trainingLink: "Training details & fees",
+    ctaTitle: "Not sure where to start?",
+    ctaLead: "Tell us where you are and we will map what AI can take on and which support fits. The first consultation is free.",
     serviceLink: "See the service",
   },
   works: {
@@ -320,7 +324,7 @@ export const en: Translation = {
       name: 'Kokomu Matsuo',
       nameEn: '松尾 心夢',
     },
-    profileTitle: 'Company information',
+    profileTitle: 'Company details',
     history: {
       title: 'History',
       items: [
