@@ -474,6 +474,8 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
 
   {/* === Service Index (under hero) === */}
   <div className="px-6 md:px-12 pb-24 max-w-screen-xl mx-auto w-full">
+    {/* 見出しの階層（h1→h2→h3）をそろえるための、画面には出さない見出し */}
+    <h2 className="sr-only">{t.nav.works}</h2>
     <Reveal>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-gray-200 border border-gray-200 rounded-[2rem] overflow-hidden">
         {services.map((s, i) => (
@@ -498,7 +500,9 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
   </div>
 
   {/* === Free AI Diagnosis Banner (無料フロントエンド) === */}
-  <div className={`px-6 md:px-12 pb-24 max-w-screen-xl mx-auto w-full${SHOW_DIAGNOSIS ? '' : ' hidden'}`}>
+  {/* 診断を隠している間は、HTMLにも出さない */}
+  {SHOW_DIAGNOSIS && (
+  <div className="px-6 md:px-12 pb-24 max-w-screen-xl mx-auto w-full">
     <Reveal>
       <NavLink
         href={pathForView('diagnosis')} onGo={() => goTo('diagnosis')}
@@ -532,6 +536,7 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
       </NavLink>
     </Reveal>
   </div>
+  )}
 
   {/* === One-Stop Flow Section === */}
   <section className="px-6 md:px-12 pb-24 max-w-screen-xl mx-auto w-full">
@@ -864,9 +869,9 @@ const ServiceBlock: React.FC<{
                 {icon}
               </div>
             </div>
-            <h3 className="text-4xl md:text-5xl font-bold text-offblack tracking-tight mb-4 leading-[1.1]">
+            <h2 className="text-4xl md:text-5xl font-bold text-offblack tracking-tight mb-4 leading-[1.1]">
               {data.title}
-            </h3>
+            </h2>
             <p className="text-lg md:text-xl text-accent font-bold leading-snug">
               {data.subtitle}
             </p>
@@ -910,7 +915,18 @@ const ServiceBlock: React.FC<{
                 </div>
               ))}
             </div>
-            <div className="flex flex-wrap items-center gap-4 pt-2">
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-4 pt-2">
+              {/* 専用ページがある事業は、そのページへの導線を先に置く */}
+              {serviceKey === 'service_training' && (
+                <NavLink
+                  href={pathForView('training')}
+                  onGo={() => onNavigate?.('training')}
+                  className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-accent text-white font-bold text-sm tracking-tight hover:opacity-90 transition-opacity"
+                >
+                  {t.worksIntro.trainingLink}
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                </NavLink>
+              )}
               <button
                 onClick={onDetail}
                 className="group inline-flex items-center gap-3 text-offblack font-bold text-sm tracking-tight border-b-2 border-offblack/30 pb-1 hover:border-accent hover:text-accent transition-colors"
@@ -945,8 +961,8 @@ const WorksView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNav
             </div>
             <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-offblack leading-[0.9] mb-8">
               {t.headings.works.title}
-              <span className="block text-accent">{t.headings.works.sub}</span>
             </h1>
+            <p aria-hidden className="-mt-6 mb-8 text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-accent leading-[0.9]">{t.headings.works.sub}</p>
             <p className="text-lg md:text-xl text-gray-700 leading-relaxed max-w-3xl font-medium">
               {t.worksIntro.lead}
             </p>
@@ -1011,6 +1027,7 @@ const WorksView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNav
             icon={<User className="w-5 h-5 text-accent stroke-[1.75]" />}
             image="/assets/service_training.webp"
             onDetail={() => setSelectedId('service_training')}
+            onNavigate={onNavigate}
           />
         </div>
 
@@ -1028,7 +1045,7 @@ const WorksView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNav
         <div className="mt-24 md:mt-32 border-t border-gray-200 pt-16">
           <Reveal>
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
-              <h3 className="text-3xl md:text-4xl font-bold text-offblack tracking-tighter max-w-xl leading-tight">{t.oneStop.title}</h3>
+              <h2 className="text-3xl md:text-4xl font-bold text-offblack tracking-tighter max-w-xl leading-tight">{t.oneStop.title}</h2>
               <p className="text-gray-600 leading-relaxed max-w-md font-medium">{t.oneStop.lead}</p>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 lg:gap-6">
@@ -1057,6 +1074,31 @@ const WorksView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNav
             <p className="text-sm text-gray-500 leading-relaxed mt-6">{t.oneStop.note}</p>
           </Reveal>
         </div>
+
+        {/* === 次の一歩（事例・相談） === */}
+        <Reveal>
+          <div className="mt-24 md:mt-32 rounded-[1.75rem] md:rounded-[2.5rem] bg-[#F4F6FB] border border-gray-200 px-7 py-12 md:px-16 md:py-16">
+            <h2 className="text-2xl md:text-4xl font-bold tracking-tight text-offblack leading-[1.5]">{t.worksIntro.ctaTitle}</h2>
+            <p className="text-base md:text-lg text-[#1A2233] leading-[1.9] mt-4 max-w-2xl">{t.worksIntro.ctaLead}</p>
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-8">
+              <NavLink
+                href={pathForView('contact')}
+                onGo={() => onNavigate?.('contact')}
+                className="group inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full bg-accent text-white font-bold text-sm md:text-base tracking-tight hover:opacity-90 transition-opacity"
+              >
+                {t.homeCTA.primary}
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+              </NavLink>
+              <NavLink
+                href={pathForView('cases')}
+                onGo={() => onNavigate?.('cases')}
+                className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full border border-gray-300 bg-white text-offblack font-bold text-sm tracking-tight hover:border-offblack transition-colors"
+              >
+                {t.homeCases.cta}
+              </NavLink>
+            </div>
+          </div>
+        </Reveal>
 
         <DetailModal id={selectedId} onClose={() => setSelectedId(null)} />
       </div>
@@ -1503,7 +1545,7 @@ const CareerView: React.FC = () => {
               <div className="absolute -top-[50%] -left-[50%] w-[200%] h-[200%] bg-[radial-gradient(circle,rgba(255,255,255,0.1)_0%,transparent_60%)] animate-[spin_20s_linear_infinite]"></div>
               {/* Added decorative logic */}
               <div className="relative z-10 flex flex-col items-center">
-                <h3 className="text-5xl md:text-8xl font-bold mb-8 tracking-tighter">{t.career.cta.title}</h3>
+                <h2 className="text-5xl md:text-8xl font-bold mb-8 tracking-tighter">{t.career.cta.title}</h2>
                 <p className="text-xl md:text-2xl text-white/90 mb-12 max-w-3xl mx-auto font-medium leading-relaxed whitespace-pre-line">
                    {t.career.cta.desc}
                 </p>
@@ -3535,16 +3577,20 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
   const footerGroups: { title: string; links: NavLeaf[] }[] = [
     {
       title: t.footer.groups.business,
+      // 事業内容ページの4事業と同じ並び。AIソリューションの下に個別サービスを置く
       links: [
         { id: 'works', label: t.nav.works },
-        ...SERVICE_KEYS.map((k) => ({ id: k as ViewState, label: serviceContent[lang][k].navLabel })),
+        { id: 'works', hash: 'service-01', label: t.nav.aiSolutions },
+        ...SERVICE_KEYS.map((k) => ({ id: k as ViewState, label: serviceContent[lang][k].navLabel, indent: true })),
+        { id: 'works', hash: 'service-02', label: t.nav.newBiz },
+        { id: 'training', label: t.nav.training },
+        { id: 'works', hash: 'service-04', label: t.nav.crossBorder },
       ],
     },
     {
       title: t.footer.groups.insights,
       links: [
         { id: 'cases', label: t.nav.cases },
-        { id: 'training', label: t.nav.training },
         { href: '/column', label: t.nav.column },
         { id: 'blog', label: t.nav.blog },
       ],
@@ -3572,11 +3618,11 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
     { label: t.nav.works, children: [
       { id: 'works', label: t.nav.worksTop },
       { id: 'works', hash: 'service-01', label: t.nav.aiSolutions },
+      { id: 'works', hash: 'service-02', label: t.nav.newBiz },
       { id: 'training', label: t.nav.training },
       { id: 'works', hash: 'service-04', label: t.nav.crossBorder },
     ] },
     { id: 'cases', label: t.nav.cases },
-    { id: 'training', label: t.nav.training },
     { href: '/column', label: t.nav.column },
     { label: t.nav.companyGroup, children: [
       { id: 'mission', label: t.nav.mission },
@@ -3810,15 +3856,15 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
                 </h2>
                 <ul className="space-y-3">
                   {group.links.map((link) => (
-                    <li key={link.href ?? link.id}>
+                    <li key={link.label} className={link.indent ? 'pl-3' : undefined}>
                       {link.href ? (
                         <a href={link.href} className={`text-sm font-medium hover:text-accent transition-colors text-gray-700`}>
                           {link.label}
                         </a>
                       ) : (
                         <NavLink
-                          href={link.id ? pathForView(link.id) : undefined} onGo={() => link.id && navigate(link.id)}
-                          className={`text-sm font-medium text-left hover:text-accent transition-colors text-gray-700`}
+                          href={leafHref(link)} onGo={() => goLeaf(link)}
+                          className={`text-sm text-left hover:text-accent transition-colors ${link.indent ? 'text-gray-500' : 'font-medium text-gray-700'}`}
                         >
                           {link.label}
                         </NavLink>
