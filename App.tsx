@@ -3463,7 +3463,12 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
     };
     window.addEventListener('hashchange', sync);
     window.addEventListener('popstate', sync);
-    if (window.location.hash) window.scrollTo(0, 0);
+    // 旧形式のハッシュ（#works 等）はページ扱いなので先頭へ。節の id（#service-04 等）ならその位置へ
+    if (window.location.hash) {
+      const target = document.getElementById(window.location.hash.slice(1));
+      if (target) window.setTimeout(() => target.scrollIntoView({ block: 'start' }), 100);
+      else window.scrollTo(0, 0);
+    }
     return () => {
       window.removeEventListener('hashchange', sync);
       window.removeEventListener('popstate', sync);
@@ -3505,13 +3510,19 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
   // クリーンURLへ遷移する。ハッシュは付けない（旧ハッシュ付きURLから来た場合はここで消える）
   // パスで遷移する（/blog/<slug> のようにビュー名だけでは決まらないページ用）
   const navigatePath = (to: string) => {
-    if (window.location.pathname !== to || window.location.hash) {
+    const [pathname, hash] = to.split('#');
+    if (window.location.pathname !== pathname || window.location.hash !== (hash ? `#${hash}` : '')) {
       window.history.pushState({}, '', to);
     }
-    setView(viewForPath(to));
-    setPath(to);
-    window.scrollTo(0, 0);
+    setView(viewForPath(pathname));
+    setPath(pathname);
     setIsMenuOpen(false);
+    if (hash) {
+      // ページの切り替え（描画）を待ってから、その節までスクロールする
+      window.setTimeout(() => document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 350);
+    } else {
+      window.scrollTo(0, 0);
+    }
   };
 
   const navigate = (id: ViewState) => {
@@ -3551,13 +3562,18 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
 
   // 情報ナビ（お問い合わせはCTAボタンとして分離、Journalはフッターへ集約）
   // heading: 押せない小見出し / indent: 小見出しの下に字下げして並べる
-  type NavLeaf = { id?: ViewState; href?: string; label: string; heading?: boolean; indent?: boolean };
+  // hash: 同じページ内の節へ飛ぶ（例: 事業内容の「クロスボーダー」→ /works#service-04）
+  type NavLeaf = { id?: ViewState; hash?: string; href?: string; label: string; heading?: boolean; indent?: boolean };
+  const leafHref = (c: NavLeaf) => (c.id ? pathForView(c.id) + (c.hash ? `#${c.hash}` : '') : undefined);
+  const goLeaf = (c: NavLeaf) => { if (c.id) navigatePath(leafHref(c)!); };
+  const isLeafActive = (c: NavLeaf) => view === c.id && !c.hash;
   type NavItem = NavLeaf & { children?: NavLeaf[] };
   const navItems: NavItem[] = [
     { label: t.nav.works, children: [
       { id: 'works', label: t.nav.worksTop },
-      { label: t.nav.aiSolutions, heading: true },
-      ...SERVICE_KEYS.map((k) => ({ id: k as ViewState, label: serviceContent[lang][k].navLabel, indent: true })),
+      { id: 'works', hash: 'service-01', label: t.nav.aiSolutions },
+      { id: 'training', label: t.nav.training },
+      { id: 'works', hash: 'service-04', label: t.nav.crossBorder },
     ] },
     { id: 'cases', label: t.nav.cases },
     { id: 'training', label: t.nav.training },
@@ -3569,7 +3585,8 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
       { id: 'career', label: t.nav.career },
     ] },
   ];
-  const isGroupActive = (item: NavItem) => !!item.children?.some((c) => c.id === view);
+  // サービスページ（AI営業など）は事業内容の中のページとして扱う
+  const isGroupActive = (item: NavItem) => !!item.children?.some((c) => c.id === view || (c.id === 'works' && isServiceKey(view)));
 
   return (
     <LanguageContext.Provider value={{ lang, setLang, t }}>
@@ -3609,16 +3626,16 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
                     <span key={c.label} className="block px-4 pt-3 pb-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400">{c.label}</span>
                   ) : (
                     <NavLink
-                      key={c.id ?? c.href}
-                      href={c.id ? pathForView(c.id) : undefined} onGo={() => c.id && navigate(c.id)}
-                      aria-current={view === c.id ? 'page' : undefined}
+                      key={c.label}
+                      href={leafHref(c)} onGo={() => goLeaf(c)}
+                      aria-current={isLeafActive(c) ? 'page' : undefined}
                       className={`relative block w-full text-left ${c.indent ? 'pl-8 pr-4' : 'px-4'} py-2.5 rounded-xl text-sm transition-colors ${
-                        view === c.id
+                        isLeafActive(c)
                           ? 'font-bold text-accent bg-accent/10'
                           : 'font-medium text-gray-700 hover:text-offblack hover:bg-[#F4F6FB]'
                       }`}
                     >
-                      {view === c.id && <span className="absolute left-1.5 top-2.5 bottom-2.5 w-1 rounded-full bg-accent" />}
+                      {isLeafActive(c) && <span className="absolute left-1.5 top-2.5 bottom-2.5 w-1 rounded-full bg-accent" />}
                       {c.label}
                     </NavLink>
                   ))}
@@ -3685,8 +3702,8 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
                 <span key={c.label} className="text-[11px] font-bold tracking-[0.2em] text-accent mt-1">{c.label}</span>
               ) : (
                 <NavLink
-                  key={c.id ?? c.href}
-                  href={c.id ? pathForView(c.id) : undefined} onGo={() => c.id && navigate(c.id)}
+                  key={c.label}
+                  href={leafHref(c)} onGo={() => goLeaf(c)}
                   className={`${c.indent ? 'text-xl' : 'text-2xl'} font-bold tracking-tighter text-offblack hover:text-accent transition-colors`}
                 >
                   {c.label}

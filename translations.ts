@@ -6,6 +6,7 @@ const ja = {
     services: 'サービス',
     worksTop: '事業内容トップ',
     aiSolutions: 'AIソリューション',
+    crossBorder: 'クロスボーダー',
     companyGroup: '会社情報',
     diagnosis: 'AI診断',
     cases: '導入事例',

@@ -7,6 +7,7 @@ export const en: Translation = {
     services: 'Services',
     worksTop: 'All businesses',
     aiSolutions: 'AI Solutions',
+    crossBorder: 'Cross-Border',
     companyGroup: 'Company',
     diagnosis: 'AI Diagnosis',
     cases: 'Case Studies',
