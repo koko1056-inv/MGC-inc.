@@ -7,7 +7,7 @@
   },
   "rotation": {
     "note": "日次で industries を順番に回す。lastIndex は最後に公開した業種の添字。次回は (lastIndex+1)%12 の業種で、usedTopics に無いテーマを選ぶ。",
-    "lastIndex": 6,
+    "lastIndex": 7,
     "industries": [
       {
         "key": "manufacturing",
@@ -141,7 +141,8 @@
       "professional-document-review-automation",
       "professional-knowledge-work-delegation",
       "professional-high-value-advisory-ai",
-      "professional-logic-standardization-response-efficiency"
+      "professional-logic-standardization-response-efficiency",
+      "professional-risk-management-knowledge-digitization"
     ],
     "finance": [
       "finance-ai-implementation-guide",
@@ -657,6 +658,12 @@
       "industry": "hospitality",
       "date": "2026-10-18",
       "file": "hospitality-shift-optimization-and-labor-management.json"
+    },
+    {
+      "slug": "professional-risk-management-knowledge-digitization",
+      "industry": "professional",
+      "date": "2026-10-19",
+      "file": "professional-risk-management-knowledge-digitization.json"
     }
   ]
 }
