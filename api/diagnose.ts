@@ -1,129 +1,11 @@
-import express from "express";
-import cors from "cors";
-import dotenv from "dotenv";
+// AI活用診断（POST /api/diagnose）。入力からAI導入後のワークフロー・期待効果を診断して返し、
+// リードとして保存・通知する。
+//
+// 画面の診断（App.tsx の SHOW_DIAGNOSIS）を隠している間は、環境変数 DIAGNOSIS_ENABLED=true を
+// 設定しない限り動かない（Gemini の利用料がかかるため、外から呼ばれないようにする）。
 import { GoogleGenAI } from "@google/genai";
 import { Resend } from "resend";
-
-dotenv.config();
-
-const app = express();
-app.use(cors());
-app.use(express.json());
-
-const resend = new Resend(process.env.RESEND_API_KEY);
-
-// --- Endpoints ---
-
-// 1. Contact Form Endpoint
-app.post(
-  "/api/contact",
-  async (req: express.Request, res: express.Response) => {
-    const { name, email, message } = req.body;
-
-    if (!name || !email || !message) {
-      return res
-        .status(400)
-        .json({ success: false, message: "All fields are required." });
-    }
-
-    const receiverEmail = process.env.CONTACT_RECEIVER_EMAIL || "kokomu.matsuo@mgc-global01.com";
-    const recipients = [receiverEmail];
-
-    try {
-      const { error } = await resend.emails.send({
-        from: "MGC Contact Form <onboarding@resend.dev>",
-        replyTo: email,
-        to: recipients,
-        subject: `[MGC Contact] New message from ${name}`,
-        text: `
-Name: ${name}
-Email: ${email}
-
-Message:
-${message}
-        `.trim(),
-        html: `
-          <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
-            <h2 style="color: #2D6CDF;">[MGC Contact] New message from ${name}</h2>
-            <p><strong>Name:</strong> ${name}</p>
-            <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
-            <hr style="border: 1px solid #e5e7eb;" />
-            <p><strong>Message:</strong></p>
-            <p style="white-space: pre-wrap;">${message}</p>
-          </div>
-        `,
-      });
-
-      if (error) {
-        console.error("[Backend] Resend error:", error);
-        return res.status(500).json({
-          success: false,
-          message: "Failed to send email.",
-        });
-      }
-
-      console.log(`[Backend] Email sent for ${name} → ${recipients.join(", ")}`);
-      res.status(200).json({ success: true, message: "Message sent successfully." });
-    } catch (error) {
-      console.error("[Backend] Contact form error:", error);
-      res.status(500).json({
-        success: false,
-        message: "Internal server error while sending email.",
-      });
-    }
-  }
-);
-
-// 2. Image Generation Proxy Endpoint
-// This hides the API KEY from the client
-app.post(
-  "/api/generate-image",
-  async (req: express.Request, res: express.Response) => {
-    const { prompt } = req.body;
-
-    if (!prompt) {
-      return res.status(400).json({ error: "Prompt is required." });
-    }
-
-    const apiKey = process.env.GEMINI_API_KEY;
-    console.log("[Backend] GEMINI_API_KEY present:", !!apiKey, "length:", apiKey?.length ?? 0);
-
-    if (!apiKey) {
-      return res.status(500).json({ error: "GEMINI_API_KEY is not configured on the server." });
-    }
-
-    try {
-      const genAI = new GoogleGenAI({ apiKey });
-      const model = process.env.GEMINI_MODEL || "gemini-2.5-flash-image";
-      console.log("[Backend] Using model:", model);
-
-      const response = await (genAI as any).models.generateContent({
-        model,
-        contents: {
-          parts: [{ text: prompt }]
-        },
-        config: {
-          responseModalities: ["TEXT", "IMAGE"],
-        },
-      });
-
-      const images: { base64: string; mimeType: string }[] = [];
-      for (const part of response?.candidates?.[0]?.content?.parts || []) {
-        if (part.inlineData) {
-          images.push({
-            base64: part.inlineData.data,
-            mimeType: part.inlineData.mimeType || "image/jpeg",
-          });
-        }
-      }
-
-      res.json({ images });
-    } catch (error) {
-      console.error("[Backend] Image generation error:", error);
-      res.status(500).json({ error: "Failed to generate image.", detail: String(error) });
-    }
-  }
-);
+import { json, readJson, rateLimited, clientIp, str, isEmail, oneLine, isBot } from "./_lib/guard.js";
 
 // --- Lead storage (Supabase REST / PostgREST) ---
 // service_role キーで書き込む。テーブルはRLS有効＋ポリシー無しなので、
@@ -139,7 +21,7 @@ async function saveLead(row: Record<string, unknown>): Promise<string> {
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !key) {
     console.warn(
-      `[Backend] リード保存をスキップ: SUPABASE_URL=${url ? "設定済" : "未設定"} SUPABASE_SERVICE_ROLE_KEY=${key ? "設定済" : "未設定"}`
+      `[diagnose] リード保存をスキップ: SUPABASE_URL=${url ? "設定済" : "未設定"} SUPABASE_SERVICE_ROLE_KEY=${key ? "設定済" : "未設定"}`
     );
     return "skipped_no_env";
   }
@@ -156,46 +38,54 @@ async function saveLead(row: Record<string, unknown>): Promise<string> {
       body: JSON.stringify(row),
     });
   } catch (e) {
-    console.error("[Backend] Supabase insert network error:", String((e as any)?.message || e).slice(0, 300));
+    console.error("[diagnose] Supabase insert network error:", String((e as any)?.message || e).slice(0, 300));
     return "error_network";
   }
   if (!res.ok) {
-    console.error(`[Backend] Supabase insert failed: ${res.status} ${(await res.text()).slice(0, 300)}`);
+    console.error(`[diagnose] Supabase insert failed: ${res.status} ${(await res.text()).slice(0, 300)}`);
     return `error_${res.status}`;
   }
   return "stored";
 }
 
-// 3. AI Utilization Diagnosis Endpoint
-// 訪問者の状況からAI導入後のワークフロー・期待効果を「要件定義っぽく」診断して返す。
-// 無料フロントエンド（リード獲得 → 30分無料相談への転換）。
-app.post(
-  "/api/diagnose",
-  async (req: express.Request, res: express.Response) => {
-    const {
-      email,
-      name = "",
-      company = "",
-      industry = "",
-      business = "",
-      employees = "",
-      challenges = [],
-      tools = "",
-      monthly = "",
-      goal = "",
-    } = req.body || {};
+export default {
+  async fetch(request: Request): Promise<Response> {
+    if (process.env.DIAGNOSIS_ENABLED !== "true") {
+      return json({ error: "現在、AI活用診断は受け付けていません。" }, 404);
+    }
+    const parsed = await readJson(request);
+    if ("error" in parsed) return parsed.error;
+    const { body } = parsed;
+    if (isBot(body)) return json({ error: "診断の生成に失敗しました。" }, 400);
 
-    const validEmail = typeof email === "string" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    if (!validEmail) {
-      return res.status(400).json({ error: "有効なメールアドレスが必要です。" });
+    // 同じ送信元から1時間に3件まで（1件ごとに Gemini の利用料がかかる）
+    if (rateLimited(`diagnose:${clientIp(request)}`, 3, 60 * 60 * 1000)) {
+      return json({ error: "短時間に多くの診断が行われました。時間をおいて再度お試しください。" }, 429);
+    }
+
+    // 入力はすべて文字列にそろえ、長さに上限を設ける（AIへの指示に混ぜるため）
+    const email = str(body.email, 254);
+    const name = str(body.name, 100);
+    const company = str(body.company, 200);
+    const industry = str(body.industry, 200);
+    const business = str(body.business, 1000);
+    const employees = str(body.employees, 100);
+    const tools = str(body.tools, 500);
+    const monthly = str(body.monthly, 200);
+    const goal = str(body.goal, 1000);
+    const challenges = (Array.isArray(body.challenges) ? body.challenges : []).slice(0, 12).map((c) => str(c, 100)).filter(Boolean);
+
+    if (!isEmail(email)) {
+      return json({ error: "有効なメールアドレスが必要です。" }, 400);
     }
     if (!industry && !business) {
-      return res.status(400).json({ error: "業種または事業内容を入力してください。" });
+      return json({ error: "業種または事業内容を入力してください。" }, 400);
     }
 
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      return res.status(500).json({ error: "GEMINI_API_KEY is not configured on the server." });
+      console.error("[diagnose] GEMINI_API_KEY is not set");
+      return json({ error: "診断の生成に失敗しました。時間をおいて再度お試しください。" }, 500);
     }
 
     // GEMINI_TEXT_MODEL 指定を最優先。未ヒット時は最新エイリアス→2.5系へフォールバック。
@@ -206,7 +96,7 @@ app.post(
       "gemini-2.5-flash",
     ];
 
-    const challengesText = Array.isArray(challenges) ? challenges.join("、") : String(challenges || "");
+    const challengesText = challenges.join("、");
 
     const prompt = `あなたはMGC株式会社（AI導入支援の会社）のシニアAIコンサルタントです。
 以下の相談者情報をもとに、そのまま提案書の下敷きになる「AI活用診断レポート」を作成してください。
@@ -268,17 +158,14 @@ app.post(
           const msg = String((e as any)?.message || e);
           const status = (e as any)?.status ?? (msg.match(/\b(4\d{2}|5\d{2})\b/) || [])[1];
           attemptCodes.push(`${m}:${status || (msg.includes("JSON") ? "parse" : "err")}`);
-          console.warn(`[Backend] diagnose model ${m} failed:`, msg.slice(0, 300));
+          console.warn(`[diagnose] diagnose model ${m} failed:`, msg.slice(0, 300));
         }
       }
       if (!diagnosis) throw lastErr || new Error("no model succeeded");
     } catch (error) {
-      console.error("[Backend] Diagnose generation error:", error);
+      console.error("[diagnose] Diagnose generation error:", error);
       // code は「どのモデルがどのHTTPステータスで落ちたか」だけ。運用切り分け用で、機密は含まない。
-      return res.status(500).json({
-        error: "診断の生成に失敗しました。時間をおいて再度お試しください。",
-        code: attemptCodes.join(","),
-      });
+      return json({ error: "診断の生成に失敗しました。時間をおいて再度お試しください。", code: attemptCodes.join(",") }, 500);
     }
 
     // リード保存（失敗しても診断結果は返す）
@@ -291,7 +178,7 @@ app.post(
         industry: industry || null,
         business: business || null,
         employees: employees || null,
-        challenges: Array.isArray(challenges) ? challenges : null,
+        challenges: challenges.length ? challenges : null,
         tools: tools || null,
         monthly: monthly || null,
         goal: goal || null,
@@ -303,13 +190,13 @@ app.post(
         roas: diagnosis?.expectedEffect?.roas || null,
         diagnosis,
         model: usedModel || null,
-        referer: req.get("referer") || null,
-        user_agent: req.get("user-agent") || null,
+        referer: request.headers.get("referer")?.slice(0, 500) || null,
+        user_agent: request.headers.get("user-agent")?.slice(0, 500) || null,
       });
-      console.log(`[Backend] Diagnose lead store result: ${storeCode} (${email})`);
+      console.log(`[diagnose] lead store result: ${storeCode}`);
     } catch (dbErr) {
       storeCode = "error_exception";
-      console.error("[Backend] Diagnose lead save failed (non-fatal):", dbErr);
+      console.error("[diagnose] Diagnose lead save failed (non-fatal):", dbErr);
     }
 
     // リード通知（失敗しても診断結果は返す）
@@ -317,14 +204,14 @@ app.post(
     // 戻り値を必ず確認すること（見落とすと送信失敗を成功として記録してしまう）。
     let mailCode = "unknown";
     if (!process.env.RESEND_API_KEY) mailCode = "skipped_no_key";
-    try {
+    else try {
       const receiverEmail = process.env.CONTACT_RECEIVER_EMAIL || "kokomu.matsuo@mgc-global01.com";
       const recipients = [receiverEmail];
-      const { error: mailError } = await resend.emails.send({
+      const { error: mailError } = await new Resend(process.env.RESEND_API_KEY).emails.send({
         from: process.env.MAIL_FROM || "MGC AI診断 <onboarding@resend.dev>",
         replyTo: email,
         to: recipients,
-        subject: `[MGC AI診断リード] ${company || name || email}`,
+        subject: oneLine(`[MGC AI診断リード] ${company || name || email}`),
         text: `
 新しいAI活用診断リードです。
 
@@ -347,19 +234,16 @@ ${diagnosis?.summary || ""}
       });
       if (mailError) {
         mailCode = `error_${(mailError as any)?.statusCode || (mailError as any)?.name || "unknown"}`;
-        console.error("[Backend] Diagnose lead email rejected:", JSON.stringify(mailError).slice(0, 400));
+        console.error("[diagnose] Diagnose lead email rejected:", JSON.stringify(mailError).slice(0, 400));
       } else {
         mailCode = "sent";
-        console.log(`[Backend] Diagnose lead emailed: ${email} (model ${usedModel})`);
+        console.log(`[diagnose] lead emailed (model ${usedModel})`);
       }
     } catch (mailErr) {
       mailCode = "error_exception";
-      console.error("[Backend] Diagnose lead email failed (non-fatal):", mailErr);
+      console.error("[diagnose] Diagnose lead email failed (non-fatal):", mailErr);
     }
 
-    res.json({ diagnosis, storeCode, mailCode });
-  }
-);
-
-// Export for Vercel
-export default app;
+    return json({ diagnosis, storeCode, mailCode });
+  },
+};
