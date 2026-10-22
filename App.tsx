@@ -1689,6 +1689,8 @@ const ContactView: React.FC<{ onNavigate?: (view: ViewState) => void; initialSen
     return i !== undefined ? (t.contact.form.topicOptions[i] ?? '') : '';
   })();
   const [formState, setFormState] = useState({ name: '', email: '', company: '', topic: initialTopic, message: '' });
+  // 迷惑送信対策: 人には見えない入力欄。ボットが埋めるとサーバー側で破棄される
+  const [website, setWebsite] = useState('');
   const [emailError, setEmailError] = useState('');
   const [sendError, setSendError] = useState('');
   const [agreed, setAgreed] = useState(false);
@@ -1723,6 +1725,7 @@ const ContactView: React.FC<{ onNavigate?: (view: ViewState) => void; initialSen
         body: JSON.stringify({
           name: formState.name,
           email: formState.email,
+          website,
           message: `[Company] ${formState.company || '(unspecified)'}\n[Topic] ${formState.topic || '(unspecified)'}\n\n${formState.message}`,
         }),
       });
@@ -1848,7 +1851,10 @@ const ContactView: React.FC<{ onNavigate?: (view: ViewState) => void; initialSen
           {/* Right: Form */}
           <div className="lg:col-span-7">
             <Reveal delay={200}>
-              <form onSubmit={handleSubmit} className="bg-white rounded-3xl border border-gray-200 p-8 md:p-12 shadow-sm">
+              <form onSubmit={handleSubmit} className="relative bg-white rounded-3xl border border-gray-200 p-8 md:p-12 shadow-sm">
+                <div aria-hidden="true" className="absolute -left-[9999px] w-px h-px overflow-hidden">
+                  <label>Website<input type="text" name="website" tabIndex={-1} autoComplete="off" value={website} onChange={(e) => setWebsite(e.target.value)} /></label>
+                </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                   <div className="group">
                     <label htmlFor="name" className="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2 group-focus-within:text-accent transition-colors">
