@@ -7,7 +7,7 @@
   },
   "rotation": {
     "note": "日次で industries を順番に回す。lastIndex は最後に公開した業種の添字。次回は (lastIndex+1)%12 の業種で、usedTopics に無いテーマを選ぶ。",
-    "lastIndex": 11,
+    "lastIndex": 0,
     "industries": [
       {
         "key": "manufacturing",
@@ -79,7 +79,8 @@
       "manufacturing-skill-transfer-ai",
       "manufacturing-demand-forecasting-ai",
       "manufacturing-process-optimization-ai",
-      "manufacturing-knowledge-management-ai"
+      "manufacturing-knowledge-management-ai",
+      "manufacturing-inventory-optimization-ai"
     ],
     "construction": [
       "construction-site-efficiency-ai",
@@ -692,6 +693,12 @@
       "industry": "public",
       "date": "2026-10-23",
       "file": "public-regional-revitalization-ai-strategy.json"
+    },
+    {
+      "slug": "manufacturing-inventory-optimization-ai",
+      "industry": "manufacturing",
+      "date": "2026-10-24",
+      "file": "manufacturing-inventory-optimization-ai.json"
     }
   ]
 }
