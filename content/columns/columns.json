@@ -7,7 +7,7 @@
   },
   "rotation": {
     "note": "日次で industries を順番に回す。lastIndex は最後に公開した業種の添字。次回は (lastIndex+1)%12 の業種で、usedTopics に無いテーマを選ぶ。",
-    "lastIndex": 5,
+    "lastIndex": 6,
     "industries": [
       {
         "key": "manufacturing",
@@ -138,7 +138,8 @@
       "hospitality-guest-experience-and-training",
       "hospitality-customer-feedback-analysis",
       "hospitality-personalized-guest-service-ai",
-      "hospitality-shift-optimization-and-labor-management"
+      "hospitality-shift-optimization-and-labor-management",
+      "hospitality-quality-standardization-and-waste-reduction"
     ],
     "professional": [
       "professional-accounting-ai",
@@ -734,6 +735,12 @@
       "industry": "healthcare",
       "date": "2026-10-30",
       "file": "healthcare-family-communication-ai.json"
+    },
+    {
+      "slug": "hospitality-quality-standardization-and-waste-reduction",
+      "industry": "hospitality",
+      "date": "2026-10-31",
+      "file": "hospitality-quality-standardization-and-waste-reduction.json"
     }
   ]
 }
