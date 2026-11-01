@@ -7,7 +7,7 @@
   },
   "rotation": {
     "note": "日次で industries を順番に回す。lastIndex は最後に公開した業種の添字。次回は (lastIndex+1)%12 の業種で、usedTopics に無いテーマを選ぶ。",
-    "lastIndex": 6,
+    "lastIndex": 7,
     "industries": [
       {
         "key": "manufacturing",
@@ -149,7 +149,8 @@
       "professional-knowledge-work-delegation",
       "professional-high-value-advisory-ai",
       "professional-logic-standardization-response-efficiency",
-      "professional-risk-management-knowledge-digitization"
+      "professional-risk-management-knowledge-digitization",
+      "professional-strategic-ai-partner"
     ],
     "finance": [
       "finance-ai-implementation-guide",
@@ -741,6 +742,12 @@
       "industry": "hospitality",
       "date": "2026-10-31",
       "file": "hospitality-quality-standardization-and-waste-reduction.json"
+    },
+    {
+      "slug": "professional-strategic-ai-partner",
+      "industry": "professional",
+      "date": "2026-11-01",
+      "file": "professional-strategic-ai-partner.json"
     }
   ]
 }
