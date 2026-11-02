@@ -9,6 +9,7 @@
 export type CaseStudy = {
   slug: string;
   industry: string;          // 業種（社名の代わりに出す見出し）
+  title?: string;            // 事例ページの見出し（何をしたかを一文で）
   scale: string;             // 規模・立ち位置の一言
   services: string[];        // 関連するサービス
   summary: string;
@@ -41,6 +42,7 @@ const ja: Content['ja'] = {
   cases: [
     {
       slug: 'callcenter-voice-ai',
+      title: 'CRMと音声AIで、催促架電と通話後処理を自動化',
       industry: 'コールセンター運営',
       scale: '契約者への電話対応業務を担う事業者',
       services: ['AI電話（音声AI）', 'Salesforce AI', 'AI活用研修'],
@@ -90,6 +92,7 @@ const ja: Content['ja'] = {
     },
     {
       slug: 'distributor-ai-outreach',
+      title: '海外メーカーの発掘から接触までをAIで自動化',
       industry: '総合代理店',
       scale: '海外メーカーの製品を日本市場で扱う事業者',
       services: ['AI営業'],
@@ -138,6 +141,7 @@ const ja: Content['ja'] = {
     },
     {
       slug: 'manufacturer-field-voice-ai',
+      title: '現場のトラブルシューティングを、音声AIとの対話で解決',
       industry: '大手建設機械メーカー',
       scale: '海外展開している機械メーカー',
       services: ['AI電話（音声AI）', 'AI開発（受託）'],

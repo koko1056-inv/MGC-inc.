@@ -7,6 +7,7 @@ import { serviceContent } from './serviceContent';
 import { translations } from './translations';
 import { journalPosts, journalPath, findJournalPost } from './journal';
 import { glossaryContent } from './glossaryContent';
+import { caseContent } from './caseContent';
 
 export { SITE_ORIGIN };
 
@@ -15,6 +16,7 @@ export const routes = (): string[] => [
   '/',
   ...Object.keys(PATH_TO_VIEW),
   ...journalPosts('ja').map((p) => journalPath(p.slug)),
+  ...caseContent.ja.cases.map((c) => `/cases/${c.slug}`),
   ...SERVICE_KEYS.map((k) => pathForView(k)),
   THANKS_PATH,
 ];
@@ -45,7 +47,13 @@ const jsonLdFor = (path: string): object[] => {
   if (meta.noindex) return out;
   const post = view === 'journal' ? findJournalPost('ja', path.split('/').pop() ?? '') : undefined;
   if (path !== '/') {
-    const crumbs = post
+    const cs = view === 'case' ? caseContent.ja.cases.find((x) => x.slug === path.split('/').pop()) : undefined;
+    const crumbs = cs
+      ? [
+          { name: '導入事例', item: `${SITE_ORIGIN}/cases` },
+          { name: cs.title ?? cs.industry, item: meta.url },
+        ]
+      : post
       ? [
           { name: 'お知らせ・ジャーナル', item: `${SITE_ORIGIN}/blog` },
           { name: post.title, item: meta.url },
@@ -65,6 +73,26 @@ const jsonLdFor = (path: string): object[] => {
         ...crumbs.map((c, i) => ({ '@type': 'ListItem', position: i + 2, ...c })),
       ],
     });
+  }
+  if (view === 'case') {
+    const cs = caseContent.ja.cases.find((x) => x.slug === path.split('/').pop());
+    if (cs) {
+      out.push({
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        '@id': `${meta.url}#article`,
+        headline: cs.title ?? cs.industry,
+        description: cs.summary,
+        articleSection: '導入事例',
+        about: cs.services.map((name) => ({ '@type': 'Thing', name })),
+        inLanguage: 'ja',
+        url: meta.url,
+        image: [meta.image],
+        author: { '@type': 'Organization', '@id': ORG_ID, name: 'ＭＧＣ株式会社' },
+        publisher: { '@type': 'Organization', '@id': ORG_ID, name: 'ＭＧＣ株式会社', logo: { '@type': 'ImageObject', url: LOGO_URL, width: 512, height: 512 } },
+        mainEntityOfPage: { '@type': 'WebPage', '@id': meta.url },
+      });
+    }
   }
   if (view === 'glossary') {
     const g = glossaryContent.ja;
