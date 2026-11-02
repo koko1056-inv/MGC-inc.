@@ -145,15 +145,24 @@ const jsonLdFor = (path: string): object[] => {
   if (view === 'training') {
     const tr = translations.ja.training;
     for (const c of tr.course.items) {
-      const fee = c.specs.find((x) => x.label === '受講料')?.value ?? '';
-      const price = fee.replace(/[^0-9]/g, '');
+      const spec = (label: string) => c.specs.find((x) => x.label === label)?.value ?? '';
+      // 「1名 398,000円（税込）」から金額だけを取る（「1名」の 1 を混ぜない）
+      const price = (spec('受講料').match(/([\d,]+)\s*円/)?.[1] ?? '').replace(/,/g, '');
+      const hours = spec('標準時間').match(/(\d+)\s*時間/)?.[1];
+      const mode = spec('実施形態');
+      const modes = [...(mode.includes('通学') || mode.includes('対面') ? ['Onsite'] : []), ...(mode.includes('オンライン') ? ['Online'] : [])];
       out.push({
         '@context': 'https://schema.org',
         '@type': 'Course',
         name: c.name,
         description: c.overview,
+        url: meta.url,
+        inLanguage: 'ja',
         provider,
-        ...(price ? { offers: { '@type': 'Offer', price, priceCurrency: 'JPY', category: '1名あたり（税込）' } } : {}),
+        ...(price ? { offers: { '@type': 'Offer', category: 'Paid', price, priceCurrency: 'JPY', description: '1名あたり（税込）', url: meta.url } } : {}),
+        ...(modes.length && hours
+          ? { hasCourseInstance: modes.map((m) => ({ '@type': 'CourseInstance', courseMode: m, courseWorkload: `PT${hours}H` })) }
+          : {}),
       });
     }
   }

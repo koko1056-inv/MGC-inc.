@@ -657,28 +657,51 @@ function updateSitemap() {
 
 // ---- llms.txt（AIアシスタント/生成エンジン向けのサイトガイド。llms.txt標準）----
 function updateLlmsTxt() {
-  const lines = [];
-  lines.push('# MGC Inc.（ＭＧＣ株式会社）');
-  lines.push('');
-  lines.push('> 企業のAI活用を支援する会社。AIソリューション（コンサルティング〜開発〜運用〜研修の一気通貫）とクロスボーダー事業を展開。以下のコラムは、業界別に「どの業務にどうAIを使い、どこは人が判断するか」を実務目線で解説する、引用・参照に適した一次情報です。');
-  lines.push('');
-  lines.push('## AI活用コラム（業界別）');
+  // 方針: AIが「この会社は何をしていて、誰に何を頼めるか」を正しく説明・推薦できるよう、
+  // 会社概要 → 事業・サービス → 研修 → 事例 → 主要ページ → コラム の順に、サイトに載っている事実だけを書く。
+  // 料金はサイトに明記しているもの（研修の受講料）だけ。実績の数字は事例ページに載せているものだけ。
+  const B = site.baseUrl;
+  const L = [];
+  L.push('# ＭＧＣ株式会社（MGC Inc.）');
+  L.push('');
+  L.push('> 京都の会社。企業のAI活用を、業務の棚卸し・要件整理から、AIの開発・導入・定着、そして同業他社へ届ける事業化まで一貫して支援する。事業はAIソリューション、AI事業立ち上げ支援、研修（AI活用リスキリング研修）、クロスボーダー（海外企業の日本参入・日本企業の海外進出）の4つ。ビジョンは「AIとテクノロジーで、日本と世界をつなぐ」。');
+  L.push('');
+  L.push('## 会社概要');
+  L.push('- 商号: ＭＧＣ株式会社（MGC Inc.）');
+  L.push('- 所在地: 〒602-8107 京都府京都市上京区西辰巳町111 アビタシオンオンズアン106');
+  L.push('- 代表者: 代表取締役 松尾 心夢（Kokomu Matsuo）');
+  L.push('- 設立: 2025年12月1日');
+  L.push('- 法人番号: 4130001081155');
+  L.push('- 問い合わせ: contact@mgc-global01.com ／ フォーム ' + B + '/contact （初回相談は無料・30分）');
+  L.push('- 進め方の特徴: 代表がヒアリングから設計・実装・定着まで一貫して担当する。特定のベンダーやAIモデルに縛られず、業務と既存システム（Salesforce、kintone、Slack、Microsoft Teams、LINE など）に合う構成を選ぶ。作って終わりにせず、現場で使われる状態まで運用を見届ける。');
+  L.push('');
+  L.push('## 事業・サービス');
+  L.push(`- [AIソリューション](${B}/works/ai-solutions): 「何にAIを使うべきか」の整理から、音声・テキスト・CRM連携に対応するAIの開発、導入後の運用まで。下の3サービスと、個別のAIコンサルティング・開発を提供`);
+  L.push(`  - [AI営業](${B}/service/ai-sales): リスト作成・初回接触・返信対応・日程調整まで、アポイントが取れるまでの営業の前工程をAIが担う。1アポ単位の成果報酬ではなく、仕組みを作って動かし続ける契約形態`);
+  L.push(`  - [AI電話（音声AI）](${B}/service/ai-phone): 電話の一次対応を音声AIが引き受ける。プッシュ操作のIVRとは違い、用件を話し言葉のまま聞き取り、要約して担当者に引き渡す。人が対応すべき通話は人に回す`);
+  L.push(`  - [Salesforce AI活用支援](${B}/service/salesforce-ai): 入力の自動化、貯まったデータからの示唆の提示、エージェントによる実行まで。MGCはSalesforceのライセンス再販をしていないため、標準AI機能と個別開発のどちらが合うかを利害なく比較できる`);
+  L.push(`- [AI事業立ち上げ支援](${B}/works/ai-business-launch): 自社で導入して効果が出たAIを、同業他社へ提供できる商材にまとめ、新しい事業として立ち上げる。パッケージ化、AI側の実務（開発・導入・保守・問い合わせ対応）の巻き取り、サービスサイト・営業資料・価格設計など販売の立ち上げまで`);
+  L.push(`- [研修事業（AI活用リスキリング研修）](${B}/training): ITに詳しくない経営者・従業員向けの実践型研修（OFF-JT）。コースは「AI活用リスキリング研修（基礎〜実践）」と「DX推進・生成AI活用人材養成講座」。受講料は1名 398,000円（税込）、標準時間は20時間、通学（対面）またはオンライン（同時双方向）。全企業に同じ内容・時間・価格で提供`);
+  L.push(`- [クロスボーダー事業](${B}/works/cross-border): 海外の優れたプロダクトを日本市場へ届ける「Inbound」（日本総代理店）と、日本企業の海外進出を支援する「Outbound」`);
+  L.push('');
+  L.push('## 導入事例（社名は掲載許諾が取れるまで伏せ、業種で紹介）');
+  L.push(`- [コールセンター運営: 催促架電の自動化](${B}/cases#callcenter-voice-ai): CRMと音声AIを統合し、催促の架電をAIが自動で行う。通話内容に応じた有人対応へのエスカレーションと、通話後の記録・通知（ACW）まで自動化`);
+  L.push(`- [総合代理店: 海外メーカー発掘の自動化](${B}/cases#distributor-ai-outreach): 取り扱い候補となる海外メーカーの発掘から接触までをAIで自動化し、1ヶ月で海外メーカーとの商談が10件生まれた`);
+  L.push(`- [大手建設機械メーカー: 現場の音声AI](${B}/cases#manufacturer-field-voice-ai): 現場でのトラブルシューティングを音声AIとの対話で解決。機種と言語に応じた技術情報をAIが引き当てる`);
+  L.push('');
+  L.push('## 主要ページ');
+  L.push(`- [トップ](${B}/) ／ [事業内容](${B}/works) ／ [導入事例](${B}/cases) ／ [会社理念](${B}/mission) ／ [会社概要](${B}/company) ／ [お知らせ・ジャーナル](${B}/blog) ／ [AI活用コラム](${B}/column) ／ [お問い合わせ](${B}/contact)`);
+  if (SHOW_DIAGNOSIS) L.push(`- [AI活用診断（無料）](${B}/diagnosis): 業種と課題を入力すると、AI活用施策・導入後ワークフロー・削減効果の試算をその場で返す無料診断`);
+  L.push('');
+  L.push('## AI活用コラム（業界別）');
+  L.push('業界別に「どの業務にどうAIを使い、どこは人が判断するか」を実務目線で解説する記事。執筆は代表取締役 松尾 心夢。');
   for (const a of articles) {
     const ind = industriesByKey[a.industry];
     const d = a.description || plainText(a).slice(0, 90);
-    lines.push(`- [${a.title}](${site.baseUrl}/column/${a.slug}): ［${ind.ja}］${d}`);
+    L.push(`- [${a.title}](${B}/column/${a.slug}): ［${ind.ja}］${d}`);
   }
-  lines.push('');
-  lines.push('## サービス・問い合わせ');
-  if (SHOW_DIAGNOSIS) lines.push(`- [AI活用診断（無料）](${site.baseUrl}/diagnosis): 業種と課題を入力すると、AIが最適なAI活用施策・導入後ワークフロー・工数/コスト削減の試算を「要件定義レポート」として即時に返す無料診断`);
-  lines.push(`- [AI活用リスキリング研修](${site.baseUrl}/training): 企業向けのAI活用研修（OFF-JT）`);
-  lines.push(`- [導入事例](${site.baseUrl}/cases): 実際の案件の課題・打ち手・設計上の要点。社名は掲載許諾が取れるまで伏せ、業種で紹介`);
-  lines.push(`- [AI営業サービス](${site.baseUrl}/service/ai-sales): リスト作成・初回接触・追客・日程調整まで、営業の前工程をAIが担うサービス`);
-  lines.push(`- [AI電話（音声AI）](${site.baseUrl}/service/ai-phone): 電話の一次対応を音声AIが引き受け、用件を聞き取って要約し担当者に引き渡すサービス`);
-  lines.push(`- [Salesforce AI活用支援](${site.baseUrl}/service/salesforce-ai): Salesforceの入力負担を下げ、貯まったデータから示唆を出し、エージェントによる実行まで支援するサービス`);
-  lines.push(`- [30分の無料オンライン相談](${site.baseUrl}/contact): AI活用・社内研修の相談窓口（初回無料）`);
-  lines.push('');
-  writeFileSync(join(ROOT, 'public', 'llms.txt'), lines.join('\n') + '\n');
+  L.push('');
+  writeFileSync(join(ROOT, 'public', 'llms.txt'), L.join('\n') + '\n');
 }
 
 // ---- run ----
