@@ -713,9 +713,9 @@ function updateLlmsTxt() {
   L.push(`- [クロスボーダー事業](${B}/works/cross-border): 海外の優れたプロダクトを日本市場へ届ける「Inbound」（日本総代理店）と、日本企業の海外進出を支援する「Outbound」`);
   L.push('');
   L.push('## 導入事例（社名は掲載許諾が取れるまで伏せ、業種で紹介）');
-  L.push(`- [コールセンター運営: 催促架電の自動化](${B}/cases#callcenter-voice-ai): CRMと音声AIを統合し、催促の架電をAIが自動で行う。通話内容に応じた有人対応へのエスカレーションと、通話後の記録・通知（ACW）まで自動化`);
-  L.push(`- [総合代理店: 海外メーカー発掘の自動化](${B}/cases#distributor-ai-outreach): 取り扱い候補となる海外メーカーの発掘から接触までをAIで自動化し、1ヶ月で海外メーカーとの商談が10件生まれた`);
-  L.push(`- [大手建設機械メーカー: 現場の音声AI](${B}/cases#manufacturer-field-voice-ai): 現場でのトラブルシューティングを音声AIとの対話で解決。機種と言語に応じた技術情報をAIが引き当てる`);
+  L.push(`- [コールセンター運営: 催促架電の自動化](${B}/cases/callcenter-voice-ai): CRMと音声AIを統合し、催促の架電をAIが自動で行う。通話内容に応じた有人対応へのエスカレーションと、通話後の記録・通知（ACW）まで自動化`);
+  L.push(`- [総合代理店: 海外メーカー発掘の自動化](${B}/cases/distributor-ai-outreach): 取り扱い候補となる海外メーカーの発掘から接触までをAIで自動化し、1ヶ月で海外メーカーとの商談が10件生まれた`);
+  L.push(`- [大手建設機械メーカー: 現場の音声AI](${B}/cases/manufacturer-field-voice-ai): 現場でのトラブルシューティングを音声AIとの対話で解決。機種と言語に応じた技術情報をAIが引き当てる`);
   L.push('');
   L.push('## 主要ページ');
   L.push(`- [トップ](${B}/) ／ [事業内容](${B}/works) ／ [導入事例](${B}/cases) ／ [会社理念](${B}/mission) ／ [会社概要](${B}/company) ／ [お知らせ・ジャーナル](${B}/blog) ／ [AI活用コラム](${B}/column) ／ [AI活用 用語集](${B}/glossary) ／ [お問い合わせ](${B}/contact)`);

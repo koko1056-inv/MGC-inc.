@@ -17,7 +17,7 @@ export const LanguageContext = React.createContext<{ lang: Lang; setLang: (l: La
 export const useLanguage = () => React.useContext(LanguageContext);
 // --- Types & Interfaces ---
 
-export type ViewState = 'home' | 'works' | 'training' | 'diagnosis' | 'mission' | 'partners' | 'company' | 'career' | 'contact' | 'blog' | 'cases' | 'notfound' | 'privacy-policy' | 'terms-of-service' | 'journal' | 'glossary' | BizView | ServiceKey;
+export type ViewState = 'home' | 'works' | 'training' | 'diagnosis' | 'mission' | 'partners' | 'company' | 'career' | 'contact' | 'blog' | 'cases' | 'notfound' | 'privacy-policy' | 'terms-of-service' | 'journal' | 'glossary' | 'case' | BizView | ServiceKey;
 
 // AI診断の表示切り替え。false の間は、サイト内の導線をすべて隠す。
 // ページ自体（/diagnosis）は残るため、true に戻せば元の状態に復帰する。
@@ -119,6 +119,8 @@ export const viewForPath = (rawPath: string): ViewState => {
   if (path === '/contact/thanks') return 'contact';
   const svc = path.match(/^\/service\/([a-z-]+)$/);
   if (svc && isServiceKey(svc[1])) return svc[1];
+  const cs = path.match(/^\/cases\/([a-z0-9-]+)$/);
+  if (cs && caseContent.ja.cases.some((x) => x.slug === cs[1])) return 'case';
   const post = path.match(/^\/blog\/([a-z0-9-]+)$/);
   if (post && JOURNAL_SLUGS.includes(post[1])) return 'journal';
   if (path === '/' || path === '/index.html' || path === '/200.html') return 'home';
@@ -133,6 +135,19 @@ export const THANKS_PATH = '/contact/thanks';
 export const metaFor = (view: ViewState, lang: Lang, path?: string) => {
   const page = isServiceKey(view) ? serviceContent[lang][view] : null;
   const isThanks = view === 'contact' && path?.replace(/\/+$/, '') === THANKS_PATH;
+  if (view === 'case') {
+    const slug = (path ?? '').replace(/\/+$/, '').split('/').pop() ?? '';
+    const cs = caseContent[lang].cases.find((x) => x.slug === slug);
+    if (cs) {
+      return {
+        title: `${cs.title ?? cs.industry}｜${lang === 'ja' ? '導入事例' : 'Case study'}（${cs.industry}）${lang === 'ja' ? ' - ＭＧＣ株式会社' : ' - MGC Inc.'}`,
+        description: cs.summary,
+        url: `${SITE_ORIGIN}/cases/${cs.slug}`,
+        image: SITE_ORIGIN + ogImageFor('cases'),
+        noindex: false,
+      };
+    }
+  }
   if (view === 'journal') {
     const post = findJournalPost(lang, (path ?? '').replace(/\/+$/, '').split('/').pop() ?? '');
     if (post) {
@@ -312,12 +327,6 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
   };
 
   // 事例カードから、導入事例ページの該当箇所まで送る
-  const goToCase = (slug: string) => {
-    goTo('cases');
-    window.setTimeout(() => {
-      document.getElementById(slug)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 350);
-  };
 
   // ヒーローの背景を、マウス位置にわずかに追従させる（動きを減らす設定では止める）
   const heroRef = useRef<HTMLElement>(null);
@@ -684,7 +693,7 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
         {caseContent[lang].cases.map((cs, i) => (
           <Reveal key={cs.slug} delay={i * 90} className="h-full">
             <NavLink
-              href={`/cases#${cs.slug}`} onGo={() => goToCase(cs.slug)}
+              href={`/cases/${cs.slug}`} onGo={() => { window.location.href = `/cases/${cs.slug}`; }}
               className="group h-full w-full text-left bg-white rounded-3xl border border-gray-200 p-8 flex flex-col hover:border-accent transition-colors duration-500"
             >
               <div className="flex flex-wrap gap-2 mb-5">
@@ -2488,7 +2497,7 @@ const ServiceSectionBlock: React.FC<{ section: ServiceSection }> = ({ section })
           {s.links.map((link, i) => (
             <Reveal key={i} delay={i * 80}>
               <a
-                href={`#cases/${link.slug}`}
+                href={`/cases/${link.slug}`}
                 className="group flex flex-col h-full rounded-2xl border-2 border-gray-200 bg-[#F4F6FB] p-6 md:p-8 hover:border-[#2D6CDF]/50 transition-colors duration-300"
               >
                 <span className="text-[11px] font-bold tracking-widest uppercase text-[#2D6CDF]">Case Study</span>
@@ -2625,6 +2634,258 @@ const CaseFlow: React.FC<{ flow: NonNullable<CaseStudy['flow']>; lang: 'ja' | 'e
   );
 };
 
+// 導入事例の本文。一覧（/cases）では概要とリンク、事例ページ（/cases/<slug>）では全文を出す
+const CaseArticle: React.FC<{ cs: CaseStudy; lang: Lang; page?: boolean }> = ({ cs, lang, page = false }) => {
+  // 見出しの階層: 事例ページは h1 → h2（課題・打ち手…）→ h3（各打ち手）
+  const Label = (page ? 'h2' : 'h3') as 'h2';
+  const Item = (page ? 'h3' : 'h4') as 'h3';
+  if (!page) {
+    return (
+      <article id={cs.slug} className="scroll-mt-28 rounded-3xl border-2 border-gray-200 bg-white overflow-hidden">
+                  {/* Header band */}
+                  <div className="bg-[#F4F6FB] px-6 md:px-10 py-7 md:py-8 border-b border-gray-200">
+                    <div className="flex flex-wrap items-center gap-2.5 mb-4">
+                      {cs.services.map((s) => (
+                        <span key={s} className="inline-flex items-center px-3 py-1 rounded-full bg-[#2D6CDF] text-white text-xs font-bold tracking-tight">
+                          {s}
+                        </span>
+                      ))}
+                    </div>
+                    {cs.company && (
+                      <div className="flex items-center gap-3 mb-3">
+                        {cs.company.logo && <img src={cs.company.logo} alt={cs.company.name} className="h-8 w-auto object-contain" loading="lazy" />}
+                        <span className="text-sm font-bold text-gray-600">{cs.company.name}</span>
+                      </div>
+                    )}
+                    {page ? (
+                      <>
+                        <p className="text-sm font-bold text-[#2D6CDF]">{cs.industry}</p>
+                        <h1 className="text-2xl md:text-4xl font-bold text-[#111418] leading-[1.5] mt-1">{cs.title ?? cs.industry}</h1>
+                      </>
+                    ) : (
+                      <h2 className="text-2xl md:text-3xl font-bold text-[#111418] leading-[1.5]">
+                        <a href={`/cases/${cs.slug}`} className="hover:text-[#2D6CDF] transition-colors">{cs.industry}</a>
+                      </h2>
+                    )}
+                    <p className="text-sm md:text-base text-gray-600 leading-[1.8] mt-2">{cs.scale}</p>
+                    <p className="text-[15px] md:text-base text-[#1A2233] leading-[1.9] mt-5 max-w-3xl">{cs.summary}</p>
+                    {cs.result && (
+                      <div className="mt-6 rounded-2xl bg-white border-l-4 border-[#2D6CDF] px-6 py-5">
+                        <span className="text-xs font-bold tracking-widest uppercase text-[#2D6CDF]">
+                          {lang === 'ja' ? '成果' : 'Result'}
+                        </span>
+                        {cs.metrics?.length ? (
+                          <div className="flex flex-wrap gap-x-10 gap-y-4 mt-3">
+                            {cs.metrics.map((m, mi) => (
+                              <div key={mi}>
+                                <p className="flex items-baseline gap-1.5 leading-none">
+                                  <span className="text-5xl md:text-6xl font-bold tracking-tight text-[#111418] tabular-nums">{m.value}</span>
+                                  <span className="text-lg md:text-xl font-bold text-[#2D6CDF]">{m.unit}</span>
+                                </p>
+                                <p className="text-sm text-gray-600 mt-2">{m.label}</p>
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <p className="text-xl md:text-2xl font-bold text-[#111418] leading-[1.5] mt-2">{cs.result.label}</p>
+                        )}
+                        <p className="text-[15px] text-gray-600 leading-[1.9] mt-4">{cs.result.desc}</p>
+                      </div>
+                    )}
+                  </div>
+          <div className="px-6 md:px-10 py-6 flex justify-end">
+            <a href={`/cases/${cs.slug}`} className="inline-flex items-center gap-2 text-sm font-bold text-[#2D6CDF] hover:gap-3 transition-all">
+              {lang === 'ja' ? '事例の詳細を見る' : 'Read the full case'} <ArrowRight className="w-4 h-4" />
+            </a>
+          </div>
+        </article>
+    );
+  }
+  return (
+      <article id={cs.slug} className="scroll-mt-28 rounded-3xl border-2 border-gray-200 bg-white overflow-hidden">
+                  {/* Header band */}
+                  <div className="bg-[#F4F6FB] px-6 md:px-10 py-7 md:py-8 border-b border-gray-200">
+                    <div className="flex flex-wrap items-center gap-2.5 mb-4">
+                      {cs.services.map((s) => (
+                        <span key={s} className="inline-flex items-center px-3 py-1 rounded-full bg-[#2D6CDF] text-white text-xs font-bold tracking-tight">
+                          {s}
+                        </span>
+                      ))}
+                    </div>
+                    {cs.company && (
+                      <div className="flex items-center gap-3 mb-3">
+                        {cs.company.logo && <img src={cs.company.logo} alt={cs.company.name} className="h-8 w-auto object-contain" loading="lazy" />}
+                        <span className="text-sm font-bold text-gray-600">{cs.company.name}</span>
+                      </div>
+                    )}
+                    {page ? (
+                      <>
+                        <p className="text-sm font-bold text-[#2D6CDF]">{cs.industry}</p>
+                        <h1 className="text-2xl md:text-4xl font-bold text-[#111418] leading-[1.5] mt-1">{cs.title ?? cs.industry}</h1>
+                      </>
+                    ) : (
+                      <h2 className="text-2xl md:text-3xl font-bold text-[#111418] leading-[1.5]">
+                        <a href={`/cases/${cs.slug}`} className="hover:text-[#2D6CDF] transition-colors">{cs.industry}</a>
+                      </h2>
+                    )}
+                    <p className="text-sm md:text-base text-gray-600 leading-[1.8] mt-2">{cs.scale}</p>
+                    <p className="text-[15px] md:text-base text-[#1A2233] leading-[1.9] mt-5 max-w-3xl">{cs.summary}</p>
+                    {cs.result && (
+                      <div className="mt-6 rounded-2xl bg-white border-l-4 border-[#2D6CDF] px-6 py-5">
+                        <span className="text-xs font-bold tracking-widest uppercase text-[#2D6CDF]">
+                          {lang === 'ja' ? '成果' : 'Result'}
+                        </span>
+                        {cs.metrics?.length ? (
+                          <div className="flex flex-wrap gap-x-10 gap-y-4 mt-3">
+                            {cs.metrics.map((m, mi) => (
+                              <div key={mi}>
+                                <p className="flex items-baseline gap-1.5 leading-none">
+                                  <span className="text-5xl md:text-6xl font-bold tracking-tight text-[#111418] tabular-nums">{m.value}</span>
+                                  <span className="text-lg md:text-xl font-bold text-[#2D6CDF]">{m.unit}</span>
+                                </p>
+                                <p className="text-sm text-gray-600 mt-2">{m.label}</p>
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <p className="text-xl md:text-2xl font-bold text-[#111418] leading-[1.5] mt-2">{cs.result.label}</p>
+                        )}
+                        <p className="text-[15px] text-gray-600 leading-[1.9] mt-4">{cs.result.desc}</p>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Before / After のフロー図 */}
+                  {cs.flow && (
+                    <div className="px-6 md:px-10 pt-8 md:pt-10">
+                      <Label className="text-xs font-bold tracking-widest uppercase text-[#2D6CDF]">
+                        {lang === 'ja' ? '業務の流れ' : 'How the work flows'}
+                      </Label>
+                      <div className="mt-4">
+                        <CaseFlow flow={cs.flow} lang={lang} />
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="px-6 md:px-10 py-8 md:py-10 grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">
+                    {/* 課題 */}
+                    <div className="lg:col-span-2">
+                      <Label className="text-xs font-bold tracking-widest uppercase text-[#2D6CDF]">
+                        {lang === 'ja' ? '課題' : 'Challenge'}
+                      </Label>
+                      <ul className="mt-4 space-y-3.5">
+                        {cs.challenge.map((x, j) => (
+                          <li key={j} className="flex items-start gap-3">
+                            <span aria-hidden className="w-1.5 h-1.5 rounded-full bg-gray-400 flex-shrink-0 mt-2.5" />
+                            <span className="text-[15px] text-[#1A2233] leading-[1.9]">{x}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      {cs.stack && (
+                        <div className="mt-7 pt-6 border-t border-gray-200">
+                          <span className="text-xs font-bold tracking-widest uppercase text-gray-500">
+                            {lang === 'ja' ? '主な構成' : 'Stack'}
+                          </span>
+                          <p className="text-sm text-[#1A2233] leading-[1.9] mt-3">{cs.stack}</p>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* 打ち手 */}
+                    <div className="lg:col-span-3">
+                      <Label className="text-xs font-bold tracking-widest uppercase text-[#2D6CDF]">
+                        {lang === 'ja' ? '打ち手' : 'What we did'}
+                      </Label>
+                      <ol className="mt-4 space-y-5">
+                        {cs.approach.map((a, j) => (
+                          <li key={j} className="flex gap-4">
+                            <span className="flex-shrink-0 w-7 h-7 rounded-full bg-[#2D6CDF]/10 text-[#2D6CDF] text-xs font-bold flex items-center justify-center mt-0.5 tabular-nums">
+                              {j + 1}
+                            </span>
+                            <div>
+                              <Item className="text-base md:text-lg font-bold text-[#111418] leading-[1.6]">{a.title}</Item>
+                              <p className="text-[15px] text-gray-600 leading-[1.9] mt-1.5">{a.desc}</p>
+                            </div>
+                          </li>
+                        ))}
+                      </ol>
+                    </div>
+                  </div>
+
+                  {/* 設計上の要点 */}
+                  <div className="px-6 md:px-10 pb-8 md:pb-10">
+                    <div className="rounded-2xl bg-[#F4F6FB] p-6 md:p-7">
+                      <Label className="text-xs font-bold tracking-widest uppercase text-gray-500">
+                        {lang === 'ja' ? '設計上の要点' : 'Design decisions'}
+                      </Label>
+                      <ul className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3.5">
+                        {cs.points.map((x, j) => (
+                          <li key={j} className="flex items-start gap-3">
+                            <Check className="w-4 h-4 text-[#2D6CDF] flex-shrink-0 mt-1.5" strokeWidth={3} />
+                            <span className="text-[15px] text-[#1A2233] leading-[1.9]">{x}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    {cs.note && (
+                      <p className="mt-5 text-sm text-gray-500 leading-[1.9] border-l-2 border-gray-300 pl-4">{cs.note}</p>
+                    )}
+                    {cs.voice && (
+                      <figure className="mt-8 rounded-2xl bg-[#F4F6FB] px-6 md:px-8 py-6 md:py-7">
+                        <span className="text-xs font-bold tracking-widest uppercase text-[#2D6CDF]">{lang === 'ja' ? 'お客様の声' : 'Client voice'}</span>
+                        <blockquote className="text-base md:text-lg text-[#111418] font-medium leading-[1.9] mt-3">「{cs.voice.text}」</blockquote>
+                        <figcaption className="text-sm text-gray-500 mt-3">{cs.voice.person}</figcaption>
+                      </figure>
+                    )}
+                  </div>
+                </article>
+  );
+};
+
+// 導入事例の個別ページ（/cases/<slug>）
+const CaseView: React.FC<{ slug: string; onNavigate: (view: ViewState) => void }> = ({ slug, onNavigate }) => {
+  const { lang } = useLanguage();
+  const c = caseContent[lang];
+  const cs = c.cases.find((x) => x.slug === slug);
+  if (!cs) return <NotFoundView onNavigate={onNavigate} />;
+  const others = c.cases.filter((x) => x.slug !== slug);
+  return (
+    <PageTransition>
+      <div className="text-[#111418] px-6 md:px-12">
+        <div className="max-w-screen-xl mx-auto">
+          <nav aria-label="breadcrumb" className="flex flex-wrap items-center gap-2 text-sm text-gray-500 mb-6">
+            <NavLink href={pathForView('cases')} onGo={() => onNavigate('cases')} className="hover:text-accent transition-colors">{c.heading}</NavLink>
+            <span aria-hidden>／</span>
+            <span className="text-offblack font-bold">{cs.industry}</span>
+          </nav>
+          <CaseArticle cs={cs} lang={lang} page />
+          <section className="mt-16 md:mt-20">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-6">{lang === 'ja' ? 'ほかの導入事例' : 'More case studies'}</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {others.map((o) => (
+                <a key={o.slug} href={`/cases/${o.slug}`} className="group flex flex-col bg-white rounded-2xl border border-gray-200 p-7 hover:border-accent transition-colors">
+                  <span className="text-xs font-bold text-accent">{o.industry}</span>
+                  <span className="text-lg font-bold tracking-tight mt-2 group-hover:text-accent transition-colors">{o.title ?? o.industry}</span>
+                  <span className="text-sm text-gray-500 leading-relaxed mt-2">{o.summary}</span>
+                </a>
+              ))}
+            </div>
+          </section>
+          <Reveal>
+            <div className="mt-16 md:mt-20 rounded-[1.75rem] md:rounded-[2.5rem] bg-[#2D6CDF] text-white px-7 py-12 md:px-16 md:py-16">
+              <h2 className="text-2xl md:text-4xl font-bold tracking-tight leading-[1.5]">{lang === 'ja' ? '同じような課題、お持ちではありませんか' : 'Facing something similar?'}</h2>
+              <a href="#contact" className="group inline-flex items-center gap-2.5 mt-8 px-7 py-4 rounded-full bg-white text-[#111418] font-bold text-sm md:text-base hover:opacity-90 transition-opacity">
+                {lang === 'ja' ? '無料で相談する' : 'Request a free consultation'}
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+              </a>
+            </div>
+          </Reveal>
+        </div>
+      </div>
+    </PageTransition>
+  );
+};
+
 const CasesView: React.FC = () => {
   const { lang } = useLanguage();
   const c = caseContent[lang];
@@ -2656,134 +2917,7 @@ const CasesView: React.FC = () => {
           <div className="space-y-8 md:space-y-10">
             {c.cases.map((cs, i) => (
               <Reveal key={cs.slug} delay={i * 80}>
-                <article id={cs.slug} className="scroll-mt-28 rounded-3xl border-2 border-gray-200 bg-white overflow-hidden">
-                  {/* Header band */}
-                  <div className="bg-[#F4F6FB] px-6 md:px-10 py-7 md:py-8 border-b border-gray-200">
-                    <div className="flex flex-wrap items-center gap-2.5 mb-4">
-                      {cs.services.map((s) => (
-                        <span key={s} className="inline-flex items-center px-3 py-1 rounded-full bg-[#2D6CDF] text-white text-xs font-bold tracking-tight">
-                          {s}
-                        </span>
-                      ))}
-                    </div>
-                    {cs.company && (
-                      <div className="flex items-center gap-3 mb-3">
-                        {cs.company.logo && <img src={cs.company.logo} alt={cs.company.name} className="h-8 w-auto object-contain" loading="lazy" />}
-                        <span className="text-sm font-bold text-gray-600">{cs.company.name}</span>
-                      </div>
-                    )}
-                    <h2 className="text-2xl md:text-3xl font-bold text-[#111418] leading-[1.5]">{cs.industry}</h2>
-                    <p className="text-sm md:text-base text-gray-600 leading-[1.8] mt-2">{cs.scale}</p>
-                    <p className="text-[15px] md:text-base text-[#1A2233] leading-[1.9] mt-5 max-w-3xl">{cs.summary}</p>
-                    {cs.result && (
-                      <div className="mt-6 rounded-2xl bg-white border-l-4 border-[#2D6CDF] px-6 py-5">
-                        <span className="text-xs font-bold tracking-widest uppercase text-[#2D6CDF]">
-                          {lang === 'ja' ? '成果' : 'Result'}
-                        </span>
-                        {cs.metrics?.length ? (
-                          <div className="flex flex-wrap gap-x-10 gap-y-4 mt-3">
-                            {cs.metrics.map((m, mi) => (
-                              <div key={mi}>
-                                <p className="flex items-baseline gap-1.5 leading-none">
-                                  <span className="text-5xl md:text-6xl font-bold tracking-tight text-[#111418] tabular-nums">{m.value}</span>
-                                  <span className="text-lg md:text-xl font-bold text-[#2D6CDF]">{m.unit}</span>
-                                </p>
-                                <p className="text-sm text-gray-600 mt-2">{m.label}</p>
-                              </div>
-                            ))}
-                          </div>
-                        ) : (
-                          <p className="text-xl md:text-2xl font-bold text-[#111418] leading-[1.5] mt-2">{cs.result.label}</p>
-                        )}
-                        <p className="text-[15px] text-gray-600 leading-[1.9] mt-4">{cs.result.desc}</p>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Before / After のフロー図 */}
-                  {cs.flow && (
-                    <div className="px-6 md:px-10 pt-8 md:pt-10">
-                      <span className="text-xs font-bold tracking-widest uppercase text-[#2D6CDF]">
-                        {lang === 'ja' ? '業務の流れ' : 'How the work flows'}
-                      </span>
-                      <div className="mt-4">
-                        <CaseFlow flow={cs.flow} lang={lang} />
-                      </div>
-                    </div>
-                  )}
-
-                  <div className="px-6 md:px-10 py-8 md:py-10 grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">
-                    {/* 課題 */}
-                    <div className="lg:col-span-2">
-                      <span className="text-xs font-bold tracking-widest uppercase text-[#2D6CDF]">
-                        {lang === 'ja' ? '課題' : 'Challenge'}
-                      </span>
-                      <ul className="mt-4 space-y-3.5">
-                        {cs.challenge.map((x, j) => (
-                          <li key={j} className="flex items-start gap-3">
-                            <span aria-hidden className="w-1.5 h-1.5 rounded-full bg-gray-400 flex-shrink-0 mt-2.5" />
-                            <span className="text-[15px] text-[#1A2233] leading-[1.9]">{x}</span>
-                          </li>
-                        ))}
-                      </ul>
-                      {cs.stack && (
-                        <div className="mt-7 pt-6 border-t border-gray-200">
-                          <span className="text-xs font-bold tracking-widest uppercase text-gray-500">
-                            {lang === 'ja' ? '主な構成' : 'Stack'}
-                          </span>
-                          <p className="text-sm text-[#1A2233] leading-[1.9] mt-3">{cs.stack}</p>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* 打ち手 */}
-                    <div className="lg:col-span-3">
-                      <span className="text-xs font-bold tracking-widest uppercase text-[#2D6CDF]">
-                        {lang === 'ja' ? '打ち手' : 'What we did'}
-                      </span>
-                      <ol className="mt-4 space-y-5">
-                        {cs.approach.map((a, j) => (
-                          <li key={j} className="flex gap-4">
-                            <span className="flex-shrink-0 w-7 h-7 rounded-full bg-[#2D6CDF]/10 text-[#2D6CDF] text-xs font-bold flex items-center justify-center mt-0.5 tabular-nums">
-                              {j + 1}
-                            </span>
-                            <div>
-                              <h3 className="text-base md:text-lg font-bold text-[#111418] leading-[1.6]">{a.title}</h3>
-                              <p className="text-[15px] text-gray-600 leading-[1.9] mt-1.5">{a.desc}</p>
-                            </div>
-                          </li>
-                        ))}
-                      </ol>
-                    </div>
-                  </div>
-
-                  {/* 設計上の要点 */}
-                  <div className="px-6 md:px-10 pb-8 md:pb-10">
-                    <div className="rounded-2xl bg-[#F4F6FB] p-6 md:p-7">
-                      <span className="text-xs font-bold tracking-widest uppercase text-gray-500">
-                        {lang === 'ja' ? '設計上の要点' : 'Design decisions'}
-                      </span>
-                      <ul className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3.5">
-                        {cs.points.map((x, j) => (
-                          <li key={j} className="flex items-start gap-3">
-                            <Check className="w-4 h-4 text-[#2D6CDF] flex-shrink-0 mt-1.5" strokeWidth={3} />
-                            <span className="text-[15px] text-[#1A2233] leading-[1.9]">{x}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    {cs.note && (
-                      <p className="mt-5 text-sm text-gray-500 leading-[1.9] border-l-2 border-gray-300 pl-4">{cs.note}</p>
-                    )}
-                    {cs.voice && (
-                      <figure className="mt-8 rounded-2xl bg-[#F4F6FB] px-6 md:px-8 py-6 md:py-7">
-                        <span className="text-xs font-bold tracking-widest uppercase text-[#2D6CDF]">{lang === 'ja' ? 'お客様の声' : 'Client voice'}</span>
-                        <blockquote className="text-base md:text-lg text-[#111418] font-medium leading-[1.9] mt-3">「{cs.voice.text}」</blockquote>
-                        <figcaption className="text-sm text-gray-500 mt-3">{cs.voice.person}</figcaption>
-                      </figure>
-                    )}
-                  </div>
-                </article>
+                <CaseArticle cs={cs} lang={lang} />
               </Reveal>
             ))}
           </div>
@@ -3866,6 +4000,7 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
         {view === 'contact' && <ContactView onNavigate={navigate} initialSent={currentPath() === THANKS_PATH} />}
         {isBizView(view) && <BusinessView biz={view} onNavigate={navigate} />}
         {view === 'glossary' && <GlossaryView onNavigate={navigate} />}
+        {view === 'case' && <CaseView slug={path.split('/').pop() ?? ''} onNavigate={navigate} />}
         {view === 'notfound' && <NotFoundView onNavigate={navigate} />}
         {view === 'privacy-policy' && <LegalView doc="privacy" onNavigate={navigate} />}
         {view === 'terms-of-service' && <LegalView doc="terms" onNavigate={navigate} />}

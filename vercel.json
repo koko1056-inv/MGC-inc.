@@ -57,6 +57,10 @@
       "destination": "/cases.html"
     },
     {
+      "source": "/cases/:slug",
+      "destination": "/cases/:slug.html"
+    },
+    {
       "source": "/mission",
       "destination": "/mission.html"
     },

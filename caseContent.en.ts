@@ -7,6 +7,7 @@ export const en: Content['en'] = {
   cases: [
     {
       slug: 'callcenter-voice-ai',
+      title: 'Automating reminder calls and after-call work with CRM and voice AI',
       industry: 'Call centre operator',
       scale: 'Handles outbound calls to contract holders',
       services: ['Voice AI', 'Salesforce AI', 'AI training'],
@@ -56,6 +57,7 @@ export const en: Content['en'] = {
     },
     {
       slug: 'distributor-ai-outreach',
+      title: 'Automating the discovery of and outreach to overseas manufacturers with AI',
       industry: 'Distributor',
       scale: 'Brings overseas manufacturers’ products to the Japanese market',
       services: ['AI Sales'],
@@ -104,6 +106,7 @@ export const en: Content['en'] = {
     },
     {
       slug: 'manufacturer-field-voice-ai',
+      title: 'Solving field troubleshooting through conversation with voice AI',
       industry: 'Major construction machinery manufacturer',
       scale: 'A machinery manufacturer operating internationally',
       services: ['Voice AI', 'Custom AI development'],
