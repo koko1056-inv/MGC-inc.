@@ -594,6 +594,17 @@ export const en: Translation = {
         'Plan, in your own words, which tasks to hand off, connected to which data',
       ],
     },
+    faq: {
+      heading: 'Training FAQ',
+      eyebrow: 'FAQ',
+      items: [
+        { q: 'How much does the training cost?', a: 'JPY 398,000 per participant (tax included). Every course is offered to all companies on the same terms — same content, hours and price.' },
+        { q: 'How long is the training?', a: 'A standard 20 hours of OFF-JT (hands-on lectures and exercises away from day-to-day work).' },
+        { q: 'Can we take it online?', a: 'Yes. It is available in person or online (live, two-way).' },
+        { q: 'Who is it for?', a: 'The AI Reskilling course is for executives, managers and employees who want to bring AI into their work; the DX Enablement course is for people leading or about to lead DX, department leaders, and IT or planning teams. Both assume no IT background.' },
+        { q: 'What is the process from application to delivery?', a: 'Hearing → fixing dates and format → training (OFF-JT) → practice support and review. Start by requesting materials or a consultation from the contact section on this page.' },
+      ],
+    },
     flow: {
       heading: 'How the training works',
       eyebrow: 'Process',

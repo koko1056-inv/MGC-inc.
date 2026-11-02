@@ -130,7 +130,7 @@ const jsonLdFor = (path: string): object[] => {
       '@id': `${meta.url}#service`,
       name: page.navLabel,
       serviceType: SERVICE_TYPE[view] ?? page.navLabel,
-      description: page.seoDescription,
+      description: page.definition?.text ?? page.seoDescription,
       url: meta.url,
       image: meta.image,
       provider,
@@ -144,6 +144,7 @@ const jsonLdFor = (path: string): object[] => {
   }
   if (view === 'training') {
     const tr = translations.ja.training;
+    out.push(faqPage(tr.faq.items));
     for (const c of tr.course.items) {
       const spec = (label: string) => c.specs.find((x) => x.label === label)?.value ?? '';
       // 「1名 398,000円（税込）」から金額だけを取る（「1名」の 1 を混ぜない）
