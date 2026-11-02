@@ -22,7 +22,7 @@ export default defineConfig(({ isSsrBuild }) => {
               if (id.includes('node_modules/lucide-react')) return 'icons';
               // 英語版は言語切替時にだけ読み込む（i18n.ts）
               if (/[\\/](translations|serviceContent|caseContent|legalContent)\.en\.ts$/.test(id)) return 'content-en';
-              if (/[\\/](translations|serviceContent|caseContent|legalContent|journal)\.ts$/.test(id)) return 'content';
+              if (/[\\/](translations|serviceContent|caseContent|legalContent|journal|glossaryContent)\.ts$/.test(id)) return 'content';
               return undefined;
             },
           },

@@ -718,7 +718,7 @@ function updateLlmsTxt() {
   L.push(`- [大手建設機械メーカー: 現場の音声AI](${B}/cases#manufacturer-field-voice-ai): 現場でのトラブルシューティングを音声AIとの対話で解決。機種と言語に応じた技術情報をAIが引き当てる`);
   L.push('');
   L.push('## 主要ページ');
-  L.push(`- [トップ](${B}/) ／ [事業内容](${B}/works) ／ [導入事例](${B}/cases) ／ [会社理念](${B}/mission) ／ [会社概要](${B}/company) ／ [お知らせ・ジャーナル](${B}/blog) ／ [AI活用コラム](${B}/column) ／ [お問い合わせ](${B}/contact)`);
+  L.push(`- [トップ](${B}/) ／ [事業内容](${B}/works) ／ [導入事例](${B}/cases) ／ [会社理念](${B}/mission) ／ [会社概要](${B}/company) ／ [お知らせ・ジャーナル](${B}/blog) ／ [AI活用コラム](${B}/column) ／ [AI活用 用語集](${B}/glossary) ／ [お問い合わせ](${B}/contact)`);
   if (SHOW_DIAGNOSIS) L.push(`- [AI活用診断（無料）](${B}/diagnosis): 業種と課題を入力すると、AI活用施策・導入後ワークフロー・削減効果の試算をその場で返す無料診断`);
   L.push('');
   L.push('## AI活用コラム（業界別）');

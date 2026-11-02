@@ -17,6 +17,10 @@
   ],
   "rewrites": [
     {
+      "source": "/glossary",
+      "destination": "/glossary.html"
+    },
+    {
       "source": "/privacy-policy",
       "destination": "/privacy-policy.html"
     },
