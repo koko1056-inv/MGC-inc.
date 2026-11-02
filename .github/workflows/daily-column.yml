@@ -39,6 +39,7 @@ jobs:
         run: node scripts/column/build-columns.mjs
 
       - name: Commit & push to main
+        id: commit
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -50,3 +51,19 @@ jobs:
           git add -A
           git commit -m "業界コラム自動投稿: ${slug} ($(TZ=Asia/Tokyo date +%Y-%m-%d))"
           git push
+          echo "slug=${slug}" >> "$GITHUB_OUTPUT"
+
+      # 新しい記事を IndexNow で検索エンジン（Bing など）に知らせる。
+      # Vercel のデプロイが終わって記事が公開されるのを待ってから送る（失敗しても公開には影響しない）。
+      - name: Notify search engines (IndexNow)
+        if: steps.commit.outputs.slug != ''
+        continue-on-error: true
+        run: |
+          url="https://mgc-global01.com/column/${{ steps.commit.outputs.slug }}"
+          for i in $(seq 1 40); do
+            code=$(curl -s -o /dev/null -w '%{http_code}' "$url")
+            [ "$code" = "200" ] && break
+            sleep 15
+          done
+          echo "公開確認: $url → $code"
+          node scripts/indexnow.mjs "/column/${{ steps.commit.outputs.slug }}" /column /llms.txt
