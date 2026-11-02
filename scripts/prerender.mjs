@@ -55,6 +55,8 @@ for (const route of [...routes(), NOT_FOUND]) {
   out = setAttr(out, /(<meta property="og:title" content=")[^"]*(")/, meta.title);
   out = setAttr(out, /(<meta property="og:description" content=")[^"]*(")/, meta.description);
   out = setAttr(out, /(<meta property="og:image" content=")[^"]*(")/, meta.image);
+  // og:image:width/height は 1200×630 の共有画像（/assets/og/）のときだけ残す（記事画像などは実寸が違うため消す）
+  if (!meta.image.includes('/assets/og/')) out = out.replace(/\s*<meta property="og:image:(width|height)" content="\d+" \/>/g, '');
   out = setAttr(out, /(<meta name="twitter:url" content=")[^"]*(")/, meta.url);
   out = setAttr(out, /(<meta name="twitter:title" content=")[^"]*(")/, meta.title);
   out = setAttr(out, /(<meta name="twitter:description" content=")[^"]*(")/, meta.description);

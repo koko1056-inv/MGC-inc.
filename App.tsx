@@ -8,6 +8,7 @@ import { caseContent, CaseStudy } from './caseContent';
 import { legalContent, LegalDoc } from './legalContent';
 import { journalPosts, JOURNAL_SLUGS, journalPath, findJournalPost } from './journal';
 import { loadLang } from './i18n';
+import { glossaryContent } from './glossaryContent';
 export const LanguageContext = React.createContext<{ lang: Lang; setLang: (l: Lang) => void; t: typeof translations['ja'] }>({
   lang: 'ja',
   setLang: () => {},
@@ -16,7 +17,7 @@ export const LanguageContext = React.createContext<{ lang: Lang; setLang: (l: La
 export const useLanguage = () => React.useContext(LanguageContext);
 // --- Types & Interfaces ---
 
-export type ViewState = 'home' | 'works' | 'training' | 'diagnosis' | 'mission' | 'partners' | 'company' | 'career' | 'contact' | 'blog' | 'cases' | 'notfound' | 'privacy-policy' | 'terms-of-service' | 'journal' | BizView | ServiceKey;
+export type ViewState = 'home' | 'works' | 'training' | 'diagnosis' | 'mission' | 'partners' | 'company' | 'career' | 'contact' | 'blog' | 'cases' | 'notfound' | 'privacy-policy' | 'terms-of-service' | 'journal' | 'glossary' | BizView | ServiceKey;
 
 // AI診断の表示切り替え。false の間は、サイト内の導線をすべて隠す。
 // ページ自体（/diagnosis）は残るため、true に戻せば元の状態に復帰する。
@@ -37,6 +38,7 @@ const PAGE_META: Record<Lang, Partial<Record<string, { title: string; descriptio
     'biz-ai': { title: 'AIソリューション｜AIコンサルティング・開発・運用 - ＭＧＣ株式会社', description: '「何にAIを使うべきか」の整理から、音声・テキスト・CRM連携に対応するAIの開発、導入後の運用まで。AI営業・AI電話・Salesforce AI活用支援と、個別のAIコンサルティング・開発を提供します。' },
     'biz-newbiz': { title: 'AI事業立ち上げ支援｜導入したAIを同業他社へ届ける事業に - ＭＧＣ株式会社', description: '自社で導入して効果が出たAIを、同業他社へ提供できる商材にまとめ、新しい事業として立ち上げます。パッケージ化、AI側の実務の巻き取り、販売の立ち上げまで支援します。' },
     'biz-crossborder': { title: 'クロスボーダー事業｜海外企業の日本参入・日本企業の海外進出支援 - ＭＧＣ株式会社', description: '海外の優れたプロダクトを日本市場へ届ける「Inbound」と、日本企業の海外進出を支援する「Outbound」。双方向で日本と世界のビジネスをつなぎます。' },
+    glossary: { title: 'AI活用 用語集｜AIエージェント・RAG・ボイスボット・IVRなど - ＭＧＣ株式会社', description: 'AIの導入・活用でよく使われる言葉（生成AI、LLM、AIエージェント、RAG、ハルシネーション、ボイスボット、IVR、ACW、CRM、SFA、API連携、OFF-JT、リスキリング、DX）を短く説明する用語集です。' },
     'privacy-policy': { title: 'プライバシーポリシー - ＭＧＣ株式会社', description: 'ＭＧＣ株式会社のプライバシーポリシー。問い合わせフォーム・AI活用診断で取得する情報、利用目的、外部サービス、保管期間、開示等のご請求について。' },
     'terms-of-service': { title: 'サイト利用規約 - ＭＧＣ株式会社', description: 'ＭＧＣ株式会社ウェブサイトの利用規約。著作権、禁止事項、AI活用診断の位置づけ、免責事項について。' },
     thanks: { title: '送信完了 - ＭＧＣ株式会社', description: 'お問い合わせを受け付けました。内容を確認し、1営業日以内にメールでご返信します。' },
@@ -56,6 +58,7 @@ const PAGE_META: Record<Lang, Partial<Record<string, { title: string; descriptio
     'biz-ai': { title: 'AI Solutions | AI consulting, development and operation - MGC Inc.', description: 'From deciding what AI should do, to building voice, text and CRM-connected AI, to running it after launch. AI Sales, AI Phone, Salesforce AI and bespoke AI consulting and development.' },
     'biz-newbiz': { title: 'AI Business Launch | Turn the AI you adopted into a business - MGC Inc.', description: 'We package AI that worked in your company into a product you can sell to your industry, take on the AI-side operations, and help you launch sales.' },
     'biz-crossborder': { title: 'Cross-Border | Japan market entry and overseas expansion - MGC Inc.', description: 'Inbound: bringing excellent overseas products to Japan. Outbound: helping Japanese companies expand overseas. Connecting business between Japan and the world in both directions.' },
+    glossary: { title: 'AI Glossary | AI agents, RAG, voicebots, IVR and more - MGC Inc.', description: 'Short explanations of terms used in AI adoption: generative AI, LLMs, AI agents, RAG, hallucination, voicebots, IVR, ACW, CRM, SFA, API integration, OFF-JT, reskilling and DX.' },
     'privacy-policy': { title: 'Privacy Policy - MGC Inc.', description: 'How MGC Inc. handles information collected through the contact form, AI diagnosis and analytics.' },
     'terms-of-service': { title: 'Terms of Use - MGC Inc.', description: 'Terms of use for the MGC Inc. website.' },
     thanks: { title: 'Message sent - MGC Inc.', description: 'We received your message and will reply within one business day.' },
@@ -92,7 +95,7 @@ const applyMeta = (m: { title: string; description: string; url: string; image: 
 export const PATH_TO_VIEW: Record<string, ViewState> = {
   '/works': 'works', '/training': 'training', '/diagnosis': 'diagnosis', '/cases': 'cases',
   '/mission': 'mission', '/company': 'company', '/career': 'career', '/contact': 'contact', '/blog': 'blog',
-  '/privacy-policy': 'privacy-policy', '/terms-of-service': 'terms-of-service',
+  '/privacy-policy': 'privacy-policy', '/terms-of-service': 'terms-of-service', '/glossary': 'glossary',
   '/works/ai-solutions': 'biz-ai', '/works/ai-business-launch': 'biz-newbiz', '/works/cross-border': 'biz-crossborder',
 };
 // 事業ごとのページ（事業内容 › 各事業）。研修は専用ページ（/training）があるため含めない
@@ -3356,6 +3359,52 @@ const BusinessView: React.FC<{ biz: BizView; onNavigate: (view: ViewState) => vo
   );
 };
 
+// AI活用の用語集（/glossary）。本文は glossaryContent.ts
+const GlossaryView: React.FC<{ onNavigate: (view: ViewState) => void }> = ({ onNavigate }) => {
+  const { lang } = useLanguage();
+  const g = glossaryContent[lang];
+  return (
+    <PageTransition>
+      <div className="px-6 md:px-12 max-w-screen-xl mx-auto text-[#111418]">
+        <header className="border-b border-gray-200 pb-8 mb-12">
+          <span className="text-xs font-bold tracking-widest uppercase text-accent">{g.sub}</span>
+          <h1 className="text-3xl md:text-5xl font-bold tracking-tight leading-[1.4] mt-3">{g.title}</h1>
+          <div className="w-16 h-1.5 bg-accent mt-5 rounded-full" />
+          <p className="max-w-3xl text-base md:text-lg text-[#1A2233] leading-[1.9] mt-6">{g.lead}</p>
+        </header>
+        {/* 目次 */}
+        <nav aria-label={lang === 'ja' ? '用語の一覧' : 'Terms'} className="flex flex-wrap gap-2 mb-12">
+          {g.terms.map((x) => (
+            <a key={x.id} href={`#${x.id}`} className="px-3 py-1.5 rounded-full border border-gray-200 bg-white text-sm text-[#1A2233] hover:border-accent hover:text-accent transition-colors">{x.term}</a>
+          ))}
+        </nav>
+        <dl className="max-w-4xl border-t border-gray-200 pb-24 md:pb-32">
+          {g.terms.map((x) => (
+            <div key={x.id} id={x.id} className="scroll-mt-28 py-8 border-b border-gray-200">
+              <dt>
+                <h2 className="text-xl md:text-2xl font-bold tracking-tight leading-[1.5]">{x.term}</h2>
+                {x.reading && <span className="block text-xs text-gray-500 mt-1">{x.reading}</span>}
+              </dt>
+              <dd className="mt-3">
+                <p className="text-base md:text-[17px] text-[#1A2233] leading-[1.9]">{x.definition}</p>
+                {x.link && (
+                  <NavLink
+                    href={x.link.href}
+                    onGo={() => onNavigate(viewForPath(x.link!.href))}
+                    className="mt-3 inline-flex items-center gap-2 text-sm font-bold text-accent hover:gap-3 transition-all"
+                  >
+                    {lang === 'ja' ? '関連: ' : 'Related: '}{x.link.label} <ArrowRight className="w-4 h-4" />
+                  </NavLink>
+                )}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </PageTransition>
+  );
+};
+
 // プライバシーポリシー・サイト利用規約（本文は legalContent.ts）
 const LegalView: React.FC<{ doc: 'privacy' | 'terms'; onNavigate: (view: ViewState) => void }> = ({ doc, onNavigate }) => {
   const { lang } = useLanguage();
@@ -3513,7 +3562,10 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
       }
       setView(next);
       setPath(currentPath());
-      window.scrollTo(0, 0);
+      // ページ内の節へのリンク（#ai-agent など）はその位置へ。ページ扱いのハッシュ（#works 等）は先頭へ
+      const anchor = window.location.hash ? document.getElementById(window.location.hash.slice(1)) : null;
+      if (anchor) anchor.scrollIntoView({ block: 'start' });
+      else window.scrollTo(0, 0);
       setIsMenuOpen(false);
     };
     window.addEventListener('hashchange', sync);
@@ -3605,6 +3657,7 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
       links: [
         { id: 'cases', label: t.nav.cases },
         { href: '/column', label: t.nav.column },
+        { id: 'glossary', label: lang === 'ja' ? '用語集' : 'Glossary' },
         { id: 'blog', label: t.nav.blog },
       ],
     },
@@ -3812,6 +3865,7 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
         {view === 'career' && <CareerView />}
         {view === 'contact' && <ContactView onNavigate={navigate} initialSent={currentPath() === THANKS_PATH} />}
         {isBizView(view) && <BusinessView biz={view} onNavigate={navigate} />}
+        {view === 'glossary' && <GlossaryView onNavigate={navigate} />}
         {view === 'notfound' && <NotFoundView onNavigate={navigate} />}
         {view === 'privacy-policy' && <LegalView doc="privacy" onNavigate={navigate} />}
         {view === 'terms-of-service' && <LegalView doc="terms" onNavigate={navigate} />}

@@ -6,6 +6,7 @@ import App, { viewForPath, metaFor, PATH_TO_VIEW, SERVICE_KEYS, pathForView, SIT
 import { serviceContent } from './serviceContent';
 import { translations } from './translations';
 import { journalPosts, journalPath, findJournalPost } from './journal';
+import { glossaryContent } from './glossaryContent';
 
 export { SITE_ORIGIN };
 
@@ -63,6 +64,27 @@ const jsonLdFor = (path: string): object[] => {
         { '@type': 'ListItem', position: 1, name: 'ホーム', item: `${SITE_ORIGIN}/` },
         ...crumbs.map((c, i) => ({ '@type': 'ListItem', position: i + 2, ...c })),
       ],
+    });
+  }
+  if (view === 'glossary') {
+    const g = glossaryContent.ja;
+    out.push({
+      '@context': 'https://schema.org',
+      '@type': 'DefinedTermSet',
+      '@id': `${meta.url}#terms`,
+      name: g.title,
+      description: meta.description,
+      url: meta.url,
+      inLanguage: 'ja',
+      publisher: { '@type': 'Organization', '@id': ORG_ID, name: 'ＭＧＣ株式会社' },
+      hasDefinedTerm: g.terms.map((x) => ({
+        '@type': 'DefinedTerm',
+        '@id': `${meta.url}#${x.id}`,
+        name: x.term,
+        description: x.definition,
+        url: `${meta.url}#${x.id}`,
+        inDefinedTermSet: `${meta.url}#terms`,
+      })),
     });
   }
   if (isBizView(view)) {
