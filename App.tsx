@@ -2103,6 +2103,20 @@ const TrainingView: React.FC = () => {
         </section>
 
         {/* Contact / Apply */}
+        {/* よくある質問（受講料・時間・形式など。FAQPage の構造化データと同じ内容） */}
+        <section className="px-6 md:px-12 mt-20 md:mt-28">
+          <div className="max-w-screen-xl mx-auto">
+            <Reveal><Head eyebrow={tr.faq.eyebrow} title={tr.faq.heading} /></Reveal>
+            <div className="space-y-3 max-w-4xl">
+              {tr.faq.items.map((item, i) => (
+                <Reveal key={i} delay={i * 60}>
+                  <FaqItem question={item.q} answer={item.a} index={i} />
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section className="px-6 md:px-12 mt-20 md:mt-28">
           <div className="max-w-screen-xl mx-auto">
             <Reveal><Head eyebrow={tr.contact.eyebrow} title={tr.contact.heading} /></Reveal>
@@ -2879,6 +2893,20 @@ const ServiceView: React.FC<{ serviceKey: ServiceKey; onNavigate?: (view: ViewSt
             </Reveal>
           </div>
         </section>
+
+        {/* 「◯◯とは」への一文の答え（検索・AIが定義として引用しやすい形） */}
+        {page.definition && (
+          <section className="px-6 md:px-12 mt-16 md:mt-20">
+            <div className="max-w-screen-xl mx-auto">
+              <Reveal>
+                <div className="max-w-4xl border-l-4 border-accent pl-6 md:pl-8">
+                  <h2 className="text-xl md:text-2xl font-bold tracking-tight text-[#111418] leading-[1.5]">{page.definition.heading}</h2>
+                  <p className="text-base md:text-lg text-[#1A2233] leading-[1.9] mt-3">{page.definition.text}</p>
+                </div>
+              </Reveal>
+            </div>
+          </section>
+        )}
 
         {/* Sections */}
         {page.sections.map((section, i) => (
