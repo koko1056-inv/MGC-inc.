@@ -7,7 +7,7 @@
   },
   "rotation": {
     "note": "日次で industries を順番に回す。lastIndex は最後に公開した業種の添字。次回は (lastIndex+1)%12 の業種で、usedTopics に無いテーマを選ぶ。",
-    "lastIndex": 7,
+    "lastIndex": 8,
     "industries": [
       {
         "key": "manufacturing",
@@ -159,7 +159,8 @@
       "finance-unstructured-data-compliance",
       "finance-personalized-proposal-governance",
       "finance-ai-reliability-governance-strategy",
-      "finance-knowledge-management-compliance-ai"
+      "finance-knowledge-management-compliance-ai",
+      "finance-fraud-detection-operational-resilience"
     ],
     "education": [
       "education-personalized-learning-support",
@@ -748,6 +749,12 @@
       "industry": "professional",
       "date": "2026-11-01",
       "file": "professional-strategic-ai-partner.json"
+    },
+    {
+      "slug": "finance-fraud-detection-operational-resilience",
+      "industry": "finance",
+      "date": "2026-11-02",
+      "file": "finance-fraud-detection-operational-resilience.json"
     }
   ]
 }
