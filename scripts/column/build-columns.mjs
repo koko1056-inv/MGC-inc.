@@ -163,6 +163,8 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 .btn-primary{background:var(--blue);color:#fff}
 .btn-ghost{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.25)}
 
+/* 用語集へのリンク */
+.article a.term{color:inherit;text-decoration:underline;text-decoration-color:var(--blue);text-underline-offset:3px}
 /* 関連サービス */
 .svc-links{margin:48px 0 0}
 .svc-links h2{font-size:1.1rem;font-weight:800;margin-bottom:14px}
@@ -282,7 +284,7 @@ const navLink = (href, label, current) => `<a href="${href}"${current === href ?
 // 著者。社員は代表1人のため、コラムの執筆者は代表とする（構造化データ・meta・本文の署名で共通）
 const AUTHOR = { name: '松尾 心夢', role: '代表取締役', org: 'ＭＧＣ株式会社' };
 const AUTHOR_LD = {
-  '@type': 'Person', name: AUTHOR.name, alternateName: 'Kokomu Matsuo', jobTitle: AUTHOR.role,
+  '@type': 'Person', '@id': 'https://mgc-global01.com/company#ceo', name: AUTHOR.name, alternateName: 'Kokomu Matsuo', jobTitle: AUTHOR.role,
   worksFor: { '@type': 'Organization', name: 'ＭＧＣ株式会社', alternateName: 'MGC Inc.', url: 'https://mgc-global01.com' },
   url: 'https://mgc-global01.com/company',
 };
@@ -308,8 +310,30 @@ const FOOTER = `<footer class="site-footer">
 </footer>`;
 
 // ---- render article body blocks ----
+// 本文中の用語を、用語集（/glossary）の該当箇所へリンクする。各記事で用語ごとに最初の1回だけ
+const GLOSSARY_LINKS = [
+  ['生成AI', 'generative-ai'], ['LLM', 'llm'], ['AIエージェント', 'ai-agent'], ['RAG', 'rag'], ['ハルシネーション', 'hallucination'],
+  ['ボイスボット', 'voicebot'], ['IVR', 'ivr'], ['ACW', 'acw'], ['CRM', 'crm'], ['SFA', 'sfa'], ['API連携', 'api'],
+  ['OFF-JT', 'off-jt'], ['リスキリング', 'reskilling'], ['DX', 'dx'],
+].map(([term, id]) => ({ id, re: new RegExp(/^[A-Za-z]/.test(term) ? `(?<![A-Za-z])${term}(?![A-Za-z])` : term) }));
+function linkTerms(html, used) {
+  // html はエスケープ済みの本文（タグを含まない）。リンク内の語を二重にリンクしないよう、1語ずつ置き換える
+  for (const g of GLOSSARY_LINKS) {
+    if (used.has(g.id)) continue;
+    const m = html.match(g.re);
+    if (!m) continue;
+    // 既に挿入したリンクの中（href や表示文字）には触れない
+    const before = html.slice(0, m.index);
+    if ((before.match(/<a /g) || []).length !== (before.match(/<\/a>/g) || []).length) continue;
+    html = `${before}<a class="term" href="/glossary#${g.id}">${m[0]}</a>${html.slice(m.index + m[0].length)}`;
+    used.add(g.id);
+  }
+  return html;
+}
+
 function renderBody(blocks = [], headings = []) {
   const out = [];
+  const used = new Set();
   for (const b of blocks) {
     if (b.type === 'h2') {
       const id = `s${headings.length + 1}`;
@@ -317,16 +341,15 @@ function renderBody(blocks = [], headings = []) {
       out.push(`<h2 id="${id}">${esc(b.text)}</h2>`);
     }
     else if (b.type === 'h3') out.push(`<h3>${esc(b.text)}</h3>`);
-    else if (b.type === 'p') out.push(`<p>${esc(b.text)}</p>`);
+    else if (b.type === 'p') out.push(`<p>${linkTerms(esc(b.text), used)}</p>`);
     else if (b.type === 'quote') out.push(`<blockquote>${esc(b.text)}</blockquote>`);
-    else if (b.type === 'ul') out.push(`<ul>${(b.items || []).map((i) => `<li>${esc(i)}</li>`).join('')}</ul>`);
+    else if (b.type === 'ul') out.push(`<ul>${(b.items || []).map((i) => `<li>${linkTerms(esc(i), used)}</li>`).join('')}</ul>`);
     else if (b.type === 'ol') out.push(`<ol>${(b.items || []).map((i) => `<li>${esc(i)}</li>`).join('')}</ol>`);
     else die(`未知のブロック type "${b.type}"`);
   }
   return out.join('\n');
 }
 
-// プレーンテキスト抽出（description 補完・文字数チェック用）
 // コラムの内容に近いMGCのサービスを選ぶ（本文中の語の出現数で判定。該当なしはAIソリューション）
 const SERVICE_LINKS = [
   { href: '/service/ai-phone', name: 'AI電話（音声AI）', desc: '電話の一次対応を音声AIが引き受け、用件を聞き取って要約し担当者に引き渡す', words: ['電話', 'コール', '問い合わせ対応', '架電', '着信', '音声AI', 'ボイスボット', '反響'] },
@@ -344,6 +367,7 @@ function relatedServicesHtml(a) {
     .map((s) => `<li><a href="${s.href}"><strong>${esc(s.name)}</strong><span>${esc(s.desc)}</span></a></li>`).join('')}</ul></section>`;
 }
 
+// プレーンテキスト抽出（description 補完・文字数チェック用）
 function plainText(a) {
   const parts = [a.lead || ''];
   for (const b of a.body || []) {
@@ -693,6 +717,8 @@ function updateLlmsTxt() {
   L.push('# ＭＧＣ株式会社（MGC Inc.）');
   L.push('');
   L.push('> 京都の会社。企業のAI活用を、業務の棚卸し・要件整理から、AIの開発・導入・定着、そして同業他社へ届ける事業化まで一貫して支援する。事業はAIソリューション、AI事業立ち上げ支援、研修（AI活用リスキリング研修）、クロスボーダー（海外企業の日本参入・日本企業の海外進出）の4つ。ビジョンは「AIとテクノロジーで、日本と世界をつなぐ」。');
+  L.push('');
+  L.push(`サイト全文（サービス・事業・研修・事例・ガイド・用語集の本文）: ${B}/llms-full.txt`);
   L.push('');
   L.push('## 会社概要');
   L.push('- 商号: ＭＧＣ株式会社（MGC Inc.）');

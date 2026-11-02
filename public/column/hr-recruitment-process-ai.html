@@ -64,6 +64,7 @@
   "wordCount": 3805,
   "author": {
     "@type": "Person",
+    "@id": "https://mgc-global01.com/company#ceo",
     "name": "松尾 心夢",
     "alternateName": "Kokomu Matsuo",
     "jobTitle": "代表取締役",
@@ -242,6 +243,8 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 .btn-primary{background:var(--blue);color:#fff}
 .btn-ghost{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.25)}
 
+/* 用語集へのリンク */
+.article a.term{color:inherit;text-decoration:underline;text-decoration-color:var(--blue);text-underline-offset:3px}
 /* 関連サービス */
 .svc-links{margin:48px 0 0}
 .svc-links h2{font-size:1.1rem;font-weight:800;margin-bottom:14px}
@@ -361,7 +364,7 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 <h2 id="s1">採用現場でAIに任せられること、人が担うべきこと</h2>
 <p>AI導入の第一歩は、採用実務を「定型・大量処理」と「非定型・感情的判断」に切り分けることです。AIは、あらかじめ決めたルールや学習データに基づき、大量の情報を一貫した基準で処理することに長けています。一方で、候補者のキャリア観に寄り添ったり、自社の文化（カルチャー）への細かな適合性を読み取ったりするのは、依然として人間の領域です。</p>
 <ul><li>AIが得意：履歴書・職務経歴書からのスキル抽出、日程調整の自動化、募集要項に合わせたスカウト文案の作成、面接録音の文字起こしと要約</li><li>人が得意：候補者の入社意欲の醸成（アトラクト）、候補者が言葉にしていない不安の察知、最終的な採用可否の意思決定、社内調整</li><li>共同作業：書類選考の一次スクリーニング（AIがスコアリングし、人が最終確認）、面接評価の構造化（AIが評価項目に沿って回答を分類し、人が評点をつける）</li></ul>
-<p>特に生成AI（ChatGPTのような大規模言語モデル：LLM）の登場により、これまで困難だった「文脈の理解」が必要なタスクもAIの守備範囲に入ってきました。しかし、AIは時として「もっともらしい嘘（ハルシネーション）」をつく可能性があるため、最終的なチェックは必ず人間が行うという運用設計が不可欠です。</p>
+<p>特に<a class="term" href="/glossary#generative-ai">生成AI</a>（ChatGPTのような大規模言語モデル：<a class="term" href="/glossary#llm">LLM</a>）の登場により、これまで困難だった「文脈の理解」が必要なタスクもAIの守備範囲に入ってきました。しかし、AIは時として「もっともらしい嘘（<a class="term" href="/glossary#hallucination">ハルシネーション</a>）」をつく可能性があるため、最終的なチェックは必ず人間が行うという運用設計が不可欠です。</p>
 <h2 id="s2">書類選考のAI化は「足切り」ではなく「優先順位付け」から</h2>
 <p>多くの応募が集まる企業にとって、書類選考のスピードアップは急務です。しかし、AIに「合格・不合格」を完全に委ねてしまうと、なぜその判断に至ったのかがブラックボックス化し、優秀な層を取りこぼすリスクがあります。推奨されるのは、AIを「優先順位付け（ランキング）」のツールとして使う手法です。</p>
 <p>具体的には、自社の「求める人物像（ペルソナ）」をAIに学習させ、応募書類とのマッチ度を100点満点でスコアリングさせます。担当者は高得点の候補者から優先的に目を通すことで、優秀な層へのアプローチを早めることができます。また、AIに「この候補者の強みと、自社要件とのギャップ」を箇条書きで出力させることで、人間が確認する際の視点をガイドすることも可能です。</p>

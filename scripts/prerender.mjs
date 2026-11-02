@@ -11,7 +11,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
-const { render, routes } = await import(pathToFileURL(path.join(root, 'dist-ssr', 'entry-server.js')).href);
+const { render, routes, llmsFull } = await import(pathToFileURL(path.join(root, 'dist-ssr', 'entry-server.js')).href);
 
 // 器となるHTML。再実行時は index.html が事前描画済みなので、先に保存した 200.html を使う
 const shellPath = path.join(dist, '200.html');
@@ -75,6 +75,10 @@ for (const route of [...routes(), NOT_FOUND]) {
   console.log(`  prerender ${route.padEnd(24)} → ${path.relative(dist, file)}  (${Math.round(out.length / 1024)}KB)`);
 }
 console.log(`事前描画: ${count}ページ`);
+
+// AIアシスタント向けの全文（サイトのデータから生成。要約は public/llms.txt）
+fs.writeFileSync(path.join(dist, 'llms-full.txt'), llmsFull());
+console.log(`llms-full.txt: ${Math.round(fs.statSync(path.join(dist, 'llms-full.txt')).size / 1024)}KB`);
 
 // コラムへのリンク切れを検査する（サービスページの「関連するコラム」等）
 const columnDir = path.join(dist, 'column');

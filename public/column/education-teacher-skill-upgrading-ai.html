@@ -64,6 +64,7 @@
   "wordCount": 3447,
   "author": {
     "@type": "Person",
+    "@id": "https://mgc-global01.com/company#ceo",
     "name": "松尾 心夢",
     "alternateName": "Kokomu Matsuo",
     "jobTitle": "代表取締役",
@@ -242,6 +243,8 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 .btn-primary{background:var(--blue);color:#fff}
 .btn-ghost{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.25)}
 
+/* 用語集へのリンク */
+.article a.term{color:inherit;text-decoration:underline;text-decoration-color:var(--blue);text-underline-offset:3px}
 /* 関連サービス */
 .svc-links{margin:48px 0 0}
 .svc-links h2{font-size:1.1rem;font-weight:800;margin-bottom:14px}
@@ -369,7 +372,7 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 <blockquote>AIは批判する存在ではなく、教員が自分自身を『横から眺める』ための鏡であるべきです。</blockquote>
 <p>重要なのは、この分析結果を評価や査定に使わないことです。あくまで教員が「自分の授業をより良くしたい」と思ったときに、いつでも使えるツールとして提供することで、現場の抵抗感を抑え、前向きな活用が促されます。</p>
 <h2 id="s3">ベテラン教員の知見を「教育資産」として蓄積する</h2>
-<p>学校内に蓄積されている膨大な指導案、学級通信、過去のトラブル対応記録などは、宝の山です。これらをAI（特に大規模言語モデル）に読み込ませることで、校内専用のナレッジベースを構築できます。これを「RAG（検索拡張生成）」という技術で運用すると、非常に実用的なツールになります。</p>
+<p>学校内に蓄積されている膨大な指導案、学級通信、過去のトラブル対応記録などは、宝の山です。これらをAI（特に大規模言語モデル）に読み込ませることで、校内専用のナレッジベースを構築できます。これを「<a class="term" href="/glossary#rag">RAG</a>（検索拡張生成）」という技術で運用すると、非常に実用的なツールになります。</p>
 <p>RAGとは、AIが持つ一般的な知識に加えて、特定の組織内の文書を優先的に参照して回答を生成する仕組みのことです。これにより、若手教員が「以前、似たようなケースで先輩はどう対応したか」を知りたいとき、AIに質問するだけで過去の最適な事例を提示してくれるようになります。</p>
 <ul><li>指導案作成の補助：過去の優れた指導案をベースに、今年の生徒構成に合わせた修正案をAIが提案する</li><li>保護者対応のシミュレーション：過去の対応記録に基づき、適切な言葉選びや手順をアドバイスする</li><li>地域特性の継承：その学校特有の行事やルールの背景を、いつでも確認できるようにする</li></ul>
 <p>ベテランが退職しても、その「判断の基準」がデータとして残っていれば、組織としての教育力は維持されます。これは「人から人へ」の伝承を補完する、強力なバックアップとなります。</p>
