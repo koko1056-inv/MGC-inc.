@@ -242,6 +242,14 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 .btn-primary{background:var(--blue);color:#fff}
 .btn-ghost{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.25)}
 
+/* 関連サービス */
+.svc-links{margin:48px 0 0}
+.svc-links h2{font-size:1.1rem;font-weight:800;margin-bottom:14px}
+.svc-links ul{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.svc-links a{display:block;border:1px solid var(--line);border-left:4px solid var(--blue);border-radius:14px;padding:16px 18px;text-decoration:none;color:var(--ink);background:#fff}
+.svc-links a:hover{border-color:var(--blue)}
+.svc-links strong{display:block;font-weight:800;margin-bottom:4px}
+.svc-links span{font-size:.88rem;color:var(--muted)}
 /* 関連記事 */
 .related{margin:56px 0 0;padding-top:36px;border-top:1px solid var(--line)}
 .related h2{font-size:1.25rem;font-weight:800;margin-bottom:20px}
@@ -378,12 +386,13 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 <h2>では、御社の場合はどうか？ まず30分お話しませんか</h2>
 <p>物流の業務のどこにAIを使えるか、どこは人が持つべきかを整理してお返しします。現状を伺うところから始められます。</p>
 <div class="btns">
-<a class="btn btn-primary" href="/contact">30分の無料相談を予約する</a>
+<a class="btn btn-primary" href="/contact">30分の無料相談を申し込む</a>
 <a class="btn btn-ghost" href="/cases">導入事例を見る</a>
 </div>
 <p class="cta-foot">初回のご相談・お見積もりまで無料です。具体的な資料がなくても構いません。</p>
 </section>
-<section class="related"><h2>物流の関連コラム</h2><div class="grid"><a class="card" href="/column/logistics-loading-optimization-ai"><span class="thumb"><img src="/assets/column/ind_logistics.jpg" alt="トラックの荷台へ効率的に荷物を配置するAIシミュレーションのイメージ" loading="lazy"/><span class="k">物流</span></span><span class="body"><h3>物流の積載率向上にAIをどう使うか — 「積み付け」の属人化を解消する現実的なアプローチ</h3><span class="foot">2026.10.16</span></span></a><a class="card" href="/column/logistics-expert-skill-digitalization-ai"><span class="thumb"><img src="/assets/column/ind_logistics.jpg" alt="物流センターでベテランと若手がタブレットを見ながらAIの判断を確認している様子" loading="lazy"/><span class="k">物流</span></span><span class="body"><h3>物流現場の「勘と経験」をAIで標準化する — ベテランの判断を組織の資産へ</h3><span class="foot">2026.10.04</span></span></a><a class="card" href="/column/logistics-last-mile-route-optimization"><span class="thumb"><img src="/assets/column/ind_logistics.jpg" alt="AIが生成した最適な配送ルートを確認しながら荷積みを行う物流スタッフのイメージ" loading="lazy"/><span class="k">物流</span></span><span class="body"><h3>物流のラストワンマイルをAIで効率化する — 現場の「走りやすさ」を損なわない導入法</h3><span class="foot">2026.09.22</span></span></a></div></section>
+<section class="svc-links"><h2>このテーマに関するMGCのサービス</h2><ul><li><a href="/works/ai-solutions"><strong>AIソリューション</strong><span>何にAIを使うべきかの整理から、開発・導入・運用まで一貫して支援</span></a></li></ul></section>
+<section class="related"><h2>物流の関連コラム</h2><div class="grid"><a class="card" href="/column/logistics-loading-optimization-ai"><span class="thumb"><img src="/assets/column/ind_logistics.jpg" alt="トラックの荷台へ効率的に荷物を配置するAIシミュレーションのイメージ" loading="lazy"/><span class="k">物流</span></span><span class="body"><h3>物流の積載率向上にAIをどう使うか — 「積み付け」の属人化を解消する現実的なアプローチ</h3><span class="foot">2026.10.16</span></span></a><a class="card" href="/column/logistics-expert-skill-digitalization-ai"><span class="thumb"><img src="/assets/column/ind_logistics.jpg" alt="物流センターでベテランと若手がタブレットを見ながらAIの判断を確認している様子" loading="lazy"/><span class="k">物流</span></span><span class="body"><h3>物流現場の「勘と経験」をAIで標準化する — ベテランの判断を組織の資産へ</h3><span class="foot">2026.10.04</span></span></a></div></section>
 <p class="disclaimer">本コラムは一般的な情報提供を目的としたもので、特定の成果を保証するものではありません。導入可否や効果は、企業の状況・データ・体制により異なります。具体的なご相談は個別にお問い合わせください。</p>
 <a class="back-link" href="/column">← コラム一覧へ戻る</a>
 </article>
@@ -396,8 +405,8 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 <footer class="site-footer">
 <div class="cols">
 <div class="brand-col"><strong>ＭＧＣ株式会社（MGC Inc.）</strong><p>AIとテクノロジーで、日本と世界をつなぐ。</p><p>京都府京都市上京区西辰巳町111 アビタシオンオンズアン106</p></div>
-<div><h2>事業・サービス</h2><ul><li><a href="/works">事業内容</a></li><li><a href="/service/ai-sales">AI営業</a></li><li><a href="/service/ai-phone">AI電話</a></li><li><a href="/service/salesforce-ai">Salesforce AI</a></li></ul></div>
-<div><h2>実績・ナレッジ</h2><ul><li><a href="/cases">導入事例</a></li><li><a href="/training">研修</a></li><li><a href="/column">コラム</a></li></ul></div>
+<div><h2>事業・サービス</h2><ul><li><a href="/works">事業内容</a></li><li><a href="/works/ai-solutions">AIソリューション</a></li><li><a href="/service/ai-sales">AI営業</a></li><li><a href="/service/ai-phone">AI電話</a></li><li><a href="/service/salesforce-ai">Salesforce AI</a></li><li><a href="/works/ai-business-launch">AI事業立ち上げ支援</a></li><li><a href="/training">研修</a></li><li><a href="/works/cross-border">クロスボーダー</a></li></ul></div>
+<div><h2>実績・ナレッジ</h2><ul><li><a href="/cases">導入事例</a></li><li><a href="/column">コラム</a></li></ul></div>
 <div><h2>会社情報</h2><ul><li><a href="/mission">会社理念</a></li><li><a href="/company">会社概要</a></li><li><a href="/career">採用情報</a></li><li><a href="/contact">お問い合わせ</a></li></ul></div>
 </div>
 <div class="bottom"><span>© 2026 MGC Inc. All Rights Reserved.</span><span><a href="/privacy-policy">プライバシーポリシー</a>　<a href="/terms-of-service">利用規約</a></span></div>

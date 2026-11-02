@@ -874,9 +874,9 @@ const ServiceBlock: React.FC<{
                     </span>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h4 className="text-lg md:text-xl font-bold text-offblack mb-1 tracking-tight">
+                    <h3 className="text-lg md:text-xl font-bold text-offblack mb-1 tracking-tight">
                       {item.title}
-                    </h4>
+                    </h3>
                     <p className="text-[11px] font-mono uppercase tracking-widest text-accent/80 mb-2">
                       {item.sub}
                     </p>
@@ -1029,7 +1029,7 @@ const WorksView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNav
                     <span className="font-mono text-4xl md:text-5xl font-bold text-accent/20 leading-none tabular-nums">{s.step}</span>
                     <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-accent">Step</span>
                   </div>
-                  <h4 className="text-xl md:text-2xl font-bold text-offblack mb-3 tracking-tight leading-snug">{s.title}</h4>
+                  <h3 className="text-xl md:text-2xl font-bold text-offblack mb-3 tracking-tight leading-snug">{s.title}</h3>
                   <p className="text-gray-600 text-sm md:text-base leading-relaxed">{s.desc}</p>
                   <ul className="mt-6 pt-6 border-t border-gray-200 space-y-3">
                     {s.items.map((item, j) => (
@@ -1445,7 +1445,7 @@ const CareerView: React.FC = () => {
                              <span className="text-6xl font-mono font-bold text-gray-200 group-hover:text-gray-600 transition-colors duration-500">0{i+1}</span>
                         </div>
                         
-                        <h4 className="text-3xl font-bold mb-6 tracking-tight text-offblack group-hover:translate-x-2 transition-transform duration-500">{m.title}</h4>
+                        <h3 className="text-3xl font-bold mb-6 tracking-tight text-offblack group-hover:translate-x-2 transition-transform duration-500">{m.title}</h3>
                         
                         <div className="space-y-6">
                             <div className="relative pl-6 transition-all duration-500 group-hover:pl-8">
@@ -1489,7 +1489,7 @@ const CareerView: React.FC = () => {
                      <div className="relative z-10 flex flex-col h-full">
                         <div className="mb-auto">
                             <span className="inline-block px-3 py-1 rounded-full border border-gray-300 text-xs font-mono mb-6 text-gray-600 group-hover:border-accent group-hover:text-accent transition-all duration-500">Skill 0{i+1}</span>
-                            <h4 className="text-3xl font-bold tracking-tighter mb-4 group-hover:text-accent transition-colors duration-300">{s.title}</h4>
+                            <h3 className="text-3xl font-bold tracking-tighter mb-4 group-hover:text-accent transition-colors duration-300">{s.title}</h3>
                             <p className="text-xl font-medium text-offblack mb-4">{s.sub}</p>
                             <p className="text-gray-600 text-sm leading-relaxed">{s.desc}</p>
                         </div>
