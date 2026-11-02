@@ -45,7 +45,7 @@ const PAGE_META: Record<Lang, Partial<Record<string, { title: string; descriptio
     'terms-of-service': { title: 'サイト利用規約 - ＭＧＣ株式会社', description: 'ＭＧＣ株式会社ウェブサイトの利用規約。著作権、禁止事項、AI活用診断の位置づけ、免責事項について。' },
     thanks: { title: '送信完了 - ＭＧＣ株式会社', description: 'お問い合わせを受け付けました。内容を確認し、1営業日以内にメールでご返信します。' },
     notfound: { title: 'ページが見つかりません - ＭＧＣ株式会社', description: 'お探しのページは移動したか、削除された可能性があります。' },
-    cases: { title: '導入事例｜AI導入の進め方と実例 - ＭＧＣ株式会社', description: 'MGCが実際に進めている案件の進め方と設計の要点。コールセンターの音声AI、海外メーカー発掘の自動化、現場のトラブルシューティング。' },
+    cases: { title: '導入事例｜AI導入の進め方と実例 - ＭＧＣ株式会社', description: 'MGCが実際に進めている案件の課題・打ち手・設計の要点。コールセンターの催促架電を音声AIで自動化した事例、海外メーカーの発掘をAIで自動化し1ヶ月で商談10件につながった事例、建設機械の現場で音声AIが技術情報を引き当てる事例を紹介します。' },
   },
   en: {
     home: { title: 'MGC Inc. | Connect Japan & The World through AI and Tech', description: 'MGC Inc. runs AI Solutions, AI Business Launch Support, AI Training and Cross-Border Business from Kyoto, Japan — from mapping the work to launching a business. First consultation is free.' },
@@ -1663,7 +1663,10 @@ const JournalPostView: React.FC<{ slug: string; onNavigate: (view: ViewState) =>
   const { t, lang } = useLanguage();
   const post = findJournalPost(lang, slug);
   if (!post) return <NotFoundView onNavigate={onNavigate} />;
-  const others = journalPosts(lang).filter((p) => p.slug !== slug).slice(0, 3);
+  // ほかの記事: 前後の記事を出す（新しい3本に偏らず、どの記事も前後からリンクされる）
+  const all = journalPosts(lang);
+  const pos = all.findIndex((p) => p.slug === slug);
+  const others = [all[pos - 1], all[pos + 1], all[pos + 2] ?? all[pos - 2]].filter((p): p is (typeof all)[number] => !!p && p.slug !== slug);
   return (
     <PageTransition>
       <article className="px-6 md:px-12 max-w-screen-xl mx-auto">
