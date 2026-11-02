@@ -232,6 +232,11 @@ export const en: Translation = {
       title: "AI Solutions",
       subtitle: "Consulting, development and operations — end-to-end.",
       p1: "From working out where AI should be used, to building AI for voice, text and CRM, to running it after launch.\nProven use cases are offered as services; everything else is designed case by case.",
+      faq: [
+        { q: 'Which service should we ask about?', a: 'You do not need to decide first. We start by mapping your work and propose whether AI Sales, AI Phone or Salesforce AI fits, or whether bespoke development is needed.' },
+        { q: 'Can we start small?', a: 'Yes. We recommend starting with one task and validating the effect in a 2–4 week pilot before rolling out.' },
+        { q: 'Can it connect to our existing systems?', a: 'Yes. We integrate via APIs with CRMs such as Salesforce and kintone, chat tools such as Slack, Microsoft Teams and LINE, and core business systems.' },
+      ],
       features: [
         { title: "AI Sales", sub: "Automating appointment setting", text: "AI handles everything before the meeting — list building, first contact, replies and scheduling — so your team spends its time in the meeting itself." },
         { title: "AI Phone", sub: "Voice AI for first response", text: "Voice AI takes the first response on the calls that never stop. Unlike push-button IVR, it understands the request in natural speech and hands a summary to the right person." },
@@ -243,6 +248,11 @@ export const en: Translation = {
       title: "AI Business Launch Support",
       subtitle: "Turn the AI you adopted into a business you sell to your industry.",
       p1: "AI built for one company tends to work for its peers as well.\nWe package the AI you have already proven in your own operations into something you can sell to others in your industry, and stay with you until it runs as a business. MGC carries the technical work, so you can start without hiring a dedicated engineering team.",
+      faq: [
+        { q: 'Who is it for?', a: 'Companies that have adopted AI successfully and want to offer it to others in their industry. Because you know the industry, your offer is more convincing.' },
+        { q: 'Do we need to hire engineers?', a: 'No. MGC handles the AI-side work — development, deployment, maintenance and support — so you can start without hiring engineers or setting up a development team.' },
+        { q: 'How much sales support do you provide?', a: 'We build the service site or landing page, sales materials, scope and pricing, and the sales setup with you, and keep improving it after launch.' },
+      ],
       features: [
         { title: "Packaging", sub: "Turning your case into a product", text: "We document how your AI is built, how it runs and what it delivers, then shape it into an offering your peers can buy. We separate what ships as standard from what is configured per customer, so it can be delivered again and again. A company that understands the industry selling it is what makes the pitch land." },
         { title: "Operations", sub: "We carry the AI work", text: "Development, onboarding, maintenance and support sit with MGC. You focus on selling into the customer base and industry standing you already have — no dedicated engineering hires or new development department needed to get started." },
@@ -264,6 +274,10 @@ export const en: Translation = {
       title: "Cross-Border Business",
       subtitle: "Connecting business between Japan and the world, in both directions.",
       p1: "Inbound: bringing outstanding global products into the Japanese market. Outbound: helping Japanese companies expand overseas.\nA two-way cross-border business that embodies our vision of connecting Japan and the world.",
+      faq: [
+        { q: 'We want to sell an overseas product in Japan. Can you help?', a: 'Yes. As the exclusive distributor in Japan we handle sales, customer support and localisation end to end.' },
+        { q: 'Do you help Japanese companies expand overseas?', a: 'Yes, from market research and finding local partners to running cross-border e-commerce and local operations.' },
+      ],
       features: [
         { title: "Inbound: Market Entry", sub: "Japan distributorship", text: "As the exclusive Japan distributor for overseas companies, we handle sales, customer support, and localization in the Japanese market end-to-end." },
         { title: "Outbound: Global Expansion", sub: "Support for Japanese companies going global", text: "From market research and local partner discovery to running cross-border e-commerce and local rollout, we support Japanese companies expanding abroad." },

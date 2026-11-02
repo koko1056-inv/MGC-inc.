@@ -8,6 +8,7 @@ import { translations } from './translations';
 import { journalPosts, journalPath, findJournalPost } from './journal';
 import { glossaryContent } from './glossaryContent';
 import { caseContent } from './caseContent';
+import { guideContent } from './guideContent';
 
 export { SITE_ORIGIN };
 
@@ -17,6 +18,7 @@ export const routes = (): string[] => [
   ...Object.keys(PATH_TO_VIEW),
   ...journalPosts('ja').map((p) => journalPath(p.slug)),
   ...caseContent.ja.cases.map((c) => `/cases/${c.slug}`),
+  ...guideContent.ja.guides.map((g) => `/guide/${g.slug}`),
   ...SERVICE_KEYS.map((k) => pathForView(k)),
   THANKS_PATH,
 ];
@@ -48,7 +50,13 @@ const jsonLdFor = (path: string): object[] => {
   const post = view === 'journal' ? findJournalPost('ja', path.split('/').pop() ?? '') : undefined;
   if (path !== '/') {
     const cs = view === 'case' ? caseContent.ja.cases.find((x) => x.slug === path.split('/').pop()) : undefined;
-    const crumbs = cs
+    const gd = view === 'guide' ? guideContent.ja.guides.find((x) => x.slug === path.split('/').pop()) : undefined;
+    const crumbs = gd
+      ? [
+          { name: '比較・選び方ガイド', item: `${SITE_ORIGIN}/guide` },
+          { name: gd.title, item: meta.url },
+        ]
+      : cs
       ? [
           { name: '導入事例', item: `${SITE_ORIGIN}/cases` },
           { name: cs.title ?? cs.industry, item: meta.url },
@@ -72,6 +80,37 @@ const jsonLdFor = (path: string): object[] => {
         { '@type': 'ListItem', position: 1, name: 'ホーム', item: `${SITE_ORIGIN}/` },
         ...crumbs.map((c, i) => ({ '@type': 'ListItem', position: i + 2, ...c })),
       ],
+    });
+  }
+  if (view === 'guide') {
+    const g = guideContent.ja.guides.find((x) => x.slug === path.split('/').pop());
+    if (g) {
+      out.push({
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        '@id': `${meta.url}#article`,
+        headline: g.title,
+        description: g.description,
+        inLanguage: 'ja',
+        url: meta.url,
+        image: [meta.image],
+        author: { '@type': 'Organization', '@id': ORG_ID, name: 'ＭＧＣ株式会社' },
+        publisher: { '@type': 'Organization', '@id': ORG_ID, name: 'ＭＧＣ株式会社', logo: { '@type': 'ImageObject', url: LOGO_URL, width: 512, height: 512 } },
+        mainEntityOfPage: { '@type': 'WebPage', '@id': meta.url },
+      });
+      out.push({
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: g.faq.map((x) => ({ '@type': 'Question', name: x.q, acceptedAnswer: { '@type': 'Answer', text: x.a } })),
+      });
+    }
+  }
+  if (view === 'guides') {
+    out.push({
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      name: '比較・選び方ガイド',
+      itemListElement: guideContent.ja.guides.map((g, i) => ({ '@type': 'ListItem', position: i + 1, url: `${SITE_ORIGIN}/guide/${g.slug}`, name: g.title })),
     });
   }
   if (view === 'case') {
@@ -133,6 +172,11 @@ const jsonLdFor = (path: string): object[] => {
         name: `${d.title}の提供内容`,
         itemListElement: d.features.map((f) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: f.sub, description: f.text } })),
       },
+    });
+    out.push({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: d.faq.map((x) => ({ '@type': 'Question', name: x.q, acceptedAnswer: { '@type': 'Answer', text: x.a } })),
     });
   }
   if (post) {

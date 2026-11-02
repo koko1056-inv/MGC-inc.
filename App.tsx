@@ -9,6 +9,7 @@ import { legalContent, LegalDoc } from './legalContent';
 import { journalPosts, JOURNAL_SLUGS, journalPath, findJournalPost } from './journal';
 import { loadLang } from './i18n';
 import { glossaryContent } from './glossaryContent';
+import { guideContent, GUIDE_SLUGS } from './guideContent';
 export const LanguageContext = React.createContext<{ lang: Lang; setLang: (l: Lang) => void; t: typeof translations['ja'] }>({
   lang: 'ja',
   setLang: () => {},
@@ -17,7 +18,7 @@ export const LanguageContext = React.createContext<{ lang: Lang; setLang: (l: La
 export const useLanguage = () => React.useContext(LanguageContext);
 // --- Types & Interfaces ---
 
-export type ViewState = 'home' | 'works' | 'training' | 'diagnosis' | 'mission' | 'partners' | 'company' | 'career' | 'contact' | 'blog' | 'cases' | 'notfound' | 'privacy-policy' | 'terms-of-service' | 'journal' | 'glossary' | 'case' | BizView | ServiceKey;
+export type ViewState = 'home' | 'works' | 'training' | 'diagnosis' | 'mission' | 'partners' | 'company' | 'career' | 'contact' | 'blog' | 'cases' | 'notfound' | 'privacy-policy' | 'terms-of-service' | 'journal' | 'glossary' | 'case' | 'guides' | 'guide' | BizView | ServiceKey;
 
 // AI診断の表示切り替え。false の間は、サイト内の導線をすべて隠す。
 // ページ自体（/diagnosis）は残るため、true に戻せば元の状態に復帰する。
@@ -38,6 +39,7 @@ const PAGE_META: Record<Lang, Partial<Record<string, { title: string; descriptio
     'biz-ai': { title: 'AIソリューション｜AIコンサルティング・開発・運用 - ＭＧＣ株式会社', description: '「何にAIを使うべきか」の整理から、音声・テキスト・CRM連携に対応するAIの開発、導入後の運用まで。AI営業・AI電話・Salesforce AI活用支援と、個別のAIコンサルティング・開発を提供します。' },
     'biz-newbiz': { title: 'AI事業立ち上げ支援｜導入したAIを同業他社へ届ける事業に - ＭＧＣ株式会社', description: '自社で導入して効果が出たAIを、同業他社へ提供できる商材にまとめ、新しい事業として立ち上げます。パッケージ化、AI側の実務の巻き取り、販売の立ち上げまで支援します。' },
     'biz-crossborder': { title: 'クロスボーダー事業｜海外企業の日本参入・日本企業の海外進出支援 - ＭＧＣ株式会社', description: '海外の優れたプロダクトを日本市場へ届ける「Inbound」と、日本企業の海外進出を支援する「Outbound」。双方向で日本と世界のビジネスをつなぎます。' },
+    guides: { title: '比較・選び方ガイド｜AI電話とIVR、AI営業とテレアポ代行ほか - ＭＧＣ株式会社', description: 'AI導入でよく比べられる方法の違いと選び方を、表でまとめたガイド。AI電話・IVR・ボイスボット、AI営業とテレアポ代行、Salesforceの標準AI機能と個別開発を比較しています。' },
     glossary: { title: 'AI活用 用語集｜AIエージェント・RAG・ボイスボット・IVRなど - ＭＧＣ株式会社', description: 'AIの導入・活用でよく使われる言葉（生成AI、LLM、AIエージェント、RAG、ハルシネーション、ボイスボット、IVR、ACW、CRM、SFA、API連携、OFF-JT、リスキリング、DX）を短く説明する用語集です。' },
     'privacy-policy': { title: 'プライバシーポリシー - ＭＧＣ株式会社', description: 'ＭＧＣ株式会社のプライバシーポリシー。問い合わせフォーム・AI活用診断で取得する情報、利用目的、外部サービス、保管期間、開示等のご請求について。' },
     'terms-of-service': { title: 'サイト利用規約 - ＭＧＣ株式会社', description: 'ＭＧＣ株式会社ウェブサイトの利用規約。著作権、禁止事項、AI活用診断の位置づけ、免責事項について。' },
@@ -58,6 +60,7 @@ const PAGE_META: Record<Lang, Partial<Record<string, { title: string; descriptio
     'biz-ai': { title: 'AI Solutions | AI consulting, development and operation - MGC Inc.', description: 'From deciding what AI should do, to building voice, text and CRM-connected AI, to running it after launch. AI Sales, AI Phone, Salesforce AI and bespoke AI consulting and development.' },
     'biz-newbiz': { title: 'AI Business Launch | Turn the AI you adopted into a business - MGC Inc.', description: 'We package AI that worked in your company into a product you can sell to your industry, take on the AI-side operations, and help you launch sales.' },
     'biz-crossborder': { title: 'Cross-Border | Japan market entry and overseas expansion - MGC Inc.', description: 'Inbound: bringing excellent overseas products to Japan. Outbound: helping Japanese companies expand overseas. Connecting business between Japan and the world in both directions.' },
+    guides: { title: 'Comparison guides | AI phone vs IVR, AI Sales vs telemarketing - MGC Inc.', description: 'Tables comparing commonly weighed approaches to AI adoption: AI phones, IVR and voicebots; AI Sales and telemarketing; Salesforce built-in AI and bespoke development.' },
     glossary: { title: 'AI Glossary | AI agents, RAG, voicebots, IVR and more - MGC Inc.', description: 'Short explanations of terms used in AI adoption: generative AI, LLMs, AI agents, RAG, hallucination, voicebots, IVR, ACW, CRM, SFA, API integration, OFF-JT, reskilling and DX.' },
     'privacy-policy': { title: 'Privacy Policy - MGC Inc.', description: 'How MGC Inc. handles information collected through the contact form, AI diagnosis and analytics.' },
     'terms-of-service': { title: 'Terms of Use - MGC Inc.', description: 'Terms of use for the MGC Inc. website.' },
@@ -95,7 +98,7 @@ const applyMeta = (m: { title: string; description: string; url: string; image: 
 export const PATH_TO_VIEW: Record<string, ViewState> = {
   '/works': 'works', '/training': 'training', '/diagnosis': 'diagnosis', '/cases': 'cases',
   '/mission': 'mission', '/company': 'company', '/career': 'career', '/contact': 'contact', '/blog': 'blog',
-  '/privacy-policy': 'privacy-policy', '/terms-of-service': 'terms-of-service', '/glossary': 'glossary',
+  '/privacy-policy': 'privacy-policy', '/terms-of-service': 'terms-of-service', '/glossary': 'glossary', '/guide': 'guides',
   '/works/ai-solutions': 'biz-ai', '/works/ai-business-launch': 'biz-newbiz', '/works/cross-border': 'biz-crossborder',
 };
 // 事業ごとのページ（事業内容 › 各事業）。研修は専用ページ（/training）があるため含めない
@@ -107,7 +110,7 @@ export const BUSINESS_PAGES: Record<BizView, { path: string; key: 'service_ai' |
 };
 export const isBizView = (v: string): v is BizView => v in BUSINESS_PAGES;
 export const pathForView = (v: ViewState): string =>
-  isServiceKey(v) ? `/service/${v}` : isBizView(v) ? BUSINESS_PAGES[v].path : v === 'home' ? '/' : v === 'notfound' ? '/404' : `/${v}`;
+  isServiceKey(v) ? `/service/${v}` : isBizView(v) ? BUSINESS_PAGES[v].path : v === 'home' ? '/' : v === 'notfound' ? '/404' : v === 'guides' ? '/guide' : `/${v}`;
 
 export const SERVICE_KEYS: ServiceKey[] = ['ai-sales', 'ai-phone', 'salesforce-ai'];
 const isServiceKey = (v: string): v is ServiceKey => (SERVICE_KEYS as string[]).includes(v);
@@ -119,6 +122,8 @@ export const viewForPath = (rawPath: string): ViewState => {
   if (path === '/contact/thanks') return 'contact';
   const svc = path.match(/^\/service\/([a-z-]+)$/);
   if (svc && isServiceKey(svc[1])) return svc[1];
+  const gd = path.match(/^\/guide\/([a-z0-9-]+)$/);
+  if (gd && GUIDE_SLUGS.includes(gd[1])) return 'guide';
   const cs = path.match(/^\/cases\/([a-z0-9-]+)$/);
   if (cs && caseContent.ja.cases.some((x) => x.slug === cs[1])) return 'case';
   const post = path.match(/^\/blog\/([a-z0-9-]+)$/);
@@ -135,6 +140,19 @@ export const THANKS_PATH = '/contact/thanks';
 export const metaFor = (view: ViewState, lang: Lang, path?: string) => {
   const page = isServiceKey(view) ? serviceContent[lang][view] : null;
   const isThanks = view === 'contact' && path?.replace(/\/+$/, '') === THANKS_PATH;
+  if (view === 'guide') {
+    const slug = (path ?? '').replace(/\/+$/, '').split('/').pop() ?? '';
+    const g = guideContent[lang].guides.find((x) => x.slug === slug);
+    if (g) {
+      return {
+        title: `${g.title}${lang === 'ja' ? ' - ＭＧＣ株式会社' : ' - MGC Inc.'}`,
+        description: g.description,
+        url: `${SITE_ORIGIN}/guide/${g.slug}`,
+        image: SITE_ORIGIN + ogImageFor('works'),
+        noindex: false,
+      };
+    }
+  }
   if (view === 'case') {
     const slug = (path ?? '').replace(/\/+$/, '').split('/').pop() ?? '';
     const cs = caseContent[lang].cases.find((x) => x.slug === slug);
@@ -2842,6 +2860,120 @@ const CaseArticle: React.FC<{ cs: CaseStudy; lang: Lang; page?: boolean }> = ({ 
   );
 };
 
+// 比較・選び方ガイド（/guide と /guide/<slug>）。本文は guideContent.ts
+const GuideHead: React.FC<{ eyebrow: string; title: string; lead: string; h1?: boolean }> = ({ eyebrow, title, lead, h1 }) => {
+  const T = (h1 ? 'h1' : 'h2') as 'h1';
+  return (
+    <header className="border-b border-gray-200 pb-8 mb-10">
+      <span className="text-xs font-bold tracking-widest uppercase text-accent">{eyebrow}</span>
+      <T className="text-3xl md:text-5xl font-bold tracking-tight leading-[1.4] mt-3">{title}</T>
+      <div className="w-16 h-1.5 bg-accent mt-5 rounded-full" />
+      <p className="max-w-3xl text-base md:text-lg text-[#1A2233] leading-[1.9] mt-6">{lead}</p>
+    </header>
+  );
+};
+
+const GuidesView: React.FC = () => {
+  const { lang } = useLanguage();
+  const c = guideContent[lang];
+  return (
+    <PageTransition>
+      <div className="px-6 md:px-12 max-w-screen-xl mx-auto text-[#111418] pb-24 md:pb-32">
+        <GuideHead eyebrow="Guide" title={c.title} lead={c.lead} h1 />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {c.guides.map((g) => (
+            <a key={g.slug} href={`/guide/${g.slug}`} className="group flex flex-col bg-white rounded-2xl border border-gray-200 p-7 hover:border-accent transition-colors">
+              <h2 className="text-lg font-bold tracking-tight leading-[1.6] group-hover:text-accent transition-colors">{g.title}</h2>
+              <p className="text-sm text-gray-500 leading-relaxed mt-3 flex-grow">{g.description}</p>
+              <ArrowRight className="w-4 h-4 text-gray-300 group-hover:text-accent group-hover:translate-x-1 transition-all mt-4" />
+            </a>
+          ))}
+        </div>
+      </div>
+    </PageTransition>
+  );
+};
+
+const GuideView: React.FC<{ slug: string; onNavigate: (view: ViewState) => void }> = ({ slug, onNavigate }) => {
+  const { lang } = useLanguage();
+  const ja = lang === 'ja';
+  const c = guideContent[lang];
+  const g = c.guides.find((x) => x.slug === slug);
+  if (!g) return <NotFoundView onNavigate={onNavigate} />;
+  const others = c.guides.filter((x) => x.slug !== slug);
+  return (
+    <PageTransition>
+      <article className="px-6 md:px-12 max-w-screen-xl mx-auto text-[#111418] pb-24 md:pb-32">
+        <nav aria-label="breadcrumb" className="flex flex-wrap items-center gap-2 text-sm text-gray-500 mb-6">
+          <NavLink href={pathForView('guides')} onGo={() => onNavigate('guides')} className="hover:text-accent transition-colors">{c.title}</NavLink>
+        </nav>
+        <GuideHead eyebrow="Guide" title={g.title} lead={g.lead} h1 />
+        <section className="max-w-4xl">
+          <h2 className="text-xl md:text-2xl font-bold tracking-tight leading-[1.5] mb-5">{g.table.caption}</h2>
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[640px] text-left text-sm md:text-[15px] border-t border-gray-200">
+              <thead>
+                <tr className="bg-[#F4F6FB]">
+                  {g.table.head.map((h) => <th key={h} scope="col" className="px-4 py-3 font-bold border-b border-gray-200">{h}</th>)}
+                </tr>
+              </thead>
+              <tbody>
+                {g.table.rows.map((row, i) => (
+                  <tr key={i}>
+                    {row.map((cell, k) => k === 0
+                      ? <th key={k} scope="row" className="px-4 py-3 border-b border-gray-200 font-bold align-top whitespace-nowrap">{cell}</th>
+                      : <td key={k} className="px-4 py-3 border-b border-gray-200 leading-[1.8] align-top text-[#1A2233]">{cell}</td>)}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+        {g.sections.map((sec) => (
+          <section key={sec.heading} className="max-w-4xl mt-14">
+            <h2 className="text-xl md:text-2xl font-bold tracking-tight leading-[1.5] pl-4 border-l-4 border-accent">{sec.heading}</h2>
+            {sec.paragraphs?.map((p, i) => <p key={i} className="text-base md:text-[17px] text-[#1A2233] leading-[2] mt-4">{p}</p>)}
+            {sec.list && (
+              <ul className="mt-4 space-y-2">
+                {sec.list.map((x, i) => (
+                  <li key={i} className="flex gap-3 text-base text-[#1A2233] leading-[1.9]">
+                    <span className="mt-[0.8em] w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
+                    <span>{x}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
+        ))}
+        <section className="max-w-4xl mt-14">
+          <h2 className="text-xl md:text-2xl font-bold tracking-tight leading-[1.5] mb-5">{ja ? 'よくあるご質問' : 'FAQ'}</h2>
+          <div className="space-y-3">
+            {g.faq.map((f, i) => <FaqItem key={i} question={f.q} answer={f.a} index={i} />)}
+          </div>
+        </section>
+        <div className="max-w-4xl mt-14 flex flex-wrap gap-3">
+          <NavLink href={g.service.href} onGo={() => onNavigate(viewForPath(g.service.href))} className="group inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-accent text-white font-bold text-sm hover:opacity-90 transition-opacity">
+            {ja ? `${g.service.label}のサービスを見る` : `See ${g.service.label}`} <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+          </NavLink>
+          <a href="#contact" className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full border border-gray-300 bg-white text-[#111418] font-bold text-sm hover:border-[#111418] transition-colors">
+            {ja ? '無料で相談する' : 'Request a free consultation'}
+          </a>
+        </div>
+        <section className="mt-20">
+          <h2 className="text-2xl font-bold tracking-tight mb-6">{ja ? 'ほかのガイド' : 'Other guides'}</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {others.map((o) => (
+              <a key={o.slug} href={`/guide/${o.slug}`} className="group block bg-white rounded-2xl border border-gray-200 p-6 hover:border-accent transition-colors">
+                <span className="text-base font-bold leading-[1.6] group-hover:text-accent transition-colors">{o.title}</span>
+              </a>
+            ))}
+          </div>
+        </section>
+      </article>
+    </PageTransition>
+  );
+};
+
 // 導入事例の個別ページ（/cases/<slug>）
 const CaseView: React.FC<{ slug: string; onNavigate: (view: ViewState) => void }> = ({ slug, onNavigate }) => {
   const { lang } = useLanguage();
@@ -2959,6 +3091,13 @@ const CasesView: React.FC = () => {
   );
 };
 
+// サービスごとの比較・選び方ガイド
+const SERVICE_GUIDE: Record<ServiceKey, string> = {
+  'ai-phone': 'ai-phone-vs-ivr-voicebot',
+  'ai-sales': 'ai-sales-vs-telemarketing',
+  'salesforce-ai': 'salesforce-standard-ai-vs-custom',
+};
+
 const ServiceView: React.FC<{ serviceKey: ServiceKey; onNavigate?: (view: ViewState) => void }> = ({ serviceKey, onNavigate }) => {
   const { lang, t } = useLanguage();
   const page = serviceContent[lang][serviceKey];
@@ -3039,6 +3178,14 @@ const ServiceView: React.FC<{ serviceKey: ServiceKey; onNavigate?: (view: ViewSt
                 <div className="max-w-4xl border-l-4 border-accent pl-6 md:pl-8">
                   <h2 className="text-xl md:text-2xl font-bold tracking-tight text-[#111418] leading-[1.5]">{page.definition.heading}</h2>
                   <p className="text-base md:text-lg text-[#1A2233] leading-[1.9] mt-3">{page.definition.text}</p>
+                  {SERVICE_GUIDE[serviceKey] && (() => {
+                    const g = guideContent[lang].guides.find((x) => x.slug === SERVICE_GUIDE[serviceKey]);
+                    return g ? (
+                      <a href={`/guide/${g.slug}`} className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-accent hover:gap-3 transition-all">
+                        {lang === 'ja' ? '比較・選び方ガイド: ' : 'Guide: '}{g.title} <ArrowRight className="w-4 h-4" />
+                      </a>
+                    ) : null;
+                  })()}
                 </div>
               </Reveal>
             </div>
@@ -3452,6 +3599,18 @@ const BusinessView: React.FC<{ biz: BizView; onNavigate: (view: ViewState) => vo
           </div>
         </section>
 
+        {/* よくあるご質問（FAQPage の構造化データと同じ内容） */}
+        <section className="mt-24 md:mt-32 max-w-4xl">
+          <Reveal>
+            <span className="text-xs font-bold tracking-[0.2em] uppercase text-accent">FAQ</span>
+            <h2 className="text-2xl md:text-4xl font-bold tracking-tight leading-[1.5] mt-2">{ja ? 'よくあるご質問' : 'FAQ'}</h2>
+            <div className="w-16 h-1.5 bg-accent mt-4 rounded-full" />
+          </Reveal>
+          <div className="space-y-3 mt-10">
+            {d.faq.map((f, i) => <FaqItem key={i} question={f.q} answer={f.a} index={i} />)}
+          </div>
+        </section>
+
         {/* 相談・事例への導線 */}
         <Reveal>
           <div className="mt-24 md:mt-32 rounded-[1.75rem] md:rounded-[2.5rem] bg-accent text-white px-7 py-12 md:px-16 md:py-16">
@@ -3791,6 +3950,7 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
       links: [
         { id: 'cases', label: t.nav.cases },
         { href: '/column', label: t.nav.column },
+        { id: 'guides', label: lang === 'ja' ? '比較・選び方ガイド' : 'Comparison guides' },
         { id: 'glossary', label: lang === 'ja' ? '用語集' : 'Glossary' },
         { id: 'blog', label: t.nav.blog },
       ],
@@ -4000,6 +4160,8 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
         {view === 'contact' && <ContactView onNavigate={navigate} initialSent={currentPath() === THANKS_PATH} />}
         {isBizView(view) && <BusinessView biz={view} onNavigate={navigate} />}
         {view === 'glossary' && <GlossaryView onNavigate={navigate} />}
+        {view === 'guides' && <GuidesView />}
+        {view === 'guide' && <GuideView slug={path.split('/').pop() ?? ''} onNavigate={navigate} />}
         {view === 'case' && <CaseView slug={path.split('/').pop() ?? ''} onNavigate={navigate} />}
         {view === 'notfound' && <NotFoundView onNavigate={navigate} />}
         {view === 'privacy-policy' && <LegalView doc="privacy" onNavigate={navigate} />}
