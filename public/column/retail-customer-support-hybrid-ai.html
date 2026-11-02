@@ -64,6 +64,7 @@
   "wordCount": 3609,
   "author": {
     "@type": "Person",
+    "@id": "https://mgc-global01.com/company#ceo",
     "name": "松尾 心夢",
     "alternateName": "Kokomu Matsuo",
     "jobTitle": "代表取締役",
@@ -242,6 +243,8 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 .btn-primary{background:var(--blue);color:#fff}
 .btn-ghost{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.25)}
 
+/* 用語集へのリンク */
+.article a.term{color:inherit;text-decoration:underline;text-decoration-color:var(--blue);text-underline-offset:3px}
 /* 関連サービス */
 .svc-links{margin:48px 0 0}
 .svc-links h2{font-size:1.1rem;font-weight:800;margin-bottom:14px}
@@ -368,7 +371,7 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 <ol><li>「二度の失敗」で自動エスカレーション：AIが2回続けて「お役に立てませんでしたか？」という回答を出した場合、自動的に「オペレーターに繋ぎますか？」という選択肢をポップアップさせる。</li><li>コンテキスト（文脈）の引き継ぎ：有人チャットに切り替える際、顧客がAIと話していた内容を全てオペレーター側の画面に表示させる。顧客に「さっきも言いましたが……」と言わせてはいけません。</li><li>営業時間外の予約受付：夜間などで有人対応ができない場合は、「明日、担当者からメールで回答します」とAIがフォームへの入力を促し、翌朝の優先タスクとして管理システムに自動登録する。</li></ol>
 <blockquote>AIはあくまで『受付』であり、本当の安心を提供するのは『人』である。この優先順位を間違えない設計が、顧客満足度の低下を防ぐ唯一の方法です。</blockquote>
 <h2 id="s4">生成AI（RAG）導入で失敗しないための「知識ベース」整備術</h2>
-<p>最近では、ChatGPTのような生成AIを自社専用にカスタマイズする「RAG（検索拡張生成）」という技術が主流です。これは、AIにインターネット上の不確かな情報ではなく、自社の「FAQ」「商品マニュアル」「利用規約」という『正しい教科書』を読ませて回答させる仕組みです。この精度の良し悪しは、AIツールの性能よりも、読み込ませるデータの質で決まります。</p>
+<p>最近では、ChatGPTのような<a class="term" href="/glossary#generative-ai">生成AI</a>を自社専用にカスタマイズする「<a class="term" href="/glossary#rag">RAG</a>（検索拡張生成）」という技術が主流です。これは、AIにインターネット上の不確かな情報ではなく、自社の「FAQ」「商品マニュアル」「利用規約」という『正しい教科書』を読ませて回答させる仕組みです。この精度の良し悪しは、AIツールの性能よりも、読み込ませるデータの質で決まります。</p>
 <p>現場でつまずきやすいのは、社内マニュアルがPDFのままであったり、Excelに箇条書きされただけの古いデータであったりする場合です。AIが理解しやすいように、以下のチェックポイントを確認してください。</p>
 <ul><li>一問一答形式になっているか：質問（Q）と回答（A）が対になっており、一つのAに複数の意味が混在していないか。</li><li>専門用語や略称の定義：顧客が使う「話し言葉」と、社内の「専門用語」を紐付けているか（例：『返品』と『キャンセル』の区別など）。</li><li>最新情報の同期フロー：キャンペーンが終了したのに、AIが古い割引情報を答え続けていないか。情報を更新した際、即座にAIの知識ベースに反映される運用ルールがあるか。</li></ul>
 <h2 id="s5">導入から運用開始までの「現実的な5ステップ」</h2>

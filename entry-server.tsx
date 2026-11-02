@@ -35,6 +35,17 @@ export const render = (path: string) => {
 
 export const ORG_ID = `${SITE_ORIGIN}/#organization`;
 export const LOGO_URL = `${SITE_ORIGIN}/assets/brand/mgc-logo.png`;
+// 代表（著者・創業者）。会社概要ページで定義し、記事の author などからは @id で参照する
+export const CEO_ID = `${SITE_ORIGIN}/company#ceo`;
+const CEO = {
+  '@type': 'Person',
+  '@id': CEO_ID,
+  name: '松尾 心夢',
+  alternateName: 'Kokomu Matsuo',
+  jobTitle: '代表取締役',
+  worksFor: { '@type': 'Organization', '@id': `${SITE_ORIGIN}/#organization`, name: 'ＭＧＣ株式会社' },
+  url: `${SITE_ORIGIN}/company`,
+};
 const SERVICE_TYPE: Record<string, string> = {
   'ai-sales': '営業代行・アポイント獲得の自動化（AI営業）',
   'ai-phone': '電話一次対応の自動化（音声AI）',
@@ -133,6 +144,9 @@ const jsonLdFor = (path: string): object[] => {
       });
     }
   }
+  if (view === 'company') {
+    out.push({ '@context': 'https://schema.org', ...CEO, description: 'ＭＧＣ株式会社 代表取締役。AIソリューション、AI事業立ち上げ支援、AI活用研修、クロスボーダー事業を、ヒアリングから実装・定着まで自ら担当する。' });
+  }
   if (view === 'glossary') {
     const g = glossaryContent.ja;
     out.push({
@@ -190,14 +204,7 @@ const jsonLdFor = (path: string): object[] => {
       dateModified: post.isoDate,
       inLanguage: 'ja',
       articleSection: post.category,
-      author: {
-        '@type': 'Person',
-        name: '松尾 心夢',
-        alternateName: 'Kokomu Matsuo',
-        jobTitle: '代表取締役',
-        url: `${SITE_ORIGIN}/company`,
-        worksFor: { '@type': 'Organization', name: 'ＭＧＣ株式会社', url: SITE_ORIGIN },
-      },
+      author: { '@type': 'Person', '@id': CEO_ID, name: '松尾 心夢', url: `${SITE_ORIGIN}/company` },
       publisher: {
         '@type': 'Organization',
         name: 'ＭＧＣ株式会社',
@@ -263,3 +270,94 @@ const jsonLdFor = (path: string): object[] => {
   }
   return out;
 };
+
+// ---- llms-full.txt（AIアシスタント向けの全文。サイトに載せている文章をそのまま並べる）----
+// scripts/prerender.mjs が dist/llms-full.txt に書き出す。内容はサイトのデータから作るため、ページと食い違わない。
+const mdSection = (x: unknown): string[] => {
+  // セクションのデータ（見出し・本文・表・リスト・FAQ）を、種類を問わず箇条書きに直す
+  const out: string[] = [];
+  const walk = (v: unknown, depth = 0) => {
+    if (typeof v === 'string') { if (v.trim()) out.push(`${'  '.repeat(depth)}- ${v.trim()}`); return; }
+    if (Array.isArray(v)) { v.forEach((i) => walk(i, depth)); return; }
+    if (v && typeof v === 'object') {
+      const o = v as Record<string, unknown>;
+      if ('q' in o && 'a' in o) { out.push(`${'  '.repeat(depth)}- Q. ${o.q}`); out.push(`${'  '.repeat(depth)}  A. ${o.a}`); return; }
+      const strs = Object.entries(o).filter(([k, val]) => typeof val === 'string' && !['type', 'eyebrow', 'slug', 'href', 'by', 'no', 'heading'].includes(k)).map(([, val]) => String(val).trim()).filter(Boolean);
+      if (strs.length) out.push(`${'  '.repeat(depth)}- ${strs.join(' — ')}`);
+      Object.values(o).filter((val) => typeof val === 'object' && val).forEach((val) => walk(val, depth + 1));
+    }
+  };
+  walk(x);
+  return out;
+};
+
+export const llmsFull = (): string => {
+  const L: string[] = [];
+  const t = translations.ja;
+  L.push('# ＭＧＣ株式会社（MGC Inc.）— サイト全文（AIアシスタント向け）');
+  L.push('');
+  L.push(`> ${SITE_ORIGIN} に掲載している内容の全文です。要約は ${SITE_ORIGIN}/llms.txt 。料金はサイトに明記したもの（研修の受講料）のみ、実績の数字は導入事例に掲載したもののみです。`);
+  L.push('');
+  L.push('## 会社概要');
+  t.company.items.forEach((i) => L.push(`- ${i.label}: ${i.value.replace(/\n/g, ' ／ ')}`));
+  L.push('');
+  L.push('## 事業');
+  (['service_ai', 'service_newbiz', 'service_training', 'service_lab'] as const).forEach((k) => {
+    const d = t.details[k] as { title: string; subtitle: string; p1: string; features: { title: string; sub: string; text: string }[]; faq?: { q: string; a: string }[] };
+    L.push(`### ${d.title}（${d.subtitle}）`);
+    L.push(d.p1.replace(/\n/g, ''));
+    d.features.forEach((f) => L.push(`- ${f.sub}（${f.title}）: ${f.text}`));
+    d.faq?.forEach((f) => { L.push(`- Q. ${f.q}`); L.push(`  A. ${f.a}`); });
+    L.push('');
+  });
+  L.push('## サービス');
+  (SERVICE_KEYS as (keyof typeof serviceContent.ja)[]).forEach((k) => {
+    const page = serviceContent.ja[k];
+    L.push(`### ${page.navLabel}（${SITE_ORIGIN}${pathForView(k)}）`);
+    if (page.definition) L.push(page.definition.text);
+    L.push(page.hero.lead);
+    page.sections.forEach((sec) => {
+      if (sec.type === 'cases' || sec.type === 'related') return;
+      L.push(`#### ${sec.heading}`);
+      L.push(...mdSection(sec));
+    });
+    L.push('');
+  });
+  L.push('## 研修');
+  t.training.course.items.forEach((c) => {
+    L.push(`### ${c.name}`);
+    L.push(c.overview);
+    c.specs.forEach((x) => L.push(`- ${x.label}: ${x.value}`));
+  });
+  t.training.faq.items.forEach((f) => { L.push(`- Q. ${f.q}`); L.push(`  A. ${f.a}`); });
+  L.push('');
+  L.push('## 導入事例（社名は掲載許諾が取れるまで伏せ、業種で紹介）');
+  caseContent.ja.cases.forEach((c) => {
+    L.push(`### ${c.title ?? c.industry}（${c.industry}・${SITE_ORIGIN}/cases/${c.slug}）`);
+    L.push(c.summary);
+    c.challenge.forEach((x) => L.push(`- 課題: ${x}`));
+    c.approach.forEach((a) => L.push(`- 打ち手: ${a.title} — ${a.desc}`));
+    if (c.result) L.push(`- 成果: ${c.result.label} — ${c.result.desc}`);
+    c.metrics?.forEach((m) => L.push(`- 数値: ${m.label} ${m.value}${m.unit}`));
+    L.push('');
+  });
+  L.push('## 比較・選び方ガイド');
+  guideContent.ja.guides.forEach((g) => {
+    L.push(`### ${g.title}（${SITE_ORIGIN}/guide/${g.slug}）`);
+    L.push(g.lead);
+    L.push(`| ${g.table.head.join(' | ')} |`);
+    L.push(`|${g.table.head.map(() => ':--').join('|')}|`);
+    g.table.rows.forEach((r) => L.push(`| ${r.join(' | ')} |`));
+    g.sections.forEach((sec) => { L.push(`#### ${sec.heading}`); sec.paragraphs?.forEach((p) => L.push(p)); sec.list?.forEach((x) => L.push(`- ${x}`)); });
+    g.faq.forEach((f) => { L.push(`- Q. ${f.q}`); L.push(`  A. ${f.a}`); });
+    L.push('');
+  });
+  L.push('## 用語集');
+  glossaryContent.ja.terms.forEach((x) => L.push(`- ${x.term}: ${x.definition}`));
+  L.push('');
+  L.push('## よくあるご質問（トップページ）');
+  t.faq.items.forEach((f) => { L.push(`- Q. ${f.q}`); L.push(`  A. ${f.a}`); });
+  L.push('');
+  return L.join('\n');
+};
+
