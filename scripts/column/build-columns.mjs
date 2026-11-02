@@ -163,6 +163,14 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 .btn-primary{background:var(--blue);color:#fff}
 .btn-ghost{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.25)}
 
+/* 関連サービス */
+.svc-links{margin:48px 0 0}
+.svc-links h2{font-size:1.1rem;font-weight:800;margin-bottom:14px}
+.svc-links ul{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.svc-links a{display:block;border:1px solid var(--line);border-left:4px solid var(--blue);border-radius:14px;padding:16px 18px;text-decoration:none;color:var(--ink);background:#fff}
+.svc-links a:hover{border-color:var(--blue)}
+.svc-links strong{display:block;font-weight:800;margin-bottom:4px}
+.svc-links span{font-size:.88rem;color:var(--muted)}
 /* 関連記事 */
 .related{margin:56px 0 0;padding-top:36px;border-top:1px solid var(--line)}
 .related h2{font-size:1.25rem;font-weight:800;margin-bottom:20px}
@@ -292,8 +300,8 @@ const header = (current = '') => `<header class="site-header"><div class="inner"
 const FOOTER = `<footer class="site-footer">
 <div class="cols">
 <div class="brand-col"><strong>${esc(site.brandFull)}</strong><p>AIとテクノロジーで、日本と世界をつなぐ。</p><p>${esc(site.address || '')}</p></div>
-<div><h2>事業・サービス</h2><ul><li><a href="/works">事業内容</a></li><li><a href="/service/ai-sales">AI営業</a></li><li><a href="/service/ai-phone">AI電話</a></li><li><a href="/service/salesforce-ai">Salesforce AI</a></li></ul></div>
-<div><h2>実績・ナレッジ</h2><ul><li><a href="/cases">導入事例</a></li><li><a href="/training">研修</a></li><li><a href="/column">コラム</a></li>${SHOW_DIAGNOSIS ? '<li><a href="/diagnosis">AI活用診断</a></li>' : ''}</ul></div>
+<div><h2>事業・サービス</h2><ul><li><a href="/works">事業内容</a></li><li><a href="/works/ai-solutions">AIソリューション</a></li><li><a href="/service/ai-sales">AI営業</a></li><li><a href="/service/ai-phone">AI電話</a></li><li><a href="/service/salesforce-ai">Salesforce AI</a></li><li><a href="/works/ai-business-launch">AI事業立ち上げ支援</a></li><li><a href="/training">研修</a></li><li><a href="/works/cross-border">クロスボーダー</a></li></ul></div>
+<div><h2>実績・ナレッジ</h2><ul><li><a href="/cases">導入事例</a></li><li><a href="/column">コラム</a></li>${SHOW_DIAGNOSIS ? '<li><a href="/diagnosis">AI活用診断</a></li>' : ''}</ul></div>
 <div><h2>会社情報</h2><ul><li><a href="/mission">会社理念</a></li><li><a href="/company">会社概要</a></li><li><a href="/career">採用情報</a></li><li><a href="/contact">お問い合わせ</a></li></ul></div>
 </div>
 <div class="bottom"><span>© 2026 MGC Inc. All Rights Reserved.</span><span><a href="/privacy-policy">プライバシーポリシー</a>　<a href="/terms-of-service">利用規約</a></span></div>
@@ -319,6 +327,23 @@ function renderBody(blocks = [], headings = []) {
 }
 
 // プレーンテキスト抽出（description 補完・文字数チェック用）
+// コラムの内容に近いMGCのサービスを選ぶ（本文中の語の出現数で判定。該当なしはAIソリューション）
+const SERVICE_LINKS = [
+  { href: '/service/ai-phone', name: 'AI電話（音声AI）', desc: '電話の一次対応を音声AIが引き受け、用件を聞き取って要約し担当者に引き渡す', words: ['電話', 'コール', '問い合わせ対応', '架電', '着信', '音声AI', 'ボイスボット', '反響'] },
+  { href: '/service/ai-sales', name: 'AI営業', desc: 'リスト作成から初回接触・返信対応・日程調整まで、営業の前工程をAIが担う', words: ['営業', '商談', 'アポ', '見込み客', 'スカウト', '新規開拓', 'インサイドセールス'] },
+  { href: '/service/salesforce-ai', name: 'Salesforce AI活用支援', desc: 'CRMの入力自動化、データからの示唆、エージェントによる実行まで', words: ['CRM', 'Salesforce', 'kintone', '顧客データ', 'SFA', '顧客情報'] },
+  { href: '/training', name: 'AI活用リスキリング研修', desc: 'ITに詳しくない方がAIを業務で使いこなすための実践型研修（OFF-JT）', words: ['研修', 'リスキリング', '人材育成', 'OJT'] },
+];
+function relatedServicesHtml(a) {
+  const text = plainText(a);
+  const count = (w) => text.split(w).length - 1;
+  const scored = SERVICE_LINKS.map((s) => ({ ...s, score: s.words.reduce((n, w) => n + count(w), 0) }))
+    .filter((s) => s.score >= 3).sort((x, y) => y.score - x.score).slice(0, 2);
+  const picks = scored.length ? scored : [{ href: '/works/ai-solutions', name: 'AIソリューション', desc: '何にAIを使うべきかの整理から、開発・導入・運用まで一貫して支援' }];
+  return `<section class="svc-links"><h2>このテーマに関するMGCのサービス</h2><ul>${picks
+    .map((s) => `<li><a href="${s.href}"><strong>${esc(s.name)}</strong><span>${esc(s.desc)}</span></a></li>`).join('')}</ul></section>`;
+}
+
 function plainText(a) {
   const parts = [a.lead || ''];
   for (const b of a.body || []) {
@@ -368,9 +393,11 @@ function articleHtml(a) {
     mainEntity: a.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
   } : null;
 
-  const related = articles
-    .filter((x) => x.industry === a.industry && x.slug !== a.slug)
-    .slice(0, 3);
+  // 関連コラム: 同じ業界の中で前後の記事を選ぶ（先頭の3本に偏らず、どの記事も前後から必ずリンクされる）
+  const sameInd = articles.filter((x) => x.industry === a.industry);
+  const pos = sameInd.findIndex((x) => x.slug === a.slug);
+  const related = [sameInd[pos - 1], sameInd[pos + 1], sameInd[pos + 2] ?? sameInd[pos - 2]].filter((x) => x && x.slug !== a.slug);
+  const servicesHtml = relatedServicesHtml(a);
   const relatedHtml = related.length ? `<section class="related"><h2>${esc(ind.ja)}の関連コラム</h2><div class="grid">${related
     .map((r) => {
       const rimg = r.image || industriesByKey[r.industry].fallbackImage;
@@ -444,7 +471,7 @@ ${SHOW_DIAGNOSIS ? `<section class="cta">
 <p>業種と今の課題を入力するだけで、AIが「${esc(ind.ja)}の御社に向いたAI活用施策・導入後のワークフロー・削減できる工数とコスト」を、提案書レベルの診断レポートにしてその場でお返しします。無料です。</p>
 <div class="btns">
 <a class="btn btn-primary" href="/diagnosis">無料でAI活用診断を受ける</a>
-<a class="btn btn-ghost" href="/contact">30分の無料相談を予約する</a>
+<a class="btn btn-ghost" href="/contact">30分の無料相談を申し込む</a>
 </div>
 <p class="cta-foot">診断は登録不要・その場で結果表示。もちろん、いきなり相談していただいても構いません（初回相談・お見積もりまで無料）。</p>
 </section>` : `<section class="cta">
@@ -452,11 +479,12 @@ ${SHOW_DIAGNOSIS ? `<section class="cta">
 <h2>では、御社の場合はどうか？ まず30分お話しませんか</h2>
 <p>${esc(ind.ja)}の業務のどこにAIを使えるか、どこは人が持つべきかを整理してお返しします。現状を伺うところから始められます。</p>
 <div class="btns">
-<a class="btn btn-primary" href="/contact">30分の無料相談を予約する</a>
+<a class="btn btn-primary" href="/contact">30分の無料相談を申し込む</a>
 <a class="btn btn-ghost" href="/cases">導入事例を見る</a>
 </div>
 <p class="cta-foot">初回のご相談・お見積もりまで無料です。具体的な資料がなくても構いません。</p>
 </section>`}
+${servicesHtml}
 ${relatedHtml}
 <p class="disclaimer">本コラムは一般的な情報提供を目的としたもので、特定の成果を保証するものではありません。導入可否や効果は、企業の状況・データ・体制により異なります。具体的なご相談は個別にお問い合わせください。</p>
 <a class="back-link" href="/column">← コラム一覧へ戻る</a>
@@ -616,12 +644,12 @@ ${SHOW_DIAGNOSIS ? `<div class="cta">
 <span class="cta-eyebrow">無料・所要3分・その場で結果</span>
 <h2>自社のAI活用、どこから始める？ まず3分の無料診断で確かめる</h2>
 <p>業種と課題を入力するだけで、AIが最適な活用施策・導入後のワークフロー・削減できる工数とコストを、提案書レベルのレポートにしてその場でお返しします。ITに詳しくない方でも大丈夫です。</p>
-<div class="btns"><a class="btn btn-primary" href="/diagnosis">無料でAI活用診断を受ける</a><a class="btn btn-ghost" href="/contact">30分の無料相談を予約する</a></div>
+<div class="btns"><a class="btn btn-primary" href="/diagnosis">無料でAI活用診断を受ける</a><a class="btn btn-ghost" href="/contact">30分の無料相談を申し込む</a></div>
 </div>` : `<div class="cta">
 <span class="cta-eyebrow">初回相談・お見積もりまで無料</span>
 <h2>自社のAI活用、どこから始める？ まず30分お話しませんか</h2>
 <p>今の業務を伺い、どこからAIに任せられるか、どこは人が持つべきかを整理してお返しします。ITに詳しくない方でも大丈夫です。</p>
-<div class="btns"><a class="btn btn-primary" href="/contact">30分の無料相談を予約する</a><a class="btn btn-ghost" href="/cases">導入事例を見る</a></div>
+<div class="btns"><a class="btn btn-primary" href="/contact">30分の無料相談を申し込む</a><a class="btn btn-ghost" href="/cases">導入事例を見る</a></div>
 </div>`}
 </section>
 ${FOOTER}

@@ -242,6 +242,14 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 .btn-primary{background:var(--blue);color:#fff}
 .btn-ghost{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.25)}
 
+/* 関連サービス */
+.svc-links{margin:48px 0 0}
+.svc-links h2{font-size:1.1rem;font-weight:800;margin-bottom:14px}
+.svc-links ul{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.svc-links a{display:block;border:1px solid var(--line);border-left:4px solid var(--blue);border-radius:14px;padding:16px 18px;text-decoration:none;color:var(--ink);background:#fff}
+.svc-links a:hover{border-color:var(--blue)}
+.svc-links strong{display:block;font-weight:800;margin-bottom:4px}
+.svc-links span{font-size:.88rem;color:var(--muted)}
 /* 関連記事 */
 .related{margin:56px 0 0;padding-top:36px;border-top:1px solid var(--line)}
 .related h2{font-size:1.25rem;font-weight:800;margin-bottom:20px}
@@ -383,12 +391,13 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 <h2>では、御社の場合はどうか？ まず30分お話しませんか</h2>
 <p>製造業の業務のどこにAIを使えるか、どこは人が持つべきかを整理してお返しします。現状を伺うところから始められます。</p>
 <div class="btns">
-<a class="btn btn-primary" href="/contact">30分の無料相談を予約する</a>
+<a class="btn btn-primary" href="/contact">30分の無料相談を申し込む</a>
 <a class="btn btn-ghost" href="/cases">導入事例を見る</a>
 </div>
 <p class="cta-foot">初回のご相談・お見積もりまで無料です。具体的な資料がなくても構いません。</p>
 </section>
-<section class="related"><h2>製造業の関連コラム</h2><div class="grid"><a class="card" href="/column/manufacturing-inventory-optimization-ai"><span class="thumb"><img src="/assets/column/ind_manufacturing.jpg" alt="倉庫内の在庫データとAI予測のグラフをタブレットで確認する現場責任者" loading="lazy"/><span class="k">製造業</span></span><span class="body"><h3>製造業の在庫最適化にAIをどう活かすか — 「適正在庫」をデータで導き出す</h3><span class="foot">2026.10.24</span></span></a><a class="card" href="/column/manufacturing-knowledge-management-ai"><span class="thumb"><img src="/assets/column/ind_manufacturing.jpg" alt="製造現場でタブレットを使い、過去の技術図面とAIの回答を照らし合わせる現場リーダー" loading="lazy"/><span class="k">製造業</span></span><span class="body"><h3>製造現場の「技術資料探し」をAIで効率化する — 熟練者の知恵と過去図面を資産に変える完全ガイド</h3><span class="foot">2026.10.12</span></span></a><a class="card" href="/column/manufacturing-process-optimization-ai"><span class="thumb"><img src="/assets/column/ind_manufacturing.jpg" alt="複雑な製造工程のデータを分析し、最適なパラメータをタブレットで確認する現場責任者" loading="lazy"/><span class="k">製造業</span></span><span class="body"><h3>製造現場の「職人の勘」をAIで形式知化する — 最適な製造条件を導き出す進め方</h3><span class="foot">2026.09.30</span></span></a></div></section>
+<section class="svc-links"><h2>このテーマに関するMGCのサービス</h2><ul><li><a href="/service/ai-sales"><strong>AI営業</strong><span>リスト作成から初回接触・返信対応・日程調整まで、営業の前工程をAIが担う</span></a></li></ul></section>
+<section class="related"><h2>製造業の関連コラム</h2><div class="grid"><a class="card" href="/column/manufacturing-process-optimization-ai"><span class="thumb"><img src="/assets/column/ind_manufacturing.jpg" alt="複雑な製造工程のデータを分析し、最適なパラメータをタブレットで確認する現場責任者" loading="lazy"/><span class="k">製造業</span></span><span class="body"><h3>製造現場の「職人の勘」をAIで形式知化する — 最適な製造条件を導き出す進め方</h3><span class="foot">2026.09.30</span></span></a><a class="card" href="/column/manufacturing-skill-transfer-ai"><span class="thumb"><img src="/assets/column/ind_manufacturing.jpg" alt="熟練工の作業をタブレットで撮影しAIが解析している製造現場の様子" loading="lazy"/><span class="k">製造業</span></span><span class="body"><h3>製造業の技術承継をAIで加速する — 熟練工の「勘とコツ」を資産に変える</h3><span class="foot">2026.09.02</span></span></a><a class="card" href="/column/manufacturing-production-scheduling-ai"><span class="thumb"><img src="/assets/column/ind_manufacturing.jpg" alt="複雑な製造工程のスケジュールをデジタル画面で最適化するイメージ" loading="lazy"/><span class="k">製造業</span></span><span class="body"><h3>製造業の生産計画をAIで最適化する — 熟練者の「勘」をデジタル資産へ</h3><span class="foot">2026.08.19</span></span></a></div></section>
 <p class="disclaimer">本コラムは一般的な情報提供を目的としたもので、特定の成果を保証するものではありません。導入可否や効果は、企業の状況・データ・体制により異なります。具体的なご相談は個別にお問い合わせください。</p>
 <a class="back-link" href="/column">← コラム一覧へ戻る</a>
 </article>
@@ -401,8 +410,8 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 <footer class="site-footer">
 <div class="cols">
 <div class="brand-col"><strong>ＭＧＣ株式会社（MGC Inc.）</strong><p>AIとテクノロジーで、日本と世界をつなぐ。</p><p>京都府京都市上京区西辰巳町111 アビタシオンオンズアン106</p></div>
-<div><h2>事業・サービス</h2><ul><li><a href="/works">事業内容</a></li><li><a href="/service/ai-sales">AI営業</a></li><li><a href="/service/ai-phone">AI電話</a></li><li><a href="/service/salesforce-ai">Salesforce AI</a></li></ul></div>
-<div><h2>実績・ナレッジ</h2><ul><li><a href="/cases">導入事例</a></li><li><a href="/training">研修</a></li><li><a href="/column">コラム</a></li></ul></div>
+<div><h2>事業・サービス</h2><ul><li><a href="/works">事業内容</a></li><li><a href="/works/ai-solutions">AIソリューション</a></li><li><a href="/service/ai-sales">AI営業</a></li><li><a href="/service/ai-phone">AI電話</a></li><li><a href="/service/salesforce-ai">Salesforce AI</a></li><li><a href="/works/ai-business-launch">AI事業立ち上げ支援</a></li><li><a href="/training">研修</a></li><li><a href="/works/cross-border">クロスボーダー</a></li></ul></div>
+<div><h2>実績・ナレッジ</h2><ul><li><a href="/cases">導入事例</a></li><li><a href="/column">コラム</a></li></ul></div>
 <div><h2>会社情報</h2><ul><li><a href="/mission">会社理念</a></li><li><a href="/company">会社概要</a></li><li><a href="/career">採用情報</a></li><li><a href="/contact">お問い合わせ</a></li></ul></div>
 </div>
 <div class="bottom"><span>© 2026 MGC Inc. All Rights Reserved.</span><span><a href="/privacy-policy">プライバシーポリシー</a>　<a href="/terms-of-service">利用規約</a></span></div>

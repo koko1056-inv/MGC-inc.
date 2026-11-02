@@ -242,6 +242,14 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 .btn-primary{background:var(--blue);color:#fff}
 .btn-ghost{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.25)}
 
+/* 関連サービス */
+.svc-links{margin:48px 0 0}
+.svc-links h2{font-size:1.1rem;font-weight:800;margin-bottom:14px}
+.svc-links ul{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.svc-links a{display:block;border:1px solid var(--line);border-left:4px solid var(--blue);border-radius:14px;padding:16px 18px;text-decoration:none;color:var(--ink);background:#fff}
+.svc-links a:hover{border-color:var(--blue)}
+.svc-links strong{display:block;font-weight:800;margin-bottom:4px}
+.svc-links span{font-size:.88rem;color:var(--muted)}
 /* 関連記事 */
 .related{margin:56px 0 0;padding-top:36px;border-top:1px solid var(--line)}
 .related h2{font-size:1.25rem;font-weight:800;margin-bottom:20px}
@@ -380,12 +388,13 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 <h2>では、御社の場合はどうか？ まず30分お話しませんか</h2>
 <p>金融・保険の業務のどこにAIを使えるか、どこは人が持つべきかを整理してお返しします。現状を伺うところから始められます。</p>
 <div class="btns">
-<a class="btn btn-primary" href="/contact">30分の無料相談を予約する</a>
+<a class="btn btn-primary" href="/contact">30分の無料相談を申し込む</a>
 <a class="btn btn-ghost" href="/cases">導入事例を見る</a>
 </div>
 <p class="cta-foot">初回のご相談・お見積もりまで無料です。具体的な資料がなくても構いません。</p>
 </section>
-<section class="related"><h2>金融・保険の関連コラム</h2><div class="grid"><a class="card" href="/column/finance-fraud-detection-operational-resilience"><span class="thumb"><img src="/assets/column/ind_finance.jpg" alt="複雑な金融取引データからAIが異常なパターンを検知するイメージ" loading="lazy"/><span class="k">金融・保険</span></span><span class="body"><h3>金融不正検知にAIをどう組み込むか — 誤検知の山を減らし「真のリスク」に注力する</h3><span class="foot">2026.11.02</span></span></a><a class="card" href="/column/finance-knowledge-management-compliance-ai"><span class="thumb"><img src="/assets/column/ind_finance.jpg" alt="金融機関のオフィスで、行員がAIアシスタントを活用して数千ページの規定集から瞬時に正解を導き出しているイメージ" loading="lazy"/><span class="k">金融・保険</span></span><span class="body"><h3>金融実務の「内部知見」をAIで活用する — 膨大な規定やマニュアルを現場の武器に</h3><span class="foot">2026.10.20</span></span></a><a class="card" href="/column/finance-ai-reliability-governance-strategy"><span class="thumb"><img src="/assets/column/ind_finance.jpg" alt="金融機関におけるAIの透明性と信頼性を象徴するイメージ" loading="lazy"/><span class="k">金融・保険</span></span><span class="body"><h3>金融実務でAIの信頼性をどう担保するか — 精度向上とリスク管理の両立</h3><span class="foot">2026.10.08</span></span></a></div></section>
+<section class="svc-links"><h2>このテーマに関するMGCのサービス</h2><ul><li><a href="/service/ai-sales"><strong>AI営業</strong><span>リスト作成から初回接触・返信対応・日程調整まで、営業の前工程をAIが担う</span></a></li></ul></section>
+<section class="related"><h2>金融・保険の関連コラム</h2><div class="grid"><a class="card" href="/column/finance-ai-reliability-governance-strategy"><span class="thumb"><img src="/assets/column/ind_finance.jpg" alt="金融機関におけるAIの透明性と信頼性を象徴するイメージ" loading="lazy"/><span class="k">金融・保険</span></span><span class="body"><h3>金融実務でAIの信頼性をどう担保するか — 精度向上とリスク管理の両立</h3><span class="foot">2026.10.08</span></span></a><a class="card" href="/column/finance-unstructured-data-compliance"><span class="thumb"><img src="/assets/column/ind_finance.jpg" alt="金融機関のオフィスでAIを活用し大量の書類を分析するプロフェッショナルのイメージ" loading="lazy"/><span class="k">金融・保険</span></span><span class="body"><h3>金融・保険業のAI活用 ― 非定型ドキュメント審査とコンプライアンスの自動化</h3><span class="foot">2026.09.14</span></span></a><a class="card" href="/column/finance-risk-assessment-customer-support-ai"><span class="thumb"><img src="/assets/column/ind_finance.jpg" alt="金融機関のオフィスで、AIの分析データを確認しながら顧客対応の準備をする専門職のイメージ" loading="lazy"/><span class="k">金融・保険</span></span><span class="body"><h3>金融・保険業のAI査定と顧客応対 — 「判断の根拠」を可視化する導入術</h3><span class="foot">2026.08.28</span></span></a></div></section>
 <p class="disclaimer">本コラムは一般的な情報提供を目的としたもので、特定の成果を保証するものではありません。導入可否や効果は、企業の状況・データ・体制により異なります。具体的なご相談は個別にお問い合わせください。</p>
 <a class="back-link" href="/column">← コラム一覧へ戻る</a>
 </article>
@@ -398,8 +407,8 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 <footer class="site-footer">
 <div class="cols">
 <div class="brand-col"><strong>ＭＧＣ株式会社（MGC Inc.）</strong><p>AIとテクノロジーで、日本と世界をつなぐ。</p><p>京都府京都市上京区西辰巳町111 アビタシオンオンズアン106</p></div>
-<div><h2>事業・サービス</h2><ul><li><a href="/works">事業内容</a></li><li><a href="/service/ai-sales">AI営業</a></li><li><a href="/service/ai-phone">AI電話</a></li><li><a href="/service/salesforce-ai">Salesforce AI</a></li></ul></div>
-<div><h2>実績・ナレッジ</h2><ul><li><a href="/cases">導入事例</a></li><li><a href="/training">研修</a></li><li><a href="/column">コラム</a></li></ul></div>
+<div><h2>事業・サービス</h2><ul><li><a href="/works">事業内容</a></li><li><a href="/works/ai-solutions">AIソリューション</a></li><li><a href="/service/ai-sales">AI営業</a></li><li><a href="/service/ai-phone">AI電話</a></li><li><a href="/service/salesforce-ai">Salesforce AI</a></li><li><a href="/works/ai-business-launch">AI事業立ち上げ支援</a></li><li><a href="/training">研修</a></li><li><a href="/works/cross-border">クロスボーダー</a></li></ul></div>
+<div><h2>実績・ナレッジ</h2><ul><li><a href="/cases">導入事例</a></li><li><a href="/column">コラム</a></li></ul></div>
 <div><h2>会社情報</h2><ul><li><a href="/mission">会社理念</a></li><li><a href="/company">会社概要</a></li><li><a href="/career">採用情報</a></li><li><a href="/contact">お問い合わせ</a></li></ul></div>
 </div>
 <div class="bottom"><span>© 2026 MGC Inc. All Rights Reserved.</span><span><a href="/privacy-policy">プライバシーポリシー</a>　<a href="/terms-of-service">利用規約</a></span></div>
