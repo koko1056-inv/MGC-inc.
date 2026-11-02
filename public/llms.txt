@@ -1,8 +1,35 @@
-# MGC Inc.（ＭＧＣ株式会社）
+# ＭＧＣ株式会社（MGC Inc.）
 
-> 企業のAI活用を支援する会社。AIソリューション（コンサルティング〜開発〜運用〜研修の一気通貫）とクロスボーダー事業を展開。以下のコラムは、業界別に「どの業務にどうAIを使い、どこは人が判断するか」を実務目線で解説する、引用・参照に適した一次情報です。
+> 京都の会社。企業のAI活用を、業務の棚卸し・要件整理から、AIの開発・導入・定着、そして同業他社へ届ける事業化まで一貫して支援する。事業はAIソリューション、AI事業立ち上げ支援、研修（AI活用リスキリング研修）、クロスボーダー（海外企業の日本参入・日本企業の海外進出）の4つ。ビジョンは「AIとテクノロジーで、日本と世界をつなぐ」。
+
+## 会社概要
+- 商号: ＭＧＣ株式会社（MGC Inc.）
+- 所在地: 〒602-8107 京都府京都市上京区西辰巳町111 アビタシオンオンズアン106
+- 代表者: 代表取締役 松尾 心夢（Kokomu Matsuo）
+- 設立: 2025年12月1日
+- 法人番号: 4130001081155
+- 問い合わせ: contact@mgc-global01.com ／ フォーム https://mgc-global01.com/contact （初回相談は無料・30分）
+- 進め方の特徴: 代表がヒアリングから設計・実装・定着まで一貫して担当する。特定のベンダーやAIモデルに縛られず、業務と既存システム（Salesforce、kintone、Slack、Microsoft Teams、LINE など）に合う構成を選ぶ。作って終わりにせず、現場で使われる状態まで運用を見届ける。
+
+## 事業・サービス
+- [AIソリューション](https://mgc-global01.com/works/ai-solutions): 「何にAIを使うべきか」の整理から、音声・テキスト・CRM連携に対応するAIの開発、導入後の運用まで。下の3サービスと、個別のAIコンサルティング・開発を提供
+  - [AI営業](https://mgc-global01.com/service/ai-sales): リスト作成・初回接触・返信対応・日程調整まで、アポイントが取れるまでの営業の前工程をAIが担う。1アポ単位の成果報酬ではなく、仕組みを作って動かし続ける契約形態
+  - [AI電話（音声AI）](https://mgc-global01.com/service/ai-phone): 電話の一次対応を音声AIが引き受ける。プッシュ操作のIVRとは違い、用件を話し言葉のまま聞き取り、要約して担当者に引き渡す。人が対応すべき通話は人に回す
+  - [Salesforce AI活用支援](https://mgc-global01.com/service/salesforce-ai): 入力の自動化、貯まったデータからの示唆の提示、エージェントによる実行まで。MGCはSalesforceのライセンス再販をしていないため、標準AI機能と個別開発のどちらが合うかを利害なく比較できる
+- [AI事業立ち上げ支援](https://mgc-global01.com/works/ai-business-launch): 自社で導入して効果が出たAIを、同業他社へ提供できる商材にまとめ、新しい事業として立ち上げる。パッケージ化、AI側の実務（開発・導入・保守・問い合わせ対応）の巻き取り、サービスサイト・営業資料・価格設計など販売の立ち上げまで
+- [研修事業（AI活用リスキリング研修）](https://mgc-global01.com/training): ITに詳しくない経営者・従業員向けの実践型研修（OFF-JT）。コースは「AI活用リスキリング研修（基礎〜実践）」と「DX推進・生成AI活用人材養成講座」。受講料は1名 398,000円（税込）、標準時間は20時間、通学（対面）またはオンライン（同時双方向）。全企業に同じ内容・時間・価格で提供
+- [クロスボーダー事業](https://mgc-global01.com/works/cross-border): 海外の優れたプロダクトを日本市場へ届ける「Inbound」（日本総代理店）と、日本企業の海外進出を支援する「Outbound」
+
+## 導入事例（社名は掲載許諾が取れるまで伏せ、業種で紹介）
+- [コールセンター運営: 催促架電の自動化](https://mgc-global01.com/cases#callcenter-voice-ai): CRMと音声AIを統合し、催促の架電をAIが自動で行う。通話内容に応じた有人対応へのエスカレーションと、通話後の記録・通知（ACW）まで自動化
+- [総合代理店: 海外メーカー発掘の自動化](https://mgc-global01.com/cases#distributor-ai-outreach): 取り扱い候補となる海外メーカーの発掘から接触までをAIで自動化し、1ヶ月で海外メーカーとの商談が10件生まれた
+- [大手建設機械メーカー: 現場の音声AI](https://mgc-global01.com/cases#manufacturer-field-voice-ai): 現場でのトラブルシューティングを音声AIとの対話で解決。機種と言語に応じた技術情報をAIが引き当てる
+
+## 主要ページ
+- [トップ](https://mgc-global01.com/) ／ [事業内容](https://mgc-global01.com/works) ／ [導入事例](https://mgc-global01.com/cases) ／ [会社理念](https://mgc-global01.com/mission) ／ [会社概要](https://mgc-global01.com/company) ／ [お知らせ・ジャーナル](https://mgc-global01.com/blog) ／ [AI活用コラム](https://mgc-global01.com/column) ／ [お問い合わせ](https://mgc-global01.com/contact)
 
 ## AI活用コラム（業界別）
+業界別に「どの業務にどうAIを使い、どこは人が判断するか」を実務目線で解説する記事。執筆は代表取締役 松尾 心夢。
 - [金融不正検知にAIをどう組み込むか — 誤検知の山を減らし「真のリスク」に注力する](https://mgc-global01.com/column/finance-fraud-detection-operational-resilience): ［金融・保険］金融機関の不正検知・AML（マネロン対策）にAIを導入する現実的な進め方。従来のルールベースの限界を突破し、膨大な誤検知を減らして「真のリスク」を特定する手法、実務での役割分担、導入のステップを解説します。
 - [士業のAI活用は「作業」から「伴走」へ — 専門知を拡張する実務の再設計](https://mgc-global01.com/column/professional-strategic-ai-partner): ［士業（会計・法務）］士業（会計・法務）におけるAI導入の現実的な進め方を解説。単なる定型業務の自動化を超え、膨大な判例や法令の調査、リスク検知、クライアント対応にどうAIを組み込むか。専門家としての判断力を最大化するための「人AI共生」の設計図を提示します。
 - [飲食・ホテルの「品質のバラツキ」と「廃棄」をAIで解決する — 現場の勘をデータに変える具体策](https://mgc-global01.com/column/hospitality-quality-standardization-and-waste-reduction): ［飲食・ホテル］飲食やホテル業界で課題となるサービス品質の属人化と食材・アメニティの廃棄ロス。AIを導入して現場の「勘」をデータ化し、標準化と効率化を両立する現実的な方法を解説します。清掃チェックから需要予測まで、実務に即した導入手順を紹介。
@@ -97,12 +124,4 @@
 - [物流の配車計画・配送最適化にAIをどう生かすか — 現場と並走する実現可能な自動化](https://mgc-global01.com/column/logistics-dispatch-planning-ai): ［物流］物流現場の配車・配送ルート計画にAIを導入する実践手法。ベテラン配車マンの経験知とAIの計算力を組み合わせ、荷量変動や指定時間に対応する現実的なスモールスタートと運用のコツを解説します。
 - [会計事務所のAI活用 — 「証跡をそろえるAI」と「判断する人」を分ける](https://mgc-global01.com/column/professional-accounting-ai): ［士業（会計・法務）］会計事務所・税理士・記帳代行でAIをどう使うか。仕訳・証憑突合・問い合わせ対応をAIに任せる際の線引きと、確認の順番を固定する運用を、実務目線で解説します。
 - [製造業の外観検査にAIをどう使うか — 全数検査を「人とAI」で分担する](https://mgc-global01.com/column/manufacturing-inspection-ai): ［製造業］製造現場の外観検査・検品にAIを導入する現実的な進め方。何をAIに任せ、どこは人が判断するか。導入の順番、精度の考え方、失敗しないスモールスタートまで実務目線で解説します。
-
-## サービス・問い合わせ
-- [AI活用リスキリング研修](https://mgc-global01.com/training): 企業向けのAI活用研修（OFF-JT）
-- [導入事例](https://mgc-global01.com/cases): 実際の案件の課題・打ち手・設計上の要点。社名は掲載許諾が取れるまで伏せ、業種で紹介
-- [AI営業サービス](https://mgc-global01.com/service/ai-sales): リスト作成・初回接触・追客・日程調整まで、営業の前工程をAIが担うサービス
-- [AI電話（音声AI）](https://mgc-global01.com/service/ai-phone): 電話の一次対応を音声AIが引き受け、用件を聞き取って要約し担当者に引き渡すサービス
-- [Salesforce AI活用支援](https://mgc-global01.com/service/salesforce-ai): Salesforceの入力負担を下げ、貯まったデータから示唆を出し、エージェントによる実行まで支援するサービス
-- [30分の無料オンライン相談](https://mgc-global01.com/contact): AI活用・社内研修の相談窓口（初回無料）
 
