@@ -565,14 +565,53 @@ export const en: Translation = {
       lead: 'A hands-on training program (OFF-JT) that helps managers and employees who are not IT specialists introduce and use AI at work — from the foundations to putting AI to work, through lectures, industry examples, and demos.',
       cta: 'Request materials / Contact us',
     },
+    forWhom: {
+      heading: 'Who it is for',
+      eyebrow: 'For',
+      items: [
+        'Executives and managers who want to bring AI into their work but are not IT specialists',
+        'Employees who want to use generative AI in their everyday work',
+        'People who lead, or are about to lead, DX in their company',
+        'Department leaders, and IT or planning teams',
+      ],
+    },
+    compare: {
+      heading: 'Comparing the two courses',
+      eyebrow: 'Compare',
+      labels: { target: 'Audience', aim: 'Goal', format: 'Format', hours: 'Standard hours', fee: 'Fee', themes: 'Key themes' },
+      courseLabel: 'Course',
+    },
     course: {
       heading: 'Example courses',
       eyebrow: 'Course',
       nameLabel: 'Course name (example)',
       overviewLabel: 'What the training covers',
+      featuresLabel: 'Features',
+      outcomesLabel: 'What you will learn',
+      detailLabel: 'Course details',
+      themesLabel: 'Key themes',
       items: [
         {
           name: 'AI Reskilling Program (Foundations to Practice)',
+          aim: 'From the big picture of AI to making AI a working asset through data integration',
+          features: [
+            'Hands-on training designed for executives and employees who are not IT specialists',
+            'Lectures, industry examples and demos that show concrete use cases',
+            'Goes beyond tool usage to building AI into work through data integration',
+          ],
+          outcomes: [
+            'Explain the main types of AI tools and how to use each in your work',
+            'Do real work with generative AI: writing, research, summarizing, translation',
+            'Understand how to delegate tasks to AI agents and have them produce deliverables',
+            'Grasp how to connect data via API so AI can work with business context',
+            'Understand the basics of security, personal-data handling, and permission design',
+            'Plan, in your own words, which tasks to hand off, connected to which data',
+          ],
+          themes: [
+            { heading: 'Understand AI', items: ['Overview of AI tools', 'Generative AI vs. AI agents'] },
+            { heading: 'Connect it to work', items: ['Using data via API', 'How to apply AI to business processes'] },
+            { heading: 'Use it safely', items: ['Security & permission design'] },
+          ],
           overview: 'An OFF-JT course — lectures, industry examples, and demos — taking you from the big picture of AI to making AI a real working asset through data integration.',
           specs: [
             { label: 'Audience', value: 'Executives, managers, and employees who want to bring AI into their work' },
@@ -584,6 +623,25 @@ export const en: Translation = {
         },
         {
           name: 'DX Leadership & Generative AI Practitioner Program',
+          aim: 'Become the person who drives DX — from mapping work to implementing and embedding AI',
+          features: [
+            'Develops the people who will drive DX inside your company',
+            'Covers mapping current work and designing digitalization and automation',
+            'Hands-on exercises through to implementing and embedding generative AI',
+          ],
+          outcomes: [
+            'Understand what DX is and how to drive it, and explain it internally',
+            'Map current work and find what can be digitalized or automated',
+            'Redesign business processes with generative AI',
+            'Know how to automate with no-code and automation tools',
+            'Know how to embed changes and measure their impact',
+            'Understand the basics of security and internal rules',
+          ],
+          themes: [
+            { heading: 'Driving DX', items: ['What DX is and how to drive it', 'Mapping work and finding bottlenecks'] },
+            { heading: 'Design and build', items: ['Redesigning processes with generative AI', 'No-code and automation tools'] },
+            { heading: 'Adoption and rules', items: ['Driving adoption and measuring impact', 'Security and internal rules'] },
+          ],
           overview: 'A program for the people who will drive DX inside your company. Through hands-on exercises, participants learn to map current work, design digitalization and automation, and implement and embed generative AI in daily operations.',
           specs: [
             { label: 'Audience', value: 'DX leads and candidates, department leaders, IT and planning teams' },
@@ -596,18 +654,6 @@ export const en: Translation = {
       ],
       note: 'Every course is offered to all companies on the same terms — same content, hours, and price.',
     },
-    skills: {
-      heading: 'Knowledge & skills you will gain',
-      eyebrow: 'Outcomes',
-      items: [
-        'Explain the main types of AI tools and how to use each in your work',
-        'Do real work with generative AI: writing, research, summarizing, translation',
-        'Understand how to delegate tasks to AI agents and have them produce deliverables',
-        'Grasp how to connect data via API so AI can work with business context',
-        'Understand the basics of security, personal-data handling, and permission design',
-        'Plan, in your own words, which tasks to hand off, connected to which data',
-      ],
-    },
     faq: {
       heading: 'Training FAQ',
       eyebrow: 'FAQ',
@@ -617,6 +663,9 @@ export const en: Translation = {
         { q: 'Can we take it online?', a: 'Yes. It is available in person or online (live, two-way).' },
         { q: 'Who is it for?', a: 'The AI Reskilling course is for executives, managers and employees who want to bring AI into their work; the DX Enablement course is for people leading or about to lead DX, department leaders, and IT or planning teams. Both assume no IT background.' },
         { q: 'What is the process from application to delivery?', a: 'Hearing → fixing dates and format → training (OFF-JT) → practice support and review. Start by requesting materials or a consultation from the contact section on this page.' },
+        { q: 'Can we take it without an IT background?', a: 'Yes. Both courses assume no IT background. Through lectures, industry examples and demos, you learn from the foundations to practical use at work.' },
+        { q: 'Can we ask for training only?', a: 'Yes. The training is offered on its own. You can start with training and expand into consulting or development later.' },
+        { q: 'Can we ask you to implement AI after the training?', a: 'Yes. After the training, practice support and review help you apply it at work. To build AI into your operations, our AI Solutions service starts with a 2–4 week PoC to test the effect with something that actually runs, then takes you through development, integration with existing systems and adoption support.' },
       ],
     },
     flow: {
@@ -628,6 +677,17 @@ export const en: Translation = {
         { no: '03', title: 'Training (OFF-JT)', desc: 'Learn from foundations to practice through lectures, examples, and demos.' },
         { no: '04', title: 'Practice support & review', desc: 'We support putting what you learned into practice and stay with you until it sticks.' },
       ],
+    },
+    after: {
+      heading: 'After the training',
+      eyebrow: 'After Training',
+      lead: 'The training does not end with learning. You can continue with the same team, from applying it at work to implementing AI where needed.',
+      steps: [
+        { title: 'Practice support & review', desc: 'We support putting what you learned into practice and stay with you until it sticks.' },
+        { title: 'AI Solutions (2–4 week PoC)', desc: 'To build AI into your operations, a 2–4 week PoC tests the effect with something that actually runs, followed by development, integration with existing systems and adoption support.' },
+      ],
+      link: 'See AI Solutions',
+      linkHref: '/works/ai-solutions',
     },
     contact: {
       heading: 'Apply / Request materials',

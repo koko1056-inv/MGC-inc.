@@ -2016,7 +2016,7 @@ const ContactView: React.FC<{ onNavigate?: (view: ViewState) => void; initialSen
 };
 
 
-const TrainingView: React.FC = () => {
+const TrainingView: React.FC<{ onNavigatePath: (to: string) => void }> = ({ onNavigatePath }) => {
   const { t } = useLanguage();
   const tr = t.training;
 
@@ -2058,54 +2058,14 @@ const TrainingView: React.FC = () => {
           </div>
         </section>
 
-        {/* Course */}
+        {/* こんな方に */}
         <section className="px-6 md:px-12 mt-20 md:mt-28">
           <div className="max-w-screen-xl mx-auto">
-            <Reveal><Head eyebrow={tr.course.eyebrow} title={tr.course.heading} /></Reveal>
-            <div className="space-y-14 md:space-y-20">
-              {tr.course.items.map((course, ci) => (
-                <div key={ci} className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
-                  <Reveal className="lg:col-span-1">
-                    <div className="rounded-3xl border-2 border-[#2D6CDF]/20 bg-[#2D6CDF]/[0.04] p-7 md:p-8 h-full">
-                      <span className="text-xs font-bold tracking-widest uppercase text-[#2D6CDF]">{tr.course.nameLabel}</span>
-                      <p className="text-xl md:text-2xl font-bold text-[#111418] mt-3 leading-[1.6]">{course.name}</p>
-                      <div className="mt-6 pt-6 border-t border-[#2D6CDF]/15">
-                        <span className="text-xs font-bold tracking-widest uppercase text-gray-500">{tr.course.overviewLabel}</span>
-                        <p className="text-[15px] md:text-base text-gray-700 mt-3 leading-[1.9]">{course.overview}</p>
-                      </div>
-                    </div>
-                  </Reveal>
-                  <div className="lg:col-span-2">
-                    <dl className="grid grid-cols-1">
-                      {course.specs.map((s, i) => (
-                        <Reveal key={i} delay={i * 80}>
-                          <div className="flex flex-col md:flex-row gap-2 md:gap-8 py-6 border-b border-gray-200">
-                            <dt className="md:w-40 flex-shrink-0 text-sm font-bold text-[#2D6CDF] pt-0.5">{s.label}</dt>
-                            <dd className="flex-1 text-base md:text-lg text-[#111418] leading-[1.8]">{s.value}</dd>
-                          </div>
-                        </Reveal>
-                      ))}
-                    </dl>
-                  </div>
-                </div>
-              ))}
-            </div>
-            {tr.course.note && (
-              <Reveal>
-                <p className="text-sm text-gray-500 leading-[1.9] mt-10">{tr.course.note}</p>
-              </Reveal>
-            )}
-          </div>
-        </section>
-
-        {/* Skills / Outcomes */}
-        <section className="px-6 md:px-12 mt-20 md:mt-28">
-          <div className="max-w-screen-xl mx-auto">
-            <Reveal><Head eyebrow={tr.skills.eyebrow} title={tr.skills.heading} /></Reveal>
+            <Reveal><Head eyebrow={tr.forWhom.eyebrow} title={tr.forWhom.heading} /></Reveal>
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
-              {tr.skills.items.map((item, i) => (
+              {tr.forWhom.items.map((item, i) => (
                 <Reveal key={i} delay={i * 70}>
-                  <li className="flex items-start gap-4 rounded-2xl border border-gray-200 bg-white p-5 md:p-6 h-full hover:border-[#2D6CDF]/40 transition-colors duration-300">
+                  <li className="flex items-start gap-4 rounded-2xl border border-gray-200 bg-white p-5 md:p-6 h-full">
                     <span className="flex-shrink-0 w-8 h-8 rounded-full bg-[#2D6CDF]/10 text-[#2D6CDF] flex items-center justify-center mt-0.5">
                       <Check className="w-4 h-4" strokeWidth={3} />
                     </span>
@@ -2114,6 +2074,116 @@ const TrainingView: React.FC = () => {
                 </Reveal>
               ))}
             </ul>
+          </div>
+        </section>
+
+        {/* 2コースの比較表（値はコースのデータから取る。受講料・時間などを二重に書かない） */}
+        <section className="px-6 md:px-12 mt-20 md:mt-28">
+          <div className="max-w-screen-xl mx-auto">
+            <Reveal><Head eyebrow={tr.compare.eyebrow} title={tr.compare.heading} /></Reveal>
+            <Reveal>
+              <div className="overflow-x-auto rounded-2xl border border-gray-200">
+                <table className="w-full min-w-[640px] text-left text-[15px] leading-[1.8]">
+                  <thead>
+                    <tr className="bg-[#111418] text-white">
+                      <th scope="col" className="w-32 md:w-40 px-5 py-4 font-bold">{tr.compare.courseLabel}</th>
+                      {tr.course.items.map((c, i) => (
+                        <th key={i} scope="col" className="px-5 py-4 font-bold">{c.name}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {([
+                      [tr.compare.labels.target, (c: typeof tr.course.items[number]) => c.specs[0].value],
+                      [tr.compare.labels.aim, (c: typeof tr.course.items[number]) => c.aim],
+                      [tr.compare.labels.format, (c: typeof tr.course.items[number]) => c.specs[1].value],
+                      [tr.compare.labels.hours, (c: typeof tr.course.items[number]) => c.specs[3].value],
+                      [tr.compare.labels.fee, (c: typeof tr.course.items[number]) => c.specs[2].value],
+                      [tr.compare.labels.themes, (c: typeof tr.course.items[number]) => c.themes.flatMap((g) => g.items).join('／')],
+                    ] as const).map(([label, get], ri) => (
+                      <tr key={ri} className="border-t border-gray-200 align-top">
+                        <th scope="row" className="bg-[#F4F6FB] px-5 py-4 font-bold text-[#111418]">{label}</th>
+                        {tr.course.items.map((c, ci) => (
+                          <td key={ci} className="px-5 py-4 text-gray-700">{get(c)}</td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </Reveal>
+            {tr.course.note && (
+              <Reveal>
+                <p className="text-sm text-gray-500 leading-[1.9] mt-6">{tr.course.note}</p>
+              </Reveal>
+            )}
+          </div>
+        </section>
+
+        {/* Course: 各コースを「特徴3点・習得できること・研修詳細」の同じ型で */}
+        <section className="px-6 md:px-12 mt-20 md:mt-28">
+          <div className="max-w-screen-xl mx-auto">
+            <Reveal><Head eyebrow={tr.course.eyebrow} title={tr.course.heading} /></Reveal>
+            <div className="space-y-16 md:space-y-24">
+              {tr.course.items.map((course, ci) => (
+                <article key={ci}>
+                  <Reveal>
+                    <div className="rounded-3xl border-2 border-[#2D6CDF]/20 bg-[#2D6CDF]/[0.04] p-7 md:p-10">
+                      <span className="text-xs font-bold tracking-widest uppercase text-[#2D6CDF]">{tr.course.nameLabel}</span>
+                      <h3 className="text-xl md:text-3xl font-bold text-[#111418] mt-3 leading-[1.5]">{course.name}</h3>
+                      <p className="text-[15px] md:text-base text-gray-700 mt-4 leading-[1.9] max-w-4xl">{course.overview}</p>
+                    </div>
+                  </Reveal>
+
+                  <h4 className="text-lg md:text-xl font-bold text-[#111418] mt-10 mb-5">{tr.course.featuresLabel}</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
+                    {course.features.map((f, i) => (
+                      <Reveal key={i} delay={i * 70}>
+                        <div className="rounded-2xl bg-[#F4F6FB] border-l-4 border-[#2D6CDF] p-5 md:p-6 h-full">
+                          <span className="text-[#2D6CDF] font-bold tracking-widest text-sm">{String(i + 1).padStart(2, '0')}</span>
+                          <p className="text-[15px] md:text-base text-[#111418] font-bold mt-2 leading-[1.8]">{f}</p>
+                        </div>
+                      </Reveal>
+                    ))}
+                  </div>
+
+                  <h4 className="text-lg md:text-xl font-bold text-[#111418] mt-10 mb-5">{tr.course.outcomesLabel}</h4>
+                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+                    {course.outcomes.map((item, i) => (
+                      <li key={i} className="flex items-start gap-3 text-[15px] md:text-base text-[#111418] leading-[1.8]">
+                        <Check className="w-4 h-4 text-[#2D6CDF] flex-shrink-0 mt-1.5" strokeWidth={3} />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <h4 className="text-lg md:text-xl font-bold text-[#111418] mt-10 mb-2">{tr.course.detailLabel}</h4>
+                  <dl className="grid grid-cols-1">
+                    {course.specs.slice(0, 4).map((s, i) => (
+                      <div key={i} className="flex flex-col md:flex-row gap-2 md:gap-8 py-5 border-b border-gray-200">
+                        <dt className="md:w-40 flex-shrink-0 text-sm font-bold text-[#2D6CDF] pt-0.5">{s.label}</dt>
+                        <dd className="flex-1 text-base md:text-lg text-[#111418] leading-[1.8]">{s.value}</dd>
+                      </div>
+                    ))}
+                    <div className="flex flex-col md:flex-row gap-2 md:gap-8 py-5 border-b border-gray-200">
+                      <dt className="md:w-40 flex-shrink-0 text-sm font-bold text-[#2D6CDF] pt-0.5">{tr.course.themesLabel}</dt>
+                      <dd className="flex-1 grid grid-cols-1 sm:grid-cols-3 gap-5">
+                        {course.themes.map((g, gi) => (
+                          <div key={gi}>
+                            <p className="text-sm font-bold text-[#111418]">{g.heading}</p>
+                            <ul className="mt-2 space-y-1.5">
+                              {g.items.map((it, ii) => (
+                                <li key={ii} className="text-[15px] text-gray-700 leading-[1.7] pl-3 border-l-2 border-[#2D6CDF]/30">{it}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
+                      </dd>
+                    </div>
+                  </dl>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -2132,6 +2202,31 @@ const TrainingView: React.FC = () => {
                 </Reveal>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* 研修のあとに（実践支援・振り返り → AIソリューションのPoC） */}
+        <section className="px-6 md:px-12 mt-20 md:mt-28">
+          <div className="max-w-screen-xl mx-auto">
+            <Reveal><Head eyebrow={tr.after.eyebrow} title={tr.after.heading} /></Reveal>
+            <Reveal><p className="max-w-3xl text-base md:text-lg text-gray-700 leading-[1.9] mb-8">{tr.after.lead}</p></Reveal>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {tr.after.steps.map((step, i) => (
+                <Reveal key={i} delay={i * 90}>
+                  <div className="rounded-2xl bg-white border border-gray-200 border-t-4 border-t-[#2D6CDF] p-6 md:p-7 h-full">
+                    <span className="text-[#2D6CDF] font-bold tracking-widest text-sm">{String(i + 1).padStart(2, '0')}</span>
+                    <h3 className="text-lg md:text-xl font-bold mt-2 leading-[1.5]">{step.title}</h3>
+                    <p className="text-sm md:text-[15px] text-gray-600 mt-3 leading-[1.8]">{step.desc}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+            <Reveal>
+              <NavLink href={tr.after.linkHref} onGo={() => onNavigatePath(tr.after.linkHref)} className="group inline-flex items-center gap-2 mt-8 text-[#2D6CDF] font-bold underline underline-offset-4">
+                {tr.after.link}
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+              </NavLink>
+            </Reveal>
           </div>
         </section>
 
@@ -4166,7 +4261,7 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
       <main>
         {view === 'home' && <HomeView onNavigate={navigate} />}
         {view === 'works' && <WorksView onNavigate={navigate} />}
-        {view === 'training' && <TrainingView />}
+        {view === 'training' && <TrainingView onNavigatePath={navigatePath} />}
         {isServiceKey(view) && <ServiceView serviceKey={view} onNavigate={navigate} />}
         {view === 'cases' && <CasesView />}
         {view === 'diagnosis' && <DiagnosisView />}
