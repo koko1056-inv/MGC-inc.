@@ -41,8 +41,8 @@ export const en: Translation = {
     reasons: [
       {
         number: '01',
-        title: 'Our CEO handles it end to end',
-        desc: 'From the first conversation through design, build and adoption, our CEO works with you directly. Your point of contact never changes, so decisions reach the floor intact.',
+        title: 'A specialist team handles it end to end',
+        desc: 'From the first conversation through design, build and adoption, our specialist team handles it end to end. Your point of contact never changes, so decisions reach the floor intact.',
       },
       {
         number: '02',
@@ -86,7 +86,7 @@ export const en: Translation = {
   oneStop: {
     eyebrow: 'One-Stop Support',
     title: 'From mapping the work to launching a business.',
-    lead: "We don't build and leave. From deciding which tasks AI should take on, to getting it genuinely used on the floor, to turning that track record into a business you sell to your industry — our CEO handles it personally, end to end.",
+    lead: "We don't build and leave. From deciding which tasks AI should take on, to getting it genuinely used on the floor, to turning that track record into a business you sell to your industry — our specialist team handles it end to end.",
     steps: [
       {
         step: '01',

@@ -145,7 +145,7 @@ const jsonLdFor = (path: string): object[] => {
     }
   }
   if (view === 'company') {
-    out.push({ '@context': 'https://schema.org', ...CEO, description: 'ＭＧＣ株式会社 代表取締役。AIソリューション、AI事業立ち上げ支援、AI活用研修、クロスボーダー事業を、ヒアリングから実装・定着まで自ら担当する。' });
+    out.push({ '@context': 'https://schema.org', ...CEO, description: 'ＭＧＣ株式会社 代表取締役。AIソリューション、AI事業立ち上げ支援、AI活用研修、クロスボーダー事業を展開する同社を率いる。' });
   }
   if (view === 'glossary') {
     const g = glossaryContent.ja;
@@ -308,6 +308,7 @@ export const llmsFull = (): string => {
   L.push('');
   L.push('## 会社概要');
   t.company.items.forEach((i) => L.push(`- ${i.label}: ${i.value.replace(/\n/g, ' ／ ')}`));
+  L.push(`- 進め方: ${t.oneStop.lead}`);
   L.push('');
   L.push('## 事業');
   L.push(`${t.growthFlow.title} ${t.growthFlow.lead}`);
