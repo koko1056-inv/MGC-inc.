@@ -4,6 +4,7 @@
 - `queries.md` … 狙うクエリ・AIに聞かれそうな質問・一次情報コンテンツ案
 - `backlog.md` … 施策の一覧（効果が大きい順）
 - `changelog.md` … サイクルごとの変更履歴
+- `metrics/YYYY-MM-DD.md` … デイリーの数値（Search Console。`scripts/gsc-report.mjs`、毎朝自動実行）
 
 ## 1サイクルの流れ
 1. backlog の上から1〜3件を実装

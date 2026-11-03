@@ -109,4 +109,14 @@
   - description を充実: 会社理念 66→約110字、採用情報 62→約110字、利用規約 49→約110字（日英。掲載済みの内容のみ）
 - 狙い: 新しいコラムを検索エンジンに即日知らせる／主要ページの説明の質
 - ビルド確認: 39ページ、ワークフローの YAML 構文
-- 次: 外部の評価（Search Console・Bing Webmaster Tools の登録）は代表の操作待ち。次は監査を回して新しい課題を探す（例: コラムのタイトル重複・カニバリゼーションの確認、トップページの本文強化）
+- 本番確認（PR #69）: 全131ページ200、JSON-LD 429件すべて妥当、description 反映、IndexNow 3URL 送信 HTTP 200
+- 次: 計測の土台（Search Console・アクセス解析）
+
+## 2026-11-03 デイリー: 計測の土台
+- 数値: 取得できず（Search Console は接続・認証情報なし、Vercel Web Analytics はプロジェクトで無効）。詳細は `metrics/2026-11-03.md`
+- 変更:
+  - `scripts/gsc-report.mjs`: Search Console API から前日・7日・28日の数値（ページ別・クエリ別の増減）、サイトマップ状態、主要ページのインデックス状況を取得して `metrics/YYYY-MM-DD.md` に保存
+  - `.github/workflows/seo-daily-report.yml`: 毎朝 08:30 JST に上記を自動実行（Secrets `GSC_SERVICE_ACCOUNT_JSON` 登録後に有効）
+  - バックログ: #15（計測）を最優先に変更
+- 確認: スクリプトの認証経路（ダミー鍵でGoogleのトークンAPIまで到達し、想定どおり「アカウントなし」で拒否）、ワークフローの YAML 構文、本番の健全性（131URL・JSON-LD 429件）
+- 次: 代表の操作（Web Analytics 有効化、サービスアカウント登録）後に初回の数値を取得し、ベースライン（11/2 施策前後）を記録
