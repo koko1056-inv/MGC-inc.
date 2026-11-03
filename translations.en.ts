@@ -692,6 +692,8 @@ export const en: Translation = {
         { q: 'Can we take it without an IT background?', a: 'Yes. Both courses assume no IT background. Through lectures, industry examples and demos, you learn from the foundations to practical use at work.' },
         { q: 'Can we ask for training only?', a: 'Yes. The training is offered on its own. You can start with training and expand into consulting or development later.' },
         { q: 'Can we ask you to implement AI after the training?', a: 'Yes. After the training, practice support and review help you apply it at work. To build AI into your operations, our AI Solutions service starts with a 2–4 week PoC to test the effect with something that actually runs, then takes you through development, integration with existing systems and adoption support.' },
+        { q: 'Can you keep supporting us after the training?', a: 'Yes. On top of the practice support and review included in the training, we offer a post-training support option that continues to help you apply what you learned until it sticks. It is quoted individually.' },
+        { q: 'Can we use a subsidy?', a: 'If you are considering using a subsidy, we support the application (whether you receive it depends on the requirements). This support is free for training participants.' },
       ],
     },
     flow: {
@@ -714,6 +716,14 @@ export const en: Translation = {
       ],
       link: 'See AI Solutions',
       linkHref: '/works/ai-solutions',
+    },
+    options: {
+      heading: 'Options & support',
+      eyebrow: 'Options',
+      items: [
+        { title: 'Post-training support option', price: 'Quoted individually', desc: 'On top of the practice support and review included in the training, we continue to support you in applying what you learned at work until it sticks. Scope and period are set after hearing your needs.' },
+        { title: 'Subsidy application support', price: 'Free for training participants', desc: 'If you are considering using a subsidy, we support the application (whether you receive it depends on the requirements).' },
+      ],
     },
     contact: {
       heading: 'Apply / Request materials',

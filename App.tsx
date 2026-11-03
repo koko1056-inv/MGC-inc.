@@ -2321,6 +2321,24 @@ const TrainingView: React.FC<{ onNavigatePath: (to: string) => void }> = ({ onNa
           </div>
         </section>
 
+        {/* オプション・サポート（伴走オプションは個別見積もり、助成金申請サポートは研修受講者は無料。金額や受給の可否は書かない） */}
+        <section className="px-6 md:px-12 mt-20 md:mt-28">
+          <div className="max-w-screen-xl mx-auto">
+            <Reveal><Head eyebrow={tr.options.eyebrow} title={tr.options.heading} /></Reveal>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {tr.options.items.map((o, i) => (
+                <Reveal key={i} delay={i * 90}>
+                  <div className="rounded-2xl bg-[#F4F6FB] border-l-4 border-[#2D6CDF] p-6 md:p-8 h-full">
+                    <h3 className="text-lg md:text-xl font-bold leading-[1.5]">{o.title}</h3>
+                    <p className="inline-block mt-3 px-3 py-1 rounded-full bg-white border border-[#2D6CDF]/20 text-sm font-bold text-[#2D6CDF]">{o.price}</p>
+                    <p className="text-[15px] md:text-base text-gray-700 mt-4 leading-[1.8]">{o.desc}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Contact / Apply */}
         {/* よくある質問（受講料・時間・形式など。FAQPage の構造化データと同じ内容） */}
         <section className="px-6 md:px-12 mt-20 md:mt-28">
@@ -3372,6 +3390,14 @@ const PricingView: React.FC<{ onNavigate: (view: ViewState) => void }> = ({ onNa
             </div>
             <Reveal>
               <p className="text-sm text-gray-500 leading-[1.9] mt-6">{p.training.note}</p>
+              <ul className="mt-5 space-y-2.5">
+                {t.training.options.items.map((o, i) => (
+                  <li key={i} className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4 text-[15px] leading-[1.8]">
+                    <span className="font-bold text-[#111418] sm:w-56 flex-shrink-0">{o.title}</span>
+                    <span className="text-[#2D6CDF] font-bold">{o.price}</span>
+                  </li>
+                ))}
+              </ul>
               <NavLink href="/training" onGo={() => onNavigate('training')} className="group inline-flex items-center gap-2 mt-4 text-[#2D6CDF] font-bold underline underline-offset-4">
                 {p.training.link}<ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </NavLink>
