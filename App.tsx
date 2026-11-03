@@ -18,7 +18,7 @@ export const LanguageContext = React.createContext<{ lang: Lang; setLang: (l: La
 export const useLanguage = () => React.useContext(LanguageContext);
 // --- Types & Interfaces ---
 
-export type ViewState = 'home' | 'works' | 'training' | 'diagnosis' | 'mission' | 'partners' | 'company' | 'career' | 'contact' | 'blog' | 'cases' | 'notfound' | 'privacy-policy' | 'terms-of-service' | 'journal' | 'glossary' | 'case' | 'guides' | 'guide' | BizView | ServiceKey;
+export type ViewState = 'home' | 'works' | 'training' | 'diagnosis' | 'mission' | 'partners' | 'company' | 'career' | 'contact' | 'blog' | 'cases' | 'notfound' | 'privacy-policy' | 'terms-of-service' | 'journal' | 'glossary' | 'case' | 'guides' | 'guide' | 'pricing' | BizView | ServiceKey;
 
 // AI診断の表示切り替え。false の間は、サイト内の導線をすべて隠す。
 // ページ自体（/diagnosis）は残るため、true に戻せば元の状態に復帰する。
@@ -40,6 +40,7 @@ const PAGE_META: Record<Lang, Partial<Record<string, { title: string; descriptio
     'biz-newbiz': { title: 'AI事業立ち上げ支援｜導入したAIを同業他社へ届ける事業に - ＭＧＣ株式会社', description: '自社で導入して効果が出たAIを、同業他社へ提供できる商材にまとめ、新しい事業として立ち上げます。パッケージ化、AI側の実務の巻き取り、販売の立ち上げまで支援します。' },
     'biz-crossborder': { title: 'クロスボーダー事業｜海外企業の日本参入・日本企業の海外進出支援 - ＭＧＣ株式会社', description: '海外の優れたプロダクトを日本市場へ届ける「Inbound」と、日本企業の海外進出を支援する「Outbound」。双方向で日本と世界のビジネスをつなぎます。' },
     guides: { title: '比較・選び方ガイド｜AI電話とIVR、AI営業とテレアポ代行ほか - ＭＧＣ株式会社', description: 'AI導入でよく比べられる方法の違いと選び方を、表でまとめたガイド。AI電話・IVR・ボイスボット、AI営業とテレアポ代行、Salesforceの標準AI機能と個別開発を比較しています。' },
+    pricing: { title: '料金の考え方｜研修の受講料とAIソリューションの費用構成 - ＭＧＣ株式会社', description: '研修は1名398,000円（税込）・標準20時間。AI営業・AI電話・Salesforce AI活用支援は、初期・月額・実費などの費用の構成と、金額が変わる要因を開示しています。期間の目安と初回相談無料のご案内。' },
     glossary: { title: 'AI活用 用語集｜AIエージェント・RAG・ボイスボット・IVRなど - ＭＧＣ株式会社', description: 'AIの導入・活用でよく使われる言葉（生成AI、LLM、AIエージェント、RAG、ハルシネーション、ボイスボット、IVR、ACW、CRM、SFA、API連携、OFF-JT、リスキリング、DX）を短く説明する用語集です。' },
     'privacy-policy': { title: 'プライバシーポリシー - ＭＧＣ株式会社', description: 'ＭＧＣ株式会社のプライバシーポリシー。問い合わせフォーム・AI活用診断で取得する情報、利用目的、外部サービス、保管期間、開示等のご請求について。' },
     'terms-of-service': { title: 'サイト利用規約 - ＭＧＣ株式会社', description: 'ＭＧＣ株式会社ウェブサイト（mgc-global01.com）の利用規約。著作権、禁止事項、AI活用診断の結果の位置づけ、免責事項、外部リンク、個人情報の取扱い、準拠法・管轄（京都地方裁判所）について定めています。' },
@@ -60,6 +61,7 @@ const PAGE_META: Record<Lang, Partial<Record<string, { title: string; descriptio
     'biz-ai': { title: 'AI Solutions | AI consulting, development and operation - MGC Inc.', description: 'From deciding what AI should do, to building voice, text and CRM-connected AI, to running it after launch. AI Sales, AI Phone, Salesforce AI and bespoke AI consulting and development.' },
     'biz-newbiz': { title: 'AI Business Launch | Turn the AI you adopted into a business - MGC Inc.', description: 'We package AI that worked in your company into a product you can sell to your industry, take on the AI-side operations, and help you launch sales.' },
     'biz-crossborder': { title: 'Cross-Border | Japan market entry and overseas expansion - MGC Inc.', description: 'Inbound: bringing excellent overseas products to Japan. Outbound: helping Japanese companies expand overseas. Connecting business between Japan and the world in both directions.' },
+    pricing: { title: 'Pricing | Training fees and how AI Solutions costs are structured - MGC Inc.', description: 'Training is JPY 398,000 per participant (tax incl.) for a standard 20 hours. For AI Sales, AI Phone and Salesforce AI we disclose the cost components (initial, monthly, usage) and what changes the amount, plus typical timelines.' },
     guides: { title: 'Comparison guides | AI phone vs IVR, AI Sales vs telemarketing - MGC Inc.', description: 'Tables comparing commonly weighed approaches to AI adoption: AI phones, IVR and voicebots; AI Sales and telemarketing; Salesforce built-in AI and bespoke development.' },
     glossary: { title: 'AI Glossary | AI agents, RAG, voicebots, IVR and more - MGC Inc.', description: 'Short explanations of terms used in AI adoption: generative AI, LLMs, AI agents, RAG, hallucination, voicebots, IVR, ACW, CRM, SFA, API integration, OFF-JT, reskilling and DX.' },
     'privacy-policy': { title: 'Privacy Policy - MGC Inc.', description: 'How MGC Inc. handles information collected through the contact form, AI diagnosis and analytics.' },
@@ -98,7 +100,7 @@ const applyMeta = (m: { title: string; description: string; url: string; image: 
 export const PATH_TO_VIEW: Record<string, ViewState> = {
   '/works': 'works', '/training': 'training', '/diagnosis': 'diagnosis', '/cases': 'cases',
   '/mission': 'mission', '/company': 'company', '/career': 'career', '/contact': 'contact', '/blog': 'blog',
-  '/privacy-policy': 'privacy-policy', '/terms-of-service': 'terms-of-service', '/glossary': 'glossary', '/guide': 'guides',
+  '/privacy-policy': 'privacy-policy', '/terms-of-service': 'terms-of-service', '/glossary': 'glossary', '/guide': 'guides', '/pricing': 'pricing',
   '/works/ai-solutions': 'biz-ai', '/works/ai-business-launch': 'biz-newbiz', '/works/cross-border': 'biz-crossborder',
 };
 // 事業ごとのページ（事業内容 › 各事業）。研修は専用ページ（/training）があるため含めない
@@ -302,7 +304,7 @@ const GridPattern = ({ dark = false }: { dark?: boolean }) => (
 // --- Feature Components (Pages) ---
 
 // --- FAQ Item (collapsible accordion) ---
-const FaqItem: React.FC<{ question: string; answer: string; index: number }> = ({ question, answer, index }) => {
+const FaqItem: React.FC<{ question: string; answer: string; index: number; link?: { href: string; label: string; onGo: () => void } }> = ({ question, answer, index, link }) => {
   const [open, setOpen] = useState(index === 0); // First open by default
   return (
     <div className={`group rounded-2xl border transition-all duration-300 ${open ? 'bg-white border-accent shadow-lg shadow-accent/5' : 'bg-white border-gray-200 hover:border-gray-300'}`}>
@@ -330,6 +332,12 @@ const FaqItem: React.FC<{ question: string; answer: string; index: number }> = (
           <p className="text-gray-600 text-sm md:text-base leading-relaxed">
             {answer}
           </p>
+          {link && (
+            <NavLink href={link.href} onGo={link.onGo} className="inline-flex items-center gap-1.5 mt-3 text-sm md:text-base font-bold text-accent underline underline-offset-4">
+              {link.label}
+              <ArrowRight className="w-4 h-4" />
+            </NavLink>
+          )}
         </div>
       </div>
     </div>
@@ -792,7 +800,7 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
       <div className="space-y-3 md:space-y-4">
         {t.faq.items.map((item, i) => (
           <Reveal key={i} delay={i * 80}>
-            <FaqItem question={item.q} answer={item.a} index={i} />
+            <FaqItem question={item.q} answer={item.a} index={i} link={item.link ? { href: item.link, label: t.pricing.faqLink, onGo: () => onNavigate?.('pricing') } : undefined} />
           </Reveal>
         ))}
       </div>
@@ -2328,8 +2336,9 @@ const SectionHead: React.FC<{ eyebrow: string; heading: string; lead?: string }>
   </div>
 );
 
-const ServiceSectionBlock: React.FC<{ section: ServiceSection }> = ({ section }) => {
+const ServiceSectionBlock: React.FC<{ section: ServiceSection; onNavigate?: (view: ViewState) => void }> = ({ section, onNavigate }) => {
   const s = section;
+  const { t } = useLanguage();
 
   if (s.type === 'problems') {
     return (
@@ -2600,6 +2609,12 @@ const ServiceSectionBlock: React.FC<{ section: ServiceSection }> = ({ section })
         </div>
         <Reveal>
           <p className="mt-8 text-sm text-gray-500 leading-[1.9] border-l-2 border-gray-300 pl-4 max-w-3xl">{s.note}</p>
+        </Reveal>
+        <Reveal>
+          <NavLink href="/pricing" onGo={() => onNavigate?.('pricing')} className="group inline-flex items-center gap-2 mt-6 text-[#2D6CDF] font-bold underline underline-offset-4">
+            {t.pricing.serviceLink}
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+          </NavLink>
         </Reveal>
       </>
     );
@@ -3196,6 +3211,156 @@ const SERVICE_GUIDE: Record<ServiceKey, string> = {
   'salesforce-ai': 'salesforce-standard-ai-vs-custom',
 };
 
+
+// ============================================================
+// 料金の考え方（/pricing）。新しい数字は持たず、研修のデータと各サービスの「費用の考え方」から組み立てる
+// ============================================================
+const PricingView: React.FC<{ onNavigate: (view: ViewState) => void }> = ({ onNavigate }) => {
+  const { t, lang } = useLanguage();
+  const p = t.pricing;
+  const course = t.training.course.items;
+  const Head: React.FC<{ eyebrow: string; title: string; lead?: string }> = ({ eyebrow, title, lead }) => (
+    <div className="mb-8 md:mb-10">
+      <span className="text-[#2D6CDF] font-bold tracking-[0.2em] text-xs uppercase">{eyebrow}</span>
+      <h2 className="text-2xl md:text-4xl font-bold tracking-tight text-[#111418] mt-2 leading-[1.5]">{title}</h2>
+      <div className="w-16 h-1.5 bg-[#2D6CDF] mt-4 rounded-full" />
+      {lead && <p className="text-base md:text-lg text-gray-600 leading-[1.9] mt-6 max-w-3xl">{lead}</p>}
+    </div>
+  );
+  return (
+    <PageTransition>
+      <div className="text-[#111418]">
+        <section className="px-6 md:px-12">
+          <div className="max-w-screen-xl mx-auto">
+            <Reveal>
+              <div className="relative overflow-hidden rounded-[1.75rem] md:rounded-[2.5rem] bg-[#F4F6FB] border border-gray-200">
+                <GridPattern />
+                <div className="relative px-6 md:px-16 py-14 md:py-20">
+                  <span className="text-[#2D6CDF] font-bold tracking-[0.2em] text-xs uppercase">{p.eyebrow}</span>
+                  <h1 className="text-3xl md:text-6xl font-bold tracking-tight leading-[1.25] mt-4">{p.title}</h1>
+                  <p className="max-w-3xl text-base md:text-lg text-gray-700 leading-[1.9] mt-8">{p.lead}</p>
+                  <p className="inline-flex items-center gap-2 mt-8 px-4 py-2 rounded-full bg-white border border-[#2D6CDF]/20 text-sm md:text-base font-bold text-[#111418]">
+                    <span className="w-2 h-2 rounded-full bg-[#2D6CDF]" />{p.free}
+                  </p>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+
+        <section className="px-6 md:px-12 mt-20 md:mt-28">
+          <div className="max-w-screen-xl mx-auto">
+            <Reveal><Head eyebrow={p.training.eyebrow} title={p.training.heading} /></Reveal>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {course.map((c, i) => (
+                <Reveal key={i} delay={i * 80}>
+                  <div className="rounded-2xl border border-gray-200 border-t-4 border-t-[#2D6CDF] bg-white p-6 md:p-8 h-full">
+                    <h3 className="text-lg md:text-xl font-bold leading-[1.6]">{c.name}</h3>
+                    <dl className="mt-4">
+                      {[c.specs[2], c.specs[3], c.specs[1]].map((sp, j) => (
+                        <div key={j} className="flex gap-4 py-3 border-b border-gray-100 last:border-0">
+                          <dt className="w-24 flex-shrink-0 text-sm font-bold text-[#2D6CDF] pt-0.5">{sp.label}</dt>
+                          <dd className="flex-1 text-[15px] md:text-base leading-[1.8]">{sp.value}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+            <Reveal>
+              <p className="text-sm text-gray-500 leading-[1.9] mt-6">{p.training.note}</p>
+              <NavLink href="/training" onGo={() => onNavigate('training')} className="group inline-flex items-center gap-2 mt-4 text-[#2D6CDF] font-bold underline underline-offset-4">
+                {p.training.link}<ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+              </NavLink>
+            </Reveal>
+          </div>
+        </section>
+
+        <section className="px-6 md:px-12 mt-20 md:mt-28">
+          <div className="max-w-screen-xl mx-auto">
+            <Reveal><Head eyebrow={p.services.eyebrow} title={p.services.heading} lead={p.services.lead} /></Reveal>
+            <div className="space-y-8">
+              {SERVICE_KEYS.map((k) => {
+                const page = serviceContent[lang][k];
+                const sec = page.sections.find((x) => x.type === 'pricing');
+                if (!sec || sec.type !== 'pricing') return null;
+                return (
+                  <Reveal key={k}>
+                    <article className="rounded-3xl border border-gray-200 bg-white p-6 md:p-10">
+                      <h3 className="text-xl md:text-2xl font-bold leading-[1.5]">{page.navLabel}</h3>
+                      {sec.lead && <p className="text-[15px] text-gray-600 leading-[1.9] mt-3 max-w-3xl">{sec.lead}</p>}
+                      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 md:gap-8 mt-6">
+                        <div className="lg:col-span-3">
+                          <h4 className="text-sm font-bold text-[#111418] mb-2">{p.services.structureLabel}</h4>
+                          <dl>
+                            {sec.rows.map((row, i) => (
+                              <div key={i} className="flex flex-col md:flex-row gap-1 md:gap-6 py-4 border-b border-gray-200">
+                                <dt className="md:w-28 flex-shrink-0 text-sm font-bold text-[#2D6CDF] pt-0.5">{row.label}</dt>
+                                <dd className="flex-1 text-[15px] text-[#1A2233] leading-[1.9]">{row.value}</dd>
+                              </div>
+                            ))}
+                          </dl>
+                        </div>
+                        <div className="lg:col-span-2 rounded-2xl bg-[#F4F6FB] p-5 md:p-6">
+                          <h4 className="text-sm font-bold text-[#111418]">{p.services.driversLabel}</h4>
+                          <ul className="mt-3 space-y-2.5">
+                            {sec.drivers.map((d, i) => (
+                              <li key={i} className="flex items-start gap-3">
+                                <span aria-hidden className="w-1.5 h-1.5 rounded-full bg-[#2D6CDF] flex-shrink-0 mt-2.5" />
+                                <span className="text-[15px] text-[#1A2233] leading-[1.8]">{d}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                      <p className="mt-6 text-sm text-gray-500 leading-[1.9] border-l-2 border-gray-300 pl-4 max-w-3xl">{sec.note}</p>
+                      <NavLink href={`/service/${k}`} onGo={() => onNavigate(k)} className="group inline-flex items-center gap-2 mt-5 text-[#2D6CDF] font-bold underline underline-offset-4">
+                        {page.navLabel} {p.services.link}<ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                      </NavLink>
+                    </article>
+                  </Reveal>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        <section className="px-6 md:px-12 mt-20 md:mt-28">
+          <div className="max-w-screen-xl mx-auto">
+            <Reveal><Head eyebrow={p.period.eyebrow} title={p.period.heading} /></Reveal>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl">
+              {p.period.items.map((it, i) => (
+                <Reveal key={i} delay={i * 80}>
+                  <div className="rounded-2xl bg-[#F4F6FB] border-l-4 border-[#2D6CDF] p-6 md:p-7 h-full">
+                    <p className="text-sm font-bold text-gray-600">{it.label}</p>
+                    <p className="text-2xl md:text-3xl font-bold text-[#111418] mt-2">{it.value}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+            <Reveal><p className="text-sm md:text-[15px] text-gray-600 leading-[1.9] mt-6 max-w-3xl">{p.period.note}</p></Reveal>
+          </div>
+        </section>
+
+        <section className="px-6 md:px-12 mt-20 md:mt-28">
+          <div className="max-w-screen-xl mx-auto">
+            <Reveal>
+              <div className="rounded-[1.75rem] md:rounded-[2.5rem] bg-white border-2 border-[#2D6CDF]/20 p-7 md:p-12">
+                <h2 className="text-xl md:text-3xl font-bold leading-[1.5]">{p.cta.heading}</h2>
+                <p className="text-base md:text-lg text-gray-700 leading-[1.9] mt-4 max-w-3xl">{p.cta.lead}</p>
+                <NavLink href="/contact" onGo={() => onNavigate('contact')} className="group inline-flex items-center gap-2.5 mt-8 px-7 py-4 rounded-full bg-[#2D6CDF] text-white font-bold text-sm md:text-base hover:opacity-90 transition-all">
+                  {p.cta.button}<ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                </NavLink>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+      </div>
+    </PageTransition>
+  );
+};
+
 const ServiceView: React.FC<{ serviceKey: ServiceKey; onNavigate?: (view: ViewState) => void }> = ({ serviceKey, onNavigate }) => {
   const { lang, t } = useLanguage();
   const page = serviceContent[lang][serviceKey];
@@ -3294,7 +3459,7 @@ const ServiceView: React.FC<{ serviceKey: ServiceKey; onNavigate?: (view: ViewSt
         {page.sections.map((section, i) => (
           <section key={i} className="px-6 md:px-12 mt-20 md:mt-28">
             <div className="max-w-screen-xl mx-auto">
-              <ServiceSectionBlock section={section} />
+              <ServiceSectionBlock section={section} onNavigate={onNavigate} />
             </div>
           </section>
         ))}
@@ -4057,6 +4222,7 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
         { id: 'biz-newbiz', label: t.nav.newBiz },
         { id: 'training', label: t.nav.training },
         { id: 'biz-crossborder', label: t.nav.crossBorder },
+        { id: 'pricing', label: t.pricing.footer },
       ],
     },
     {
@@ -4274,6 +4440,7 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
         {view === 'contact' && <ContactView onNavigate={navigate} initialSent={currentPath() === THANKS_PATH} />}
         {isBizView(view) && <BusinessView biz={view} onNavigate={navigate} />}
         {view === 'glossary' && <GlossaryView onNavigate={navigate} />}
+        {view === 'pricing' && <PricingView onNavigate={navigate} />}
         {view === 'guides' && <GuidesView />}
         {view === 'guide' && <GuideView slug={path.split('/').pop() ?? ''} onNavigate={navigate} />}
         {view === 'case' && <CaseView slug={path.split('/').pop() ?? ''} onNavigate={navigate} />}

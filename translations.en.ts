@@ -134,6 +134,7 @@ export const en: Translation = {
       {
         q: 'How is pricing structured?',
         a: 'AI Solutions engagements are quoted per project. We propose the best plan based on your scope, scale, and timeline — start with a free first consultation.',
+        link: '/pricing',
       },
       {
         q: 'Can we start small with one task?',
@@ -703,6 +704,43 @@ export const en: Translation = {
       cta: 'Request materials / Contact us',
       ctaHref: '#contact/training',
     },
+  },
+  pricing: {
+    eyebrow: 'Pricing',
+    title: 'How our pricing works',
+    lead: 'Training is offered to every company on the same terms — same content, hours and price. For our AI Solutions services the amount depends on scope and volume, so we do not publish a flat price list; instead we disclose up front what the costs are made of and what changes them.',
+    free: 'The first consultation and the estimate are free.',
+    training: {
+      eyebrow: 'Training',
+      heading: 'Training fees',
+      note: 'Every course is offered to all companies on the same terms — same content, hours, and price.',
+      link: 'See training details',
+    },
+    services: {
+      eyebrow: 'AI Solutions',
+      heading: 'How AI Solutions costs are structured',
+      lead: 'The amount depends on what you ask for (the work in scope, scale and period). For each service we show the cost components and what changes the amount.',
+      structureLabel: 'Cost components',
+      driversLabel: 'What changes the cost',
+      link: 'See details',
+    },
+    period: {
+      eyebrow: 'Timeline',
+      heading: 'Typical timeline',
+      items: [
+        { label: 'Pilot (PoC)', value: '2–4 weeks' },
+        { label: 'Production', value: '1–3 months' },
+      ],
+      note: 'It depends on scope. We recommend starting with one task: a 2–4 week pilot verifies the effect before a full rollout.',
+    },
+    cta: {
+      heading: 'Tell us about the work and the scale in a free consultation',
+      lead: 'We ask about the work in scope, scale and period, and give you an estimate based on the cost components. The first consultation and the estimate are free.',
+      button: 'Book a free consultation',
+    },
+    faqLink: 'See how our pricing works',
+    serviceLink: 'How pricing works (all services)',
+    footer: 'Pricing',
   },
   diagnosisBanner: {
     badge: 'Free · 3 minutes · Instant results',
