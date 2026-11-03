@@ -106,7 +106,7 @@ a.chip{text-decoration:none}
 .article-head .meta{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;font-size:.8rem;color:var(--muted);margin:16px 0 0}
 h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;letter-spacing:-.02em;margin:14px 0 0;max-width:22em}
 .chip{background:var(--soft);color:var(--blue);font-weight:800;border-radius:999px;padding:4px 12px;font-size:.75rem}
-.hero{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:20px;background:var(--soft);margin:28px 0 0;display:block;max-width:var(--maxw)}
+.hero{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:20px;background:var(--soft);margin:28px 0 0;display:block;max-width:var(--maxw)}
 .hero-wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
 
 .layout{max-width:var(--maxw);margin:0 auto;padding:44px 24px 0;display:grid;grid-template-columns:minmax(0,1fr) 292px;gap:56px;align-items:start}
@@ -504,7 +504,7 @@ ${header('/column')}
 <h1 class="title">${esc(a.title)}</h1>
 <div class="meta"><a class="chip" href="/column/industry/${esc(a.industry)}">${esc(ind.ja)}</a><span>${esc(a.date.replace(/-/g, '.'))}</span>${a.readTime ? `<span>読了目安 ${esc(a.readTime)}</span>` : ''}<span>執筆：${AUTHOR.role} ${AUTHOR.name}</span></div>
 </header>
-<div class="hero-wrap"><img class="hero" src="${esc(img)}" alt="${esc(a.imageAlt || a.title)}" width="1200" height="675"/></div>
+<div class="hero-wrap"><img class="hero" src="${esc(img)}" alt="${esc(a.imageAlt || a.title)}" width="1400" height="788"/></div>
 <main class="layout">
 <div class="col-main">
 <article class="article">
