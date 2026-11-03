@@ -139,6 +139,21 @@ export const viewForPath = (rawPath: string): ViewState => {
 export const SITE_ORIGIN = 'https://mgc-global01.com';
 // path は同じビューで別ページになるもの（/contact/thanks）の判定に使う
 export const THANKS_PATH = '/contact/thanks';
+// ジャーナルの description。抜粋が短い記事は、本文の書き出しを文単位で足して70字以上にし、執筆者を添える
+const journalDescription = (post: { excerpt: string; content: string }, lang: string): string => {
+  if (post.excerpt.length >= 70) return post.excerpt;
+  const ja = lang === 'ja';
+  let d = post.excerpt;
+  const sentences = post.content.replace(/\n+/g, ja ? '' : ' ').split(ja ? /(?<=。)/ : /(?<=\.)\s+/);
+  for (const sn of sentences) {
+    if (d.length >= (ja ? 70 : 120)) break;
+    const t = sn.trim();
+    if (t && (d + t).length <= (ja ? 120 : 220)) d += (ja ? '' : ' ') + t;
+    else break;
+  }
+  return `${d}${ja ? '（代表取締役 松尾 心夢のジャーナル）' : ' — Journal by Kokomu Matsuo, CEO of MGC Inc.'}`;
+};
+
 export const metaFor = (view: ViewState, lang: Lang, path?: string) => {
   const page = isServiceKey(view) ? serviceContent[lang][view] : null;
   const isThanks = view === 'contact' && path?.replace(/\/+$/, '') === THANKS_PATH;
@@ -174,7 +189,7 @@ export const metaFor = (view: ViewState, lang: Lang, path?: string) => {
       return {
         title: `${post.title}${lang === 'ja' ? ' - ＭＧＣ株式会社' : ' - MGC Inc.'}`,
         // 抜粋が短い記事は、誰が何について書いたかを補って検索結果・AI要約での説明を十分にする
-        description: post.excerpt.length >= 70 ? post.excerpt : `${post.excerpt}${lang === 'ja' ? '（ＭＧＣ株式会社 代表取締役 松尾 心夢のジャーナル）' : ' — Journal by Kokomu Matsuo, CEO of MGC Inc.'}`,
+        description: journalDescription(post, lang),
         url: SITE_ORIGIN + journalPath(post.slug),
         image: SITE_ORIGIN + post.imageJpg,
         noindex: false,
