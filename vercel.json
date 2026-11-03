@@ -45,6 +45,10 @@
       "destination": "/column/index.html"
     },
     {
+      "source": "/column/industry/:key",
+      "destination": "/column/industry/:key.html"
+    },
+    {
       "source": "/column/:slug",
       "destination": "/column/:slug.html"
     },

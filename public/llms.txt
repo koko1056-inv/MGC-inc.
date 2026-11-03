@@ -37,6 +37,7 @@
 
 ## AI活用コラム（業界別）
 業界別に「どの業務にどうAIを使い、どこは人が判断するか」を実務目線で解説する記事。執筆は代表取締役 松尾 心夢。
+業界別の一覧: [製造業](https://mgc-global01.com/column/industry/manufacturing) ／ [建設業](https://mgc-global01.com/column/industry/construction) ／ [不動産](https://mgc-global01.com/column/industry/real-estate) ／ [小売・EC](https://mgc-global01.com/column/industry/retail) ／ [物流](https://mgc-global01.com/column/industry/logistics) ／ [医療・介護](https://mgc-global01.com/column/industry/healthcare) ／ [飲食・ホテル](https://mgc-global01.com/column/industry/hospitality) ／ [士業（会計・法務）](https://mgc-global01.com/column/industry/professional) ／ [金融・保険](https://mgc-global01.com/column/industry/finance) ／ [教育](https://mgc-global01.com/column/industry/education) ／ [人材・採用](https://mgc-global01.com/column/industry/hr) ／ [自治体・公共](https://mgc-global01.com/column/industry/public)
 - [金融不正検知にAIをどう組み込むか — 誤検知の山を減らし「真のリスク」に注力する](https://mgc-global01.com/column/finance-fraud-detection-operational-resilience): ［金融・保険］金融機関の不正検知・AML（マネロン対策）にAIを導入する現実的な進め方。従来のルールベースの限界を突破し、膨大な誤検知を減らして「真のリスク」を特定する手法、実務での役割分担、導入のステップを解説します。
 - [士業のAI活用は「作業」から「伴走」へ — 専門知を拡張する実務の再設計](https://mgc-global01.com/column/professional-strategic-ai-partner): ［士業（会計・法務）］士業（会計・法務）におけるAI導入の現実的な進め方を解説。単なる定型業務の自動化を超え、膨大な判例や法令の調査、リスク検知、クライアント対応にどうAIを組み込むか。専門家としての判断力を最大化するための「人AI共生」の設計図を提示します。
 - [飲食・ホテルの「品質のバラツキ」と「廃棄」をAIで解決する — 現場の勘をデータに変える具体策](https://mgc-global01.com/column/hospitality-quality-standardization-and-waste-reduction): ［飲食・ホテル］飲食やホテル業界で課題となるサービス品質の属人化と食材・アメニティの廃棄ロス。AIを導入して現場の「勘」をデータ化し、標準化と効率化を両立する現実的な方法を解説します。清掃チェックから需要予測まで、実務に即した導入手順を紹介。

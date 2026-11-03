@@ -43,6 +43,12 @@
     {
       "@type": "ListItem",
       "position": 3,
+      "name": "飲食・ホテルのAI活用",
+      "item": "https://mgc-global01.com/column/industry/hospitality"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
       "name": "飲食・ホテルの「お客様の声」をAIで資産に変える — 現場の接客向上に繋げる分析術",
       "item": "https://mgc-global01.com/column/hospitality-customer-feedback-analysis"
     }
@@ -171,6 +177,10 @@ img{max-width:100%}
 
 /* ── 共通レイアウト ─────────────────── */
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.ind-links{max-width:var(--maxw);margin:20px auto 0;padding:0 24px;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;font-size:.85rem}
+.ind-links .label{color:var(--muted);font-weight:700;margin-right:4px}
+.ind-links a{color:var(--blue);text-decoration:underline;text-underline-offset:3px}
+a.chip{text-decoration:none}
 .crumbs{font-size:.78rem;color:var(--muted);max-width:var(--maxw);margin:22px auto 0;padding:0 24px}
 .crumbs a{color:var(--muted)}
 .crumbs a:hover{color:var(--blue)}
@@ -268,7 +278,7 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 .card:hover .thumb img{transform:scale(1.05)}
 .card .thumb .k{position:absolute;left:12px;top:12px;background:rgba(255,255,255,.94);color:var(--blue);font-size:.7rem;font-weight:800;border-radius:999px;padding:5px 12px;letter-spacing:.02em}
 .card .body{padding:18px 18px 20px;display:flex;flex-direction:column;gap:9px;flex:1}
-.card h3{font-size:1rem;font-weight:800;line-height:1.65;letter-spacing:-.01em;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.card h3,.card h2.h3{margin:0;font-size:1rem;font-weight:800;line-height:1.65;letter-spacing:-.01em;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .card .d{font-size:.82rem;color:var(--muted);line-height:1.8;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .card .foot{display:flex;align-items:center;gap:12px;font-size:.74rem;color:#9aa3b0;margin-top:auto;padding-top:6px}
 
@@ -334,7 +344,7 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
   .site-footer .cols{grid-template-columns:1fr 1fr;gap:32px}
 }
 @media(max-width:640px){
-  .wrap,.crumbs,.article-head,.hero-wrap,.layout,.index-hero,.featured,.filters,.cards,.more{padding-left:18px;padding-right:18px}
+  .wrap,.crumbs,.article-head,.hero-wrap,.layout,.index-hero,.featured,.filters,.ind-links,.cards,.more{padding-left:18px;padding-right:18px}
   .cta{padding:28px 22px;border-radius:20px}
   .featured .body{padding:26px 24px}
   .article > h2{font-size:1.25rem;margin-top:44px}
@@ -346,11 +356,11 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 <body>
 <div class="progress" id="progress"></div>
 <header class="site-header"><div class="inner"><a class="brand" href="/"><span class="mark"><i></i></span>MGC Inc.</a><nav><a href="/works">事業内容</a><a href="/service/ai-sales">AI営業</a><a href="/service/ai-phone">AI電話</a><a href="/service/salesforce-ai">Salesforce AI</a><a href="/cases">導入事例</a><a href="/training">研修</a><a href="/column" class="is-current">コラム</a><a class="nav-cta" href="/contact">お問い合わせ</a></nav></div></header>
-<nav class="crumbs"><a href="/">ホーム</a> ／ <a href="/column">AI活用コラム</a> ／ 飲食・ホテル</nav>
+<nav class="crumbs"><a href="/">ホーム</a> ／ <a href="/column">AI活用コラム</a> ／ <a href="/column/industry/hospitality">飲食・ホテル</a></nav>
 <header class="article-head">
 <span class="eyebrow">飲食・ホテル × AI活用</span>
 <h1 class="title">飲食・ホテルの「お客様の声」をAIで資産に変える — 現場の接客向上に繋げる分析術</h1>
-<div class="meta"><span class="chip">飲食・ホテル</span><span>2026.09.24</span><span>読了目安 12分</span><span>執筆：代表取締役 松尾 心夢</span></div>
+<div class="meta"><a class="chip" href="/column/industry/hospitality">飲食・ホテル</a><span>2026.09.24</span><span>読了目安 12分</span><span>執筆：代表取締役 松尾 心夢</span></div>
 </header>
 <div class="hero-wrap"><img class="hero" src="/assets/column/ind_hospitality.jpg" alt="店内のタブレットでアンケートに答える顧客と、その背後でAIがデータを解析しているイメージ" width="1200" height="675"/></div>
 <main class="layout">
