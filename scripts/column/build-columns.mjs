@@ -289,7 +289,7 @@ document.addEventListener('click',function(e){
 
 const MARK = '<span class="mark"><i></i></span>';
 const navLink = (href, label, current) => `<a href="${href}"${current === href ? ' class="is-current"' : ''}>${label}</a>`;
-// 著者。社員は代表1人のため、コラムの執筆者は代表とする（構造化データ・meta・本文の署名で共通）
+// 著者。コラムの執筆者は代表とする（構造化データ・meta・本文の署名で共通）
 const AUTHOR = { name: '松尾 心夢', role: '代表取締役', org: 'ＭＧＣ株式会社' };
 const AUTHOR_LD = {
   '@type': 'Person', '@id': 'https://mgc-global01.com/company#ceo', name: AUTHOR.name, alternateName: 'Kokomu Matsuo', jobTitle: AUTHOR.role,
@@ -832,7 +832,7 @@ function updateLlmsTxt() {
   L.push('- 設立: 2025年12月1日');
   L.push('- 法人番号: 4130001081155');
   L.push('- 問い合わせ: contact@mgc-global01.com ／ フォーム ' + B + '/contact （初回相談は無料・30分）');
-  L.push('- 進め方の特徴: 代表がヒアリングから設計・実装・定着まで一貫して担当する。特定のベンダーやAIモデルに縛られず、業務と既存システム（Salesforce、kintone、Slack、Microsoft Teams、LINE など）に合う構成を選ぶ。作って終わりにせず、現場で使われる状態まで運用を見届ける。');
+  L.push('- 進め方の特徴: 専門チームがヒアリングから設計・実装・定着まで一貫して担当する。特定のベンダーやAIモデルに縛られず、業務と既存システム（Salesforce、kintone、Slack、Microsoft Teams、LINE など）に合う構成を選ぶ。作って終わりにせず、現場で使われる状態まで運用を見届ける。');
   L.push('');
   L.push('## 事業・サービス');
   L.push(`- [AIソリューション](${B}/works/ai-solutions): 「何にAIを使うべきか」の整理から、音声・テキスト・CRM連携に対応するAIの開発、導入後の運用まで。下の3サービスと、個別のAIコンサルティング・開発を提供。PoC（概念実証）は100〜300万円が目安、本番導入は要件に応じて個別見積もり`);
