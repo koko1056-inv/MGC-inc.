@@ -298,20 +298,20 @@ const AUTHOR_LD = {
 };
 
 const header = (current = '') => `<header class="site-header"><div class="inner"><a class="brand" href="/">${MARK}MGC Inc.</a><nav>${[
+  // 本体サイトの主なメニュー（事業内容・導入事例・コラム・会社情報）に、研修と料金を加える
   ['/works', '事業内容'],
-  ['/service/ai-sales', 'AI営業'],
-  ['/service/ai-phone', 'AI電話'],
-  ['/service/salesforce-ai', 'Salesforce AI'],
-  ['/cases', '導入事例'],
   ['/training', '研修'],
+  ['/pricing', '料金'],
+  ['/cases', '導入事例'],
   ['/column', 'コラム'],
+  ['/company', '会社情報'],
 ].map(([h, l]) => navLink(h, l, current)).join('')}${SHOW_DIAGNOSIS ? navLink('/diagnosis', 'AI診断', current) : ''}<a class="nav-cta" href="/contact">お問い合わせ</a></nav></div></header>`;
 
 const FOOTER = `<footer class="site-footer">
 <div class="cols">
 <div class="brand-col"><strong>${esc(site.brandFull)}</strong><p>AIとテクノロジーで、日本と世界をつなぐ。</p><p>${esc(site.address || '')}</p></div>
-<div><h2>事業・サービス</h2><ul><li><a href="/works">事業内容</a></li><li><a href="/works/ai-solutions">AIソリューション</a></li><li><a href="/service/ai-sales">AI営業</a></li><li><a href="/service/ai-phone">AI電話</a></li><li><a href="/service/salesforce-ai">Salesforce AI</a></li><li><a href="/works/ai-business-launch">AI事業立ち上げ支援</a></li><li><a href="/training">研修</a></li><li><a href="/works/cross-border">クロスボーダー</a></li></ul></div>
-<div><h2>実績・ナレッジ</h2><ul><li><a href="/cases">導入事例</a></li><li><a href="/column">コラム</a></li>${SHOW_DIAGNOSIS ? '<li><a href="/diagnosis">AI活用診断</a></li>' : ''}</ul></div>
+<div><h2>事業・サービス</h2><ul><li><a href="/works">事業内容</a></li><li><a href="/works/ai-solutions">AIソリューション</a></li><li><a href="/service/ai-sales">AI営業</a></li><li><a href="/service/ai-phone">AI電話</a></li><li><a href="/service/salesforce-ai">Salesforce AI</a></li><li><a href="/works/ai-business-launch">AI事業立ち上げ支援</a></li><li><a href="/training">研修</a></li><li><a href="/works/cross-border">クロスボーダー</a></li><li><a href="/pricing">料金の考え方</a></li></ul></div>
+<div><h2>実績・ナレッジ</h2><ul><li><a href="/cases">導入事例</a></li><li><a href="/column">コラム</a></li><li><a href="/guide">比較・選び方ガイド</a></li><li><a href="/glossary">用語集</a></li><li><a href="/blog">お知らせ・ジャーナル</a></li>${SHOW_DIAGNOSIS ? '<li><a href="/diagnosis">AI活用診断</a></li>' : ''}</ul></div>
 <div><h2>会社情報</h2><ul><li><a href="/mission">会社理念</a></li><li><a href="/company">会社概要</a></li><li><a href="/career">採用情報</a></li><li><a href="/contact">お問い合わせ</a></li></ul></div>
 </div>
 <div class="bottom"><span>© 2026 MGC Inc. All Rights Reserved.</span><span><a href="/privacy-policy">プライバシーポリシー</a>　<a href="/terms-of-service">利用規約</a></span></div>
@@ -715,7 +715,7 @@ const INDUSTRY_LEADS = {
   finance: '審査・照会、事務作業と顧客対応、査定、非定型書類の審査とコンプライアンス、パーソナライズ、AIの信頼性とリスク管理、不正検知など、金融・保険でのAI活用を解説するコラムです。',
   education: '校務・教材作成、フィードバック、授業準備、データ活用、指導力の底上げ、生徒の見守りなど、教育現場で先生の時間を生み出すAI活用を解説するコラムです。',
   hr: '書類選考とスカウト、採用マッチング、面接評価の平準化、求人票、キャリア面談、タレントマネジメント、リスキリング、社内ナレッジなど、人材・採用領域でのAI活用を解説するコラムです。',
-  general: '研修の選び方や費用の考え方など、業種を問わずAI導入を検討するときに確認したい観点をまとめたコラムです。',
+  general: '法人向けAI研修の選び方や、AI導入費用の内訳（初期費用・月額費用・実費）の考え方など、業種を問わずAI導入を検討するときに確認したい観点をまとめたコラムです。',
   public: '窓口業務、内部事務、ガバナンス、住民サービス、政策立案・地域活性化など、自治体でのAI導入を実務から進める方法を解説するコラムです。',
 };
 function industryHtml(key) {
