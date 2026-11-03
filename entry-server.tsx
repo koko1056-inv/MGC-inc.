@@ -328,7 +328,10 @@ export const llmsFull = (): string => {
     L.push(`### ${c.name}`);
     L.push(c.overview);
     c.specs.forEach((x) => L.push(`- ${x.label}: ${x.value}`));
+    L.push(`- 特徴: ${c.features.join('／')}`);
+    L.push(`- 習得できること: ${c.outcomes.join('／')}`);
   });
+  L.push(`- ${t.training.after.heading}: ${t.training.after.steps.map((x) => `${x.title}（${x.desc}）`).join(' → ')}`);
   t.training.faq.items.forEach((f) => { L.push(`- Q. ${f.q}`); L.push(`  A. ${f.a}`); });
   L.push('');
   L.push('## 導入事例（社名は掲載許諾が取れるまで伏せ、業種で紹介）');
