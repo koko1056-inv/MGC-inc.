@@ -241,3 +241,7 @@
 ## 2026-11-03 コラムの標準化（5）本文の書き直し 31〜40本目（10本）
 - 対象: education-personalized-learning-support, finance-fraud-detection-operational-resilience, real-estate-contract-document-ai, logistics-safety-management-ai, hospitality-quality-standardization-and-waste-reduction, hospitality-demand-forecasting, public-regional-revitalization-ai-strategy, professional-strategic-ai-partner, professional-ai-legal-accounting-transformation, professional-accounting-ai
 - 型・検査・変更方針は（2）と同じ。check-rewrite.mjs と構成順の検査で10本すべて OK
+
+## 2026-11-03 コラムの標準化（6）本文の書き直し 41〜50本目（10本）
+- 対象: logistics-expert-skill-digitalization-ai, logistics-dispatch-planning-ai, hospitality-operational-efficiency-ai, finance-knowledge-management-compliance-ai, finance-ai-reliability-governance-strategy, finance-ai-implementation-guide, construction-knowledge-transfer-ai, construction-document-ai-automation, retail-store-operation-staff-ai, retail-omo-customer-journey-ai
+- 型・検査・変更方針は（2）と同じ。check-rewrite.mjs と構成順の検査で10本すべて OK
