@@ -237,3 +237,7 @@
 ## 2026-11-03 コラムの標準化（4）本文の書き直し 21〜30本目（10本）
 - 対象: hr-employee-experience-knowledge-ai, hr-ai-matching-optimization, finance-backoffice-ai-automation, retail-customer-support-hybrid-ai, public-resident-service-ai-efficiency, public-dx-ai-implementation, hospitality-guest-experience-and-training, healthcare-discharge-planning-coordination-ai, retail-generative-ai-efficiency, professional-high-value-advisory-ai
 - 型・検査・変更方針は（2）と同じ。check-rewrite.mjs と構成順の検査で10本すべて OK
+
+## 2026-11-03 コラムの標準化（5）本文の書き直し 31〜40本目（10本）
+- 対象: education-personalized-learning-support, finance-fraud-detection-operational-resilience, real-estate-contract-document-ai, logistics-safety-management-ai, hospitality-quality-standardization-and-waste-reduction, hospitality-demand-forecasting, public-regional-revitalization-ai-strategy, professional-strategic-ai-partner, professional-ai-legal-accounting-transformation, professional-accounting-ai
+- 型・検査・変更方針は（2）と同じ。check-rewrite.mjs と構成順の検査で10本すべて OK
