@@ -303,9 +303,10 @@ export const llmsFull = (): string => {
   L.push('');
   L.push('## 事業');
   (['service_ai', 'service_newbiz', 'service_training', 'service_lab'] as const).forEach((k) => {
-    const d = t.details[k] as { title: string; subtitle: string; p1: string; features: { title: string; sub: string; text: string }[]; faq?: { q: string; a: string }[] };
+    const d = t.details[k] as { title: string; subtitle: string; p1: string; features: { title: string; sub: string; text: string }[]; faq?: { q: string; a: string }[]; summary?: { label: string; value: string }[] };
     L.push(`### ${d.title}（${d.subtitle}）`);
     L.push(d.p1.replace(/\n/g, ''));
+    d.summary?.forEach((x) => L.push(`- ${x.label}: ${x.value}`));
     d.features.forEach((f) => L.push(`- ${f.sub}（${f.title}）: ${f.text}`));
     d.faq?.forEach((f) => { L.push(`- Q. ${f.q}`); L.push(`  A. ${f.a}`); });
     L.push('');
@@ -316,6 +317,7 @@ export const llmsFull = (): string => {
     L.push(`### ${page.navLabel}（${SITE_ORIGIN}${pathForView(k)}）`);
     if (page.definition) L.push(page.definition.text);
     L.push(page.hero.lead);
+    page.summary?.forEach((x) => L.push(`- ${x.label}: ${x.value}`));
     page.sections.forEach((sec) => {
       if (sec.type === 'cases' || sec.type === 'related') return;
       L.push(`#### ${sec.heading}`);

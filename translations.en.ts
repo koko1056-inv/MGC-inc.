@@ -78,6 +78,7 @@ export const en: Translation = {
       },
       {
         step: '02',
+        duration: '2–4 week PoC → production in 1–3 months',
         title: 'Consulting, build & adoption',
         desc: 'Not building and leaving — getting it used on the floor.',
         items: [
@@ -249,6 +250,10 @@ export const en: Translation = {
       title: "AI Business Launch Support",
       subtitle: "Turn the AI you adopted into a business you sell to your industry.",
       p1: "AI built for one company tends to work for its peers as well.\nWe package the AI you have already proven in your own operations into something you can sell to others in your industry, and stay with you until it runs as a business. MGC carries the technical work, so you can start without hiring a dedicated engineering team.",
+      summary: [
+        { label: 'Work in scope', value: 'Launching a business that offers the AI you adopted and proved in-house to peers in your industry (packaging, AI-side operations, go-to-market)' },
+        { label: 'What you receive', value: 'A product peers can buy (with the standard scope separated from per-client work), a service site / LP, sales materials, scope and pricing design, and support building the sales team' },
+      ],
       faq: [
         { q: 'Who is it for?', a: 'Companies that have adopted AI successfully and want to offer it to others in their industry. Because you know the industry, your offer is more convincing.' },
         { q: 'Do we need to hire engineers?', a: 'No. MGC handles the AI-side work — development, deployment, maintenance and support — so you can start without hiring engineers or setting up a development team.' },
