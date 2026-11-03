@@ -161,7 +161,7 @@ export const en: Translation = {
       },
       {
         q: 'Can we start small with one task?',
-        a: 'Absolutely. We recommend the "start with one task" small-start approach: a 2–4 week pilot validates impact before scaling, so you can adopt with minimal risk.',
+        a: 'Absolutely. We recommend the "start with one task" small-start approach: a 2–4 week pilot validates impact before scaling, so you can adopt with minimal risk. For AI Solutions (AI Sales, AI Phone, Salesforce AI), a PoC typically costs JPY 1–3 million.',
       },
       {
         q: 'Can we ask for training only?',
@@ -258,7 +258,7 @@ export const en: Translation = {
       p1: "From working out where AI should be used, to building AI for voice, text and CRM, to running it after launch.\nProven use cases are offered as services; everything else is designed case by case.",
       faq: [
         { q: 'Which service should we ask about?', a: 'You do not need to decide first. We start by mapping your work and propose whether AI Sales, AI Phone or Salesforce AI fits, or whether bespoke development is needed.' },
-        { q: 'Can we start small?', a: 'Yes. We recommend starting with one task and validating the effect in a 2–4 week pilot before rolling out.' },
+        { q: 'Can we start small?', a: 'Yes. We recommend starting with one task and validating the effect in a 2–4 week pilot before rolling out. A PoC for AI Sales, AI Phone or Salesforce AI typically costs JPY 1–3 million; production rollout is quoted individually.' },
         { q: 'Can it connect to our existing systems?', a: 'Yes. We integrate via APIs with CRMs such as Salesforce and kintone, chat tools such as Slack, Microsoft Teams and LINE, and core business systems.' },
       ],
       features: [

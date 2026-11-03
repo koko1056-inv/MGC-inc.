@@ -1,6 +1,6 @@
 // 比較・選び方ガイド（/guide, /guide/<slug>）。
 // 「◯◯と△△の違い」「どちらを選ぶか」という問いに、表と短い文章で直接答えるページ。
-// 内容はサービスページに掲載済みの事実と、一般的な仕組みの説明に限る。料金の金額・導入件数・お客様の声は書かない。
+// 内容はサービスページに掲載済みの事実と、一般的な仕組みの説明に限る。料金は公開済みの目安（PoC 100〜300万円）だけ。導入件数・お客様の声は書かない。
 import type { Lang } from './translations';
 
 export type Guide = {
@@ -102,7 +102,7 @@ const ja: Guide[] = [
       },
     ],
     faq: [
-      { q: 'AI営業は成果報酬型ですか？', a: 'MGCのAI営業は1アポ単位の成果報酬ではなく、仕組みを作って動かし続ける契約形態です。費用は初期費用・月額費用・実費で構成され、対象範囲と件数で変わります。' },
+      { q: 'AI営業は成果報酬型ですか？', a: 'MGCのAI営業は1アポ単位の成果報酬ではなく、仕組みを作って動かし続ける契約形態です。費用は初期費用・月額費用・実費で構成され、対象範囲と件数で変わります。PoCは100〜300万円が目安で、本番導入は要件に応じて個別にお見積もりします。' },
       { q: 'AI営業にすると営業担当は不要になりますか？', a: 'なりません。AIが担うのは商談にたどり着くまでの前工程で、商談と提案は人が担います。前工程から解放されることで、商談の準備に時間を使えるようになります。' },
     ],
     service: { href: '/service/ai-sales', label: 'AI営業' },
@@ -193,7 +193,7 @@ const en: Guide[] = [
       { heading: 'Who AI Sales suits', list: ['Suits: B2B, with target companies you can describe', 'Suits: meetings reliably turn into deals', 'Not yet: B2C with an unspecified audience', 'Not yet: no capacity to take more meetings'] },
     ],
     faq: [
-      { q: 'Is AI Sales pay-per-appointment?', a: "No. MGC's AI Sales is a contract to build and run a system, with an initial fee, monthly fee and pass-through costs that depend on scope and volume." },
+      { q: 'Is AI Sales pay-per-appointment?', a: "No. MGC's AI Sales is a contract to build and run a system, with an initial fee, monthly fee and pass-through costs that depend on scope and volume. A PoC typically costs JPY 1–3 million; production rollout is quoted individually." },
     ],
     service: { href: '/service/ai-sales', label: 'AI Sales' },
   },
