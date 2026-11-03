@@ -257,3 +257,8 @@
 ## 2026-11-03 コラムの標準化（9）本文の書き直し 71〜80本目（10本）
 - 対象: logistics-last-mile-route-optimization, logistics-document-automation-ai, logistics-demand-forecasting-ai, hr-talent-management-retention-ai, hr-interview-evaluation-standardization-ai, hospitality-shift-optimization-and-labor-management, hospitality-customer-feedback-analysis, healthcare-staff-scheduling-shift-optimization-ai, healthcare-multilingual-staff-training-ai, healthcare-monitoring-sensing-ai
 - 型・検査・変更方針は（2）と同じ。check-rewrite.mjs と構成順の検査で10本すべて OK
+
+## 2026-11-03 コラムの標準化（10）本文の書き直し 81〜95本目（15本・完了）
+- 対象: healthcare-incident-reporting-safety-ai, healthcare-documentation-efficiency-ai, healthcare-care-planning-risk-prediction-ai, finance-unstructured-data-compliance, finance-risk-assessment-customer-support-ai, education-student-wellbeing-ai-monitoring, education-feedback-and-curriculum-ai, education-data-driven-management-support, education-ai-co-teacher-implementation, education-administrative-efficiency-ai, construction-site-efficiency-ai, construction-safety-quality-ai-vision, construction-progress-management-ai, construction-cost-estimation-ai, ai-cost-breakdown-initial-monthly-usage
+- 型・検査・変更方針は（2）と同じ。check-rewrite.mjs と構成順の検査で OK（費用のコラムは本日すでに dateModified を更新済みのため、日付の変更なし）
+- これで標準の記事を除く全95本の本文が新しい型になった
