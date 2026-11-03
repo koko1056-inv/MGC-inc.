@@ -19,7 +19,8 @@ let base = 'origin/main';
 if (args[0] === '--base') { base = args[1]; args.splice(0, 2); }
 
 // サイトに公開済みのMGCの事実に含まれる数字
-const ALLOWED = ['398,000', '398000', '20', '2', '4', '1', '3', '100', '300', '30'];
+// 見出しの番号（チェックリスト1〜5）も許可する
+const ALLOWED = ['398,000', '398000', '20', '1', '2', '3', '4', '5', '100', '300', '30'];
 const text = (a) => [a.lead, ...(a.summary || []), ...(a.body || []).flatMap((b) => [b.text, ...(b.items || []).map((i) => (typeof i === 'string' ? i : `${i.label}${i.desc || ''}`))]), ...(a.faq || []).flatMap((f) => [f.q, f.a])].filter(Boolean).join('\n');
 const nums = (s) => new Set((s.normalize('NFKC').match(/\d[\d,.]*/g) || []).map((n) => n.replace(/[.,]$/, '')));
 const companies = (s) => (s.match(/株式会社|（株）|\(株\)|有限会社|合同会社/g) || []).length;
