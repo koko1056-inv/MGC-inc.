@@ -224,3 +224,8 @@
 - 日次の自動投稿（generate-column.mjs）の見本を標準の記事に変更し、構成ルールを新しい型に合わせた。自動投稿の記事は業種の予備画像（同じ画風）を使う
 - 書き直しの検査スクリプト `scripts/column/check-rewrite.mjs` を追加（slug・タイトル不変、新しい数字・社名がないこと、新しい型になっていること）
 - links ブロックの文字列が plainText で "[object Object]" になる不具合を修正
+
+## 2026-11-03 コラムの標準化（2）本文の書き直し 1/10本目まで（10本）
+- 対象（サービスに近い順）: hr-reskilling-ai real-estate-internal-knowledge-sharing-ai real-estate-inquiry-response-ai public-resident-window-ai-automation hospitality-service-automation hr-job-description-scout-ai hospitality-personalized-guest-service-ai real-estate-valuation-market-analysis-ai finance-personalized-proposal-governance healthcare-family-communication-ai
+- 新しい型（前提の節 → チェックリスト4〜5本 → MGCの場合 → links → まとめ → FAQ 3問）に整理。slug・タイトル・seoTitle・description・keywords・画像は不変、dateModified を更新
+- 新しい数字・事例・社名は追加なし（check-rewrite.mjs で検査）。出典のない効果の数字や煽る表現（劇的・必須など）は弱めた／外した。MGCに関する未公開の記述は公開済みの事実に置き換えた
