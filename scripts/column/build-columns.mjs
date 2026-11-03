@@ -91,6 +91,10 @@ img{max-width:100%}
 
 /* ── 共通レイアウト ─────────────────── */
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.ind-links{max-width:var(--maxw);margin:20px auto 0;padding:0 24px;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;font-size:.85rem}
+.ind-links .label{color:var(--muted);font-weight:700;margin-right:4px}
+.ind-links a{color:var(--blue);text-decoration:underline;text-underline-offset:3px}
+a.chip{text-decoration:none}
 .crumbs{font-size:.78rem;color:var(--muted);max-width:var(--maxw);margin:22px auto 0;padding:0 24px}
 .crumbs a{color:var(--muted)}
 .crumbs a:hover{color:var(--blue)}
@@ -188,7 +192,7 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 .card:hover .thumb img{transform:scale(1.05)}
 .card .thumb .k{position:absolute;left:12px;top:12px;background:rgba(255,255,255,.94);color:var(--blue);font-size:.7rem;font-weight:800;border-radius:999px;padding:5px 12px;letter-spacing:.02em}
 .card .body{padding:18px 18px 20px;display:flex;flex-direction:column;gap:9px;flex:1}
-.card h3{font-size:1rem;font-weight:800;line-height:1.65;letter-spacing:-.01em;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.card h3,.card h2.h3{margin:0;font-size:1rem;font-weight:800;line-height:1.65;letter-spacing:-.01em;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .card .d{font-size:.82rem;color:var(--muted);line-height:1.8;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .card .foot{display:flex;align-items:center;gap:12px;font-size:.74rem;color:#9aa3b0;margin-top:auto;padding-top:6px}
 
@@ -254,7 +258,7 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
   .site-footer .cols{grid-template-columns:1fr 1fr;gap:32px}
 }
 @media(max-width:640px){
-  .wrap,.crumbs,.article-head,.hero-wrap,.layout,.index-hero,.featured,.filters,.cards,.more{padding-left:18px;padding-right:18px}
+  .wrap,.crumbs,.article-head,.hero-wrap,.layout,.index-hero,.featured,.filters,.ind-links,.cards,.more{padding-left:18px;padding-right:18px}
   .cta{padding:28px 22px;border-radius:20px}
   .featured .body{padding:26px 24px}
   .article > h2{font-size:1.25rem;margin-top:44px}
@@ -386,7 +390,7 @@ function articleHtml(a) {
   const img = a.image || ind.fallbackImage;
   const imgAbs = img.startsWith('http') ? img : `${site.baseUrl}${img}`;
   // タイトル末尾はサイト全体で「 - ＭＧＣ株式会社」に揃える（記事データ側の「 - MGCコラム」等は付け替える）
-  const seoTitle = `${(a.seoTitle || a.title).replace(/\s*[-–—|｜]\s*MGC(コラム| Inc\.)?\s*$/, '')} - ＭＧＣ株式会社`;
+  const seoTitle = `${(a.seoTitle || a.title).replace(/\s*[-–—|｜]\s*(MGC(コラム| Inc\.)?|ＭＧＣ株式会社)\s*$/, '')} - ＭＧＣ株式会社`;
   const desc = a.description || plainText(a).slice(0, 110);
   const kw = (a.keywords || []).join(', ');
 
@@ -395,7 +399,8 @@ function articleHtml(a) {
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'ホーム', item: `${site.baseUrl}/` },
       { '@type': 'ListItem', position: 2, name: 'AI活用コラム', item: `${site.baseUrl}/column` },
-      { '@type': 'ListItem', position: 3, name: a.title, item: url },
+      { '@type': 'ListItem', position: 3, name: `${ind.ja}のAI活用`, item: `${site.baseUrl}/column/industry/${a.industry}` },
+      { '@type': 'ListItem', position: 4, name: a.title, item: url },
     ],
   };
   const posting = {
@@ -476,11 +481,11 @@ ${ANALYTICS_HEAD}
 <body>
 <div class="progress" id="progress"></div>
 ${header('/column')}
-<nav class="crumbs"><a href="/">ホーム</a> ／ <a href="/column">AI活用コラム</a> ／ ${esc(ind.ja)}</nav>
+<nav class="crumbs"><a href="/">ホーム</a> ／ <a href="/column">AI活用コラム</a> ／ <a href="/column/industry/${esc(a.industry)}">${esc(ind.ja)}</a></nav>
 <header class="article-head">
 <span class="eyebrow">${esc(ind.ja)} × AI活用</span>
 <h1 class="title">${esc(a.title)}</h1>
-<div class="meta"><span class="chip">${esc(ind.ja)}</span><span>${esc(a.date.replace(/-/g, '.'))}</span>${a.readTime ? `<span>読了目安 ${esc(a.readTime)}</span>` : ''}<span>執筆：${AUTHOR.role} ${AUTHOR.name}</span></div>
+<div class="meta"><a class="chip" href="/column/industry/${esc(a.industry)}">${esc(ind.ja)}</a><span>${esc(a.date.replace(/-/g, '.'))}</span>${a.readTime ? `<span>読了目安 ${esc(a.readTime)}</span>` : ''}<span>執筆：${AUTHOR.role} ${AUTHOR.name}</span></div>
 </header>
 <div class="hero-wrap"><img class="hero" src="${esc(img)}" alt="${esc(a.imageAlt || a.title)}" width="1200" height="675"/></div>
 <main class="layout">
@@ -583,6 +588,8 @@ ${usedIndustries.map((k) => `<button type="button" data-f="${esc(k)}" aria-press
 </div>
 </nav>`
     : '';
+  // 業界別ページへのリンク（クローラーとJSなしの環境でも辿れるように）
+  const industryNavHtml = `<nav class="ind-links" aria-label="業界別のコラム一覧"><span class="label">業界別のコラム一覧</span>${usedIndustries.concat(Object.keys(industriesByKey).filter((k) => !usedIndustries.includes(k) && articles.some((a) => a.industry === k))).map((k) => `<a href="/column/industry/${esc(k)}">${esc(industriesByKey[k].ja)}</a>`).join('')}</nav>`;
   // JSが無い環境では全記事がそのまま並ぶ（フィルタと「もっと見る」は加点機能）
   const filterScript = `<script>
 (function(){
@@ -662,6 +669,7 @@ ${header('/column')}
 <section class="index-hero"><span class="eyebrow">AI Column</span><h1>業界別 AI活用コラム</h1><p>製造・建設・不動産・小売・物流・医療・士業…。業界ごとに「どの業務に、どうAIを使い、どこは人が判断するか」を、実務目線でまとめています。</p><span class="count">全 <b>${articles.length}</b> 記事</span></section>
 ${featuredHtml}
 ${filtersHtml}
+${industryNavHtml}
 <section class="cards">${cards || '<p style="color:#5b6472">記事は準備中です。</p>'}</section>
 <div class="more"><button type="button">もっと見る</button></div>
 ${filterScript}
@@ -684,12 +692,97 @@ ${ANALYTICS_CLICK}
 </html>`;
 }
 
+// ---- 業界別の一覧ページ（/column/industry/<key>）----
+// 紹介文は、その業界の記事が実際に扱っているテーマだけを書く（実績や数字は書かない）
+const INDUSTRY_LEADS = {
+  manufacturing: '外観検査、予兆保全、生産計画、需要予測、在庫の最適化、熟練者の技術承継など、製造業の現場でAIをどう使い、どこは人が判断するかを解説するコラムです。',
+  construction: '写真整理、安全・品質管理、書類作成、進捗管理、資材搬入、見積・積算、技術継承など、建設業の現場にAIを取り入れる進め方を解説するコラムです。',
+  'real-estate': '反響対応、物件登録、査定・市場分析、契約書類のチェック、巡回・点検、広告づくり、リフォーム提案など、不動産の仲介・管理実務でのAI活用を解説するコラムです。',
+  retail: '需要予測と在庫、パーソナライズ、カスタマーサポート、店舗運営、OMO、価格の最適化、MDなど、小売・ECでのAI活用を解説するコラムです。',
+  logistics: '配車計画、在庫、倉庫の動線・配置、書類業務、ラストワンマイル、積載、安全管理、ベテランの判断の標準化など、物流でのAI活用を解説するコラムです。',
+  healthcare: '記録業務、ケアプランとリスク予測、シフト作成、インシデント報告、見守り、外国人材の教育、退院支援、家族対応など、医療・介護の現場でのAI活用を解説するコラムです。',
+  hospitality: '予約・シフト・接客、需要予測、バックヤード業務、お客様の声の分析、品質のばらつきや廃棄の削減など、飲食・ホテルでのAI活用を解説するコラムです。',
+  professional: '会計・法務の定型業務、契約・書類の下書きと確認、相談対応の型化、リスク管理と組織の知のデジタル化など、士業でのAI活用を「AIに任せる作業」と「人が持つ判断」に分けて解説するコラムです。',
+  finance: '審査・照会、事務作業と顧客対応、査定、非定型書類の審査とコンプライアンス、パーソナライズ、AIの信頼性とリスク管理、不正検知など、金融・保険でのAI活用を解説するコラムです。',
+  education: '校務・教材作成、フィードバック、授業準備、データ活用、指導力の底上げ、生徒の見守りなど、教育現場で先生の時間を生み出すAI活用を解説するコラムです。',
+  hr: '書類選考とスカウト、採用マッチング、面接評価の平準化、求人票、キャリア面談、タレントマネジメント、リスキリング、社内ナレッジなど、人材・採用領域でのAI活用を解説するコラムです。',
+  public: '窓口業務、内部事務、ガバナンス、住民サービス、政策立案・地域活性化など、自治体でのAI導入を実務から進める方法を解説するコラムです。',
+};
+function industryHtml(key) {
+  const ind = industriesByKey[key];
+  const list = articles.filter((a) => a.industry === key);
+  const url = `${site.baseUrl}/column/industry/${key}`;
+  const title = `${ind.ja}のAI活用コラム｜業務別の導入の進め方 - ＭＧＣ株式会社`;
+  const lead = INDUSTRY_LEADS[key] || `${ind.ja}でのAI活用を、実務目線で解説するコラムです。`;
+  const desc = `${lead.replace(/コラムです。$/, 'MGCのコラム一覧')}（${list.length}記事）。`;
+  const ld = [
+    { '@context': 'https://schema.org', '@type': 'CollectionPage', name: `${ind.ja}のAI活用コラム`, description: lead, url, inLanguage: 'ja',
+      isPartOf: { '@id': `${site.baseUrl}/#website` }, about: { '@type': 'Thing', name: `${ind.ja}のAI活用` },
+      mainEntity: { '@type': 'ItemList', itemListElement: list.map((a, i) => ({ '@type': 'ListItem', position: i + 1, url: `${site.baseUrl}/column/${a.slug}`, name: a.title })) } },
+    { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'ホーム', item: `${site.baseUrl}/` },
+      { '@type': 'ListItem', position: 2, name: 'AI活用コラム', item: `${site.baseUrl}/column` },
+      { '@type': 'ListItem', position: 3, name: `${ind.ja}のAI活用`, item: url },
+    ] },
+  ];
+  const excerpt = (a) => a.description || `${plainText(a).slice(0, 90)}…`;
+  const cards = list.map((a) => {
+    const img = a.image || ind.fallbackImage;
+    return `<a class="card" href="/column/${a.slug}"><span class="thumb"><img src="${esc(img)}" alt="${esc(a.imageAlt || a.title)}" loading="lazy"/><span class="k">${esc(ind.ja)}</span></span><span class="body"><h2 class="h3">${esc(a.title)}</h2><span class="d">${esc(excerpt(a))}</span><span class="foot"><span>${esc(a.date.replace(/-/g, '.'))}</span>${a.readTime ? `<span>読了 ${esc(a.readTime)}</span>` : ''}</span></span></a>`;
+  }).join('');
+  const others = Object.keys(industriesByKey).filter((k) => k !== key && articles.some((a) => a.industry === k));
+  const svc = ['hr', 'education'].includes(key) ? { href: '/training', label: 'AI活用リスキリング研修' } : { href: '/works/ai-solutions', label: 'AIソリューション' };
+  return `<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>${esc(title)}</title>
+<meta name="description" content="${esc(desc)}"/>
+<meta name="robots" content="index, follow, max-image-preview:large"/>
+<link rel="canonical" href="${esc(url)}"/>
+<meta property="og:type" content="website"/>
+<meta property="og:locale" content="ja_JP"/>
+<meta property="og:site_name" content="MGC Inc."/>
+<meta property="og:url" content="${esc(url)}"/>
+<meta property="og:title" content="${esc(title)}"/>
+<meta property="og:description" content="${esc(desc)}"/>
+<meta property="og:image" content="${esc(site.baseUrl)}${esc(ind.fallbackImage)}"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="theme-color" content="#111418"/>
+<link rel="icon" href="/favicon.ico"/>
+${ld.map((x) => `<script type="application/ld+json">${jsonld(x)}</script>`).join('\n')}
+<style>${CSS}</style>
+${ANALYTICS_HEAD}
+</head>
+<body>
+${header('/column')}
+<nav class="crumbs"><a href="/">ホーム</a> ／ <a href="/column">AI活用コラム</a> ／ ${esc(ind.ja)}</nav>
+<section class="index-hero"><span class="eyebrow">AI Column — ${esc(ind.ja)}</span><h1>${esc(ind.ja)}のAI活用コラム</h1><p>${esc(lead)}</p><span class="count">全 <b>${list.length}</b> 記事</span></section>
+<section class="cards">${cards}</section>
+<nav class="ind-links" aria-label="ほかの業界のコラム"><span class="label">ほかの業界</span>${others.map((k) => `<a href="/column/industry/${esc(k)}">${esc(industriesByKey[k].ja)}</a>`).join('')}<a href="/column">すべてのコラム</a></nav>
+<section class="wrap" style="margin-top:56px">
+<div class="cta">
+<span class="cta-eyebrow">初回相談・お見積もりまで無料</span>
+<h2>${esc(ind.ja)}のAI活用、どこから始める？ まず30分お話しませんか</h2>
+<p>今の業務を伺い、どこからAIに任せられるか、どこは人が持つべきかを整理してお返しします。関連するサービス：<a href="${esc(svc.href)}">${esc(svc.label)}</a></p>
+<div class="btns"><a class="btn btn-primary" href="/contact">30分の無料相談を申し込む</a><a class="btn btn-ghost" href="/cases">導入事例を見る</a></div>
+</div>
+</section>
+${FOOTER}
+${ANALYTICS_CLICK}
+</body>
+</html>`;
+}
+
 // ---- sitemap ----
 function updateSitemap() {
   const START = '<!-- COLUMNS:START -->';
   const END = '<!-- COLUMNS:END -->';
   const urls = [
     `  <url><loc>${site.baseUrl}/column</loc><lastmod>${articles.map((a) => a.date).sort().pop()}</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>`,
+    ...Object.keys(industriesByKey).filter((k) => articles.some((a) => a.industry === k)).map((k) =>
+      `  <url><loc>${site.baseUrl}/column/industry/${k}</loc><lastmod>${articles.filter((a) => a.industry === k).map((a) => a.date).sort().pop()}</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>`),
     ...articles.map((a) =>
       `  <url><loc>${site.baseUrl}/column/${a.slug}</loc><lastmod>${a.date}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>`),
   ].join('\n');
@@ -756,6 +849,7 @@ function updateLlmsTxt() {
   L.push('');
   L.push('## AI活用コラム（業界別）');
   L.push('業界別に「どの業務にどうAIを使い、どこは人が判断するか」を実務目線で解説する記事。執筆は代表取締役 松尾 心夢。');
+  L.push(`業界別の一覧: ${Object.keys(industriesByKey).filter((k) => articles.some((a) => a.industry === k)).map((k) => `[${industriesByKey[k].ja}](${B}/column/industry/${k})`).join(' ／ ')}`);
   for (const a of articles) {
     const ind = industriesByKey[a.industry];
     const d = a.description || plainText(a).slice(0, 90);
@@ -772,10 +866,13 @@ for (const a of articles) {
   count++;
 }
 writeFileSync(join(OUT_DIR, 'index.html'), indexHtml());
+const HUBS = Object.keys(industriesByKey).filter((k) => articles.some((a) => a.industry === k));
+mkdirSync(join(OUT_DIR, 'industry'), { recursive: true });
+for (const k of HUBS) writeFileSync(join(OUT_DIR, 'industry', `${k}.html`), industryHtml(k));
 updateSitemap();
 updateLlmsTxt();
 
-console.log(`[build-columns] OK: ${count} 記事 + index.html + sitemap 更新`);
+console.log(`[build-columns] OK: ${count} 記事 + index.html + 業界別 ${HUBS.length} ページ + sitemap 更新`);
 for (const a of articles) {
   const len = plainText(a).length;
   const warn = len < 1500 ? '  ⚠ 短い(1500字未満)' : '';
