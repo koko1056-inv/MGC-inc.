@@ -239,6 +239,14 @@ const jsonLdFor = (path: string): object[] => {
       areaServed: { '@type': 'Country', name: 'Japan' },
       audience: { '@type': 'BusinessAudience', audienceType: '法人' },
       isRelatedTo: { '@type': 'Service', name: 'AIソリューション', url: `${SITE_ORIGIN}${BUSINESS_PAGES['biz-ai'].path}` },
+      // PoC の料金目安だけを構造化データにする（本番導入・月額は個別見積もりのため載せない）
+      offers: {
+        '@type': 'Offer',
+        name: `${page.navLabel} PoC（概念実証）`,
+        description: 'PoCの料金目安。本番導入は要件に応じて個別見積もり。',
+        url: meta.url,
+        priceSpecification: { '@type': 'PriceSpecification', minPrice: 1000000, maxPrice: 3000000, priceCurrency: 'JPY' },
+      },
     });
     const faq = page.sections.find((x) => x.type === 'faq');
     if (faq && faq.type === 'faq') out.push(faqPage(faq.items));
@@ -332,6 +340,7 @@ export const llmsFull = (): string => {
   L.push(t.pricing.lead);
   L.push(`- ${t.pricing.training.heading}: ${t.training.course.items.map((c) => `${c.name} ${c.specs[2].value}・${c.specs[3].value}`).join('／')}。${t.pricing.training.note}`);
   t.training.options.items.forEach((o) => L.push(`- ${o.title}: ${o.price}（${o.desc}）`));
+  L.push(`- ${t.pricing.services.poc.label}: ${t.pricing.services.poc.value}。${t.pricing.services.poc.note}`);
   L.push(`- ${t.pricing.services.heading}: 各サービスの「費用の考え方」（上記）を参照`);
   L.push(`- ${t.pricing.period.heading}: ${t.pricing.period.items.map((x) => `${x.label} ${x.value}`).join('、')}。${t.pricing.period.note}`);
   L.push(`- ${t.pricing.free}`);
