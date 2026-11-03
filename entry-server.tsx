@@ -323,6 +323,13 @@ export const llmsFull = (): string => {
     });
     L.push('');
   });
+  L.push(`## ${t.pricing.title}（${SITE_ORIGIN}/pricing）`);
+  L.push(t.pricing.lead);
+  L.push(`- ${t.pricing.training.heading}: ${t.training.course.items.map((c) => `${c.name} ${c.specs[2].value}・${c.specs[3].value}`).join('／')}。${t.pricing.training.note}`);
+  L.push(`- ${t.pricing.services.heading}: 各サービスの「費用の考え方」（上記）を参照`);
+  L.push(`- ${t.pricing.period.heading}: ${t.pricing.period.items.map((x) => `${x.label} ${x.value}`).join('、')}。${t.pricing.period.note}`);
+  L.push(`- ${t.pricing.free}`);
+  L.push('');
   L.push('## 研修');
   t.training.course.items.forEach((c) => {
     L.push(`### ${c.name}`);
