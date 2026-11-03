@@ -71,6 +71,13 @@
       }
     ]
   },
+  "extraIndustries": [
+    {
+      "key": "general",
+      "ja": "業種共通",
+      "fallbackImage": "/assets/service_ai.webp"
+    }
+  ],
   "usedTopics": {
     "manufacturing": [
       "manufacturing-inspection-ai",
@@ -192,6 +199,18 @@
     ]
   },
   "articles": [
+    {
+      "slug": "ai-cost-breakdown-initial-monthly-usage",
+      "industry": "general",
+      "date": "2026-11-03",
+      "file": "ai-cost-breakdown-initial-monthly-usage.json"
+    },
+    {
+      "slug": "ai-training-selection-checklist",
+      "industry": "general",
+      "date": "2026-11-03",
+      "file": "ai-training-selection-checklist.json"
+    },
     {
       "slug": "manufacturing-inspection-ai",
       "industry": "manufacturing",

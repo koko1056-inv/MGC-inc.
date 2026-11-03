@@ -177,3 +177,10 @@
 - トップに「こんなお悩みはありませんか」を3つ（AI営業・AI電話・Salesforce AI の各ページにある課題の書き方から作成）。各サービスページへリンク
 - llms-full.txt に3段階の流れを追加
 - 確認: ビルド40ページ、各リンクの画面内遷移、見出しの階層、モバイルで横スクロールなし、コンソールエラーなし
+
+## サイクル12-D（2026-11-03）コラム2本（研修の選び方・AI導入費用の内訳）
+- 追加: 「法人向けAI研修の選び方チェックリスト」（/column/ai-training-selection-checklist）、「AI導入費用の内訳の考え方 — 初期費用・月額費用・実費」（/column/ai-cost-breakdown-initial-monthly-usage）
+- 外部の相場の数字・助成金の補助率は使わず、MGCが公開している費用の構造（研修の受講料と時間、初期・月額・実費／従量・ライセンス、期間の目安、初回相談無料）と判断の観点だけで構成。各記事 FAQ 3問
+- 本文から /training と /pricing へのサイト内リンク（新しいブロック type: links。サイト内パスのみ許可）
+- 業種を問わない記事のため、分類「業種共通」（/column/industry/general）を追加。日次の自動投稿のローテーションには入れていない（columns.json の extraIndustries）
+- 確認: ビルド40ページ＋コラム96本＋業界ページ13、BlogPosting/FAQPage/BreadcrumbList 妥当、リンクから /pricing へ移動、モバイルで横スクロールなし
