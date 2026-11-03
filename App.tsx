@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect, useRef, useState, ReactNode } from 'react';
-import { ArrowRight, Globe, Zap, Layers, X, Send, Menu, Anchor, Check, Heart, MapPin, Calendar, User, Sparkles, Plus, Minus } from 'lucide-react';
+import { ArrowRight, Globe, Zap, Layers, X, Send, Menu, Anchor, Check, Heart, MapPin, Calendar, User, Sparkles, Plus, Minus, ChevronRight } from 'lucide-react';
 
 import { translations, Lang } from './translations';
 import { track } from '@vercel/analytics';
@@ -4319,6 +4319,16 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
   // 同じビューで中身が変わるページ（/blog/<slug>）のために、現在のパスも持つ
   const [path, setPath] = useState<string>(currentPath());
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // スマホのメニューはヘッダーの真下から始める（ヘッダーの高さは端末や文字の大きさで変わるため実測する）
+  const headerRef = useRef<HTMLElement | null>(null);
+  const [headerH, setHeaderH] = useState(73);
+  useEffect(() => {
+    const el = headerRef.current;
+    if (!el || typeof ResizeObserver === 'undefined') return;
+    const ro = new ResizeObserver(() => setHeaderH(Math.round(el.getBoundingClientRect().bottom)));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
   const [lang, setLang] = useState<Lang>('ja');
   const t = translations[lang];
 
@@ -4469,6 +4479,15 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
       { id: 'career', label: t.nav.career },
     ] },
   ];
+  // スマホのメニュー用: 子を持たない単独リンクが続くときは、1つのまとまりにする
+  type MobileGroup = { kind: 'section'; label: string; children: NavLeaf[] } | { kind: 'links'; label: string; links: NavItem[] };
+  const mobileGroups: MobileGroup[] = navItems.reduce<MobileGroup[]>((acc, item) => {
+    if (item.children) { acc.push({ kind: 'section', label: item.label, children: item.children }); return acc; }
+    const last = acc[acc.length - 1];
+    if (last && last.kind === 'links') last.links.push(item);
+    else acc.push({ kind: 'links', label: `links-${item.label}`, links: [item] });
+    return acc;
+  }, []);
   // サービスページ（AI営業など）は事業内容の中のページとして扱う
   const isGroupActive = (item: NavItem) => !!item.children?.some((c) => c.id === view || (c.id === 'works' && (isServiceKey(view) || isBizView(view))));
 
@@ -4479,7 +4498,7 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
       {/* Header
           以前は mix-blend-difference（背景に応じて色を反転）だったため、ドロップダウンが
           下の本文と混ざって読みにくかった。白地の固定ヘッダーにして、常に同じ見え方にする。 */}
-      <header className="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-gray-200 text-offblack">
+      <header ref={headerRef} className="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-gray-200 text-offblack">
         <div className="py-4 px-6 md:px-12 flex justify-between items-center">
         <NavLink
           href={pathForView('home')} onGo={() => navigate('home')}
@@ -4577,44 +4596,53 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
       </header>
 
       {/* Mobile Menu Overlay */}
-      <div className={`fixed inset-0 bg-white z-40 overflow-y-auto transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}>
-        <nav className="flex flex-col items-center gap-7 px-6 pt-28 pb-16">
-           {navItems.map((item) => item.children ? (
-            <div key={item.label} className="flex flex-col items-center gap-3">
-              <span className="text-xs font-bold uppercase tracking-[0.3em] text-gray-400">{item.label}</span>
-              {item.children.map((c) => c.heading ? (
-                <span key={c.label} className="text-[11px] font-bold tracking-[0.2em] text-accent mt-1">{c.label}</span>
-              ) : (
-                <NavLink
-                  key={c.label}
-                  href={leafHref(c)} onGo={() => goLeaf(c)}
-                  className={`${c.indent ? 'text-xl' : 'text-2xl'} font-bold tracking-tighter text-offblack hover:text-accent transition-colors`}
-                >
-                  {c.label}
-                </NavLink>
-              ))}
+      {/* スマホのメニュー（md 未満でのみ開く）。見出し＝小さめのグレー、項目＝同じ大きさ・タップ領域 48px、左揃え */}
+      <div
+        style={{ top: headerH }}
+        className={`fixed inset-x-0 bottom-0 bg-white z-40 overflow-y-auto overscroll-contain transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] md:hidden ${isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}
+      >
+        <nav aria-label={lang === 'ja' ? 'メニュー' : 'Menu'} className="mx-auto w-full max-w-md px-6 pt-6" style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 40px)' }}>
+          {mobileGroups.map((item) => item.kind === 'section' ? (
+            <div key={item.label} className="mb-6">
+              <p className="px-1 pb-1 text-xs font-bold tracking-[0.2em] uppercase text-gray-400">{item.label}</p>
+              <ul className="border-t border-gray-100">
+                {item.children.map((c) => c.heading ? (
+                  <li key={c.label} className="px-1 pt-4 pb-1 text-[11px] font-bold tracking-[0.15em] text-accent">{c.label}</li>
+                ) : (
+                  <li key={c.label} className="border-b border-gray-100">
+                    <NavLink
+                      href={leafHref(c)} onGo={() => goLeaf(c)}
+                      className={`flex items-center justify-between min-h-[48px] py-2 ${c.indent ? 'pl-5 pr-1 text-[15px] font-medium text-gray-600' : 'px-1 text-[17px] font-bold text-offblack'} leading-snug hover:text-accent transition-colors`}
+                    >
+                      {c.label}
+                      <ChevronRight aria-hidden className="w-4 h-4 text-gray-300 flex-shrink-0" />
+                    </NavLink>
+                  </li>
+                ))}
+              </ul>
             </div>
-          ) : item.href ? (
-            <a
-              key={item.href}
-              href={item.href}
-              onClick={() => setIsMenuOpen(false)}
-              className="text-4xl font-bold tracking-tighter text-offblack hover:text-accent transition-colors"
-            >
-              {item.label}
-            </a>
           ) : (
-            <NavLink
-              key={item.id}
-              href={item.id ? pathForView(item.id) : undefined} onGo={() => item.id && navigate(item.id)}
-              className="text-4xl font-bold tracking-tighter text-offblack hover:text-accent transition-colors"
-            >
-              {item.label}
-            </NavLink>
+            <ul key={item.label} className="mb-6 border-t border-gray-100">
+              {item.links.map((l) => (
+                <li key={l.href ?? l.id} className="border-b border-gray-100">
+                  {l.href ? (
+                    <a href={l.href} onClick={() => setIsMenuOpen(false)} className="flex items-center justify-between min-h-[48px] py-2 px-1 text-[17px] font-bold text-offblack leading-snug hover:text-accent transition-colors">
+                      {l.label}
+                      <ChevronRight aria-hidden className="w-4 h-4 text-gray-300 flex-shrink-0" />
+                    </a>
+                  ) : (
+                    <NavLink href={l.id ? pathForView(l.id) : undefined} onGo={() => l.id && navigate(l.id)} className="flex items-center justify-between min-h-[48px] py-2 px-1 text-[17px] font-bold text-offblack leading-snug hover:text-accent transition-colors">
+                      {l.label}
+                      <ChevronRight aria-hidden className="w-4 h-4 text-gray-300 flex-shrink-0" />
+                    </NavLink>
+                  )}
+                </li>
+              ))}
+            </ul>
           ))}
           <NavLink
             href={pathForView('contact')} onGo={() => navigate('contact')}
-            className="mt-3 px-8 py-4 rounded-full bg-accent text-white text-2xl font-bold hover:opacity-90 transition-colors"
+            className="mt-2 flex items-center justify-center w-full min-h-[52px] px-8 rounded-full bg-accent text-white text-base font-bold hover:opacity-90 transition-colors"
           >
             {t.nav.contact}
           </NavLink>
