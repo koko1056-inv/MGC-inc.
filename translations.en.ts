@@ -156,7 +156,7 @@ export const en: Translation = {
     items: [
       {
         q: 'How is pricing structured?',
-        a: 'AI Solutions engagements are quoted per project. We propose the best plan based on your scope, scale, and timeline — start with a free first consultation.',
+        a: 'For AI Solutions (AI Sales, AI Phone, Salesforce AI), a PoC to verify the effect typically costs JPY 1–3 million. Production rollout is quoted individually based on your requirements (scope, scale, timeline). Training is JPY 398,000 per participant (tax incl.). Start with a free first consultation.',
         link: '/pricing',
       },
       {
@@ -743,7 +743,7 @@ export const en: Translation = {
   pricing: {
     eyebrow: 'Pricing',
     title: 'How our pricing works',
-    lead: 'Training is offered to every company on the same terms — same content, hours and price. For our AI Solutions services the amount depends on scope and volume, so we do not publish a flat price list; instead we disclose up front what the costs are made of and what changes them.',
+    lead: 'Training is offered to every company on the same terms — same content, hours and price. For our AI Solutions services we show a typical price for the PoC (a trial to verify the effect) and quote production rollout individually based on your requirements, while also disclosing what the costs are made of and what changes them.',
     free: 'The first consultation and the estimate are free.',
     training: {
       eyebrow: 'Training',
@@ -757,6 +757,7 @@ export const en: Translation = {
       lead: 'The amount depends on what you ask for (the work in scope, scale and period). For each service we show the cost components and what changes the amount.',
       structureLabel: 'Cost components',
       driversLabel: 'What changes the cost',
+      poc: { label: 'Typical PoC price (AI Sales, AI Phone, Salesforce AI)', value: 'JPY 1–3 million', note: 'Production rollout is quoted individually based on your requirements.' },
       link: 'See details',
     },
     period: {

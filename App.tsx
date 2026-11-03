@@ -40,7 +40,7 @@ const PAGE_META: Record<Lang, Partial<Record<string, { title: string; descriptio
     'biz-newbiz': { title: 'AI事業立ち上げ支援｜導入したAIを同業他社へ届ける事業に - ＭＧＣ株式会社', description: '自社で導入して効果が出たAIを、同業他社へ提供できる商材にまとめ、新しい事業として立ち上げます。パッケージ化、AI側の実務の巻き取り、販売の立ち上げまで支援します。' },
     'biz-crossborder': { title: 'クロスボーダー事業｜海外企業の日本参入・日本企業の海外進出支援 - ＭＧＣ株式会社', description: '海外の優れたプロダクトを日本市場へ届ける「Inbound」と、日本企業の海外進出を支援する「Outbound」。双方向で日本と世界のビジネスをつなぎます。' },
     guides: { title: '比較・選び方ガイド｜AI電話とIVR、AI営業とテレアポ代行ほか - ＭＧＣ株式会社', description: 'AI導入でよく比べられる方法の違いと選び方を、表でまとめたガイド。AI電話・IVR・ボイスボット、AI営業とテレアポ代行、Salesforceの標準AI機能と個別開発を比較しています。' },
-    pricing: { title: '料金の考え方｜研修の受講料とAIソリューションの費用構成 - ＭＧＣ株式会社', description: '研修は1名398,000円（税込）・標準20時間。AI営業・AI電話・Salesforce AI活用支援は、初期・月額・実費などの費用の構成と、金額が変わる要因を開示しています。期間の目安と初回相談無料のご案内。' },
+    pricing: { title: '料金の考え方｜研修の受講料とAIソリューションの費用構成 - ＭＧＣ株式会社', description: '研修は1名398,000円（税込）・標準20時間。AI営業・AI電話・Salesforce AI活用支援はPoC 100〜300万円が目安、本番導入は要件に応じて個別見積もり。費用の構成と金額が変わる要因、期間の目安も掲載。' },
     glossary: { title: 'AI活用 用語集｜AIエージェント・RAG・ボイスボット・IVRなど - ＭＧＣ株式会社', description: 'AIの導入・活用でよく使われる言葉（生成AI、LLM、AIエージェント、RAG、ハルシネーション、ボイスボット、IVR、ACW、CRM、SFA、API連携、OFF-JT、リスキリング、DX）を短く説明する用語集です。' },
     'privacy-policy': { title: 'プライバシーポリシー - ＭＧＣ株式会社', description: 'ＭＧＣ株式会社のプライバシーポリシー。問い合わせフォーム・AI活用診断で取得する情報、利用目的、外部サービス、保管期間、開示等のご請求について。' },
     'terms-of-service': { title: 'サイト利用規約 - ＭＧＣ株式会社', description: 'ＭＧＣ株式会社ウェブサイト（mgc-global01.com）の利用規約。著作権、禁止事項、AI活用診断の結果の位置づけ、免責事項、外部リンク、個人情報の取扱い、準拠法・管轄（京都地方裁判所）について定めています。' },
@@ -61,7 +61,7 @@ const PAGE_META: Record<Lang, Partial<Record<string, { title: string; descriptio
     'biz-ai': { title: 'AI Solutions | AI consulting, development and operation - MGC Inc.', description: 'From deciding what AI should do, to building voice, text and CRM-connected AI, to running it after launch. AI Sales, AI Phone, Salesforce AI and bespoke AI consulting and development.' },
     'biz-newbiz': { title: 'AI Business Launch | Turn the AI you adopted into a business - MGC Inc.', description: 'We package AI that worked in your company into a product you can sell to your industry, take on the AI-side operations, and help you launch sales.' },
     'biz-crossborder': { title: 'Cross-Border | Japan market entry and overseas expansion - MGC Inc.', description: 'Inbound: bringing excellent overseas products to Japan. Outbound: helping Japanese companies expand overseas. Connecting business between Japan and the world in both directions.' },
-    pricing: { title: 'Pricing | Training fees and how AI Solutions costs are structured - MGC Inc.', description: 'Training is JPY 398,000 per participant (tax incl.) for a standard 20 hours. For AI Sales, AI Phone and Salesforce AI we disclose the cost components (initial, monthly, usage) and what changes the amount, plus typical timelines.' },
+    pricing: { title: 'Pricing | Training fees and how AI Solutions costs are structured - MGC Inc.', description: 'Training is JPY 398,000 per participant (tax incl.) for a standard 20 hours. For AI Sales, AI Phone and Salesforce AI a PoC typically costs JPY 1–3 million and production rollout is quoted individually; we also disclose the cost components and typical timelines.' },
     guides: { title: 'Comparison guides | AI phone vs IVR, AI Sales vs telemarketing - MGC Inc.', description: 'Tables comparing commonly weighed approaches to AI adoption: AI phones, IVR and voicebots; AI Sales and telemarketing; Salesforce built-in AI and bespoke development.' },
     glossary: { title: 'AI Glossary | AI agents, RAG, voicebots, IVR and more - MGC Inc.', description: 'Short explanations of terms used in AI adoption: generative AI, LLMs, AI agents, RAG, hallucination, voicebots, IVR, ACW, CRM, SFA, API integration, OFF-JT, reskilling and DX.' },
     'privacy-policy': { title: 'Privacy Policy - MGC Inc.', description: 'How MGC Inc. handles information collected through the contact form, AI diagnosis and analytics.' },
@@ -3408,6 +3408,13 @@ const PricingView: React.FC<{ onNavigate: (view: ViewState) => void }> = ({ onNa
         <section className="px-6 md:px-12 mt-20 md:mt-28">
           <div className="max-w-screen-xl mx-auto">
             <Reveal><Head eyebrow={p.services.eyebrow} title={p.services.heading} lead={p.services.lead} /></Reveal>
+            <Reveal>
+              <div className="rounded-2xl bg-[#F4F6FB] border-l-4 border-[#2D6CDF] p-6 md:p-8 mb-8 max-w-4xl">
+                <p className="text-sm font-bold text-gray-600">{p.services.poc.label}</p>
+                <p className="text-3xl md:text-4xl font-bold text-[#111418] mt-2">{p.services.poc.value}</p>
+                <p className="text-[15px] text-gray-700 mt-3 leading-[1.8]">{p.services.poc.note}</p>
+              </div>
+            </Reveal>
             <div className="space-y-8">
               {SERVICE_KEYS.map((k) => {
                 const page = serviceContent[lang][k];
