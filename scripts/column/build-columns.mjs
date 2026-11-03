@@ -387,17 +387,25 @@ function plainText(a) {
   const parts = [a.lead || ''];
   for (const b of a.body || []) {
     if (b.text) parts.push(b.text);
-    if (b.items) parts.push(b.items.join(''));
+    if (b.items) parts.push(b.items.map((i) => (typeof i === 'string' ? i : `${i.label || ''}${i.desc || ''}`)).join(''));
   }
   return parts.join('');
 }
+
+// .webp のサムネイルに同名の .jpg があれば、OGP 用にそちらを返す
+const ogImage = (p) => {
+  if (!p.endsWith('.webp')) return p;
+  const jpg = p.replace(/\.webp$/, '.jpg');
+  return existsSync(join(ROOT, 'public', jpg)) ? jpg : p;
+};
 
 // ---- article page ----
 function articleHtml(a) {
   const ind = industriesByKey[a.industry];
   const url = `${site.baseUrl}/column/${a.slug}`;
   const img = a.image || ind.fallbackImage;
-  const imgAbs = img.startsWith('http') ? img : `${site.baseUrl}${img}`;
+  // OGP・構造化データは JPEG を使う（サムネイルは .webp と同名の .jpg を scripts/column/thumbnail.mjs が作る）
+  const imgAbs = img.startsWith('http') ? img : `${site.baseUrl}${ogImage(img)}`;
   // タイトル末尾はサイト全体で「 - ＭＧＣ株式会社」に揃える（記事データ側の「 - MGCコラム」等は付け替える）
   const seoTitle = `${(a.seoTitle || a.title).replace(/\s*[-–—|｜]\s*(MGC(コラム| Inc\.)?|ＭＧＣ株式会社)\s*$/, '')} - ＭＧＣ株式会社`;
   const desc = a.description || plainText(a).slice(0, 110);
@@ -472,7 +480,7 @@ ${kw ? `<meta name="keywords" content="${esc(kw)}"/>` : ''}
 <meta property="og:url" content="${esc(url)}"/>
 <meta property="og:title" content="${esc(seoTitle)}"/>
 <meta property="og:description" content="${esc(desc)}"/>
-<meta property="og:image" content="${esc(imgAbs)}"/>
+<meta property="og:image" content="${esc(imgAbs)}"/>${/\/assets\/column\/[^/]+\.jpg$/.test(imgAbs) ? '\n<meta property="og:image:width" content="1200"/>\n<meta property="og:image:height" content="630"/>' : ''}
 <meta property="article:published_time" content="${esc(a.date)}"/>
 <meta property="article:section" content="${esc(ind.ja)}"/>
 <meta name="twitter:card" content="summary_large_image"/>
@@ -757,7 +765,7 @@ function industryHtml(key) {
 <meta property="og:url" content="${esc(url)}"/>
 <meta property="og:title" content="${esc(title)}"/>
 <meta property="og:description" content="${esc(desc)}"/>
-<meta property="og:image" content="${esc(site.baseUrl)}${esc(ind.fallbackImage)}"/>
+<meta property="og:image" content="${esc(site.baseUrl)}${esc(ogImage(ind.fallbackImage))}"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="theme-color" content="#111418"/>
 <link rel="icon" href="/favicon.ico"/>

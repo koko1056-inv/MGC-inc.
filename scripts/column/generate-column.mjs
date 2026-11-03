@@ -54,8 +54,8 @@ const existingSlugs = new Set((manifest.articles || []).map((a) => a.slug));
 // JST の当日日付（Actions は UTC 実行のため +9h）
 const today = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
 
-// 文体の見本（この構造・トーンに厳密に合わせる）
-const exemplarPath = join(CONTENT_DIR, 'manufacturing-inspection-ai.json');
+// 文体の見本（この構造・トーンに厳密に合わせる）。標準は docs/seo-aio/column-style-guide.md
+const exemplarPath = join(CONTENT_DIR, 'ai-training-selection-checklist.json');
 const exemplar = existsSync(exemplarPath) ? readFileSync(exemplarPath, 'utf8') : '';
 
 const SYSTEM = [
@@ -71,10 +71,12 @@ const RULES = `# 文体・品質ルール（厳守）
 - 誇大な断定や、具体的な数値効果（○％削減 等）の保証はしない。
 - 売り込みは本文に入れない（相談導線CTAはサイト側で自動付与される）。末尾の「まとめ」は内容の要約に徹する。
 
-# 分量・構成（厳守）
-- 本文（lead + body のテキスト合計）は **3,000〜4,000字（最低でも3,000字）**。しっかり読み応えのある密度にする。
-- **h2 を6〜7本**立て、各セクションは段落を2つ以上書く。数セクションには箇条書き(ul/ol)や引用(quote)を入れて具体性を出す。
-- 水増しや同義の繰り返しで字数を稼がない。具体例、業務の場面、導入手順、つまずきやすい点、確認すべきチェック項目などで自然に厚くする。
+# 分量・構成（厳守。docs/seo-aio/column-style-guide.md の型）
+- 本文（lead + body のテキスト合計）は **2,000〜3,000字**。水増しや同義の繰り返しで字数を稼がない。
+- タイトルは「テーマ — 読者が得るもの」の形（全角ダッシュで2つに分ける）。
+- body の順番: ①前提の節（「まず決めること：…」）→ ②観点の節を4〜5本（見出しは「チェックリストN：…」など番号＋観点。各節は「確認項目の ul（3〜4項目、『〜か』で終わる問いの形）→ なぜ大事かの段落」）→ ③「MGCの…の場合」の節 → ④ links ブロック → ⑤「まとめ」の節（1段落、要約のみ）。
+- 文体はです・ます調、1文40〜60字、1段落2〜4文。h3 は使わない。quote は1回まで。
+- 「MGCの…の場合」に書いてよいのはサイトに公開済みの事実だけ（AIソリューションの PoC は100〜300万円が目安・本番導入は個別見積もり、パイロット運用2〜4週間・本番運用1〜3ヶ月が目安、研修は1名398,000円（税込）・標準20時間、初回相談・お見積もりまで無料、専門チームが一貫して担当）。新しい数字・事例・社名・お客様の声は書かない。
 
 # AIアシスタント/生成エンジンに引用・推薦されやすくする（GEO）ルール
 - **結論先出し**: 各 h2 セクションは、最初の段落で結論・要点を1〜2文で言い切ってから詳細に入る。
@@ -100,13 +102,14 @@ const SCHEMA = `# 出力スキーマ（このキー構成のJSONのみ）
     { "type": "p", "text": "段落" },
     { "type": "ul", "items": ["箇条書き", "..."] },
     { "type": "ol", "items": ["手順1", "..."] },
-    { "type": "quote", "text": "一文で刺さる要点" }
+    { "type": "quote", "text": "一文で刺さる要点" },
+    { "type": "links", "items": [{ "href": "/works/ai-solutions", "label": "AIソリューション", "desc": "一言の説明" }, { "href": "/pricing", "label": "料金の考え方", "desc": "一言の説明" }] }
   ],
   "faq": [
     { "q": "その業界の顧客が実際に気にする質問", "a": "誠実で具体的な回答（会話調）" }
   ]
 }
-# body の作り方: h2 を4〜6個。必要に応じて h3 / ul / ol / quote を効果的に混ぜる。最後の h2 は「まとめ：…」で要点を ul で列挙。faq は2〜3問。`;
+# body の作り方: 上の「分量・構成」の順番どおり。links の href はサイト内のパス（/training、/pricing、/works/ai-solutions、/service/ai-sales、/service/ai-phone、/service/salesforce-ai、/guide のいずれか）。faq は3問で、1問は「MGCではできるか」に公開済みの事実の範囲で答える。`;
 
 const USER = `# 今日書くコラム
 - 業種: ${ind.ja}（key: ${ind.key}）
@@ -172,14 +175,14 @@ async function callGemini(userText) {
 }
 
 // 本文（lead + body）の文字数
-const bodyLen = (a) => [a.lead || '', ...((a.body || []).map((b) => (b.text || '') + (b.items ? b.items.join('') : '')))].join('').length;
+const bodyLen = (a) => [a.lead || '', ...((a.body || []).map((b) => (b.text || '') + (b.items ? b.items.map((i) => (typeof i === 'string' ? i : `${i.label || ''}${i.desc || ''}`)).join('') : '')))].join('').length;
 
 let { art, model: MODEL } = await callGemini(USER);
 
 // 分量ガード: 短ければ1回だけ「書き足し」を依頼（デイリー投稿は止めない）
-if (bodyLen(art) < 2800) {
+if (bodyLen(art) < 1800) {
   const prev = bodyLen(art);
-  const expandPrompt = `以下は前回のあなたの出力です。内容の重複や水増しをせず、具体例・業務の場面・導入手順・つまずきやすい点・確認すべきチェック項目などを補って、本文（lead + body）を約3,500字まで自然に充実させてください。h2は6〜7本にする。タイトルや構成の骨子は活かしつつ、同じJSONスキーマで全文を1つのJSONオブジェクトとして再出力してください。\n\n${JSON.stringify(art)}`;
+  const expandPrompt = `以下は前回のあなたの出力です。内容の重複や水増しをせず、具体例・業務の場面・導入手順・つまずきやすい点・確認すべきチェック項目などを補って、本文（lead + body）を約2,500字まで自然に充実させてください。構成の型（前提の節 → 観点の節4〜5本 → MGCの場合 → links → まとめ）は保ってください。タイトルや構成の骨子は活かしつつ、同じJSONスキーマで全文を1つのJSONオブジェクトとして再出力してください。\n\n${JSON.stringify(art)}`;
   try {
     const r = await callGemini(expandPrompt);
     if (r && bodyLen(r.art) > prev) { art = r.art; MODEL = r.model; }
@@ -204,7 +207,7 @@ for (const f of ['title', 'seoTitle', 'description', 'lead', 'body', 'faq']) {
 if (!Array.isArray(art.body) || art.body.length < 4) die('body の見出し/段落が不足しています');
 
 // readTime 補完
-const textLen = [art.lead || '', ...art.body.map((b) => (b.text || '') + (b.items ? b.items.join('') : ''))].join('').length;
+const textLen = [art.lead || '', ...art.body.map((b) => (b.text || '') + (b.items ? b.items.map((i) => (typeof i === 'string' ? i : `${i.label || ''}${i.desc || ''}`)).join('') : ''))].join('').length;
 if (!art.readTime) art.readTime = `${Math.max(5, Math.round(textLen / 400))}分`;
 if (!art.imageAlt) art.imageAlt = `${ind.ja}のAI活用イメージ`;
 

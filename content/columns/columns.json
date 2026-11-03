@@ -12,62 +12,62 @@
       {
         "key": "manufacturing",
         "ja": "製造業",
-        "fallbackImage": "/assets/column/ind_manufacturing.jpg"
+        "fallbackImage": "/assets/column/ind_manufacturing.webp"
       },
       {
         "key": "construction",
         "ja": "建設業",
-        "fallbackImage": "/assets/column/ind_construction.jpg"
+        "fallbackImage": "/assets/column/ind_construction.webp"
       },
       {
         "key": "real-estate",
         "ja": "不動産",
-        "fallbackImage": "/assets/column/ind_real-estate.jpg"
+        "fallbackImage": "/assets/column/ind_real-estate.webp"
       },
       {
         "key": "retail",
         "ja": "小売・EC",
-        "fallbackImage": "/assets/column/ind_retail.jpg"
+        "fallbackImage": "/assets/column/ind_retail.webp"
       },
       {
         "key": "logistics",
         "ja": "物流",
-        "fallbackImage": "/assets/column/ind_logistics.jpg"
+        "fallbackImage": "/assets/column/ind_logistics.webp"
       },
       {
         "key": "healthcare",
         "ja": "医療・介護",
-        "fallbackImage": "/assets/column/ind_healthcare.jpg"
+        "fallbackImage": "/assets/column/ind_healthcare.webp"
       },
       {
         "key": "hospitality",
         "ja": "飲食・ホテル",
-        "fallbackImage": "/assets/column/ind_hospitality.jpg"
+        "fallbackImage": "/assets/column/ind_hospitality.webp"
       },
       {
         "key": "professional",
         "ja": "士業（会計・法務）",
-        "fallbackImage": "/assets/column/ind_professional.jpg"
+        "fallbackImage": "/assets/column/ind_professional.webp"
       },
       {
         "key": "finance",
         "ja": "金融・保険",
-        "fallbackImage": "/assets/column/ind_finance.jpg"
+        "fallbackImage": "/assets/column/ind_finance.webp"
       },
       {
         "key": "education",
         "ja": "教育",
-        "fallbackImage": "/assets/column/ind_education.jpg"
+        "fallbackImage": "/assets/column/ind_education.webp"
       },
       {
         "key": "hr",
         "ja": "人材・採用",
-        "fallbackImage": "/assets/column/ind_hr.jpg"
+        "fallbackImage": "/assets/column/ind_hr.webp"
       },
       {
         "key": "public",
         "ja": "自治体・公共",
-        "fallbackImage": "/assets/column/ind_public.jpg"
+        "fallbackImage": "/assets/column/ind_public.webp"
       }
     ]
   },
@@ -75,7 +75,7 @@
     {
       "key": "general",
       "ja": "業種共通",
-      "fallbackImage": "/assets/service_ai.webp"
+      "fallbackImage": "/assets/column/ind_general.webp"
     }
   ],
   "usedTopics": {
