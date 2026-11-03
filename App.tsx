@@ -577,6 +577,9 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
             </div>
             <h3 className="text-xl md:text-2xl font-bold text-offblack mb-3 tracking-tight leading-snug">{s.title}</h3>
             <p className="text-gray-600 text-sm md:text-base leading-relaxed">{s.desc}</p>
+            {'duration' in s && s.duration && (
+              <span className="inline-block mt-4 px-3 py-1 rounded-full bg-accent/10 text-accent text-xs md:text-sm font-bold">{s.duration}</span>
+            )}
             <ul className="mt-6 pt-6 border-t border-gray-200 space-y-3">
               {s.items.map((item, j) => (
                 <li key={j} className="flex items-start gap-3">
@@ -1069,6 +1072,9 @@ const WorksView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNav
                   </div>
                   <h3 className="text-xl md:text-2xl font-bold text-offblack mb-3 tracking-tight leading-snug">{s.title}</h3>
                   <p className="text-gray-600 text-sm md:text-base leading-relaxed">{s.desc}</p>
+                  {'duration' in s && s.duration && (
+                    <span className="inline-block mt-4 px-3 py-1 rounded-full bg-accent/10 text-accent text-xs md:text-sm font-bold">{s.duration}</span>
+                  )}
                   <ul className="mt-6 pt-6 border-t border-gray-200 space-y-3">
                     {s.items.map((item, j) => (
                       <li key={j} className="flex items-start gap-3">
@@ -2327,6 +2333,22 @@ interface Diagnosis {
 // サービスごとに構成を組み替えることでページの表情を分ける。
 // ============================================================
 
+// サービス・事業ページ上部の概要ボックス（対象となる業務／期間の目安／費用の構成／お渡しするもの）。
+// 各ページに既に書いてある内容だけで作り、根拠のない項目はデータ側で置かない。
+const SummaryBox: React.FC<{ items: { label: string; value: string }[]; heading: string }> = ({ items, heading }) => (
+  <div className="rounded-[1.5rem] md:rounded-[2rem] bg-white border border-gray-200 border-t-4 border-t-[#2D6CDF] p-6 md:p-10">
+    <h2 className="text-lg md:text-xl font-bold text-[#111418]">{heading}</h2>
+    <dl className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-x-10">
+      {items.map((it, i) => (
+        <div key={i} className="py-4 border-b border-gray-100">
+          <dt className="text-sm font-bold text-[#2D6CDF]">{it.label}</dt>
+          <dd className="text-[15px] md:text-base text-[#1A2233] leading-[1.8] mt-1.5">{it.value}</dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+);
+
 const SectionHead: React.FC<{ eyebrow: string; heading: string; lead?: string }> = ({ eyebrow, heading, lead }) => (
   <div className="mb-10 md:mb-14">
     <span className="text-[#2D6CDF] font-bold tracking-[0.2em] text-xs uppercase">{eyebrow}</span>
@@ -2375,6 +2397,9 @@ const ServiceSectionBlock: React.FC<{ section: ServiceSection; onNavigate?: (vie
                 </span>
                 <div className="pt-1 md:pt-2.5 flex-1">
                   <h3 className="text-lg md:text-xl font-bold text-[#111418] leading-[1.6]">{step.title}</h3>
+                  {step.duration && (
+                    <span className="inline-block mt-2 px-3 py-1 rounded-full bg-[#2D6CDF]/10 text-[#2D6CDF] text-xs md:text-sm font-bold">{step.duration}</span>
+                  )}
                   <p className="text-[15px] md:text-base text-gray-600 leading-[1.9] mt-2 max-w-3xl">{step.desc}</p>
                 </div>
               </li>
@@ -3433,6 +3458,14 @@ const ServiceView: React.FC<{ serviceKey: ServiceKey; onNavigate?: (view: ViewSt
           </div>
         </section>
 
+        {page.summary && (
+          <section className="px-6 md:px-12 mt-10 md:mt-14">
+            <div className="max-w-screen-xl mx-auto">
+              <Reveal><SummaryBox items={page.summary} heading={lang === 'ja' ? 'サービスの概要' : 'At a glance'} /></Reveal>
+            </div>
+          </section>
+        )}
+
         {/* 「◯◯とは」への一文の答え（検索・AIが定義として引用しやすい形） */}
         {page.definition && (
           <section className="px-6 md:px-12 mt-16 md:mt-20">
@@ -3823,6 +3856,11 @@ const BusinessView: React.FC<{ biz: BizView; onNavigate: (view: ViewState) => vo
         <div className="mt-6 md:mt-8 rounded-[1.75rem] md:rounded-[2.5rem] overflow-hidden border border-gray-200 bg-white aspect-[16/9] md:aspect-[21/9]">
           <img src={meta.image} alt="" className="w-full h-full object-cover" />
         </div>
+        {'summary' in d && d.summary && (
+          <Reveal className="block mt-10 md:mt-14">
+            <SummaryBox items={d.summary} heading={ja ? '事業の概要' : 'At a glance'} />
+          </Reveal>
+        )}
 
         {/* 提供内容 */}
         <section className="mt-24 md:mt-32">

@@ -6,7 +6,7 @@ export type ServiceKey = 'ai-sales' | 'ai-phone' | 'salesforce-ai';
 
 export type ServiceSection =
   | { type: 'problems'; eyebrow: string; heading: string; lead?: string; items: string[] }
-  | { type: 'steps'; eyebrow: string; heading: string; lead?: string; note?: string; steps: { no: string; title: string; desc: string }[] }
+  | { type: 'steps'; eyebrow: string; heading: string; lead?: string; note?: string; steps: { no: string; title: string; desc: string; duration?: string }[] }
   | { type: 'compare'; eyebrow: string; heading: string; lead?: string; leftLabel: string; rightLabel: string; rows: { axis: string; left: string; right: string }[] }
   | { type: 'split'; eyebrow: string; heading: string; lead?: string; leftTitle: string; leftItems: string[]; rightTitle: string; rightItems: string[] }
   | { type: 'chat'; eyebrow: string; heading: string; lead?: string; note?: string; turns: { who: 'ai' | 'caller'; text: string }[] }
@@ -32,6 +32,8 @@ export type ServicePage = {
   cta: { heading: string; lead: string; button: string; sub: string; secondary: string; secondaryHref: string };
   /** 「◯◯とは」への一文の答え（検索・AIに引用されやすい定義）。ヒーローの直後に表示する */
   definition?: { heading: string; text: string };
+  /** ページ上部の概要ボックス（対象となる業務／期間の目安／費用の構成／お渡しするもの）。根拠のない項目は置かない */
+  summary?: { label: string; value: string }[];
 };
 
 export type Content = Record<'ja' | 'en', Record<ServiceKey, ServicePage>>;
@@ -55,6 +57,11 @@ const ja: Content['ja'] = {
       lead: '営業の時間の多くは、商談ではなく「商談にたどり着くまで」に溶けています。リストを作り、文面を考え、送り、返信を捌き、日程を調整する。この前工程をAIが担い、人は商談と提案に集中する。それがMGCのAI営業サービスです。',
       points: ['リスト作成から日程調整まで', '送信文面は1社ずつ個別生成', '人の確認を挟む設計'],
     },
+    summary: [
+      { label: '対象となる業務', value: 'リスト作成・初回接触・返信対応・日程調整など、商談にたどり着くまでの営業の前工程' },
+      { label: '費用の構成', value: '初期費用（ターゲット定義・リスト設計・文面と判定基準の作り込み）＋月額費用（運用と改善、レポート）＋実費（送信基盤やデータ取得の利用料）' },
+      { label: 'お渡しするもの', value: 'ターゲットの定義と条件に合う企業のリスト、企業ごとに生成した文面、日程調整まで進めたアポイント、反応を踏まえた改善とレポート' },
+    ],
     sections: [
       {
         type: 'problems',
@@ -226,6 +233,12 @@ const ja: Content['ja'] = {
       lead: '電話は、かかってきた瞬間に人の手を止めます。件数が多いほど、本来の業務が進みません。音声AIが一次対応を引き受け、用件を聞き取って要約し、人が対応すべきものだけを引き渡します。',
       points: ['24時間・同時に何本でも', '話し言葉のまま聞き取る', '要約と録音が全件残る'],
     },
+    summary: [
+      { label: '対象となる業務', value: '電話の一次対応（用件の聞き取り・要約・担当者への引き渡し）' },
+      { label: '期間の目安', value: '限定運用（パイロット運用）は2〜4週間、本番運用までは1〜3ヶ月が目安。スコープによって変わります' },
+      { label: '費用の構成', value: '初期費用（着信内容の分解・応答の設計・限定運用での調整）＋月額費用（運用と改善）＋従量費用（通話時間や音声処理の実費）' },
+      { label: 'お渡しするもの', value: '受け答えの方針・聞き取る項目・人に回す条件を決めた応答の設計と、通話ごとの要約・聞き取った項目・録音' },
+    ],
     sections: [
       {
         type: 'compare',
@@ -285,11 +298,12 @@ const ja: Content['ja'] = {
         eyebrow: 'Process',
         heading: '導入の進め方',
         lead: 'いきなり全件をAIに向けることはしません。影響の小さい範囲から始めて、実際の通話を見ながら広げます。',
+        note: '期間の目安（パイロット運用2〜4週間、本番運用1〜3ヶ月）は、対象とする用件の数や通話量などのスコープによって変わります。',
         steps: [
           { no: '01', title: '現状の通話を分解する', desc: '何の用件が、どの時間帯に、何件かかってきているかを整理します。ここでAI化して効く範囲が決まります。' },
           { no: '02', title: '応答の設計', desc: '受け答えの方針、聞き取る項目、人に回す条件を決めます。ここが品質のほぼすべてを決める工程です。' },
-          { no: '03', title: '限定運用', desc: '時間外のみ、あるいは特定の番号のみで開始します。実際の通話を毎日確認し、噛み合わなかった会話を洗い出します。' },
-          { no: '04', title: '調整と拡大', desc: '聞き返しの粘り、人に回す条件、言い回しを調整し、対象を広げます。うまくいかない用件は無理にAIに残しません。' },
+          { no: '03', title: '限定運用', desc: '時間外のみ、あるいは特定の番号のみで開始します。実際の通話を毎日確認し、噛み合わなかった会話を洗い出します。', duration: 'パイロット運用：2〜4週間が目安' },
+          { no: '04', title: '調整と拡大', desc: '聞き返しの粘り、人に回す条件、言い回しを調整し、対象を広げます。うまくいかない用件は無理にAIに残しません。', duration: '本番運用まで：1〜3ヶ月が目安' },
         ],
       },
       {
@@ -402,6 +416,12 @@ const ja: Content['ja'] = {
       lead: 'Salesforceは導入したが、入力が追いつかず、レポートも見られていない。よくある状態です。AIは、この詰まりを2方向から解きます。入力の負担を下げることと、貯まったデータから次の打ち手を出すこと。MGCはその設計と実装を支援します。',
       points: ['入力を減らす', 'データから示唆を出す', '標準機能で足りるかから判断'],
     },
+    summary: [
+      { label: '対象となる業務', value: 'Salesforceへの入力、蓄積したデータからの示唆の提示、エージェントによる実行' },
+      { label: '期間の目安', value: '一部のチームでの実装と並走（パイロット運用）は2〜4週間、本番運用までは1〜3ヶ月が目安。スコープによって変わります' },
+      { label: '費用の構成', value: '調査・判断＋構築費用＋月額費用（運用と改善）。Salesforce標準のAI機能を使う場合は、ライセンスを別途直接ご契約' },
+      { label: 'お渡しするもの', value: '標準機能で足りるか個別に作るかの判断と、費用・ライセンスの見積もり、対象業務の実装、文書化した手順と運用の判断基準' },
+    ],
     sections: [
       {
         type: 'problems',
@@ -486,12 +506,13 @@ const ja: Content['ja'] = {
         eyebrow: 'Process',
         heading: '進め方',
         lead: '現状の使われ方を見るところから始めます。設定画面だけでなく、実際に入っているデータを見せていただきます。',
+        note: '期間の目安（パイロット運用2〜4週間、本番運用1〜3ヶ月）は、対象とする業務の数や連携するシステムなどのスコープによって変わります。',
         steps: [
           { no: '01', title: '現状把握', desc: '項目の埋まり方、入力までの時間、実際に見られているレポートを確認します。ここで詰まりの本当の原因が分かります。' },
           { no: '02', title: '対象の決定', desc: '効果が出て、かつ検証しやすい業務を1つ選びます。全社展開は最初に狙いません。' },
           { no: '03', title: '構成の判断', desc: '標準機能で足りるか、個別に作るかを判断します。費用とライセンスの見積もりもこの段階で出します。' },
-          { no: '04', title: '実装と並走', desc: '一部のチームで先に使い、実際の入力データで精度を確認します。既存の運用は止めずに並走させます。' },
-          { no: '05', title: '展開と定着', desc: '手順を文書化し、対象を広げます。運用を続けるための判断基準を社内に残します。' },
+          { no: '04', title: '実装と並走', desc: '一部のチームで先に使い、実際の入力データで精度を確認します。既存の運用は止めずに並走させます。', duration: 'パイロット運用：2〜4週間が目安' },
+          { no: '05', title: '展開と定着', desc: '手順を文書化し、対象を広げます。運用を続けるための判断基準を社内に残します。', duration: '本番運用まで：1〜3ヶ月が目安' },
         ],
       },
       {
