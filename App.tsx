@@ -1764,7 +1764,7 @@ const ContactView: React.FC<{ onNavigate?: (view: ViewState) => void; initialSen
         }),
       });
       if (!response.ok) throw new Error('Failed to send message');
-      track('contact_submit', { topic: formState.topic || '(unspecified)' });
+      track('contact_submit', { topic: formState.topic || '(unspecified)', entry: entryPath() });
       setIsSent(true);
       setFormState({ name: '', email: '', company: '', topic: '', message: '' });
       // 完了状態を専用URLにする（計測でCVを分けられるようにする。戻る操作でフォームへ戻れる）
@@ -3828,6 +3828,22 @@ const NotFoundView: React.FC<{ onNavigate: (view: ViewState) => void }> = ({ onN
   );
 };
 
+// 問い合わせの起点（このタブで最初に開いたページ）。コラムは別ページなので、コラムから来た場合はそのパスを使う。
+// 個人は特定せず、パスだけを Web Analytics のイベントに付ける（どのページ・コラムが問い合わせにつながったかを見るため）
+const ENTRY_KEY = 'mgc_entry';
+const entryPath = (): string => {
+  try {
+    let v = sessionStorage.getItem(ENTRY_KEY);
+    if (!v) {
+      let ref = '';
+      try { const u = new URL(document.referrer); if (u.origin === window.location.origin) ref = u.pathname; } catch { /* 参照元なし */ }
+      v = ref.startsWith('/column') ? ref : window.location.pathname;
+      sessionStorage.setItem(ENTRY_KEY, v);
+    }
+    return v.slice(0, 200);
+  } catch { return '(unknown)'; }
+};
+
 const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
   // URL からビューを決める。ハッシュに有効なビュー名があればそれを優先（旧リンク互換）、
   // なければクリーンURL（/works, /service/<slug> など）で解決する。
@@ -3884,7 +3900,7 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
   }, [view, lang, path]);
 
   // ハイドレーションが終わったら、以降に現れる要素はスクロールで出す演出に戻す
-  useEffect(() => { markHydrated(); }, []);
+  useEffect(() => { markHydrated(); entryPath(); }, []);
 
   // 計測: イベントハンドラから最新のビューを読むための参照
   const viewRef = useRef(view);

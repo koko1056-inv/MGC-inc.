@@ -315,6 +315,8 @@ const GLOSSARY_LINKS = [
   ['生成AI', 'generative-ai'], ['LLM', 'llm'], ['AIエージェント', 'ai-agent'], ['RAG', 'rag'], ['ハルシネーション', 'hallucination'],
   ['ボイスボット', 'voicebot'], ['IVR', 'ivr'], ['ACW', 'acw'], ['CRM', 'crm'], ['SFA', 'sfa'], ['API連携', 'api'],
   ['OFF-JT', 'off-jt'], ['リスキリング', 'reskilling'], ['DX', 'dx'],
+  ['機械学習', 'machine-learning'], ['チャットボット', 'chatbot'], ['OCR', 'ocr'], ['画像認識', 'image-recognition'], ['需要予測', 'demand-forecasting'],
+  ['パーソナライズ', 'personalization'], ['暗黙知', 'tacit-knowledge'], ['属人化', 'siloed-expertise'], ['匿名化', 'anonymization'], ['PoC', 'poc'],
 ].map(([term, id]) => ({ id, re: new RegExp(/^[A-Za-z]/.test(term) ? `(?<![A-Za-z])${term}(?![A-Za-z])` : term) }));
 function linkTerms(html, used) {
   // html はエスケープ済みの本文（タグを含まない）。リンク内の語を二重にリンクしないよう、1語ずつ置き換える
