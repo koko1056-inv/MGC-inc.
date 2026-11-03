@@ -245,3 +245,7 @@
 ## 2026-11-03 コラムの標準化（6）本文の書き直し 41〜50本目（10本）
 - 対象: logistics-expert-skill-digitalization-ai, logistics-dispatch-planning-ai, hospitality-operational-efficiency-ai, finance-knowledge-management-compliance-ai, finance-ai-reliability-governance-strategy, finance-ai-implementation-guide, construction-knowledge-transfer-ai, construction-document-ai-automation, retail-store-operation-staff-ai, retail-omo-customer-journey-ai
 - 型・検査・変更方針は（2）と同じ。check-rewrite.mjs と構成順の検査で10本すべて OK
+
+## 2026-11-03 コラムの標準化（7）本文の書き直し 51〜60本目（10本）
+- 対象: retail-dynamic-pricing-markdown-optimization, retail-demand-forecasting-inventory, retail-ai-md-merchandising-trends, retail-ai-driven-personalization, real-estate-property-maintenance-inspection-ai, public-ai-efficiency-governance, professional-risk-management-knowledge-digitization, professional-practical-ai-implementation, professional-logic-standardization-response-efficiency, professional-knowledge-work-delegation
+- 型・検査・変更方針は（2）と同じ。check-rewrite.mjs と構成順の検査で10本すべて OK
