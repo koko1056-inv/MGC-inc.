@@ -253,3 +253,7 @@
 ## 2026-11-03 コラムの標準化（8）本文の書き直し 61〜70本目（10本）
 - 対象: professional-document-review-automation, manufacturing-skill-transfer-ai, manufacturing-production-scheduling-ai, manufacturing-process-optimization-ai, manufacturing-predictive-maintenance, manufacturing-knowledge-management-ai, manufacturing-inventory-optimization-ai, manufacturing-inspection-ai, logistics-warehouse-optimization-ai, logistics-loading-optimization-ai
 - 型・検査・変更方針は（2）と同じ。check-rewrite.mjs と構成順の検査で10本すべて OK
+
+## 2026-11-03 コラムの標準化（9）本文の書き直し 71〜80本目（10本）
+- 対象: logistics-last-mile-route-optimization, logistics-document-automation-ai, logistics-demand-forecasting-ai, hr-talent-management-retention-ai, hr-interview-evaluation-standardization-ai, hospitality-shift-optimization-and-labor-management, hospitality-customer-feedback-analysis, healthcare-staff-scheduling-shift-optimization-ai, healthcare-multilingual-staff-training-ai, healthcare-monitoring-sensing-ai
+- 型・検査・変更方針は（2）と同じ。check-rewrite.mjs と構成順の検査で10本すべて OK
