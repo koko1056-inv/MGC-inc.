@@ -60,6 +60,28 @@ const ja = {
       { value: '2025', unit: '年設立', label: '京都から、日本と世界をつなぐ' },
     ],
   },
+  growthFlow: {
+    eyebrow: 'How to grow with AI',
+    title: '学ぶ、成果をつくる、広げる。',
+    lead: '研修で社内にAIを使いこなす土台をつくり、AIソリューションで業務の成果をつくり、成果が出たAIを事業として広げる。MGCの事業は、この3段階でつながっています。',
+    steps: [
+      { step: 'STEP 1', verb: '学ぶ', name: '研修', desc: 'ITに詳しくない経営者・従業員が、AIを業務に取り入れる基礎から実践までを学びます（標準20時間のOFF-JT）。', view: 'training' },
+      { step: 'STEP 2', verb: '成果をつくる', name: 'AIソリューション', desc: '業務の棚卸しから、2〜4週間のPoC、開発・既存システムへの統合、定着支援まで。下の進め方の01・02にあたります。', view: 'biz-ai' },
+      { step: 'STEP 3', verb: '広げる', name: 'AI事業立ち上げ', desc: '自社で効果が出たAIを、同業他社へ提供できる商材にまとめ、新しい事業として立ち上げます。下の進め方の03にあたります。', view: 'biz-newbiz' },
+    ],
+    note: '研修だけ、AIソリューションだけのご依頼も可能です。STEP 3 は事業化を目指す企業向けの段階で、01・02だけのご依頼でも問題ありません。',
+    more: '詳しく見る',
+  },
+  pains: {
+    eyebrow: 'Problems',
+    title: 'こんなお悩みはありませんか',
+    items: [
+      { text: '商談の前工程（リスト作成・初回接触・追客）に時間を取られ、既存顧客への提案が薄くなっている', service: 'AI営業', view: 'ai-sales' },
+      { text: '電話に出るたびに現場の作業が中断され、営業時間外やピーク時には取りこぼしも出ている', service: 'AI電話', view: 'ai-phone' },
+      { text: 'Salesforceへの入力が営業担当の負担になり、商談後の記録が遅れる、または埋まらない', service: 'Salesforce AI', view: 'salesforce-ai' },
+    ],
+    linkSuffix: 'を見る',
+  },
   oneStop: {
     eyebrow: 'One-Stop Support',
     title: '業務の棚卸しから、事業化まで。',

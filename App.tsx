@@ -344,6 +344,66 @@ const FaqItem: React.FC<{ question: string; answer: string; index: number; link?
   );
 };
 
+// 事業の3段階（学ぶ→成果をつくる→広げる）。研修を入口に置く。トップと /works で使う
+const GrowthFlow: React.FC<{ onGo: (view: ViewState) => void }> = ({ onGo }) => {
+  const { t } = useLanguage();
+  const g = t.growthFlow;
+  return (
+    <div>
+      <Reveal>
+        <span className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-accent">{g.eyebrow}</span>
+        <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-offblack mt-3 leading-tight">{g.title}</h2>
+        <p className="text-base md:text-lg text-gray-600 max-w-3xl leading-relaxed mt-5 font-medium">{g.lead}</p>
+      </Reveal>
+      <ol className="grid grid-cols-1 lg:grid-cols-3 gap-5 lg:gap-6 mt-10">
+        {g.steps.map((st, i) => (
+          <Reveal key={st.step} delay={i * 100} className="h-full">
+            <li className="relative h-full list-none">
+              <NavLink href={pathForView(st.view as ViewState)} onGo={() => onGo(st.view as ViewState)} className="group flex flex-col h-full rounded-2xl bg-white border border-gray-200 border-t-4 border-t-accent p-7 md:p-8 hover:border-accent transition-colors">
+                <span className="text-xs font-bold tracking-[0.2em] text-accent">{st.step}</span>
+                <h3 className="text-2xl md:text-3xl font-bold text-offblack mt-2 tracking-tight">{st.verb}</h3>
+                <p className="text-sm font-bold text-gray-500 mt-1">{st.name}</p>
+                <p className="text-sm md:text-base text-gray-600 leading-relaxed mt-4 flex-grow">{st.desc}</p>
+                <span className="inline-flex items-center gap-1.5 mt-5 text-sm font-bold text-accent">
+                  {g.more}<ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                </span>
+              </NavLink>
+              {i < g.steps.length - 1 && <ArrowRight aria-hidden className="hidden lg:block absolute top-1/2 -right-[22px] w-5 h-5 text-gray-300" />}
+            </li>
+          </Reveal>
+        ))}
+      </ol>
+      <Reveal><p className="text-sm text-gray-500 leading-relaxed mt-6">{g.note}</p></Reveal>
+    </div>
+  );
+};
+
+// トップの「こんなお悩みはありませんか」。各サービスページに書いてある課題から作る
+const PainPoints: React.FC<{ onGo: (view: ViewState) => void }> = ({ onGo }) => {
+  const { t } = useLanguage();
+  const p = t.pains;
+  return (
+    <div>
+      <Reveal>
+        <span className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-accent">{p.eyebrow}</span>
+        <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-offblack mt-3 leading-tight">{p.title}</h2>
+      </Reveal>
+      <ul className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-10">
+        {p.items.map((it, i) => (
+          <Reveal key={i} delay={i * 90} className="h-full">
+            <li className="flex flex-col h-full rounded-2xl bg-[#F4F6FB] border-l-4 border-accent p-6 md:p-7">
+              <p className="text-[15px] md:text-base text-[#1A2233] leading-[1.9] flex-grow">{it.text}</p>
+              <NavLink href={pathForView(it.view as ViewState)} onGo={() => onGo(it.view as ViewState)} className="group inline-flex items-center gap-1.5 mt-5 text-sm font-bold text-accent">
+                {it.service}{p.linkSuffix}<ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+              </NavLink>
+            </li>
+          </Reveal>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
 const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavigate }) => {
   const { t, lang } = useLanguage();
 
@@ -512,6 +572,11 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
     </Reveal>
   </div>
 
+  {/* === こんなお悩みはありませんか === */}
+  <section className="px-6 md:px-12 pb-24 max-w-screen-xl mx-auto w-full">
+    <PainPoints onGo={goTo} />
+  </section>
+
   {/* === Free AI Diagnosis Banner (無料フロントエンド) === */}
   {/* 診断を隠している間は、HTMLにも出さない */}
   {SHOW_DIAGNOSIS && (
@@ -550,6 +615,11 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
     </Reveal>
   </div>
   )}
+
+  {/* === 事業の3段階（研修を入口に） === */}
+  <section className="px-6 md:px-12 pb-24 max-w-screen-xl mx-auto w-full">
+    <GrowthFlow onGo={goTo} />
+  </section>
 
   {/* === One-Stop Flow Section === */}
   <section className="px-6 md:px-12 pb-24 max-w-screen-xl mx-auto w-full">
@@ -1054,6 +1124,11 @@ const WorksView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNav
             detailView="biz-crossborder"
             onNavigate={onNavigate}
           />
+        </div>
+
+        {/* === 事業の3段階（研修を入口に） === */}
+        <div className="mt-24 md:mt-32 border-t border-gray-200 pt-16">
+          <GrowthFlow onGo={(v) => onNavigate?.(v)} />
         </div>
 
         {/* === One-Stop Flow === */}

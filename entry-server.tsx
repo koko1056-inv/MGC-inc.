@@ -302,6 +302,9 @@ export const llmsFull = (): string => {
   t.company.items.forEach((i) => L.push(`- ${i.label}: ${i.value.replace(/\n/g, ' ／ ')}`));
   L.push('');
   L.push('## 事業');
+  L.push(`${t.growthFlow.title} ${t.growthFlow.lead}`);
+  t.growthFlow.steps.forEach((x) => L.push(`- ${x.step} ${x.verb}（${x.name}）: ${x.desc}`));
+  L.push(`- ${t.growthFlow.note}`);
   (['service_ai', 'service_newbiz', 'service_training', 'service_lab'] as const).forEach((k) => {
     const d = t.details[k] as { title: string; subtitle: string; p1: string; features: { title: string; sub: string; text: string }[]; faq?: { q: string; a: string }[]; summary?: { label: string; value: string }[] };
     L.push(`### ${d.title}（${d.subtitle}）`);
