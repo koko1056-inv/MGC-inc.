@@ -6,12 +6,13 @@ export type ServiceKey = 'ai-sales' | 'ai-phone' | 'salesforce-ai';
 
 export type ServiceSection =
   | { type: 'problems'; eyebrow: string; heading: string; lead?: string; items: string[] }
-  | { type: 'steps'; eyebrow: string; heading: string; lead?: string; note?: string; steps: { no: string; title: string; desc: string; duration?: string }[] }
+  | { type: 'steps'; eyebrow: string; heading: string; lead?: string; note?: string; steps: { no: string; title: string; desc: string; duration?: string; role?: string }[] }
   | { type: 'compare'; eyebrow: string; heading: string; lead?: string; leftLabel: string; rightLabel: string; rows: { axis: string; left: string; right: string }[] }
   | { type: 'split'; eyebrow: string; heading: string; lead?: string; leftTitle: string; leftItems: string[]; rightTitle: string; rightItems: string[] }
   | { type: 'chat'; eyebrow: string; heading: string; lead?: string; note?: string; turns: { who: 'ai' | 'caller'; text: string }[] }
   | { type: 'layers'; eyebrow: string; heading: string; lead?: string; layers: { stage: string; title: string; desc: string; examples: string[] }[] }
-  | { type: 'cards'; eyebrow: string; heading: string; lead?: string; cards: { title: string; desc: string }[] }
+  | { type: 'cards'; eyebrow: string; heading: string; lead?: string; note?: string; columns?: 2 | 3; cards: { title: string; desc: string; tag?: string; link?: { href: string; label: string } }[] }
+  | { type: 'cta'; heading: string; lead: string; button: string; topic: string }
   | { type: 'notes'; eyebrow: string; heading: string; lead?: string; items: string[] }
   | { type: 'pricing'; eyebrow: string; heading: string; lead?: string; note: string; rows: { label: string; value: string }[]; drivers: string[] }
   | { type: 'cases'; eyebrow: string; heading: string; lead?: string; links: { slug: string; label: string; desc: string }[] }
@@ -32,6 +33,8 @@ export type ServicePage = {
   cta: { heading: string; lead: string; button: string; sub: string; secondary: string; secondaryHref: string };
   /** 「◯◯とは」への一文の答え（検索・AIに引用されやすい定義）。ヒーローの直後に表示する */
   definition?: { heading: string; text: string };
+  /** 内容を大きく見直した日（構造化データの dateModified とサイトマップの lastmod に使う） */
+  dateModified?: string;
   /** ページ上部の概要ボックス（対象となる業務／期間の目安／費用の構成／お渡しするもの）。根拠のない項目は置かない */
   summary?: { label: string; value: string }[];
 };
@@ -221,28 +224,85 @@ const ja: Content['ja'] = {
   'ai-phone': {
     slug: 'ai-phone',
     navLabel: 'AI電話',
-    seoTitle: 'AI電話（音声AI）｜電話の一次対応を自動化 - ＭＧＣ株式会社',
-    seoDescription: '鳴り続ける電話の一次対応を音声AIが引き受けるAI電話サービス。プッシュ操作のIVRとは違い、用件を話し言葉のまま聞き取り、要約して担当者に渡します。人が対応すべき通話は人へ。向く電話・費用の考え方も掲載。',
-      definition: { heading: 'AI電話（音声AI）とは', text: 'AI電話（音声AI）とは、かかってきた電話の一次対応を音声AIが行う仕組みです。「1を押してください」のように番号で振り分けるIVR（自動音声応答）と違い、用件を話し言葉のまま聞き取り、要約して担当者に引き渡します。人が対応すべき通話は人に回し、通話ごとに要約・聞き取った項目・録音を残します。' },
+    seoTitle: 'AI電話（音声AI）｜コールセンター向けAIエージェント - ＭＧＣ株式会社',
+    seoDescription: 'コールセンターの受電・架電を担うAIエージェント（AI電話・音声AI）。話し言葉のまま用件を聞き取り、CRM・基幹システムへの記録や通話後処理（ACW）まで行い、判断が要る通話は文脈ごと担当者へ引き継ぎます。IVRとの違いや費用の考え方も掲載。',
+    dateModified: '2026-11-03',
+      definition: { heading: 'AI電話（音声AI）とは', text: 'AI電話（音声AI）とは、電話の一次対応を音声AIが行う仕組みです。「1を押してください」のように番号で振り分けるIVR（自動音声応答）と違い、用件を話し言葉のまま聞き取り、要約して担当者に引き渡します。MGCのAI電話は、受電だけでなく催促や確認の架電も対象にし、聞き取った内容をCRMや基幹システムに記録して、通話後処理（ACW）まで自動化するコールセンター向けのAIエージェントとして設計します。判断が要る通話は、会話の要約を添えて人に回します。' },
     image: '/assets/service/ai-phone.webp',
     imageWidth: 1800,
     imageHeight: 764,
     imageAlt: '明るいオフィスのデスクに置かれたヘッドセットとモニター',
     hero: {
-      badge: 'Voice AI',
-      title: '鳴り続ける電話を、AIが最初に受ける。',
-      titleSub: '― 用件を聞き取り、要約して、人に渡す ―',
-      lead: '電話は、かかってきた瞬間に人の手を止めます。件数が多いほど、本来の業務が進みません。音声AIが一次対応を引き受け、用件を聞き取って要約し、人が対応すべきものだけを引き渡します。',
-      points: ['24時間・同時に何本でも', '話し言葉のまま聞き取る', '要約と録音が全件残る'],
+      badge: 'Voice AI Agent',
+      title: 'コールセンターの電話を、AIエージェントが受け、記録し、人につなぐ。',
+      titleSub: '― AI電話（音声AI）で、一次対応から通話後処理まで ―',
+      lead: '電話の仕事は、話している時間だけでは終わりません。用件を聞き、記録を入力し、関係者に共有し、次の対応を起票する。音声AIが受電・架電の一次対応を引き受け、CRMや基幹システムへの記録と通話後処理（ACW）まで担います。判断が要る通話だけを、会話の文脈ごと担当者へ引き継ぎます。',
+      points: ['受電も架電も対象', 'CRM・基幹システムへ記録', '文脈ごと人へ引き継ぐ'],
     },
     summary: [
-      { label: '対象となる業務', value: '電話の一次対応（用件の聞き取り・要約・担当者への引き渡し）' },
+      { label: '対象となる業務', value: '受電・架電の一次対応（用件の聞き取り・要約）、CRM・基幹システムへの記録、通話後処理（ACW）、担当者への引き継ぎ' },
       { label: '期間の目安', value: '限定運用（パイロット運用）は2〜4週間、本番運用までは1〜3ヶ月が目安。スコープによって変わります' },
       { label: '料金の目安', value: 'PoC 100〜300万円。本番導入は要件に応じて個別見積もり' },
       { label: '費用の構成', value: '初期費用（着信内容の分解・応答の設計・限定運用での調整）＋月額費用（運用と改善）＋従量費用（通話時間や音声処理の実費）' },
-      { label: 'お渡しするもの', value: '受け答えの方針・聞き取る項目・人に回す条件を決めた応答の設計と、通話ごとの要約・聞き取った項目・録音' },
+      { label: 'お渡しするもの', value: '受け答えの方針・聞き取る項目・人に回す条件を決めた応答の設計と、通話ごとの要約・聞き取った項目・録音。必要に応じて、CRMへの書き戻しやチャットツールへの通知の設定' },
     ],
     sections: [
+      {
+        type: 'cards',
+        eyebrow: 'What it does',
+        heading: 'AIエージェントが担う3つの役割',
+        lead: '電話を受けて終わりではなく、聞き取った内容を記録し、必要なときは人へ確実に渡すところまでを一つの流れとして設計します。',
+        columns: 3,
+        cards: [
+          { title: '自然な会話で聞き取る', desc: '番号の選択ではなく、話し言葉のまま用件を伺います。用件・日時・名前・連絡先を一度の会話でまとめて聞き取り、通話ごとに要約と録音を残します。' },
+          { title: '既存システムを参照し、記録する', desc: 'CRMなどの顧客・契約データを参照して対応し、通話の結果や聞き取った項目を書き戻します。担当者が普段見ている画面が、そのまま最新の状態になります。' },
+          { title: '判断が要る通話は、人へ引き継ぐ', desc: '会話の内容から人が対応すべき通話を判定し、要約を添えて担当者へ回します。担当者は最初から聞き直さずに、続きから対応できます。' },
+        ],
+      },
+      {
+        type: 'split',
+        eyebrow: 'Inbound & Outbound',
+        heading: '受電だけでなく、架電にも使えます',
+        lead: 'かかってくる電話の一次対応に加えて、催促や確認のためにこちらからかける電話もAIが担えます。架電はコールセンター運営の事例で、発着信基盤（Twilio）・顧客と契約のデータベース（Salesforce）・日本語音声合成（ElevenLabs）・通知先（Microsoft Teams）を組み合わせて実装しています。',
+        leftTitle: '受電（かかってくる電話）',
+        leftItems: [
+          '問い合わせの一次対応と用件の聞き取り',
+          '折り返し予約の受付',
+          '予約の受付・変更・キャンセル',
+          '担当部署への振り分けと取り次ぎ',
+          '営業時間外・混雑時のあふれ呼',
+        ],
+        rightTitle: '架電（こちらからかける電話）',
+        rightItems: [
+          '解約手続きの追いかけ、継続の確認',
+          '未払いの督促',
+          '機器の未着確認、返却の催促',
+          '対象者をCRMの顧客・契約データから抽出して発信',
+          '通話の結果をCRMへ書き戻し、要約をチャットツールへ通知',
+        ],
+      },
+      {
+        type: 'compare',
+        eyebrow: 'Before / After',
+        heading: '人が担う仕事は「判断が要る通話」に絞られます',
+        lead: 'これまで人が一件ずつ行っていた一次対応と後処理のうち、定型の部分と記録をAIが引き受けます。',
+        leftLabel: 'これまで（人がすべて対応）',
+        rightLabel: 'AI電話の導入後',
+        rows: [
+          { axis: '対象者の抽出（架電）', left: '担当者がリストから手作業で抽出する', right: 'AIがCRMの顧客・契約データから抽出する' },
+          { axis: '一次対応', left: '受電も架電も、すべて人が対応する', right: '定型の受電・架電はAIが対応する' },
+          { axis: '要対応かの判断', left: '通話しながら担当者が判断する', right: 'AIが会話の内容から判定し、判断が要る通話だけ人に回す' },
+          { axis: '記録・共有・起票（ACW）', left: '通話後に人が入力し、関係者へ共有し、次の対応を起票する', right: '要約をCRMへ書き戻し、チャットツールへ自動で通知する' },
+          { axis: '人の仕事', left: '全件の対応と後処理', right: '判断や交渉が要る通話への対応' },
+        ],
+      },
+      {
+        type: 'cta',
+        heading: 'どの通話をAIに任せられるか、まず整理しませんか',
+        lead: '今の受電・架電の内容と件数を伺い、AIに任せる範囲と人に残す範囲を切り分けます。PoCは100〜300万円が目安で、初回相談・お見積もりまで無料です。',
+        button: 'AI電話について相談する',
+        topic: 'ai-phone',
+      },
       {
         type: 'compare',
         eyebrow: 'Difference',
@@ -297,16 +357,32 @@ const ja: Content['ja'] = {
         ],
       },
       {
+        type: 'cards',
+        eyebrow: 'Use cases',
+        heading: '業種別の活用イメージ',
+        lead: '電話の内容が定型に近く、件数が多い窓口ほど向いています。以下は活用イメージで、実際の対応範囲は業務に合わせて設計します。',
+        note: '事例へのリンクが付いているものは、MGCが実際に取り組んでいる関連案件です。それ以外は活用イメージであり、実績ではありません。',
+        columns: 3,
+        cards: [
+          { tag: '事例あり', title: 'コールセンター運営', desc: '催促や確認の架電をAIが行い、要対応の通話だけを人に回します。通話後の記録と関係者への共有も自動化します。', link: { href: '/cases/callcenter-voice-ai', label: '事例を見る' } },
+          { tag: '活用イメージ', title: 'メーカーのサポート窓口', desc: '製品に関する問い合わせを受け、型番や症状を聞き取って整理し、技術担当へ引き継ぎます。', link: { href: '/cases/manufacturer-field-voice-ai', label: '関連する事例を見る' } },
+          { tag: '活用イメージ', title: 'EC・通販', desc: '注文や配送状況の確認、返品の受付といった定型の問い合わせに一次対応し、内容を記録します。' },
+          { tag: '活用イメージ', title: '不動産・設備管理', desc: '入居者からの設備の不具合の連絡を受け、場所と状況、緊急度を聞き取って管理担当へ引き継ぎます。' },
+          { tag: '活用イメージ', title: '自治体・公共', desc: '窓口への問い合わせに対して手続きの案内や受付を行い、職員が対応すべき相談だけを担当課へ回します。' },
+          { tag: '活用イメージ', title: '予約受付', desc: '飲食店やサロン、クリニックなどの予約の受付・変更・キャンセルを、営業時間外も含めて受けます。' },
+        ],
+      },
+      {
         type: 'steps',
         eyebrow: 'Process',
         heading: '導入の進め方',
         lead: 'いきなり全件をAIに向けることはしません。影響の小さい範囲から始めて、実際の通話を見ながら広げます。',
         note: '期間の目安（パイロット運用2〜4週間、本番運用1〜3ヶ月）は、対象とする用件の数や通話量などのスコープによって変わります。',
         steps: [
-          { no: '01', title: '現状の通話を分解する', desc: '何の用件が、どの時間帯に、何件かかってきているかを整理します。ここでAI化して効く範囲が決まります。' },
-          { no: '02', title: '応答の設計', desc: '受け答えの方針、聞き取る項目、人に回す条件を決めます。ここが品質のほぼすべてを決める工程です。' },
-          { no: '03', title: '限定運用', desc: '時間外のみ、あるいは特定の番号のみで開始します。実際の通話を毎日確認し、噛み合わなかった会話を洗い出します。', duration: 'パイロット運用：2〜4週間が目安' },
-          { no: '04', title: '調整と拡大', desc: '聞き返しの粘り、人に回す条件、言い回しを調整し、対象を広げます。うまくいかない用件は無理にAIに残しません。', duration: '本番運用まで：1〜3ヶ月が目安' },
+          { no: '01', title: '現状の通話を分解する', desc: '何の用件が、どの時間帯に、何件かかってきているか（架電なら、誰に何の用件でかけているか）を整理します。ここでAI化して効く範囲が決まります。', role: '協働：お客様が通話の内容・件数・時間帯を共有し、MGC専門チームが分解してAIに任せる範囲を提案します' },
+          { no: '02', title: '応答の設計', desc: '受け答えの方針、聞き取る項目、人に回す条件、記録先のCRM・基幹システムと通知先を決めます。ここが品質のほぼすべてを決める工程です。', role: '協働：方針と人に回す条件はお客様と一緒に決め、MGC専門チームが応答とシステム連携の設計に落とします' },
+          { no: '03', title: '限定運用', desc: '時間外のみ、あるいは特定の番号のみで開始します。実際の通話を毎日確認し、噛み合わなかった会話を洗い出します。', duration: 'パイロット運用：2〜4週間が目安', role: 'MGC専門チーム：構築と毎日の通話確認・調整／お客様：人に回った通話への対応' },
+          { no: '04', title: '調整と拡大', desc: '聞き返しの粘り、人に回す条件、言い回しを調整し、対象を広げます。うまくいかない用件は無理にAIに残しません。', duration: '本番運用まで：1〜3ヶ月が目安', role: '協働：対象を広げる範囲をお客様が判断し、MGC専門チームが調整と運用の改善を続けます' },
         ],
       },
       {
@@ -387,6 +463,8 @@ const ja: Content['ja'] = {
           { q: '費用はどのように決まりますか？', a: '初期費用（着信内容の分解、応答方針・聞き取り項目・人に回す条件の設計、限定運用での調整）、月額費用（運用と改善）、従量費用（通話時間や音声処理の実費）で構成されます。PoCは100〜300万円が目安で、本番導入は通話量と対応範囲で変わるため、内容を伺って個別にお見積もりします。' },
           { q: '今使っている電話番号のまま導入できますか？', a: '多くの場合、番号を変えずに導入できます。現在お使いの回線の種類と契約内容によって方法が変わるため、初回のご相談で構成を確認します。既存の電話機を残したまま、あふれ呼だけをAIに向ける構成も可能です。' },
           { q: '方言や早口でも聞き取れますか？', a: '一般的な会話であれば実用的な精度で聞き取れますが、100%ではありません。だからこそ「2回聞き返しても掴めなければ人に回す」といった逃げ道を必ず設計に入れます。聞き取れないことを前提にした設計にするかどうかで、実運用の満足度が変わります。' },
+          { q: 'CRMや基幹システムと連携できますか？', a: 'できます。Salesforceなどの顧客・契約データを参照して架電の対象を抽出したり、通話の結果をCRMへ書き戻したり、要約をMicrosoft Teamsなどのチャットツールへ通知したりする構成で導入しています。基幹システムともAPIで連携できます。連携先と範囲は、初回のご相談で確認します。' },
+          { q: '発信（架電）にも使えますか？', a: '使えます。催促や確認の架電をAIが行い、要対応と判定した通話だけを人に回す構成で導入している事例があります。AIが架電していることの開示と同意の取り方は、実装より先にルールとして決めます。' },
           { q: '対応履歴はどこで確認できますか？', a: '通話ごとに、要約・抽出した項目・録音を残します。既存のCRMやチャットツールへ流し込むこともできるため、担当者が普段見ている場所に通知を届ける形にできます。' },
           { q: '結局、電話に出る人は不要になりますか？', a: 'なりません。AIが引き受けるのは一次対応で、判断や交渉が要る電話は人に渡ります。目的は人を減らすことではなく、定型的な電話で作業が中断される状態をなくすことです。' },
         ],

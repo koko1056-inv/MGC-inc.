@@ -250,6 +250,10 @@ const jsonLdFor = (path: string): object[] => {
     });
     const faq = page.sections.find((x) => x.type === 'faq');
     if (faq && faq.type === 'faq') out.push(faqPage(faq.items));
+    // 内容を見直した日を WebPage として示す（Service には dateModified が無いため）
+    if (page.dateModified) {
+      out.push({ '@context': 'https://schema.org', '@type': 'WebPage', '@id': `${meta.url}#webpage`, url: meta.url, name: meta.title, inLanguage: 'ja', isPartOf: { '@id': `${SITE_ORIGIN}/#website` }, about: { '@id': `${meta.url}#service` }, dateModified: page.dateModified });
+    }
   }
   if (view === 'training') {
     const tr = translations.ja.training;
@@ -331,7 +335,7 @@ export const llmsFull = (): string => {
     L.push(page.hero.lead);
     page.summary?.forEach((x) => L.push(`- ${x.label}: ${x.value}`));
     page.sections.forEach((sec) => {
-      if (sec.type === 'cases' || sec.type === 'related') return;
+      if (sec.type === 'cases' || sec.type === 'related' || sec.type === 'cta') return;
       L.push(`#### ${sec.heading}`);
       L.push(...mdSection(sec));
     });
