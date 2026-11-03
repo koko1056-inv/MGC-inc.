@@ -20,6 +20,16 @@ const ja: GlossaryTerm[] = [
   { id: 'off-jt', term: 'OFF-JT', reading: 'オフジェイティー', definition: 'Off the Job Training の略。通常の業務を離れて、講義や演習で体系的に学ぶ研修の形式。職場で仕事をしながら学ぶ OJT と対になる言葉。', link: { href: '/training', label: 'AI活用リスキリング研修' } },
   { id: 'reskilling', term: 'リスキリング', definition: '仕事の変化に合わせて、新しい業務に必要な知識・技能を学び直すこと。AIの普及に伴い、AIを業務で使いこなすための学び直しが求められている。', link: { href: '/training', label: 'AI活用リスキリング研修' } },
   { id: 'dx', term: 'DX（デジタルトランスフォーメーション）', reading: 'ディーエックス', definition: 'デジタル技術を使って、業務の進め方やビジネスの形そのものを変えること。ツールの導入だけでなく、業務の棚卸しと仕組みの作り直しを伴う。', link: { href: '/works/ai-solutions', label: 'AIソリューション' } },
+  { id: 'machine-learning', term: '機械学習', reading: 'きかいがくしゅう', definition: 'データから規則性を学び、予測や分類を行うAIの手法。人が条件を一つずつ書くのではなく、過去のデータをもとにモデルを作る。需要予測や画像認識、文章の分類などの土台になっている。' },
+  { id: 'chatbot', term: 'チャットボット', definition: '文字のやり取りで質問に自動で答える仕組み。あらかじめ用意した回答から選ぶ型と、生成AIで文章を作って答える型がある。電話の自動応答はボイスボットと呼ばれる。', link: { href: '/guide', label: '比較・選び方ガイド' } },
+  { id: 'ocr', term: 'OCR（光学文字認識）', reading: 'オーシーアール', definition: 'Optical Character Recognition の略。紙の書類や画像に写った文字を読み取り、データとして扱えるテキストに変換する技術。AIを組み合わせ、手書きや書式の異なる帳票を読み取るものは AI-OCR と呼ばれる。' },
+  { id: 'image-recognition', term: '画像認識', reading: 'がぞうにんしき', definition: '画像や映像に何が写っているかをAIが判別する技術。製造業の外観検査、建設現場の安全確認、在庫の確認などに使われる。' },
+  { id: 'demand-forecasting', term: '需要予測', reading: 'じゅようよそく', definition: '過去の販売実績や季節、天候、イベントなどのデータから、将来の需要（売れる量・必要な量）を見積もること。在庫の持ちすぎや欠品、人員配置の過不足を減らすために使われる。' },
+  { id: 'personalization', term: 'パーソナライズ', definition: '一人ひとりの好みや行動履歴に合わせて、提案・情報・サービスの内容を変えること。小売のおすすめ表示や、学習内容の個別最適化などで使われる。' },
+  { id: 'tacit-knowledge', term: '暗黙知', reading: 'あんもくち', definition: '経験や勘として個人の中にあり、言葉や文書になっていない知識。熟練者の判断のコツなどが代表例。聞き取りや記録を通じて文書やデータにすること（形式知化）が、技術継承やAI活用の前提になる。' },
+  { id: 'siloed-expertise', term: '属人化', reading: 'ぞくじんか', definition: '特定の業務のやり方や判断が、特定の人にしか分からない状態。担当者の不在や退職で業務が止まる原因になる。手順の文書化やナレッジの共有、AIによる記録の自動化で解消を進める。', link: { href: '/works/ai-solutions', label: 'AIソリューション' } },
+  { id: 'anonymization', term: '匿名化', reading: 'とくめいか', definition: '氏名や連絡先など、個人を特定できる情報を削除したり置き換えたりして、誰のデータか分からないようにすること。個人情報を含むデータをAIで扱う際の基本的な対策の一つ。' },
+  { id: 'poc', term: 'PoC（概念実証）', reading: 'ピーオーシー', definition: 'Proof of Concept の略。本格的な導入の前に、小さな範囲で試して、技術的に実現できるか・効果が見込めるかを確かめること。目的と評価の基準を先に決めておくことが大切とされる。', link: { href: '/works/ai-business-launch', label: 'AI事業立ち上げ支援' } },
 ];
 
 const en: GlossaryTerm[] = [
@@ -38,6 +48,16 @@ const en: GlossaryTerm[] = [
   { id: 'off-jt', term: 'OFF-JT', definition: 'Off-the-job training: learning systematically through lectures and exercises away from daily work, as opposed to on-the-job training (OJT).', link: { href: '/training', label: 'AI training' } },
   { id: 'reskilling', term: 'Reskilling', definition: 'Learning the knowledge and skills needed for new kinds of work as jobs change — increasingly, learning to use AI in everyday work.', link: { href: '/training', label: 'AI training' } },
   { id: 'dx', term: 'DX (digital transformation)', definition: 'Using digital technology to change how work is done and how the business operates — not just adopting tools, but rethinking processes.', link: { href: '/works/ai-solutions', label: 'AI Solutions' } },
+  { id: 'machine-learning', term: 'Machine learning', definition: 'An AI approach that learns patterns from data to make predictions or classifications, instead of hand-written rules. It underlies demand forecasting, image recognition and text classification.' },
+  { id: 'chatbot', term: 'Chatbot', definition: 'A system that answers questions automatically in text, either by choosing from prepared answers or by generating replies with generative AI. Automated phone response is called a voicebot.', link: { href: '/guide', label: 'Comparison guides' } },
+  { id: 'ocr', term: 'OCR (optical character recognition)', definition: 'Technology that reads text in paper documents or images and turns it into usable data. When combined with AI to read handwriting or varied forms, it is often called AI-OCR.' },
+  { id: 'image-recognition', term: 'Image recognition', definition: 'AI that identifies what appears in images or video, used for visual inspection in manufacturing, safety checks on construction sites and stock checks.' },
+  { id: 'demand-forecasting', term: 'Demand forecasting', definition: 'Estimating future demand from past sales, seasonality, weather and events, to reduce overstock, stockouts and over- or under-staffing.' },
+  { id: 'personalization', term: 'Personalization', definition: 'Tailoring recommendations, information or services to each person’s preferences and behaviour, as in retail recommendations or individualized learning.' },
+  { id: 'tacit-knowledge', term: 'Tacit knowledge', definition: 'Knowledge held as experience or intuition and not written down, such as an expert’s judgement. Capturing it in documents or data is a prerequisite for passing skills on and for using AI.' },
+  { id: 'siloed-expertise', term: 'Siloed expertise', definition: 'When how a task is done is known only to specific people, so work stops when they are absent or leave. Documenting procedures, sharing knowledge and using AI to record work help resolve it.', link: { href: '/works/ai-solutions', label: 'AI Solutions' } },
+  { id: 'anonymization', term: 'Anonymization', definition: 'Removing or replacing information that identifies individuals, such as names and contact details — a basic safeguard when using data that contains personal information with AI.' },
+  { id: 'poc', term: 'PoC (proof of concept)', definition: 'A small-scale trial before full adoption to check that something is technically feasible and likely to be effective. Setting goals and evaluation criteria first is considered important.', link: { href: '/works/ai-business-launch', label: 'AI Business Launch' } },
 ];
 
 export const glossaryContent: Record<Lang, { title: string; sub: string; lead: string; terms: GlossaryTerm[] }> = {
