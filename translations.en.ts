@@ -61,6 +61,28 @@ export const en: Translation = {
       { value: '2025', unit: 'Founded', label: 'From Kyoto, connecting Japan and the world' },
     ],
   },
+  growthFlow: {
+    eyebrow: 'How to grow with AI',
+    title: 'Learn, deliver results, then scale.',
+    lead: 'Build the foundation for using AI through training, deliver results in your operations with AI Solutions, and scale the AI that works into a business. Our businesses connect in these three steps.',
+    steps: [
+      { step: 'STEP 1', verb: 'Learn', name: 'Training', desc: 'Executives and employees without an IT background learn to bring AI into their work, from the foundations to practice (a standard 20 hours of OFF-JT).', view: 'training' },
+      { step: 'STEP 2', verb: 'Deliver results', name: 'AI Solutions', desc: 'From mapping the work to a 2–4 week PoC, development, integration with existing systems and adoption support. This is 01 and 02 in the process below.', view: 'biz-ai' },
+      { step: 'STEP 3', verb: 'Scale', name: 'AI Business Launch', desc: 'Turn the AI that worked in-house into a product for peers in your industry and launch it as a new business. This is 03 in the process below.', view: 'biz-newbiz' },
+    ],
+    note: 'You can ask for training only, or AI Solutions only. STEP 3 is for companies aiming to build a business; asking for 01 and 02 alone is perfectly fine.',
+    more: 'Learn more',
+  },
+  pains: {
+    eyebrow: 'Problems',
+    title: 'Sound familiar?',
+    items: [
+      { text: 'The work before a meeting — building lists, first contact, follow-ups — eats the time you should spend on existing customers', service: 'AI Sales', view: 'ai-sales' },
+      { text: 'Every call interrupts the work on site, and calls are missed after hours and at peak times', service: 'AI Phone', view: 'ai-phone' },
+      { text: 'Entering data into Salesforce burdens the sales team, so records come in late or not at all', service: 'Salesforce AI', view: 'salesforce-ai' },
+    ],
+    linkSuffix: ' — learn more',
+  },
   oneStop: {
     eyebrow: 'One-Stop Support',
     title: 'From mapping the work to launching a business.',
