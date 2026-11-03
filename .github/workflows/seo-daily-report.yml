@@ -1,0 +1,52 @@
+name: SEO Daily Report
+
+# Search Console の数値を毎日取得して docs/seo-aio/metrics/YYYY-MM-DD.md に保存する（scripts/gsc-report.mjs）。
+# 前提: リポジトリの Secrets に GSC_SERVICE_ACCOUNT_JSON（Search Console に追加したサービスアカウントの鍵）を登録すること。
+# 未登録の間は何もせず終了する。
+
+on:
+  schedule:
+    - cron: '30 23 * * *'   # 毎日 08:30 JST (23:30 UTC)
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: seo-daily-report
+  cancel-in-progress: false
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Fetch Search Console metrics
+        id: fetch
+        env:
+          GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+        run: |
+          if [ -z "$GSC_SERVICE_ACCOUNT_JSON" ]; then
+            echo "GSC_SERVICE_ACCOUNT_JSON が未登録のためスキップ"
+            exit 0
+          fi
+          node scripts/gsc-report.mjs "$(TZ=Asia/Tokyo date +%Y-%m-%d)"
+          echo "done=1" >> "$GITHUB_OUTPUT"
+
+      - name: Commit & push
+        if: steps.fetch.outputs.done == '1'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/seo-aio/metrics
+          if git diff --cached --quiet; then echo "変更なし"; exit 0; fi
+          git commit -m "SEOデイリー: Search Console 数値 ($(TZ=Asia/Tokyo date +%Y-%m-%d))"
+          git pull --rebase origin main
+          git push
