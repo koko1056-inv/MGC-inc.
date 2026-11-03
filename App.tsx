@@ -2470,7 +2470,7 @@ const SectionHead: React.FC<{ eyebrow: string; heading: string; lead?: string }>
 
 const ServiceSectionBlock: React.FC<{ section: ServiceSection; onNavigate?: (view: ViewState) => void }> = ({ section, onNavigate }) => {
   const s = section;
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
 
   if (s.type === 'problems') {
     return (
@@ -2511,6 +2511,9 @@ const ServiceSectionBlock: React.FC<{ section: ServiceSection; onNavigate?: (vie
                     <span className="inline-block mt-2 px-3 py-1 rounded-full bg-[#2D6CDF]/10 text-[#2D6CDF] text-xs md:text-sm font-bold">{step.duration}</span>
                   )}
                   <p className="text-[15px] md:text-base text-gray-600 leading-[1.9] mt-2 max-w-3xl">{step.desc}</p>
+                  {step.role && (
+                    <p className="text-sm text-[#1A2233] leading-[1.8] mt-3 max-w-3xl bg-[#F4F6FB] rounded-lg px-4 py-2.5"><span className="font-bold text-[#2D6CDF]">{lang === 'ja' ? '役割分担 ' : 'Roles '}</span>{step.role}</p>
+                  )}
                 </div>
               </li>
             </Reveal>
@@ -2675,23 +2678,55 @@ const ServiceSectionBlock: React.FC<{ section: ServiceSection; onNavigate?: (vie
   }
 
   if (s.type === 'cards') {
+    const cols = s.columns === 3 ? 'md:grid-cols-2 lg:grid-cols-3' : 'md:grid-cols-2';
     return (
       <>
         <Reveal><SectionHead eyebrow={s.eyebrow} heading={s.heading} lead={s.lead} /></Reveal>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+        <div className={`grid grid-cols-1 ${cols} gap-5 md:gap-6`}>
           {s.cards.map((card, i) => (
             <Reveal key={i} delay={i * 80}>
-              <div className="h-full rounded-2xl border border-gray-200 bg-white p-6 md:p-8 hover:border-[#2D6CDF]/40 transition-colors duration-300">
+              <div className="h-full flex flex-col rounded-2xl border border-gray-200 bg-white p-6 md:p-8 hover:border-[#2D6CDF]/40 transition-colors duration-300">
                 <span aria-hidden className="block w-10 h-1 bg-[#2D6CDF] rounded-full mb-5" />
+                {card.tag && (
+                  <span className={`self-start mb-3 px-2.5 py-0.5 rounded-full text-xs font-bold ${card.link && card.tag !== '活用イメージ' && card.tag !== 'Example' ? 'bg-[#2D6CDF] text-white' : 'bg-[#F4F6FB] text-[#5B6472]'}`}>{card.tag}</span>
+                )}
                 <h3 className="text-lg md:text-xl font-bold text-[#111418] leading-[1.6]">{card.title}</h3>
-                <p className="text-[15px] md:text-base text-gray-600 leading-[1.9] mt-3">{card.desc}</p>
+                <p className="text-[15px] md:text-base text-gray-600 leading-[1.9] mt-3 flex-grow">{card.desc}</p>
+                {card.link && (
+                  <a href={card.link.href} className="group inline-flex items-center gap-1.5 mt-4 text-sm font-bold text-[#2D6CDF] underline underline-offset-4">
+                    {card.link.label}<ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                  </a>
+                )}
               </div>
             </Reveal>
           ))}
         </div>
+        {s.note && (
+          <Reveal>
+            <p className="mt-8 text-sm text-gray-500 leading-[1.9] border-l-2 border-gray-300 pl-4 max-w-3xl">{s.note}</p>
+          </Reveal>
+        )}
       </>
     );
   }
+
+  // ページ途中の相談導線（問い合わせフォームの種別を選んだ状態で開く）
+  if (s.type === 'cta') {
+    return (
+      <Reveal>
+        <div className="rounded-[1.5rem] md:rounded-[2rem] bg-[#F4F6FB] border border-[#2D6CDF]/20 p-7 md:p-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <div className="max-w-2xl">
+            <h2 className="text-xl md:text-2xl font-bold text-[#111418] leading-[1.5]">{s.heading}</h2>
+            <p className="text-[15px] md:text-base text-gray-600 leading-[1.9] mt-3">{s.lead}</p>
+          </div>
+          <a href={`#contact/${s.topic}`} className="group inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full bg-[#2D6CDF] text-white font-bold text-sm md:text-base whitespace-nowrap hover:opacity-90 transition-opacity">
+            {s.button}<ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+          </a>
+        </div>
+      </Reveal>
+    );
+  }
+
 
   if (s.type === 'notes') {
     return (

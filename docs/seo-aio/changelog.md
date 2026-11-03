@@ -262,3 +262,12 @@
 - 対象: healthcare-incident-reporting-safety-ai, healthcare-documentation-efficiency-ai, healthcare-care-planning-risk-prediction-ai, finance-unstructured-data-compliance, finance-risk-assessment-customer-support-ai, education-student-wellbeing-ai-monitoring, education-feedback-and-curriculum-ai, education-data-driven-management-support, education-ai-co-teacher-implementation, education-administrative-efficiency-ai, construction-site-efficiency-ai, construction-safety-quality-ai-vision, construction-progress-management-ai, construction-cost-estimation-ai, ai-cost-breakdown-initial-monthly-usage
 - 型・検査・変更方針は（2）と同じ。check-rewrite.mjs と構成順の検査で OK（費用のコラムは本日すでに dateModified を更新済みのため、日付の変更なし）
 - これで標準の記事を除く全95本の本文が新しい型になった
+
+## 2026-11-03 AI電話ページの改善（コールセンター向けAIエージェントとしての位置付け）
+- 参考: 他社サイトの構成と見せ方のみ（文言は流用しない）
+- 位置付け: title・H1・description・定義文を「コールセンター向けAIエージェント」に（「AI電話」「音声AI」は残す）。CRM・基幹システムへの記録、通話後処理（ACW）、文脈を引き継いだ有人エスカレーションまで担うと明記
+- 追加セクション: AIエージェントの3つの役割（自然な会話での聞き取り／既存システムの参照・入力／有人への引き継ぎ）、受電と架電（事例の事実: Twilio・Salesforce・ElevenLabs・Microsoft Teams）、Before/After、中間CTA（問い合わせ種別「AI電話」を選んだ状態で開く）、業種別の活用イメージ6件（事例があるものは事例へリンク、それ以外は活用イメージと明記）
+- 導入の進め方に役割分担（お客様／MGC専門チーム／協働）を追加。期間は既存の目安（パイロット2〜4週間・本番1〜3ヶ月）のまま
+- FAQ に「CRMや基幹システムと連携できますか」「発信（架電）にも使えますか」を追加（8問）。既存の IVR比較・会話例・人に回す条件・向く/向かない・導入前に決めること・FAQ は残した
+- 構造化データ: Service（PoC の priceSpecification）・FAQPage・BreadcrumbList に加えて WebPage（dateModified 2026-11-03）。サイトマップの lastmod、llms.txt の記述を更新。英語版も同じ構成に
+- 新しい数字・顧客名・成果は追加していない。料金は PoC 100〜300万円・本番は個別見積もりのみ
