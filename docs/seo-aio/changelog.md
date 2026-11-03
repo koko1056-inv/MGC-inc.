@@ -229,3 +229,7 @@
 - 対象（サービスに近い順）: hr-reskilling-ai real-estate-internal-knowledge-sharing-ai real-estate-inquiry-response-ai public-resident-window-ai-automation hospitality-service-automation hr-job-description-scout-ai hospitality-personalized-guest-service-ai real-estate-valuation-market-analysis-ai finance-personalized-proposal-governance healthcare-family-communication-ai
 - 新しい型（前提の節 → チェックリスト4〜5本 → MGCの場合 → links → まとめ → FAQ 3問）に整理。slug・タイトル・seoTitle・description・keywords・画像は不変、dateModified を更新
 - 新しい数字・事例・社名は追加なし（check-rewrite.mjs で検査）。出典のない効果の数字や煽る表現（劇的・必須など）は弱めた／外した。MGCに関する未公開の記述は公開済みの事実に置き換えた
+
+## 2026-11-03 コラムの標準化（3）本文の書き直し 11〜20本目（10本）
+- 対象: real-estate-renovation-proposal-ai, real-estate-property-listing-matching-ai, hr-recruitment-process-ai, manufacturing-demand-forecasting-ai, real-estate-listing-content-creation-ai, public-ai-internal-document-optimization, education-teacher-skill-upgrading-ai, public-local-government-ai-practical-guide, construction-logistics-material-ai, hr-career-counseling-ai-support
+- 型・検査・変更方針は（2）と同じ。check-rewrite.mjs で10本すべて OK
