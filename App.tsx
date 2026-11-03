@@ -108,7 +108,7 @@ export type BizView = 'biz-ai' | 'biz-newbiz' | 'biz-crossborder';
 export const BUSINESS_PAGES: Record<BizView, { path: string; key: 'service_ai' | 'service_newbiz' | 'service_lab'; no: string; image: string; topic?: string }> = {
   'biz-ai': { path: '/works/ai-solutions', key: 'service_ai', no: '01', image: '/assets/service_ai.webp', topic: 'ai-solutions' },
   'biz-newbiz': { path: '/works/ai-business-launch', key: 'service_newbiz', no: '02', image: '/assets/service_newbiz.webp', topic: 'newbiz' },
-  'biz-crossborder': { path: '/works/cross-border', key: 'service_lab', no: '04', image: '/assets/service_lab.webp' },
+  'biz-crossborder': { path: '/works/cross-border', key: 'service_lab', no: '04', image: '/assets/service_lab.webp', topic: 'crossborder' },
 };
 export const isBizView = (v: string): v is BizView => v in BUSINESS_PAGES;
 export const pathForView = (v: ViewState): string =>
@@ -1725,7 +1725,9 @@ const JournalPostView: React.FC<{ slug: string; onNavigate: (view: ViewState) =>
 
 // #contact/<slug> で来たとき、その相談内容を初期選択する。
 // どのサービスページ経由の問い合わせかを、受信メール側で判別できるようにする。
-const SERVICE_TOPIC_INDEX: Record<string, number> = { 'ai-sales': 0, 'ai-phone': 1, 'salesforce-ai': 2, 'ai-solutions': 3, 'newbiz': 4, 'training': 5 };
+// 種別の並び（topicOptions と同じ順）: 研修／AI営業／AI電話／Salesforce AI／AI事業立ち上げ／クロスボーダー／その他。
+// AIソリューションのページ（個別のコンサル・開発を含む）からは「その他（AI導入全般）」を選んだ状態にする。
+const SERVICE_TOPIC_INDEX: Record<string, number> = { training: 0, 'ai-sales': 1, 'ai-phone': 2, 'salesforce-ai': 3, newbiz: 4, crossborder: 5, other: 6, 'ai-solutions': 6 };
 
 const ContactView: React.FC<{ onNavigate?: (view: ViewState) => void; initialSent?: boolean }> = ({ onNavigate, initialSent = false }) => {
   const { t, lang } = useLanguage();
