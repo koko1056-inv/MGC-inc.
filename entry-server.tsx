@@ -331,6 +331,7 @@ export const llmsFull = (): string => {
   L.push(`## ${t.pricing.title}（${SITE_ORIGIN}/pricing）`);
   L.push(t.pricing.lead);
   L.push(`- ${t.pricing.training.heading}: ${t.training.course.items.map((c) => `${c.name} ${c.specs[2].value}・${c.specs[3].value}`).join('／')}。${t.pricing.training.note}`);
+  t.training.options.items.forEach((o) => L.push(`- ${o.title}: ${o.price}（${o.desc}）`));
   L.push(`- ${t.pricing.services.heading}: 各サービスの「費用の考え方」（上記）を参照`);
   L.push(`- ${t.pricing.period.heading}: ${t.pricing.period.items.map((x) => `${x.label} ${x.value}`).join('、')}。${t.pricing.period.note}`);
   L.push(`- ${t.pricing.free}`);
@@ -343,6 +344,7 @@ export const llmsFull = (): string => {
     L.push(`- 特徴: ${c.features.join('／')}`);
     L.push(`- 習得できること: ${c.outcomes.join('／')}`);
   });
+  t.training.options.items.forEach((o) => L.push(`- ${o.title}（${o.price}）: ${o.desc}`));
   L.push(`- ${t.training.after.heading}: ${t.training.after.steps.map((x) => `${x.title}（${x.desc}）`).join(' → ')}`);
   t.training.faq.items.forEach((f) => { L.push(`- Q. ${f.q}`); L.push(`  A. ${f.a}`); });
   L.push('');
