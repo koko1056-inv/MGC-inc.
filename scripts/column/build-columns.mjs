@@ -42,7 +42,8 @@ const die = (msg) => {
 if (!existsSync(join(CONTENT_DIR, 'columns.json'))) die('content/columns/columns.json が見つかりません');
 const manifest = JSON.parse(readFileSync(join(CONTENT_DIR, 'columns.json'), 'utf8'));
 const site = manifest.site;
-const industriesByKey = Object.fromEntries((manifest.rotation.industries || []).map((i) => [i.key, i]));
+// extraIndustries は日次の自動投稿のローテーションに入れない分類（業種共通の記事など）
+const industriesByKey = Object.fromEntries([...(manifest.rotation.industries || []), ...(manifest.extraIndustries || [])].map((i) => [i.key, i]));
 
 // ---- load articles ----
 const articles = [];
@@ -125,6 +126,9 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 .article > h3{font-size:1.12rem;font-weight:800;margin:34px 0 10px;color:#1b2430}
 .article p{margin:0 0 20px;color:#313a46}
 .article ul,.article ol{margin:0 0 22px;padding-left:22px}
+.article ul.inline-links{list-style:none;padding:18px 22px;background:var(--soft);border-left:4px solid var(--blue);border-radius:8px}
+.article ul.inline-links li{margin:6px 0}
+.article ul.inline-links a{color:var(--blue);font-weight:700;text-decoration:underline;text-underline-offset:3px}
 .article li{margin:0 0 10px;color:#313a46}
 .article blockquote{margin:28px 0;padding:20px 24px;background:var(--soft);border-radius:14px;border-left:4px solid var(--blue);color:#1b2430;font-weight:600}
 
@@ -351,6 +355,11 @@ function renderBody(blocks = [], headings = []) {
     else if (b.type === 'quote') out.push(`<blockquote>${esc(b.text)}</blockquote>`);
     else if (b.type === 'ul') out.push(`<ul>${(b.items || []).map((i) => `<li>${linkTerms(esc(i), used)}</li>`).join('')}</ul>`);
     else if (b.type === 'ol') out.push(`<ol>${(b.items || []).map((i) => `<li>${esc(i)}</li>`).join('')}</ol>`);
+    // サイト内リンク（/ で始まるパスのみ）。本文中で関連ページへ案内するときに使う
+    else if (b.type === 'links') {
+      for (const l of b.items || []) if (!/^\/[a-z0-9/#-]*$/.test(l.href)) die(`links の href はサイト内パスのみ: ${l.href}`);
+      out.push(`<ul class="inline-links">${(b.items || []).map((l) => `<li><a href="${esc(l.href)}">${esc(l.label)}</a>${l.desc ? `：${esc(l.desc)}` : ''}</li>`).join('')}</ul>`);
+    }
     else die(`未知のブロック type "${b.type}"`);
   }
   return out.join('\n');
@@ -706,6 +715,7 @@ const INDUSTRY_LEADS = {
   finance: '審査・照会、事務作業と顧客対応、査定、非定型書類の審査とコンプライアンス、パーソナライズ、AIの信頼性とリスク管理、不正検知など、金融・保険でのAI活用を解説するコラムです。',
   education: '校務・教材作成、フィードバック、授業準備、データ活用、指導力の底上げ、生徒の見守りなど、教育現場で先生の時間を生み出すAI活用を解説するコラムです。',
   hr: '書類選考とスカウト、採用マッチング、面接評価の平準化、求人票、キャリア面談、タレントマネジメント、リスキリング、社内ナレッジなど、人材・採用領域でのAI活用を解説するコラムです。',
+  general: '研修の選び方や費用の考え方など、業種を問わずAI導入を検討するときに確認したい観点をまとめたコラムです。',
   public: '窓口業務、内部事務、ガバナンス、住民サービス、政策立案・地域活性化など、自治体でのAI導入を実務から進める方法を解説するコラムです。',
 };
 function industryHtml(key) {
