@@ -380,9 +380,27 @@ function relatedServicesHtml(a) {
   const scored = SERVICE_LINKS.map((s) => ({ ...s, score: s.words.reduce((n, w) => n + count(w), 0) }))
     .filter((s) => s.score >= 3).sort((x, y) => y.score - x.score).slice(0, 2);
   const picks = scored.length ? scored : [{ href: '/works/ai-solutions', name: 'AIソリューション', desc: '何にAIを使うべきかの整理から、開発・導入・運用まで一貫して支援' }];
+  // 選んだサービスに対応する比較・選び方ガイド。対応するガイドがないとき（研修・AIソリューション）は「AI導入は何から始めるか」
+  const guides = [...new Set(picks.map((s) => GUIDE_FOR_SERVICE[s.href] || 'ai-adoption-where-to-start'))].map((slug) => GUIDES.find((g) => g.slug === slug));
   return `<section class="svc-links"><h2>このテーマに関するMGCのサービス</h2><ul>${picks
-    .map((s) => `<li><a href="${s.href}"><strong>${esc(s.name)}</strong><span>${esc(s.desc)}</span></a></li>`).join('')}</ul></section>`;
+    .map((s) => `<li><a href="${s.href}"><strong>${esc(s.name)}</strong><span>${esc(s.desc)}</span></a></li>`).join('')}</ul></section>
+<section class="svc-links"><h2>比較・選び方ガイド</h2><ul>${guides
+    .map((g) => `<li><a href="/guide/${g.slug}"><strong>${esc(g.title)}</strong><span>${esc(g.desc)}</span></a></li>`).join('')}</ul></section>`;
 }
+
+// 比較・選び方ガイド（本体サイトの /guide/<slug>。guideContent.ts と同じ slug・タイトル）
+const GUIDES = [
+  { slug: 'ai-phone-vs-ivr-voicebot', title: 'AI電話・IVR・ボイスボットの違いと選び方', desc: '用件の伝え方・扱える情報・記録・人への引き継ぎで比較。向く電話・向かない電話' },
+  { slug: 'ai-sales-vs-telemarketing', title: 'AI営業とテレアポ代行の違いと選び方', desc: '担い手・契約の形・手元に残るもの・比較の観点' },
+  { slug: 'salesforce-standard-ai-vs-custom', title: 'Salesforceの標準AI機能と個別開発、どちらを選ぶか', desc: '費用の構成・判断の材料・進め方' },
+  { slug: 'ai-adoption-where-to-start', title: 'AI導入は何から始めるか — 最初の1業務の選び方と進め方', desc: '社内の状況別の最初の一歩、最初に任せる1業務の選び方、進め方と期間・費用の目安' },
+];
+// ガイドの slug が本体サイト側（guideContent.ts）から消えたらビルドを止める（リンク切れ防止）
+{
+  const src = readFileSync(join(ROOT, 'guideContent.ts'), 'utf8');
+  for (const g of GUIDES) if (!src.includes(`slug: '${g.slug}'`)) die(`guideContent.ts にガイドがありません: ${g.slug}`);
+}
+const GUIDE_FOR_SERVICE = { '/service/ai-phone': 'ai-phone-vs-ivr-voicebot', '/service/ai-sales': 'ai-sales-vs-telemarketing', '/service/salesforce-ai': 'salesforce-standard-ai-vs-custom' };
 
 // プレーンテキスト抽出（description 補完・文字数チェック用）
 function plainText(a) {
