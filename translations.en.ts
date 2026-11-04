@@ -170,6 +170,10 @@ export const en: Translation = {
         a: 'Yes. We offer standalone AI training programs tailored to executives, managers, and hands-on staff. You can start with training and expand into consulting or development later.',
       },
       {
+        q: 'Are you based in Kyoto? Can companies outside Kyoto consult you?',
+        a: 'MGC Inc. is headquartered in Kamigyo-ku, Kyoto. Consultations start with a 30-minute online meeting, and we welcome companies outside Kyoto. Training is available in person or online (live, interactive).',
+      },
+      {
         q: 'Can you integrate with our existing systems?',
         a: 'Yes. We integrate with CRMs such as Salesforce and kintone, chat tools like Slack, Microsoft Teams and LINE, and core systems via API. We are vendor-neutral — we choose the stack that fits your environment.',
       },
@@ -260,7 +264,7 @@ export const en: Translation = {
       p1: "From working out where AI should be used, to building AI for voice, text and CRM, to running it after launch.\nProven use cases are offered as services; everything else is designed case by case.",
       faq: [
         { q: 'Which service should we ask about?', a: 'You do not need to decide first. We start by mapping your work and propose whether AI Sales, AI Phone or Salesforce AI fits, or whether bespoke development is needed.' },
-        { q: 'Can we start small?', a: 'Yes. We recommend starting with one task and validating the effect in a 2–4 week pilot before rolling out. A PoC for AI Sales, AI Phone or Salesforce AI typically costs JPY 1–3 million; production rollout is quoted individually.' },
+        { q: 'Can we start small?', a: 'Yes. We recommend starting with one task and validating the effect in a 2–4 week pilot before rolling out. A PoC for AI Sales, AI Phone or Salesforce AI typically costs JPY 1–3 million; production rollout is quoted individually.', link: '/guide/ai-adoption-where-to-start', linkLabel: 'Read the guide: where to start with AI adoption' },
         { q: 'Can it connect to our existing systems?', a: 'Yes. We integrate via APIs with CRMs such as Salesforce and kintone, chat tools such as Slack, Microsoft Teams and LINE, and core business systems.' },
       ],
       features: [
