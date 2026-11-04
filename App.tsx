@@ -4068,7 +4068,7 @@ const BusinessView: React.FC<{ biz: BizView; onNavigate: (view: ViewState) => vo
             <div className="w-16 h-1.5 bg-accent mt-4 rounded-full" />
           </Reveal>
           <div className="space-y-3 mt-10">
-            {d.faq.map((f, i) => <FaqItem key={i} question={f.q} answer={f.a} index={i} />)}
+            {d.faq.map((f, i) => { const l = f as { link?: string; linkLabel?: string }; return <FaqItem key={i} question={f.q} answer={f.a} index={i} link={l.link && l.linkLabel ? { href: l.link, label: l.linkLabel, onGo: () => window.location.assign(l.link!) } : undefined} />; })}
           </div>
         </section>
 
