@@ -23,6 +23,8 @@ const OUT_DIR = join(ROOT, 'public', 'column');
 const SITEMAP = join(ROOT, 'public', 'sitemap.xml');
 
 // ---- helpers ----
+// 最終更新日（書き直した記事は dateModified、未更新なら公開日）。サイトマップ・OGP・表示で共通に使う
+const lastmod = (a) => (a.dateModified && a.dateModified > a.date ? a.dateModified : a.date);
 const esc = (s = '') =>
   String(s)
     .replace(/&/g, '&amp;')
@@ -482,6 +484,7 @@ ${kw ? `<meta name="keywords" content="${esc(kw)}"/>` : ''}
 <meta property="og:description" content="${esc(desc)}"/>
 <meta property="og:image" content="${esc(imgAbs)}"/>${/\/assets\/column\/[^/]+\.jpg$/.test(imgAbs) ? '\n<meta property="og:image:width" content="1200"/>\n<meta property="og:image:height" content="630"/>' : ''}
 <meta property="article:published_time" content="${esc(a.date)}"/>
+<meta property="article:modified_time" content="${esc(lastmod(a))}"/>
 <meta property="article:section" content="${esc(ind.ja)}"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="${esc(seoTitle)}"/>
@@ -502,7 +505,7 @@ ${header('/column')}
 <header class="article-head">
 <span class="eyebrow">${esc(ind.ja)} × AI活用</span>
 <h1 class="title">${esc(a.title)}</h1>
-<div class="meta"><a class="chip" href="/column/industry/${esc(a.industry)}">${esc(ind.ja)}</a><span>${esc(a.date.replace(/-/g, '.'))}</span>${a.readTime ? `<span>読了目安 ${esc(a.readTime)}</span>` : ''}<span>執筆：${AUTHOR.role} ${AUTHOR.name}</span></div>
+<div class="meta"><a class="chip" href="/column/industry/${esc(a.industry)}">${esc(ind.ja)}</a><span><time datetime="${esc(a.date)}">${esc(a.date.replace(/-/g, '.'))}</time></span>${lastmod(a) > a.date ? `<span>更新 <time datetime="${esc(lastmod(a))}">${esc(lastmod(a).replace(/-/g, '.'))}</time></span>` : ''}${a.readTime ? `<span>読了目安 ${esc(a.readTime)}</span>` : ''}<span>執筆：${AUTHOR.role} ${AUTHOR.name}</span></div>
 </header>
 <div class="hero-wrap"><img class="hero" src="${esc(img)}" alt="${esc(a.imageAlt || a.title)}" width="1400" height="788"/></div>
 <main class="layout">
@@ -798,11 +801,11 @@ function updateSitemap() {
   const START = '<!-- COLUMNS:START -->';
   const END = '<!-- COLUMNS:END -->';
   const urls = [
-    `  <url><loc>${site.baseUrl}/column</loc><lastmod>${articles.map((a) => a.date).sort().pop()}</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>`,
+    `  <url><loc>${site.baseUrl}/column</loc><lastmod>${articles.map(lastmod).sort().pop()}</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>`,
     ...Object.keys(industriesByKey).filter((k) => articles.some((a) => a.industry === k)).map((k) =>
-      `  <url><loc>${site.baseUrl}/column/industry/${k}</loc><lastmod>${articles.filter((a) => a.industry === k).map((a) => a.date).sort().pop()}</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>`),
+      `  <url><loc>${site.baseUrl}/column/industry/${k}</loc><lastmod>${articles.filter((a) => a.industry === k).map(lastmod).sort().pop()}</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>`),
     ...articles.map((a) =>
-      `  <url><loc>${site.baseUrl}/column/${a.slug}</loc><lastmod>${a.date}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>`),
+      `  <url><loc>${site.baseUrl}/column/${a.slug}</loc><lastmod>${lastmod(a)}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>`),
   ].join('\n');
   const block = `${START}\n${urls}\n  ${END}`;
 
