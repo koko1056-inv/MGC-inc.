@@ -134,9 +134,36 @@ if (DRY) {
   process.exit(0);
 }
 
+// 同じ日に2本出さない（手動実行と定時実行が重なった場合など）。FORCE=1 で無視できる。
+const rotationKeys = new Set(inds.map((i) => i.key));
+const todays = (manifest.articles || []).find((a) => a.date === today && rotationKeys.has(a.industry));
+if (todays && process.env.FORCE !== '1') {
+  console.log(`[generate-column] 本日（${today}）の自動投稿は公開済みのためスキップ: ${todays.slug}`);
+  process.exit(0);
+}
+
 if (!API_KEY) die('GEMINI_API_KEY が未設定です（GitHub Secrets に登録してください）');
 
-// Gemini を呼び、記事JSONを1件返す（モデル候補を順に試す）。
+// 応答テキストから、最初の完結したJSONオブジェクトだけを取り出す（文字列内の括弧・エスケープを考慮）。
+// 2026-11-03 にオブジェクトの後ろへ余分な文字が付いた応答で JSON.parse が失敗し、その日の投稿が止まったための対策。
+export function extractJsonObject(text) {
+  const s = text.indexOf('{');
+  if (s < 0) return null;
+  let depth = 0, inStr = false, esc = false;
+  for (let i = s; i < text.length; i++) {
+    const c = text[i];
+    if (inStr) {
+      if (esc) esc = false;
+      else if (c === '\\') esc = true;
+      else if (c === '"') inStr = false;
+    } else if (c === '"') inStr = true;
+    else if (c === '{') depth++;
+    else if (c === '}' && --depth === 0) return text.slice(s, i + 1);
+  }
+  return null;
+}
+
+// Gemini を呼び、記事JSONを1件返す（モデル候補を順に試す）。失敗は例外で返し、呼び出し側で再試行する。
 async function callGemini(userText) {
   const body = JSON.stringify({
     systemInstruction: { parts: [{ text: SYSTEM }] },
@@ -158,33 +185,51 @@ async function callGemini(userText) {
       console.error(`[generate-column] モデル ${m} は利用不可 (${res.status})。次の候補を試します。`);
       continue;
     }
-    die(`Gemini API ${res.status} (model ${m}): ${errText.slice(0, 500)}`);
+    throw new Error(`Gemini API ${res.status} (model ${m}): ${errText.slice(0, 500)}`);
   }
-  if (!data) die(`利用可能なGeminiモデルが見つかりませんでした。候補: ${MODELS.join(', ')}（GEMINI_MODEL 変数で有効なモデルを指定してください）`);
+  if (!data) throw new Error(`利用可能なGeminiモデルが見つかりませんでした。候補: ${MODELS.join(', ')}（GEMINI_MODEL 変数で有効なモデルを指定してください）`);
   const cand = (data.candidates || [])[0];
-  if (!cand) die(`Gemini 応答に candidates がありません: ${JSON.stringify(data).slice(0, 400)}`);
+  if (!cand) throw new Error(`Gemini 応答に candidates がありません: ${JSON.stringify(data).slice(0, 400)}`);
   if (cand.finishReason && cand.finishReason !== 'STOP') {
     console.error(`[generate-column] 警告: finishReason=${cand.finishReason}`);
   }
   let text = ((cand.content && cand.content.parts) || []).map((p) => p.text || '').join('').trim();
   text = text.replace(/^```(?:json)?/i, '').replace(/```$/i, '').trim();
-  const s = text.indexOf('{'), e = text.lastIndexOf('}');
-  if (s < 0 || e < 0) die(`JSONが見つかりません。先頭: ${text.slice(0, 200)}`);
-  try { return { art: JSON.parse(text.slice(s, e + 1)), model: usedModel }; }
-  catch (err) { die(`JSON parse失敗: ${err.message}`); }
+  const json = extractJsonObject(text);
+  if (!json) throw new Error(`JSONが見つかりません（finishReason=${cand.finishReason}）。先頭: ${text.slice(0, 200)}`);
+  try { return { art: JSON.parse(json), model: usedModel }; }
+  catch (err) { throw new Error(`JSON parse失敗: ${err.message}`); }
+}
+
+// 生成を最大 tries 回まで試す（JSONの崩れ・一時的なAPIエラーで日次投稿を止めない）。
+// 認証エラー（401/403）は再試行しても直らないため即失敗。
+async function generate(userText, tries = 3) {
+  let last;
+  for (let i = 1; i <= tries; i++) {
+    try { return await callGemini(userText); }
+    catch (err) {
+      last = err;
+      console.error(`[generate-column] 生成 ${i}/${tries} 回目に失敗: ${err.message}`);
+      if (/Gemini API (401|403)/.test(err.message)) break;
+      if (i < tries) await new Promise((r) => setTimeout(r, 5000 * i));
+    }
+  }
+  throw last;
 }
 
 // 本文（lead + body）の文字数
 const bodyLen = (a) => [a.lead || '', ...((a.body || []).map((b) => (b.text || '') + (b.items ? b.items.map((i) => (typeof i === 'string' ? i : `${i.label || ''}${i.desc || ''}`)).join('') : '')))].join('').length;
 
-let { art, model: MODEL } = await callGemini(USER);
+let art, MODEL;
+try { ({ art, model: MODEL } = await generate(USER)); }
+catch (err) { die(err.message); }
 
 // 分量ガード: 短ければ1回だけ「書き足し」を依頼（デイリー投稿は止めない）
 if (bodyLen(art) < 1800) {
   const prev = bodyLen(art);
   const expandPrompt = `以下は前回のあなたの出力です。内容の重複や水増しをせず、具体例・業務の場面・導入手順・つまずきやすい点・確認すべきチェック項目などを補って、本文（lead + body）を約2,500字まで自然に充実させてください。構成の型（前提の節 → 観点の節4〜5本 → MGCの場合 → links → まとめ）は保ってください。タイトルや構成の骨子は活かしつつ、同じJSONスキーマで全文を1つのJSONオブジェクトとして再出力してください。\n\n${JSON.stringify(art)}`;
   try {
-    const r = await callGemini(expandPrompt);
+    const r = await generate(expandPrompt, 2);
     if (r && bodyLen(r.art) > prev) { art = r.art; MODEL = r.model; }
   } catch (_) { /* 失敗時は初稿を使用 */ }
   console.error(`[generate-column] 分量ガード: ${prev}字 → ${bodyLen(art)}字`);
