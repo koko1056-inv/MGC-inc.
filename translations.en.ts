@@ -162,6 +162,8 @@ export const en: Translation = {
       {
         q: 'Can we start small with one task?',
         a: 'Absolutely. We recommend the "start with one task" small-start approach: a 2–4 week pilot validates impact before scaling, so you can adopt with minimal risk. For AI Solutions (AI Sales, AI Phone, Salesforce AI), a PoC typically costs JPY 1–3 million.',
+        link: '/guide/ai-adoption-where-to-start',
+        linkLabel: 'Read the guide: where to start with AI adoption',
       },
       {
         q: 'Can we ask for training only?',

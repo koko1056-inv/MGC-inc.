@@ -888,7 +888,7 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
       <div className="space-y-3 md:space-y-4">
         {t.faq.items.map((item, i) => (
           <Reveal key={i} delay={i * 80}>
-            <FaqItem question={item.q} answer={item.a} index={i} link={item.link ? { href: item.link, label: t.pricing.faqLink, onGo: () => onNavigate?.('pricing') } : undefined} />
+            <FaqItem question={item.q} answer={item.a} index={i} link={item.link ? { href: item.link, label: (item as { linkLabel?: string }).linkLabel ?? t.pricing.faqLink, onGo: () => (item.link === '/pricing' ? onNavigate?.('pricing') : window.location.assign(item.link!)) } : undefined} />
           </Reveal>
         ))}
       </div>

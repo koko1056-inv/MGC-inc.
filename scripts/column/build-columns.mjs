@@ -866,6 +866,7 @@ function updateLlmsTxt() {
   L.push(`- [AI電話・IVR・ボイスボットの違いと選び方](${B}/guide/ai-phone-vs-ivr-voicebot): 用件の伝え方・扱える情報・記録・人への引き継ぎで比較。向く電話・向かない電話`);
   L.push(`- [AI営業とテレアポ代行の違いと選び方](${B}/guide/ai-sales-vs-telemarketing): 担い手・契約の形・手元に残るもの・比較の観点`);
   L.push(`- [Salesforceの標準AI機能と個別開発、どちらを選ぶか](${B}/guide/salesforce-standard-ai-vs-custom): 費用の構成・判断の材料・進め方`);
+  L.push(`- [AI導入は何から始めるか — 最初の1業務の選び方と進め方](${B}/guide/ai-adoption-where-to-start): 社内の状況別の最初の一歩、最初に任せる1業務の選び方、棚卸し→PoC→本番運用の進め方と期間・費用の目安`);
   L.push('');
   L.push('## 主要ページ');
   L.push(`- [トップ](${B}/) ／ [事業内容](${B}/works) ／ [導入事例](${B}/cases) ／ [会社理念](${B}/mission) ／ [会社概要](${B}/company) ／ [お知らせ・ジャーナル](${B}/blog) ／ [AI活用コラム](${B}/column) ／ [料金の考え方](${B}/pricing) ／ [AI活用 用語集](${B}/glossary) ／ [お問い合わせ](${B}/contact)`);

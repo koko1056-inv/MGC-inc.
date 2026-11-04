@@ -145,6 +145,54 @@ const ja: Guide[] = [
     ],
     service: { href: '/service/salesforce-ai', label: 'Salesforce AI活用支援' },
   },
+  {
+    slug: 'ai-adoption-where-to-start',
+    title: 'AI導入は何から始めるか — 最初の1業務の選び方と進め方',
+    description: 'AI導入を何から始めるかを、社内の状況別の最初の一歩、最初に任せる1業務の選び方、業務の棚卸しからPoC・本番運用までの進め方で整理。研修とAIソリューションのどちらから始めるかの判断にも答えます。',
+    lead: 'AI導入は、全社で一度に始めるより、1つの業務で効果を確かめてから広げるほうが判断しやすくなります。最初に決めるのは「どのツールを入れるか」ではなく、「社内にAIを使いこなす人がいるか」と「どの業務を、どこまでAIに任せるか」です。',
+    table: {
+      caption: '社内の状況別、最初の一歩',
+      head: ['社内の状況', '最初の一歩', 'MGCの窓口'],
+      rows: [
+        ['AIを使いこなす人が社内にいない。何に使えるかが分からない', '経営者・従業員が、AIを業務に取り入れる基礎から実践までを学ぶ', 'AI活用リスキリング研修（1名398,000円（税込）・標準20時間）'],
+        ['任せたい業務の候補はあるが、効果が見えない', '業務を棚卸しし、対象を1業務に絞ってPoCで効果を確かめる', 'AIソリューション（PoC 100〜300万円が目安）'],
+        ['商談の前工程（リスト作成・初回接触・追客）に時間を取られている', '前工程をAIに任せる仕組みをつくり、商談と提案は人が担う', 'AI営業'],
+        ['電話に出るたびに現場の作業が中断されている', '一次対応・要約・記録をAIに任せ、人に回す条件を決める', 'AI電話'],
+        ['Salesforceへの入力が営業担当の負担になっている', '標準AI機能で足りるか個別に作るかを判断し、入力の自動化から始める', 'Salesforce AI活用支援'],
+      ],
+    },
+    sections: [
+      {
+        heading: '最初に任せる1業務の選び方',
+        list: [
+          '同じ種類の作業が繰り返し発生している',
+          'AIに任せる範囲と、判断の基準を言葉にできる',
+          '人が確認する箇所と、人に回す条件を決められる',
+          '今の工数と件数を数えられ、効果を比べる基準がある',
+          '今は向かない: 1件ごとに内容が大きく異なり、定型化できない',
+        ],
+      },
+      {
+        heading: '進め方と期間の目安',
+        paragraphs: [
+          '最初に業務を棚卸しし、AIを活かせる領域と優先順位を整理します。対象を1業務に絞り、今の工数と件数を数えて効果を見立てたうえで、要件・進め方・費用を、着手するかを判断できる形にまとめます。',
+          'そのうえで、パイロット運用（PoC）で実際に動くもので効果を確かめます。期間の目安はパイロット運用が2〜4週間、本番運用が1〜3ヶ月です（スコープによって変わります）。PoCの費用は100〜300万円が目安で、本番導入は要件に応じて個別にお見積もりします。',
+        ],
+      },
+      {
+        heading: '研修とAIソリューション、どちらから始めるか',
+        paragraphs: [
+          '研修は、社内にAIを使いこなす土台をつくる段階です。AIソリューションは、業務の成果をつくる段階です。研修だけ、AIソリューションだけのご依頼も可能です。研修のあと業務への組み込みまで進める場合は、AIソリューションのPoCから進めます。',
+        ],
+      },
+    ],
+    faq: [
+      { q: 'AI導入で最初にやるべきことは何ですか？', a: 'どの業務を、どこまでAIに任せるかを決めることです。業務を棚卸しして対象を1業務に絞り、今の工数と件数を数えて効果を見立てます。社内にAIを使いこなす人がいない場合は、研修から始める方法もあります。' },
+      { q: '小さく試すことはできますか？', a: 'できます。「まず1業務から」のスモールスタートを推奨しており、2〜4週間のパイロット運用（PoC）で効果を確かめてから本格展開できます。PoCの費用は100〜300万円が目安です。' },
+      { q: '相談の時点で、任せる業務が決まっていなくてもよいですか？', a: 'はい。業務の棚卸しから一緒に行います。初回相談・お見積もりまでは無料で、専門チームが一貫して担当します。' },
+    ],
+    service: { href: '/works/ai-solutions', label: 'AIソリューション' },
+  },
 ];
 
 const en: Guide[] = [
@@ -218,6 +266,34 @@ const en: Guide[] = [
       { q: 'Do we always need Agentforce or Einstein licences?', a: 'It depends. Built-in AI needs the relevant licences, but connecting external AI via APIs may not.' },
     ],
     service: { href: '/service/salesforce-ai', label: 'Salesforce AI' },
+  },
+  {
+    slug: 'ai-adoption-where-to-start',
+    title: 'Where to start with AI adoption: choosing the first task and how to proceed',
+    description: 'Where to start with AI adoption: the first step for your situation, how to choose the first task to hand to AI, and how we move from a task inventory to a PoC and production — plus whether to start with training or an AI solution.',
+    lead: 'AI adoption is easier to judge when you prove the effect on one task before expanding, rather than starting company-wide. The first decision is not which tool to buy, but whether you have people who can use AI, and which task to hand to AI and how far.',
+    table: {
+      caption: 'The first step for your situation',
+      head: ['Your situation', 'First step', 'MGC service'],
+      rows: [
+        ["No one in-house can use AI yet, or you don't know what it can do", 'Executives and staff learn from the basics to practical use of AI at work', 'AI reskilling training (JPY 398,000 incl. tax per person, 20 standard hours)'],
+        ['You have candidate tasks but cannot see the effect', 'Inventory tasks, narrow to one and validate the effect in a PoC', 'AI solutions (PoC guide: JPY 1–3 million)'],
+        ['Pre-sales work (lists, first contact, follow-ups) eats your time', 'Build a system where AI handles pre-sales and people run meetings and proposals', 'AI sales'],
+        ['Field work is interrupted every time the phone rings', 'Let AI handle first response, summaries and records, and set the conditions for handing calls to people', 'AI phone'],
+        ['Salesforce data entry burdens your sales team', 'Decide between built-in AI and custom builds, starting with automated data entry', 'Salesforce AI'],
+      ],
+    },
+    sections: [
+      { heading: 'Choosing the first task', list: ['The same kind of work recurs', 'You can describe the scope and decision criteria for AI', 'You can decide where people check and when work is handed to people', 'You can count current effort and volume to compare the effect', 'Not yet suited: every case differs widely and cannot be standardised'] },
+      { heading: 'How we proceed, and how long it takes', paragraphs: ['We first inventory your tasks and prioritise where AI can help, narrow to one task, count current effort and volume, and summarise requirements, approach and cost so you can decide whether to proceed.', 'We then validate the effect with something that actually works in a pilot (PoC). As a guide, the pilot takes 2–4 weeks and production 1–3 months (depending on scope). A PoC is typically JPY 1–3 million; production is quoted individually.'] },
+      { heading: 'Training or an AI solution first?', paragraphs: ['Training builds the in-house foundation for using AI; AI solutions create results in your operations. You can request either on its own. If you want to embed AI into operations after training, we start from an AI solution PoC.'] },
+    ],
+    faq: [
+      { q: 'What should we do first when adopting AI?', a: 'Decide which task to hand to AI and how far. Inventory your tasks, narrow to one, and estimate the effect from current effort and volume. If no one in-house can use AI yet, you can start with training.' },
+      { q: 'Can we start small?', a: 'Yes. We recommend starting with one task and validating the effect in a 2–4 week pilot (PoC) before scaling. A PoC is typically JPY 1–3 million.' },
+      { q: "Is it fine if we haven't decided which task to hand over?", a: 'Yes. We start with the task inventory together. The first consultation and quote are free, and a dedicated team handles everything consistently.' },
+    ],
+    service: { href: '/works/ai-solutions', label: 'AI solutions' },
   },
 ];
 
