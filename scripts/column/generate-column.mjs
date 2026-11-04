@@ -19,6 +19,7 @@
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
+import { factCheck } from './fact-check.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..', '..');
@@ -76,7 +77,7 @@ const RULES = `# 文体・品質ルール（厳守）
 - タイトルは「テーマ — 読者が得るもの」の形（全角ダッシュで2つに分ける）。
 - body の順番: ①前提の節（「まず決めること：…」）→ ②観点の節を4〜5本（見出しは「チェックリストN：…」など番号＋観点。各節は「確認項目の ul（3〜4項目、『〜か』で終わる問いの形）→ なぜ大事かの段落」）→ ③「MGCの…の場合」の節 → ④ links ブロック → ⑤「まとめ」の節（1段落、要約のみ）。
 - 文体はです・ます調、1文40〜60字、1段落2〜4文。h3 は使わない。quote は1回まで。
-- 「MGCの…の場合」に書いてよいのはサイトに公開済みの事実だけ（AIソリューションの PoC は100〜300万円が目安・本番導入は個別見積もり、パイロット運用2〜4週間・本番運用1〜3ヶ月が目安、研修は1名398,000円（税込）・標準20時間、初回相談・お見積もりまで無料、専門チームが一貫して担当）。新しい数字・事例・社名・お客様の声は書かない。期間（2〜4週間・1〜3ヶ月）はパイロット運用・本番運用の目安であり、PoC の期間として書かない。links の desc やMGCの節に「構築事例」「導入実績」など、事例や実績があるような表現を書かない。
+- 「MGCの…の場合」に書いてよいのはサイトに公開済みの事実だけ（AIソリューションの PoC は100〜300万円が目安・本番導入は個別見積もり、パイロット運用2〜4週間・本番運用1〜3ヶ月が目安、研修は1名398,000円（税込）・標準20時間、初回相談・お見積もりまで無料、専門チームが一貫して担当）。新しい数字・事例・社名・お客様の声は書かない。期間は公開済みの目安（パイロット運用＝PoC 2〜4週間、本番運用1〜3ヶ月）だけを書く。links の desc やMGCの節に「構築事例」「導入実績」など、事例や実績があるような表現を書かない。効果の割合（%・割）や、公開されていない金額は書かない。
 
 # AIアシスタント/生成エンジンに引用・推薦されやすくする（GEO）ルール
 - **結論先出し**: 各 h2 セクションは、最初の段落で結論・要点を1〜2文で言い切ってから詳細に入る。
@@ -233,6 +234,18 @@ if (bodyLen(art) < 1800) {
     if (r && bodyLen(r.art) > prev) { art = r.art; MODEL = r.model; }
   } catch (_) { /* 失敗時は初稿を使用 */ }
   console.error(`[generate-column] 分量ガード: ${prev}字 → ${bodyLen(art)}字`);
+}
+
+// 事実の検査: 公開済みのMGCの事実から外れた表現（未公開の金額・出典のない割合・事例や実績の表現など）があれば、
+// 指摘を添えて最大2回まで直させる。それでも残る場合は公開しない（誤った事実を出すより、その日の投稿を止める）。
+for (let round = 1; ; round++) {
+  const issues = factCheck(art);
+  if (!issues.length) break;
+  console.error(`[generate-column] 事実の検査で指摘 ${issues.length} 件（${round}回目）:\n  - ${issues.join('\n  - ')}`);
+  if (round > 2) die('事実の検査を通らないため公開を中止しました');
+  const fixPrompt = `以下は前回のあなたの出力です。次の指摘をすべて直してください。指摘された箇所は、公開済みの事実だけで書き直すか、削除してください。数字・事例・実績を新しく作らないでください。それ以外の内容と構成は変えず、同じJSONスキーマで全文を1つのJSONオブジェクトとして再出力してください。\n\n# 指摘\n- ${issues.join('\n- ')}\n\n# 前回の出力\n${JSON.stringify(art)}`;
+  try { ({ art, model: MODEL } = await generate(fixPrompt, 2)); }
+  catch (err) { die(`事実の検査の修正に失敗: ${err.message}`); }
 }
 
 // --- 正規化・検証 ---

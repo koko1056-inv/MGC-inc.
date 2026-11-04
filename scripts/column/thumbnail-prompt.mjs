@@ -43,6 +43,7 @@ export const SETTINGS = {
 
 // タイトルのキーワード → 場面（上から順に最初に当たったもの）
 export const SCENES = [
+  [/教材|学習コンテンツ/, 'a teacher reviewing a draft lesson handout on a laptop next to neatly stacked printed teaching materials, a colleague checking it beside them'],
   [/研修|リスキリング|教育|育成|スキル/, 'a small group learning session, one person explaining at a large screen while others take notes on laptops'],
   [/費用|見積|積算|コスト|価格|プライシング|利益/, 'two people reviewing a cost breakdown on a laptop and a printed estimate, one pointing at a chart'],
   [/検査|品質|安全|点検|巡回|事故|リスク|不正|インシデント/, 'a person carefully checking items with a tablet that shows an inspection screen, a colleague confirming beside them'],
