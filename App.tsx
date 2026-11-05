@@ -10,6 +10,8 @@ import { journalPosts, JOURNAL_SLUGS, journalPath, findJournalPost } from './jou
 import { loadLang } from './i18n';
 import { glossaryContent } from './glossaryContent';
 import { guideContent, GUIDE_SLUGS } from './guideContent';
+// ガイドごとの関連コラム（scripts/column/build-columns.mjs が生成）
+import guideColumns from './content/columns/guide-columns.json';
 export const LanguageContext = React.createContext<{ lang: Lang; setLang: (l: Lang) => void; t: typeof translations['ja'] }>({
   lang: 'ja',
   setLang: () => {},
@@ -3242,6 +3244,21 @@ const GuideView: React.FC<{ slug: string; onNavigate: (view: ViewState) => void 
             {ja ? '無料で相談する' : 'Request a free consultation'}
           </a>
         </div>
+        {ja && ((guideColumns as Record<string, { slug: string; title: string; industry: string }[]>)[g.slug] || []).length > 0 && (
+          <section className="mt-20">
+            <h2 className="text-2xl font-bold tracking-tight mb-6">関連コラム</h2>
+            <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {(guideColumns as Record<string, { slug: string; title: string; industry: string }[]>)[g.slug].map((c) => (
+                <li key={c.slug}>
+                  <a href={`/column/${c.slug}`} className="group block h-full bg-white rounded-2xl border border-gray-200 border-l-4 border-l-accent p-6 hover:border-accent transition-colors">
+                    <span className="block text-xs font-bold text-gray-500 mb-2">{c.industry}</span>
+                    <span className="text-base font-bold leading-[1.6] group-hover:text-accent transition-colors">{c.title}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
         <section className="mt-20">
           <h2 className="text-2xl font-bold tracking-tight mb-6">{ja ? 'ほかのガイド' : 'Other guides'}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

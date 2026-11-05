@@ -379,9 +379,11 @@ function relatedServicesHtml(a) {
   const count = (w) => text.split(w).length - 1;
   const scored = SERVICE_LINKS.map((s) => ({ ...s, score: s.words.reduce((n, w) => n + count(w), 0) }))
     .filter((s) => s.score >= 3).sort((x, y) => y.score - x.score).slice(0, 2);
-  const picks = scored.length ? scored : [{ href: '/works/ai-solutions', name: 'AIソリューション', desc: '何にAIを使うべきかの整理から、開発・導入・運用まで一貫して支援' }];
+  const picks = scored.length ? scored : [{ href: '/works/ai-solutions', name: 'AIソリューション', desc: '何にAIを使うべきかの整理から、開発・導入・運用まで一貫して支援', score: 0 }];
   // 選んだサービスに対応する比較・選び方ガイド。対応するガイドがないとき（研修・AIソリューション）は「AI導入は何から始めるか」
   const guides = [...new Set(picks.map((s) => GUIDE_FOR_SERVICE[s.href] || 'ai-adoption-where-to-start'))].map((slug) => GUIDES.find((g) => g.slug === slug));
+  // ガイド側の「関連コラム」用に記録する（逆向きのリンク）
+  for (const g of guides) (guideColumns[g.slug] ||= []).push({ slug: a.slug, title: a.title, industry: a.industry, date: lastmod(a), score: picks[0].score || 0 });
   return `<section class="svc-links"><h2>このテーマに関するMGCのサービス</h2><ul>${picks
     .map((s) => `<li><a href="${s.href}"><strong>${esc(s.name)}</strong><span>${esc(s.desc)}</span></a></li>`).join('')}</ul></section>
 <section class="svc-links"><h2>比較・選び方ガイド</h2><ul>${guides
@@ -390,16 +392,17 @@ function relatedServicesHtml(a) {
 
 // 比較・選び方ガイド（本体サイトの /guide/<slug>。guideContent.ts と同じ slug・タイトル）
 const GUIDES = [
-  { slug: 'ai-phone-vs-ivr-voicebot', title: 'AI電話・IVR・ボイスボットの違いと選び方', desc: '用件の伝え方・扱える情報・記録・人への引き継ぎで比較。向く電話・向かない電話' },
-  { slug: 'ai-sales-vs-telemarketing', title: 'AI営業とテレアポ代行の違いと選び方', desc: '担い手・契約の形・手元に残るもの・比較の観点' },
-  { slug: 'salesforce-standard-ai-vs-custom', title: 'Salesforceの標準AI機能と個別開発、どちらを選ぶか', desc: '費用の構成・判断の材料・進め方' },
-  { slug: 'ai-adoption-where-to-start', title: 'AI導入は何から始めるか — 最初の1業務の選び方と進め方', desc: '社内の状況別の最初の一歩、最初に任せる1業務の選び方、進め方と期間・費用の目安' },
+  { slug: 'ai-phone-vs-ivr-voicebot', title: 'AI電話・IVR・ボイスボットの違いと選び方', desc: '用件の伝え方・扱える情報・記録・人への引き継ぎで比較。向く電話・向かない電話', llms: '用件の伝え方・扱える情報・記録・人への引き継ぎで比較。向く電話・向かない電話' },
+  { slug: 'ai-sales-vs-telemarketing', title: 'AI営業とテレアポ代行の違いと選び方', desc: '担い手・契約の形・手元に残るもの・比較の観点', llms: '担い手・契約の形・手元に残るもの・比較の観点' },
+  { slug: 'salesforce-standard-ai-vs-custom', title: 'Salesforceの標準AI機能と個別開発、どちらを選ぶか', desc: '費用の構成・判断の材料・進め方', llms: '費用の構成・判断の材料・進め方' },
+  { slug: 'ai-adoption-where-to-start', title: 'AI導入は何から始めるか — 最初の1業務の選び方と進め方', desc: '社内の状況別の最初の一歩、最初に任せる1業務の選び方、進め方と期間・費用の目安', llms: '社内の状況別の最初の一歩、最初に任せる1業務の選び方、棚卸し→PoC→本番運用の進め方と期間・費用の目安' },
 ];
 // ガイドの slug が本体サイト側（guideContent.ts）から消えたらビルドを止める（リンク切れ防止）
 {
   const src = readFileSync(join(ROOT, 'guideContent.ts'), 'utf8');
   for (const g of GUIDES) if (!src.includes(`slug: '${g.slug}'`)) die(`guideContent.ts にガイドがありません: ${g.slug}`);
 }
+const guideColumns = {};
 const GUIDE_FOR_SERVICE = { '/service/ai-phone': 'ai-phone-vs-ivr-voicebot', '/service/ai-sales': 'ai-sales-vs-telemarketing', '/service/salesforce-ai': 'salesforce-standard-ai-vs-custom' };
 
 // プレーンテキスト抽出（description 補完・文字数チェック用）
@@ -881,10 +884,7 @@ function updateLlmsTxt() {
   L.push(`- [大手建設機械メーカー: 現場の音声AI](${B}/cases/manufacturer-field-voice-ai): 現場でのトラブルシューティングを音声AIとの対話で解決。機種と言語に応じた技術情報をAIが引き当てる`);
   L.push('');
   L.push('## 比較・選び方ガイド');
-  L.push(`- [AI電話・IVR・ボイスボットの違いと選び方](${B}/guide/ai-phone-vs-ivr-voicebot): 用件の伝え方・扱える情報・記録・人への引き継ぎで比較。向く電話・向かない電話`);
-  L.push(`- [AI営業とテレアポ代行の違いと選び方](${B}/guide/ai-sales-vs-telemarketing): 担い手・契約の形・手元に残るもの・比較の観点`);
-  L.push(`- [Salesforceの標準AI機能と個別開発、どちらを選ぶか](${B}/guide/salesforce-standard-ai-vs-custom): 費用の構成・判断の材料・進め方`);
-  L.push(`- [AI導入は何から始めるか — 最初の1業務の選び方と進め方](${B}/guide/ai-adoption-where-to-start): 社内の状況別の最初の一歩、最初に任せる1業務の選び方、棚卸し→PoC→本番運用の進め方と期間・費用の目安`);
+  for (const g of GUIDES) L.push(`- [${g.title}](${B}/guide/${g.slug}): ${g.llms || g.desc}`);
   L.push('');
   L.push('## 主要ページ');
   L.push(`- [トップ](${B}/) ／ [事業内容](${B}/works) ／ [導入事例](${B}/cases) ／ [会社理念](${B}/mission) ／ [会社概要](${B}/company) ／ [お知らせ・ジャーナル](${B}/blog) ／ [AI活用コラム](${B}/column) ／ [料金の考え方](${B}/pricing) ／ [AI活用 用語集](${B}/glossary) ／ [お問い合わせ](${B}/contact)`);
@@ -914,6 +914,19 @@ mkdirSync(join(OUT_DIR, 'industry'), { recursive: true });
 for (const k of HUBS) writeFileSync(join(OUT_DIR, 'industry', `${k}.html`), industryHtml(k));
 updateSitemap();
 updateLlmsTxt();
+
+// ガイドごとの関連コラム（本体サイトのガイドページが読む。生成物なので手で編集しない）
+// 関連の強い順（サービスの語の出現数）→ 新しい順に並べ、同じ業界は1本まで、最大6本
+{
+  const out = {};
+  for (const g of GUIDES) {
+    const list = (guideColumns[g.slug] || []).sort((x, y) => y.score - x.score || (x.date < y.date ? 1 : -1));
+    const seen = new Set(); const picks = [];
+    for (const c of list) { if (seen.has(c.industry)) continue; seen.add(c.industry); picks.push({ slug: c.slug, title: c.title, industry: industriesByKey[c.industry]?.ja || '' }); if (picks.length >= 6) break; }
+    out[g.slug] = picks;
+  }
+  writeFileSync(join(ROOT, 'content', 'columns', 'guide-columns.json'), JSON.stringify(out, null, 2) + '\n');
+}
 
 console.log(`[build-columns] OK: ${count} 記事 + index.html + 業界別 ${HUBS.length} ページ + sitemap 更新`);
 for (const a of articles) {

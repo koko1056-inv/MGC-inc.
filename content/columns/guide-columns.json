@@ -1,0 +1,105 @@
+{
+  "ai-phone-vs-ivr-voicebot": [
+    {
+      "slug": "real-estate-inquiry-response-ai",
+      "title": "不動産仲介の反響対応をAIで効率化する — 24時間対応と初期ヒアリングの仕組み化",
+      "industry": "不動産"
+    },
+    {
+      "slug": "public-resident-window-ai-automation",
+      "title": "自治体の窓口業務AI導入 — 住民利便性と職員の負担軽減を両立する",
+      "industry": "自治体・公共"
+    },
+    {
+      "slug": "healthcare-family-communication-ai",
+      "title": "医療・介護での家族対応にAIを — 信頼を深めスタッフの負担を減らす",
+      "industry": "医療・介護"
+    },
+    {
+      "slug": "hospitality-service-automation",
+      "title": "飲食・ホテルのAI活用 — 予約・シフト・接客の「自動化」と「おもてなし」を両立する",
+      "industry": "飲食・ホテル"
+    },
+    {
+      "slug": "ai-cost-breakdown-initial-monthly-usage",
+      "title": "AI導入費用の内訳の考え方 — 初期費用・月額費用・実費をどう見るか",
+      "industry": "業種共通"
+    },
+    {
+      "slug": "construction-logistics-material-ai",
+      "title": "建設現場の資材搬入をAIで最適化する — 待機時間の解消とジャストインタイムの実現",
+      "industry": "建設業"
+    }
+  ],
+  "ai-sales-vs-telemarketing": [
+    {
+      "slug": "real-estate-inquiry-response-ai",
+      "title": "不動産仲介の反響対応をAIで効率化する — 24時間対応と初期ヒアリングの仕組み化",
+      "industry": "不動産"
+    },
+    {
+      "slug": "hr-job-description-scout-ai",
+      "title": "求人票とスカウトをAIで改善する — 候補者の心に刺さる「言語化」の自動化",
+      "industry": "人材・採用"
+    },
+    {
+      "slug": "ai-cost-breakdown-initial-monthly-usage",
+      "title": "AI導入費用の内訳の考え方 — 初期費用・月額費用・実費をどう見るか",
+      "industry": "業種共通"
+    },
+    {
+      "slug": "manufacturing-demand-forecasting-ai",
+      "title": "製造業の需要予測AI｜過剰在庫と欠品を減らす「根拠ある生産計画」の立て方",
+      "industry": "製造業"
+    }
+  ],
+  "salesforce-standard-ai-vs-custom": [
+    {
+      "slug": "hospitality-personalized-guest-service-ai",
+      "title": "飲食・ホテルの「おもてなし」をAIで標準化する — 顧客体験を高めるデータ活用術",
+      "industry": "飲食・ホテル"
+    },
+    {
+      "slug": "hr-career-counseling-ai-support",
+      "title": "キャリア面談にAIをどう活かすか — 面談の質を平準化し「対話」に集中する",
+      "industry": "人材・採用"
+    },
+    {
+      "slug": "finance-personalized-proposal-governance",
+      "title": "金融・保険のパーソナライズをAIで加速する — 「納得感」のある提案と運用の実務",
+      "industry": "金融・保険"
+    }
+  ],
+  "ai-adoption-where-to-start": [
+    {
+      "slug": "ai-training-selection-checklist",
+      "title": "法人向けAI研修の選び方チェックリスト — 「受けて終わり」にしないための確認項目",
+      "industry": "業種共通"
+    },
+    {
+      "slug": "hr-reskilling-ai",
+      "title": "リスキリングをAI活用につなげる — 「研修を受けさせる」で終わらせない設計",
+      "industry": "人材・採用"
+    },
+    {
+      "slug": "education-personalized-learning-support",
+      "title": "教育現場でのAI活用 — 先生の時間を「子どもと向き合う時間」へ変える",
+      "industry": "教育"
+    },
+    {
+      "slug": "public-ai-internal-document-optimization",
+      "title": "自治体のAI導入、何から手をつける？ — 内部事務の効率化と「職員の判断」を両立する",
+      "industry": "自治体・公共"
+    },
+    {
+      "slug": "professional-ai-legal-accounting-transformation",
+      "title": "士業のAI活用：専門判断を支える「守りと攻め」の導入プロセス",
+      "industry": "士業（会計・法務）"
+    },
+    {
+      "slug": "retail-generative-ai-efficiency",
+      "title": "小売・ECの現場を支える生成AI活用 — 顧客対応と業務効率を両立する",
+      "industry": "小売・EC"
+    }
+  ]
+}
