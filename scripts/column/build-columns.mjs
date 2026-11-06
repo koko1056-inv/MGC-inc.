@@ -397,6 +397,15 @@ const GUIDES = [
   { slug: 'salesforce-standard-ai-vs-custom', title: 'Salesforceの標準AI機能と個別開発、どちらを選ぶか', desc: '費用の構成・判断の材料・進め方', llms: '費用の構成・判断の材料・進め方' },
   { slug: 'ai-adoption-where-to-start', title: 'AI導入は何から始めるか — 最初の1業務の選び方と進め方', desc: '社内の状況別の最初の一歩、最初に任せる1業務の選び方、進め方と期間・費用の目安', llms: '社内の状況別の最初の一歩、最初に任せる1業務の選び方、棚卸し→PoC→本番運用の進め方と期間・費用の目安' },
 ];
+// 本体サイト（App.tsx の columnReading）に直接書いたコラムの slug・タイトルが、記事と食い違ったらビルドを止める
+{
+  const app = readFileSync(join(ROOT, 'App.tsx'), 'utf8');
+  for (const m of app.matchAll(/\{ slug: '([a-z0-9-]+)', title: '([^']+)' \}/g)) {
+    const a = articles.find((x) => x.slug === m[1]);
+    if (!a) die(`App.tsx のコラムが見つかりません: ${m[1]}`);
+    if (a.title !== m[2]) die(`App.tsx のコラムのタイトルが記事と違います: ${m[1]}`);
+  }
+}
 // ガイドの slug が本体サイト側（guideContent.ts）から消えたらビルドを止める（リンク切れ防止）
 {
   const src = readFileSync(join(ROOT, 'guideContent.ts'), 'utf8');

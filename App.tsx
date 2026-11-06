@@ -2125,7 +2125,7 @@ const ContactView: React.FC<{ onNavigate?: (view: ViewState) => void; initialSen
 
 
 const TrainingView: React.FC<{ onNavigatePath: (to: string) => void }> = ({ onNavigatePath }) => {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const tr = t.training;
 
   const Head: React.FC<{ eyebrow: string; title: string }> = ({ eyebrow, title }) => (
@@ -2370,6 +2370,16 @@ const TrainingView: React.FC<{ onNavigatePath: (to: string) => void }> = ({ onNa
             </div>
           </div>
         </section>
+
+        <div className="px-6 md:px-12"><div className="max-w-screen-xl mx-auto">
+          <RelatedReading
+            title={lang === 'ja' ? 'あわせて読みたい' : 'Related reading'}
+            items={[
+              ...columnReading(lang, [{ slug: 'ai-training-selection-checklist', title: '法人向けAI研修の選び方チェックリスト — 「受けて終わり」にしないための確認項目' }]),
+              ...guideReading(lang, ['ai-adoption-where-to-start']),
+            ]}
+          />
+        </div></div>
 
         <section className="px-6 md:px-12 mt-20 md:mt-28">
           <div className="max-w-screen-xl mx-auto">
@@ -3179,6 +3189,35 @@ const GuidesView: React.FC = () => {
   );
 };
 
+// あわせて読みたいガイド・コラム（料金・研修・事例のページから、比較・選び方ガイドとコラムへ）
+// コラムは日本語のみのため、英語版ではガイドだけを出す。コラムのタイトルは公開後に変えない決まり（column-style-guide）。
+// columnReading に書いた slug・タイトルは build-columns.mjs が記事と照合する
+type ReadingItem = { href: string; label: string; kind: string };
+const GUIDE_FOR_CASE_SERVICE: Record<string, string> = { 'AI電話（音声AI）': 'ai-phone-vs-ivr-voicebot', 'AI営業': 'ai-sales-vs-telemarketing', 'Salesforce AI': 'salesforce-standard-ai-vs-custom' };
+const guideReading = (lang: Lang, slugs: string[]): ReadingItem[] =>
+  slugs.map((s) => guideContent[lang].guides.find((g) => g.slug === s)).filter((g): g is NonNullable<typeof g> => !!g)
+    .map((g) => ({ href: `/guide/${g.slug}`, label: g.title, kind: lang === 'ja' ? '比較・選び方ガイド' : 'Guide' }));
+const columnReading = (lang: Lang, cols: { slug: string; title: string }[]): ReadingItem[] =>
+  lang === 'ja' ? cols.map((c) => ({ href: `/column/${c.slug}`, label: c.title, kind: 'コラム' })) : [];
+const RelatedReading: React.FC<{ title: string; items: ReadingItem[] }> = ({ title, items }) => {
+  if (!items.length) return null;
+  return (
+    <section className="mt-16 md:mt-20">
+      <h2 className="text-xl md:text-2xl font-bold tracking-tight leading-[1.5] mb-6">{title}</h2>
+      <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {items.map((it) => (
+          <li key={it.href}>
+            <a href={it.href} className="group block h-full bg-white rounded-2xl border border-gray-200 border-l-4 border-l-accent p-6 hover:border-accent transition-colors">
+              <span className="block text-xs font-bold text-gray-500 mb-2">{it.kind}</span>
+              <span className="text-base font-bold leading-[1.6] group-hover:text-accent transition-colors">{it.label}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+};
+
 const GuideView: React.FC<{ slug: string; onNavigate: (view: ViewState) => void }> = ({ slug, onNavigate }) => {
   const { lang } = useLanguage();
   const ja = lang === 'ja';
@@ -3291,6 +3330,11 @@ const CaseView: React.FC<{ slug: string; onNavigate: (view: ViewState) => void }
             <span className="text-offblack font-bold">{cs.industry}</span>
           </nav>
           <CaseArticle cs={cs} lang={lang} page />
+          {(() => {
+            const gs: string[] = Array.from(new Set<string>((cs.services as string[]).map((x) => GUIDE_FOR_CASE_SERVICE[x]).filter((x): x is string => !!x)));
+            const cols = gs.flatMap((g) => (guideColumns as Record<string, { slug: string; title: string; industry: string }[]>)[g] || []).filter((c, n, a) => a.findIndex((y) => y.slug === c.slug) === n).slice(0, 2);
+            return <RelatedReading title={lang === 'ja' ? 'あわせて読みたい' : 'Related reading'} items={[...guideReading(lang, gs.length ? gs : ['ai-adoption-where-to-start']), ...columnReading(lang, cols)]} />;
+          })()}
           <section className="mt-16 md:mt-20">
             <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-6">{lang === 'ja' ? 'ほかの導入事例' : 'More case studies'}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -3544,6 +3588,16 @@ const PricingView: React.FC<{ onNavigate: (view: ViewState) => void }> = ({ onNa
             <Reveal><p className="text-sm md:text-[15px] text-gray-600 leading-[1.9] mt-6 max-w-3xl">{p.period.note}</p></Reveal>
           </div>
         </section>
+
+        <div className="px-6 md:px-12"><div className="max-w-screen-xl mx-auto">
+          <RelatedReading
+            title={lang === 'ja' ? '費用を比べる前に読む' : 'Read before comparing costs'}
+            items={[
+              ...columnReading(lang, [{ slug: 'ai-cost-breakdown-initial-monthly-usage', title: 'AI導入費用の内訳の考え方 — 初期費用・月額費用・実費をどう見るか' }]),
+              ...guideReading(lang, ['ai-adoption-where-to-start', 'ai-phone-vs-ivr-voicebot', 'ai-sales-vs-telemarketing', 'salesforce-standard-ai-vs-custom']),
+            ]}
+          />
+        </div></div>
 
         <section className="px-6 md:px-12 mt-20 md:mt-28">
           <div className="max-w-screen-xl mx-auto">
