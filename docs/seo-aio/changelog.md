@@ -320,3 +320,10 @@
 - 計測: SEO Daily Report を手動実行して確認 → 鍵（`GSC_SERVICE_ACCOUNT_JSON`）が未登録で取得スキップ。Vercel Web Analytics の集計APIも無効のまま。本番149ページ200・JSON-LD 473件妥当・実行時エラー0件（`metrics/2026-11-05.md`）
 - ガイドの各ページ（JP）に「関連コラム」を追加: そのガイドへリンクしているコラムから、関連の強い順（サービスの語の出現数）→新しい順に、同じ業界は1本まで・最大6本。前回のコラム→ガイドと合わせて双方向のリンクになった。一覧は `build-columns.mjs` が `content/columns/guide-columns.json` に生成（日次コラムの投稿でも更新される）
 - llms.txt のガイド一覧を、build-columns のガイド定義（GUIDES）から生成するように変更（出力は同一。ガイド追加時の載せ忘れ防止）
+
+## 2026-11-06 サイクル20: 日次コラムの個別サムネイルを自動化、自動投稿2本の確認
+- 自動投稿 2本（hr-internal-mobility-ai-skills・public-continuity-knowledge-management-ai）: 事実検査（fact-check.mjs）は両方 OK。目視で、自治体の記事の「自治体特有の複雑な業務フローを理解した専門チーム」（根拠を示せない専門性の主張）を「専門チームが一貫して担当します」に修正
+- `scripts/column/thumbnail-gemini.mjs` を新設: 記事のプロンプト（thumbnail-prompt.mjs の固定の画風＋場所＋場面）で Gemini の画像生成（gemini-2.5-flash-image、変数 GEMINI_IMAGE_MODEL で変更可）を呼び、thumbnail.mjs で 1400×788 webp・1200×630 jpg に書き出し、記事 JSON の image を設定。個別画像がある記事は飛ばす（--force で作り直し）
+- `daily-column.yml`: 新しい記事ができた日だけ、公開前にサムネイルを作るステップを追加（continue-on-error。失敗しても業種の予備画像で公開される）
+- `column-thumbnail.yml`（手動実行）: 既存の記事に個別画像を作る。slug 指定、空なら個別画像の無い記事を最大5本
+- モックで確認: モデルの404→次の候補、画像の書き出し・JSON の更新、2回目は「個別画像あり」で飛ばす

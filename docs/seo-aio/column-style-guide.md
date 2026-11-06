@@ -92,4 +92,5 @@
 | 業種の予備画像（記事に画像が無いとき） | `public/assets/column/ind_<業種>.webp` / `.jpg` | 同上 | 同上 |
 
 - `build-columns.mjs` は、`image` が `.webp` で同名の `.jpg` があれば、OGP（og:image・twitter:image）と構造化データに `.jpg` を使う。
-- 日次の自動投稿では個別の画像を作らないため、業種の予備画像（同じ画風）が使われる。個別の画像は後から上の手順で作って差し替える。
+- 日次の自動投稿では、記事の公開と同時に `scripts/column/thumbnail-gemini.mjs` が Gemini の画像生成で個別の画像を作る（同じ `promptFor` のプロンプト、同じサイズ・形式）。失敗した日は業種の予備画像が使われ、公開は止まらない。
+- 既存の記事に後から個別の画像を作るときは、GitHub Actions の「Column Thumbnail」を手動実行する（slug を指定、空なら個別画像の無い記事を最大5本）。Higgsfield（`gpt_image_2_5`）で作る上の手順も引き続き使える。
