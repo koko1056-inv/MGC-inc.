@@ -1,0 +1,312 @@
+{
+  "glossary": {
+    "generative-ai": [
+      {
+        "slug": "public-continuity-knowledge-management-ai",
+        "title": "自治体の業務継続とAI — 属人化を防ぎ、知見を次世代につなぐ活用術"
+      },
+      {
+        "slug": "ai-training-selection-checklist",
+        "title": "法人向けAI研修の選び方チェックリスト — 「受けて終わり」にしないための確認項目"
+      },
+      {
+        "slug": "hospitality-quality-standardization-and-waste-reduction",
+        "title": "飲食・ホテルの「品質のバラツキ」と「廃棄」をAIで解決する — 現場の勘をデータに変える具体策"
+      }
+    ],
+    "llm": [
+      {
+        "slug": "finance-ai-reliability-governance-strategy",
+        "title": "金融実務でAIの信頼性をどう担保するか — 精度向上とリスク管理の両立"
+      },
+      {
+        "slug": "public-resident-window-ai-automation",
+        "title": "自治体の窓口業務AI導入 — 住民利便性と職員の負担軽減を両立する"
+      },
+      {
+        "slug": "professional-high-value-advisory-ai",
+        "title": "士業のAI活用術：単純作業を自動化し「顧問業務の価値」を高める方法"
+      }
+    ],
+    "ai-agent": [
+      {
+        "slug": "hr-internal-mobility-ai-skills",
+        "title": "内部登用を活性化するAIスキルマップの作り方 — 社内人材の最適配置を実現する"
+      },
+      {
+        "slug": "ai-training-selection-checklist",
+        "title": "法人向けAI研修の選び方チェックリスト — 「受けて終わり」にしないための確認項目"
+      }
+    ],
+    "rag": [
+      {
+        "slug": "professional-strategic-ai-partner",
+        "title": "士業のAI活用は「作業」から「伴走」へ — 専門知を拡張する実務の再設計"
+      },
+      {
+        "slug": "hr-job-description-scout-ai",
+        "title": "求人票とスカウトをAIで改善する — 候補者の心に刺さる「言語化」の自動化"
+      },
+      {
+        "slug": "finance-knowledge-management-compliance-ai",
+        "title": "金融実務の「内部知見」をAIで活用する — 膨大な規定やマニュアルを現場の武器に"
+      }
+    ],
+    "hallucination": [
+      {
+        "slug": "education-learning-content-automation-checklist",
+        "title": "AIによる教材作成・更新の効率化 — 質の高い学習コンテンツを継続的に届けるための確認項目"
+      },
+      {
+        "slug": "professional-strategic-ai-partner",
+        "title": "士業のAI活用は「作業」から「伴走」へ — 専門知を拡張する実務の再設計"
+      },
+      {
+        "slug": "hr-job-description-scout-ai",
+        "title": "求人票とスカウトをAIで改善する — 候補者の心に刺さる「言語化」の自動化"
+      }
+    ],
+    "crm": [
+      {
+        "slug": "ai-cost-breakdown-initial-monthly-usage",
+        "title": "AI導入費用の内訳の考え方 — 初期費用・月額費用・実費をどう見るか"
+      },
+      {
+        "slug": "hospitality-personalized-guest-service-ai",
+        "title": "飲食・ホテルの「おもてなし」をAIで標準化する — 顧客体験を高めるデータ活用術"
+      },
+      {
+        "slug": "hr-career-counseling-ai-support",
+        "title": "キャリア面談にAIをどう活かすか — 面談の質を平準化し「対話」に集中する"
+      }
+    ],
+    "sfa": [
+      {
+        "slug": "real-estate-property-listing-matching-ai",
+        "title": "不動産実務をAIで効率化する — 物件登録の自動化から高度なマッチングまで"
+      }
+    ],
+    "api": [
+      {
+        "slug": "professional-risk-management-knowledge-digitization",
+        "title": "士業がAIを味方につける現実解 — リスク管理と「組織の知」のデジタル化"
+      },
+      {
+        "slug": "logistics-document-automation-ai",
+        "title": "物流現場の「書類業務」をAIで効率化する — 請求書や送り状の入力を自動化する現実解"
+      },
+      {
+        "slug": "public-local-government-ai-practical-guide",
+        "title": "自治体のAI導入を実務で動かす — 職員の負担を減らし住民サービスを向上させる"
+      }
+    ],
+    "off-jt": [
+      {
+        "slug": "ai-cost-breakdown-initial-monthly-usage",
+        "title": "AI導入費用の内訳の考え方 — 初期費用・月額費用・実費をどう見るか"
+      },
+      {
+        "slug": "professional-strategic-ai-partner",
+        "title": "士業のAI活用は「作業」から「伴走」へ — 専門知を拡張する実務の再設計"
+      },
+      {
+        "slug": "public-regional-revitalization-ai-strategy",
+        "title": "自治体がAIで描く地域の未来 — 政策立案と活性化をデータで支える"
+      }
+    ],
+    "reskilling": [
+      {
+        "slug": "public-continuity-knowledge-management-ai",
+        "title": "自治体の業務継続とAI — 属人化を防ぎ、知見を次世代につなぐ活用術"
+      },
+      {
+        "slug": "hr-internal-mobility-ai-skills",
+        "title": "内部登用を活性化するAIスキルマップの作り方 — 社内人材の最適配置を実現する"
+      },
+      {
+        "slug": "ai-cost-breakdown-initial-monthly-usage",
+        "title": "AI導入費用の内訳の考え方 — 初期費用・月額費用・実費をどう見るか"
+      }
+    ],
+    "dx": [
+      {
+        "slug": "ai-training-selection-checklist",
+        "title": "法人向けAI研修の選び方チェックリスト — 「受けて終わり」にしないための確認項目"
+      },
+      {
+        "slug": "public-resident-service-ai-efficiency",
+        "title": "自治体DXを加速させるAI活用 — 住民サービスと職員の負担軽減を両立する現実解"
+      },
+      {
+        "slug": "real-estate-property-listing-matching-ai",
+        "title": "不動産実務をAIで効率化する — 物件登録の自動化から高度なマッチングまで"
+      }
+    ],
+    "machine-learning": [
+      {
+        "slug": "finance-fraud-detection-operational-resilience",
+        "title": "金融不正検知にAIをどう組み込むか — 誤検知の山を減らし「真のリスク」に注力する"
+      },
+      {
+        "slug": "retail-ai-driven-personalization",
+        "title": "小売・ECのパーソナライズ化にAIをどう活用するか — 「個」に寄り添う接客を自動化する"
+      },
+      {
+        "slug": "manufacturing-predictive-maintenance",
+        "title": "製造業の予兆保全にAIをどう活用するか — 設備停止を防ぎ保全を最適化する"
+      }
+    ],
+    "chatbot": [
+      {
+        "slug": "healthcare-family-communication-ai",
+        "title": "医療・介護での家族対応にAIを — 信頼を深めスタッフの負担を減らす"
+      },
+      {
+        "slug": "public-regional-revitalization-ai-strategy",
+        "title": "自治体がAIで描く地域の未来 — 政策立案と活性化をデータで支える"
+      },
+      {
+        "slug": "hospitality-personalized-guest-service-ai",
+        "title": "飲食・ホテルの「おもてなし」をAIで標準化する — 顧客体験を高めるデータ活用術"
+      }
+    ],
+    "ocr": [
+      {
+        "slug": "public-continuity-knowledge-management-ai",
+        "title": "自治体の業務継続とAI — 属人化を防ぎ、知見を次世代につなぐ活用術"
+      },
+      {
+        "slug": "professional-strategic-ai-partner",
+        "title": "士業のAI活用は「作業」から「伴走」へ — 専門知を拡張する実務の再設計"
+      },
+      {
+        "slug": "construction-cost-estimation-ai",
+        "title": "建設業の見積・積算にAIをどう使うか — 勘と経験を利益に変える仕組み"
+      }
+    ],
+    "image-recognition": [
+      {
+        "slug": "hospitality-quality-standardization-and-waste-reduction",
+        "title": "飲食・ホテルの「品質のバラツキ」と「廃棄」をAIで解決する — 現場の勘をデータに変える具体策"
+      },
+      {
+        "slug": "construction-logistics-material-ai",
+        "title": "建設現場の資材搬入をAIで最適化する — 待機時間の解消とジャストインタイムの実現"
+      },
+      {
+        "slug": "real-estate-property-maintenance-inspection-ai",
+        "title": "不動産管理の巡回・点検をAIで効率化する — 現場の「目」をデジタル化する"
+      }
+    ],
+    "demand-forecasting": [
+      {
+        "slug": "hospitality-quality-standardization-and-waste-reduction",
+        "title": "飲食・ホテルの「品質のバラツキ」と「廃棄」をAIで解決する — 現場の勘をデータに変える具体策"
+      },
+      {
+        "slug": "manufacturing-inventory-optimization-ai",
+        "title": "製造業の在庫最適化にAIをどう活かすか — 「適正在庫」をデータで導き出す"
+      },
+      {
+        "slug": "retail-dynamic-pricing-markdown-optimization",
+        "title": "小売・ECの利益率を最大化する「AI価格最適化」の現実的な導入ステップ"
+      }
+    ],
+    "personalization": [
+      {
+        "slug": "education-learning-content-automation-checklist",
+        "title": "AIによる教材作成・更新の効率化 — 質の高い学習コンテンツを継続的に届けるための確認項目"
+      },
+      {
+        "slug": "finance-personalized-proposal-governance",
+        "title": "金融・保険のパーソナライズをAIで加速する — 「納得感」のある提案と運用の実務"
+      },
+      {
+        "slug": "retail-ai-driven-personalization",
+        "title": "小売・ECのパーソナライズ化にAIをどう活用するか — 「個」に寄り添う接客を自動化する"
+      }
+    ],
+    "tacit-knowledge": [
+      {
+        "slug": "public-continuity-knowledge-management-ai",
+        "title": "自治体の業務継続とAI — 属人化を防ぎ、知見を次世代につなぐ活用術"
+      },
+      {
+        "slug": "professional-strategic-ai-partner",
+        "title": "士業のAI活用は「作業」から「伴走」へ — 専門知を拡張する実務の再設計"
+      },
+      {
+        "slug": "finance-knowledge-management-compliance-ai",
+        "title": "金融実務の「内部知見」をAIで活用する — 膨大な規定やマニュアルを現場の武器に"
+      }
+    ],
+    "siloed-expertise": [
+      {
+        "slug": "public-continuity-knowledge-management-ai",
+        "title": "自治体の業務継続とAI — 属人化を防ぎ、知見を次世代につなぐ活用術"
+      },
+      {
+        "slug": "construction-cost-estimation-ai",
+        "title": "建設業の見積・積算にAIをどう使うか — 勘と経験を利益に変える仕組み"
+      },
+      {
+        "slug": "professional-risk-management-knowledge-digitization",
+        "title": "士業がAIを味方につける現実解 — リスク管理と「組織の知」のデジタル化"
+      }
+    ],
+    "anonymization": [
+      {
+        "slug": "professional-logic-standardization-response-efficiency",
+        "title": "士業の知見をAIで型化する — 相談対応のスピードと質を両立させる"
+      },
+      {
+        "slug": "healthcare-multilingual-staff-training-ai",
+        "title": "医療・介護の外国人材活用をAIで支える — 言語の壁を越え、教育を効率化する"
+      },
+      {
+        "slug": "public-local-government-ai-practical-guide",
+        "title": "自治体のAI導入を実務で動かす — 職員の負担を減らし住民サービスを向上させる"
+      }
+    ],
+    "poc": [
+      {
+        "slug": "public-continuity-knowledge-management-ai",
+        "title": "自治体の業務継続とAI — 属人化を防ぎ、知見を次世代につなぐ活用術"
+      },
+      {
+        "slug": "hr-internal-mobility-ai-skills",
+        "title": "内部登用を活性化するAIスキルマップの作り方 — 社内人材の最適配置を実現する"
+      },
+      {
+        "slug": "education-learning-content-automation-checklist",
+        "title": "AIによる教材作成・更新の効率化 — 質の高い学習コンテンツを継続的に届けるための確認項目"
+      }
+    ]
+  },
+  "latest": [
+    {
+      "slug": "public-continuity-knowledge-management-ai",
+      "title": "自治体の業務継続とAI — 属人化を防ぎ、知見を次世代につなぐ活用術",
+      "industry": "自治体・公共",
+      "date": "2026-11-06",
+      "image": "/assets/column/public-continuity-knowledge-management-ai.webp",
+      "imageAlt": "自治体職員が過去の資料をAIで整理し、知見を共有しているイメージ"
+    },
+    {
+      "slug": "hr-internal-mobility-ai-skills",
+      "title": "内部登用を活性化するAIスキルマップの作り方 — 社内人材の最適配置を実現する",
+      "industry": "人材・採用",
+      "date": "2026-11-05",
+      "image": "/assets/column/hr-internal-mobility-ai-skills.webp",
+      "imageAlt": "社内人材のスキルデータを分析し、最適な部署とマッチングさせるAIのイメージ"
+    },
+    {
+      "slug": "education-learning-content-automation-checklist",
+      "title": "AIによる教材作成・更新の効率化 — 質の高い学習コンテンツを継続的に届けるための確認項目",
+      "industry": "教育",
+      "date": "2026-11-04",
+      "image": "/assets/column/education-learning-content-automation-checklist.webp",
+      "imageAlt": "AIを使って教材作成やスライド構成を効率化している教育現場のイメージ"
+    }
+  ]
+}

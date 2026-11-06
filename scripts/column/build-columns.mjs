@@ -937,6 +937,27 @@ updateLlmsTxt();
   writeFileSync(join(ROOT, 'content', 'columns', 'guide-columns.json'), JSON.stringify(out, null, 2) + '\n');
 }
 
+// 用語集の各用語から、その用語が出てくるコラムへ（逆向きのリンク）。トップの「最新のコラム」も（本体サイトが読む。生成物なので手で編集しない）
+// 用語ごとに新しい順・同じ業界は1本まで・最大3本。最新のコラムは公開日の新しい順に3本
+{
+  const byNew = [...articles].sort((x, y) => (lastmod(x) < lastmod(y) ? 1 : lastmod(x) > lastmod(y) ? -1 : 0));
+  const glossary = {};
+  for (const g of GLOSSARY_LINKS) {
+    const seen = new Set(); const picks = [];
+    for (const a of byNew) {
+      if (seen.has(a.industry) || !g.re.test(plainText(a))) continue;
+      seen.add(a.industry); picks.push({ slug: a.slug, title: a.title });
+      if (picks.length >= 3) break;
+    }
+    if (picks.length) glossary[g.id] = picks;
+  }
+  const latest = [...articles].sort((x, y) => (x.date < y.date ? 1 : x.date > y.date ? -1 : 0)).slice(0, 3).map((a) => {
+    const ind = industriesByKey[a.industry];
+    return { slug: a.slug, title: a.title, industry: ind?.ja || '', date: a.date, image: a.image || ind?.fallbackImage || '', imageAlt: a.imageAlt || a.title };
+  });
+  writeFileSync(join(ROOT, 'content', 'columns', 'site-links.json'), JSON.stringify({ glossary, latest }, null, 2) + '\n');
+}
+
 console.log(`[build-columns] OK: ${count} 記事 + index.html + 業界別 ${HUBS.length} ページ + sitemap 更新`);
 for (const a of articles) {
   const len = plainText(a).length;
