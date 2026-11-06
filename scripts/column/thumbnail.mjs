@@ -1,5 +1,5 @@
 // コラムのサムネイルを、決まったサイズ・形式で書き出す。
-// 生成した画像（ファイルまたは https の URL）を受け取り、次の2つを作る:
+// 生成した画像（ファイル・https の URL・Buffer）を受け取り、次の2つを作る:
 //   public/assets/column/<name>.webp  … 一覧・記事のサムネイル（1400×788、16:9、品質80）
 //   public/assets/column/<name>.jpg   … OGP・構造化データ用（1200×630、品質82）
 // どちらも中央で切り抜く（cover）。<name> は記事の slug（業種の予備画像は ind_<業種>）。
@@ -18,7 +18,7 @@ export const SIZES = { thumb: { w: 1400, h: 788, q: 80 }, og: { w: 1200, h: 630,
 
 export async function writeThumbnail(name, input) {
   if (!/^[a-z0-9_-]+$/.test(name)) throw new Error(`name は英小文字・数字・-_ のみ: ${name}`);
-  const buf = /^https:\/\//.test(input) ? Buffer.from(await (await fetch(input)).arrayBuffer()) : readFileSync(input);
+  const buf = Buffer.isBuffer(input) ? input : /^https:\/\//.test(input) ? Buffer.from(await (await fetch(input)).arrayBuffer()) : readFileSync(input);
   mkdirSync(OUT, { recursive: true });
   const base = sharp(buf).rotate();
   await base.clone().resize(SIZES.thumb.w, SIZES.thumb.h, { fit: 'cover', position: 'centre' }).webp({ quality: SIZES.thumb.q }).toFile(join(OUT, `${name}.webp`));

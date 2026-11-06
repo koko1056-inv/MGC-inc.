@@ -1,0 +1,50 @@
+name: Column Thumbnail
+
+# 既存のコラムに個別のサムネイルを作る（手動実行）。日次の自動投稿では daily-column.yml が同じスクリプトを使う。
+# 対象は記事 JSON に "image" が無い記事だけ（--force を付けると作り直す）。
+on:
+  workflow_dispatch:
+    inputs:
+      slugs:
+        description: 'slug をスペース区切りで（空なら、個別画像の無い記事を最大5本）'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-column
+  cancel-in-progress: false
+
+jobs:
+  thumbnail:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci --no-audit --no-fund
+      - name: Generate thumbnails (Gemini image)
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_IMAGE_MODEL: ${{ vars.GEMINI_IMAGE_MODEL }}
+          SLUGS: ${{ inputs.slugs }}
+        run: |
+          if [ -z "$SLUGS" ]; then
+            SLUGS="$(node -e "const fs=require('fs');const m=require('./content/columns/columns.json');console.log(m.articles.map(a=>a.slug).filter(s=>!JSON.parse(fs.readFileSync('content/columns/'+s+'.json','utf8')).image).slice(-5).join(' '))")"
+          fi
+          echo "対象: $SLUGS"
+          [ -n "$SLUGS" ] && node scripts/column/thumbnail-gemini.mjs $SLUGS
+      - name: Build static column pages
+        run: node scripts/column/build-columns.mjs > /dev/null
+      - name: Commit & push to main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ -z "$(git status --porcelain)" ]; then echo "変更なし"; exit 0; fi
+          git add -A
+          git commit -m "コラムのサムネイル: 個別画像を追加 ($(TZ=Asia/Tokyo date +%Y-%m-%d))"
+          git pull --rebase origin main
+          git push
