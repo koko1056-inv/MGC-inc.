@@ -7,7 +7,7 @@
   },
   "rotation": {
     "note": "日次で industries を順番に回す。lastIndex は最後に公開した業種の添字。次回は (lastIndex+1)%12 の業種で、usedTopics に無いテーマを選ぶ。",
-    "lastIndex": 10,
+    "lastIndex": 11,
     "industries": [
       {
         "key": "manufacturing",
@@ -197,7 +197,8 @@
       "public-resident-service-ai-efficiency",
       "public-resident-window-ai-automation",
       "public-ai-internal-document-optimization",
-      "public-regional-revitalization-ai-strategy"
+      "public-regional-revitalization-ai-strategy",
+      "public-continuity-knowledge-management-ai"
     ]
   },
   "articles": [
@@ -788,6 +789,12 @@
       "industry": "hr",
       "date": "2026-11-05",
       "file": "hr-internal-mobility-ai-skills.json"
+    },
+    {
+      "slug": "public-continuity-knowledge-management-ai",
+      "industry": "public",
+      "date": "2026-11-06",
+      "file": "public-continuity-knowledge-management-ai.json"
     }
   ]
 }
