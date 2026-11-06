@@ -12,6 +12,8 @@ import { glossaryContent } from './glossaryContent';
 import { guideContent, GUIDE_SLUGS } from './guideContent';
 // ガイドごとの関連コラム（scripts/column/build-columns.mjs が生成）
 import guideColumns from './content/columns/guide-columns.json';
+// 用語→コラム、トップの最新コラム（build-columns.mjs が生成）
+import siteLinks from './content/columns/site-links.json';
 export const LanguageContext = React.createContext<{ lang: Lang; setLang: (l: Lang) => void; t: typeof translations['ja'] }>({
   lang: 'ja',
   setLang: () => {},
@@ -868,6 +870,38 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
       </Reveal>
     </div>
   </section>
+
+  {/* === 最新のコラム（日本語のみ。build-columns が生成した一覧） === */}
+  {lang === 'ja' && siteLinks.latest.length > 0 && (
+  <section className="px-6 md:px-12 pb-24 md:pb-32">
+    <div className="max-w-screen-xl mx-auto">
+      <Reveal>
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+          <div>
+            <span className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-accent">Column</span>
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tighter text-offblack leading-tight mt-3">最新のコラム</h2>
+          </div>
+          <a href="/column" className="flex-shrink-0 inline-flex items-center gap-2 text-sm font-bold text-accent hover:gap-3 transition-all">
+            コラム一覧へ <ArrowRight className="w-4 h-4" />
+          </a>
+        </div>
+      </Reveal>
+      <ul className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        {siteLinks.latest.map((c) => (
+          <li key={c.slug}>
+            <a href={`/column/${c.slug}`} className="group block h-full bg-white rounded-2xl border border-gray-200 overflow-hidden hover:border-accent transition-colors">
+              <img src={c.image} alt={c.imageAlt} width={1400} height={788} loading="lazy" className="w-full h-auto aspect-video object-cover" />
+              <span className="block p-5">
+                <span className="block text-xs font-bold text-gray-500">{c.industry}<span className="ml-2 font-normal">{c.date.replace(/-/g, '.')}</span></span>
+                <span className="block text-base font-bold leading-[1.6] mt-2 group-hover:text-accent transition-colors">{c.title}</span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+  )}
 
   {/* === FAQ Section === */}
   <section className="px-6 md:px-12 py-24 md:py-32 bg-offwhite">
@@ -4212,6 +4246,16 @@ const GlossaryView: React.FC<{ onNavigate: (view: ViewState) => void }> = ({ onN
               </dt>
               <dd className="mt-3">
                 <p className="text-base md:text-[17px] text-[#1A2233] leading-[1.9]">{x.definition}</p>
+                {lang === 'ja' && (siteLinks.glossary as Record<string, { slug: string; title: string }[]>)[x.id] && (
+                  <ul className="mt-3 space-y-1.5">
+                    {(siteLinks.glossary as Record<string, { slug: string; title: string }[]>)[x.id].map((c) => (
+                      <li key={c.slug} className="text-sm leading-[1.7]">
+                        <span className="text-gray-500 mr-2">コラム</span>
+                        <a href={`/column/${c.slug}`} className="text-[#1A2233] underline decoration-gray-300 underline-offset-4 hover:text-accent hover:decoration-accent">{c.title}</a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
                 {x.link && (
                   <NavLink
                     href={x.link.href}
