@@ -33,18 +33,22 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
         run: node scripts/column/generate-column.mjs
 
       # 新しい記事ができた日だけ、個別のサムネイルを作る（失敗しても公開は止めない。画像が無ければ業種の予備画像）
-      - name: Generate thumbnail (Gemini image)
+      - name: Generate thumbnail (OpenAI / Gemini image)
         continue-on-error: true
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_IMAGE_MODEL: ${{ vars.GEMINI_IMAGE_MODEL }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_IMAGE_MODEL: ${{ vars.OPENAI_IMAGE_MODEL }}
         run: |
           if git diff --quiet -- content/columns/columns.json; then echo "新しい記事なし。スキップ"; exit 0; fi
           npm ci --no-audit --no-fund
-          node scripts/column/thumbnail-gemini.mjs --latest
+          node scripts/column/thumbnail-ai.mjs --latest
 
       - name: Build static column pages + sitemap
         run: node scripts/column/build-columns.mjs

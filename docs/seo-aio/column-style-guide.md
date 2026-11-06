@@ -92,5 +92,6 @@
 | 業種の予備画像（記事に画像が無いとき） | `public/assets/column/ind_<業種>.webp` / `.jpg` | 同上 | 同上 |
 
 - `build-columns.mjs` は、`image` が `.webp` で同名の `.jpg` があれば、OGP（og:image・twitter:image）と構造化データに `.jpg` を使う。
-- 日次の自動投稿では、記事の公開と同時に `scripts/column/thumbnail-gemini.mjs` が Gemini の画像生成で個別の画像を作る（同じ `promptFor` のプロンプト、同じサイズ・形式）。失敗した日は業種の予備画像が使われ、公開は止まらない。
-- 既存の記事に後から個別の画像を作るときは、GitHub Actions の「Column Thumbnail」を手動実行する（slug を指定、空なら個別画像の無い記事を最大5本）。Higgsfield（`gpt_image_2_5`）で作る上の手順も引き続き使える。
+- 日次の自動投稿では、記事の公開と同時に `scripts/column/thumbnail-ai.mjs` が個別の画像を作る（同じ `promptFor` のプロンプト、同じサイズ・形式）。生成元は GitHub Secret `OPENAI_API_KEY` があれば OpenAI の画像生成（gpt-image-1。変数 OPENAI_IMAGE_MODEL で変更可）、無ければ Gemini。失敗した日は業種の予備画像が使われ、公開は止まらない。
+- 既存の記事に後から個別の画像を作るときは、GitHub Actions の「Column Thumbnail」を手動実行する（slug を指定、空なら個別画像の無い記事を最大5本）。
+- Claude のセッションから作るときは、Higgsfield（`gpt_image_2_5`、16:9・medium・2k）に同じプロンプトを渡す（上の 2-2 の手順。基準の画像もこの方法で作った）。

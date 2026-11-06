@@ -344,3 +344,10 @@
 - `build-columns.mjs` が `content/columns/site-links.json` を生成: 用語ごとにその用語が出てくるコラム（新しい順・同じ業界は1本まで・最大3本）と、公開日の新しい順のコラム3本（タイトル・業界・日付・画像）
 - 用語集: 各用語の定義の下に「コラム」として関連記事を表示（JP。21語・計32本）
 - トップ: お知らせの下に「最新のコラム」3本（画像付きのカード、JP）。日次の自動投稿・「Column Thumbnail」の実行で build-columns が走るたびに更新される
+
+## 2026-11-06 サイクル23: コラムのサムネイル・本文の生成元を Gemini 以外に（松尾さん指示）
+- 確認: このセッションでは Higgsfield（MCP、gpt_image_2_5）が使える（残り 865 クレジット）。ChatGPT（OpenAI）の接続はない。Higgsfield の MCP はセッション内だけで使え、GitHub Actions からは呼べないため、Actions 側は OpenAI API を使えるようにした
+- サムネイル: `thumbnail-gemini.mjs` → `thumbnail-ai.mjs`。Secret `OPENAI_API_KEY` があれば OpenAI の画像生成（/v1/images/generations、gpt-image-1、1536×1024 → 16:9 に切り抜き、変数 OPENAI_IMAGE_MODEL で変更可）、無ければ Gemini。daily-column・column-thumbnail の両ワークフローを更新
+- 本文: `generate-column.mjs` に OpenAI（/v1/chat/completions、JSON 出力。モデルは変数 OPENAI_MODEL、無ければ gpt-5-mini → gpt-4.1-mini の順に試す）を追加。`OPENAI_API_KEY` があれば OpenAI、無ければ Gemini。事実検査・分量ガード・二重投稿防止は共通。課金切れ（402・429 insufficient_quota）は再試行せず即失敗
+- モックで確認: モデル 404 → 次の候補、画像の書き出し、本文の生成〜公開、課金切れで1回で停止。実際の API での確認は Secret 登録後に「Column Thumbnail」を手動実行して行う
+- 11/4・11/5・11/6 のサムネイルは、すでに基準と同じ方法（Higgsfield の gpt_image_2_5、同じプロンプト）で作成済みのため作り直していない
