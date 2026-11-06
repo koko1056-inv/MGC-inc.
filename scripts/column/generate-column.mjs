@@ -203,7 +203,7 @@ async function callGemini(userText) {
 }
 
 // 生成を最大 tries 回まで試す（JSONの崩れ・一時的なAPIエラーで日次投稿を止めない）。
-// 認証エラー（401/403）は再試行しても直らないため即失敗。
+// 認証・課金のエラー（401/402/403）は再試行しても直らないため即失敗。
 async function generate(userText, tries = 3) {
   let last;
   for (let i = 1; i <= tries; i++) {
@@ -211,7 +211,7 @@ async function generate(userText, tries = 3) {
     catch (err) {
       last = err;
       console.error(`[generate-column] 生成 ${i}/${tries} 回目に失敗: ${err.message}`);
-      if (/Gemini API (401|403)/.test(err.message)) break;
+      if (/Gemini API (401|402|403)/.test(err.message)) break; // 認証・課金のエラーは再試行しても直らない
       if (i < tries) await new Promise((r) => setTimeout(r, 5000 * i));
     }
   }

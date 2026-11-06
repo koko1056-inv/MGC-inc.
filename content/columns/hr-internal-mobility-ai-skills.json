@@ -13,6 +13,8 @@
     "スキル可視化"
   ],
   "imageAlt": "社内人材のスキルデータを分析し、最適な部署とマッチングさせるAIのイメージ",
+  "image": "/assets/column/hr-internal-mobility-ai-skills.webp",
+  "thumbnailScene": "an HR manager and a colleague reviewing a simple skills map of team members on a large monitor",
   "readTime": "8分",
   "lead": "外部採用の難易度が高まる中、社内人材の潜在能力を引き出し、最適なポジションへ配置する「内部登用」の重要性が増しています。しかし、従業員のスキルを網羅的に把握し、更新し続けるのは人事部門にとって大きな負担です。本記事では、AIを活用してスキルマップを動的に構築し、組織の適材適所を加速させるための実務的な観点を整理します。",
   "summary": [
