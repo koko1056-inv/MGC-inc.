@@ -1840,6 +1840,10 @@ const JournalPostView: React.FC<{ slug: string; onNavigate: (view: ViewState) =>
             </NavLink>
           </div>
         </div>
+        {(() => {
+          const gs = guidesForText(`${post.title}\n${post.content}`);
+          return <RelatedReading title={lang === 'ja' ? 'あわせて読みたい' : 'Related reading'} items={[...guideReading(lang, gs), ...columnReading(lang, columnsForGuides(gs, 2))]} />;
+        })()}
         <section className="mt-24 md:mt-32">
           <h2 className="text-2xl md:text-3xl font-bold text-offblack tracking-tight mb-8">{lang === 'ja' ? 'ほかの記事' : 'More from the journal'}</h2>
           <JournalCards posts={others} onNavigatePath={onNavigatePath} />
@@ -3228,6 +3232,18 @@ const GuidesView: React.FC = () => {
 // columnReading に書いた slug・タイトルは build-columns.mjs が記事と照合する
 type ReadingItem = { href: string; label: string; kind: string };
 const GUIDE_FOR_CASE_SERVICE: Record<string, string> = { 'AI電話（音声AI）': 'ai-phone-vs-ivr-voicebot', 'AI営業': 'ai-sales-vs-telemarketing', 'Salesforce AI': 'salesforce-standard-ai-vs-custom' };
+// 本文の語から関連するガイドを選ぶ（ジャーナル記事用）。当たりが多い順に最大2本、なければ「AI導入は何から始めるか」
+const GUIDE_WORDS: [string, RegExp][] = [
+  ['ai-phone-vs-ivr-voicebot', /電話|音声|ボイス|コール|phone|voice|call/gi],
+  ['ai-sales-vs-telemarketing', /営業|商談|アポ|セールス|sales/gi],
+  ['salesforce-standard-ai-vs-custom', /Salesforce|kintone|CRM|SFA/gi],
+];
+const guidesForText = (text: string): string[] => {
+  const hits = GUIDE_WORDS.map(([slug, re]) => [slug, (text.match(re) || []).length] as const).filter(([, n]) => n >= 3).sort((a, b) => b[1] - a[1]).slice(0, 2).map(([slug]) => slug);
+  return hits.length ? hits : ['ai-adoption-where-to-start'];
+};
+const columnsForGuides = (gs: string[], n: number) =>
+  gs.flatMap((g) => (guideColumns as Record<string, { slug: string; title: string; industry: string }[]>)[g] || []).filter((c, i, a) => a.findIndex((y) => y.slug === c.slug) === i).slice(0, n);
 const guideReading = (lang: Lang, slugs: string[]): ReadingItem[] =>
   slugs.map((s) => guideContent[lang].guides.find((g) => g.slug === s)).filter((g): g is NonNullable<typeof g> => !!g)
     .map((g) => ({ href: `/guide/${g.slug}`, label: g.title, kind: lang === 'ja' ? '比較・選び方ガイド' : 'Guide' }));
@@ -3366,7 +3382,7 @@ const CaseView: React.FC<{ slug: string; onNavigate: (view: ViewState) => void }
           <CaseArticle cs={cs} lang={lang} page />
           {(() => {
             const gs: string[] = Array.from(new Set<string>((cs.services as string[]).map((x) => GUIDE_FOR_CASE_SERVICE[x]).filter((x): x is string => !!x)));
-            const cols = gs.flatMap((g) => (guideColumns as Record<string, { slug: string; title: string; industry: string }[]>)[g] || []).filter((c, n, a) => a.findIndex((y) => y.slug === c.slug) === n).slice(0, 2);
+            const cols = columnsForGuides(gs, 2);
             return <RelatedReading title={lang === 'ja' ? 'あわせて読みたい' : 'Related reading'} items={[...guideReading(lang, gs.length ? gs : ['ai-adoption-where-to-start']), ...columnReading(lang, cols)]} />;
           })()}
           <section className="mt-16 md:mt-20">
@@ -3431,6 +3447,8 @@ const CasesView: React.FC = () => {
               </Reveal>
             ))}
           </div>
+
+          <RelatedReading title={lang === 'ja' ? '比較・選び方ガイド' : 'Comparison guides'} items={guideReading(lang, ['ai-phone-vs-ivr-voicebot', 'ai-sales-vs-telemarketing', 'salesforce-standard-ai-vs-custom', 'ai-adoption-where-to-start'])} />
 
 
           {/* CTA */}
@@ -4176,6 +4194,16 @@ const BusinessView: React.FC<{ biz: BizView; onNavigate: (view: ViewState) => vo
             {d.faq.map((f, i) => { const l = f as { link?: string; linkLabel?: string }; return <FaqItem key={i} question={f.q} answer={f.a} index={i} link={l.link && l.linkLabel ? { href: l.link, label: l.linkLabel, onGo: () => window.location.assign(l.link!) } : undefined} />; })}
           </div>
         </section>
+
+        {/* 比較・選び方ガイドとコラム（AIソリューション・AI事業立ち上げ支援のページ） */}
+        {meta.key !== 'service_lab' && (
+          <RelatedReading
+            title={ja ? 'あわせて読みたい' : 'Related reading'}
+            items={meta.key === 'service_ai'
+              ? [...guideReading(lang, ['ai-adoption-where-to-start', 'ai-phone-vs-ivr-voicebot', 'ai-sales-vs-telemarketing', 'salesforce-standard-ai-vs-custom']), ...columnReading(lang, [{ slug: 'ai-cost-breakdown-initial-monthly-usage', title: 'AI導入費用の内訳の考え方 — 初期費用・月額費用・実費をどう見るか' }])]
+              : [...guideReading(lang, ['ai-adoption-where-to-start']), ...columnReading(lang, columnsForGuides(['ai-adoption-where-to-start'], 2))]}
+          />
+        )}
 
         {/* 相談・事例への導線 */}
         <Reveal>
