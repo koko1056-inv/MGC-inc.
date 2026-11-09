@@ -363,3 +363,8 @@
 - /works/ai-solutions: ガイド4本＋コラム「AI導入費用の内訳の考え方」。/works/ai-business-launch: ガイド「AI導入は何から始めるか」＋関連コラム2本（クロスボーダーは対応するガイドがないため出さない）
 - /cases（一覧）: 比較・選び方ガイド4本
 - 事例ページの関連コラムの選び方を共通関数（columnsForGuides）にまとめた。390px・1280px で横はみ出しなし
+
+## 2026-11-09 OpenAI 用のコードを削除（Gemini のみに戻す、松尾さん指示）
+- PR #108 で入れた OpenAI の経路を削除: `generate-column.mjs`（callOpenAI・生成元の切り替え）、`thumbnail-ai.mjs` → `thumbnail-gemini.mjs` に戻し OpenAI の画像生成を削除、daily-column・column-thumbnail の両ワークフローから OPENAI_* を削除
+- スクリプトとワークフローは PR #108 より前（2fdc30a）と同一（サムネイルのスクリプトの1行目のコメントのみ違い）
+- モックで確認: 本文の生成〜公開（Gemini）、402 は1回で停止、サムネイルの生成・書き出し、キー未設定時のエラー
