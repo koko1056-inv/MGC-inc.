@@ -368,3 +368,10 @@
 - PR #108 で入れた OpenAI の経路を削除: `generate-column.mjs`（callOpenAI・生成元の切り替え）、`thumbnail-ai.mjs` → `thumbnail-gemini.mjs` に戻し OpenAI の画像生成を削除、daily-column・column-thumbnail の両ワークフローから OPENAI_* を削除
 - スクリプトとワークフローは PR #108 より前（2fdc30a）と同一（サムネイルのスクリプトの1行目のコメントのみ違い）
 - モックで確認: 本文の生成〜公開（Gemini）、402 は1回で停止、サムネイルの生成・書き出し、キー未設定時のエラー
+
+## 2026-11-09 サイクル25: ガイド・導入事例の構造化データに公開日・更新日
+- 再点検: 本番ビルド155ページでリンク切れ0件、ガイド・コラム・用語集・料金は全ページからリンクされている（内部リンクは十分）。一方、ガイド4本・導入事例3本の Article に datePublished・dateModified が無かった（コラム・ジャーナルにはある）
+- `GUIDE_DATES`（guideContent.ts）・`CASE_DATES`（caseContent.ts）に公開日・内容の最終更新日を定義（git の履歴から: ガイドは 11/2 公開、AI営業のガイドは 11/3 に料金の記述を更新、AI導入の始め方は 11/4 公開。事例は 9/7 公開・11/2 更新）
+- 構造化データ: ガイド・事例の Article に datePublished・dateModified。ガイドには articleSection（比較・選び方ガイド）・about（対応するサービス）も
+- ガイドのページのリード文の下に「公開・更新」の日付を表示（time 要素）。サイトマップのガイドの lastmod を更新日にそろえた
+- 日次コラム: 11/9 の定時実行も失敗（Gemini の残高不足は未解消）

@@ -189,3 +189,10 @@ const ja: Content['ja'] = {
 
 // 英語は言語を切り替えたときに読み込む（i18n.ts の loadLang）。読み込むまでは日本語で代用する。
 export const caseContent: Content = { ja, en: ja };
+
+// 公開日・内容の最終更新日（構造化データに使う）。事例の内容を直したら modified を更新する
+export const CASE_DATES: Record<string, { published: string; modified: string }> = {
+  'callcenter-voice-ai': { published: '2026-09-07', modified: '2026-11-02' },
+  'distributor-ai-outreach': { published: '2026-09-07', modified: '2026-11-02' },
+  'manufacturer-field-voice-ai': { published: '2026-09-07', modified: '2026-11-02' },
+};
