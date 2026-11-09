@@ -375,3 +375,8 @@
 - 構造化データ: ガイド・事例の Article に datePublished・dateModified。ガイドには articleSection（比較・選び方ガイド）・about（対応するサービス）も
 - ガイドのページのリード文の下に「公開・更新」の日付を表示（time 要素）。サイトマップのガイドの lastmod を更新日にそろえた
 - 日次コラム: 11/9 の定時実行も失敗（Gemini の残高不足は未解消）
+
+## 2026-11-09 サイクル26: サイトマップの更新日を実際の更新日に
+- 点検: サイトマップの固定ページのうち11ページの lastmod が 10/17〜10/18 のままで、11/2〜11/6 の内容の更新（3段階の流れ・概要ボックス・料金目安・研修のオプション・問い合わせ種別・京都のFAQ・最新のコラム 等）が反映されていなかった
+- git の履歴から内容の最終更新日を確認して更新: / 11/6、/works・/works/ai-business-launch・/works/cross-border・/service/ai-sales・/service/salesforce-ai・/training・/contact・/glossary 11/3、/works/ai-solutions 11/4、/cases 11/2（関連リンクの欄など自動・補助的な変更は内容の更新に含めない）
+- AI営業・Salesforce AI のサービスページに dateModified（2026-11-03）を設定し、WebPage の構造化データに出るようにした（AI電話と同じ）
