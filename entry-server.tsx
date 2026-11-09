@@ -7,8 +7,8 @@ import { serviceContent } from './serviceContent';
 import { translations } from './translations';
 import { journalPosts, journalPath, findJournalPost } from './journal';
 import { glossaryContent } from './glossaryContent';
-import { caseContent } from './caseContent';
-import { guideContent } from './guideContent';
+import { caseContent, CASE_DATES } from './caseContent';
+import { guideContent, GUIDE_DATES } from './guideContent';
 
 export { SITE_ORIGIN };
 
@@ -102,6 +102,9 @@ const jsonLdFor = (path: string): object[] => {
         '@id': `${meta.url}#article`,
         headline: g.title,
         description: g.description,
+        ...(GUIDE_DATES[g.slug] ? { datePublished: GUIDE_DATES[g.slug].published, dateModified: GUIDE_DATES[g.slug].modified } : {}),
+        articleSection: '比較・選び方ガイド',
+        about: { '@type': 'Thing', name: g.service.label },
         inLanguage: 'ja',
         url: meta.url,
         image: [meta.image],
@@ -133,6 +136,7 @@ const jsonLdFor = (path: string): object[] => {
         '@id': `${meta.url}#article`,
         headline: cs.title ?? cs.industry,
         description: cs.summary,
+        ...(CASE_DATES[cs.slug] ? { datePublished: CASE_DATES[cs.slug].published, dateModified: CASE_DATES[cs.slug].modified } : {}),
         articleSection: '導入事例',
         about: cs.services.map((name) => ({ '@type': 'Thing', name })),
         inLanguage: 'ja',

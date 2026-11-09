@@ -9,7 +9,7 @@ import { legalContent, LegalDoc } from './legalContent';
 import { journalPosts, JOURNAL_SLUGS, journalPath, findJournalPost } from './journal';
 import { loadLang } from './i18n';
 import { glossaryContent } from './glossaryContent';
-import { guideContent, GUIDE_SLUGS } from './guideContent';
+import { guideContent, GUIDE_SLUGS, GUIDE_DATES } from './guideContent';
 // ガイドごとの関連コラム（scripts/column/build-columns.mjs が生成）
 import guideColumns from './content/columns/guide-columns.json';
 // 用語→コラム、トップの最新コラム（build-columns.mjs が生成）
@@ -3282,6 +3282,12 @@ const GuideView: React.FC<{ slug: string; onNavigate: (view: ViewState) => void 
           <NavLink href={pathForView('guides')} onGo={() => onNavigate('guides')} className="hover:text-accent transition-colors">{c.title}</NavLink>
         </nav>
         <GuideHead eyebrow="Guide" title={g.title} lead={g.lead} h1 />
+        {GUIDE_DATES[g.slug] && (
+          <p className="-mt-6 mb-10 text-xs text-gray-500">
+            {ja ? '公開' : 'Published'} <time dateTime={GUIDE_DATES[g.slug].published}>{GUIDE_DATES[g.slug].published.replace(/-/g, '.')}</time>
+            {GUIDE_DATES[g.slug].modified > GUIDE_DATES[g.slug].published && (<>{ja ? '・更新 ' : ' · Updated '}<time dateTime={GUIDE_DATES[g.slug].modified}>{GUIDE_DATES[g.slug].modified.replace(/-/g, '.')}</time></>)}
+          </p>
+        )}
         <section className="max-w-4xl">
           <h2 className="text-xl md:text-2xl font-bold tracking-tight leading-[1.5] mb-5">{g.table.caption}</h2>
           <div className="overflow-x-auto">

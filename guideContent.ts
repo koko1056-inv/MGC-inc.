@@ -302,3 +302,12 @@ export const guideContent: Record<Lang, { title: string; lead: string; guides: G
   en: { title: 'Comparison guides', lead: 'Differences between commonly compared approaches to AI adoption, and what to look at when choosing.', guides: en },
 };
 export const GUIDE_SLUGS = ja.map((g) => g.slug);
+
+// 公開日・内容の最終更新日（構造化データとページの表示に使う）。内容（表・本文・FAQ）を直したら modified を更新する。
+// 関連コラムなどの自動で変わる欄は内容の更新に含めない
+export const GUIDE_DATES: Record<string, { published: string; modified: string }> = {
+  'ai-phone-vs-ivr-voicebot': { published: '2026-11-02', modified: '2026-11-02' },
+  'ai-sales-vs-telemarketing': { published: '2026-11-02', modified: '2026-11-03' },
+  'salesforce-standard-ai-vs-custom': { published: '2026-11-02', modified: '2026-11-02' },
+  'ai-adoption-where-to-start': { published: '2026-11-04', modified: '2026-11-04' },
+};
