@@ -26,19 +26,17 @@ jobs:
         with:
           node-version: '22'
       - run: npm ci --no-audit --no-fund
-      - name: Generate thumbnails (OpenAI / Gemini image)
+      - name: Generate thumbnails (Gemini image)
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_IMAGE_MODEL: ${{ vars.GEMINI_IMAGE_MODEL }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          OPENAI_IMAGE_MODEL: ${{ vars.OPENAI_IMAGE_MODEL }}
           SLUGS: ${{ inputs.slugs }}
         run: |
           if [ -z "$SLUGS" ]; then
             SLUGS="$(node -e "const fs=require('fs');const m=require('./content/columns/columns.json');console.log(m.articles.map(a=>a.slug).filter(s=>!JSON.parse(fs.readFileSync('content/columns/'+s+'.json','utf8')).image).slice(-5).join(' '))")"
           fi
           echo "対象: $SLUGS"
-          [ -n "$SLUGS" ] && node scripts/column/thumbnail-ai.mjs $SLUGS
+          [ -n "$SLUGS" ] && node scripts/column/thumbnail-gemini.mjs $SLUGS
       - name: Build static column pages
         run: node scripts/column/build-columns.mjs > /dev/null
       - name: Commit & push to main

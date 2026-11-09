@@ -143,10 +143,7 @@ if (todays && process.env.FORCE !== '1') {
   process.exit(0);
 }
 
-// 生成元: OPENAI_API_KEY があれば OpenAI、無ければ Gemini（2026-11 に Gemini のクレジットが切れたため OpenAI に切り替えられるようにした）
-const PROVIDER = process.env.OPENAI_API_KEY ? 'openai' : 'gemini';
-if (PROVIDER === 'gemini' && !API_KEY) die('OPENAI_API_KEY も GEMINI_API_KEY も未設定です（GitHub Secrets に登録してください）');
-console.error(`[generate-column] 生成元: ${PROVIDER}`);
+if (!API_KEY) die('GEMINI_API_KEY が未設定です（GitHub Secrets に登録してください）');
 
 // 応答テキストから、最初の完結したJSONオブジェクトだけを取り出す（文字列内の括弧・エスケープを考慮）。
 // 2026-11-03 にオブジェクトの後ろへ余分な文字が付いた応答で JSON.parse が失敗し、その日の投稿が止まったための対策。
@@ -205,43 +202,16 @@ async function callGemini(userText) {
   catch (err) { throw new Error(`JSON parse失敗: ${err.message}`); }
 }
 
-// OpenAI（Chat Completions、JSON 出力）で記事JSONを1件返す。モデルは OPENAI_MODEL 変数、無ければ候補を順に試す
-const OPENAI_MODELS = [
-  ...(process.env.OPENAI_MODEL ? [process.env.OPENAI_MODEL] : []),
-  'gpt-5-mini',
-  'gpt-4.1-mini',
-].filter((v, i, a) => v && a.indexOf(v) === i);
-async function callOpenAI(userText) {
-  for (const m of OPENAI_MODELS) {
-    const res = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json', authorization: `Bearer ${process.env.OPENAI_API_KEY}` },
-      body: JSON.stringify({ model: m, messages: [{ role: 'system', content: SYSTEM }, { role: 'user', content: userText }], response_format: { type: 'json_object' } }),
-    });
-    const text = await res.text();
-    if (!res.ok) {
-      if (res.status === 404 || /model_not_found|does not exist/i.test(text)) { console.error(`[generate-column] モデル ${m} は利用不可 (${res.status})。次の候補を試します。`); continue; }
-      throw new Error(`OpenAI API ${res.status} (model ${m}): ${text.slice(0, 500)}`);
-    }
-    const content = JSON.parse(text).choices?.[0]?.message?.content || '';
-    const json = extractJsonObject(content);
-    if (!json) throw new Error(`JSONが見つかりません。先頭: ${content.slice(0, 200)}`);
-    try { return { art: JSON.parse(json), model: m }; }
-    catch (err) { throw new Error(`JSON parse失敗: ${err.message}`); }
-  }
-  throw new Error(`利用可能なOpenAIモデルが見つかりませんでした。候補: ${OPENAI_MODELS.join(', ')}（OPENAI_MODEL 変数で指定してください）`);
-}
-
 // 生成を最大 tries 回まで試す（JSONの崩れ・一時的なAPIエラーで日次投稿を止めない）。
 // 認証・課金のエラー（401/402/403）は再試行しても直らないため即失敗。
 async function generate(userText, tries = 3) {
   let last;
   for (let i = 1; i <= tries; i++) {
-    try { return await (PROVIDER === 'openai' ? callOpenAI(userText) : callGemini(userText)); }
+    try { return await callGemini(userText); }
     catch (err) {
       last = err;
       console.error(`[generate-column] 生成 ${i}/${tries} 回目に失敗: ${err.message}`);
-      if (/(Gemini|OpenAI) API (401|402|403|429 [\s\S]*insufficient_quota)/.test(err.message)) break; // 認証・課金のエラーは再試行しても直らない
+      if (/Gemini API (401|402|403)/.test(err.message)) break; // 認証・課金のエラーは再試行しても直らない
       if (i < tries) await new Promise((r) => setTimeout(r, 5000 * i));
     }
   }
