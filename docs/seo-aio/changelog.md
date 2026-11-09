@@ -351,3 +351,8 @@
 - 本文: `generate-column.mjs` に OpenAI（/v1/chat/completions、JSON 出力。モデルは変数 OPENAI_MODEL、無ければ gpt-5-mini → gpt-4.1-mini の順に試す）を追加。`OPENAI_API_KEY` があれば OpenAI、無ければ Gemini。事実検査・分量ガード・二重投稿防止は共通。課金切れ（402・429 insufficient_quota）は再試行せず即失敗
 - モックで確認: モデル 404 → 次の候補、画像の書き出し、本文の生成〜公開、課金切れで1回で停止。実際の API での確認は Secret 登録後に「Column Thumbnail」を手動実行して行う
 - 11/4・11/5・11/6 のサムネイルは、すでに基準と同じ方法（Higgsfield の gpt_image_2_5、同じプロンプト）で作成済みのため作り直していない
+
+## 2026-11-09 方針の記録: コラムの生成は Gemini を継続（松尾さん「やっぱgeminiでいい」）
+- コラムの本文・サムネイルの生成元は Gemini を継続。OpenAI/Higgsfield への移行はしない。`OPENAI_API_KEY` の登録は依頼しない（サイクル23 で入れた OpenAI の経路は、Secret が無い限り動かないため残置）
+- 現状: Gemini の残高不足（402 プリペイドクレジット切れ）は未解消。日次コラムは 11/7・11/8 の定時実行とも 402 で失敗（公開は 11/6 分まで）。復旧は Actions の実行結果で確認する
+- 改善ループは、この方針と「追加課金・秘密情報の表示/取得はしない」を前提に進める
