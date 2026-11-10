@@ -33,6 +33,8 @@ export const render = (path: string) => {
   return { html, meta: metaFor(view, 'ja', path), jsonLd: jsonLdFor(path) };
 };
 
+// 料金ページの内容の最終更新日（サイトマップの lastmod と合わせる）
+const PRICING_MODIFIED = '2026-11-10';
 export const ORG_ID = `${SITE_ORIGIN}/#organization`;
 export const LOGO_URL = `${SITE_ORIGIN}/assets/brand/mgc-logo.png`;
 // 代表（著者・創業者）。会社概要ページで定義し、記事の author などからは @id で参照する
@@ -147,6 +149,15 @@ const jsonLdFor = (path: string): object[] => {
         mainEntityOfPage: { '@type': 'WebPage', '@id': meta.url },
       });
     }
+  }
+  if (view === 'pricing') {
+    const pr = translations.ja.pricing;
+    out.push({ '@context': 'https://schema.org', '@type': 'WebPage', '@id': `${meta.url}#webpage`, url: meta.url, name: meta.title, description: meta.description, inLanguage: 'ja', isPartOf: { '@id': `${SITE_ORIGIN}/#website` }, publisher: { '@id': ORG_ID }, dateModified: PRICING_MODIFIED });
+    out.push({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: pr.faq.items.map((x) => ({ '@type': 'Question', name: x.q, acceptedAnswer: { '@type': 'Answer', text: x.a } })),
+    });
   }
   if (view === 'company') {
     out.push({ '@context': 'https://schema.org', ...CEO, description: 'ＭＧＣ株式会社 代表取締役。AIソリューション、AI事業立ち上げ支援、AI活用研修、クロスボーダー事業を展開する同社を率いる。' });
@@ -353,6 +364,7 @@ export const llmsFull = (): string => {
   L.push(`- ${t.pricing.services.heading}: 各サービスの「費用の考え方」（上記）を参照`);
   L.push(`- ${t.pricing.period.heading}: ${t.pricing.period.items.map((x) => `${x.label} ${x.value}`).join('、')}。${t.pricing.period.note}`);
   L.push(`- ${t.pricing.free}`);
+  t.pricing.faq.items.forEach((f) => L.push(`- Q. ${f.q} A. ${f.a}`));
   L.push('');
   L.push('## 研修');
   t.training.course.items.forEach((c) => {

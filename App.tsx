@@ -3647,6 +3647,20 @@ const PricingView: React.FC<{ onNavigate: (view: ViewState) => void }> = ({ onNa
           </div>
         </section>
 
+        {/* よくあるご質問（FAQPage の構造化データと同じ内容） */}
+        <section className="px-6 md:px-12 mt-20 md:mt-28">
+          <div className="max-w-screen-xl mx-auto">
+            <Reveal><Head eyebrow={p.faq.eyebrow} title={p.faq.heading} /></Reveal>
+            <div className="space-y-3 max-w-4xl">
+              {p.faq.items.map((item, i) => (
+                <Reveal key={i} delay={i * 60}>
+                  <FaqItem question={item.q} answer={item.a} index={i} />
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <div className="px-6 md:px-12"><div className="max-w-screen-xl mx-auto">
           <RelatedReading
             title={lang === 'ja' ? '費用を比べる前に読む' : 'Read before comparing costs'}

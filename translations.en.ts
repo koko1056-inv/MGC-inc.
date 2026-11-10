@@ -780,6 +780,17 @@ export const en: Translation = {
       lead: 'We ask about the work in scope, scale and period, and give you an estimate based on the cost components. The first consultation and the estimate are free.',
       button: 'Book a free consultation',
     },
+    faq: {
+      eyebrow: 'FAQ',
+      heading: 'Pricing FAQ',
+      items: [
+        { q: 'How much is the training?', a: 'JPY 398,000 (incl. tax) per person, 20 standard hours (off-the-job training). Every company gets the same content, hours and price.' },
+        { q: 'What does an AI solution typically cost?', a: 'A PoC (a trial to verify the effect) for AI Sales, AI Phone or Salesforce AI is typically JPY 1–3 million. Production rollout is quoted individually based on the work in scope, scale and period. For each service we disclose what the costs are made of and what changes them.' },
+        { q: 'How long does it take?', a: 'As a guide, the pilot (PoC) takes 2–4 weeks and production 1–3 months, depending on scope. We recommend starting small with one task.' },
+        { q: 'Do consultations or estimates cost anything?', a: 'No. The first consultation and the estimate are free.' },
+        { q: 'Can you support us after the training, or with subsidies?', a: 'Post-training support is quoted individually. If you are considering a subsidy, we support the application (eligibility depends on the requirements); this is free for training participants.' },
+      ],
+    },
     faqLink: 'See how our pricing works',
     serviceLink: 'How pricing works (all services)',
     footer: 'Pricing',
