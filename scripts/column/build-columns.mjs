@@ -412,6 +412,14 @@ const GUIDES = [
   for (const g of GUIDES) if (!src.includes(`slug: '${g.slug}'`)) die(`guideContent.ts にガイドがありません: ${g.slug}`);
 }
 const guideColumns = {};
+// 一覧・業界別ページに置く「比較・選び方ガイド」の欄
+const guidesSectionHtml = (slugs) => `<section class="wrap svc-links" style="margin-top:56px"><h2>比較・選び方ガイド</h2><ul>${slugs
+  .map((slug) => GUIDES.find((g) => g.slug === slug)).filter(Boolean)
+  .map((g) => `<li><a href="/guide/${g.slug}"><strong>${esc(g.title)}</strong><span>${esc(g.desc)}</span></a></li>`).join('')}</ul></section>`;
+// 業界のコラムがリンクしているガイドを、多い順に最大2本
+const guidesForIndustry = (key) => Object.entries(guideColumns)
+  .map(([slug, list]) => [slug, list.filter((c) => c.industry === key).length])
+  .filter(([, n]) => n > 0).sort((a, b) => b[1] - a[1]).slice(0, 2).map(([slug]) => slug);
 const GUIDE_FOR_SERVICE = { '/service/ai-phone': 'ai-phone-vs-ivr-voicebot', '/service/ai-sales': 'ai-sales-vs-telemarketing', '/service/salesforce-ai': 'salesforce-standard-ai-vs-custom' };
 
 // プレーンテキスト抽出（description 補完・文字数チェック用）
@@ -723,6 +731,7 @@ ${industryNavHtml}
 <section class="cards">${cards || '<p style="color:#5b6472">記事は準備中です。</p>'}</section>
 <div class="more"><button type="button">もっと見る</button></div>
 ${filterScript}
+${guidesSectionHtml(GUIDES.map((g) => g.slug))}
 <section class="wrap" style="margin-top:56px">
 ${SHOW_DIAGNOSIS ? `<div class="cta">
 <span class="cta-eyebrow">無料・所要3分・その場で結果</span>
@@ -812,6 +821,7 @@ ${header('/column')}
 <section class="index-hero"><span class="eyebrow">AI Column — ${esc(ind.ja)}</span><h1>${esc(ind.ja)}のAI活用コラム</h1><p>${esc(lead)}</p><span class="count">全 <b>${list.length}</b> 記事</span></section>
 <section class="cards">${cards}</section>
 <nav class="ind-links" aria-label="ほかの業界のコラム"><span class="label">ほかの業界</span>${others.map((k) => `<a href="/column/industry/${esc(k)}">${esc(industriesByKey[k].ja)}</a>`).join('')}<a href="/column">すべてのコラム</a></nav>
+${guidesSectionHtml(guidesForIndustry(key))}
 <section class="wrap" style="margin-top:56px">
 <div class="cta">
 <span class="cta-eyebrow">初回相談・お見積もりまで無料</span>
