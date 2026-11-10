@@ -380,3 +380,7 @@
 - 点検: サイトマップの固定ページのうち11ページの lastmod が 10/17〜10/18 のままで、11/2〜11/6 の内容の更新（3段階の流れ・概要ボックス・料金目安・研修のオプション・問い合わせ種別・京都のFAQ・最新のコラム 等）が反映されていなかった
 - git の履歴から内容の最終更新日を確認して更新: / 11/6、/works・/works/ai-business-launch・/works/cross-border・/service/ai-sales・/service/salesforce-ai・/training・/contact・/glossary 11/3、/works/ai-solutions 11/4、/cases 11/2（関連リンクの欄など自動・補助的な変更は内容の更新に含めない）
 - AI営業・Salesforce AI のサービスページに dateModified（2026-11-03）を設定し、WebPage の構造化データに出るようにした（AI電話と同じ）
+
+## 2026-11-10 デイリー（サイクル27）: コラム一覧・業界別一覧からガイドへ
+- 計測: 数値は取得不可。日次コラムは 11/10 も Gemini の 402 で失敗（未解消）。本番 151ページ200・JSON-LD 481件妥当・実行時エラー0件（`metrics/2026-11-10.md`）
+- コラム一覧（/column）にガイド4本、業界別一覧13ページに、その業界のコラムがリンクしているガイドを多い順に最大2本（build-columns.mjs）。390px・1280px で横はみ出しなし
