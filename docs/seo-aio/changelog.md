@@ -396,3 +396,8 @@
 - 点検: `/training.html`・`/column/<slug>.html`・`/guide/<slug>.html`・`/index.html` が 200 で同じ内容を返していた（canonical は正しいが重複URL）。末尾スラッシュ・http は既に 308
 - `vercel.json` の redirects に追加: `/index.html` → `/`、`/column/index.html` → `/column`、`/<path>.html` → `/<path>`（api・assets・fonts は対象外）。すべて恒久（308）。リダイレクトは受け取ったURLにだけ効くため、内部の rewrite（/training → /training.html）には影響しない
 - 未対応: www.mgc-global01.com が名前解決できない（DNS 未設定）。Vercel のドメイン設定で www を追加し apex へ転送する必要がある（代表の操作）
+
+## 2026-11-11 サイクル30: 一覧・会社情報ページの構造化データ、トップの canonical
+- 点検: サイトマップ151件と各ページの canonical を照合 → トップのみ「https://mgc-global01.com」と「…/」で食い違い（他は一致）。主要ページの構造化データでは、/cases・/blog・/works・/company・/mission・/contact にページ種別が無かった
+- 構造化データ（entry-server.tsx）: /cases・/blog・/works に CollectionPage と ItemList（導入事例3件・ジャーナル11件・事業4件）、/company・/mission に AboutPage（about: Organization）、/contact に ContactPage
+- トップの canonical・og:url を「https://mgc-global01.com/」に（サイトマップの loc と一致）
