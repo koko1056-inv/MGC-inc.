@@ -401,3 +401,8 @@
 - 点検: サイトマップ151件と各ページの canonical を照合 → トップのみ「https://mgc-global01.com」と「…/」で食い違い（他は一致）。主要ページの構造化データでは、/cases・/blog・/works・/company・/mission・/contact にページ種別が無かった
 - 構造化データ（entry-server.tsx）: /cases・/blog・/works に CollectionPage と ItemList（導入事例3件・ジャーナル11件・事業4件）、/company・/mission に AboutPage（about: Organization）、/contact に ContactPage
 - トップの canonical・og:url を「https://mgc-global01.com/」に（サイトマップの loc と一致）
+
+## 2026-11-11 サイクル31: コラム一覧・業界別一覧の構造化データを整える
+- 点検: /column の構造化データが ItemList だけ（CollectionPage・パンくずなし）。業界別13ページは CollectionPage だが件数・更新日なし。/column と業界別の robots に max-snippet:-1 が無かった（記事・本体サイトにはある）
+- build-columns.mjs: /column を CollectionPage（mainEntity: ItemList 99件、dateModified＝記事の最終更新日の最新）＋BreadcrumbList に。業界別は numberOfItems・dateModified・publisher・@id を追加。robots を index, follow, max-image-preview:large, max-snippet:-1 にそろえた
+- 日次コラムが再開すると build-columns が走るたびに件数・更新日も自動で更新される

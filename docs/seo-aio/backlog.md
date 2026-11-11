@@ -71,6 +71,7 @@
 | 52 | ✅ C29 | `.html` 付きURL（/training.html、/column/<slug>.html、/index.html 等）を拡張子なしの正規URLへ 308 リダイレクト（200 で重複表示されていた） | 重複URLをまとめ、評価を正規URLに集約 | 小 |
 | 53 | ☐ 要: 代表 | www.mgc-global01.com が名前解決できない（DNS 未設定）。Vercel のドメイン設定で www を追加し、apex へリダイレクト | www で入力した人・リンクの取りこぼし防止 | 小 |
 | 54 | ✅ C30 | 一覧・会社情報ページにページ種別の構造化データ: /cases・/blog・/works は CollectionPage＋ItemList（3・11・4件）、/company・/mission は AboutPage、/contact は ContactPage。トップの canonical をサイトマップと同じ「/」付きに | ページの役割と一覧の中身を検索エンジン・AIに明示（6ページとも未設定だった） | 小 |
+| 55 | ✅ C31 | コラム一覧（/column）を CollectionPage＋ItemList（99件）＋パンくずに（ItemList のみだった）。業界別13ページに numberOfItems・dateModified・publisher。一覧ページの robots に max-snippet:-1 をそろえた | 一覧ページの役割・鮮度を明示、スニペットの長さ制限を他ページとそろえる | 小 |
 | 33 | ✅ | コラムの標準化: スタイルガイド・サムネイル全差し替え・全95本の本文の書き直し | 記事の質と見た目の統一 | 大 |
 
 ## 保留（事実の確認が必要なもの。作らない）
