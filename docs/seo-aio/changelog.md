@@ -390,3 +390,9 @@
 - /pricing に「料金についてよくあるご質問」5問を追加（JP/EN）: 研修の受講料（1名398,000円（税込）・標準20時間）、AIソリューションの費用の目安（PoC 100〜300万円・本番は個別見積もり）、期間（パイロット運用2〜4週間・本番運用1〜3ヶ月）、相談・見積もりは無料、伴走オプション（個別見積もり）と助成金申請サポート（研修受講者は無料、受給できるかどうかは要件による）。すべて掲載済みの事実のみ
 - 構造化データ: FAQPage（5問）と WebPage（dateModified 2026-11-10）。価格の構造化データ（priceSpecification）は従来どおりサービス3ページのみで、料金ページには付けない
 - llms-full.txt の料金の節に FAQ を追加。サイトマップの /pricing の lastmod を 11/10 に
+
+## 2026-11-11 デイリー（サイクル29）: .html 付きURLを正規URLへリダイレクト
+- 計測: 数値は取得不可。日次コラムは Gemini の 402 で停止中（未解消）。本番は正常（`metrics/2026-11-11.md`）
+- 点検: `/training.html`・`/column/<slug>.html`・`/guide/<slug>.html`・`/index.html` が 200 で同じ内容を返していた（canonical は正しいが重複URL）。末尾スラッシュ・http は既に 308
+- `vercel.json` の redirects に追加: `/index.html` → `/`、`/column/index.html` → `/column`、`/<path>.html` → `/<path>`（api・assets・fonts は対象外）。すべて恒久（308）。リダイレクトは受け取ったURLにだけ効くため、内部の rewrite（/training → /training.html）には影響しない
+- 未対応: www.mgc-global01.com が名前解決できない（DNS 未設定）。Vercel のドメイン設定で www を追加し apex へ転送する必要がある（代表の操作）
