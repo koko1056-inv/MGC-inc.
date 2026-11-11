@@ -206,7 +206,7 @@ export const metaFor = (view: ViewState, lang: Lang, path?: string) => {
   return {
     title: base.title,
     description: base.description,
-    url: SITE_ORIGIN + (isThanks ? THANKS_PATH : view === 'home' ? '' : pathForView(view)),
+    url: SITE_ORIGIN + (isThanks ? THANKS_PATH : view === 'home' ? '/' : pathForView(view)),
     image: SITE_ORIGIN + ogImageFor(view),
     // 検索結果に出さないページ（送信完了・404）
     // 診断は入口を隠している間（SHOW_DIAGNOSIS=false）は検索にも出さない

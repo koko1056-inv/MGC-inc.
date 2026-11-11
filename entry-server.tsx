@@ -121,6 +121,31 @@ const jsonLdFor = (path: string): object[] => {
       });
     }
   }
+  // 一覧・会社情報のページ: ページの種類（CollectionPage / AboutPage / ContactPage）と、一覧の中身（ItemList）
+  const pageNode = (type: string, extra: object = {}) => ({
+    '@context': 'https://schema.org', '@type': type, '@id': `${meta.url}#webpage`, url: meta.url, name: meta.title, description: meta.description,
+    inLanguage: 'ja', isPartOf: { '@id': `${SITE_ORIGIN}/#website` }, publisher: { '@id': ORG_ID }, ...extra,
+  });
+  const itemList = (name: string, items: { url: string; name: string }[]) => ({
+    '@type': 'ItemList', name, numberOfItems: items.length,
+    itemListElement: items.map((x, i) => ({ '@type': 'ListItem', position: i + 1, url: x.url, name: x.name })),
+  });
+  if (view === 'cases') {
+    out.push(pageNode('CollectionPage', { mainEntity: itemList('導入事例', caseContent.ja.cases.map((c) => ({ url: `${SITE_ORIGIN}/cases/${c.slug}`, name: c.title ?? c.industry }))) }));
+  }
+  if (view === 'blog') {
+    out.push(pageNode('CollectionPage', { mainEntity: itemList('お知らせ・ジャーナル', journalPosts('ja').map((x) => ({ url: SITE_ORIGIN + journalPath(x.slug), name: x.title }))) }));
+  }
+  if (view === 'works') {
+    const biz = (Object.keys(BUSINESS_PAGES) as (keyof typeof BUSINESS_PAGES)[]).map((v) => ({ url: `${SITE_ORIGIN}${BUSINESS_PAGES[v].path}`, name: translations.ja.works[BUSINESS_PAGES[v].key].title }));
+    out.push(pageNode('CollectionPage', { mainEntity: itemList('事業内容', [...biz, { url: `${SITE_ORIGIN}/training`, name: 'AI活用リスキリング研修' }]) }));
+  }
+  if (view === 'company' || view === 'mission') {
+    out.push(pageNode('AboutPage', { about: { '@id': ORG_ID } }));
+  }
+  if (view === 'contact') {
+    out.push(pageNode('ContactPage', { about: { '@id': ORG_ID } }));
+  }
   if (view === 'guides') {
     out.push({
       '@context': 'https://schema.org',
