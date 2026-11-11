@@ -610,12 +610,20 @@ ${ANALYTICS_CLICK}
 // ---- index page ----
 function indexHtml() {
   const url = `${site.baseUrl}/column`;
-  const itemList = {
-    '@context': 'https://schema.org', '@type': 'ItemList',
-    itemListElement: articles.map((a, i) => ({
-      '@type': 'ListItem', position: i + 1, url: `${site.baseUrl}/column/${a.slug}`, name: a.title,
-    })),
-  };
+  // 一覧ページ: CollectionPage（中身は全記事の ItemList）＋パンくず。dateModified は記事の最終更新日の最新
+  const itemList = [
+    { '@context': 'https://schema.org', '@type': 'CollectionPage', '@id': `${url}#webpage`, name: '業界別 AI活用コラム', url, inLanguage: 'ja',
+      description: '業界ごとに、どの業務にどうAIを使い、どこは人が判断するかを実務目線でまとめたコラムの一覧。',
+      isPartOf: { '@id': `${site.baseUrl}/#website` }, publisher: { '@id': `${site.baseUrl}/#organization` },
+      dateModified: articles.map(lastmod).sort().pop(),
+      mainEntity: { '@type': 'ItemList', numberOfItems: articles.length, itemListElement: articles.map((a, i) => ({
+        '@type': 'ListItem', position: i + 1, url: `${site.baseUrl}/column/${a.slug}`, name: a.title,
+      })) } },
+    { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'ホーム', item: `${site.baseUrl}/` },
+      { '@type': 'ListItem', position: 2, name: 'AI活用コラム', item: url },
+    ] },
+  ];
   const excerpt = (a) => a.description || `${plainText(a).slice(0, 90)}…`;
   const cardHtml = (a) => {
     const ind = industriesByKey[a.industry];
@@ -705,7 +713,7 @@ ${usedIndustries.map((k) => `<button type="button" data-f="${esc(k)}" aria-press
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>AI活用コラム｜業界別のAI導入・活用の実践知 - ＭＧＣ株式会社</title>
 <meta name="description" content="製造・建設・不動産・小売・物流・医療・士業など、業界別にAIの現実的な活用方法を解説するMGCのコラム。どの業務に、どうAIを使い、どこは人が判断するか。実務目線でまとめています。"/>
-<meta name="robots" content="index, follow, max-image-preview:large"/>
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1"/>
 <link rel="canonical" href="${esc(url)}"/>
 <meta property="og:type" content="website"/>
 <meta property="og:locale" content="ja_JP"/>
@@ -717,7 +725,7 @@ ${usedIndustries.map((k) => `<button type="button" data-f="${esc(k)}" aria-press
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="theme-color" content="#111418"/>
 <link rel="icon" href="/favicon.ico"/>
-<script type="application/ld+json">${jsonld(itemList)}</script>
+${itemList.map((x) => `<script type="application/ld+json">${jsonld(x)}</script>`).join('\n')}
 <style>${CSS}</style>
 ${ANALYTICS_HEAD}
 </head>
@@ -776,9 +784,10 @@ function industryHtml(key) {
   const lead = INDUSTRY_LEADS[key] || `${ind.ja}でのAI活用を、実務目線で解説するコラムです。`;
   const desc = `${lead.replace(/コラムです。$/, 'MGCのコラム一覧')}（${list.length}記事）。`;
   const ld = [
-    { '@context': 'https://schema.org', '@type': 'CollectionPage', name: `${ind.ja}のAI活用コラム`, description: lead, url, inLanguage: 'ja',
-      isPartOf: { '@id': `${site.baseUrl}/#website` }, about: { '@type': 'Thing', name: `${ind.ja}のAI活用` },
-      mainEntity: { '@type': 'ItemList', itemListElement: list.map((a, i) => ({ '@type': 'ListItem', position: i + 1, url: `${site.baseUrl}/column/${a.slug}`, name: a.title })) } },
+    { '@context': 'https://schema.org', '@type': 'CollectionPage', '@id': `${url}#webpage`, name: `${ind.ja}のAI活用コラム`, description: lead, url, inLanguage: 'ja',
+      isPartOf: { '@id': `${site.baseUrl}/#website` }, publisher: { '@id': `${site.baseUrl}/#organization` }, about: { '@type': 'Thing', name: `${ind.ja}のAI活用` },
+      dateModified: list.map(lastmod).sort().pop(),
+      mainEntity: { '@type': 'ItemList', numberOfItems: list.length, itemListElement: list.map((a, i) => ({ '@type': 'ListItem', position: i + 1, url: `${site.baseUrl}/column/${a.slug}`, name: a.title })) } },
     { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'ホーム', item: `${site.baseUrl}/` },
       { '@type': 'ListItem', position: 2, name: 'AI活用コラム', item: `${site.baseUrl}/column` },
@@ -799,7 +808,7 @@ function industryHtml(key) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(desc)}"/>
-<meta name="robots" content="index, follow, max-image-preview:large"/>
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1"/>
 <link rel="canonical" href="${esc(url)}"/>
 <meta property="og:type" content="website"/>
 <meta property="og:locale" content="ja_JP"/>
