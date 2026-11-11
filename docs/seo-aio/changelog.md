@@ -411,3 +411,8 @@
 - 点検: 本体サイトのページの OGP を一覧化 → ガイド4本はすべて事業内容の画像（works.jpg）、導入事例3本はすべて事例一覧の画像（cases.jpg）で、内容と合っていなかった。ジャーナル11記事は og:image:width/height が無かった（共有画像以外は削除していた）
 - ガイド: AI電話→ai-phone.jpg、AI営業→ai-sales.jpg、Salesforce→salesforce-ai.jpg、AI導入の始め方→biz-ai.jpg。導入事例: 最初の対応サービスの画像（AI電話→ai-phone.jpg、AI営業→ai-sales.jpg）。既存の /assets/og/ の写真を使い、新しい画像は生成していない。Article の image も同じ画像になる
 - prerender.mjs: 共有画像（/assets/og/）以外は、画像の実寸を読んで og:image:width/height に入れる（読めない場合は従来どおり削除）
+
+## 2026-11-11 サイクル33: 用語集に6語を追加
+- 選び方: コラムに頻出で用語集に無い語（スモールスタート10本・文字起こし8本・ガバナンス8本・ナレッジ管理/共有13本）と、ガイドで使う語（テレアポ代行・Agentforce）
+- glossaryContent.ts（JP/EN）に6語を追加（25→31語）。定義は一般的な意味のみで、MGCの実績・数字は書かない。各語に関連ページ（ガイド・AI電話・研修・AIソリューション）へのリンク
+- build-columns.mjs の自動リンク対象に追加 → コラム16本から用語集へのリンクが増え、用語集の各語に関連コラムが付く（site-links.json）。DefinedTermSet は31語

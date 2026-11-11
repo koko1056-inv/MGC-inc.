@@ -327,6 +327,7 @@ const GLOSSARY_LINKS = [
   ['OFF-JT', 'off-jt'], ['リスキリング', 'reskilling'], ['DX', 'dx'],
   ['機械学習', 'machine-learning'], ['チャットボット', 'chatbot'], ['OCR', 'ocr'], ['画像認識', 'image-recognition'], ['需要予測', 'demand-forecasting'],
   ['パーソナライズ', 'personalization'], ['暗黙知', 'tacit-knowledge'], ['属人化', 'siloed-expertise'], ['匿名化', 'anonymization'], ['PoC', 'poc'],
+  ['スモールスタート', 'small-start'], ['文字起こし', 'transcription'], ['ガバナンス', 'ai-governance'], ['ナレッジ(?:マネジメント|管理|共有)', 'knowledge-management'], ['テレアポ代行', 'telemarketing-outsourcing'], ['Agentforce', 'agentforce'],
 ].map(([term, id]) => ({ id, re: new RegExp(/^[A-Za-z]/.test(term) ? `(?<![A-Za-z])${term}(?![A-Za-z])` : term) }));
 function linkTerms(html, used) {
   // html はエスケープ済みの本文（タグを含まない）。リンク内の語を二重にリンクしないよう、1語ずつ置き換える

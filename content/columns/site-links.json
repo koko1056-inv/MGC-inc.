@@ -281,6 +281,50 @@
         "slug": "education-learning-content-automation-checklist",
         "title": "AIによる教材作成・更新の効率化 — 質の高い学習コンテンツを継続的に届けるための確認項目"
       }
+    ],
+    "small-start": [
+      {
+        "slug": "ai-cost-breakdown-initial-monthly-usage",
+        "title": "AI導入費用の内訳の考え方 — 初期費用・月額費用・実費をどう見るか"
+      },
+      {
+        "slug": "public-resident-window-ai-automation",
+        "title": "自治体の窓口業務AI導入 — 住民利便性と職員の負担軽減を両立する"
+      }
+    ],
+    "transcription": [
+      {
+        "slug": "education-learning-content-automation-checklist",
+        "title": "AIによる教材作成・更新の効率化 — 質の高い学習コンテンツを継続的に届けるための確認項目"
+      },
+      {
+        "slug": "public-ai-internal-document-optimization",
+        "title": "自治体のAI導入、何から手をつける？ — 内部事務の効率化と「職員の判断」を両立する"
+      },
+      {
+        "slug": "real-estate-internal-knowledge-sharing-ai",
+        "title": "不動産営業の「属人化」をAIで解消する — 熟練の知恵を全社で共有・活用する仕組み"
+      }
+    ],
+    "ai-governance": [
+      {
+        "slug": "public-continuity-knowledge-management-ai",
+        "title": "自治体の業務継続とAI — 属人化を防ぎ、知見を次世代につなぐ活用術"
+      },
+      {
+        "slug": "finance-fraud-detection-operational-resilience",
+        "title": "金融不正検知にAIをどう組み込むか — 誤検知の山を減らし「真のリスク」に注力する"
+      }
+    ],
+    "knowledge-management": [
+      {
+        "slug": "hr-employee-experience-knowledge-ai",
+        "title": "人材・採用業界のEXをAIで変える — 社内ナレッジの民主化と個別最適化の進め方"
+      },
+      {
+        "slug": "professional-high-value-advisory-ai",
+        "title": "士業のAI活用術：単純作業を自動化し「顧問業務の価値」を高める方法"
+      }
     ]
   },
   "latest": [

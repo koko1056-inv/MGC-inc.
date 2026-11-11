@@ -30,6 +30,12 @@ const ja: GlossaryTerm[] = [
   { id: 'siloed-expertise', term: '属人化', reading: 'ぞくじんか', definition: '特定の業務のやり方や判断が、特定の人にしか分からない状態。担当者の不在や退職で業務が止まる原因になる。手順の文書化やナレッジの共有、AIによる記録の自動化で解消を進める。', link: { href: '/works/ai-solutions', label: 'AIソリューション' } },
   { id: 'anonymization', term: '匿名化', reading: 'とくめいか', definition: '氏名や連絡先など、個人を特定できる情報を削除したり置き換えたりして、誰のデータか分からないようにすること。個人情報を含むデータをAIで扱う際の基本的な対策の一つ。' },
   { id: 'poc', term: 'PoC（概念実証）', reading: 'ピーオーシー', definition: 'Proof of Concept の略。本格的な導入の前に、小さな範囲で試して、技術的に実現できるか・効果が見込めるかを確かめること。目的と評価の基準を先に決めておくことが大切とされる。', link: { href: '/works/ai-business-launch', label: 'AI事業立ち上げ支援' } },
+  { id: 'small-start', term: 'スモールスタート', definition: '新しい仕組みを、対象を1つの業務や部署などに絞って小さく始め、効果と課題を確かめてから広げる進め方。最初から全社で導入するより、費用や手戻りを抑えやすい。', link: { href: '/guide/ai-adoption-where-to-start', label: 'AI導入は何から始めるか' } },
+  { id: 'transcription', term: '文字起こし（音声認識）', reading: 'もじおこし', definition: '会話や会議などの音声をAIで聞き取り、テキストにする技術。議事録や通話記録の作成のほか、内容の検索・要約の前処理として使われる。', link: { href: '/service/ai-phone', label: 'AI電話（音声AI）' } },
+  { id: 'ai-governance', term: 'AIガバナンス', reading: 'エーアイガバナンス', definition: '企業がAIを安全・適切に使うためのルールと体制。AIに任せてよい業務や扱える情報の範囲、人が確認する手順、記録の残し方、責任の所在などを定める。', link: { href: '/training', label: 'AI活用リスキリング研修' } },
+  { id: 'knowledge-management', term: 'ナレッジマネジメント', definition: '社内に散らばる知識や経験（マニュアル、過去の対応記録、熟練者のノウハウなど）を集めて整理し、必要な人が使えるようにする取り組み。生成AIやRAGと組み合わせて、検索や回答に活用されることが多い。', link: { href: '/works/ai-solutions', label: 'AIソリューション' } },
+  { id: 'telemarketing-outsourcing', term: 'テレアポ代行', reading: 'テレアポだいこう', definition: '企業に代わって電話でアポイントメント（商談の約束）を獲得する外部サービス。1件あたりの成果報酬で請け負う形が一般的。', link: { href: '/guide/ai-sales-vs-telemarketing', label: 'AI営業とテレアポ代行の違いと選び方' } },
+  { id: 'agentforce', term: 'Agentforce', reading: 'エージェントフォース', definition: 'Salesforceが提供するAIエージェントの機能。Salesforce上のデータを使って、問い合わせ対応や営業活動などの業務を進める。利用には対応するライセンスが必要。', link: { href: '/guide/salesforce-standard-ai-vs-custom', label: 'Salesforceの標準AI機能と個別開発、どちらを選ぶか' } },
 ];
 
 const en: GlossaryTerm[] = [
@@ -58,6 +64,12 @@ const en: GlossaryTerm[] = [
   { id: 'siloed-expertise', term: 'Siloed expertise', definition: 'When how a task is done is known only to specific people, so work stops when they are absent or leave. Documenting procedures, sharing knowledge and using AI to record work help resolve it.', link: { href: '/works/ai-solutions', label: 'AI Solutions' } },
   { id: 'anonymization', term: 'Anonymization', definition: 'Removing or replacing information that identifies individuals, such as names and contact details — a basic safeguard when using data that contains personal information with AI.' },
   { id: 'poc', term: 'PoC (proof of concept)', definition: 'A small-scale trial before full adoption to check that something is technically feasible and likely to be effective. Setting goals and evaluation criteria first is considered important.', link: { href: '/works/ai-business-launch', label: 'AI Business Launch' } },
+  { id: 'small-start', term: 'Small start', definition: 'Starting a new system small — with one task or one department — and expanding after checking the effect and the issues. It tends to keep cost and rework lower than a company-wide rollout from day one.', link: { href: '/guide/ai-adoption-where-to-start', label: 'Where to start with AI adoption' } },
+  { id: 'transcription', term: 'Transcription (speech recognition)', definition: 'Technology that uses AI to turn speech from conversations or meetings into text. It is used to create meeting minutes and call records, and as a first step for searching and summarising content.', link: { href: '/service/ai-phone', label: 'AI Phone (voice AI)' } },
+  { id: 'ai-governance', term: 'AI governance', definition: 'The rules and structure a company uses to apply AI safely and appropriately: which work and information AI may handle, where people check, how records are kept and who is responsible.', link: { href: '/training', label: 'AI reskilling training' } },
+  { id: 'knowledge-management', term: 'Knowledge management', definition: 'Gathering and organising knowledge scattered across a company — manuals, past case records, experts\' know-how — so the people who need it can use it. It is often combined with generative AI and RAG for search and answers.', link: { href: '/works/ai-solutions', label: 'AI solutions' } },
+  { id: 'telemarketing-outsourcing', term: 'Outsourced telemarketing', definition: 'An external service that books appointments (sales meetings) by phone on behalf of a company, typically paid per appointment.', link: { href: '/guide/ai-sales-vs-telemarketing', label: 'AI sales vs outsourced telemarketing' } },
+  { id: 'agentforce', term: 'Agentforce', definition: "Salesforce's AI agent capability. It uses data in Salesforce to carry out work such as handling inquiries and sales activities. It requires the relevant licences.", link: { href: '/guide/salesforce-standard-ai-vs-custom', label: 'Salesforce built-in AI vs custom build' } },
 ];
 
 export const glossaryContent: Record<Lang, { title: string; sub: string; lead: string; terms: GlossaryTerm[] }> = {
