@@ -10,6 +10,21 @@
   },
   "redirects": [
     {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/column/index.html",
+      "destination": "/column",
+      "permanent": true
+    },
+    {
+      "source": "/:path((?!api/|assets/|fonts/).+)\\.html",
+      "destination": "/:path",
+      "permanent": true
+    },
+    {
       "source": "/:path(.+)/",
       "destination": "/:path",
       "permanent": true
