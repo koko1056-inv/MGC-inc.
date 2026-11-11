@@ -79,6 +79,9 @@ const PAGE_META: Record<Lang, Partial<Record<string, { title: string; descriptio
 // OGP画像。SNSで共有したときにページごとの画像を出す（1200×630。public/assets/og/）。
 const OG_IMAGE_DEFAULT = '/assets/og/home.jpg';
 const OG_IMAGE_VIEWS = ['home', 'works', 'cases', 'training', 'mission', 'company', 'career', 'blog', 'contact', 'ai-sales', 'ai-phone', 'salesforce-ai', 'biz-ai', 'biz-newbiz', 'biz-crossborder'];
+// ガイド・導入事例の共有画像は、内容に対応するサービスの画像を使う（既存の /assets/og/ の写真。新しく生成しない）
+const GUIDE_OG_VIEW: Record<string, string> = { 'ai-phone-vs-ivr-voicebot': 'ai-phone', 'ai-sales-vs-telemarketing': 'ai-sales', 'salesforce-standard-ai-vs-custom': 'salesforce-ai', 'ai-adoption-where-to-start': 'biz-ai' };
+const CASE_SERVICE_OG_VIEW: Record<string, string> = { 'AI電話（音声AI）': 'ai-phone', 'AI営業': 'ai-sales', 'Salesforce AI': 'salesforce-ai' };
 const ogImageFor = (view: string) => (OG_IMAGE_VIEWS.includes(view) ? `/assets/og/${view}.jpg` : OG_IMAGE_DEFAULT);
 
 // SPAのため、ビューが変わるたびに title / description / canonical / OGP を書き換える。
@@ -169,7 +172,7 @@ export const metaFor = (view: ViewState, lang: Lang, path?: string) => {
         title: `${g.title}${lang === 'ja' ? ' - ＭＧＣ株式会社' : ' - MGC Inc.'}`,
         description: g.description,
         url: `${SITE_ORIGIN}/guide/${g.slug}`,
-        image: SITE_ORIGIN + ogImageFor('works'),
+        image: SITE_ORIGIN + ogImageFor(GUIDE_OG_VIEW[g.slug] ?? 'works'),
         noindex: false,
       };
     }
@@ -182,7 +185,7 @@ export const metaFor = (view: ViewState, lang: Lang, path?: string) => {
         title: `${cs.title ?? cs.industry}｜${lang === 'ja' ? '導入事例' : 'Case study'}（${cs.industry}）${lang === 'ja' ? ' - ＭＧＣ株式会社' : ' - MGC Inc.'}`,
         description: cs.summary,
         url: `${SITE_ORIGIN}/cases/${cs.slug}`,
-        image: SITE_ORIGIN + ogImageFor('cases'),
+        image: SITE_ORIGIN + ogImageFor(cs.services.map((x) => CASE_SERVICE_OG_VIEW[x]).find(Boolean) ?? 'cases'),
         noindex: false,
       };
     }

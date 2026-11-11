@@ -406,3 +406,8 @@
 - 点検: /column の構造化データが ItemList だけ（CollectionPage・パンくずなし）。業界別13ページは CollectionPage だが件数・更新日なし。/column と業界別の robots に max-snippet:-1 が無かった（記事・本体サイトにはある）
 - build-columns.mjs: /column を CollectionPage（mainEntity: ItemList 99件、dateModified＝記事の最終更新日の最新）＋BreadcrumbList に。業界別は numberOfItems・dateModified・publisher・@id を追加。robots を index, follow, max-image-preview:large, max-snippet:-1 にそろえた
 - 日次コラムが再開すると build-columns が走るたびに件数・更新日も自動で更新される
+
+## 2026-11-11 サイクル32: ガイド・導入事例の共有画像、ジャーナルの画像サイズ
+- 点検: 本体サイトのページの OGP を一覧化 → ガイド4本はすべて事業内容の画像（works.jpg）、導入事例3本はすべて事例一覧の画像（cases.jpg）で、内容と合っていなかった。ジャーナル11記事は og:image:width/height が無かった（共有画像以外は削除していた）
+- ガイド: AI電話→ai-phone.jpg、AI営業→ai-sales.jpg、Salesforce→salesforce-ai.jpg、AI導入の始め方→biz-ai.jpg。導入事例: 最初の対応サービスの画像（AI電話→ai-phone.jpg、AI営業→ai-sales.jpg）。既存の /assets/og/ の写真を使い、新しい画像は生成していない。Article の image も同じ画像になる
+- prerender.mjs: 共有画像（/assets/og/）以外は、画像の実寸を読んで og:image:width/height に入れる（読めない場合は従来どおり削除）

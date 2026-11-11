@@ -8,6 +8,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import sharp from 'sharp';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
@@ -55,8 +56,18 @@ for (const route of [...routes(), NOT_FOUND]) {
   out = setAttr(out, /(<meta property="og:title" content=")[^"]*(")/, meta.title);
   out = setAttr(out, /(<meta property="og:description" content=")[^"]*(")/, meta.description);
   out = setAttr(out, /(<meta property="og:image" content=")[^"]*(")/, meta.image);
-  // og:image:width/height は 1200×630 の共有画像（/assets/og/）のときだけ残す（記事画像などは実寸が違うため消す）
-  if (!meta.image.includes('/assets/og/')) out = out.replace(/\s*<meta property="og:image:(width|height)" content="\d+" \/>/g, '');
+  // og:image:width/height: 共有画像（/assets/og/）は 1200×630 のまま。記事画像などは実寸を読んで入れる（読めなければ消す）
+  if (!meta.image.includes('/assets/og/')) {
+    let size = null;
+    try {
+      const file = path.join(dist, new URL(meta.image).pathname);
+      const m = await sharp(file).metadata();
+      if (m.width && m.height) size = m;
+    } catch { /* 読めない画像はサイズ指定を消す */ }
+    out = size
+      ? out.replace(/(<meta property="og:image:width" content=")\d+(")/, `$1${size.width}$2`).replace(/(<meta property="og:image:height" content=")\d+(")/, `$1${size.height}$2`)
+      : out.replace(/\s*<meta property="og:image:(width|height)" content="\d+" \/>/g, '');
+  }
   out = setAttr(out, /(<meta name="twitter:url" content=")[^"]*(")/, meta.url);
   out = setAttr(out, /(<meta name="twitter:title" content=")[^"]*(")/, meta.title);
   out = setAttr(out, /(<meta name="twitter:description" content=")[^"]*(")/, meta.description);
