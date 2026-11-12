@@ -1844,8 +1844,20 @@ const JournalPostView: React.FC<{ slug: string; onNavigate: (view: ViewState) =>
           </div>
         </div>
         {(() => {
-          const gs = guidesForText(`${post.title}\n${post.content}`);
-          return <RelatedReading title={lang === 'ja' ? 'あわせて読みたい' : 'Related reading'} items={[...guideReading(lang, gs), ...columnReading(lang, columnsForGuides(gs, 2))]} />;
+          const text = `${post.title}\n${post.content}`;
+          const kindSvc = lang === 'ja' ? '事業・サービス' : 'Service';
+          // 海外展開の記事: クロスボーダー事業のページと、ほかの海外展開の記事
+          if (isGlobalText(text)) {
+            const cb = BUSINESS_PAGES['biz-crossborder'];
+            const otherGlobal = journalPosts(lang).filter((p) => p.slug !== post.slug && isGlobalText(`${p.title}\n${p.content}`))
+              .map((p) => ({ href: journalPath(p.slug), label: p.title, kind: lang === 'ja' ? 'ジャーナル' : 'Journal' }));
+            return <RelatedReading title={lang === 'ja' ? 'あわせて読みたい' : 'Related reading'} items={[{ href: cb.path, label: t.works[cb.key].title, kind: kindSvc }, ...otherGlobal]} />;
+          }
+          // それ以外: 内容に対応するサービスのページ＋ガイド＋関連コラム
+          const gs = guidesForText(text);
+          const g0 = guideContent[lang].guides.find((g) => g.slug === gs[0]);
+          const svc = g0 ? { href: g0.service.href, label: g0.service.label, kind: kindSvc } : null;
+          return <RelatedReading title={lang === 'ja' ? 'あわせて読みたい' : 'Related reading'} items={[...(svc ? [svc] : []), ...guideReading(lang, gs), ...columnReading(lang, columnsForGuides(gs, 2))]} />;
         })()}
         <section className="mt-24 md:mt-32">
           <h2 className="text-2xl md:text-3xl font-bold text-offblack tracking-tight mb-8">{lang === 'ja' ? 'ほかの記事' : 'More from the journal'}</h2>
@@ -3247,6 +3259,9 @@ const guidesForText = (text: string): string[] => {
 };
 const columnsForGuides = (gs: string[], n: number) =>
   gs.flatMap((g) => (guideColumns as Record<string, { slug: string; title: string; industry: string }[]>)[g] || []).filter((c, i, a) => a.findIndex((y) => y.slug === c.slug) === i).slice(0, n);
+// 海外展開をテーマにしたジャーナル記事（クロスボーダー事業のページと相互にリンクする）
+const GLOBAL_WORDS = /海外|グローバル|世界|Global|global|overseas/g;
+const isGlobalText = (text: string) => (text.match(GLOBAL_WORDS) || []).length >= 3;
 const guideReading = (lang: Lang, slugs: string[]): ReadingItem[] =>
   slugs.map((s) => guideContent[lang].guides.find((g) => g.slug === s)).filter((g): g is NonNullable<typeof g> => !!g)
     .map((g) => ({ href: `/guide/${g.slug}`, label: g.title, kind: lang === 'ja' ? '比較・選び方ガイド' : 'Guide' }));
@@ -4219,6 +4234,13 @@ const BusinessView: React.FC<{ biz: BizView; onNavigate: (view: ViewState) => vo
         </section>
 
         {/* 比較・選び方ガイドとコラム（AIソリューション・AI事業立ち上げ支援のページ） */}
+        {/* クロスボーダー事業: 海外展開をテーマにしたジャーナル記事 */}
+        {meta.key === 'service_lab' && (
+          <RelatedReading
+            title={ja ? 'あわせて読みたい' : 'Related reading'}
+            items={journalPosts(lang).filter((p) => isGlobalText(`${p.title}\n${p.content}`)).map((p) => ({ href: journalPath(p.slug), label: p.title, kind: ja ? 'ジャーナル' : 'Journal' }))}
+          />
+        )}
         {meta.key !== 'service_lab' && (
           <RelatedReading
             title={ja ? 'あわせて読みたい' : 'Related reading'}
