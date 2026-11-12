@@ -104,6 +104,8 @@ const ja: Guide[] = [
     faq: [
       { q: 'AI営業は成果報酬型ですか？', a: 'MGCのAI営業は1アポ単位の成果報酬ではなく、仕組みを作って動かし続ける契約形態です。費用は初期費用・月額費用・実費で構成され、対象範囲と件数で変わります。PoCは100〜300万円が目安で、本番導入は要件に応じて個別にお見積もりします。' },
       { q: 'AI営業にすると営業担当は不要になりますか？', a: 'なりません。AIが担うのは商談にたどり着くまでの前工程で、商談と提案は人が担います。前工程から解放されることで、商談の準備に時間を使えるようになります。' },
+      { q: 'どのような会社に向いていますか？', a: '法人向け（BtoB）で、狙う企業の条件をある程度言葉にでき、商談さえ組めれば受注につながる手応えがあり、商談を受ける体制がある会社に向いています。個人向け（BtoC）で対象が不特定多数の場合や、誰に売るかがまだ決まっていない場合は、今は向きません。' },
+      { q: 'どのくらいの期間で始められますか？', a: '「まず1業務から」のスモールスタートを推奨しており、期間の目安はパイロット運用（PoC）が2〜4週間、本番運用が1〜3ヶ月です（スコープによって変わります）。' },
     ],
     service: { href: '/service/ai-sales', label: 'AI営業' },
   },
@@ -142,6 +144,8 @@ const ja: Guide[] = [
     faq: [
       { q: 'AgentforceやEinsteinのライセンスは必ず必要ですか？', a: '構成によります。標準のAI機能を使う場合は該当するライセンスが必要ですが、外部のAIをAPI経由で連携する構成なら不要なこともあります。' },
       { q: 'Salesforceのデータを外部のAIに渡すことになりますか？', a: '構成によって変わります。データを外に出さない構成も、限定した範囲だけを渡す構成も可能です。どの情報がどこまで出るのかを明示したうえで決めます。' },
+      { q: 'MGCはSalesforceのライセンスを販売していますか？', a: '販売していません。ライセンスを再販していないため、標準のAI機能で足りるか個別に作るかを、利害なく比較してご提案します。標準のAI機能を使う場合のライセンスは、Salesforceと直接ご契約いただきます。' },
+      { q: 'どのくらいの期間がかかりますか？', a: '最初に現状のデータと運用を確認し、標準機能で足りるか個別に作るかを決めます。そのうえでの期間の目安は、パイロット運用（PoC）が2〜4週間、本番運用が1〜3ヶ月です（スコープによって変わります）。' },
     ],
     service: { href: '/service/salesforce-ai', label: 'Salesforce AI活用支援' },
   },
@@ -219,6 +223,7 @@ const en: Guide[] = [
     faq: [
       { q: 'What is the main difference between IVR and an AI phone?', a: 'IVR routes callers to fixed choices by keypad; an AI phone understands what callers say in their own words, summarises it and hands it to the right person, capturing several details in one conversation.' },
       { q: 'Will we no longer need people to answer the phone?', a: 'No. Calls that need judgement, negotiation or urgent action are designed to go to people. The AI handles first response, summaries and records, and recognises which calls to pass on.' },
+      { q: 'Are voicebots and AI phones different things?', a: 'Voicebot is a general term for automated voice response, and an AI phone (voice AI) is one kind of it. Products differ in how freely they understand spoken requests and in how they keep records and hand calls over.' },
     ],
     service: { href: '/service/ai-phone', label: 'AI Phone' },
   },
@@ -242,6 +247,9 @@ const en: Guide[] = [
     ],
     faq: [
       { q: 'Is AI Sales pay-per-appointment?', a: "No. MGC's AI Sales is a contract to build and run a system, with an initial fee, monthly fee and pass-through costs that depend on scope and volume. A PoC typically costs JPY 1–3 million; production rollout is quoted individually." },
+      { q: 'Will we no longer need salespeople?', a: 'No. AI handles the pre-sales work up to the meeting; meetings and proposals are handled by people, who gain time to prepare for them.' },
+      { q: 'What kind of company is it suited to?', a: 'B2B companies that can describe the companies they want to reach, are confident meetings lead to deals, and have the capacity to take meetings. It is not yet suited to B2C targeting the general public, or when you have not decided who to sell to.' },
+      { q: 'How soon can we start?', a: 'We recommend starting with one task. As a guide, the pilot (PoC) takes 2–4 weeks and production 1–3 months, depending on scope.' },
     ],
     service: { href: '/service/ai-sales', label: 'AI Sales' },
   },
@@ -264,6 +272,9 @@ const en: Guide[] = [
     ],
     faq: [
       { q: 'Do we always need Agentforce or Einstein licences?', a: 'It depends. Built-in AI needs the relevant licences, but connecting external AI via APIs may not.' },
+      { q: 'Will our Salesforce data be passed to external AI?', a: 'It depends on the design. We can build it so data stays inside, or so only a limited scope is shared, and we decide after making clear what information goes where.' },
+      { q: 'Does MGC sell Salesforce licences?', a: 'No. Because we do not resell licences, we compare built-in AI and custom builds without a conflict of interest. If you use built-in AI, you contract the licences directly with Salesforce.' },
+      { q: 'How long does it take?', a: 'We first review your data and processes and decide between built-in features and a custom build. After that, as a guide, the pilot (PoC) takes 2–4 weeks and production 1–3 months, depending on scope.' },
     ],
     service: { href: '/service/salesforce-ai', label: 'Salesforce AI' },
   },
@@ -307,7 +318,7 @@ export const GUIDE_SLUGS = ja.map((g) => g.slug);
 // 関連コラムなどの自動で変わる欄は内容の更新に含めない
 export const GUIDE_DATES: Record<string, { published: string; modified: string }> = {
   'ai-phone-vs-ivr-voicebot': { published: '2026-11-02', modified: '2026-11-02' },
-  'ai-sales-vs-telemarketing': { published: '2026-11-02', modified: '2026-11-03' },
-  'salesforce-standard-ai-vs-custom': { published: '2026-11-02', modified: '2026-11-02' },
+  'ai-sales-vs-telemarketing': { published: '2026-11-02', modified: '2026-11-12' },
+  'salesforce-standard-ai-vs-custom': { published: '2026-11-02', modified: '2026-11-12' },
   'ai-adoption-where-to-start': { published: '2026-11-04', modified: '2026-11-04' },
 };
