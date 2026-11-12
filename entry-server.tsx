@@ -54,6 +54,20 @@ const SERVICE_TYPE: Record<string, string> = {
   'salesforce-ai': 'Salesforce・CRMのAI活用支援',
 };
 
+// 本文の文字数（構造化データの wordCount。和文は文字数で数える。コラムと同じ扱い）
+const textLength = (v: unknown): number =>
+  typeof v === 'string' ? v.replace(/\s+/g, '').length : Array.isArray(v) ? v.reduce((n: number, x) => n + textLength(x), 0) : v && typeof v === 'object' ? Object.values(v).reduce((n: number, x) => n + textLength(x), 0) : 0;
+// ジャーナル記事が主に扱うサービス（本文の語の出現数で判定。3回以上の語のみ）
+const SERVICE_TOPICS: [string, RegExp][] = [
+  ['AI電話（音声AI）', /電話|音声|ボイス|コール/g],
+  ['AI営業', /営業|商談|アポ|セールス/g],
+  ['Salesforce AI', /Salesforce|kintone|CRM|SFA/g],
+];
+const topicsFor = (text: string) => {
+  const hits = SERVICE_TOPICS.filter(([, re]) => (text.match(re) || []).length >= 3).map(([name]) => ({ '@type': 'Thing', name }));
+  return hits.length ? hits : [{ '@type': 'Thing', name: 'AI導入・活用' }];
+};
+
 // ページごとの構造化データ（パンくず＋ページの種類に応じたもの）
 const jsonLdFor = (path: string): object[] => {
   const view = viewForPath(path);
@@ -107,6 +121,8 @@ const jsonLdFor = (path: string): object[] => {
         ...(GUIDE_DATES[g.slug] ? { datePublished: GUIDE_DATES[g.slug].published, dateModified: GUIDE_DATES[g.slug].modified } : {}),
         articleSection: '比較・選び方ガイド',
         about: { '@type': 'Thing', name: g.service.label },
+        isAccessibleForFree: true,
+        wordCount: textLength([g.lead, g.table, g.sections, g.faq]),
         inLanguage: 'ja',
         url: meta.url,
         image: [meta.image],
@@ -165,6 +181,8 @@ const jsonLdFor = (path: string): object[] => {
         description: cs.summary,
         ...(CASE_DATES[cs.slug] ? { datePublished: CASE_DATES[cs.slug].published, dateModified: CASE_DATES[cs.slug].modified } : {}),
         articleSection: '導入事例',
+        isAccessibleForFree: true,
+        wordCount: textLength([cs.summary, cs.challenge, cs.approach, cs.result, cs.flow]),
         about: cs.services.map((name) => ({ '@type': 'Thing', name })),
         inLanguage: 'ja',
         url: meta.url,
@@ -244,6 +262,9 @@ const jsonLdFor = (path: string): object[] => {
       dateModified: post.isoDate,
       inLanguage: 'ja',
       articleSection: post.category,
+      about: topicsFor(`${post.title}\n${post.content}`),
+      isAccessibleForFree: true,
+      wordCount: textLength(post.content),
       author: { '@type': 'Person', '@id': CEO_ID, name: '松尾 心夢', url: `${SITE_ORIGIN}/company` },
       publisher: {
         '@type': 'Organization',
