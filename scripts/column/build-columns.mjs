@@ -854,14 +854,21 @@ function updateSitemap() {
     `  <url><loc>${site.baseUrl}/column</loc><lastmod>${articles.map(lastmod).sort().pop()}</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>`,
     ...Object.keys(industriesByKey).filter((k) => articles.some((a) => a.industry === k)).map((k) =>
       `  <url><loc>${site.baseUrl}/column/industry/${k}</loc><lastmod>${articles.filter((a) => a.industry === k).map(lastmod).sort().pop()}</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>`),
-    ...articles.map((a) =>
-      `  <url><loc>${site.baseUrl}/column/${a.slug}</loc><lastmod>${lastmod(a)}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>`),
+    // 記事の画像（ページに表示しているサムネイル）を画像サイトマップとして添える
+    ...articles.map((a) => {
+      const img = a.image || industriesByKey[a.industry]?.fallbackImage;
+      const imgTag = img ? `<image:image><image:loc>${site.baseUrl}${esc(img)}</image:loc></image:image>` : '';
+      return `  <url><loc>${site.baseUrl}/column/${a.slug}</loc><lastmod>${lastmod(a)}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>${imgTag}</url>`;
+    }),
   ].join('\n');
   const block = `${START}\n${urls}\n  ${END}`;
 
   let xml;
   if (existsSync(SITEMAP)) {
     xml = readFileSync(SITEMAP, 'utf8');
+    // 画像サイトマップの名前空間（無ければ urlset に足す）
+    const IMG_NS = 'xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"';
+    if (!xml.includes(IMG_NS)) xml = xml.replace('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"', `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n        ${IMG_NS}`);
     if (xml.includes(START) && xml.includes(END)) {
       xml = xml.replace(new RegExp(`${START}[\\s\\S]*?${END}`), block);
     } else {
