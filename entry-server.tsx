@@ -334,6 +334,12 @@ const jsonLdFor = (path: string): object[] => {
         url: meta.url,
         inLanguage: 'ja',
         provider,
+        // ページに掲載している「習得できること」「対象」「主なテーマ」をそのまま渡す
+        teaches: c.outcomes,
+        ...(spec('対象') ? { audience: { '@type': 'EducationalAudience', audienceType: spec('対象') } } : {}),
+        syllabusSections: c.themes.map((t) => ({ '@type': 'Syllabus', name: t.heading, description: t.items.join('、') })),
+        ...(hours ? { timeRequired: `PT${hours}H` } : {}),
+        availableLanguage: ['ja'],
         ...(price ? { offers: { '@type': 'Offer', category: 'Paid', price, priceCurrency: 'JPY', description: '1名あたり（税込）', url: meta.url } } : {}),
         ...(modes.length && hours
           ? { hasCourseInstance: modes.map((m) => ({ '@type': 'CourseInstance', courseMode: m, courseWorkload: `PT${hours}H` })) }
