@@ -442,3 +442,7 @@
 - 計測: 数値は取得不可。日次コラムは Gemini の 402 で停止中（未解消）。本番は正常（`metrics/2026-11-13.md`）
 - llms.txt（build-columns.mjs）: 「よくある質問（要点）」6問を追加（研修の受講料／AIソリューションの費用（PoC 100〜300万円・本番は個別見積もり）／期間（パイロット運用2〜4週間・本番1〜3ヶ月）／初回相談・見積もり無料／京都以外も相談可・研修は対面とオンライン／Salesforceライセンスは再販せず直接契約）。冒頭に「最終更新」（記事と本体サイトの内容の更新日のうち最新。本体の日付は SITE_CONTENT_DATES）
 - ジャーナルの description: 本文から補う上限を、末尾の「（代表取締役 松尾 心夢のジャーナル）」を含めて120字以内に（127〜133字の3本 → 全11本 73〜120字）
+
+## 2026-11-13 サイクル39: 研修の Course 構造化データを充実
+- 点検: /training の Course（2コース）は name・description・provider・offers・hasCourseInstance のみで、ページに載せている「習得できること」「対象」「主なテーマ」が構造化データに無かった
+- entry-server.tsx: 各 Course に teaches（習得できること6項目）、audience（EducationalAudience: 対象）、syllabusSections（主なテーマ3つ＝Syllabus）、timeRequired（PT20H）、availableLanguage（ja）を追加。値はすべてページの掲載内容（translations の course.items）から取り、新しい事実は足していない
