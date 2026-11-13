@@ -155,7 +155,8 @@ const journalDescription = (post: { excerpt: string; content: string }, lang: st
   for (const sn of sentences) {
     if (d.length >= (ja ? 70 : 120)) break;
     const t = sn.trim();
-    if (t && (d + t).length <= (ja ? 120 : 220)) d += (ja ? '' : ' ') + t;
+    // 末尾の「（代表取締役 松尾 心夢のジャーナル）」（18字）を含めて120字以内に収める
+    if (t && (d + t).length <= (ja ? 102 : 220)) d += (ja ? '' : ' ') + t;
     else break;
   }
   return `${d}${ja ? '（代表取締役 松尾 心夢のジャーナル）' : ' — Journal by Kokomu Matsuo, CEO of MGC Inc.'}`;
