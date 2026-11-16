@@ -281,7 +281,7 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 .card{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#fff;display:flex;flex-direction:column;text-decoration:none;color:var(--ink);transition:border-color .25s,box-shadow .25s,transform .25s}
 .card:hover{border-color:var(--blue);text-decoration:none;box-shadow:0 12px 32px rgba(17,20,24,.08);transform:translateY(-3px)}
 .card .thumb{position:relative;overflow:hidden;background:var(--soft)}
-.card .thumb img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.22,1,.36,1)}
+.card .thumb img{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.22,1,.36,1)}
 .card:hover .thumb img{transform:scale(1.05)}
 .card .thumb .k{position:absolute;left:12px;top:12px;background:rgba(255,255,255,.94);color:var(--blue);font-size:.7rem;font-weight:800;border-radius:999px;padding:5px 12px;letter-spacing:.02em}
 .card .body{padding:18px 18px 20px;display:flex;flex-direction:column;gap:9px;flex:1}
@@ -369,7 +369,7 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 <h1 class="title">医療・介護の「退院支援」をAIで効率化 — 調整業務の属人化を防ぎ、連携を加速する</h1>
 <div class="meta"><a class="chip" href="/column/industry/healthcare">医療・介護</a><span><time datetime="2026-10-17">2026.10.17</time></span><span>更新 <time datetime="2026-11-03">2026.11.03</time></span><span>読了目安 12分</span><span>執筆：代表取締役 松尾 心夢</span></div>
 </header>
-<div class="hero-wrap"><img class="hero" src="/assets/column/healthcare-discharge-planning-coordination-ai.webp" alt="医療ソーシャルワーカーがタブレットを活用して地域の介護施設データベースを確認している様子" width="1400" height="788"/></div>
+<div class="hero-wrap"><img class="hero" src="/assets/column/healthcare-discharge-planning-coordination-ai.webp" alt="医療ソーシャルワーカーがタブレットを活用して地域の介護施設データベースを確認している様子" width="1400" height="788" fetchpriority="high"/></div>
 <main class="layout">
 <div class="col-main">
 <article class="article">
@@ -416,7 +416,7 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 </section>
 <section class="svc-links"><h2>このテーマに関するMGCのサービス</h2><ul><li><a href="/works/ai-solutions"><strong>AIソリューション</strong><span>何にAIを使うべきかの整理から、開発・導入・運用まで一貫して支援</span></a></li></ul></section>
 <section class="svc-links"><h2>比較・選び方ガイド</h2><ul><li><a href="/guide/ai-adoption-where-to-start"><strong>AI導入は何から始めるか — 最初の1業務の選び方と進め方</strong><span>社内の状況別の最初の一歩、最初に任せる1業務の選び方、進め方と期間・費用の目安</span></a></li></ul></section>
-<section class="related"><h2>医療・介護の関連コラム</h2><div class="grid"><a class="card" href="/column/healthcare-family-communication-ai"><span class="thumb"><img src="/assets/column/healthcare-family-communication-ai.webp" alt="スタッフがタブレットを使いながらご家族に笑顔で説明している様子" loading="lazy"/><span class="k">医療・介護</span></span><span class="body"><h3>医療・介護での家族対応にAIを — 信頼を深めスタッフの負担を減らす</h3><span class="foot">2026.10.30</span></span></a><a class="card" href="/column/healthcare-multilingual-staff-training-ai"><span class="thumb"><img src="/assets/column/healthcare-multilingual-staff-training-ai.webp" alt="介護現場でAI搭載のタブレットを活用し、外国人スタッフと入居者が笑顔でコミュニケーションをとる様子" loading="lazy"/><span class="k">医療・介護</span></span><span class="body"><h3>医療・介護の外国人材活用をAIで支える — 言語の壁を越え、教育を効率化する</h3><span class="foot">2026.10.05</span></span></a><a class="card" href="/column/healthcare-monitoring-sensing-ai"><span class="thumb"><img src="/assets/column/healthcare-monitoring-sensing-ai.webp" alt="介護施設でAIセンサーが居室の状況を静かに見守るイメージ" loading="lazy"/><span class="k">医療・介護</span></span><span class="body"><h3>医療・介護の「見守りAI」活用 — センサーとAIで現場の負担を減らす方法</h3><span class="foot">2026.09.23</span></span></a></div></section>
+<section class="related"><h2>医療・介護の関連コラム</h2><div class="grid"><a class="card" href="/column/healthcare-family-communication-ai"><span class="thumb"><img src="/assets/column/healthcare-family-communication-ai.webp" alt="スタッフがタブレットを使いながらご家族に笑顔で説明している様子" width="1400" height="788" loading="lazy" decoding="async"/><span class="k">医療・介護</span></span><span class="body"><h3>医療・介護での家族対応にAIを — 信頼を深めスタッフの負担を減らす</h3><span class="foot">2026.10.30</span></span></a><a class="card" href="/column/healthcare-multilingual-staff-training-ai"><span class="thumb"><img src="/assets/column/healthcare-multilingual-staff-training-ai.webp" alt="介護現場でAI搭載のタブレットを活用し、外国人スタッフと入居者が笑顔でコミュニケーションをとる様子" width="1400" height="788" loading="lazy" decoding="async"/><span class="k">医療・介護</span></span><span class="body"><h3>医療・介護の外国人材活用をAIで支える — 言語の壁を越え、教育を効率化する</h3><span class="foot">2026.10.05</span></span></a><a class="card" href="/column/healthcare-monitoring-sensing-ai"><span class="thumb"><img src="/assets/column/healthcare-monitoring-sensing-ai.webp" alt="介護施設でAIセンサーが居室の状況を静かに見守るイメージ" width="1400" height="788" loading="lazy" decoding="async"/><span class="k">医療・介護</span></span><span class="body"><h3>医療・介護の「見守りAI」活用 — センサーとAIで現場の負担を減らす方法</h3><span class="foot">2026.09.23</span></span></a></div></section>
 <p class="disclaimer">本コラムは一般的な情報提供を目的としたもので、特定の成果を保証するものではありません。導入可否や効果は、企業の状況・データ・体制により異なります。具体的なご相談は個別にお問い合わせください。</p>
 <a class="back-link" href="/column">← コラム一覧へ戻る</a>
 </article>

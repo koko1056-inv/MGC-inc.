@@ -194,7 +194,7 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 .card{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#fff;display:flex;flex-direction:column;text-decoration:none;color:var(--ink);transition:border-color .25s,box-shadow .25s,transform .25s}
 .card:hover{border-color:var(--blue);text-decoration:none;box-shadow:0 12px 32px rgba(17,20,24,.08);transform:translateY(-3px)}
 .card .thumb{position:relative;overflow:hidden;background:var(--soft)}
-.card .thumb img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.22,1,.36,1)}
+.card .thumb img{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.22,1,.36,1)}
 .card:hover .thumb img{transform:scale(1.05)}
 .card .thumb .k{position:absolute;left:12px;top:12px;background:rgba(255,255,255,.94);color:var(--blue);font-size:.7rem;font-weight:800;border-radius:999px;padding:5px 12px;letter-spacing:.02em}
 .card .body{padding:18px 18px 20px;display:flex;flex-direction:column;gap:9px;flex:1}
@@ -490,7 +490,7 @@ function articleHtml(a) {
   const relatedHtml = related.length ? `<section class="related"><h2>${esc(ind.ja)}の関連コラム</h2><div class="grid">${related
     .map((r) => {
       const rimg = r.image || industriesByKey[r.industry].fallbackImage;
-      return `<a class="card" href="/column/${r.slug}"><span class="thumb"><img src="${esc(rimg)}" alt="${esc(r.imageAlt || r.title)}" loading="lazy"/><span class="k">${esc(industriesByKey[r.industry].ja)}</span></span><span class="body"><h3>${esc(r.title)}</h3><span class="foot">${esc(r.date.replace(/-/g, '.'))}</span></span></a>`;
+      return `<a class="card" href="/column/${r.slug}"><span class="thumb"><img src="${esc(rimg)}" alt="${esc(r.imageAlt || r.title)}" width="1400" height="788" loading="lazy" decoding="async"/><span class="k">${esc(industriesByKey[r.industry].ja)}</span></span><span class="body"><h3>${esc(r.title)}</h3><span class="foot">${esc(r.date.replace(/-/g, '.'))}</span></span></a>`;
     })
     .join('')}</div></section>` : '';
 
@@ -547,7 +547,7 @@ ${header('/column')}
 <h1 class="title">${esc(a.title)}</h1>
 <div class="meta"><a class="chip" href="/column/industry/${esc(a.industry)}">${esc(ind.ja)}</a><span><time datetime="${esc(a.date)}">${esc(a.date.replace(/-/g, '.'))}</time></span>${lastmod(a) > a.date ? `<span>更新 <time datetime="${esc(lastmod(a))}">${esc(lastmod(a).replace(/-/g, '.'))}</time></span>` : ''}${a.readTime ? `<span>読了目安 ${esc(a.readTime)}</span>` : ''}<span>執筆：${AUTHOR.role} ${AUTHOR.name}</span></div>
 </header>
-<div class="hero-wrap"><img class="hero" src="${esc(img)}" alt="${esc(a.imageAlt || a.title)}" width="1400" height="788"/></div>
+<div class="hero-wrap"><img class="hero" src="${esc(img)}" alt="${esc(a.imageAlt || a.title)}" width="1400" height="788" fetchpriority="high"/></div>
 <main class="layout">
 <div class="col-main">
 <article class="article">
@@ -630,7 +630,7 @@ function indexHtml() {
   const cardHtml = (a) => {
     const ind = industriesByKey[a.industry];
     const img = a.image || ind.fallbackImage;
-    return `<a class="card" data-ind="${esc(a.industry)}" href="/column/${a.slug}"><span class="thumb"><img src="${esc(img)}" alt="${esc(a.imageAlt || a.title)}" loading="lazy"/><span class="k">${esc(ind.ja)}</span></span><span class="body"><h3>${esc(a.title)}</h3><span class="d">${esc(excerpt(a))}</span><span class="foot"><span>${esc(a.date.replace(/-/g, '.'))}</span>${a.readTime ? `<span>読了 ${esc(a.readTime)}</span>` : ''}</span></span></a>`;
+    return `<a class="card" data-ind="${esc(a.industry)}" href="/column/${a.slug}"><span class="thumb"><img src="${esc(img)}" alt="${esc(a.imageAlt || a.title)}" width="1400" height="788" loading="lazy" decoding="async"/><span class="k">${esc(ind.ja)}</span></span><span class="body"><h3>${esc(a.title)}</h3><span class="d">${esc(excerpt(a))}</span><span class="foot"><span>${esc(a.date.replace(/-/g, '.'))}</span>${a.readTime ? `<span>読了 ${esc(a.readTime)}</span>` : ''}</span></span></a>`;
   };
 
   // 最新の1本は大きく見せる
@@ -638,7 +638,7 @@ function indexHtml() {
   const featuredHtml = top ? (() => {
     const ind = industriesByKey[top.industry];
     const img = top.image || ind.fallbackImage;
-    return `<section class="featured"><a href="/column/${top.slug}"><span class="thumb"><img src="${esc(img)}" alt="${esc(top.imageAlt || top.title)}"/></span><span class="body"><span class="tag"><span class="pill">Featured</span><span class="chip">${esc(ind.ja)}</span></span><h2>${esc(top.title)}</h2><p>${esc(excerpt(top))}</p><span class="foot"><span>${esc(top.date.replace(/-/g, '.'))}</span>${top.readTime ? `<span>読了 ${esc(top.readTime)}</span>` : ''}</span></span></a></section>`;
+    return `<section class="featured"><a href="/column/${top.slug}"><span class="thumb"><img src="${esc(img)}" alt="${esc(top.imageAlt || top.title)}" width="1400" height="788" fetchpriority="high"/></span><span class="body"><span class="tag"><span class="pill">Featured</span><span class="chip">${esc(ind.ja)}</span></span><h2>${esc(top.title)}</h2><p>${esc(excerpt(top))}</p><span class="foot"><span>${esc(top.date.replace(/-/g, '.'))}</span>${top.readTime ? `<span>読了 ${esc(top.readTime)}</span>` : ''}</span></span></a></section>`;
   })() : '';
 
   const rest = articles.slice(1);
@@ -798,9 +798,11 @@ function industryHtml(key) {
     ] },
   ];
   const excerpt = (a) => a.description || `${plainText(a).slice(0, 90)}…`;
-  const cards = list.map((a) => {
+  const cards = list.map((a, i) => {
     const img = a.image || ind.fallbackImage;
-    return `<a class="card" href="/column/${a.slug}"><span class="thumb"><img src="${esc(img)}" alt="${esc(a.imageAlt || a.title)}" loading="lazy"/><span class="k">${esc(ind.ja)}</span></span><span class="body"><h2 class="h3">${esc(a.title)}</h2><span class="d">${esc(excerpt(a))}</span><span class="foot"><span>${esc(a.date.replace(/-/g, '.'))}</span>${a.readTime ? `<span>読了 ${esc(a.readTime)}</span>` : ''}</span></span></a>`;
+    // 先頭のカードは画面の最初に見える（LCP になりやすい）ので遅延読み込みにせず優先して読む
+    const load = i === 0 ? 'fetchpriority="high"' : 'loading="lazy" decoding="async"';
+    return `<a class="card" href="/column/${a.slug}"><span class="thumb"><img src="${esc(img)}" alt="${esc(a.imageAlt || a.title)}" width="1400" height="788" ${load}/><span class="k">${esc(ind.ja)}</span></span><span class="body"><h2 class="h3">${esc(a.title)}</h2><span class="d">${esc(excerpt(a))}</span><span class="foot"><span>${esc(a.date.replace(/-/g, '.'))}</span>${a.readTime ? `<span>読了 ${esc(a.readTime)}</span>` : ''}</span></span></a>`;
   }).join('');
   const others = Object.keys(industriesByKey).filter((k) => k !== key && articles.some((a) => a.industry === k));
   const svc = ['hr', 'education'].includes(key) ? { href: '/training', label: 'AI活用リスキリング研修' } : { href: '/works/ai-solutions', label: 'AIソリューション' };
