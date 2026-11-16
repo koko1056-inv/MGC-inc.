@@ -174,6 +174,12 @@ export const en: Translation = {
         a: 'MGC Inc. is headquartered in Kamigyo-ku, Kyoto. Consultations start with a 30-minute online meeting, and we welcome companies outside Kyoto. Training is available in person or online (live, interactive).',
       },
       {
+        q: 'Do you offer anything for small businesses and shops?',
+        a: 'Yes: MOSHITEL, our own AI phone reception product. When you cannot pick up after hours or while serving customers, AI answers 24 hours a day, takes down bookings and inquiries, and sends you a summary. Choose your industry, what to handle and a voice, and try it for free on the spot (no sign-up; the site is in Japanese). Pricing is quoted individually based on call volume and scope.',
+        link: '/service/ai-phone',
+        linkLabel: 'See MOSHITEL on the AI Phone page',
+      },
+      {
         q: 'Can you integrate with our existing systems?',
         a: 'Yes. We integrate with CRMs such as Salesforce and kintone, chat tools like Slack, Microsoft Teams and LINE, and core systems via API. We are vendor-neutral — we choose the stack that fits your environment.',
       },

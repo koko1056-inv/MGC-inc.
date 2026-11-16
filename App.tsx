@@ -1826,6 +1826,8 @@ const JournalCards: React.FC<{ posts: ReturnType<typeof journalPosts>; onNavigat
 };
 
 // ジャーナル記事の個別ページ（/blog/<slug>）
+const MOSHITEL_JOURNAL = ['redefining-voice-phone-operations', 'elevenlabs-lovable-voice-revolution'];
+
 const JournalPostView: React.FC<{ slug: string; onNavigate: (view: ViewState) => void; onNavigatePath: (path: string) => void }> = ({ slug, onNavigate, onNavigatePath }) => {
   const { t, lang } = useLanguage();
   const post = findJournalPost(lang, slug);
@@ -1883,6 +1885,10 @@ const JournalPostView: React.FC<{ slug: string; onNavigate: (view: ViewState) =>
           const svc = g0 ? { href: g0.service.href, label: g0.service.label, kind: kindSvc } : null;
           return <RelatedReading title={lang === 'ja' ? 'あわせて読みたい' : 'Related reading'} items={[...(svc ? [svc] : []), ...guideReading(lang, gs), ...columnReading(lang, columnsForGuides(gs, 2))]} />;
         })()}
+        {/* 電話・音声AIを扱う記事には、自社プロダクトのAI電話受付を */}
+        {MOSHITEL_JOURNAL.includes(post.slug) && (
+          <div className="mt-16"><MoshitelSection placement={`journal-${post.slug}`} showRelation={false} /></div>
+        )}
         <section className="mt-24 md:mt-32">
           <h2 className="text-2xl md:text-3xl font-bold text-offblack tracking-tight mb-8">{lang === 'ja' ? 'ほかの記事' : 'More from the journal'}</h2>
           <JournalCards posts={others} onNavigatePath={onNavigatePath} />
@@ -3843,6 +3849,15 @@ const ServiceView: React.FC<{ serviceKey: ServiceKey; onNavigate?: (view: ViewSt
                       </a>
                     )}
                   </div>
+                  {/* 中小企業・店舗の方は、自社プロダクト（すぐ試せるAI電話受付）へ */}
+                  {serviceKey === 'ai-phone' && (
+                    <p className="mt-6 text-sm md:text-base text-[#1A2233] leading-[1.8]">
+                      {lang === 'ja' ? '中小企業・お店の方へ：' : 'Small business or shop? '}
+                      <a href="#moshitel" className="font-bold text-[#2D6CDF] underline underline-offset-4">
+                        {lang === 'ja' ? 'すぐに無料で試せるAI電話受付「MOSHITEL」' : 'Try MOSHITEL, AI phone reception you can test for free'}
+                      </a>
+                    </p>
+                  )}
                 </div>
               </div>
             </Reveal>
