@@ -82,6 +82,7 @@
 | 63 | ✅ C39 | 研修の Course 構造化データに teaches（習得できること6項目）・audience（対象）・syllabusSections（主なテーマ3つ）・timeRequired・availableLanguage（ページの掲載内容のみ） | 「何が学べるか・誰向けか」をAI・検索に機械可読で渡す | 小 |
 | 64 | ✅ C40 | コラムの RSS フィード（/column/feed.xml、新しい順に30本）。全ページの head に自動検出リンク、llms.txt に URL | 新しい記事の発見を早める（フィードリーダー・検索エンジン・AIのクローラー）。フィードが無かった | 小 |
 | 65 | ✅ C41 | Organization に法人番号（identifier）・legalName・国税庁の法人番号公表サイトへの sameAs・郵便番号。コラム画像に width/height と読み込みの優先度（LCP の画像は fetchpriority="high"） | 会社をエンティティとして確実に特定させる（同名の会社との取り違え防止）／表示速度の指標を良好のまま保つ | 小 |
+| 66 | ✅ C42 | llms.txt にジャーナル（11本）と用語集（31語）の節。GitHub Actions の checkout/setup-node を v5（Node 24）へ | AIがジャーナル・用語集を辿れるように／Node 20 の廃止で自動投稿・レポートが止まるのを防ぐ | 小 |
 | 33 | ✅ | コラムの標準化: スタイルガイド・サムネイル全差し替え・全95本の本文の書き直し | 記事の質と見た目の統一 | 大 |
 
 ## 保留（事実の確認が必要なもの。作らない）
