@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MGC AI活用コラム</title>
+    <link>https://mgc-global01.com/column</link>
+    <atom:link href="https://mgc-global01.com/column/feed.xml" rel="self" type="application/rss+xml"/>
+    <description>業界別に、AIの現実的な活用方法を実務目線で解説するＭＧＣ株式会社のコラム。</description>
+    <language>ja</language>
+    <lastBuildDate>Fri, 06 Nov 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>自治体の業務継続とAI — 属人化を防ぎ、知見を次世代につなぐ活用術</title>
+      <link>https://mgc-global01.com/column/public-continuity-knowledge-management-ai</link>
+      <guid isPermaLink="true">https://mgc-global01.com/column/public-continuity-knowledge-management-ai</guid>
+      <pubDate>Fri, 06 Nov 2026 00:00:00 GMT</pubDate>
+      <category>自治体・公共</category>
+      <description>自治体におけるAI活用の新たな視点として、業務の属人化解消と知見継承に焦点を当てた解説記事です。職員の異動や退職に伴うノウハウ流出を防ぎ、業務継続性を高めるためのAI導入ステップと確認項目を、現場目線のチェックリスト形式で紹介します。</description>
+    </item>
+    <item>
+      <title>内部登用を活性化するAIスキルマップの作り方 — 社内人材の最適配置を実現する</title>
+      <link>https://mgc-global01.com/column/hr-internal-mobility-ai-skills</link>
+      <guid isPermaLink="true">https://mgc-global01.com/column/hr-internal-mobility-ai-skills</guid>
+      <pubDate>Thu, 05 Nov 2026 00:00:00 GMT</pubDate>
+      <category>人材・採用</category>
+      <description>社内人材のスキルを可視化し、最適な配置や内部登用を促進するためのAI活用法を解説。スキルマップの自動作成から、キャリアパス提示の自動化まで、実務的な導入ステップと確認項目をまとめました。</description>
+    </item>
+    <item>
+      <title>AIによる教材作成・更新の効率化 — 質の高い学習コンテンツを継続的に届けるための確認項目</title>
+      <link>https://mgc-global01.com/column/education-learning-content-automation-checklist</link>
+      <guid isPermaLink="true">https://mgc-global01.com/column/education-learning-content-automation-checklist</guid>
+      <pubDate>Wed, 04 Nov 2026 00:00:00 GMT</pubDate>
+      <category>教育</category>
+      <description>教材作成や更新に追われる教育現場の負担をAIで軽減する方法を解説。既存資料のAI化、最新情報の取り込み、多言語対応など、導入前に確認すべき5つの観点をチェックリスト形式で紹介します。</description>
+    </item>
+    <item>
+      <title>AI導入費用の内訳の考え方 — 初期費用・月額費用・実費をどう見るか</title>
+      <link>https://mgc-global01.com/column/ai-cost-breakdown-initial-monthly-usage</link>
+      <guid isPermaLink="true">https://mgc-global01.com/column/ai-cost-breakdown-initial-monthly-usage</guid>
+      <pubDate>Tue, 03 Nov 2026 00:00:00 GMT</pubDate>
+      <category>業種共通</category>
+      <description>AI導入の費用は、総額だけでは比べられません。初期費用・月額費用・実費（従量）の3つに分けて、それぞれに何が含まれるか、金額を変える要因は何か、見積もりを比べるときの観点を解説します。</description>
+    </item>
+    <item>
+      <title>法人向けAI研修の選び方チェックリスト — 「受けて終わり」にしないための確認項目</title>
+      <link>https://mgc-global01.com/column/ai-training-selection-checklist</link>
+      <guid isPermaLink="true">https://mgc-global01.com/column/ai-training-selection-checklist</guid>
+      <pubDate>Tue, 03 Nov 2026 00:00:00 GMT</pubDate>
+      <category>業種共通</category>
+      <description>法人向けのAI研修を選ぶときに確認したい項目をチェックリストにまとめました。対象と前提、内容、形式と時間、費用の示し方、研修のあとの支援まで。比べる前に自社で決めておくことも解説します。</description>
+    </item>
+    <item>
+      <title>金融不正検知にAIをどう組み込むか — 誤検知の山を減らし「真のリスク」に注力する</title>
+      <link>https://mgc-global01.com/column/finance-fraud-detection-operational-resilience</link>
+      <guid isPermaLink="true">https://mgc-global01.com/column/finance-fraud-detection-operational-resilience</guid>
+      <pubDate>Mon, 02 Nov 2026 00:00:00 GMT</pubDate>
+      <category>金融・保険</category>
+      <description>金融機関の不正検知・AML（マネロン対策）にAIを導入する現実的な進め方。従来のルールベースの限界を突破し、膨大な誤検知を減らして「真のリスク」を特定する手法、実務での役割分担、導入のステップを解説します。</description>
+    </item>
+    <item>
+      <title>士業のAI活用は「作業」から「伴走」へ — 専門知を拡張する実務の再設計</title>
+      <link>https://mgc-global01.com/column/professional-strategic-ai-partner</link>
+      <guid isPermaLink="true">https://mgc-global01.com/column/professional-strategic-ai-partner</guid>
+      <pubDate>Sun, 01 Nov 2026 00:00:00 GMT</pubDate>
+      <category>士業（会計・法務）</category>
+      <description>士業（会計・法務）におけるAI導入の現実的な進め方を解説。単なる定型業務の自動化を超え、膨大な判例や法令の調査、リスク検知、クライアント対応にどうAIを組み込むか。専門家としての判断力を最大化するための「人AI共生」の設計図を提示します。</description>
+    </item>
+    <item>
+      <title>飲食・ホテルの「品質のバラツキ」と「廃棄」をAIで解決する — 現場の勘をデータに変える具体策</title>
+      <link>https://mgc-global01.com/column/hospitality-quality-standardization-and-waste-reduction</link>
+      <guid isPermaLink="true">https://mgc-global01.com/column/hospitality-quality-standardization-and-waste-reduction</guid>
+      <pubDate>Sat, 31 Oct 2026 00:00:00 GMT</pubDate>
+      <category>飲食・ホテル</category>
+      <description>飲食やホテル業界で課題となるサービス品質の属人化と食材・アメニティの廃棄ロス。AIを導入して現場の「勘」をデータ化し、標準化と効率化を両立する現実的な方法を解説します。清掃チェックから需要予測まで、実務に即した導入手順を紹介。</description>
+    </item>
+    <item>
+      <title>医療・介護での家族対応にAIを — 信頼を深めスタッフの負担を減らす</title>
+      <link>https://mgc-global01.com/column/healthcare-family-communication-ai</link>
+      <guid isPermaLink="true">https://mgc-global01.com/column/healthcare-family-communication-ai</guid>
+      <pubDate>Fri, 30 Oct 2026 00:00:00 GMT</pubDate>
+      <category>医療・介護</category>
+      <description>医療・介護現場でのご家族への報告や問い合わせ対応にAIを導入し、スタッフの負担軽減と満足度向上を両立させる具体的な方法を解説。ケア記録の自動要約やAIチャットボットの活用、プライバシー保護の注意点まで実務目線でまとめました。</description>
+    </item>
+    <item>
+      <title>物流の安全管理をAIで強化する — 「事故の芽」を摘む現場作り</title>
+      <link>https://mgc-global01.com/column/logistics-safety-management-ai</link>
+      <guid isPermaLink="true">https://mgc-global01.com/column/logistics-safety-management-ai</guid>
+      <pubDate>Thu, 29 Oct 2026 00:00:00 GMT</pubDate>
+      <category>物流</category>
+      <description>物流業界の安全管理にAIを導入し、交通事故や倉庫内事故を未然に防ぐ現実的な手法。AIドラレコや監視カメラによるリスク検知、ドライバーの心理的抵抗の解消法、データに基づく安全教育の進め方まで、実務目線で詳しく解説します。</description>
+    </item>
+    <item>
+      <title>小売・ECのMDをAIで変革する — 勘と経験に「市場の予兆」を掛け合わせる</title>
+      <link>https://mgc-global01.com/column/retail-ai-md-merchandising-trends</link>
+      <guid isPermaLink="true">https://mgc-global01.com/column/retail-ai-md-merchandising-trends</guid>
+      <pubDate>Wed, 28 Oct 2026 00:00:00 GMT</pubDate>
+      <category>小売・EC</category>
+      <description>小売業やECのMD（商品計画）にAIを導入し、トレンド予測や仕入れ判断の精度を高める方法を解説。ベテランの勘や経験をデータで裏付け、欠品や過剰在庫を防ぎつつ、消費者の「今欲しい」を捉えるための実務的なステップを詳しく紹介します。</description>
+    </item>
+    <item>
+      <title>不動産仲介・管理でAIをどう使うか — リフォーム提案と概算見積を効率化する</title>
+      <link>https://mgc-global01.com/column/real-estate-renovation-proposal-ai</link>
+      <guid isPermaLink="true">https://mgc-global01.com/column/real-estate-renovation-proposal-ai</guid>
+      <pubDate>Mon, 26 Oct 2026 00:00:00 GMT</pubDate>
+      <category>不動産</category>
+      <description>不動産仲介や管理業務において、AIを活用してリフォーム提案や概算見積を効率化する方法を解説。現場で即答できる概算シミュレーションや、AIによるビジュアル提案で、成約率向上と業務負荷軽減を両立する現実的な進め方を紹介します。</description>
+    </item>
+    <item>
+      <title>建設業の見積・積算にAIをどう使うか — 勘と経験を利益に変える仕組み</title>
+      <link>https://mgc-global01.com/column/construction-cost-estimation-ai</link>
+      <guid isPermaLink="true">https://mgc-global01.com/column/construction-cost-estimation-ai</guid>
+      <pubDate>Sun, 25 Oct 2026 00:00:00 GMT</pubDate>
+      <category>建設業</category>
+      <description>建設業の経営を左右する見積・積算業務へのAI導入方法。過去の膨大なデータからリスクを予兆し、熟練者のノウハウを標準化する方法、資材価格の変動対応など、実務目線の導入ステップを解説します。</description>
+    </item>
+    <item>
+      <title>製造業の在庫最適化にAIをどう活かすか — 「適正在庫」をデータで導き出す</title>
+      <link>https://mgc-global01.com/column/manufacturing-inventory-optimization-ai</link>
+      <guid isPermaLink="true">https://mgc-global01.com/column/manufacturing-inventory-optimization-ai</guid>
+      <pubDate>Sat, 24 Oct 2026 00:00:00 GMT</pubDate>
+      <category>製造業</category>
+      <description>製造現場の在庫管理にAIを導入し、過剰在庫と欠品を同時に防ぐ現実的な進め方。経験則に頼った発注から、需要予測と連動したデータ主導の管理へ。ステップ、データの整え方、運用の注意点を実務目線で解説します。</description>
+    </item>
+    <item>
+      <title>自治体がAIで描く地域の未来 — 政策立案と活性化をデータで支える</title>
+      <link>https://mgc-global01.com/column/public-regional-revitalization-ai-strategy</link>
+      <guid isPermaLink="true">https://mgc-global01.com/column/public-regional-revitalization-ai-strategy</guid>
+      <pubDate>Fri, 23 Oct 2026 00:00:00 GMT</pubDate>
+      <category>自治体・公共</category>
+      <description>自治体が地域課題を解決し、活性化を推進するためにAIをどう活用すべきか。事務効率化の先にある、データに基づいた政策立案（EBPM）の実現、地域経済の支援、住民理解の得方まで、実務的なステップを解説します。</description>
+    </item>
+    <item>
+      <title>求人票とスカウトをAIで改善する — 候補者の心に刺さる「言語化」の自動化</title>
+      <link>https://mgc-global01.com/column/hr-job-description-scout-ai</link>
+      <guid isPermaLink="true">https://mgc-global01.com/column/hr-job-description-scout-ai</guid>
+      <pubDate>Thu, 22 Oct 2026 00:00:00 GMT</pubDate>
+      <category>人材・採用</category>
+      <description>採用難を突破するためのAI活用術。求人票の作成やスカウト文面のパーソナライズをAIで効率化し、候補者の反応率を高める具体的な手順を解説します。現場の負担軽減と採用精度の向上を両立させる、実務目線の導入ガイドです。</description>
+    </item>
+    <item>
+      <title>生徒の「心の変化」をAIで見守る — 不登校予兆や孤立を防ぐ現場の活用術</title>
+      <link>https://mgc-global01.com/column/education-student-wellbeing-ai-monitoring</link>
+      <guid isPermaLink="true">https://mgc-global01.com/column/education-student-wellbeing-ai-monitoring</guid>
+      <pubDate>Wed, 21 Oct 2026 00:00:00 GMT</pubDate>
+      <category>教育</category>
+      <description>教育現場で生徒のメンタルヘルスや不登校の予兆をAIで早期発見する具体的な方法を解説。AIを監視ではなく「気づき」のツールとして活用し、教師の経験を補完する運用フロー、プライバシー保護の考え方まで、実務目線で詳しく紹介します。</description>
+    </item>
+    <item>
+      <title>金融実務の「内部知見」をAIで活用する — 膨大な規定やマニュアルを現場の武器に</title>
+      <link>https://mgc-global01.com/column/finance-knowledge-management-compliance-ai</link>
+      <guid isPermaLink="true">https://mgc-global01.com/column/finance-knowledge-management-compliance-ai</guid>
+      <pubDate>Tue, 20 Oct 2026 00:00:00 GMT</pubDate>
+      <category>金融・保険</category>
+      <description>金融・保険業界の膨大な社内規定や商品マニュアルをAIで効率的に活用する方法を解説。RAG（検索拡張生成）を用いた情報検索の高度化や、コンプライアンスチェックの自動化など、現場の負担を減らしつつ品質を維持する導入の急所を実務目線でまとめます。</description>
+    </item>
+    <item>
+      <title>士業がAIを味方につける現実解 — リスク管理と「組織の知」のデジタル化</title>
+      <link>https://mgc-global01.com/column/professional-risk-management-knowledge-digitization</link>
+      <guid isPermaLink="true">https://mgc-global01.com/column/professional-risk-management-knowledge-digitization</guid>
+      <pubDate>Mon, 19 Oct 2026 00:00:00 GMT</pubDate>
+      <category>士業（会計・法務）</category>
+      <description>会計・法務等の士業がAIを導入する際の現実的な進め方を解説。ハルシネーション対策から、属人化した専門知識を組織の資産に変える方法、セキュリティの担保まで。実務目線で「AIと人の役割分担」の最適解を提示します。</description>
+    </item>
+    <item>
+      <title>飲食・ホテルのシフト作成をAIで変える — 属人化を排し「働きやすさ」と「売上」を両立する</title>
+      <link>https://mgc-global01.com/column/hospitality-shift-optimization-and-labor-management</link>
+      <guid isPermaLink="true">https://mgc-global01.com/column/hospitality-shift-optimization-and-labor-management</guid>
+      <pubDate>Sun, 18 Oct 2026 00:00:00 GMT</pubDate>
+      <category>飲食・ホテル</category>
+      <description>飲食・ホテル業界の大きな悩みであるシフト作成。店長やマネージャーの経験に頼っていた人員配置をAIで最適化し、過不足のない運営を実現する方法を解説。労務遵守と現場の満足度を両立させる現実的な進め方を紹介します。</description>
+    </item>
+    <item>
+      <title>医療・介護の「退院支援」をAIで効率化 — 調整業務の属人化を防ぎ、連携を加速する</title>
+      <link>https://mgc-global01.com/column/healthcare-discharge-planning-coordination-ai</link>
+      <guid isPermaLink="true">https://mgc-global01.com/column/healthcare-discharge-planning-coordination-ai</guid>
+      <pubDate>Sat, 17 Oct 2026 00:00:00 GMT</pubDate>
+      <category>医療・介護</category>
+      <description>医療・介護現場における「退院支援・地域連携」へのAI導入。MSWやケアマネジャーの調整業務をどう効率化し、最適な転院・入所先選びを支援するか。属人化の解消とスピーディな連携を実現する現実的な進め方を解説します。</description>
+    </item>
+    <item>
+      <title>物流の積載率向上にAIをどう使うか — 「積み付け」の属人化を解消する現実的なアプローチ</title>
+      <link>https://mgc-global01.com/column/logistics-loading-optimization-ai</link>
+      <guid isPermaLink="true">https://mgc-global01.com/column/logistics-loading-optimization-ai</guid>
+      <pubDate>Fri, 16 Oct 2026 00:00:00 GMT</pubDate>
+      <category>物流</category>
+      <description>物流現場の積載率向上にAIを活用する現実的な進め方。熟練者の勘に頼っていた積み付け（配車・積み込み）をAIでどうデジタル化し、実務に落とし込むか。データ整備から現場への定着、配送順序を考慮した最適化まで解説します。</description>
+    </item>
+    <item>
+      <title>小売・ECの利益率を最大化する「AI価格最適化」の現実的な導入ステップ</title>
+      <link>https://mgc-global01.com/column/retail-dynamic-pricing-markdown-optimization</link>
+      <guid isPermaLink="true">https://mgc-global01.com/column/retail-dynamic-pricing-markdown-optimization</guid>
+      <pubDate>Thu, 15 Oct 2026 00:00:00 GMT</pubDate>
+      <category>小売・EC</category>
+      <description>小売・EC業界で利益率を改善するAI価格最適化（ダイナミックプライシング・マークダウン最適化）の導入ガイド。勘に頼らない価格設定、在庫処分の自動化、現場での運用ルールまで、実務目線で具体的に解説します。</description>
+    </item>
+    <item>
+      <title>不動産広告の質をAIで高める — 物件写真の加工と紹介文作成を自動化する</title>
+      <link>https://mgc-global01.com/column/real-estate-listing-content-creation-ai</link>
+      <guid isPermaLink="true">https://mgc-global01.com/column/real-estate-listing-content-creation-ai</guid>
+      <pubDate>Wed, 14 Oct 2026 00:00:00 GMT</pubDate>
+      <category>不動産</category>
+      <description>不動産仲介・管理業務で負担の大きい「物件広告作成」にAIを導入する現実的な進め方。写真の不要物消去や画質補正、魅力的な紹介文の自動生成など、現場の工数を削減しつつ反響率を高める具体的な手法を解説します。</description>
+    </item>
+    <item>
+      <title>建設現場の進捗管理をAIで半自動化する — 写真から「できかた」を判定する実務</title>
+      <link>https://mgc-global01.com/column/construction-progress-management-ai</link>
+      <guid isPermaLink="true">https://mgc-global01.com/column/construction-progress-management-ai</guid>
+      <pubDate>Tue, 13 Oct 2026 00:00:00 GMT</pubDate>
+      <category>建設業</category>
+      <description>建設業の施工管理において負担の大きい進捗確認と写真整理をAIで効率化する手法を解説。現場写真から「できかた」を自動判定し、工期遅延を早期検知。リモート施工管理の実現に向けた、現場に無理のない導入ステップとデータの活用法を紹介します。</description>
+    </item>
+    <item>
+      <title>製造現場の「技術資料探し」をAIで効率化する — 熟練者の知恵と過去図面を資産に変える完全ガイド</title>
+      <link>https://mgc-global01.com/column/manufacturing-knowledge-management-ai</link>
+      <guid isPermaLink="true">https://mgc-global01.com/column/manufacturing-knowledge-management-ai</guid>
+      <pubDate>Mon, 12 Oct 2026 00:00:00 GMT</pubDate>
+      <category>製造業</category>
+      <description>製造現場の「過去資料探し」を生成AI（RAG）で解決。熟練者の知恵をデジタル資産化し、図面や不具合記録を即座に引き出す実務的な導入手順、データの整理術、つまずきポイントをMGCが徹底解説します。</description>
+    </item>
+    <item>
+      <title>自治体のAI導入、何から手をつける？ — 内部事務の効率化と「職員の判断」を両立する</title>
+      <link>https://mgc-global01.com/column/public-ai-internal-document-optimization</link>
+      <guid isPermaLink="true">https://mgc-global01.com/column/public-ai-internal-document-optimization</guid>
+      <pubDate>Sun, 11 Oct 2026 00:00:00 GMT</pubDate>
+      <category>自治体・公共</category>
+      <description>自治体がAIを導入する際の現実的な進め方を解説。議事録作成や政策立案の補助など、リスクの低い内部事務から始めるステップ、個人情報保護のガイドライン策定、職員の「判断」を損なわない運用ルールまで、実務目線で具体的に紹介します。</description>
+    </item>
+    <item>
+      <title>人材・採用業界のEXをAIで変える — 社内ナレッジの民主化と個別最適化の進め方</title>
+      <link>https://mgc-global01.com/column/hr-employee-experience-knowledge-ai</link>
+      <guid isPermaLink="true">https://mgc-global01.com/column/hr-employee-experience-knowledge-ai</guid>
+      <pubDate>Sat, 10 Oct 2026 00:00:00 GMT</pubDate>
+      <category>人材・採用</category>
+      <description>人材・採用業界における従業員体験（EX）向上のためのAI活用法を解説。属人化しがちな営業ノウハウや労務知識をAIで共有・活用し、現場の負担を軽減しながらエンゲージメントを高める、現実的な導入ステップと注意点を実務目線で紹介します。</description>
+    </item>
+    <item>
+      <title>教育現場の「指導力」をAIで底上げする — 熟練の知恵を資産化し、若手を支える仕組み</title>
+      <link>https://mgc-global01.com/column/education-teacher-skill-upgrading-ai</link>
+      <guid isPermaLink="true">https://mgc-global01.com/column/education-teacher-skill-upgrading-ai</guid>
+      <pubDate>Fri, 09 Oct 2026 00:00:00 GMT</pubDate>
+      <category>教育</category>
+      <description>教育現場における指導力の属人化を解消し、AIを活用して熟練教員のノウハウを共有・継承する方法を解説。授業の振り返りや若手育成にAIをどう組み込むか、現場の負担を減らしつつ教育の質を高める現実的なステップを紹介します。</description>
+    </item>
+    <item>
+      <title>金融実務でAIの信頼性をどう担保するか — 精度向上とリスク管理の両立</title>
+      <link>https://mgc-global01.com/column/finance-ai-reliability-governance-strategy</link>
+      <guid isPermaLink="true">https://mgc-global01.com/column/finance-ai-reliability-governance-strategy</guid>
+      <pubDate>Thu, 08 Oct 2026 00:00:00 GMT</pubDate>
+      <category>金融・保険</category>
+      <description>金融・保険業界におけるAI導入で不可欠な「信頼性」と「説明責任」の確保について解説。ハルシネーション対策からガバナンス体制、段階的な導入ステップまで、実務に即したリスク管理の勘所をMGCの視点でまとめます。</description>
+    </item>
+  </channel>
+</rss>
