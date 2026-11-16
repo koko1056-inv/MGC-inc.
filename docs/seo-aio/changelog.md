@@ -461,3 +461,12 @@
 - 計測: 今朝も数値は取得できず（GSC の鍵が未登録）。日次コラムは今日も Gemini の 402 で失敗（11/7〜）
 - llms.txt（build-columns.mjs）に「ジャーナル」（11本、新しい順に日付と要旨）と「AI活用 用語集」（31語。/glossary の各用語へのアンカー）の節を追加。ジャーナルと用語集が llms.txt から辿れなかった。内容は translations.ts・journal.ts・glossaryContent.ts から読む（新しい事実は足していない）。読み込み数が合わなければビルドを止める
 - GitHub Actions（日次コラム・サムネイル・SEO Daily Report）: actions/checkout と actions/setup-node を v4 から v5 へ。毎回「Node.js 20 is deprecated」の警告が出ていた。Node 20 のランナーが廃止されると自動投稿・レポートが止まるため、先に移行した
+
+## 2026-11-16 MOSHITEL（自社プロダクト）の組み込み（松尾さんの依頼）
+- 目的: 自社プロダクトのAI電話受付「MOSHITEL（モシテル）」をサイトから見つけてもらい、LP（https://moshitel.mgc-global01.com/5）の「無料で試す」に送客する
+- 文言は LP の内容だけで書いた（中小企業・店舗向け、24時間受付、無料で試せる、登録不要、料金は個別見積もり、業種は飲食・美容・クリニック・不動産・ホテル旅館・修理設備）。共通の定義は `productContent.ts`
+- AI電話のサービスページ（/service/ai-phone#moshitel）: 紹介セクション（特長3つ・業種・料金・個別開発のAI電話との違い）と「無料でAI受付を試す」の CTA
+- トップ: 事業の一覧の直下にプロダクト欄（CTA と AI電話のページへのリンク）。フッター: 事業・サービスの AI電話 の下に「MOSHITEL（AI電話受付）」。コラムのフッターにも同じリンク
+- 外部リンクはすべて別タブで `utm_source=mgc-global01&utm_medium=referral` 付き。置き場所を `utm_content`（home / ai-phone / footer / column-footer）で分け、クリックを Vercel Analytics のイベント `moshitel_cta` でも記録する
+- 構造化データ: Service（@id `/#moshitel`、url は LP の正規URL、provider は MGC、offers なし＝料金は個別見積もり）をトップと AI電話のページに。Organization の hasOfferCatalog にも追加
+- llms.txt（AI電話の下）と llms-full.txt（「自社プロダクト」の節）に記載。英語版（言語切り替え）も同じ箇所に英文で表示（LP は日本語のみと注記）

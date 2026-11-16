@@ -10,6 +10,7 @@ import { journalPosts, JOURNAL_SLUGS, journalPath, findJournalPost } from './jou
 import { loadLang } from './i18n';
 import { glossaryContent } from './glossaryContent';
 import { guideContent, GUIDE_SLUGS, GUIDE_DATES } from './guideContent';
+import { moshitel, moshitelUrl } from './productContent';
 // ガイドごとの関連コラム（scripts/column/build-columns.mjs が生成）
 import guideColumns from './content/columns/guide-columns.json';
 // 用語→コラム、トップの最新コラム（build-columns.mjs が生成）
@@ -591,6 +592,28 @@ const HomeView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavi
             </div>
           </NavLink>
         ))}
+      </div>
+    </Reveal>
+
+    {/* 自社プロダクト（MOSHITEL）。事業の一覧の直下に置き、LP の「無料で試す」へ送る */}
+    <Reveal>
+      <div className="mt-6 rounded-[2rem] border border-gray-200 bg-white p-8 md:p-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+        <div className="max-w-3xl">
+          <span className="text-accent font-bold tracking-[0.2em] text-xs uppercase">{moshitel[lang].kicker}</span>
+          <h3 className="text-2xl font-bold tracking-tight text-offblack mt-2">
+            {moshitel[lang].homeTitle}<span className="ml-3 text-base font-bold text-gray-500">{moshitel[lang].tagline}</span>
+          </h3>
+          <p className="text-sm md:text-base text-gray-600 leading-[1.9] mt-3">{moshitel[lang].homeDesc}</p>
+        </div>
+        <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row gap-3 sm:items-center lg:items-stretch xl:items-center shrink-0">
+          <MoshitelCta placement="home" label={moshitel[lang].cta} />
+          <NavLink
+            href={`${pathForView('ai-phone')}#moshitel`} onGo={() => { goTo('ai-phone'); window.setTimeout(() => document.getElementById('moshitel')?.scrollIntoView({ behavior: 'smooth' }), 400); }}
+            className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full border border-gray-300 text-offblack font-bold text-sm whitespace-nowrap hover:border-offblack transition-colors"
+          >
+            {lang === 'ja' ? 'AI電話のページで詳しく' : 'Learn more'}
+          </NavLink>
+        </div>
       </div>
     </Reveal>
   </div>
@@ -3708,6 +3731,61 @@ const PricingView: React.FC<{ onNavigate: (view: ViewState) => void }> = ({ onNa
   );
 };
 
+// 自社プロダクト MOSHITEL（AI電話受付）の紹介。AI電話のサービスページとトップで使い、LP の「無料で試す」へ送る
+// 送客は外部サイト（別タブ）。どこから押されたかを計測する
+const MoshitelCta: React.FC<{ placement: string; label: string; className?: string }> = ({ placement, label, className }) => (
+  <a
+    href={moshitelUrl(placement)}
+    target="_blank"
+    rel="noopener"
+    onClick={() => track('moshitel_cta', { from: placement })}
+    className={className ?? 'group inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full bg-[#2D6CDF] text-white font-bold text-sm md:text-base whitespace-nowrap hover:opacity-90 transition-opacity'}
+  >
+    {label}<ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+  </a>
+);
+
+const MoshitelSection: React.FC<{ placement: string }> = ({ placement }) => {
+  const { lang } = useLanguage();
+  const m = moshitel[lang];
+  return (
+    <section id="moshitel" aria-labelledby="moshitel-heading" className="scroll-mt-28">
+      <Reveal>
+        <div className="rounded-[1.5rem] md:rounded-[2rem] border border-[#2D6CDF]/25 bg-white overflow-hidden">
+          <div className="h-1.5 bg-[#2D6CDF]" aria-hidden />
+          <div className="p-7 md:p-12">
+            <span className="text-[#2D6CDF] font-bold tracking-[0.2em] text-xs uppercase">{m.kicker}</span>
+            <p className="mt-3 text-sm md:text-base font-bold text-[#5B6472]">{m.name} — {m.tagline}</p>
+            <h2 id="moshitel-heading" className="text-2xl md:text-4xl font-bold tracking-tight text-[#111418] mt-2 leading-[1.5]">{m.heading}</h2>
+            <p className="text-base md:text-lg text-gray-600 leading-[1.9] mt-5 max-w-3xl">{m.lead}</p>
+            <ul className="flex flex-wrap gap-3 mt-6">
+              {m.points.map((p) => (
+                <li key={p} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#F4F6FB] text-[#1A2233] text-sm font-bold">
+                  <Check className="w-3.5 h-3.5 text-[#2D6CDF]" strokeWidth={3} />{p}
+                </li>
+              ))}
+            </ul>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 mt-8">
+              {m.features.map((f) => (
+                <div key={f.title} className="rounded-2xl bg-[#F4F6FB] p-5 md:p-6 border-l-4 border-[#2D6CDF]">
+                  <h3 className="text-base md:text-lg font-bold text-[#111418] leading-[1.6]">{f.title}</h3>
+                  <p className="text-[15px] text-gray-600 leading-[1.9] mt-2">{f.desc}</p>
+                </div>
+              ))}
+            </div>
+            <p className="text-[15px] md:text-base text-gray-600 leading-[1.9] mt-6 max-w-3xl">{m.industries}{m.pricing}</p>
+            <p className="text-sm text-gray-500 leading-[1.9] mt-2 max-w-3xl">{m.relation}</p>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4 mt-8">
+              <MoshitelCta placement={placement} label={m.cta} />
+              <p className="text-sm text-gray-500 leading-[1.8] max-w-md">{m.ctaSub}</p>
+            </div>
+          </div>
+        </div>
+      </Reveal>
+    </section>
+  );
+};
+
 const ServiceView: React.FC<{ serviceKey: ServiceKey; onNavigate?: (view: ViewState) => void }> = ({ serviceKey, onNavigate }) => {
   const { lang, t } = useLanguage();
   const page = serviceContent[lang][serviceKey];
@@ -3811,6 +3889,13 @@ const ServiceView: React.FC<{ serviceKey: ServiceKey; onNavigate?: (view: ViewSt
         )}
 
         {/* Sections */}
+        {/* 自社プロダクト（中小企業・店舗向けのAI電話受付）への導線 */}
+        {serviceKey === 'ai-phone' && (
+          <div className="px-6 md:px-12 mt-16 md:mt-20">
+            <div className="max-w-screen-xl mx-auto"><MoshitelSection placement="ai-phone" /></div>
+          </div>
+        )}
+
         {page.sections.map((section, i) => (
           <section key={i} className="px-6 md:px-12 mt-20 md:mt-28">
             <div className="max-w-screen-xl mx-auto">
@@ -4616,6 +4701,7 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
         { id: 'works', label: t.nav.works },
         { id: 'biz-ai', label: t.nav.aiSolutions },
         ...SERVICE_KEYS.map((k) => ({ id: k as ViewState, label: serviceContent[lang][k].navLabel, indent: true })),
+        { href: moshitelUrl('footer'), label: moshitel[lang].footerLabel, indent: true },
         { id: 'biz-newbiz', label: t.nav.newBiz },
         { id: 'training', label: t.nav.training },
         { id: 'biz-crossborder', label: t.nav.crossBorder },
@@ -4919,7 +5005,11 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
                   {group.links.map((link) => (
                     <li key={link.label} className={link.indent ? 'pl-3' : undefined}>
                       {link.href ? (
-                        <a href={link.href} className={`text-sm font-medium hover:text-accent transition-colors text-gray-700`}>
+                        <a
+                          href={link.href}
+                          {...(link.href.startsWith('http') ? { target: '_blank', rel: 'noopener' } : {})}
+                          className={`text-sm hover:text-accent transition-colors ${link.indent ? 'text-gray-500' : 'font-medium text-gray-700'}`}
+                        >
                           {link.label}
                         </a>
                       ) : (
