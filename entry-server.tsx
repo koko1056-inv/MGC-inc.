@@ -9,6 +9,7 @@ import { journalPosts, journalPath, findJournalPost } from './journal';
 import { glossaryContent } from './glossaryContent';
 import { caseContent, CASE_DATES } from './caseContent';
 import { guideContent, GUIDE_DATES } from './guideContent';
+import { moshitel, MOSHITEL_URL } from './productContent';
 
 export { SITE_ORIGIN };
 
@@ -284,6 +285,26 @@ const jsonLdFor = (path: string): object[] => {
     mainEntity: items.map((x) => ({ '@type': 'Question', name: x.q, acceptedAnswer: { '@type': 'Answer', text: x.a } })),
   });
   if (view === 'home') out.push(faqPage(translations.ja.faq.items.map((x) => ({ q: x.q, a: x.a }))));
+  // 自社プロダクト MOSHITEL（中小企業・店舗向けのAI電話受付）。トップと AI電話のページに置く。料金は個別見積もりのため offers は載せない
+  if (view === 'home' || view === 'ai-phone') {
+    const m = moshitel.ja;
+    out.push({
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      '@id': `${SITE_ORIGIN}/#moshitel`,
+      name: m.name,
+      alternateName: ['MOSHITEL', 'モシテル', 'AI電話受付モシテル'],
+      serviceType: 'AI電話受付',
+      description: m.summary,
+      url: MOSHITEL_URL,
+      provider,
+      brand: { '@type': 'Brand', name: 'MOSHITEL' },
+      areaServed: { '@type': 'Country', name: 'Japan' },
+      audience: { '@type': 'BusinessAudience', audienceType: '中小企業・店舗' },
+      availableChannel: { '@type': 'ServiceChannel', serviceUrl: MOSHITEL_URL, availableLanguage: 'ja' },
+      isRelatedTo: { '@type': 'Service', '@id': `${SITE_ORIGIN}${pathForView('ai-phone')}#service`, name: 'AI電話（音声AI）' },
+    });
+  }
   if ((SERVICE_KEYS as string[]).includes(view)) {
     const page = serviceContent.ja[view as keyof typeof serviceContent.ja];
     out.push({
@@ -408,6 +429,18 @@ export const llmsFull = (): string => {
     });
     L.push('');
   });
+  {
+    const m = moshitel.ja;
+    L.push(`## 自社プロダクト: ${m.name}（${MOSHITEL_URL}）`);
+    L.push(`${m.tagline}。${m.lead}`);
+    L.push(`- 特長: ${m.points.join('／')}`);
+    m.features.forEach((f) => L.push(`- ${f.title}: ${f.desc}`));
+    L.push(`- 業種: ${m.industries}`);
+    L.push(`- 料金: ${m.pricing}`);
+    L.push(`- AI電話（音声AI）との関係: ${m.relation.replace('このページの', '')}`);
+    L.push(`- 試し方: ${m.ctaSub}`);
+    L.push('');
+  }
   L.push(`## ${t.pricing.title}（${SITE_ORIGIN}/pricing）`);
   L.push(t.pricing.lead);
   L.push(`- ${t.pricing.training.heading}: ${t.training.course.items.map((c) => `${c.name} ${c.specs[2].value}・${c.specs[3].value}`).join('／')}。${t.pricing.training.note}`);

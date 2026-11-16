@@ -312,7 +312,7 @@ const header = (current = '') => `<header class="site-header"><div class="inner"
 const FOOTER = `<footer class="site-footer">
 <div class="cols">
 <div class="brand-col"><strong>${esc(site.brandFull)}</strong><p>AIとテクノロジーで、日本と世界をつなぐ。</p><p>${esc(site.address || '')}</p></div>
-<div><h2>事業・サービス</h2><ul><li><a href="/works">事業内容</a></li><li><a href="/works/ai-solutions">AIソリューション</a></li><li><a href="/service/ai-sales">AI営業</a></li><li><a href="/service/ai-phone">AI電話</a></li><li><a href="/service/salesforce-ai">Salesforce AI</a></li><li><a href="/works/ai-business-launch">AI事業立ち上げ支援</a></li><li><a href="/training">研修</a></li><li><a href="/works/cross-border">クロスボーダー</a></li><li><a href="/pricing">料金の考え方</a></li></ul></div>
+<div><h2>事業・サービス</h2><ul><li><a href="/works">事業内容</a></li><li><a href="/works/ai-solutions">AIソリューション</a></li><li><a href="/service/ai-sales">AI営業</a></li><li><a href="/service/ai-phone">AI電話</a></li><li><a href="https://moshitel.mgc-global01.com/5?utm_source=mgc-global01&amp;utm_medium=referral&amp;utm_content=column-footer" target="_blank" rel="noopener">MOSHITEL（AI電話受付）</a></li><li><a href="/service/salesforce-ai">Salesforce AI</a></li><li><a href="/works/ai-business-launch">AI事業立ち上げ支援</a></li><li><a href="/training">研修</a></li><li><a href="/works/cross-border">クロスボーダー</a></li><li><a href="/pricing">料金の考え方</a></li></ul></div>
 <div><h2>実績・ナレッジ</h2><ul><li><a href="/cases">導入事例</a></li><li><a href="/column">コラム</a></li><li><a href="/guide">比較・選び方ガイド</a></li><li><a href="/glossary">用語集</a></li><li><a href="/blog">お知らせ・ジャーナル</a></li>${SHOW_DIAGNOSIS ? '<li><a href="/diagnosis">AI活用診断</a></li>' : ''}</ul></div>
 <div><h2>会社情報</h2><ul><li><a href="/mission">会社理念</a></li><li><a href="/company">会社概要</a></li><li><a href="/career">採用情報</a></li><li><a href="/contact">お問い合わせ</a></li></ul></div>
 </div>
@@ -937,6 +937,12 @@ function updateLlmsTxt() {
   L.push(`  - [AI営業](${B}/service/ai-sales): リスト作成・初回接触・返信対応・日程調整まで、アポイントが取れるまでの営業の前工程をAIが担う。1アポ単位の成果報酬ではなく、仕組みを作って動かし続ける契約形態`);
   L.push(`  - [AI電話（音声AI）](${B}/service/ai-phone): コールセンター向けのAIエージェント。受電・架電の一次対応を音声AIが引き受け、プッシュ操作のIVRとは違い用件を話し言葉のまま聞き取る。CRM・基幹システムへの記録と通話後処理（ACW）まで行い、判断が要る通話は要約を添えて担当者に引き継ぐ。架電（催促・確認）の事例あり（Twilio・Salesforce・ElevenLabs・Microsoft Teams）`);
   L.push(`  - [Salesforce AI活用支援](${B}/service/salesforce-ai): 入力の自動化、貯まったデータからの示唆の提示、エージェントによる実行まで。MGCはSalesforceのライセンス再販をしていないため、標準AI機能と個別開発のどちらが合うかを利害なく比較できる`);
+  // 自社プロダクト（文言は productContent.ts の summary を読む。LP にない数字・実績は書かない）
+  {
+    const ps = readFileSync(join(ROOT, 'productContent.ts'), 'utf8').match(/summary: '([^']+)'/);
+    if (!ps) die('productContent.ts の summary が読めません');
+    L.push(`  - [MOSHITEL（モシテル）](https://moshitel.mgc-global01.com): MGCの自社プロダクト。${ps[1]}（AI電話のページの紹介: ${B}/service/ai-phone#moshitel）`);
+  }
   L.push(`- [AI事業立ち上げ支援](${B}/works/ai-business-launch): 自社で導入して効果が出たAIを、同業他社へ提供できる商材にまとめ、新しい事業として立ち上げる。パッケージ化、AI側の実務（開発・導入・保守・問い合わせ対応）の巻き取り、サービスサイト・営業資料・価格設計など販売の立ち上げまで`);
   L.push(`- [研修事業（AI活用リスキリング研修）](${B}/training): ITに詳しくない経営者・従業員向けの実践型研修（OFF-JT）。コースは「AI活用リスキリング研修（基礎〜実践）」と「DX推進・生成AI活用人材養成講座」。受講料は1名 398,000円（税込）、標準時間は20時間、通学（対面）またはオンライン（同時双方向）。全企業に同じ内容・時間・価格で提供。研修後の伴走オプション（実践・定着の支援）は個別見積もり。助成金の活用を検討する場合は申請をサポート（研修受講者は無料、受給できるかは要件による）`);
   L.push(`- [クロスボーダー事業](${B}/works/cross-border): 海外の優れたプロダクトを日本市場へ届ける「Inbound」（日本総代理店）と、日本企業の海外進出を支援する「Outbound」`);
