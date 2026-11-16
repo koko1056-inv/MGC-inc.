@@ -885,6 +885,27 @@ function updateSitemap() {
   writeFileSync(SITEMAP, xml);
 }
 
+// ---- llms.txt 用: ジャーナルと用語集の一覧（本体サイトの定義ファイルから読む。新しい事実は足さない）----
+const unq = (x) => x.replace(/\\(.)/g, '$1');
+function readJournal() {
+  const map = Object.fromEntries([...readFileSync(join(ROOT, 'journal.ts'), 'utf8').matchAll(/(\d+): \{ slug: '([^']+)'/g)].map((m) => [m[1], m[2]]));
+  const src = readFileSync(join(ROOT, 'translations.ts'), 'utf8');
+  const seen = new Set();
+  const items = [...src.matchAll(/id: (\d+),\s*date: "([^"]+)",\s*category: "[^"]*",\s*title: "((?:[^"\\]|\\.)+)",\s*excerpt: "((?:[^"\\]|\\.)+)"/g)]
+    .filter((m) => map[m[1]] && !seen.has(m[1]) && seen.add(m[1]))
+    .map((m) => ({ slug: map[m[1]], date: m[2].replace(/\./g, '-'), title: unq(m[3]), excerpt: unq(m[4]) }))
+    .sort((x, y) => (x.date < y.date ? 1 : -1));
+  if (items.length !== Object.keys(map).length) die(`ジャーナルの読み込み数が合いません（${items.length}/${Object.keys(map).length}）。translations.ts の blog.items の書式を確認してください`);
+  return items;
+}
+function readGlossary() {
+  const src = readFileSync(join(ROOT, 'glossaryContent.ts'), 'utf8');
+  const ja = src.slice(src.indexOf('const ja'), src.indexOf('const en'));
+  const terms = [...ja.matchAll(/id: '([^']+)', term: '([^']+)'/g)].map((m) => ({ id: m[1], term: m[2] }));
+  if (terms.length < 10) die(`用語集の読み込みに失敗しました（${terms.length}語）`);
+  return terms;
+}
+
 // ---- llms.txt（AIアシスタント/生成エンジン向けのサイトガイド。llms.txt標準）----
 // 本体サイト（コラム以外）の内容の最終更新日。本体のページを更新したら日付を足す（llms.txt の「最終更新」に使う）
 const SITE_CONTENT_DATES = ['2026-11-12'];
@@ -943,6 +964,12 @@ function updateLlmsTxt() {
   L.push('## 主要ページ');
   L.push(`- [トップ](${B}/) ／ [事業内容](${B}/works) ／ [導入事例](${B}/cases) ／ [会社理念](${B}/mission) ／ [会社概要](${B}/company) ／ [お知らせ・ジャーナル](${B}/blog) ／ [AI活用コラム](${B}/column) ／ [料金の考え方](${B}/pricing) ／ [AI活用 用語集](${B}/glossary) ／ [お問い合わせ](${B}/contact)`);
   if (SHOW_DIAGNOSIS) L.push(`- [AI活用診断（無料）](${B}/diagnosis): 業種と課題を入力すると、AI活用施策・導入後ワークフロー・削減効果の試算をその場で返す無料診断`);
+  L.push('');
+  L.push('## ジャーナル（代表取締役 松尾 心夢の考え・取り組み）');
+  for (const j of readJournal()) L.push(`- [${j.title}](${B}/blog/${j.slug}): ${j.date}。${j.excerpt}`);
+  L.push('');
+  L.push(`## AI活用 用語集（${B}/glossary 。一般的な定義と、関連するサービス・コラム）`);
+  L.push(readGlossary().map((t) => `[${t.term}](${B}/glossary#${t.id})`).join(' ／ '));
   L.push('');
   L.push('## AI活用コラム（業界別）');
   L.push('業界別に「どの業務にどうAIを使い、どこは人が判断するか」を実務目線で解説する記事。執筆は代表取締役 松尾 心夢。');

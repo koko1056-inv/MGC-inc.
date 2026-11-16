@@ -456,3 +456,8 @@
 - 点検（モバイル・4倍のCPU低速化・低速回線で本番を計測）: LCP はトップ 1.4〜1.8秒・研修 1.3秒・コラム記事 1.3秒・一覧 1.2〜1.4秒、CLS は全ページ 0。いずれも「良好」の範囲。ただしコラムのカード画像に width/height が無く（527枚）、記事のヒーロー・一覧の Featured・業界別の先頭カード（LCP の画像）に読み込みの優先度の指定が無かった
 - Organization（index.html＝本体の全ページ）: legalName、identifier（法人番号 4130001081155）、sameAs（国税庁 法人番号公表サイトの当社のページ）、住所の postalCode（602-8107）を追加。どれもサイトの会社概要に載せている事実。同名・類似名の会社と取り違えられないよう、公的な登録情報で会社を特定できるようにした
 - build-columns.mjs: コラムのすべての画像に実寸の width/height（1400×788）。記事のヒーロー・一覧の Featured・業界別の先頭カードに fetchpriority="high"、それ以外は loading="lazy" と decoding="async"。カードの CSS に height:auto（表示サイズは変更前と同じことを 390px・1280px で確認）
+
+## 2026-11-16 サイクル42: llms.txt にジャーナルと用語集、自動化ワークフローを Node 24 対応に
+- 計測: 今朝も数値は取得できず（GSC の鍵が未登録）。日次コラムは今日も Gemini の 402 で失敗（11/7〜）
+- llms.txt（build-columns.mjs）に「ジャーナル」（11本、新しい順に日付と要旨）と「AI活用 用語集」（31語。/glossary の各用語へのアンカー）の節を追加。ジャーナルと用語集が llms.txt から辿れなかった。内容は translations.ts・journal.ts・glossaryContent.ts から読む（新しい事実は足していない）。読み込み数が合わなければビルドを止める
+- GitHub Actions（日次コラム・サムネイル・SEO Daily Report）: actions/checkout と actions/setup-node を v4 から v5 へ。毎回「Node.js 20 is deprecated」の警告が出ていた。Node 20 のランナーが廃止されると自動投稿・レポートが止まるため、先に移行した
