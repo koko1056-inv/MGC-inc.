@@ -451,3 +451,8 @@
 - 計測: 数値は取得できず（GSC の鍵が未登録、Vercel Analytics が無効）。日次コラムは Gemini の 402 で 11/7 から止まっている。本番は正常（`metrics/2026-11-16.md`）
 - build-columns.mjs: `/column/feed.xml` を生成する（RSS 2.0。公開日の新しい順に30本、タイトル・URL・公開日・業界・説明。lastBuildDate は内容の最新日を使い、生成のたびに差分が出ないようにした）。日次コラムが投稿されるたびに自動で更新される
 - 自動検出: 本体サイトの全ページ（index.html）と、コラムの記事・一覧・業界別ページの head に `<link rel="alternate" type="application/rss+xml">` を追加。llms.txt のコラムの節にもフィードの URL を載せた
+
+## 2026-11-16 サイクル41: 法人番号でのエンティティの特定、コラム画像の読み込み
+- 点検（モバイル・4倍のCPU低速化・低速回線で本番を計測）: LCP はトップ 1.4〜1.8秒・研修 1.3秒・コラム記事 1.3秒・一覧 1.2〜1.4秒、CLS は全ページ 0。いずれも「良好」の範囲。ただしコラムのカード画像に width/height が無く（527枚）、記事のヒーロー・一覧の Featured・業界別の先頭カード（LCP の画像）に読み込みの優先度の指定が無かった
+- Organization（index.html＝本体の全ページ）: legalName、identifier（法人番号 4130001081155）、sameAs（国税庁 法人番号公表サイトの当社のページ）、住所の postalCode（602-8107）を追加。どれもサイトの会社概要に載せている事実。同名・類似名の会社と取り違えられないよう、公的な登録情報で会社を特定できるようにした
+- build-columns.mjs: コラムのすべての画像に実寸の width/height（1400×788）。記事のヒーロー・一覧の Featured・業界別の先頭カードに fetchpriority="high"、それ以外は loading="lazy" と decoding="async"。カードの CSS に height:auto（表示サイズは変更前と同じことを 390px・1280px で確認）
