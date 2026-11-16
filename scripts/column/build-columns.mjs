@@ -323,7 +323,7 @@ const FOOTER = `<footer class="site-footer">
 // 本文中の用語を、用語集（/glossary）の該当箇所へリンクする。各記事で用語ごとに最初の1回だけ
 const GLOSSARY_LINKS = [
   ['生成AI', 'generative-ai'], ['LLM', 'llm'], ['AIエージェント', 'ai-agent'], ['RAG', 'rag'], ['ハルシネーション', 'hallucination'],
-  ['ボイスボット', 'voicebot'], ['IVR', 'ivr'], ['ACW', 'acw'], ['CRM', 'crm'], ['SFA', 'sfa'], ['API連携', 'api'],
+  ['AI電話受付', 'ai-phone-reception'], ['ボイスボット', 'voicebot'], ['IVR', 'ivr'], ['ACW', 'acw'], ['CRM', 'crm'], ['SFA', 'sfa'], ['API連携', 'api'],
   ['OFF-JT', 'off-jt'], ['リスキリング', 'reskilling'], ['DX', 'dx'],
   ['機械学習', 'machine-learning'], ['チャットボット', 'chatbot'], ['OCR', 'ocr'], ['画像認識', 'image-recognition'], ['需要予測', 'demand-forecasting'],
   ['パーソナライズ', 'personalization'], ['暗黙知', 'tacit-knowledge'], ['属人化', 'siloed-expertise'], ['匿名化', 'anonymization'], ['PoC', 'poc'],
@@ -375,6 +375,13 @@ const SERVICE_LINKS = [
   { href: '/service/salesforce-ai', name: 'Salesforce AI活用支援', desc: 'CRMの入力自動化、データからの示唆、エージェントによる実行まで', words: ['CRM', 'Salesforce', 'kintone', '顧客データ', 'SFA', '顧客情報'] },
   { href: '/training', name: 'AI活用リスキリング研修', desc: 'ITに詳しくない方がAIを業務で使いこなすための実践型研修（OFF-JT）', words: ['研修', 'リスキリング', '人材育成', 'OJT'] },
 ];
+// 自社プロダクト MOSHITEL（中小企業・店舗向けのAI電話受付）への導線。
+// LP の対象業種（飲食・ホテル・クリニック・不動産・士業など）の記事で、電話の話題を扱うものだけに出す。文言は productContent.ts と同じ（LP の内容のみ）
+const MOSHITEL_INDUSTRIES = ['hospitality', 'healthcare', 'real-estate', 'professional'];
+const moshitelHref = (placement) => `https://moshitel.mgc-global01.com/5?utm_source=mgc-global01&amp;utm_medium=referral&amp;utm_content=${placement}`;
+const moshitelHtml = (placement, cls = 'svc-links') => `<section class="${cls}"><h2>MGCの自社プロダクト</h2><ul><li><a href="${moshitelHref(placement)}" target="_blank" rel="noopener"><strong>MOSHITEL（モシテル）— 中小企業・お店のためのAI電話受付</strong><span>営業時間外や接客・作業中で出られない電話にAIが出て、用件を要約してお知らせします。24時間受付。無料で試せます（登録不要）。料金は個別見積もり。</span></a></li></ul></section>`;
+const showMoshitel = (a) => MOSHITEL_INDUSTRIES.includes(a.industry) && (plainText(a).match(/電話/g) || []).length >= 2;
+
 function relatedServicesHtml(a) {
   const text = plainText(a);
   const count = (w) => text.split(w).length - 1;
@@ -388,7 +395,7 @@ function relatedServicesHtml(a) {
   return `<section class="svc-links"><h2>このテーマに関するMGCのサービス</h2><ul>${picks
     .map((s) => `<li><a href="${s.href}"><strong>${esc(s.name)}</strong><span>${esc(s.desc)}</span></a></li>`).join('')}</ul></section>
 <section class="svc-links"><h2>比較・選び方ガイド</h2><ul>${guides
-    .map((g) => `<li><a href="/guide/${g.slug}"><strong>${esc(g.title)}</strong><span>${esc(g.desc)}</span></a></li>`).join('')}</ul></section>`;
+    .map((g) => `<li><a href="/guide/${g.slug}"><strong>${esc(g.title)}</strong><span>${esc(g.desc)}</span></a></li>`).join('')}</ul></section>${showMoshitel(a) ? '\n' + moshitelHtml('column-article') : ''}`;
 }
 
 // 比較・選び方ガイド（本体サイトの /guide/<slug>。guideContent.ts と同じ slug・タイトル）
@@ -837,6 +844,7 @@ ${header('/column')}
 <section class="cards">${cards}</section>
 <nav class="ind-links" aria-label="ほかの業界のコラム"><span class="label">ほかの業界</span>${others.map((k) => `<a href="/column/industry/${esc(k)}">${esc(industriesByKey[k].ja)}</a>`).join('')}<a href="/column">すべてのコラム</a></nav>
 ${guidesSectionHtml(guidesForIndustry(key))}
+${MOSHITEL_INDUSTRIES.includes(key) ? moshitelHtml(`column-industry-${key}`, 'wrap svc-links" style="margin-top:40px') : ''}
 <section class="wrap" style="margin-top:56px">
 <div class="cta">
 <span class="cta-eyebrow">初回相談・お見積もりまで無料</span>

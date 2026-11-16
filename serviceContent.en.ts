@@ -394,6 +394,7 @@ export const en: Content['en'] = {
           { q: 'Can it make outbound calls?', a: 'Yes. There is a case where AI makes reminder and confirmation calls and passes only the calls judged to need action to people. Rules for disclosing that AI is calling, and for consent, are decided before implementation.' },
           { q: 'Where do we see call history?', a: 'Every call leaves a summary, extracted fields and a recording. These can be pushed into your CRM or chat tool so notifications arrive where your team already works.' },
           { q: 'Do we still need people on the phone?', a: 'Yes. AI covers first response; calls needing judgement or negotiation reach a person. The goal is not fewer staff but fewer interruptions.' },
+          { q: 'Is there an AI phone that small businesses and shops can try right away?', a: 'Yes: MOSHITEL, MGC’s own product. It is AI phone reception for small businesses and shops — when you cannot pick up after hours or while serving customers, AI answers 24 hours a day, takes down bookings and inquiries, and sends you a summary. Choose your industry, what to handle and a voice, and try it for free on the spot (no sign-up; the site is in Japanese). Pricing is quoted individually based on call volume and scope. See the MOSHITEL section on this page.' },
         ],
       },
     ],

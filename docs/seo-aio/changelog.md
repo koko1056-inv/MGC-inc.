@@ -470,3 +470,10 @@
 - 外部リンクはすべて別タブで `utm_source=mgc-global01&utm_medium=referral` 付き。置き場所を `utm_content`（home / ai-phone / footer / column-footer）で分け、クリックを Vercel Analytics のイベント `moshitel_cta` でも記録する
 - 構造化データ: Service（@id `/#moshitel`、url は LP の正規URL、provider は MGC、offers なし＝料金は個別見積もり）をトップと AI電話のページに。Organization の hasOfferCatalog にも追加
 - llms.txt（AI電話の下）と llms-full.txt（「自社プロダクト」の節）に記載。英語版（言語切り替え）も同じ箇所に英文で表示（LP は日本語のみと注記）
+
+## 2026-11-16 サイクル43: MOSHITEL への導線をコラム・FAQ・用語集へ広げる
+- 計測: 今朝も数値は取得できず（GSC の鍵が未登録）。施策は、直前に組み込んだ自社プロダクト MOSHITEL への導線を、関心の近い読者が集まるページへ広げることを優先した
+- コラム（build-columns.mjs）: LP の対象業種（飲食・ホテル、医療・介護、不動産、士業）の記事のうち、本文で電話を扱う8本に「MGCの自社プロダクト」の欄（MOSHITEL の紹介と LP へのリンク）。同じ4業種の業界別ページにも。リンクは別タブで UTM 付き（utm_content は column-article ／ column-industry-<業種>）
+- AI電話のページの FAQ に「中小企業やお店でも、すぐに試せるAI電話はありますか？」（JP/EN）。FAQPage・llms-full.txt にも自動で入る
+- 用語集に「AI電話受付」（JP/EN。一般的な定義、関連ページは AI電話）。コラムから自動リンク、llms.txt の用語集にも自動で載る
+- 文言は LP の内容のみ（24時間受付・無料で試せる・登録不要・料金は個別見積もり）
