@@ -530,6 +530,7 @@ ${kw ? `<meta name="keywords" content="${esc(kw)}"/>` : ''}
 <meta name="twitter:description" content="${esc(desc)}"/>
 <meta name="twitter:image" content="${esc(imgAbs)}"/>
 <meta name="theme-color" content="#111418"/>
+<link rel="alternate" type="application/rss+xml" title="MGC AI活用コラム" href="/column/feed.xml"/>
 <link rel="icon" href="/favicon.ico"/>
 <script type="application/ld+json">${jsonld(breadcrumb)}</script>
 <script type="application/ld+json">${jsonld(posting)}</script>
@@ -725,6 +726,7 @@ ${usedIndustries.map((k) => `<button type="button" data-f="${esc(k)}" aria-press
 <meta property="og:image" content="${esc(site.baseUrl)}/assets/service_ai.jpg"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="theme-color" content="#111418"/>
+<link rel="alternate" type="application/rss+xml" title="MGC AI活用コラム" href="/column/feed.xml"/>
 <link rel="icon" href="/favicon.ico"/>
 ${itemList.map((x) => `<script type="application/ld+json">${jsonld(x)}</script>`).join('\n')}
 <style>${CSS}</style>
@@ -820,6 +822,7 @@ function industryHtml(key) {
 <meta property="og:image" content="${esc(site.baseUrl)}${esc(ogImage(ind.fallbackImage))}"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="theme-color" content="#111418"/>
+<link rel="alternate" type="application/rss+xml" title="MGC AI活用コラム" href="/column/feed.xml"/>
 <link rel="icon" href="/favicon.ico"/>
 ${ld.map((x) => `<script type="application/ld+json">${jsonld(x)}</script>`).join('\n')}
 <style>${CSS}</style>
@@ -941,6 +944,7 @@ function updateLlmsTxt() {
   L.push('');
   L.push('## AI活用コラム（業界別）');
   L.push('業界別に「どの業務にどうAIを使い、どこは人が判断するか」を実務目線で解説する記事。執筆は代表取締役 松尾 心夢。');
+  L.push(`新着のRSSフィード: ${B}/column/feed.xml`);
   L.push(`業界別の一覧: ${Object.keys(industriesByKey).filter((k) => articles.some((a) => a.industry === k)).map((k) => `[${industriesByKey[k].ja}](${B}/column/industry/${k})`).join(' ／ ')}`);
   for (const a of articles) {
     const ind = industriesByKey[a.industry];
@@ -949,6 +953,41 @@ function updateLlmsTxt() {
   }
   L.push('');
   writeFileSync(join(ROOT, 'public', 'llms.txt'), L.join('\n') + '\n');
+}
+
+// ---- RSS フィード（/column/feed.xml）。新しい記事の発見を早める（フィードリーダー・検索エンジン・AIのクローラー向け）----
+// 公開日の新しい順に最大30本。lastBuildDate は生成日ではなく内容の最新日（生成のたびに差分が出ないように）
+const rfc822 = (d) => new Date(`${d}T09:00:00+09:00`).toUTCString();
+function writeFeed() {
+  const B = site.baseUrl;
+  const list = [...articles].sort((x, y) => (x.date < y.date ? 1 : x.date > y.date ? -1 : 0)).slice(0, 30);
+  const items = list.map((a) => {
+    const ind = industriesByKey[a.industry];
+    const url = `${B}/column/${a.slug}`;
+    const d = a.description || plainText(a).slice(0, 120);
+    return `    <item>
+      <title>${esc(a.title)}</title>
+      <link>${url}</link>
+      <guid isPermaLink="true">${url}</guid>
+      <pubDate>${rfc822(a.date)}</pubDate>
+      <category>${esc(ind.ja)}</category>
+      <description>${esc(d)}</description>
+    </item>`;
+  }).join('\n');
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MGC AI活用コラム</title>
+    <link>${B}/column</link>
+    <atom:link href="${B}/column/feed.xml" rel="self" type="application/rss+xml"/>
+    <description>業界別に、AIの現実的な活用方法を実務目線で解説するＭＧＣ株式会社のコラム。</description>
+    <language>ja</language>
+    <lastBuildDate>${rfc822(articles.map(lastmod).sort().pop())}</lastBuildDate>
+${items}
+  </channel>
+</rss>
+`;
+  writeFileSync(join(OUT_DIR, 'feed.xml'), xml);
 }
 
 // ---- run ----
@@ -963,6 +1002,7 @@ mkdirSync(join(OUT_DIR, 'industry'), { recursive: true });
 for (const k of HUBS) writeFileSync(join(OUT_DIR, 'industry', `${k}.html`), industryHtml(k));
 updateSitemap();
 updateLlmsTxt();
+writeFeed();
 
 // ガイドごとの関連コラム（本体サイトのガイドページが読む。生成物なので手で編集しない）
 // 関連の強い順（サービスの語の出現数）→ 新しい順に並べ、同じ業界は1本まで、最大6本

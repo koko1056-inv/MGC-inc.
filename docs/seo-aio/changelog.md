@@ -446,3 +446,8 @@
 ## 2026-11-13 サイクル39: 研修の Course 構造化データを充実
 - 点検: /training の Course（2コース）は name・description・provider・offers・hasCourseInstance のみで、ページに載せている「習得できること」「対象」「主なテーマ」が構造化データに無かった
 - entry-server.tsx: 各 Course に teaches（習得できること6項目）、audience（EducationalAudience: 対象）、syllabusSections（主なテーマ3つ＝Syllabus）、timeRequired（PT20H）、availableLanguage（ja）を追加。値はすべてページの掲載内容（translations の course.items）から取り、新しい事実は足していない
+
+## 2026-11-16 デイリー（サイクル40）: コラムの RSS フィード
+- 計測: 数値は取得できず（GSC の鍵が未登録、Vercel Analytics が無効）。日次コラムは Gemini の 402 で 11/7 から止まっている。本番は正常（`metrics/2026-11-16.md`）
+- build-columns.mjs: `/column/feed.xml` を生成する（RSS 2.0。公開日の新しい順に30本、タイトル・URL・公開日・業界・説明。lastBuildDate は内容の最新日を使い、生成のたびに差分が出ないようにした）。日次コラムが投稿されるたびに自動で更新される
+- 自動検出: 本体サイトの全ページ（index.html）と、コラムの記事・一覧・業界別ページの head に `<link rel="alternate" type="application/rss+xml">` を追加。llms.txt のコラムの節にもフィードの URL を載せた
