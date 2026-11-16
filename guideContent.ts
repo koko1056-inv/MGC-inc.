@@ -12,6 +12,8 @@ export type Guide = {
   sections: { heading: string; paragraphs?: string[]; list?: string[] }[];
   faq: { q: string; a: string }[];
   service: { href: string; label: string };
+  /** 自社プロダクトの紹介欄を出す（MOSHITEL＝中小企業・店舗向けのAI電話受付） */
+  product?: 'moshitel';
 };
 
 const ja: Guide[] = [
@@ -50,6 +52,18 @@ const ja: Guide[] = [
         ],
       },
       {
+        heading: '留守番電話とAI電話受付の違い',
+        paragraphs: [
+          '中小企業やお店では、営業時間外や接客・作業中で出られない電話を留守番電話で受けていることがよくあります。AI電話受付は、その電話にAIが出て会話し、用件を聞き取って知らせる仕組みです。',
+        ],
+        list: [
+          '電話に出たとき: 留守番電話は決まったメッセージが流れる／AI電話受付はAIが会話して用件を聞く',
+          '用件の確認: 留守番電話は録音を最初から聞き直す／AI電話受付は要約が通知で届く',
+          '聞き取れなかったとき: 留守番電話は聞き返せない／AI電話受付はその場で聞き返す',
+          'お店のご案内: 留守番電話は録音した内容だけ／AI電話受付は営業時間や予約の受け方を案内できる',
+        ],
+      },
+      {
         heading: '導入前に決めておくこと',
         list: [
           'AIが応答していることを、かけてきた方にどう伝えるか',
@@ -63,8 +77,10 @@ const ja: Guide[] = [
       { q: 'IVRとAI電話の一番の違いは何ですか？', a: 'IVRは番号の入力で決まった選択肢に振り分けるのに対し、AI電話は用件を話し言葉のまま聞き取り、要約して担当者に引き渡せる点です。日時と用件などを一度の会話でまとめて受け取れます。' },
       { q: 'ボイスボットとAI電話は別のものですか？', a: 'ボイスボットは音声で自動応答する仕組みの総称で、AI電話（音声AI）もその一種です。製品によって、自由な話し言葉をどこまで聞き取れるかや、記録・引き継ぎの仕組みが異なります。' },
       { q: 'AI電話にすると、電話に出る人は不要になりますか？', a: 'なりません。判断や交渉が要る通話、緊急の通話は人が対応する前提で設計します。AIは一次対応と要約・記録を引き受け、人が対応すべき通話を見分けて回す役割です。' },
+      { q: '留守番電話とAI電話受付は何が違いますか？', a: '留守番電話は決まったメッセージを流して録音するだけですが、AI電話受付はAIが会話して用件を聞き取り、聞き取れないところはその場で聞き返します。用件は要約して通知で届くので、録音を最初から聞き直す必要がありません。営業時間や予約の受け方の案内もできます。' },
     ],
     service: { href: '/service/ai-phone', label: 'AI電話（音声AI）' },
+    product: 'moshitel',
   },
   {
     slug: 'ai-sales-vs-telemarketing',
@@ -218,14 +234,17 @@ const en: Guide[] = [
     },
     sections: [
       { heading: 'Voicebots and AI phones', paragraphs: ["'Voicebot' covers all automated voice response, from scripted Q&A to systems that understand free speech; an AI phone is one kind. Compare on whether it understands what callers say freely, where summaries and records go, and whether you can set rules for handing calls to people."] },
+      { heading: 'Voicemail vs AI phone reception', paragraphs: ['Small businesses and shops often rely on voicemail for calls they cannot pick up after hours or while serving customers. AI phone reception has AI answer those calls, talk with the caller, capture the request and notify you.'], list: ['When the call is answered: voicemail plays a fixed message / AI reception talks with the caller to find out what they need', 'Checking the request: voicemail means listening to the recording from the start / AI reception sends a summary', 'When something is not caught: voicemail cannot ask again / AI reception asks on the spot', 'Shop information: voicemail only has what was recorded / AI reception can explain opening hours and how bookings work'] },
       { heading: 'Calls that suit — and do not suit — an AI phone', list: ['Suits: the same kinds of inquiries come in repeatedly', 'Suits: answering the phone keeps interrupting on-site work', 'Suits: calls are missed after hours or at peak times', 'Not yet: most calls are emergencies or complaints', 'Not yet: every call is very different and cannot be standardised', 'Not yet: there is nobody to hand calls over to'] },
     ],
     faq: [
       { q: 'What is the main difference between IVR and an AI phone?', a: 'IVR routes callers to fixed choices by keypad; an AI phone understands what callers say in their own words, summarises it and hands it to the right person, capturing several details in one conversation.' },
       { q: 'Will we no longer need people to answer the phone?', a: 'No. Calls that need judgement, negotiation or urgent action are designed to go to people. The AI handles first response, summaries and records, and recognises which calls to pass on.' },
+      { q: 'How is AI phone reception different from voicemail?', a: 'Voicemail plays a fixed message and records. AI phone reception talks with the caller, captures the request and asks again on the spot if something is unclear. You receive a summary instead of replaying recordings, and it can explain opening hours and how bookings work.' },
       { q: 'Are voicebots and AI phones different things?', a: 'Voicebot is a general term for automated voice response, and an AI phone (voice AI) is one kind of it. Products differ in how freely they understand spoken requests and in how they keep records and hand calls over.' },
     ],
     service: { href: '/service/ai-phone', label: 'AI Phone' },
+    product: 'moshitel',
   },
   {
     slug: 'ai-sales-vs-telemarketing',
@@ -317,7 +336,7 @@ export const GUIDE_SLUGS = ja.map((g) => g.slug);
 // 公開日・内容の最終更新日（構造化データとページの表示に使う）。内容（表・本文・FAQ）を直したら modified を更新する。
 // 関連コラムなどの自動で変わる欄は内容の更新に含めない
 export const GUIDE_DATES: Record<string, { published: string; modified: string }> = {
-  'ai-phone-vs-ivr-voicebot': { published: '2026-11-02', modified: '2026-11-02' },
+  'ai-phone-vs-ivr-voicebot': { published: '2026-11-02', modified: '2026-11-16' },
   'ai-sales-vs-telemarketing': { published: '2026-11-02', modified: '2026-11-12' },
   'salesforce-standard-ai-vs-custom': { published: '2026-11-02', modified: '2026-11-12' },
   'ai-adoption-where-to-start': { published: '2026-11-04', modified: '2026-11-04' },

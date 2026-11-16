@@ -5,7 +5,7 @@
   <!-- サイトの各ページ。lastmod は内容を更新した日（scripts/prerender.mjs が載せ漏れを検査する） -->
   <url>
     <loc>https://mgc-global01.com/</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -36,7 +36,7 @@
   </url>
   <url>
     <loc>https://mgc-global01.com/service/ai-phone</loc>
-    <lastmod>2026-11-03</lastmod>
+    <lastmod>2026-11-16</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -82,7 +82,7 @@
   </url>
   <url>
     <loc>https://mgc-global01.com/guide/ai-phone-vs-ivr-voicebot</loc>
-    <lastmod>2026-11-02</lastmod>
+    <lastmod>2026-11-16</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
@@ -107,7 +107,7 @@
   </url>
   <url>
     <loc>https://mgc-global01.com/glossary</loc>
-    <lastmod>2026-11-03</lastmod>
+    <lastmod>2026-11-16</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
