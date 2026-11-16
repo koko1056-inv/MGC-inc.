@@ -400,7 +400,7 @@ function relatedServicesHtml(a) {
 
 // 比較・選び方ガイド（本体サイトの /guide/<slug>。guideContent.ts と同じ slug・タイトル）
 const GUIDES = [
-  { slug: 'ai-phone-vs-ivr-voicebot', title: 'AI電話・IVR・ボイスボットの違いと選び方', desc: '用件の伝え方・扱える情報・記録・人への引き継ぎで比較。向く電話・向かない電話', llms: '用件の伝え方・扱える情報・記録・人への引き継ぎで比較。向く電話・向かない電話' },
+  { slug: 'ai-phone-vs-ivr-voicebot', title: 'AI電話・IVR・ボイスボットの違いと選び方', desc: '用件の伝え方・扱える情報・記録・人への引き継ぎで比較。向く電話・向かない電話、留守番電話との違い', llms: '用件の伝え方・扱える情報・記録・人への引き継ぎで比較。向く電話・向かない電話、留守番電話とAI電話受付の違い（中小企業・店舗向けの自社プロダクト MOSHITEL の紹介あり）' },
   { slug: 'ai-sales-vs-telemarketing', title: 'AI営業とテレアポ代行の違いと選び方', desc: '担い手・契約の形・手元に残るもの・比較の観点', llms: '担い手・契約の形・手元に残るもの・比較の観点' },
   { slug: 'salesforce-standard-ai-vs-custom', title: 'Salesforceの標準AI機能と個別開発、どちらを選ぶか', desc: '費用の構成・判断の材料・進め方', llms: '費用の構成・判断の材料・進め方' },
   { slug: 'ai-adoption-where-to-start', title: 'AI導入は何から始めるか — 最初の1業務の選び方と進め方', desc: '社内の状況別の最初の一歩、最初に任せる1業務の選び方、進め方と期間・費用の目安', llms: '社内の状況別の最初の一歩、最初に任せる1業務の選び方、棚卸し→PoC→本番運用の進め方と期間・費用の目安' },
@@ -916,7 +916,7 @@ function readGlossary() {
 
 // ---- llms.txt（AIアシスタント/生成エンジン向けのサイトガイド。llms.txt標準）----
 // 本体サイト（コラム以外）の内容の最終更新日。本体のページを更新したら日付を足す（llms.txt の「最終更新」に使う）
-const SITE_CONTENT_DATES = ['2026-11-12'];
+const SITE_CONTENT_DATES = ['2026-11-16'];
 function updateLlmsTxt() {
   // 方針: AIが「この会社は何をしていて、誰に何を頼めるか」を正しく説明・推薦できるよう、
   // 会社概要 → 事業・サービス → 研修 → 事例 → 主要ページ → コラム の順に、サイトに載っている事実だけを書く。

@@ -3,7 +3,7 @@
 > 京都の会社。企業のAI活用を、業務の棚卸し・要件整理から、AIの開発・導入・定着、そして同業他社へ届ける事業化まで一貫して支援する。事業はAIソリューション、AI事業立ち上げ支援、研修（AI活用リスキリング研修）、クロスボーダー（海外企業の日本参入・日本企業の海外進出）の4つ。ビジョンは「AIとテクノロジーで、日本と世界をつなぐ」。
 
 サイト全文（サービス・事業・研修・事例・ガイド・用語集の本文）: https://mgc-global01.com/llms-full.txt
-最終更新: 2026-11-12
+最終更新: 2026-11-16
 
 ## 会社概要
 - 商号: ＭＧＣ株式会社（MGC Inc.）
@@ -33,7 +33,7 @@
 - [大手建設機械メーカー: 現場の音声AI](https://mgc-global01.com/cases/manufacturer-field-voice-ai): 現場でのトラブルシューティングを音声AIとの対話で解決。機種と言語に応じた技術情報をAIが引き当てる
 
 ## 比較・選び方ガイド
-- [AI電話・IVR・ボイスボットの違いと選び方](https://mgc-global01.com/guide/ai-phone-vs-ivr-voicebot): 用件の伝え方・扱える情報・記録・人への引き継ぎで比較。向く電話・向かない電話
+- [AI電話・IVR・ボイスボットの違いと選び方](https://mgc-global01.com/guide/ai-phone-vs-ivr-voicebot): 用件の伝え方・扱える情報・記録・人への引き継ぎで比較。向く電話・向かない電話、留守番電話とAI電話受付の違い（中小企業・店舗向けの自社プロダクト MOSHITEL の紹介あり）
 - [AI営業とテレアポ代行の違いと選び方](https://mgc-global01.com/guide/ai-sales-vs-telemarketing): 担い手・契約の形・手元に残るもの・比較の観点
 - [Salesforceの標準AI機能と個別開発、どちらを選ぶか](https://mgc-global01.com/guide/salesforce-standard-ai-vs-custom): 費用の構成・判断の材料・進め方
 - [AI導入は何から始めるか — 最初の1業務の選び方と進め方](https://mgc-global01.com/guide/ai-adoption-where-to-start): 社内の状況別の最初の一歩、最初に任せる1業務の選び方、棚卸し→PoC→本番運用の進め方と期間・費用の目安

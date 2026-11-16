@@ -3367,6 +3367,9 @@ const GuideView: React.FC<{ slug: string; onNavigate: (view: ViewState) => void 
             )}
           </section>
         ))}
+        {g.product === 'moshitel' && (
+          <div className="max-w-4xl mt-14"><MoshitelSection placement="guide-ai-phone" showRelation={false} /></div>
+        )}
         <section className="max-w-4xl mt-14">
           <h2 className="text-xl md:text-2xl font-bold tracking-tight leading-[1.5] mb-5">{ja ? 'よくあるご質問' : 'FAQ'}</h2>
           <div className="space-y-3">
@@ -3745,7 +3748,7 @@ const MoshitelCta: React.FC<{ placement: string; label: string; className?: stri
   </a>
 );
 
-const MoshitelSection: React.FC<{ placement: string }> = ({ placement }) => {
+const MoshitelSection: React.FC<{ placement: string; showRelation?: boolean }> = ({ placement, showRelation = true }) => {
   const { lang } = useLanguage();
   const m = moshitel[lang];
   return (
@@ -3774,7 +3777,7 @@ const MoshitelSection: React.FC<{ placement: string }> = ({ placement }) => {
               ))}
             </div>
             <p className="text-[15px] md:text-base text-gray-600 leading-[1.9] mt-6 max-w-3xl">{m.industries}{m.pricing}</p>
-            <p className="text-sm text-gray-500 leading-[1.9] mt-2 max-w-3xl">{m.relation}</p>
+            {showRelation && <p className="text-sm text-gray-500 leading-[1.9] mt-2 max-w-3xl">{m.relation}</p>}
             <div className="flex flex-col sm:flex-row sm:items-center gap-4 mt-8">
               <MoshitelCta placement={placement} label={m.cta} />
               <p className="text-sm text-gray-500 leading-[1.8] max-w-md">{m.ctaSub}</p>
