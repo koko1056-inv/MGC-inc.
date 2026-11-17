@@ -18,31 +18,37 @@
     <loc>https://mgc-global01.com/works/ai-solutions</loc>
     <lastmod>2026-11-04</lastmod>
     <priority>0.8</priority>
+    <image:image><image:loc>https://mgc-global01.com/assets/service_ai.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://mgc-global01.com/works/ai-business-launch</loc>
     <lastmod>2026-11-03</lastmod>
     <priority>0.8</priority>
+    <image:image><image:loc>https://mgc-global01.com/assets/service_newbiz.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://mgc-global01.com/works/cross-border</loc>
     <lastmod>2026-11-03</lastmod>
     <priority>0.8</priority>
+    <image:image><image:loc>https://mgc-global01.com/assets/service_lab.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://mgc-global01.com/service/ai-sales</loc>
     <lastmod>2026-11-03</lastmod>
     <priority>0.8</priority>
+    <image:image><image:loc>https://mgc-global01.com/assets/service/ai-sales.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://mgc-global01.com/service/ai-phone</loc>
     <lastmod>2026-11-16</lastmod>
     <priority>0.8</priority>
+    <image:image><image:loc>https://mgc-global01.com/assets/service/ai-phone.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://mgc-global01.com/service/salesforce-ai</loc>
     <lastmod>2026-11-03</lastmod>
     <priority>0.8</priority>
+    <image:image><image:loc>https://mgc-global01.com/assets/service/salesforce-ai.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://mgc-global01.com/training</loc>
@@ -145,56 +151,67 @@
     <loc>https://mgc-global01.com/blog/claude-code-salesforce-kintone-ai</loc>
     <lastmod>2026-06-25</lastmod>
     <priority>0.4</priority>
+    <image:image><image:loc>https://mgc-global01.com/assets/blog_strategy.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://mgc-global01.com/blog/ai-agent-teams</loc>
     <lastmod>2026-04-09</lastmod>
     <priority>0.4</priority>
+    <image:image><image:loc>https://mgc-global01.com/assets/blog_automation.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://mgc-global01.com/blog/future-of-sales-ai-in-japan</loc>
     <lastmod>2026-02-19</lastmod>
     <priority>0.4</priority>
+    <image:image><image:loc>https://mgc-global01.com/assets/blog_japan_s_future_in_sales_ai.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://mgc-global01.com/blog/ai-transforming-the-future</loc>
     <lastmod>2026-02-18</lastmod>
     <priority>0.4</priority>
+    <image:image><image:loc>https://mgc-global01.com/assets/blog_ai__transforming_the_future.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://mgc-global01.com/blog/sales-automation-with-ai</loc>
     <lastmod>2025-02-15</lastmod>
     <priority>0.4</priority>
+    <image:image><image:loc>https://mgc-global01.com/assets/blog_sales_ai.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://mgc-global01.com/blog/openclaw-ai-agents-as-employees</loc>
     <lastmod>2025-02-10</lastmod>
     <priority>0.4</priority>
+    <image:image><image:loc>https://mgc-global01.com/assets/blog_automation.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://mgc-global01.com/blog/elevenlabs-lovable-voice-revolution</loc>
     <lastmod>2025-02-01</lastmod>
     <priority>0.4</priority>
+    <image:image><image:loc>https://mgc-global01.com/assets/blog_voice_app.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://mgc-global01.com/blog/redefining-voice-phone-operations</loc>
     <lastmod>2025-01-10</lastmod>
     <priority>0.4</priority>
+    <image:image><image:loc>https://mgc-global01.com/assets/blog_vision.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://mgc-global01.com/blog/tech-art-soul-product-philosophy</loc>
     <lastmod>2025-01-05</lastmod>
     <priority>0.4</priority>
+    <image:image><image:loc>https://mgc-global01.com/assets/blog_philosophy.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://mgc-global01.com/blog/day1-global-strategy</loc>
     <lastmod>2024-12-28</lastmod>
     <priority>0.4</priority>
+    <image:image><image:loc>https://mgc-global01.com/assets/blog_strategy.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://mgc-global01.com/blog/waking-sleeping-giants-global-expansion</loc>
     <lastmod>2024-12-20</lastmod>
     <priority>0.4</priority>
+    <image:image><image:loc>https://mgc-global01.com/assets/blog_methodology.webp</image:loc></image:image>
   </url>
   <!-- COLUMNS:START -->
   <url><loc>https://mgc-global01.com/column</loc><lastmod>2026-11-06</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
