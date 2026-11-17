@@ -795,6 +795,7 @@ export const en: Translation = {
         { q: 'How long does it take?', a: 'As a guide, the pilot (PoC) takes 2–4 weeks and production 1–3 months, depending on scope. We recommend starting small with one task.' },
         { q: 'Do consultations or estimates cost anything?', a: 'No. The first consultation and the estimate are free.' },
         { q: 'Can you support us after the training, or with subsidies?', a: 'Post-training support is quoted individually. If you are considering a subsidy, we support the application (eligibility depends on the requirements); this is free for training participants.' },
+        { q: 'How much does MOSHITEL, our AI phone reception for small businesses and shops, cost?', a: 'It is quoted individually, based on call volume and the scope you want to hand over. Choose your industry, what to handle and a voice, and try it for free on the spot (no sign-up; the site is in Japanese).' },
       ],
     },
     faqLink: 'See how our pricing works',
