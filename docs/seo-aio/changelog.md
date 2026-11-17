@@ -500,3 +500,9 @@
 - 料金ページ（/pricing）: FAQ に「中小企業・お店向けのAI電話受付「MOSHITEL（モシテル）」の料金は？」（JP/EN。答えは LP のとおり＝個別見積もり、無料で試せる、登録不要）。FAQPage は 5→6問、llms-full.txt にも入る。FAQ の下に MOSHITEL の紹介欄（utm_content=pricing）。価格の構造化データは足していない（方針どおりサービス3ページのみ）
 - 料金ページの dateModified（PRICING_MODIFIED）とサイトマップの lastmod を 11/17 に
 - robots.txt: AI アシスタント・生成エンジンのクローラーに Meta-ExternalAgent・Amazonbot・DuckAssistBot・MistralAI-User を明示（どれも `*` で許可済みだが、AI 向けの一覧にそろえた）
+
+## 2026-11-17 サイクル48: 事業内容ページとトップの説明文に MOSHITEL
+- 計測: 数値は取得できず。今日（11/16 22:10・23:30 UTC 予定）の日次コラム・SEO Daily Report の予定実行は、04:00 UTC の時点でまだ起動していない（GitHub の予定実行の遅れ。ワークフローは有効のまま）
+- 事業内容ページ（/works）: 4事業の一覧の直後に MOSHITEL の紹介欄（utm_content=works）。会社の事業を調べる人が見るページに、自社プロダクトが無かった
+- トップの meta description（JP/EN）に「店舗向けAI電話受付「MOSHITEL」も提供」（JP 110字）
+- サイトマップの lastmod: / と /works を 11/17 に

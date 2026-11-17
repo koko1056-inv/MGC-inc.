@@ -32,7 +32,7 @@ export const SHOW_DIAGNOSIS = false;
 // ビューごとの title / description。cases とサービス3本は各ビュー側で設定する。
 const PAGE_META: Record<Lang, Partial<Record<string, { title: string; description: string }>>> = {
   ja: {
-    home: { title: 'ＭＧＣ株式会社（MGC Inc.）| AIとテクノロジーで、日本と世界をつなぐ', description: 'ＭＧＣ株式会社は、AIソリューション・AI事業立ち上げ支援・AI活用研修・クロスボーダー事業を展開する京都の会社。業務の棚卸しから開発・定着、事業化まで一気通貫で支援します。初回相談は無料。' },
+    home: { title: 'ＭＧＣ株式会社（MGC Inc.）| AIとテクノロジーで、日本と世界をつなぐ', description: 'ＭＧＣ株式会社は、AIソリューション・AI事業立ち上げ支援・AI活用研修・クロスボーダー事業を展開する京都の会社。業務の棚卸しから開発・定着、事業化まで一気通貫で支援します。店舗向けAI電話受付「MOSHITEL」も提供。初回相談は無料。' },
     works: { title: '事業内容｜AIソリューション・AI事業立ち上げ支援・研修・クロスボーダー - ＭＧＣ株式会社', description: 'AIコンサルティング・開発・運用を一気通貫で提供するAIソリューション、導入実績を同業他社向けの商材に変えるAI事業立ち上げ支援、AI活用の実践型研修、海外企業の日本総代理店・日本企業の海外進出を支援するクロスボーダー事業。' },
     training: { title: 'AI活用リスキリング研修｜実践型のOFF-JT研修 - ＭＧＣ株式会社', description: 'ITに詳しくない経営者・従業員がAIを業務に導入・活用できるようになる実践型研修（OFF-JT）。基礎から実務での活用までを、解説・実例・デモで学びます。' },
     mission: { title: '会社理念｜AIとテクノロジーで、日本と世界をつなぐ - ＭＧＣ株式会社', description: 'ＭＧＣ株式会社の会社理念。ビジョン「AIとテクノロジーで、日本と世界をつなぐ」と、まずAIネイティブにやってみるという考え方、バリュー（楽観主義・誠実さ・思考の枠を超える）、続いていく取り組みを選ぶ姿勢を掲載しています。' },
@@ -54,7 +54,7 @@ const PAGE_META: Record<Lang, Partial<Record<string, { title: string; descriptio
     cases: { title: '導入事例｜AI導入の進め方と実例 - ＭＧＣ株式会社', description: 'MGCが実際に進めている案件の課題・打ち手・設計の要点。コールセンターの催促架電を音声AIで自動化した事例、海外メーカーの発掘をAIで自動化し1ヶ月で商談10件につながった事例、建設機械の現場で音声AIが技術情報を引き当てる事例を紹介します。' },
   },
   en: {
-    home: { title: 'MGC Inc. | Connect Japan & The World through AI and Tech', description: 'MGC Inc. runs AI Solutions, AI Business Launch Support, AI Training and Cross-Border Business from Kyoto, Japan — from mapping the work to launching a business. First consultation is free.' },
+    home: { title: 'MGC Inc. | Connect Japan & The World through AI and Tech', description: 'MGC Inc. runs AI Solutions, AI Business Launch Support, AI Training and Cross-Border Business from Kyoto, Japan — from mapping the work to launching a business. We also offer MOSHITEL, AI phone reception for shops. First consultation is free.' },
     works: { title: 'Business | AI Solutions, Business Launch, Training and Cross-Border - MGC Inc.', description: 'End-to-end AI solutions, AI business launch support that turns a proven deployment into a product for the industry, hands-on AI training, and two-way cross-border business.' },
     training: { title: 'AI Reskilling Program - MGC Inc.', description: 'Hands-on AI training (OFF-JT) for managers and employees who are not IT specialists, from the foundations to putting AI to work.' },
     mission: { title: 'Mission | Connect Japan & The World through AI and Tech - MGC Inc.', description: 'The mission of MGC Inc.: our vision to connect Japan and the world through AI and technology, starting AI-native, our values (optimism, integrity, thinking beyond the frame), and choosing work that lasts.' },
@@ -1202,6 +1202,11 @@ const WorksView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNav
             detailView="biz-crossborder"
             onNavigate={onNavigate}
           />
+        </div>
+
+        {/* === 自社プロダクト（事業の一覧の直後。中小企業・店舗向けのAI電話受付） === */}
+        <div className="mt-16 md:mt-20">
+          <MoshitelSection placement="works" showRelation={false} />
         </div>
 
         {/* === 事業の3段階（研修を入口に） === */}
