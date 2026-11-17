@@ -1858,7 +1858,7 @@ const JournalPostView: React.FC<{ slug: string; onNavigate: (view: ViewState) =>
           <p className="text-sm text-gray-500 mt-5">{t.journal.author}</p>
         </div>
         <div className="mt-10 rounded-[1.75rem] md:rounded-[2.5rem] overflow-hidden bg-gray-100 aspect-[16/9] md:aspect-[21/9]">
-          <img src={post.image} className="w-full h-full object-cover" alt="" />
+          <img src={post.image} className="w-full h-full object-cover" alt={post.title} />
         </div>
         <div className="max-w-3xl mt-12">
           <p className="text-lg md:text-xl text-offblack leading-[1.9] font-medium border-l-4 border-accent pl-5">{post.excerpt}</p>
@@ -4289,7 +4289,7 @@ const BusinessView: React.FC<{ biz: BizView; onNavigate: (view: ViewState) => vo
           </div>
         </Reveal>
         <div className="mt-6 md:mt-8 rounded-[1.75rem] md:rounded-[2.5rem] overflow-hidden border border-gray-200 bg-white aspect-[16/9] md:aspect-[21/9]">
-          <img src={meta.image} alt="" className="w-full h-full object-cover" />
+          <img src={meta.image} alt={d.title} className="w-full h-full object-cover" />
         </div>
         {'summary' in d && d.summary && (
           <Reveal className="block mt-10 md:mt-14">
