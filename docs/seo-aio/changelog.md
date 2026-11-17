@@ -488,3 +488,9 @@
 - AI電話のページのヒーロー（CTA の下）に「中小企業・お店の方へ：すぐに無料で試せるAI電話受付「MOSHITEL」」のリンク（ページ内の紹介欄へ。JP/EN）
 - トップの FAQ に「中小企業やお店向けのサービスはありますか？」（JP/EN。FAQPage 9→10問、llms-full.txt にも）。AI電話のページの MOSHITEL へリンク
 - 電話・音声を扱うジャーナル2本（「声」の再定義、エンジニア不要の音声革命）に MOSHITEL の紹介欄（utm_content=journal-<slug>）
+
+## 2026-11-17 デイリー（サイクル46）: MOSHITEL を検索結果と会社の説明に
+- 計測: 数値は取得できず（GSC の鍵が未登録、Vercel Analytics が無効）。本番は正常、ランタイムエラー 0件（`metrics/2026-11-17.md`）
+- AI電話のページの meta description（JP/EN）: MOSHITEL に触れる（118字）
+- Organization の description（全ページ）と llms.txt の冒頭の会社説明に、MOSHITEL（中小企業・店舗向けのAI電話受付、LP の URL）を追加。llms.txt の最終更新を 11/17 に
+- 不採用: Organization の owns に Product を入れる案。offers・評価の無い Product は、リッチリザルトのテストでエラーになるため入れなかった
