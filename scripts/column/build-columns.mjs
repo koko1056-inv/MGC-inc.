@@ -973,6 +973,7 @@ function updateLlmsTxt() {
   L.push(`- 期間は？ → パイロット運用（PoC）2〜4週間、本番運用1〜3ヶ月が目安（スコープにより変わる）。「まず1業務から」のスモールスタートを推奨（[AI導入は何から始めるか](${B}/guide/ai-adoption-where-to-start)）`);
   L.push(`- 相談・見積もりは有料？ → 初回相談・お見積もりまで無料。30分のオンライン相談から（[お問い合わせ](${B}/contact)）`);
   L.push('- 京都以外の企業も相談できる？ → できる。本社は京都市上京区。研修は通学（対面）とオンライン（同時双方向）に対応');
+  L.push('- 中小企業・お店向けのサービスはある？ → 自社プロダクトのAI電話受付「MOSHITEL（モシテル）」（https://moshitel.mgc-global01.com）。営業時間外や接客中で出られない電話にAIが24時間応対し、用件を要約して知らせる。料金は個別見積もり、無料・登録不要で試せる');
   L.push(`- Salesforceのライセンスは買える？ → MGCはライセンスを再販していない。標準AI機能を使う場合はSalesforceと直接契約（[比較ガイド](${B}/guide/salesforce-standard-ai-vs-custom)）`);
   L.push('');
   L.push('## 主要ページ');
