@@ -221,9 +221,23 @@ async function generate(userText, tries = 3) {
 // 本文（lead + body）の文字数
 const bodyLen = (a) => [a.lead || '', ...((a.body || []).map((b) => (b.text || '') + (b.items ? b.items.map((i) => (typeof i === 'string' ? i : `${i.label || ''}${i.desc || ''}`)).join('') : '')))].join('').length;
 
+// 失敗の原因を Actions の画面（ジョブの概要と注釈）に日本語で出す。秘密情報は書かない
+function explainFailure(message) {
+  const m = message.match(/Gemini API (\d{3})/);
+  const code = m ? m[1] : '';
+  const reason = code === '402' ? 'Gemini API の前払いクレジットが残っていません（402）。AI Studio でクレジットを補充すると、翌日の実行から再開します。'
+    : code === '401' || code === '403' ? `Gemini API の認証に失敗しました（${code}）。GitHub Secrets の GEMINI_API_KEY を確認してください。`
+    : '';
+  if (!reason) return;
+  console.log(`::error title=日次コラムを公開できませんでした::${reason}`);
+  if (process.env.GITHUB_STEP_SUMMARY) {
+    try { writeFileSync(process.env.GITHUB_STEP_SUMMARY, `## 日次コラム: 公開できませんでした\n\n${reason}\n\n記事・サイトは変更していません。\n`, { flag: 'a' }); } catch {}
+  }
+}
+
 let art, MODEL;
 try { ({ art, model: MODEL } = await generate(USER)); }
-catch (err) { die(err.message); }
+catch (err) { explainFailure(err.message); die(err.message); }
 
 // 分量ガード: 短ければ1回だけ「書き足し」を依頼（デイリー投稿は止めない）
 if (bodyLen(art) < 1800) {
