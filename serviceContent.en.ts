@@ -175,7 +175,7 @@ export const en: Content['en'] = {
     slug: 'ai-phone',
     navLabel: 'Voice AI',
     seoTitle: 'AI phone (voice AI) | An AI agent for call centres - MGC Inc.',
-    seoDescription: 'An AI agent for call centres that handles inbound and outbound calls in natural speech, records results in your CRM and core systems, automates after-call work (ACW) and hands calls that need judgement to your staff with the context.',
+    seoDescription: 'An AI agent for call centres that handles inbound and outbound calls, records results in your CRM, automates after-call work and hands calls to staff with context. For small businesses and shops: MOSHITEL, AI phone reception you can try for free.',
     dateModified: '2026-11-03',
       definition: { heading: 'What is an AI phone (voice AI)?', text: 'An AI phone (voice AI) answers incoming calls first on your behalf. Unlike IVR, which routes callers with keypad choices such as \'press 1\', it listens to what the caller says in their own words, summarises it and hands it to the right person. MGC designs its AI phone as an AI agent for call centres: it covers outbound reminder and confirmation calls as well as inbound calls, records what it hears in your CRM or core systems, and automates after-call work (ACW). Calls that need judgement go to a person with a summary of the conversation.' },
     image: '/assets/service/ai-phone.webp',
