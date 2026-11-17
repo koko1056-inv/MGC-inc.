@@ -3712,6 +3712,11 @@ const PricingView: React.FC<{ onNavigate: (view: ViewState) => void }> = ({ onNa
           </div>
         </section>
 
+        {/* 自社プロダクト（料金は個別見積もり・無料で試せる）への導線 */}
+        <div className="px-6 md:px-12 mt-16 md:mt-20">
+          <div className="max-w-screen-xl mx-auto"><div className="max-w-4xl"><MoshitelSection placement="pricing" showRelation={false} /></div></div>
+        </div>
+
         <div className="px-6 md:px-12"><div className="max-w-screen-xl mx-auto">
           <RelatedReading
             title={lang === 'ja' ? '費用を比べる前に読む' : 'Read before comparing costs'}

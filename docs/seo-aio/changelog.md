@@ -494,3 +494,9 @@
 - AI電話のページの meta description（JP/EN）: MOSHITEL に触れる（118字）
 - Organization の description（全ページ）と llms.txt の冒頭の会社説明に、MOSHITEL（中小企業・店舗向けのAI電話受付、LP の URL）を追加。llms.txt の最終更新を 11/17 に
 - 不採用: Organization の owns に Product を入れる案。offers・評価の無い Product は、リッチリザルトのテストでエラーになるため入れなかった
+
+## 2026-11-17 サイクル47: 料金ページに MOSHITEL、AI クローラーの明示
+- 計測: 数値は取得できず（同日。今日の自動実行も未実施）。料金の問い（「AI電話受付 料金」など）の受け皿である料金ページに、自社プロダクトの情報が無かった
+- 料金ページ（/pricing）: FAQ に「中小企業・お店向けのAI電話受付「MOSHITEL（モシテル）」の料金は？」（JP/EN。答えは LP のとおり＝個別見積もり、無料で試せる、登録不要）。FAQPage は 5→6問、llms-full.txt にも入る。FAQ の下に MOSHITEL の紹介欄（utm_content=pricing）。価格の構造化データは足していない（方針どおりサービス3ページのみ）
+- 料金ページの dateModified（PRICING_MODIFIED）とサイトマップの lastmod を 11/17 に
+- robots.txt: AI アシスタント・生成エンジンのクローラーに Meta-ExternalAgent・Amazonbot・DuckAssistBot・MistralAI-User を明示（どれも `*` で許可済みだが、AI 向けの一覧にそろえた）

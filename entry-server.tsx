@@ -35,7 +35,7 @@ export const render = (path: string) => {
 };
 
 // 料金ページの内容の最終更新日（サイトマップの lastmod と合わせる）
-const PRICING_MODIFIED = '2026-11-10';
+const PRICING_MODIFIED = '2026-11-17';
 export const ORG_ID = `${SITE_ORIGIN}/#organization`;
 export const LOGO_URL = `${SITE_ORIGIN}/assets/brand/mgc-logo.png`;
 // 代表（著者・創業者）。会社概要ページで定義し、記事の author などからは @id で参照する
