@@ -916,7 +916,7 @@ function readGlossary() {
 
 // ---- llms.txt（AIアシスタント/生成エンジン向けのサイトガイド。llms.txt標準）----
 // 本体サイト（コラム以外）の内容の最終更新日。本体のページを更新したら日付を足す（llms.txt の「最終更新」に使う）
-const SITE_CONTENT_DATES = ['2026-11-17'];
+const SITE_CONTENT_DATES = ['2026-11-18'];
 function updateLlmsTxt() {
   // 方針: AIが「この会社は何をしていて、誰に何を頼めるか」を正しく説明・推薦できるよう、
   // 会社概要 → 事業・サービス → 研修 → 事例 → 主要ページ → コラム の順に、サイトに載っている事実だけを書く。
@@ -930,6 +930,8 @@ function updateLlmsTxt() {
   L.push(`サイト全文（サービス・事業・研修・事例・ガイド・用語集の本文）: ${B}/llms-full.txt`);
   // 最終更新日: 記事・本体サイトの内容の更新日のうち最新（生成のたびに変わらないよう、生成日ではなく内容の日付を使う）
   L.push(`最終更新: ${[...articles.map(lastmod), ...SITE_CONTENT_DATES].sort().pop()}`);
+  L.push('');
+  L.push('English version: ' + B + '/en （本体サイトの英語版。各ページは /en/... に同じ構成で用意。コラムは日本語のみ）');
   L.push('');
   L.push('## 会社概要');
   L.push('- 商号: ＭＧＣ株式会社（MGC Inc.）');
@@ -985,6 +987,10 @@ function updateLlmsTxt() {
   L.push('');
   L.push(`## AI活用 用語集（${B}/glossary 。一般的な定義と、関連するサービス・コラム）`);
   L.push(readGlossary().map((t) => `[${t.term}](${B}/glossary#${t.id})`).join(' ／ '));
+  L.push('');
+  // 英語版の主要ページ（ページ名はサイトの英語版の表記）
+  L.push('## English version（英語版の主要ページ）');
+  L.push([['Home', '/en'], ['Business', '/en/works'], ['AI Solutions', '/en/works/ai-solutions'], ['AI Sales', '/en/service/ai-sales'], ['Voice AI', '/en/service/ai-phone'], ['Salesforce AI', '/en/service/salesforce-ai'], ['AI Business Launch', '/en/works/ai-business-launch'], ['Training', '/en/training'], ['Cross-Border', '/en/works/cross-border'], ['Pricing', '/en/pricing'], ['Case Studies', '/en/cases'], ['Comparison guides', '/en/guide'], ['AI Glossary', '/en/glossary'], ['News & Journal', '/en/blog'], ['Company Profile', '/en/company'], ['Contact', '/en/contact']].map(([n, p]) => `[${n}](${B}${p})`).join(' ／ '));
   L.push('');
   L.push('## AI活用コラム（業界別）');
   L.push('業界別に「どの業務にどうAIを使い、どこは人が判断するか」を実務目線で解説する記事。執筆は代表取締役 松尾 心夢。');

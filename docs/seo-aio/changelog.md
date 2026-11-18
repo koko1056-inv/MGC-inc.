@@ -553,3 +553,12 @@
   - /en の URL を直接開くと、英語の文言を読み込んでから表示する
 - vercel.json: /en と /en/... の書き換え（20件）を追加。CSP などのヘッダーは既存の設定のまま英語版にも適用される
 - 構造化データ: 英語版にはまだ出していない（日本語の内容を英語のページに出さないため）。次のフェーズで英語の構造化データを追加する
+
+## 2026-11-18 英語版の独自URL（フェーズ2）: 英語の構造化データと llms.txt の英語版案内
+- entry-server.tsx の構造化データ（jsonLdFor）を日英両方に対応させた。英語版（/en/...）には、英語版の文言と英語版の URL で次を出す
+  - パンくず、FAQPage（トップ・料金・研修・事業・サービス・ガイド）
+  - Service（事業・サービス・MOSHITEL）、Course（研修。金額・時間・実施形態は日本語版と同じ事実）
+  - Article（ガイド・事例・ジャーナル）、CollectionPage・AboutPage・ContactPage
+  - DefinedTermSet（用語集）、Person（代表。英語の紹介文はサイトに無いので description なし）
+- 英語版の構造化データは 39ページで計 169件（会社・サイトの共通ブロックを含む）。日本語の文言が混ざっていないことを確認した（MOSHITEL・代表の alternateName は除く）。英語の wordCount は語数で数える
+- llms.txt（build-columns.mjs）: 冒頭に英語版の URL を、節「English version」に英語版の主要ページ16件を追加した（ページ名はサイトの英語版の表記）。最終更新は 11/18

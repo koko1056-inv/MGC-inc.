@@ -4,7 +4,7 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import App, { viewForPath, metaFor, metaForPath, splitLangPath, localizePath, PATH_TO_VIEW, SERVICE_KEYS, pathForView, SITE_ORIGIN, THANKS_PATH, BUSINESS_PAGES, isBizView } from './App';
 import { serviceContent } from './serviceContent';
-import { translations } from './translations';
+import { translations, type Lang } from './translations';
 import { journalPosts, journalPath, findJournalPost } from './journal';
 import { glossaryContent } from './glossaryContent';
 import { caseContent, CASE_DATES } from './caseContent';
@@ -45,8 +45,7 @@ export const render = (path: string) => {
   );
   const view = viewForPath(path);
   const { lang } = splitLangPath(path);
-  // 英語版の構造化データは後のサイクルで追加する（今は日本語の内容を英語のページに出さない）
-  return { html, meta: metaForPath(view, path), jsonLd: lang === 'en' ? [] : jsonLdFor(path), lang };
+  return { html, meta: metaForPath(view, path), jsonLd: jsonLdFor(path), lang };
 };
 
 // 料金ページの内容の最終更新日（サイトマップの lastmod と合わせる）
@@ -74,45 +73,62 @@ const SERVICE_TYPE: Record<string, string> = {
 const textLength = (v: unknown): number =>
   typeof v === 'string' ? v.replace(/\s+/g, '').length : Array.isArray(v) ? v.reduce((n: number, x) => n + textLength(x), 0) : v && typeof v === 'object' ? Object.values(v).reduce((n: number, x) => n + textLength(x), 0) : 0;
 // ジャーナル記事が主に扱うサービス（本文の語の出現数で判定。3回以上の語のみ）
-const SERVICE_TOPICS: [string, RegExp][] = [
-  ['AI電話（音声AI）', /電話|音声|ボイス|コール/g],
-  ['AI営業', /営業|商談|アポ|セールス/g],
-  ['Salesforce AI', /Salesforce|kintone|CRM|SFA/g],
-];
-const topicsFor = (text: string) => {
-  const hits = SERVICE_TOPICS.filter(([, re]) => (text.match(re) || []).length >= 3).map(([name]) => ({ '@type': 'Thing', name }));
-  return hits.length ? hits : [{ '@type': 'Thing', name: 'AI導入・活用' }];
+const SERVICE_TOPICS: Record<Lang, [string, RegExp][]> = {
+  ja: [
+    ['AI電話（音声AI）', /電話|音声|ボイス|コール/g],
+    ['AI営業', /営業|商談|アポ|セールス/g],
+    ['Salesforce AI', /Salesforce|kintone|CRM|SFA/g],
+  ],
+  en: [
+    ['Voice AI', /phone|voice|call/gi],
+    ['AI Sales', /sales|appointment|prospect/gi],
+    ['Salesforce AI', /Salesforce|kintone|CRM|SFA/g],
+  ],
 };
+const topicsFor = (text: string, L: Lang = 'ja') => {
+  const hits = SERVICE_TOPICS[L].filter(([, re]) => (text.match(re) || []).length >= 3).map(([name]) => ({ '@type': 'Thing', name }));
+  return hits.length ? hits : [{ '@type': 'Thing', name: L === 'ja' ? 'AI導入・活用' : 'AI adoption' }];
+};
+// 英文の語数（構造化データの wordCount。和文は文字数、英文は語数で数える）
+const wordsOf = (v: unknown): number =>
+  typeof v === 'string' ? (v.match(/\S+/g) || []).length : Array.isArray(v) ? v.reduce((n: number, x) => n + wordsOf(x), 0) : v && typeof v === 'object' ? Object.values(v).reduce((n: number, x) => n + wordsOf(x), 0) : 0;
 
 // ページごとの構造化データ（パンくず＋ページの種類に応じたもの）
-const jsonLdFor = (path: string): object[] => {
+// 日本語版と英語版（/en/...）の両方に使う。英語版は英語版の文言とURLで作る（新しい事実は足さない）
+const jsonLdFor = (rawPath: string): object[] => {
+  const { lang: L, path } = splitLangPath(rawPath);
+  const T = (ja: string, en: string) => (L === 'ja' ? ja : en);
+  const U = (p: string) => SITE_ORIGIN + localizePath(p, L);
+  const len = (v: unknown) => (L === 'ja' ? textLength(v) : wordsOf(v));
+  const nav = translations[L].nav;
+  const ORG_NAME = T('ＭＧＣ株式会社', 'MGC Inc.');
   const view = viewForPath(path);
-  const meta = metaFor(view, 'ja', path);
+  const meta = metaForPath(view, rawPath);
   const out: object[] = [];
   if (meta.noindex) return out;
-  const post = view === 'journal' ? findJournalPost('ja', path.split('/').pop() ?? '') : undefined;
+  const post = view === 'journal' ? findJournalPost(L, path.split('/').pop() ?? '') : undefined;
   if (path !== '/') {
-    const cs = view === 'case' ? caseContent.ja.cases.find((x) => x.slug === path.split('/').pop()) : undefined;
-    const gd = view === 'guide' ? guideContent.ja.guides.find((x) => x.slug === path.split('/').pop()) : undefined;
+    const cs = view === 'case' ? caseContent[L].cases.find((x) => x.slug === path.split('/').pop()) : undefined;
+    const gd = view === 'guide' ? guideContent[L].guides.find((x) => x.slug === path.split('/').pop()) : undefined;
     const crumbs = gd
       ? [
-          { name: '比較・選び方ガイド', item: `${SITE_ORIGIN}/guide` },
+          { name: T('比較・選び方ガイド', 'Comparison guides'), item: U('/guide') },
           { name: gd.title, item: meta.url },
         ]
       : cs
       ? [
-          { name: '導入事例', item: `${SITE_ORIGIN}/cases` },
+          { name: nav.cases, item: U('/cases') },
           { name: cs.title ?? cs.industry, item: meta.url },
         ]
       : post
       ? [
-          { name: 'お知らせ・ジャーナル', item: `${SITE_ORIGIN}/blog` },
+          { name: nav.blog, item: U('/blog') },
           { name: post.title, item: meta.url },
         ]
       : isBizView(view) || (SERVICE_KEYS as string[]).includes(view)
         ? [
-            { name: '事業内容', item: `${SITE_ORIGIN}/works` },
-            ...((SERVICE_KEYS as string[]).includes(view) ? [{ name: 'AIソリューション', item: `${SITE_ORIGIN}${BUSINESS_PAGES['biz-ai'].path}` }] : []),
+            { name: nav.works, item: U('/works') },
+            ...((SERVICE_KEYS as string[]).includes(view) ? [{ name: nav.aiSolutions, item: U(BUSINESS_PAGES['biz-ai'].path) }] : []),
             { name: meta.title.split(/[｜|]| - /)[0].trim(), item: meta.url },
           ]
         : [{ name: meta.title.split(/[｜|]| - /)[0].trim(), item: meta.url }];
@@ -120,13 +136,13 @@ const jsonLdFor = (path: string): object[] => {
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'ホーム', item: `${SITE_ORIGIN}/` },
+        { '@type': 'ListItem', position: 1, name: T('ホーム', 'Home'), item: L === 'ja' ? `${SITE_ORIGIN}/` : U('/') },
         ...crumbs.map((c, i) => ({ '@type': 'ListItem', position: i + 2, ...c })),
       ],
     });
   }
   if (view === 'guide') {
-    const g = guideContent.ja.guides.find((x) => x.slug === path.split('/').pop());
+    const g = guideContent[L].guides.find((x) => x.slug === path.split('/').pop());
     if (g) {
       out.push({
         '@context': 'https://schema.org',
@@ -135,15 +151,15 @@ const jsonLdFor = (path: string): object[] => {
         headline: g.title,
         description: g.description,
         ...(GUIDE_DATES[g.slug] ? { datePublished: GUIDE_DATES[g.slug].published, dateModified: GUIDE_DATES[g.slug].modified } : {}),
-        articleSection: '比較・選び方ガイド',
+        articleSection: T('比較・選び方ガイド', 'Comparison guides'),
         about: { '@type': 'Thing', name: g.service.label },
         isAccessibleForFree: true,
-        wordCount: textLength([g.lead, g.table, g.sections, g.faq]),
-        inLanguage: 'ja',
+        wordCount: len([g.lead, g.table, g.sections, g.faq]),
+        inLanguage: L,
         url: meta.url,
         image: [meta.image],
-        author: { '@type': 'Organization', '@id': ORG_ID, name: 'ＭＧＣ株式会社' },
-        publisher: { '@type': 'Organization', '@id': ORG_ID, name: 'ＭＧＣ株式会社', logo: { '@type': 'ImageObject', url: LOGO_URL, width: 512, height: 512 } },
+        author: { '@type': 'Organization', '@id': ORG_ID, name: ORG_NAME },
+        publisher: { '@type': 'Organization', '@id': ORG_ID, name: ORG_NAME, logo: { '@type': 'ImageObject', url: LOGO_URL, width: 512, height: 512 } },
         mainEntityOfPage: { '@type': 'WebPage', '@id': meta.url },
       });
       out.push({
@@ -156,21 +172,21 @@ const jsonLdFor = (path: string): object[] => {
   // 一覧・会社情報のページ: ページの種類（CollectionPage / AboutPage / ContactPage）と、一覧の中身（ItemList）
   const pageNode = (type: string, extra: object = {}) => ({
     '@context': 'https://schema.org', '@type': type, '@id': `${meta.url}#webpage`, url: meta.url, name: meta.title, description: meta.description,
-    inLanguage: 'ja', isPartOf: { '@id': `${SITE_ORIGIN}/#website` }, publisher: { '@id': ORG_ID }, ...extra,
+    inLanguage: L, isPartOf: { '@id': `${SITE_ORIGIN}/#website` }, publisher: { '@id': ORG_ID }, ...extra,
   });
   const itemList = (name: string, items: { url: string; name: string }[]) => ({
     '@type': 'ItemList', name, numberOfItems: items.length,
     itemListElement: items.map((x, i) => ({ '@type': 'ListItem', position: i + 1, url: x.url, name: x.name })),
   });
   if (view === 'cases') {
-    out.push(pageNode('CollectionPage', { mainEntity: itemList('導入事例', caseContent.ja.cases.map((c) => ({ url: `${SITE_ORIGIN}/cases/${c.slug}`, name: c.title ?? c.industry }))) }));
+    out.push(pageNode('CollectionPage', { mainEntity: itemList(nav.cases, caseContent[L].cases.map((c) => ({ url: U(`/cases/${c.slug}`), name: c.title ?? c.industry }))) }));
   }
   if (view === 'blog') {
-    out.push(pageNode('CollectionPage', { mainEntity: itemList('お知らせ・ジャーナル', journalPosts('ja').map((x) => ({ url: SITE_ORIGIN + journalPath(x.slug), name: x.title }))) }));
+    out.push(pageNode('CollectionPage', { mainEntity: itemList(nav.blog, journalPosts(L).map((x) => ({ url: U(journalPath(x.slug)), name: x.title }))) }));
   }
   if (view === 'works') {
-    const biz = (Object.keys(BUSINESS_PAGES) as (keyof typeof BUSINESS_PAGES)[]).map((v) => ({ url: `${SITE_ORIGIN}${BUSINESS_PAGES[v].path}`, name: translations.ja.works[BUSINESS_PAGES[v].key].title }));
-    out.push(pageNode('CollectionPage', { mainEntity: itemList('事業内容', [...biz, { url: `${SITE_ORIGIN}/training`, name: 'AI活用リスキリング研修' }]) }));
+    const biz = (Object.keys(BUSINESS_PAGES) as (keyof typeof BUSINESS_PAGES)[]).map((v) => ({ url: U(BUSINESS_PAGES[v].path), name: translations[L].works[BUSINESS_PAGES[v].key].title }));
+    out.push(pageNode('CollectionPage', { mainEntity: itemList(nav.works, [...biz, { url: U('/training'), name: T('AI活用リスキリング研修', nav.training) }]) }));
   }
   if (view === 'company' || view === 'mission') {
     out.push(pageNode('AboutPage', { about: { '@id': ORG_ID } }));
@@ -182,12 +198,12 @@ const jsonLdFor = (path: string): object[] => {
     out.push({
       '@context': 'https://schema.org',
       '@type': 'ItemList',
-      name: '比較・選び方ガイド',
-      itemListElement: guideContent.ja.guides.map((g, i) => ({ '@type': 'ListItem', position: i + 1, url: `${SITE_ORIGIN}/guide/${g.slug}`, name: g.title })),
+      name: T('比較・選び方ガイド', 'Comparison guides'),
+      itemListElement: guideContent[L].guides.map((g, i) => ({ '@type': 'ListItem', position: i + 1, url: U(`/guide/${g.slug}`), name: g.title })),
     });
   }
   if (view === 'case') {
-    const cs = caseContent.ja.cases.find((x) => x.slug === path.split('/').pop());
+    const cs = caseContent[L].cases.find((x) => x.slug === path.split('/').pop());
     if (cs) {
       out.push({
         '@context': 'https://schema.org',
@@ -196,22 +212,22 @@ const jsonLdFor = (path: string): object[] => {
         headline: cs.title ?? cs.industry,
         description: cs.summary,
         ...(CASE_DATES[cs.slug] ? { datePublished: CASE_DATES[cs.slug].published, dateModified: CASE_DATES[cs.slug].modified } : {}),
-        articleSection: '導入事例',
+        articleSection: nav.cases,
         isAccessibleForFree: true,
-        wordCount: textLength([cs.summary, cs.challenge, cs.approach, cs.result, cs.flow]),
+        wordCount: len([cs.summary, cs.challenge, cs.approach, cs.result, cs.flow]),
         about: cs.services.map((name) => ({ '@type': 'Thing', name })),
-        inLanguage: 'ja',
+        inLanguage: L,
         url: meta.url,
         image: [meta.image],
-        author: { '@type': 'Organization', '@id': ORG_ID, name: 'ＭＧＣ株式会社' },
-        publisher: { '@type': 'Organization', '@id': ORG_ID, name: 'ＭＧＣ株式会社', logo: { '@type': 'ImageObject', url: LOGO_URL, width: 512, height: 512 } },
+        author: { '@type': 'Organization', '@id': ORG_ID, name: ORG_NAME },
+        publisher: { '@type': 'Organization', '@id': ORG_ID, name: ORG_NAME, logo: { '@type': 'ImageObject', url: LOGO_URL, width: 512, height: 512 } },
         mainEntityOfPage: { '@type': 'WebPage', '@id': meta.url },
       });
     }
   }
   if (view === 'pricing') {
-    const pr = translations.ja.pricing;
-    out.push({ '@context': 'https://schema.org', '@type': 'WebPage', '@id': `${meta.url}#webpage`, url: meta.url, name: meta.title, description: meta.description, inLanguage: 'ja', isPartOf: { '@id': `${SITE_ORIGIN}/#website` }, publisher: { '@id': ORG_ID }, dateModified: PRICING_MODIFIED });
+    const pr = translations[L].pricing;
+    out.push({ '@context': 'https://schema.org', '@type': 'WebPage', '@id': `${meta.url}#webpage`, url: meta.url, name: meta.title, description: meta.description, inLanguage: L, isPartOf: { '@id': `${SITE_ORIGIN}/#website` }, publisher: { '@id': ORG_ID }, dateModified: PRICING_MODIFIED });
     out.push({
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
@@ -219,10 +235,11 @@ const jsonLdFor = (path: string): object[] => {
     });
   }
   if (view === 'company') {
-    out.push({ '@context': 'https://schema.org', ...CEO, description: 'ＭＧＣ株式会社 代表取締役。AIソリューション、AI事業立ち上げ支援、AI活用研修、クロスボーダー事業を展開する同社を率いる。' });
+    // 英語版は、サイトに英語の紹介文が無いため description を付けない
+    out.push({ '@context': 'https://schema.org', ...CEO, ...(L === 'ja' ? { description: 'ＭＧＣ株式会社 代表取締役。AIソリューション、AI事業立ち上げ支援、AI活用研修、クロスボーダー事業を展開する同社を率いる。' } : { name: 'Kokomu Matsuo', alternateName: '松尾 心夢', jobTitle: 'CEO', worksFor: { '@type': 'Organization', '@id': ORG_ID, name: ORG_NAME }, url: U('/company') }) });
   }
   if (view === 'glossary') {
-    const g = glossaryContent.ja;
+    const g = glossaryContent[L];
     out.push({
       '@context': 'https://schema.org',
       '@type': 'DefinedTermSet',
@@ -230,8 +247,8 @@ const jsonLdFor = (path: string): object[] => {
       name: g.title,
       description: meta.description,
       url: meta.url,
-      inLanguage: 'ja',
-      publisher: { '@type': 'Organization', '@id': ORG_ID, name: 'ＭＧＣ株式会社' },
+      inLanguage: L,
+      publisher: { '@type': 'Organization', '@id': ORG_ID, name: ORG_NAME },
       hasDefinedTerm: g.terms.map((x) => ({
         '@type': 'DefinedTerm',
         '@id': `${meta.url}#${x.id}`,
@@ -243,7 +260,7 @@ const jsonLdFor = (path: string): object[] => {
     });
   }
   if (isBizView(view)) {
-    const d = translations.ja.details[BUSINESS_PAGES[view].key];
+    const d = translations[L].details[BUSINESS_PAGES[view].key];
     out.push({
       '@context': 'https://schema.org',
       '@type': 'Service',
@@ -252,12 +269,12 @@ const jsonLdFor = (path: string): object[] => {
       description: meta.description,
       url: meta.url,
       image: meta.image,
-      provider: { '@type': 'Organization', '@id': ORG_ID, name: 'ＭＧＣ株式会社', url: SITE_ORIGIN },
+      provider: { '@type': 'Organization', '@id': ORG_ID, name: ORG_NAME, url: L === 'ja' ? SITE_ORIGIN : U('/') },
       areaServed: { '@type': 'Country', name: 'Japan' },
-      audience: { '@type': 'BusinessAudience', audienceType: '法人' },
+      audience: { '@type': 'BusinessAudience', audienceType: T('法人', 'Businesses') },
       hasOfferCatalog: {
         '@type': 'OfferCatalog',
-        name: `${d.title}の提供内容`,
+        name: T(`${d.title}の提供内容`, `${d.title}: what we provide`),
         itemListElement: d.features.map((f) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: f.sub, description: f.text } })),
       },
     });
@@ -276,15 +293,15 @@ const jsonLdFor = (path: string): object[] => {
       image: [SITE_ORIGIN + post.imageJpg],
       datePublished: post.isoDate,
       dateModified: post.isoDate,
-      inLanguage: 'ja',
+      inLanguage: L,
       articleSection: post.category,
-      about: topicsFor(`${post.title}\n${post.content}`),
+      about: topicsFor(`${post.title}\n${post.content}`, L),
       isAccessibleForFree: true,
-      wordCount: textLength(post.content),
-      author: { '@type': 'Person', '@id': CEO_ID, name: '松尾 心夢', url: `${SITE_ORIGIN}/company` },
+      wordCount: len(post.content),
+      author: { '@type': 'Person', '@id': CEO_ID, name: T('松尾 心夢', 'Kokomu Matsuo'), url: U('/company') },
       publisher: {
         '@type': 'Organization',
-        name: 'ＭＧＣ株式会社',
+        name: ORG_NAME,
         url: SITE_ORIGIN,
         '@id': ORG_ID,
         logo: { '@type': 'ImageObject', url: LOGO_URL, width: 512, height: 512 },
@@ -293,54 +310,54 @@ const jsonLdFor = (path: string): object[] => {
     });
   }
   // index.html の Organization（@id）を参照する
-  const provider = { '@type': 'Organization', '@id': ORG_ID, name: 'ＭＧＣ株式会社', url: SITE_ORIGIN };
+  const provider = { '@type': 'Organization', '@id': ORG_ID, name: ORG_NAME, url: L === 'ja' ? SITE_ORIGIN : U('/') };
   const faqPage = (items: { q: string; a: string }[]) => ({
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
     mainEntity: items.map((x) => ({ '@type': 'Question', name: x.q, acceptedAnswer: { '@type': 'Answer', text: x.a } })),
   });
-  if (view === 'home') out.push(faqPage(translations.ja.faq.items.map((x) => ({ q: x.q, a: x.a }))));
+  if (view === 'home') out.push(faqPage(translations[L].faq.items.map((x) => ({ q: x.q, a: x.a }))));
   // 自社プロダクト MOSHITEL（中小企業・店舗向けのAI電話受付）。トップと AI電話のページに置く。料金は個別見積もりのため offers は載せない
   if (view === 'home' || view === 'ai-phone') {
-    const m = moshitel.ja;
+    const m = moshitel[L];
     out.push({
       '@context': 'https://schema.org',
       '@type': 'Service',
       '@id': `${SITE_ORIGIN}/#moshitel`,
       name: m.name,
       alternateName: ['MOSHITEL', 'モシテル', 'AI電話受付モシテル'],
-      serviceType: 'AI電話受付',
+      serviceType: T('AI電話受付', 'AI phone reception'),
       description: m.summary,
       url: MOSHITEL_URL,
       provider,
       brand: { '@type': 'Brand', name: 'MOSHITEL' },
       areaServed: { '@type': 'Country', name: 'Japan' },
-      audience: { '@type': 'BusinessAudience', audienceType: '中小企業・店舗' },
+      audience: { '@type': 'BusinessAudience', audienceType: T('中小企業・店舗', 'Small businesses and shops') },
       availableChannel: { '@type': 'ServiceChannel', serviceUrl: MOSHITEL_URL, availableLanguage: 'ja' },
-      isRelatedTo: { '@type': 'Service', '@id': `${SITE_ORIGIN}${pathForView('ai-phone')}#service`, name: 'AI電話（音声AI）' },
+      isRelatedTo: { '@type': 'Service', '@id': `${U(pathForView('ai-phone'))}#service`, name: serviceContent[L]['ai-phone'].navLabel },
     });
   }
   if ((SERVICE_KEYS as string[]).includes(view)) {
-    const page = serviceContent.ja[view as keyof typeof serviceContent.ja];
+    const page = serviceContent[L][view as keyof typeof serviceContent.ja];
     out.push({
       '@context': 'https://schema.org',
       '@type': 'Service',
       '@id': `${meta.url}#service`,
       name: page.navLabel,
-      serviceType: SERVICE_TYPE[view] ?? page.navLabel,
+      serviceType: L === 'ja' ? SERVICE_TYPE[view] ?? page.navLabel : page.navLabel,
       description: page.definition?.text ?? page.seoDescription,
       url: meta.url,
       image: meta.image,
       provider,
       brand: { '@type': 'Brand', name: 'MGC Inc.' },
       areaServed: { '@type': 'Country', name: 'Japan' },
-      audience: { '@type': 'BusinessAudience', audienceType: '法人' },
-      isRelatedTo: { '@type': 'Service', name: 'AIソリューション', url: `${SITE_ORIGIN}${BUSINESS_PAGES['biz-ai'].path}` },
+      audience: { '@type': 'BusinessAudience', audienceType: T('法人', 'Businesses') },
+      isRelatedTo: { '@type': 'Service', name: nav.aiSolutions, url: U(BUSINESS_PAGES['biz-ai'].path) },
       // PoC の料金目安だけを構造化データにする（本番導入・月額は個別見積もりのため載せない）
       offers: {
         '@type': 'Offer',
-        name: `${page.navLabel} PoC（概念実証）`,
-        description: 'PoCの料金目安。本番導入は要件に応じて個別見積もり。',
+        name: T(`${page.navLabel} PoC（概念実証）`, `${page.navLabel} PoC (proof of concept)`),
+        description: T('PoCの料金目安。本番導入は要件に応じて個別見積もり。', 'Typical PoC price. Production rollout is quoted individually.'),
         url: meta.url,
         priceSpecification: { '@type': 'PriceSpecification', minPrice: 1000000, maxPrice: 3000000, priceCurrency: 'JPY' },
       },
@@ -349,14 +366,17 @@ const jsonLdFor = (path: string): object[] => {
     if (faq && faq.type === 'faq') out.push(faqPage(faq.items));
     // 内容を見直した日を WebPage として示す（Service には dateModified が無いため）
     if (page.dateModified) {
-      out.push({ '@context': 'https://schema.org', '@type': 'WebPage', '@id': `${meta.url}#webpage`, url: meta.url, name: meta.title, inLanguage: 'ja', isPartOf: { '@id': `${SITE_ORIGIN}/#website` }, about: { '@id': `${meta.url}#service` }, dateModified: page.dateModified });
+      out.push({ '@context': 'https://schema.org', '@type': 'WebPage', '@id': `${meta.url}#webpage`, url: meta.url, name: meta.title, inLanguage: L, isPartOf: { '@id': `${SITE_ORIGIN}/#website` }, about: { '@id': `${meta.url}#service` }, dateModified: page.dateModified });
     }
   }
   if (view === 'training') {
-    const tr = translations.ja.training;
+    const tr = translations[L].training;
     out.push(faqPage(tr.faq.items));
-    for (const c of tr.course.items) {
-      const spec = (label: string) => c.specs.find((x) => x.label === label)?.value ?? '';
+    tr.course.items.forEach((c, ci) => {
+      // 金額・時間・実施形態は日本語版の表記から読む（英語版も同じ事実）。対象は表示言語の同じ位置の項目
+      const jaSpecs = translations.ja.training.course.items[ci]?.specs ?? [];
+      const spec = (label: string) => jaSpecs.find((x) => x.label === label)?.value ?? '';
+      const specHere = (label: string) => c.specs[jaSpecs.findIndex((x) => x.label === label)]?.value ?? '';
       // 「1名 398,000円（税込）」から金額だけを取る（「1名」の 1 を混ぜない）
       const price = (spec('受講料').match(/([\d,]+)\s*円/)?.[1] ?? '').replace(/,/g, '');
       const hours = spec('標準時間').match(/(\d+)\s*時間/)?.[1];
@@ -368,20 +388,20 @@ const jsonLdFor = (path: string): object[] => {
         name: c.name,
         description: c.overview,
         url: meta.url,
-        inLanguage: 'ja',
+        inLanguage: L,
         provider,
         // ページに掲載している「習得できること」「対象」「主なテーマ」をそのまま渡す
         teaches: c.outcomes,
-        ...(spec('対象') ? { audience: { '@type': 'EducationalAudience', audienceType: spec('対象') } } : {}),
-        syllabusSections: c.themes.map((t) => ({ '@type': 'Syllabus', name: t.heading, description: t.items.join('、') })),
+        ...(specHere('対象') ? { audience: { '@type': 'EducationalAudience', audienceType: specHere('対象') } } : {}),
+        syllabusSections: c.themes.map((t) => ({ '@type': 'Syllabus', name: t.heading, description: t.items.join(T('、', ', ')) })),
         ...(hours ? { timeRequired: `PT${hours}H` } : {}),
         availableLanguage: ['ja'],
-        ...(price ? { offers: { '@type': 'Offer', category: 'Paid', price, priceCurrency: 'JPY', description: '1名あたり（税込）', url: meta.url } } : {}),
+        ...(price ? { offers: { '@type': 'Offer', category: 'Paid', price, priceCurrency: 'JPY', description: T('1名あたり（税込）', 'Per participant (tax incl.)'), url: meta.url } } : {}),
         ...(modes.length && hours
           ? { hasCourseInstance: modes.map((m) => ({ '@type': 'CourseInstance', courseMode: m, courseWorkload: `PT${hours}H` })) }
           : {}),
       });
-    }
+    });
   }
   return out;
 };
