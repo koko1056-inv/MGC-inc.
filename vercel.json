@@ -126,6 +126,86 @@
     {
       "source": "/contact/thanks",
       "destination": "/contact/thanks.html"
+    },
+    {
+      "source": "/en",
+      "destination": "/en.html"
+    },
+    {
+      "source": "/en/guide",
+      "destination": "/en/guide.html"
+    },
+    {
+      "source": "/en/guide/:slug",
+      "destination": "/en/guide/:slug.html"
+    },
+    {
+      "source": "/en/glossary",
+      "destination": "/en/glossary.html"
+    },
+    {
+      "source": "/en/pricing",
+      "destination": "/en/pricing.html"
+    },
+    {
+      "source": "/en/privacy-policy",
+      "destination": "/en/privacy-policy.html"
+    },
+    {
+      "source": "/en/terms-of-service",
+      "destination": "/en/terms-of-service.html"
+    },
+    {
+      "source": "/en/works",
+      "destination": "/en/works.html"
+    },
+    {
+      "source": "/en/works/:slug",
+      "destination": "/en/works/:slug.html"
+    },
+    {
+      "source": "/en/training",
+      "destination": "/en/training.html"
+    },
+    {
+      "source": "/en/cases",
+      "destination": "/en/cases.html"
+    },
+    {
+      "source": "/en/cases/:slug",
+      "destination": "/en/cases/:slug.html"
+    },
+    {
+      "source": "/en/mission",
+      "destination": "/en/mission.html"
+    },
+    {
+      "source": "/en/company",
+      "destination": "/en/company.html"
+    },
+    {
+      "source": "/en/career",
+      "destination": "/en/career.html"
+    },
+    {
+      "source": "/en/contact",
+      "destination": "/en/contact.html"
+    },
+    {
+      "source": "/en/blog",
+      "destination": "/en/blog.html"
+    },
+    {
+      "source": "/en/service/:slug",
+      "destination": "/en/service/:slug.html"
+    },
+    {
+      "source": "/en/diagnosis",
+      "destination": "/en/diagnosis.html"
+    },
+    {
+      "source": "/en/blog/:slug",
+      "destination": "/en/blog/:slug.html"
     }
   ],
   "headers": [

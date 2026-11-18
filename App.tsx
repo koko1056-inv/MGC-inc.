@@ -126,8 +126,31 @@ export const SERVICE_KEYS: ServiceKey[] = ['ai-sales', 'ai-phone', 'salesforce-a
 const isServiceKey = (v: string): v is ServiceKey => (SERVICE_KEYS as string[]).includes(v);
 
 // クリーンURLのパスからビューを決める（ブラウザと事前描画で共通）
+// 英語版は /en を前に付けたURL（/en、/en/works など）。日本語版は従来どおり
+export const EN_PREFIX = '/en';
+export const splitLangPath = (rawPath: string): { lang: Lang; path: string } => {
+  const p = rawPath.replace(/\/+$/, '') || '/';
+  if (p === EN_PREFIX || p.startsWith(`${EN_PREFIX}/`)) return { lang: 'en', path: p.slice(EN_PREFIX.length) || '/' };
+  return { lang: 'ja', path: p };
+};
+// 英語版を作るのは本体サイト（React で描くページ）だけ。コラム・静的ファイル・API は日本語のまま
+const NOT_LOCALIZED = /^\/(column|assets|fonts|api|llms|sitemap|robots|favicon|en(\/|$))/;
+export const isLocalizable = (p: string) => p.startsWith('/') && !p.startsWith('//') && !NOT_LOCALIZED.test(p);
+export const localizePath = (p: string, lang: Lang): string => {
+  if (lang !== 'en' || !isLocalizable(p)) return p;
+  return p === '/' ? EN_PREFIX : `${EN_PREFIX}${p}`;
+};
+// 言語の付いたパスから、表示言語に合わせたメタ情報（canonical は言語ごとの URL）を作る
+export const metaForPath = (view: ViewState, rawPath: string) => {
+  const { lang, path } = splitLangPath(rawPath);
+  const m = metaFor(view, lang, path);
+  if (lang !== 'en') return m;
+  const u = m.url.startsWith(SITE_ORIGIN) ? m.url.slice(SITE_ORIGIN.length) || '/' : m.url;
+  return { ...m, url: SITE_ORIGIN + localizePath(u, 'en') };
+};
+
 export const viewForPath = (rawPath: string): ViewState => {
-  const path = rawPath.replace(/\/+$/, '') || '/';
+  const path = splitLangPath(rawPath).path;
   if (PATH_TO_VIEW[path]) return PATH_TO_VIEW[path];
   if (path === '/contact/thanks') return 'contact';
   const svc = path.match(/^\/service\/([a-z-]+)$/);
@@ -284,9 +307,13 @@ const PageTransition: React.FC<{ children: ReactNode }> = ({ children }) => (
 
 // ページ遷移のリンク。href を持たせて検索エンジン・新しいタブ・右クリックに対応しつつ、
 // 通常のクリックはページを読み直さずに画面内で切り替える（onGo）。
-const NavLink: React.FC<React.AnchorHTMLAttributes<HTMLAnchorElement> & { onGo: () => void }> = ({ onGo, onClick, children, ...rest }) => (
+const NavLink: React.FC<React.AnchorHTMLAttributes<HTMLAnchorElement> & { onGo: () => void }> = ({ onGo, onClick, children, href, ...rest }) => {
+  // 英語表示中は、英語版の URL（/en/...）へのリンクにする
+  const { lang } = useLanguage();
+  return (
   <a
     {...rest}
+    href={href ? localizePath(href, lang) : href}
     onClick={(e) => {
       onClick?.(e);
       if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
@@ -296,7 +323,8 @@ const NavLink: React.FC<React.AnchorHTMLAttributes<HTMLAnchorElement> & { onGo: 
   >
     {children}
   </a>
-);
+  );
+};
 
 const SectionHeading: React.FC<{ title: string; subtitle?: ReactNode; dark?: boolean; as?: 'h1' | 'h2' }> = ({ title, subtitle, dark = false, as: Tag = 'h2' }) => (
   <Reveal>
@@ -4631,7 +4659,9 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
     ro.observe(el);
     return () => ro.disconnect();
   }, []);
-  const [lang, setLang] = useState<Lang>('ja');
+  const [lang, setLang] = useState<Lang>(splitLangPath(currentPath()).lang);
+  const langRef = useRef(lang);
+  useEffect(() => { langRef.current = lang; }, [lang]);
   const t = translations[lang];
 
   // ハッシュ変更（旧リンク・ページ内リンク）とブラウザの戻る/進む（popstate）の両方に追従する
@@ -4644,6 +4674,9 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
       }
       setView(next);
       setPath(currentPath());
+      // 戻る/進むで言語の違うURLに移ったら、表示言語も合わせる
+      const urlLang = splitLangPath(window.location.pathname).lang;
+      if (urlLang !== langRef.current) loadLang(urlLang).then(() => setLang(urlLang));
       // ページ内の節へのリンク（#ai-agent など）はその位置へ。ページ扱いのハッシュ（#works 等）は先頭へ
       const anchor = window.location.hash ? document.getElementById(window.location.hash.slice(1)) : null;
       if (anchor) anchor.scrollIntoView({ block: 'start' });
@@ -4666,7 +4699,7 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
 
   // ビューごとの title / description / canonical / OGP をまとめて反映する
   useEffect(() => {
-    applyMeta(metaFor(view, lang, window.location.pathname));
+    applyMeta(metaForPath(view, window.location.pathname));
   }, [view, lang, path]);
 
   // ハイドレーションが終わったら、以降に現れる要素はスクロールで出す演出に戻す
@@ -4682,6 +4715,12 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
       const a = (e.target as HTMLElement | null)?.closest?.('a');
       const href = a?.getAttribute('href') ?? '';
       if (!href) return;
+      // 英語表示中に、日本語版のパスを直書きしたリンク（関連記事のカードなど）を押したら英語版へ
+      if (langRef.current === 'en' && !e.defaultPrevented && e.button === 0 && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey && a?.getAttribute('target') !== '_blank') {
+        const [p, rest] = href.split(/(?=[#?])/);
+        const to = localizePath(p, 'en');
+        if (to !== p) { e.preventDefault(); window.location.assign(to + (rest ?? '')); return; }
+      }
       if (href.startsWith('tel:')) track('tel_click', { page: viewRef.current });
       else if (href.startsWith('mailto:')) track('mail_click', { page: viewRef.current });
       else if (href === '/column' || href.startsWith('/column/')) track('column_click', { page: viewRef.current });
@@ -4698,7 +4737,10 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
 
   // クリーンURLへ遷移する。ハッシュは付けない（旧ハッシュ付きURLから来た場合はここで消える）
   // パスで遷移する（/blog/<slug> のようにビュー名だけでは決まらないページ用）
-  const navigatePath = (to: string) => {
+  const navigatePath = (rawTo: string) => {
+    // 英語表示中は英語版の URL へ（日本語のパスを渡せばよい）
+    const [rawPathname, rawHash] = rawTo.split('#');
+    const to = localizePath(rawPathname, langRef.current) + (rawHash !== undefined ? `#${rawHash}` : '');
     const [pathname, hash] = to.split('#');
     if (window.location.pathname !== pathname || window.location.hash !== (hash ? `#${hash}` : '')) {
       window.history.pushState({}, '', to);
@@ -4712,6 +4754,18 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
     } else {
       window.scrollTo(0, 0);
     }
+  };
+
+  // 言語を切り替え、同じページの別言語版の URL（/en/... ⇔ /...）に移る
+  const switchLang = (next: Lang) => {
+    loadLang(next).then(() => {
+      const { path: base } = splitLangPath(window.location.pathname);
+      const to = localizePath(base, next) + window.location.search + window.location.hash;
+      if (to !== window.location.pathname + window.location.search + window.location.hash) window.history.pushState({}, '', to);
+      langRef.current = next;
+      setLang(next);
+      setPath(currentPath());
+    });
   };
 
   const navigate = (id: ViewState) => {
@@ -4880,7 +4934,7 @@ const App: React.FC<{ initialPath?: string }> = ({ initialPath }) => {
         <div className="flex items-center gap-4">
              {/* Language Switcher (Desktop/Mobile) */}
              <button
-               onClick={() => { const next: Lang = lang === 'ja' ? 'en' : 'ja'; loadLang(next).then(() => setLang(next)); }}
+               onClick={() => switchLang(lang === 'ja' ? 'en' : 'ja')}
                className="font-mono text-sm font-bold border border-gray-300 rounded-full flex overflow-hidden z-50 hover:border-gray-400 transition-colors"
              >
                <span className={`px-3 py-1 transition-colors ${lang === 'ja' ? 'bg-offblack text-white' : 'text-gray-500 hover:text-offblack'}`}>JP</span>

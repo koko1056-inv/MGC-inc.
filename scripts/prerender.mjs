@@ -12,7 +12,7 @@ import sharp from 'sharp';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
-const { render, routes, llmsFull } = await import(pathToFileURL(path.join(root, 'dist-ssr', 'entry-server.js')).href);
+const { render, routes, llmsFull, splitLangPath, localizePath, SITE_ORIGIN } = await import(pathToFileURL(path.join(root, 'dist-ssr', 'entry-server.js')).href);
 
 // 器となるHTML。再実行時は index.html が事前描画済みなので、先に保存した 200.html を使う
 const shellPath = path.join(dist, '200.html');
@@ -43,12 +43,33 @@ const setAttr = (html, re, value) => {
   return html.replace(re, (_, a, b) => `${a}${esc(value)}${b}`);
 };
 
+// 日本語版と英語版の対応（hreflang）。両方を事前描画するページだけに付ける
+const routeSet = new Set(routes());
+const absUrl = (p) => `${SITE_ORIGIN}${p}`;
+const pairOf = (route) => {
+  const { path: base } = splitLangPath(route);
+  const ja = base, en = localizePath(base, 'en');
+  return routeSet.has(ja) && routeSet.has(en) ? { ja, en } : null;
+};
+const hreflangTags = (pair) => [
+  `<link rel="alternate" hreflang="ja" href="${absUrl(pair.ja)}" />`,
+  `<link rel="alternate" hreflang="en" href="${absUrl(pair.en)}" />`,
+  `<link rel="alternate" hreflang="x-default" href="${absUrl(pair.ja)}" />`,
+].join('\n    ');
+
 let count = 0;
 // 404.html は Vercel が「どの書き換えにも当たらないURL」に 404 で返すページ。書き換え不要
 const NOT_FOUND = '/404';
 for (const route of [...routes(), NOT_FOUND]) {
-  const { html, meta, jsonLd } = render(route);
+  const { html, meta, jsonLd, lang } = render(route);
   let out = template;
+  if (lang === 'en') {
+    out = out.replace('<html lang="ja">', '<html lang="en">')
+      .replace('<meta property="og:locale" content="ja_JP" />', '<meta property="og:locale" content="en_US" />')
+      .replace('<meta property="og:locale:alternate" content="en_US" />', '<meta property="og:locale:alternate" content="ja_JP" />');
+  }
+  const pair = route === NOT_FOUND ? null : pairOf(route);
+  if (pair && !meta.noindex) out = out.replace('</head>', `    ${hreflangTags(pair)}\n  </head>`);
   out = out.replace(/<title>[^<]*<\/title>/, `<title>${esc(meta.title)}</title>`);
   out = setAttr(out, /(<meta name="description" content=")[^"]*(")/, meta.description);
   out = setAttr(out, /(<link rel="canonical" href=")[^"]*(")/, meta.url);
@@ -72,12 +93,16 @@ for (const route of [...routes(), NOT_FOUND]) {
   out = setAttr(out, /(<meta name="twitter:title" content=")[^"]*(")/, meta.title);
   out = setAttr(out, /(<meta name="twitter:description" content=")[^"]*(")/, meta.description);
   out = setAttr(out, /(<meta name="twitter:image" content=")[^"]*(")/, meta.image);
-  if (route !== '/') out = out.replace('<meta property="og:type" content="website" />', '<meta property="og:type" content="article" />');
+  if (route !== '/' && route !== '/en') out = out.replace('<meta property="og:type" content="website" />', '<meta property="og:type" content="article" />');
   if (meta.noindex) out = setAttr(out, /(<meta name="robots" content=")[^"]*(")/, 'noindex');
   const ld = jsonLd.map((o) => `<script type="application/ld+json">${JSON.stringify(o).replace(/</g, '\\u003c')}</script>`).join('\n    ');
   if (ld) out = out.replace('</head>', `    ${ld}\n  </head>`);
   if (!out.includes('<div id="root"></div>')) throw new Error('テンプレートに <div id="root"></div> が無い');
-  out = out.replace('<div id="root"></div>', `<div id="root">${html}</div>`);
+  // 英語版のページでは、本文中のサイト内リンクも英語版の URL に（React の部品が直書きしているリンクも含めて）
+  const body = lang === 'en'
+    ? html.replace(/href="(\/[^"#?]*)([#?][^"]*)?"/g, (all, p, rest = '') => `href="${localizePath(p, 'en')}${rest}"`)
+    : html;
+  out = out.replace('<div id="root"></div>', `<div id="root">${body}</div>`);
 
   const file = route === '/' ? path.join(dist, 'index.html') : path.join(dist, `${route.slice(1)}.html`);
   fs.mkdirSync(path.dirname(file), { recursive: true });
@@ -101,6 +126,31 @@ for (const route of [...routes(), NOT_FOUND]) {
   }
 }
 if (deadColumns.size) throw new Error(`存在しないコラムへのリンク: ${[...deadColumns].join(', ')}`);
+
+// サイトマップに英語版を足し、日本語版と英語版を hreflang（xhtml:link）で結ぶ（配信する dist の sitemap.xml だけを書き換える）
+{
+  const file = path.join(dist, 'sitemap.xml');
+  let xml = fs.readFileSync(file, 'utf-8');
+  const XHTML = 'xmlns:xhtml="http://www.w3.org/1999/xhtml"';
+  if (!xml.includes(XHTML)) xml = xml.replace('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"', `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n        ${XHTML}`);
+  const enBlocks = [];
+  for (const route of routes()) {
+    const { lang } = splitLangPath(route);
+    const pair = pairOf(route);
+    if (lang !== 'ja' || !pair || render(route).meta.noindex) continue;
+    const jaLoc = absUrl(pair.ja);
+    const re = new RegExp(`<url>(\\s*<loc>${jaLoc.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}</loc>[\\s\\S]*?)</url>`);
+    const m = xml.match(re);
+    if (!m) continue;
+    const links = `\n    <xhtml:link rel="alternate" hreflang="ja" href="${jaLoc}"/>\n    <xhtml:link rel="alternate" hreflang="en" href="${absUrl(pair.en)}"/>\n    <xhtml:link rel="alternate" hreflang="x-default" href="${jaLoc}"/>`;
+    const body = m[1].replace(/\s*<image:image>[\s\S]*?<\/image:image>/g, '').replace(/\s*$/, '');
+    xml = xml.replace(m[0], `<url>${m[1].replace(/\s*$/, '')}${links}\n  </url>`);
+    enBlocks.push(`  <url>${body.replace(`<loc>${jaLoc}</loc>`, `<loc>${absUrl(pair.en)}</loc>`)}${links}\n  </url>`);
+  }
+  xml = xml.replace('</urlset>', `  <!-- EN:START（英語版。prerender.mjs が生成） -->\n${enBlocks.join('\n')}\n  <!-- EN:END -->\n</urlset>`);
+  fs.writeFileSync(file, xml);
+  console.log(`sitemap.xml: 英語版 ${enBlocks.length} URL を追加`);
+}
 
 // サイトマップの載せ漏れを検査する（検索に出すページはすべて載せる）
 const sitemap = fs.readFileSync(path.join(dist, 'sitemap.xml'), 'utf-8');

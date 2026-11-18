@@ -2,7 +2,7 @@
 // ページごとに HTML と、<head> に入れる title / OGP などを返す。
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import App, { viewForPath, metaFor, PATH_TO_VIEW, SERVICE_KEYS, pathForView, SITE_ORIGIN, THANKS_PATH, BUSINESS_PAGES, isBizView } from './App';
+import App, { viewForPath, metaFor, metaForPath, splitLangPath, localizePath, PATH_TO_VIEW, SERVICE_KEYS, pathForView, SITE_ORIGIN, THANKS_PATH, BUSINESS_PAGES, isBizView } from './App';
 import { serviceContent } from './serviceContent';
 import { translations } from './translations';
 import { journalPosts, journalPath, findJournalPost } from './journal';
@@ -10,11 +10,21 @@ import { glossaryContent } from './glossaryContent';
 import { caseContent, CASE_DATES } from './caseContent';
 import { guideContent, GUIDE_DATES } from './guideContent';
 import { moshitel, MOSHITEL_URL } from './productContent';
+// 英語版（/en/...）も事前描画するため、英語の文言をはじめから読み込んでおく（ブラウザでは i18n.ts が後から読む）
+import { en as enTranslations } from './translations.en';
+import { en as enService } from './serviceContent.en';
+import { en as enCase } from './caseContent.en';
+import { en as enLegal } from './legalContent.en';
+import { legalContent } from './legalContent';
+translations.en = enTranslations;
+serviceContent.en = enService;
+caseContent.en = enCase;
+legalContent.en = enLegal;
 
-export { SITE_ORIGIN };
+export { SITE_ORIGIN, splitLangPath, localizePath };
 
 // 事前描画するパス
-export const routes = (): string[] => [
+const jaRoutes = (): string[] => [
   '/',
   ...Object.keys(PATH_TO_VIEW),
   ...journalPosts('ja').map((p) => journalPath(p.slug)),
@@ -23,6 +33,9 @@ export const routes = (): string[] => [
   ...SERVICE_KEYS.map((k) => pathForView(k)),
   THANKS_PATH,
 ];
+// 英語版のページ（日本語版と同じページを /en の下に。送信完了ページは除く）
+export const enRoutes = (): string[] => jaRoutes().filter((r) => r !== THANKS_PATH).map((r) => localizePath(r, 'en'));
+export const routes = (): string[] => [...jaRoutes(), ...enRoutes()];
 
 export const render = (path: string) => {
   const html = renderToString(
@@ -31,7 +44,9 @@ export const render = (path: string) => {
     </React.StrictMode>
   );
   const view = viewForPath(path);
-  return { html, meta: metaFor(view, 'ja', path), jsonLd: jsonLdFor(path) };
+  const { lang } = splitLangPath(path);
+  // 英語版の構造化データは後のサイクルで追加する（今は日本語の内容を英語のページに出さない）
+  return { html, meta: metaForPath(view, path), jsonLd: lang === 'en' ? [] : jsonLdFor(path), lang };
 };
 
 // 料金ページの内容の最終更新日（サイトマップの lastmod と合わせる）
