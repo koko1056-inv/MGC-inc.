@@ -2,7 +2,8 @@ name: SEO Daily Report
 
 # Search Console の数値を毎日取得して docs/seo-aio/metrics/YYYY-MM-DD.md に保存する（scripts/gsc-report.mjs）。
 # 前提: リポジトリの Secrets に GSC_SERVICE_ACCOUNT_JSON（Search Console に追加したサービスアカウントの鍵）を登録すること。
-# 未登録の間は何もせず終了する。
+# 未登録の間は数値の取得をスキップし、登録方法をジョブの概要に出す。
+# 鍵の有無にかかわらず、本番サイトの健康診断（scripts/site-health.mjs）を毎日行い、問題があれば失敗させる（通知が届く）。
 
 on:
   schedule:
@@ -35,6 +36,11 @@ jobs:
         run: |
           if [ -z "$GSC_SERVICE_ACCOUNT_JSON" ]; then
             echo "GSC_SERVICE_ACCOUNT_JSON が未登録のためスキップ"
+            {
+              echo "## Search Console: 数値を取得していません"
+              echo ""
+              echo "GitHub の Settings → Secrets and variables → Actions に、Search Console に追加したサービスアカウントの鍵（JSON）を \`GSC_SERVICE_ACCOUNT_JSON\` という名前で登録すると、翌日から数値を docs/seo-aio/metrics に保存します。"
+            } >> "$GITHUB_STEP_SUMMARY"
             exit 0
           fi
           node scripts/gsc-report.mjs "$(TZ=Asia/Tokyo date +%Y-%m-%d)"
@@ -50,3 +56,8 @@ jobs:
           git commit -m "SEOデイリー: Search Console 数値 ($(TZ=Asia/Tokyo date +%Y-%m-%d))"
           git pull --rebase origin main
           git push
+
+      # 本番サイトの健康診断（鍵が無くても毎日実行。問題があればこのジョブを失敗させる）
+      - name: Site health check
+        if: always()
+        run: node scripts/site-health.mjs
