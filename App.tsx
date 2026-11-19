@@ -146,7 +146,28 @@ export const metaForPath = (view: ViewState, rawPath: string) => {
   const m = metaFor(view, lang, path);
   if (lang !== 'en') return m;
   const u = m.url.startsWith(SITE_ORIGIN) ? m.url.slice(SITE_ORIGIN.length) || '/' : m.url;
-  return { ...m, url: SITE_ORIGIN + localizePath(u, 'en') };
+  return { ...m, url: SITE_ORIGIN + localizePath(u, 'en'), title: clampTitleEn(m.title), description: clampDescEn(m.description) };
+};
+
+// 英語版の title・description を、検索結果で切れにくい長さにそろえる（文言は変えず、長いものだけ短くする）。
+// title: 65字を超えるときは末尾の「| Case study」「- MGC Inc.」を外す。
+// description: 160字以内に収まる文までを残す。1文目だけで長すぎる・短すぎるときは、語の切れ目で切って「…」を付ける。
+const clampTitleEn = (t: string) => {
+  let x = t;
+  if (x.length > 65) x = x.replace(/ - MGC Inc\.$/, '');
+  if (x.length > 65) x = x.replace(/ \| Case study$/, '');
+  return x;
+};
+const clampDescEn = (d: string, max = 160) => {
+  if (d.length <= max) return d;
+  let out = '';
+  for (const sent of d.split(/(?<=[.!?])\s+/)) {
+    if ((out ? out.length + 1 : 0) + sent.length > max) break;
+    out = out ? `${out} ${sent}` : sent;
+  }
+  if (out.length >= 90) return out;
+  const cut = d.slice(0, max - 1);
+  return `${cut.slice(0, cut.lastIndexOf(' ')).replace(/[,;:—–-]\s*$/, '')}…`;
 };
 
 export const viewForPath = (rawPath: string): ViewState => {
@@ -207,7 +228,7 @@ export const metaFor = (view: ViewState, lang: Lang, path?: string) => {
     const cs = caseContent[lang].cases.find((x) => x.slug === slug);
     if (cs) {
       return {
-        title: `${cs.title ?? cs.industry}｜${lang === 'ja' ? '導入事例' : 'Case study'}（${cs.industry}）${lang === 'ja' ? ' - ＭＧＣ株式会社' : ' - MGC Inc.'}`,
+        title: lang === 'ja' ? `${cs.title ?? cs.industry}｜導入事例（${cs.industry}） - ＭＧＣ株式会社` : `${cs.title ?? cs.industry} | Case study - MGC Inc.`,
         description: cs.summary,
         url: `${SITE_ORIGIN}/cases/${cs.slug}`,
         image: SITE_ORIGIN + ogImageFor(cs.services.map((x) => CASE_SERVICE_OG_VIEW[x]).find(Boolean) ?? 'cases'),
