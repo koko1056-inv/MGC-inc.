@@ -406,6 +406,40 @@ const jsonLdFor = (rawPath: string): object[] => {
   return out;
 };
 
+// 英語版のページに出す、サイト共通の会社・サイト情報（index.html の日本語の Organization・WebSite を英語版の文言に置き換えたもの）。
+// 事実（法人番号・所在地・設立日など）は日本語版と同じ。文言はサイトの英語版のものだけを使う
+export const siteJsonLdEn = (orgJa: Record<string, any>, siteJa: Record<string, any>) => {
+  const t = translations.en;
+  const U = (p: string) => SITE_ORIGIN + localizePath(p, 'en');
+  const w = t.works as Record<string, { title: string; subtitle: string }>;
+  const svc = (key: string, path: string) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: w[key].title, description: w[key].subtitle, url: U(path) } });
+  const org = {
+    ...orgJa,
+    name: 'MGC Inc.',
+    alternateName: ['ＭＧＣ株式会社', 'エムジーシー'],
+    ...(orgJa.identifier ? { identifier: { ...orgJa.identifier, propertyID: 'Corporate Number (Japan)' } } : {}),
+    url: U('/'),
+    description: t.worksIntro.lead,
+    founder: { ...orgJa.founder, name: 'Kokomu Matsuo', alternateName: '松尾 心夢', jobTitle: 'CEO' },
+    // 英語版の会社概要の表記（Headquarters）に合わせる
+    address: { '@type': 'PostalAddress', streetAddress: '111 Nishitatsumi-cho', addressLocality: 'Kamigyo-ku, Kyoto', addressRegion: 'Kyoto', postalCode: '602-8107', addressCountry: 'JP' },
+    areaServed: [{ '@type': 'Country', name: 'Japan' }, { '@type': 'AdministrativeArea', name: 'Kyoto' }],
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: t.nav.works,
+      itemListElement: [
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', '@id': `${SITE_ORIGIN}/#moshitel`, name: moshitel.en.name, description: moshitel.en.summary, url: MOSHITEL_URL } },
+        svc('service_ai', '/works/ai-solutions'),
+        svc('service_newbiz', '/works/ai-business-launch'),
+        svc('service_training', '/training'),
+        svc('service_lab', '/works/cross-border'),
+      ],
+    },
+  };
+  const site = { ...siteJa, url: U('/'), name: 'MGC Inc.', description: metaFor('home', 'en').description, publisher: { '@type': 'Organization', '@id': ORG_ID, name: 'MGC Inc.' } };
+  return { org, site };
+};
+
 // ---- llms-full.txt（AIアシスタント向けの全文。サイトに載せている文章をそのまま並べる）----
 // scripts/prerender.mjs が dist/llms-full.txt に書き出す。内容はサイトのデータから作るため、ページと食い違わない。
 const mdSection = (x: unknown): string[] => {

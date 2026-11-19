@@ -562,3 +562,13 @@
   - DefinedTermSet（用語集）、Person（代表。英語の紹介文はサイトに無いので description なし）
 - 英語版の構造化データは 39ページで計 169件（会社・サイトの共通ブロックを含む）。日本語の文言が混ざっていないことを確認した（MOSHITEL・代表の alternateName は除く）。英語の wordCount は語数で数える
 - llms.txt（build-columns.mjs）: 冒頭に英語版の URL を、節「English version」に英語版の主要ページ16件を追加した（ページ名はサイトの英語版の表記）。最終更新は 11/18
+
+## 2026-11-19 英語版（フェーズ3）: 英語版ページの会社・サイト情報を英語に
+- 計測: 数値は取得できず（GSC の鍵が未登録、Analytics が無効）。日次コラムは Gemini の 402 で停止したまま
+- 英語版の39ページでは、全ページ共通の Organization・WebSite（index.html の JSON-LD）が日本語のまま出ていた
+- prerender.mjs と entry-server.tsx（siteJsonLdEn）で、英語版のページだけ英語版の文言に置き換えるようにした
+  - 社名は MGC Inc.（正式名称の legalName は ＭＧＣ株式会社のまま）
+  - 説明・事業カタログ（MOSHITEL と4事業）・代表（Kokomu Matsuo, CEO）は英語にした
+  - 所在地は英語版の会社概要の表記。法人番号の説明も英語にした
+  - 事実（法人番号・設立日・連絡先など）は日本語版と同じ
+- 日本語版の出力は変わらない

@@ -12,7 +12,7 @@ import sharp from 'sharp';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
-const { render, routes, llmsFull, splitLangPath, localizePath, SITE_ORIGIN } = await import(pathToFileURL(path.join(root, 'dist-ssr', 'entry-server.js')).href);
+const { render, routes, llmsFull, splitLangPath, localizePath, SITE_ORIGIN, siteJsonLdEn } = await import(pathToFileURL(path.join(root, 'dist-ssr', 'entry-server.js')).href);
 
 // 器となるHTML。再実行時は index.html が事前描画済みなので、先に保存した 200.html を使う
 const shellPath = path.join(dist, '200.html');
@@ -64,6 +64,13 @@ for (const route of [...routes(), NOT_FOUND]) {
   const { html, meta, jsonLd, lang } = render(route);
   let out = template;
   if (lang === 'en') {
+    // 共通の会社・サイト情報（index.html の先頭2つの JSON-LD）を英語版に置き換える
+    const blocks = [...out.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].slice(0, 2);
+    const [orgJa, siteJa] = blocks.map((m) => JSON.parse(m[1]));
+    if (orgJa?.['@type'] !== 'Organization' || siteJa?.['@type'] !== 'WebSite') throw new Error('index.html の Organization・WebSite が見つからない');
+    const { org, site } = siteJsonLdEn(orgJa, siteJa);
+    out = out.replace(blocks[0][0], `<script type="application/ld+json">${JSON.stringify(org, null, 2).replace(/</g, '\\u003c')}</script>`)
+      .replace(blocks[1][0], `<script type="application/ld+json">${JSON.stringify(site, null, 2).replace(/</g, '\\u003c')}</script>`);
     out = out.replace('<html lang="ja">', '<html lang="en">')
       .replace('<meta property="og:locale" content="ja_JP" />', '<meta property="og:locale" content="en_US" />')
       .replace('<meta property="og:locale:alternate" content="en_US" />', '<meta property="og:locale:alternate" content="ja_JP" />');
