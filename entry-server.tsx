@@ -460,34 +460,37 @@ const mdSection = (x: unknown): string[] => {
   return out;
 };
 
-export const llmsFull = (): string => {
+// lang = 'en' は英語版の全文（llms-full-en.txt）。文言・URL は英語版のもの
+export const llmsFull = (lang: Lang = 'ja'): string => {
   const L: string[] = [];
-  const t = translations.ja;
-  L.push('# ＭＧＣ株式会社（MGC Inc.）— サイト全文（AIアシスタント向け）');
+  const t = translations[lang];
+  const T = (ja: string, en: string) => (lang === 'ja' ? ja : en);
+  const U = (p: string) => SITE_ORIGIN + localizePath(p, lang);
+  L.push(T('# ＭＧＣ株式会社（MGC Inc.）— サイト全文（AIアシスタント向け）', '# MGC Inc. (ＭＧＣ株式会社) — full site text for AI assistants'));
   L.push('');
-  L.push(`> ${SITE_ORIGIN} に掲載している内容の全文です。要約は ${SITE_ORIGIN}/llms.txt 。料金はサイトに明記したもの（研修の受講料）のみ、実績の数字は導入事例に掲載したもののみです。`);
+  L.push(T(`> ${SITE_ORIGIN} に掲載している内容の全文です。要約は ${SITE_ORIGIN}/llms.txt 。料金はサイトに明記したもの（研修の受講料）のみ、実績の数字は導入事例に掲載したもののみです。`, `> The full text of the English version of ${U('/')}. Summary (Japanese, with an English section): ${SITE_ORIGIN}/llms.txt . Japanese full text: ${SITE_ORIGIN}/llms-full.txt . Prices are only those stated on the site; figures are only those published in the case studies.`));
   L.push('');
-  L.push('## 会社概要');
+  L.push(T('## 会社概要', '## Company profile'));
   t.company.items.forEach((i) => L.push(`- ${i.label}: ${i.value.replace(/\n/g, ' ／ ')}`));
-  L.push(`- 進め方: ${t.oneStop.lead}`);
+  L.push(`- ${T('進め方', 'How we work')}: ${t.oneStop.lead}`);
   L.push('');
-  L.push('## 事業');
+  L.push(T('## 事業', '## Businesses'));
   L.push(`${t.growthFlow.title} ${t.growthFlow.lead}`);
   t.growthFlow.steps.forEach((x) => L.push(`- ${x.step} ${x.verb}（${x.name}）: ${x.desc}`));
   L.push(`- ${t.growthFlow.note}`);
   (['service_ai', 'service_newbiz', 'service_training', 'service_lab'] as const).forEach((k) => {
     const d = t.details[k] as { title: string; subtitle: string; p1: string; features: { title: string; sub: string; text: string }[]; faq?: { q: string; a: string }[]; summary?: { label: string; value: string }[] };
-    L.push(`### ${d.title}（${d.subtitle}）`);
+    L.push(T(`### ${d.title}（${d.subtitle}）`, `### ${d.title} (${d.subtitle})`));
     L.push(d.p1.replace(/\n/g, ''));
     d.summary?.forEach((x) => L.push(`- ${x.label}: ${x.value}`));
-    d.features.forEach((f) => L.push(`- ${f.sub}（${f.title}）: ${f.text}`));
+    d.features.forEach((f) => L.push(T(`- ${f.sub}（${f.title}）: ${f.text}`, `- ${f.sub} (${f.title}): ${f.text}`)));
     d.faq?.forEach((f) => { L.push(`- Q. ${f.q}`); L.push(`  A. ${f.a}`); });
     L.push('');
   });
-  L.push('## サービス');
+  L.push(T('## サービス', '## Services'));
   (SERVICE_KEYS as (keyof typeof serviceContent.ja)[]).forEach((k) => {
-    const page = serviceContent.ja[k];
-    L.push(`### ${page.navLabel}（${SITE_ORIGIN}${pathForView(k)}）`);
+    const page = serviceContent[lang][k];
+    L.push(T(`### ${page.navLabel}（${U(pathForView(k))}）`, `### ${page.navLabel} (${U(pathForView(k))})`));
     if (page.definition) L.push(page.definition.text);
     L.push(page.hero.lead);
     page.summary?.forEach((x) => L.push(`- ${x.label}: ${x.value}`));
@@ -499,52 +502,52 @@ export const llmsFull = (): string => {
     L.push('');
   });
   {
-    const m = moshitel.ja;
-    L.push(`## 自社プロダクト: ${m.name}（${MOSHITEL_URL}）`);
-    L.push(`${m.tagline}。${m.lead}`);
-    L.push(`- 特長: ${m.points.join('／')}`);
+    const m = moshitel[lang];
+    L.push(T(`## 自社プロダクト: ${m.name}（${MOSHITEL_URL}）`, `## Our product: ${m.name} (${MOSHITEL_URL})`));
+    L.push(T(`${m.tagline}。${m.lead}`, `${m.tagline}. ${m.lead}`));
+    L.push(`- ${T('特長', 'Highlights')}: ${m.points.join(T('／', ' / '))}`);
     m.features.forEach((f) => L.push(`- ${f.title}: ${f.desc}`));
-    L.push(`- 業種: ${m.industries}`);
-    L.push(`- 料金: ${m.pricing}`);
-    L.push(`- AI電話（音声AI）との関係: ${m.relation.replace('このページの', '')}`);
-    L.push(`- 試し方: ${m.ctaSub}`);
+    L.push(`- ${T('業種', 'Industries')}: ${m.industries}`);
+    L.push(`- ${T('料金', 'Pricing')}: ${m.pricing}`);
+    L.push(`- ${T('AI電話（音声AI）との関係', 'Relation to the AI phone service')}: ${m.relation.replace('このページの', '')}`);
+    L.push(`- ${T('試し方', 'How to try')}: ${m.ctaSub}`);
     L.push('');
   }
-  L.push(`## ${t.pricing.title}（${SITE_ORIGIN}/pricing）`);
+  L.push(T(`## ${t.pricing.title}（${U('/pricing')}）`, `## ${t.pricing.title} (${U('/pricing')})`));
   L.push(t.pricing.lead);
-  L.push(`- ${t.pricing.training.heading}: ${t.training.course.items.map((c) => `${c.name} ${c.specs[2].value}・${c.specs[3].value}`).join('／')}。${t.pricing.training.note}`);
-  t.training.options.items.forEach((o) => L.push(`- ${o.title}: ${o.price}（${o.desc}）`));
-  L.push(`- ${t.pricing.services.poc.label}: ${t.pricing.services.poc.value}。${t.pricing.services.poc.note}`);
-  L.push(`- ${t.pricing.services.heading}: 各サービスの「費用の考え方」（上記）を参照`);
-  L.push(`- ${t.pricing.period.heading}: ${t.pricing.period.items.map((x) => `${x.label} ${x.value}`).join('、')}。${t.pricing.period.note}`);
+  L.push(`- ${t.pricing.training.heading}: ${t.training.course.items.map((c) => `${c.name} ${c.specs[2].value}${T('・', ', ')}${c.specs[3].value}`).join(T('／', ' / '))}${T('。', '. ')}${t.pricing.training.note}`);
+  t.training.options.items.forEach((o) => L.push(T(`- ${o.title}: ${o.price}（${o.desc}）`, `- ${o.title}: ${o.price} (${o.desc})`)));
+  L.push(`- ${t.pricing.services.poc.label}: ${t.pricing.services.poc.value}${T('。', '. ')}${t.pricing.services.poc.note}`);
+  L.push(`- ${t.pricing.services.heading}: ${T('各サービスの「費用の考え方」（上記）を参照', 'see the cost structure of each service above')}`);
+  L.push(`- ${t.pricing.period.heading}: ${t.pricing.period.items.map((x) => `${x.label} ${x.value}`).join(T('、', ', '))}${T('。', '. ')}${t.pricing.period.note}`);
   L.push(`- ${t.pricing.free}`);
   t.pricing.faq.items.forEach((f) => L.push(`- Q. ${f.q} A. ${f.a}`));
   L.push('');
-  L.push('## 研修');
+  L.push(T('## 研修', '## Training'));
   t.training.course.items.forEach((c) => {
     L.push(`### ${c.name}`);
     L.push(c.overview);
     c.specs.forEach((x) => L.push(`- ${x.label}: ${x.value}`));
-    L.push(`- 特徴: ${c.features.join('／')}`);
-    L.push(`- 習得できること: ${c.outcomes.join('／')}`);
+    L.push(`- ${T('特徴', 'Features')}: ${c.features.join(T('／', ' / '))}`);
+    L.push(`- ${T('習得できること', 'What you will learn')}: ${c.outcomes.join(T('／', ' / '))}`);
   });
-  t.training.options.items.forEach((o) => L.push(`- ${o.title}（${o.price}）: ${o.desc}`));
-  L.push(`- ${t.training.after.heading}: ${t.training.after.steps.map((x) => `${x.title}（${x.desc}）`).join(' → ')}`);
+  t.training.options.items.forEach((o) => L.push(T(`- ${o.title}（${o.price}）: ${o.desc}`, `- ${o.title} (${o.price}): ${o.desc}`)));
+  L.push(`- ${t.training.after.heading}: ${t.training.after.steps.map((x) => T(`${x.title}（${x.desc}）`, `${x.title} (${x.desc})`)).join(' → ')}`);
   t.training.faq.items.forEach((f) => { L.push(`- Q. ${f.q}`); L.push(`  A. ${f.a}`); });
   L.push('');
-  L.push('## 導入事例（社名は掲載許諾が取れるまで伏せ、業種で紹介）');
-  caseContent.ja.cases.forEach((c) => {
-    L.push(`### ${c.title ?? c.industry}（${c.industry}・${SITE_ORIGIN}/cases/${c.slug}）`);
+  L.push(T('## 導入事例（社名は掲載許諾が取れるまで伏せ、業種で紹介）', '## Case studies (company names withheld until permission is given; shown by industry)'));
+  caseContent[lang].cases.forEach((c) => {
+    L.push(T(`### ${c.title ?? c.industry}（${c.industry}・${U(`/cases/${c.slug}`)}）`, `### ${c.title ?? c.industry} (${c.industry}, ${U(`/cases/${c.slug}`)})`));
     L.push(c.summary);
-    c.challenge.forEach((x) => L.push(`- 課題: ${x}`));
-    c.approach.forEach((a) => L.push(`- 打ち手: ${a.title} — ${a.desc}`));
-    if (c.result) L.push(`- 成果: ${c.result.label} — ${c.result.desc}`);
-    c.metrics?.forEach((m) => L.push(`- 数値: ${m.label} ${m.value}${m.unit}`));
+    c.challenge.forEach((x) => L.push(`- ${T('課題', 'Challenge')}: ${x}`));
+    c.approach.forEach((a) => L.push(`- ${T('打ち手', 'Approach')}: ${a.title} — ${a.desc}`));
+    if (c.result) L.push(`- ${T('成果', 'Result')}: ${c.result.label} — ${c.result.desc}`);
+    c.metrics?.forEach((m) => L.push(`- ${T('数値', 'Figure')}: ${m.label} ${m.value}${m.unit}`));
     L.push('');
   });
-  L.push('## 比較・選び方ガイド');
-  guideContent.ja.guides.forEach((g) => {
-    L.push(`### ${g.title}（${SITE_ORIGIN}/guide/${g.slug}）`);
+  L.push(T('## 比較・選び方ガイド', '## Comparison guides'));
+  guideContent[lang].guides.forEach((g) => {
+    L.push(T(`### ${g.title}（${U(`/guide/${g.slug}`)}）`, `### ${g.title} (${U(`/guide/${g.slug}`)})`));
     L.push(g.lead);
     L.push(`| ${g.table.head.join(' | ')} |`);
     L.push(`|${g.table.head.map(() => ':--').join('|')}|`);
@@ -553,10 +556,10 @@ export const llmsFull = (): string => {
     g.faq.forEach((f) => { L.push(`- Q. ${f.q}`); L.push(`  A. ${f.a}`); });
     L.push('');
   });
-  L.push('## 用語集');
-  glossaryContent.ja.terms.forEach((x) => L.push(`- ${x.term}: ${x.definition}`));
+  L.push(T('## 用語集', '## Glossary'));
+  glossaryContent[lang].terms.forEach((x) => L.push(`- ${x.term}: ${x.definition}`));
   L.push('');
-  L.push('## よくあるご質問（トップページ）');
+  L.push(T('## よくあるご質問（トップページ）', '## FAQ (home page)'));
   t.faq.items.forEach((f) => { L.push(`- Q. ${f.q}`); L.push(`  A. ${f.a}`); });
   L.push('');
   return L.join('\n');

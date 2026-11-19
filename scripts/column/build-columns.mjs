@@ -990,6 +990,7 @@ function updateLlmsTxt() {
   L.push('');
   // 英語版の主要ページ（ページ名はサイトの英語版の表記）
   L.push('## English version（英語版の主要ページ）');
+  L.push(`Full text in English: ${B}/llms-full-en.txt`);
   L.push([['Home', '/en'], ['Business', '/en/works'], ['AI Solutions', '/en/works/ai-solutions'], ['AI Sales', '/en/service/ai-sales'], ['Voice AI', '/en/service/ai-phone'], ['Salesforce AI', '/en/service/salesforce-ai'], ['AI Business Launch', '/en/works/ai-business-launch'], ['Training', '/en/training'], ['Cross-Border', '/en/works/cross-border'], ['Pricing', '/en/pricing'], ['Case Studies', '/en/cases'], ['Comparison guides', '/en/guide'], ['AI Glossary', '/en/glossary'], ['News & Journal', '/en/blog'], ['Company Profile', '/en/company'], ['Contact', '/en/contact']].map(([n, p]) => `[${n}](${B}${p})`).join(' ／ '));
   L.push('');
   L.push('## AI活用コラム（業界別）');

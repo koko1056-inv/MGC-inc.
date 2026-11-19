@@ -121,6 +121,8 @@ console.log(`事前描画: ${count}ページ`);
 
 // AIアシスタント向けの全文（サイトのデータから生成。要約は public/llms.txt）
 fs.writeFileSync(path.join(dist, 'llms-full.txt'), llmsFull());
+// 英語版の全文（/en のページと同じ英語の文言）
+fs.writeFileSync(path.join(dist, 'llms-full-en.txt'), llmsFull('en'));
 console.log(`llms-full.txt: ${Math.round(fs.statSync(path.join(dist, 'llms-full.txt')).size / 1024)}KB`);
 
 // コラムへのリンク切れを検査する（サービスページの「関連するコラム」等）
