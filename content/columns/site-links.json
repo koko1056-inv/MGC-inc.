@@ -88,12 +88,12 @@
     ],
     "api": [
       {
-        "slug": "professional-risk-management-knowledge-digitization",
-        "title": "士業がAIを味方につける現実解 — リスク管理と「組織の知」のデジタル化"
-      },
-      {
         "slug": "logistics-document-automation-ai",
         "title": "物流現場の「書類業務」をAIで効率化する — 請求書や送り状の入力を自動化する現実解"
+      },
+      {
+        "slug": "professional-risk-management-knowledge-digitization",
+        "title": "士業がAIを味方につける現実解 — リスク管理と「組織の知」のデジタル化"
       },
       {
         "slug": "public-local-government-ai-practical-guide",
@@ -102,16 +102,16 @@
     ],
     "off-jt": [
       {
+        "slug": "hr-talent-management-retention-ai",
+        "title": "人材の流出を防ぎ活躍を促すAI活用 — 経験と勘に頼らないタレントマネジメント"
+      },
+      {
         "slug": "ai-cost-breakdown-initial-monthly-usage",
         "title": "AI導入費用の内訳の考え方 — 初期費用・月額費用・実費をどう見るか"
       },
       {
         "slug": "professional-strategic-ai-partner",
         "title": "士業のAI活用は「作業」から「伴走」へ — 専門知を拡張する実務の再設計"
-      },
-      {
-        "slug": "public-regional-revitalization-ai-strategy",
-        "title": "自治体がAIで描く地域の未来 — 政策立案と活性化をデータで支える"
       }
     ],
     "reskilling": [
@@ -172,16 +172,16 @@
     ],
     "ocr": [
       {
+        "slug": "logistics-document-automation-ai",
+        "title": "物流現場の「書類業務」をAIで効率化する — 請求書や送り状の入力を自動化する現実解"
+      },
+      {
+        "slug": "real-estate-contract-document-ai",
+        "title": "不動産契約・重説チェックにAIをどう活かすか — 現場の心理的負担を減らす実務の勘所"
+      },
+      {
         "slug": "public-continuity-knowledge-management-ai",
         "title": "自治体の業務継続とAI — 属人化を防ぎ、知見を次世代につなぐ活用術"
-      },
-      {
-        "slug": "professional-strategic-ai-partner",
-        "title": "士業のAI活用は「作業」から「伴走」へ — 専門知を拡張する実務の再設計"
-      },
-      {
-        "slug": "construction-cost-estimation-ai",
-        "title": "建設業の見積・積算にAIをどう使うか — 勘と経験を利益に変える仕組み"
       }
     ],
     "image-recognition": [
@@ -256,12 +256,12 @@
     ],
     "anonymization": [
       {
-        "slug": "professional-logic-standardization-response-efficiency",
-        "title": "士業の知見をAIで型化する — 相談対応のスピードと質を両立させる"
+        "slug": "healthcare-incident-reporting-safety-ai",
+        "title": "医療・介護の安全管理をAIで強化する — インシデント報告を「負担」から「資産」へ"
       },
       {
-        "slug": "healthcare-multilingual-staff-training-ai",
-        "title": "医療・介護の外国人材活用をAIで支える — 言語の壁を越え、教育を効率化する"
+        "slug": "professional-logic-standardization-response-efficiency",
+        "title": "士業の知見をAIで型化する — 相談対応のスピードと質を両立させる"
       },
       {
         "slug": "public-local-government-ai-practical-guide",
@@ -270,16 +270,16 @@
     ],
     "poc": [
       {
-        "slug": "public-continuity-knowledge-management-ai",
-        "title": "自治体の業務継続とAI — 属人化を防ぎ、知見を次世代につなぐ活用術"
+        "slug": "healthcare-monitoring-sensing-ai",
+        "title": "医療・介護の「見守りAI」活用 — センサーとAIで現場の負担を減らす方法"
       },
       {
-        "slug": "hr-internal-mobility-ai-skills",
-        "title": "内部登用を活性化するAIスキルマップの作り方 — 社内人材の最適配置を実現する"
+        "slug": "logistics-document-automation-ai",
+        "title": "物流現場の「書類業務」をAIで効率化する — 請求書や送り状の入力を自動化する現実解"
       },
       {
-        "slug": "education-learning-content-automation-checklist",
-        "title": "AIによる教材作成・更新の効率化 — 質の高い学習コンテンツを継続的に届けるための確認項目"
+        "slug": "real-estate-contract-document-ai",
+        "title": "不動産契約・重説チェックにAIをどう活かすか — 現場の心理的負担を減らす実務の勘所"
       }
     ],
     "small-start": [

@@ -590,3 +590,30 @@
   - 収録内容: 会社概要・事業・サービス・MOSHITEL・料金・研修・導入事例・比較ガイド・用語集・トップのFAQ
   - 日本語の全文（llms-full.txt）は変わらない（生成結果が同じことを確認）
 - llms.txt の「English version」の節に、英語版の全文の URL を追加した
+
+## 2026-11-23 Search Console 実測（9/11〜11/22）に基づく改善 PR①: CTR・商材ページ・コラム導線・社名・会社概要
+- 前提（松尾さんから共有された GSC の数値）: クリックのほぼ全部が社名検索（ホーム 93クリック／480表示）。コラムは表示されているが、ほぼクリックされていない
+- 【1】CTR 改善: 順位はあるがクリックが少ない5本のコラムと /training で、title と description を検索意図に合わせて書き換えた（手順・確認点・費用・具体語）
+  - 対象コラム: real-estate-contract-document-ai／healthcare-incident-reporting-safety-ai／logistics-document-automation-ai／hr-talent-management-retention-ai（「人事」「定着率」を title に）／healthcare-monitoring-sensing-ai
+  - 5本とも FAQ に「費用」の1問を追加（答えは掲載済みの事実＝PoC 100〜300万円・本番は個別見積もり・初回相談無料）。dateModified は 11/23
+  - /training: title を「AI研修（AI活用リスキリング研修）｜1名398,000円・20時間・助成金申請サポート」に。description に受講料・時間・実施形態・助成金申請サポート（受講者無料・要件次第）を入れた
+- 【2】商材ページ:
+  - AI電話（/service/ai-phone）
+    - title を「AI電話（音声AI）の料金・導入事例｜コールセンターから中小企業まで」に、H1 を「AI電話で、…」に変えた
+    - description に「AI電話」「料金（PoC 100〜300万円）」「導入事例」「中小企業（MOSHITEL）」を入れた
+    - FAQ に「AI電話の導入事例はありますか？」（コールセンター運営・大手建設機械メーカーの掲載事例のみ）を追加し、料金の質問の表現も変えた
+  - AI営業（/service/ai-sales）
+    - title を「AI営業｜アポ取り・アポ獲得をAIで自動化（料金・導入事例）」に、H1 を「アポ取りからアポ獲得まで、AIに任せる。」に変えた
+    - FAQ に導入事例（総合代理店：1ヶ月で海外メーカーとの商談10件＝掲載済み）と「中小企業でも導入できますか？」を追加した
+  - 両ページの FAQ は FAQPage の構造化データにも入る
+- 【3】コラムから商材への導線（全99本）
+  - 本文の中ほど（4つ目の見出しの前）に、無料相談と関連サービスへの案内（inline-cta）を入れた
+  - 記事末の CTA に「関連サービスを見る」ボタンを足した。関連サービスは本文の語で選ぶ（既存の「このテーマに関するMGCのサービス」と同じ判定）
+- 【6】社名の表記ゆれ: Organization の alternateName に「MGC株式会社」「株式会社MGC」「MGC」を追加した（MGC Inc.・エムジーシーは既存）
+  - WebSite にも alternateName を付けた。英語版の Organization も同様
+  - 会社概要の title は「会社概要｜ＭＧＣ株式会社（MGC Inc.・エムジーシー）」にした
+  - 画面の本文の社名表記は変えていない（正式表記の「ＭＧＣ株式会社」のまま）
+- 【7】会社概要（/company）: 会社表の下に「公的な登録情報と、掲載中の導入事例」を追加した（JP/EN）
+  - 中身は3点: 国税庁の法人番号公表サイトへのリンク（法人番号 4130001081155）、導入事例への案内、問い合わせ先
+  - description は「代表者・所在地・法人番号・沿革・アクセスを掲載」に。どれも事実のみ
+- サイトマップの lastmod（/service/ai-sales・/service/ai-phone・/training・/company）を 11/23 にした。llms.txt の最終更新も 11/23

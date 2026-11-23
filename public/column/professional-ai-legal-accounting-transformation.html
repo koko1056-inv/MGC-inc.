@@ -250,6 +250,13 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 
 /* CTA */
 .cta{margin:60px 0;background:var(--ink);color:#fff;border-radius:24px;padding:40px 34px}
+.inline-cta{margin:40px 0;background:var(--soft);border-left:4px solid var(--blue);border-radius:14px;padding:22px 24px}
+.inline-cta strong{display:block;font-weight:800;font-size:1.02rem;line-height:1.6;margin-bottom:6px}
+.inline-cta p{font-size:.9rem;color:var(--muted);margin:0 0 14px;line-height:1.8}
+.inline-cta-btns{display:flex;flex-wrap:wrap;gap:10px}
+.inline-cta .btn{font-size:.85rem;padding:10px 18px}
+.btn-ghost-dark{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.btn-ghost-dark:hover{border-color:var(--blue);color:var(--blue)}
 .cta h2{color:#fff;font-size:1.5rem;font-weight:800;margin-bottom:12px;line-height:1.6}
 .cta p{color:rgba(255,255,255,.8);margin-bottom:22px}
 .cta .cta-eyebrow{display:inline-block;background:var(--blue);color:#fff;font-size:.7rem;font-weight:800;letter-spacing:.1em;border-radius:999px;padding:6px 14px;margin-bottom:16px}
@@ -387,6 +394,7 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 <h2 id="s3">チェックリスト2：会計の自動化を、異常検知と助言につなげているか</h2>
 <ul><li>勘定科目の推論に加えて、二重計上や私的流用の疑いなど、過去と違うパターンに印を付けさせているか</li><li>月次決算のデータから、数ヶ月後の資金繰りを複数のシナリオで示せるか</li><li>税務調査で指摘されやすい項目を事前に拾い、証拠書類の整備を促せるか</li></ul>
 <p>会計・税務では、<a class="term" href="/glossary#ocr">OCR</a>（紙の書類をデータにする技術）や銀行との<a class="term" href="/glossary#api">API連携</a>による仕訳の自動化がすでに進んでいます。AIはこれを、異常の検知や将来の見通しへと広げます。数字をまとめる手間が減れば、AIの分析をもとに顧問先と投資計画を考えるなど、助言の仕事に時間を使えます。</p>
+<aside class="inline-cta"><strong>この業務のどこにAIを使えるか、30分で整理します</strong><p>士業（会計・法務）の業務の現状を伺い、AIに任せられる範囲と人が持つべき判断を切り分けてお返しします。初回相談・お見積もりまで無料です。</p><div class="inline-cta-btns"><a class="btn btn-primary" href="/contact">30分の無料相談を申し込む</a><a class="btn btn-ghost-dark" href="/training">AI活用リスキリング研修を見る</a></div></aside>
 <h2 id="s4">チェックリスト3：安全に使うための基準を、先に決めているか</h2>
 <ul><li>無料のチャットAIに顧客情報を入力しない決まりがあるか</li><li>入力データが学習に使われない法人向けのライセンスか、閉じたネットワーク環境で使っているか</li><li>AIに参照させる法令集・過去の回答事例・社内マニュアルを整理しているか</li><li>AIの回答に根拠資料へのリンクを表示させ、原文をすぐ確かめられるか</li></ul>
 <p>士業がAIをためらう最大の理由は、機密情報の扱いです。精度の面での対策が<a class="term" href="/glossary#rag">RAG</a>（検索拡張生成）で、インターネット上の不確かな情報ではなく、事務所の信頼できる資料を優先して参照させる仕組みです。セキュリティを避ける理由にせず、安全に使うための基準として先に定めることが、導入を前に進めます。</p>
@@ -409,6 +417,7 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 <p>士業（会計・法務）の業務のどこにAIを使えるか、どこは人が持つべきかを整理してお返しします。現状を伺うところから始められます。</p>
 <div class="btns">
 <a class="btn btn-primary" href="/contact">30分の無料相談を申し込む</a>
+<a class="btn btn-ghost" href="/training">AI活用リスキリング研修を見る</a>
 <a class="btn btn-ghost" href="/cases">導入事例を見る</a>
 </div>
 <p class="cta-foot">初回のご相談・お見積もりまで無料です。具体的な資料がなくても構いません。</p>

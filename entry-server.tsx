@@ -416,7 +416,7 @@ export const siteJsonLdEn = (orgJa: Record<string, any>, siteJa: Record<string, 
   const org = {
     ...orgJa,
     name: 'MGC Inc.',
-    alternateName: ['ＭＧＣ株式会社', 'エムジーシー'],
+    alternateName: ['ＭＧＣ株式会社', 'MGC株式会社', '株式会社MGC', 'エムジーシー'],
     ...(orgJa.identifier ? { identifier: { ...orgJa.identifier, propertyID: 'Corporate Number (Japan)' } } : {}),
     url: U('/'),
     description: t.worksIntro.lead,

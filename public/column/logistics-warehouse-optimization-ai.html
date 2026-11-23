@@ -250,6 +250,13 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 
 /* CTA */
 .cta{margin:60px 0;background:var(--ink);color:#fff;border-radius:24px;padding:40px 34px}
+.inline-cta{margin:40px 0;background:var(--soft);border-left:4px solid var(--blue);border-radius:14px;padding:22px 24px}
+.inline-cta strong{display:block;font-weight:800;font-size:1.02rem;line-height:1.6;margin-bottom:6px}
+.inline-cta p{font-size:.9rem;color:var(--muted);margin:0 0 14px;line-height:1.8}
+.inline-cta-btns{display:flex;flex-wrap:wrap;gap:10px}
+.inline-cta .btn{font-size:.85rem;padding:10px 18px}
+.btn-ghost-dark{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.btn-ghost-dark:hover{border-color:var(--blue);color:var(--blue)}
 .cta h2{color:#fff;font-size:1.5rem;font-weight:800;margin-bottom:12px;line-height:1.6}
 .cta p{color:rgba(255,255,255,.8);margin-bottom:22px}
 .cta .cta-eyebrow{display:inline-block;background:var(--blue);color:#fff;font-size:.7rem;font-weight:800;letter-spacing:.1em;border-radius:999px;padding:6px 14px;margin-bottom:16px}
@@ -386,6 +393,7 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 <ul><li>出荷頻度によるランク分け（ABC分析）を、季節やトレンドに合わせて見直しているか</li><li>一緒に注文されやすい商品を、近くに置いているか</li><li>重いものや壊れやすいものの置き方を、配置の条件に入れているか</li></ul>
 <p>ABC分析は多くの倉庫で行われていますが、よく出る商品は季節やトレンドで入れ替わります。手作業の見直しが追いつかず、以前の売れ筋が出荷口に近い棚を占めたままのことも少なくありません。AIによる配置の見直し（スロッティング）は、出荷予測と併売の傾向から、来週増える商品を前方の棚へ移すといった提案を出します。</p>
 <p>ただし、配置換えを毎日行えば、移動作業そのものが負担になります。効果の大きい数品目だけを入れ替える、閑散期にまとめて行うといった条件をAIに設定し、現場に無理のない運用にします。</p>
+<aside class="inline-cta"><strong>この業務のどこにAIを使えるか、30分で整理します</strong><p>物流の業務の現状を伺い、AIに任せられる範囲と人が持つべき判断を切り分けてお返しします。初回相談・お見積もりまで無料です。</p><div class="inline-cta-btns"><a class="btn btn-primary" href="/contact">30分の無料相談を申し込む</a><a class="btn btn-ghost-dark" href="/works/ai-solutions">AIソリューションを見る</a></div></aside>
 <h2 id="s4">チェックリスト3：AIが使える記録とレイアウトのデータがそろっているか</h2>
 <ul><li>いつ・誰が・どの棚から・何を・何個取ったかが、時刻付きで記録されているか</li><li>ラックの位置、通路の幅、高さの制限などをデジタルの地図にしているか</li><li>記録に欠けや誤入力がないかを確認しているか</li></ul>
 <p>ピッキングの指示や完了報告が紙のままなら、まずハンディターミナルやタブレットでのデジタル化が先です。倉庫の地図データの精度が低いと、AIは壁を突き抜けるような現実離れしたルートを示します。既存のWMSにこうした情報が足りない場合は、マスタ情報の整備から始めます。遠回りに見えても、次の土台づくりがAIの精度を左右します。</p>
@@ -406,6 +414,7 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 <p>物流の業務のどこにAIを使えるか、どこは人が持つべきかを整理してお返しします。現状を伺うところから始められます。</p>
 <div class="btns">
 <a class="btn btn-primary" href="/contact">30分の無料相談を申し込む</a>
+<a class="btn btn-ghost" href="/works/ai-solutions">AIソリューションを見る</a>
 <a class="btn btn-ghost" href="/cases">導入事例を見る</a>
 </div>
 <p class="cta-foot">初回のご相談・お見積もりまで無料です。具体的な資料がなくても構いません。</p>

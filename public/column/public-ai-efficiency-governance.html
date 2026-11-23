@@ -250,6 +250,13 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 
 /* CTA */
 .cta{margin:60px 0;background:var(--ink);color:#fff;border-radius:24px;padding:40px 34px}
+.inline-cta{margin:40px 0;background:var(--soft);border-left:4px solid var(--blue);border-radius:14px;padding:22px 24px}
+.inline-cta strong{display:block;font-weight:800;font-size:1.02rem;line-height:1.6;margin-bottom:6px}
+.inline-cta p{font-size:.9rem;color:var(--muted);margin:0 0 14px;line-height:1.8}
+.inline-cta-btns{display:flex;flex-wrap:wrap;gap:10px}
+.inline-cta .btn{font-size:.85rem;padding:10px 18px}
+.btn-ghost-dark{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.btn-ghost-dark:hover{border-color:var(--blue);color:var(--blue)}
 .cta h2{color:#fff;font-size:1.5rem;font-weight:800;margin-bottom:12px;line-height:1.6}
 .cta p{color:rgba(255,255,255,.8);margin-bottom:22px}
 .cta .cta-eyebrow{display:inline-block;background:var(--blue);color:#fff;font-size:.7rem;font-weight:800;letter-spacing:.1em;border-radius:999px;padding:6px 14px;margin-bottom:16px}
@@ -387,6 +394,7 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 <ul><li>入力したデータがAIの学習に使われない設定（オプトアウト）が保証された環境か</li><li>LGWAN（自治体間を結ぶ行政専用のネットワーク）の環境での利用など、庁内の方針に合っているか</li><li>個人情報・機密情報・非公開の政策情報を入力しないルールがあるか</li><li>そのルールを職員に周知し、研修で確かめる機会があるか</li></ul>
 <p>住民の信頼を守るうえで、セキュリティ対策は最初に決めておくことです。法人向けの商用サービスや、LGWANの環境でも動く基盤を選ぶといった技術面の対策と、運用のルールを両輪で整えます。利便性を優先してルールを後回しにすると、あとから利用を止めることになりかねません。</p>
 <blockquote>利便性を優先せず、入力してよい情報と禁止する情報の境界線を、組織として明文化することから始める。</blockquote>
+<aside class="inline-cta"><strong>この業務のどこにAIを使えるか、30分で整理します</strong><p>自治体・公共の業務の現状を伺い、AIに任せられる範囲と人が持つべき判断を切り分けてお返しします。初回相談・お見積もりまで無料です。</p><div class="inline-cta-btns"><a class="btn btn-primary" href="/contact">30分の無料相談を申し込む</a><a class="btn btn-ghost-dark" href="/training">AI活用リスキリング研修を見る</a></div></aside>
 <h2 id="s4">チェックリスト3：職員が最終確認する流れが業務に組み込まれているか</h2>
 <ul><li>AIの出力に<a class="term" href="/glossary#hallucination">ハルシネーション</a>（もっともらしい誤り）が含まれる前提で運用しているか</li><li>住民に出す前に、職員が内容を精査・修正する工程があるか</li><li>AIの判定やスコアを結論ではなく、確認の優先度を示す目印として扱っているか</li></ul>
 <p>行政サービスとしての責任は、最終的にその業務を所管する自治体が負います。そのため、AIの回答をそのまま住民に出さず、職員が裏付けを確かめる「人による最終確認（Human in the Loop）」を手順に入れます。生活保護の判定や児童虐待の予兆の把握などを補助する場合も、AIの結果は専門職が優先して確認すべき目印として扱い、判断は人が行います。</p>
@@ -411,6 +419,7 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 <p>自治体・公共の業務のどこにAIを使えるか、どこは人が持つべきかを整理してお返しします。現状を伺うところから始められます。</p>
 <div class="btns">
 <a class="btn btn-primary" href="/contact">30分の無料相談を申し込む</a>
+<a class="btn btn-ghost" href="/training">AI活用リスキリング研修を見る</a>
 <a class="btn btn-ghost" href="/cases">導入事例を見る</a>
 </div>
 <p class="cta-foot">初回のご相談・お見積もりまで無料です。具体的な資料がなくても構いません。</p>

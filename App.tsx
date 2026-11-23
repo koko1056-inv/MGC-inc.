@@ -34,9 +34,9 @@ const PAGE_META: Record<Lang, Partial<Record<string, { title: string; descriptio
   ja: {
     home: { title: 'ＭＧＣ株式会社（MGC Inc.）| AIとテクノロジーで、日本と世界をつなぐ', description: 'ＭＧＣ株式会社は、AIソリューション・AI事業立ち上げ支援・AI活用研修・クロスボーダー事業を展開する京都の会社。業務の棚卸しから開発・定着、事業化まで一気通貫で支援します。店舗向けAI電話受付「MOSHITEL」も提供。初回相談は無料。' },
     works: { title: '事業内容｜AIソリューション・AI事業立ち上げ支援・研修・クロスボーダー - ＭＧＣ株式会社', description: 'AIコンサルティング・開発・運用を一気通貫で提供するAIソリューション、導入実績を同業他社向けの商材に変えるAI事業立ち上げ支援、AI活用の実践型研修、海外企業の日本総代理店・日本企業の海外進出を支援するクロスボーダー事業。' },
-    training: { title: 'AI活用リスキリング研修｜実践型のOFF-JT研修 - ＭＧＣ株式会社', description: 'ITに詳しくない経営者・従業員がAIを業務に導入・活用できるようになる実践型研修（OFF-JT）。基礎から実務での活用までを、解説・実例・デモで学びます。' },
+    training: { title: 'AI研修（AI活用リスキリング研修）｜1名398,000円・20時間・助成金申請サポート - ＭＧＣ株式会社', description: 'ITに詳しくない経営者・従業員向けの実践型AI研修（OFF-JT）。受講料は1名398,000円（税込）・標準20時間、対面とオンライン（同時双方向）に対応。助成金の活用は申請をサポートします（研修受講者は無料、受給できるかは要件によります）。' },
     mission: { title: '会社理念｜AIとテクノロジーで、日本と世界をつなぐ - ＭＧＣ株式会社', description: 'ＭＧＣ株式会社の会社理念。ビジョン「AIとテクノロジーで、日本と世界をつなぐ」と、まずAIネイティブにやってみるという考え方、バリュー（楽観主義・誠実さ・思考の枠を超える）、続いていく取り組みを選ぶ姿勢を掲載しています。' },
-    company: { title: '会社概要 - ＭＧＣ株式会社', description: 'ＭＧＣ株式会社（MGC Inc.）の会社概要。京都市上京区を拠点に、AIソリューション・AI事業立ち上げ支援・AI活用研修・クロスボーダー事業を展開しています。代表メッセージ、沿革、所在地とアクセスを掲載。' },
+    company: { title: '会社概要｜ＭＧＣ株式会社（MGC Inc.・エムジーシー）', description: 'ＭＧＣ株式会社（MGC Inc.）の会社概要。京都市上京区を拠点に、AIソリューション・AI事業立ち上げ支援・AI活用研修・クロスボーダー事業を展開しています。代表者・所在地・法人番号・沿革・アクセスを掲載。' },
     career: { title: '採用情報｜AIネイティブに働く仲間を募集 - ＭＧＣ株式会社', description: 'ＭＧＣ株式会社の採用情報。AIを「同僚」として使いこなし、日本と世界をつなぐ仕事に挑む仲間を募集しています。求める資質（原動力・突破力・時間感覚・人間性）と、求めるスキル（AIネイティブ・グローバル・構想力）を掲載。' },
     contact: { title: 'お問い合わせ｜30分の無料相談 - ＭＧＣ株式会社', description: 'AI導入、AI営業・AI電話・Salesforce AI活用、AI活用研修、海外展開のご相談窓口。フォームで送信いただくと、専門チームが内容を確認して1営業日以内にメールでご返信します。初回の30分相談は無料です。' },
     blog: { title: 'お知らせ・ジャーナル - ＭＧＣ株式会社', description: 'ＭＧＣ株式会社のお知らせ（サービス開始・研修・サイト更新）と、代表がAIとの向き合い方や実装の記録を綴るジャーナル。AI営業、音声AI、Salesforce・kintone連携、海外展開などをテーマにしています。' },
@@ -1541,7 +1541,7 @@ const PartnersView: React.FC = () => {
 }
 
 const CompanyView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavigate }) => {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const c = t.company;
   const mapQuery = encodeURIComponent('京都府京都市上京区西辰巳町111');
 
@@ -1592,6 +1592,26 @@ const CompanyView: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onN
               </Reveal>
             ))}
           </dl>
+          {/* 会社の実在と取り組みを確かめられる情報（公的な登録情報・掲載中の導入事例）。事実のみ */}
+          <Reveal>
+            <div className="mt-10 rounded-2xl bg-[#F4F6FB] border-l-4 border-[#2D6CDF] p-6 md:p-8">
+              <h3 className="text-lg md:text-xl font-bold text-offblack">{lang === 'ja' ? '公的な登録情報と、掲載中の導入事例' : 'Public registration and published case studies'}</h3>
+              <ul className="mt-4 space-y-3 text-base text-gray-700 leading-relaxed">
+                <li>
+                  {lang === 'ja' ? '法人番号（4130001081155）の登録内容は、国税庁の法人番号公表サイトで確認できます：' : 'Our corporate number (4130001081155) can be checked on the National Tax Agency corporate number site: '}
+                  <a href="https://www.houjin-bangou.nta.go.jp/henkorireki-johoto.html?selHouzinNo=4130001081155" target="_blank" rel="noopener" className="font-bold text-[#2D6CDF] underline underline-offset-4">{lang === 'ja' ? '国税庁 法人番号公表サイト' : 'National Tax Agency'}</a>
+                </li>
+                <li>
+                  {lang === 'ja' ? '支援の内容は、導入事例（社名は掲載許諾が取れるまで伏せ、業種で紹介）として掲載しています：' : 'Our work is published as case studies (company names withheld until permission is given): '}
+                  <a href="/cases" className="font-bold text-[#2D6CDF] underline underline-offset-4">{lang === 'ja' ? '導入事例を見る' : 'See case studies'}</a>
+                </li>
+                <li>
+                  {lang === 'ja' ? 'ご相談・お問い合わせは、フォームまたは contact@mgc-global01.com で受け付けています：' : 'For enquiries, use the form or contact@mgc-global01.com: '}
+                  <a href="/contact" className="font-bold text-[#2D6CDF] underline underline-offset-4">{lang === 'ja' ? 'お問い合わせ' : 'Contact'}</a>
+                </li>
+              </ul>
+            </div>
+          </Reveal>
         </section>
 
         {/* 沿革 */}
