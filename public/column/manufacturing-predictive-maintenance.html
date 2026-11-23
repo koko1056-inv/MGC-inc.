@@ -250,6 +250,13 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 
 /* CTA */
 .cta{margin:60px 0;background:var(--ink);color:#fff;border-radius:24px;padding:40px 34px}
+.inline-cta{margin:40px 0;background:var(--soft);border-left:4px solid var(--blue);border-radius:14px;padding:22px 24px}
+.inline-cta strong{display:block;font-weight:800;font-size:1.02rem;line-height:1.6;margin-bottom:6px}
+.inline-cta p{font-size:.9rem;color:var(--muted);margin:0 0 14px;line-height:1.8}
+.inline-cta-btns{display:flex;flex-wrap:wrap;gap:10px}
+.inline-cta .btn{font-size:.85rem;padding:10px 18px}
+.btn-ghost-dark{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.btn-ghost-dark:hover{border-color:var(--blue);color:var(--blue)}
 .cta h2{color:#fff;font-size:1.5rem;font-weight:800;margin-bottom:12px;line-height:1.6}
 .cta p{color:rgba(255,255,255,.8);margin-bottom:22px}
 .cta .cta-eyebrow{display:inline-block;background:var(--blue);color:#fff;font-size:.7rem;font-weight:800;letter-spacing:.1em;border-radius:999px;padding:6px 14px;margin-bottom:16px}
@@ -386,6 +393,7 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 <ul><li>監視する設備がどのように壊れるか（故障モード）を特定しているか</li><li>保全担当者が、普段どこを見て異常を感じているかを聞き取っているか</li><li>その兆しが表れやすい振動・電流・温度などのデータを選んでいるか</li></ul>
 <p>何を測るかの手がかりは、保全担当者の普段の着眼点にあります。センサーは高価な多機能品より、変化を追えることを優先します。モーターのベアリングの異常なら高い周波数まで測れる振動センサー、ヒーターの断線なら電流クランプセンサーといった選び方です。</p>
 <ol><li>監視対象の故障モードを特定する</li><li>その兆しが最も表れやすい物理量（振動、電流、温度など）を選ぶ</li><li>後付けのセンサーか既存のPLC（制御装置）からデータを1〜3ヶ月間集め、正常時の変動の幅をつかむ</li></ol>
+<aside class="inline-cta"><strong>この業務のどこにAIを使えるか、30分で整理します</strong><p>製造業の業務の現状を伺い、AIに任せられる範囲と人が持つべき判断を切り分けてお返しします。初回相談・お見積もりまで無料です。</p><div class="inline-cta-btns"><a class="btn btn-primary" href="/contact">30分の無料相談を申し込む</a><a class="btn btn-ghost-dark" href="/works/ai-solutions">AIソリューションを見る</a></div></aside>
 <h2 id="s4">チェックリスト3：熟練工の知見を、データの「ラベル」にしているか</h2>
 <ul><li>保全記録（日報）と、その時期のセンサーデータを突き合わせているか</li><li>「異音がしたため部品交換」などの記録に、日付が残っているか</li><li>AIが拾った波形の意味を、熟練工に確かめてもらう場があるか</li></ul>
 <p>「この音が鳴り始めると、あと3日でベアリングが焼き付く」といった熟練工の知見は、予兆保全AIの手本になります。保全記録の直前にどのような波形が出ていたかを解析し、故障ごとの特徴を覚えさせます。データだけでは足りず、現場の文脈というラベルが付いて初めて実用に近づきます。</p>
@@ -409,6 +417,7 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 <p>製造業の業務のどこにAIを使えるか、どこは人が持つべきかを整理してお返しします。現状を伺うところから始められます。</p>
 <div class="btns">
 <a class="btn btn-primary" href="/contact">30分の無料相談を申し込む</a>
+<a class="btn btn-ghost" href="/works/ai-solutions">AIソリューションを見る</a>
 <a class="btn btn-ghost" href="/cases">導入事例を見る</a>
 </div>
 <p class="cta-foot">初回のご相談・お見積もりまで無料です。具体的な資料がなくても構いません。</p>

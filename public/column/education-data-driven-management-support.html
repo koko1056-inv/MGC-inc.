@@ -250,6 +250,13 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 
 /* CTA */
 .cta{margin:60px 0;background:var(--ink);color:#fff;border-radius:24px;padding:40px 34px}
+.inline-cta{margin:40px 0;background:var(--soft);border-left:4px solid var(--blue);border-radius:14px;padding:22px 24px}
+.inline-cta strong{display:block;font-weight:800;font-size:1.02rem;line-height:1.6;margin-bottom:6px}
+.inline-cta p{font-size:.9rem;color:var(--muted);margin:0 0 14px;line-height:1.8}
+.inline-cta-btns{display:flex;flex-wrap:wrap;gap:10px}
+.inline-cta .btn{font-size:.85rem;padding:10px 18px}
+.btn-ghost-dark{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.btn-ghost-dark:hover{border-color:var(--blue);color:var(--blue)}
 .cta h2{color:#fff;font-size:1.5rem;font-weight:800;margin-bottom:12px;line-height:1.6}
 .cta p{color:rgba(255,255,255,.8);margin-bottom:22px}
 .cta .cta-eyebrow{display:inline-block;background:var(--blue);color:#fff;font-size:.7rem;font-weight:800;letter-spacing:.1em;border-radius:999px;padding:6px 14px;margin-bottom:16px}
@@ -386,6 +393,7 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 <h2 id="s3">チェックリスト2：データの「型」をそろえているか</h2>
 <ul><li>成績・出席・学習ログ・各教員の手元のExcelが、どこにどの形式であるかを把握しているか</li><li>欠席数や課題の未提出数など、予測に役立ちそうな項目を優先して選んでいるか</li><li>日付の書き方や学生名の表記ゆれを整えるルールがあるか</li></ul>
 <p>活用の壁になりやすいのは、AIの精度よりもデータの散在です。データが部署ごとに孤立したままでは、AIは力を発揮できません。いきなりすべてを連携させず、出席・成績・アンケートの3項目から、学生IDを軸に一元管理できる形を整えます。重複や誤りの修正（クレンジング）も、この段階で行います。</p>
+<aside class="inline-cta"><strong>この業務のどこにAIを使えるか、30分で整理します</strong><p>教育の業務の現状を伺い、AIに任せられる範囲と人が持つべき判断を切り分けてお返しします。初回相談・お見積もりまで無料です。</p><div class="inline-cta-btns"><a class="btn btn-primary" href="/contact">30分の無料相談を申し込む</a><a class="btn btn-ghost-dark" href="/works/ai-solutions">AIソリューションを見る</a></div></aside>
 <h2 id="s4">チェックリスト3：AIは「気づき」、判断は教職員という分担になっているか</h2>
 <ul><li>AIの結果を確率や傾向として扱い、断定に使わない決まりがあるか</li><li>フラグが出た学生には、面談などで事情を確かめてから方針を決めているか</li><li>AIが教員を評価したり、仕事を奪ったりするものではないと説明しているか</li></ul>
 <p>AIの判定の背景には、家庭の事情もあれば、単にPCの故障でアクセスできないだけのこともあります。事情を確かめ、支援の方針を決めるのは教職員の仕事です。AIが示したデータをもとに「この学生にどう声をかけるか」を話し合う場として使うと、現場の理解が進みます。</p>
@@ -408,6 +416,7 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 <p>教育の業務のどこにAIを使えるか、どこは人が持つべきかを整理してお返しします。現状を伺うところから始められます。</p>
 <div class="btns">
 <a class="btn btn-primary" href="/contact">30分の無料相談を申し込む</a>
+<a class="btn btn-ghost" href="/works/ai-solutions">AIソリューションを見る</a>
 <a class="btn btn-ghost" href="/cases">導入事例を見る</a>
 </div>
 <p class="cta-foot">初回のご相談・お見積もりまで無料です。具体的な資料がなくても構いません。</p>

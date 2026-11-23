@@ -163,6 +163,13 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 
 /* CTA */
 .cta{margin:60px 0;background:var(--ink);color:#fff;border-radius:24px;padding:40px 34px}
+.inline-cta{margin:40px 0;background:var(--soft);border-left:4px solid var(--blue);border-radius:14px;padding:22px 24px}
+.inline-cta strong{display:block;font-weight:800;font-size:1.02rem;line-height:1.6;margin-bottom:6px}
+.inline-cta p{font-size:.9rem;color:var(--muted);margin:0 0 14px;line-height:1.8}
+.inline-cta-btns{display:flex;flex-wrap:wrap;gap:10px}
+.inline-cta .btn{font-size:.85rem;padding:10px 18px}
+.btn-ghost-dark{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.btn-ghost-dark:hover{border-color:var(--blue);color:var(--blue)}
 .cta h2{color:#fff;font-size:1.5rem;font-weight:800;margin-bottom:12px;line-height:1.6}
 .cta p{color:rgba(255,255,255,.8);margin-bottom:22px}
 .cta .cta-eyebrow{display:inline-block;background:var(--blue);color:#fff;font-size:.7rem;font-weight:800;letter-spacing:.1em;border-radius:999px;padding:6px 14px;margin-bottom:16px}
@@ -382,12 +389,19 @@ const moshitelHref = (placement) => `https://moshitel.mgc-global01.com/5?utm_sou
 const moshitelHtml = (placement, cls = 'svc-links') => `<section class="${cls}"><h2>MGCの自社プロダクト</h2><ul><li><a href="${moshitelHref(placement)}" target="_blank" rel="noopener"><strong>MOSHITEL（モシテル）— 中小企業・お店のためのAI電話受付</strong><span>営業時間外や接客・作業中で出られない電話にAIが出て、用件を要約してお知らせします。24時間受付。無料で試せます（登録不要）。料金は個別見積もり。</span></a></li></ul></section>`;
 const showMoshitel = (a) => MOSHITEL_INDUSTRIES.includes(a.industry) && (plainText(a).match(/電話/g) || []).length >= 2;
 
-function relatedServicesHtml(a) {
+// 記事の内容に近いサービス（本文中の語の出現数で判定。最大2つ。該当なしはAIソリューション）
+function servicePicks(a) {
   const text = plainText(a);
   const count = (w) => text.split(w).length - 1;
   const scored = SERVICE_LINKS.map((s) => ({ ...s, score: s.words.reduce((n, w) => n + count(w), 0) }))
     .filter((s) => s.score >= 3).sort((x, y) => y.score - x.score).slice(0, 2);
-  const picks = scored.length ? scored : [{ href: '/works/ai-solutions', name: 'AIソリューション', desc: '何にAIを使うべきかの整理から、開発・導入・運用まで一貫して支援', score: 0 }];
+  return scored.length ? scored : [{ href: '/works/ai-solutions', name: 'AIソリューション', desc: '何にAIを使うべきかの整理から、開発・導入・運用まで一貫して支援', score: 0 }];
+}
+// 本文の途中に置く相談の案内（記事の中ほど＝4つ目の見出しの前。見出しが少ない記事は3つ目の前）
+const inlineCtaHtml = (a, svc) => `<aside class="inline-cta"><strong>この業務のどこにAIを使えるか、30分で整理します</strong><p>${esc(industriesByKey[a.industry].ja)}の業務の現状を伺い、AIに任せられる範囲と人が持つべき判断を切り分けてお返しします。初回相談・お見積もりまで無料です。</p><div class="inline-cta-btns"><a class="btn btn-primary" href="/contact">30分の無料相談を申し込む</a><a class="btn btn-ghost-dark" href="${esc(svc.href)}">${esc(svc.name)}を見る</a></div></aside>`;
+
+function relatedServicesHtml(a) {
+  const picks = servicePicks(a);
   // 選んだサービスに対応する比較・選び方ガイド。対応するガイドがないとき（研修・AIソリューション）は「AI導入は何から始めるか」
   const guides = [...new Set(picks.map((s) => GUIDE_FOR_SERVICE[s.href] || 'ai-adoption-where-to-start'))].map((slug) => GUIDES.find((g) => g.slug === slug));
   // ガイド側の「関連コラム」用に記録する（逆向きのリンク）
@@ -502,7 +516,13 @@ function articleHtml(a) {
     .join('')}</div></section>` : '';
 
   const headings = [];
-  const bodyHtml = renderBody(a.body, headings);
+  const svcTop = servicePicks(a)[0];
+  // 本文の中ほどに相談の案内を差し込む（4つ目の見出しの前。無ければ3つ目の前）
+  const bodyHtml = (() => {
+    const html = renderBody(a.body, headings);
+    const at = html.includes('<h2 id="s4">') ? '<h2 id="s4">' : html.includes('<h2 id="s3">') ? '<h2 id="s3">' : null;
+    return at ? html.replace(at, `${inlineCtaHtml(a, svcTop)}\n${at}`) : html;
+  })();
   const tocItems = headings.map((h) => `<li><a href="#${h.id}">${esc(h.text)}</a></li>`).join('');
   const tocHtml = headings.length >= 3 ? `<nav class="toc"><h2>目次</h2><ol>${tocItems}</ol></nav>` : '';
   const tocMobile = headings.length >= 3 ? `<details class="toc-mobile"><summary>目次</summary><nav class="toc"><h2>目次</h2><ol>${tocItems}</ol></nav></details>` : '';
@@ -578,6 +598,7 @@ ${SHOW_DIAGNOSIS ? `<section class="cta">
 <p>${esc(ind.ja)}の業務のどこにAIを使えるか、どこは人が持つべきかを整理してお返しします。現状を伺うところから始められます。</p>
 <div class="btns">
 <a class="btn btn-primary" href="/contact">30分の無料相談を申し込む</a>
+<a class="btn btn-ghost" href="${esc(svcTop.href)}">${esc(svcTop.name)}を見る</a>
 <a class="btn btn-ghost" href="/cases">導入事例を見る</a>
 </div>
 <p class="cta-foot">初回のご相談・お見積もりまで無料です。具体的な資料がなくても構いません。</p>
@@ -916,7 +937,7 @@ function readGlossary() {
 
 // ---- llms.txt（AIアシスタント/生成エンジン向けのサイトガイド。llms.txt標準）----
 // 本体サイト（コラム以外）の内容の最終更新日。本体のページを更新したら日付を足す（llms.txt の「最終更新」に使う）
-const SITE_CONTENT_DATES = ['2026-11-18'];
+const SITE_CONTENT_DATES = ['2026-11-23'];
 function updateLlmsTxt() {
   // 方針: AIが「この会社は何をしていて、誰に何を頼めるか」を正しく説明・推薦できるよう、
   // 会社概要 → 事業・サービス → 研修 → 事例 → 主要ページ → コラム の順に、サイトに載っている事実だけを書く。

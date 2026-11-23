@@ -250,6 +250,13 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 
 /* CTA */
 .cta{margin:60px 0;background:var(--ink);color:#fff;border-radius:24px;padding:40px 34px}
+.inline-cta{margin:40px 0;background:var(--soft);border-left:4px solid var(--blue);border-radius:14px;padding:22px 24px}
+.inline-cta strong{display:block;font-weight:800;font-size:1.02rem;line-height:1.6;margin-bottom:6px}
+.inline-cta p{font-size:.9rem;color:var(--muted);margin:0 0 14px;line-height:1.8}
+.inline-cta-btns{display:flex;flex-wrap:wrap;gap:10px}
+.inline-cta .btn{font-size:.85rem;padding:10px 18px}
+.btn-ghost-dark{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.btn-ghost-dark:hover{border-color:var(--blue);color:var(--blue)}
 .cta h2{color:#fff;font-size:1.5rem;font-weight:800;margin-bottom:12px;line-height:1.6}
 .cta p{color:rgba(255,255,255,.8);margin-bottom:22px}
 .cta .cta-eyebrow{display:inline-block;background:var(--blue);color:#fff;font-size:.7rem;font-weight:800;letter-spacing:.1em;border-radius:999px;padding:6px 14px;margin-bottom:16px}
@@ -386,6 +393,7 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 <h2 id="s3">チェックリスト2：対象の品目と、比べる基準を決めているか</h2>
 <ul><li>売上上位20%のAランク品や、納期が長く在庫リスクの高い品目に絞っているか</li><li>現在の予測誤差（実際の需要と計画のずれ）を数値にして、比べる基準を作っているか</li><li>特定の品目で、過去データを使った<a class="term" href="/glossary#poc">PoC</a>（概念実証）を行い、当時の実績と照らし合わせるか</li></ul>
 <p>全品目を一度にAI化しようとすると、例外処理が多くなり現場が混乱します。「この製品群はAIで管理する」と範囲を決め、比べる基準を先に持っておくことで、効果を説明しやすくなります。成果を確かめてから、適用範囲を広げていきます。</p>
+<aside class="inline-cta"><strong>この業務のどこにAIを使えるか、30分で整理します</strong><p>製造業の業務の現状を伺い、AIに任せられる範囲と人が持つべき判断を切り分けてお返しします。初回相談・お見積もりまで無料です。</p><div class="inline-cta-btns"><a class="btn btn-primary" href="/contact">30分の無料相談を申し込む</a><a class="btn btn-ghost-dark" href="/service/ai-sales">AI営業を見る</a></div></aside>
 <h2 id="s4">チェックリスト3：予測の根拠を、現場が確かめられるか</h2>
 <ul><li>説明可能なAI（XAI）として、どの要因が予測にどれだけ効いたかを表示できるか</li><li>「前年同月の実績が50%、直近の受注傾向が30%寄与した」といった形で根拠を示せるか</li><li>根拠を見たうえで、担当者が予測値を採るか補正するかを判断できるか</li></ul>
 <p>精度の高い予測が出ても、現場が使わなければ意味がありません。なぜその数字になったのか分からないと、担当者は予測を無視して従来通りに発注しがちです。根拠が見える形にすることで、生産管理や調達の担当者が納得して判断できるようになります。</p>
@@ -408,6 +416,7 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 <p>製造業の業務のどこにAIを使えるか、どこは人が持つべきかを整理してお返しします。現状を伺うところから始められます。</p>
 <div class="btns">
 <a class="btn btn-primary" href="/contact">30分の無料相談を申し込む</a>
+<a class="btn btn-ghost" href="/service/ai-sales">AI営業を見る</a>
 <a class="btn btn-ghost" href="/cases">導入事例を見る</a>
 </div>
 <p class="cta-foot">初回のご相談・お見積もりまで無料です。具体的な資料がなくても構いません。</p>

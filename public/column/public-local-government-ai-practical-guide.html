@@ -250,6 +250,13 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 
 /* CTA */
 .cta{margin:60px 0;background:var(--ink);color:#fff;border-radius:24px;padding:40px 34px}
+.inline-cta{margin:40px 0;background:var(--soft);border-left:4px solid var(--blue);border-radius:14px;padding:22px 24px}
+.inline-cta strong{display:block;font-weight:800;font-size:1.02rem;line-height:1.6;margin-bottom:6px}
+.inline-cta p{font-size:.9rem;color:var(--muted);margin:0 0 14px;line-height:1.8}
+.inline-cta-btns{display:flex;flex-wrap:wrap;gap:10px}
+.inline-cta .btn{font-size:.85rem;padding:10px 18px}
+.btn-ghost-dark{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.btn-ghost-dark:hover{border-color:var(--blue);color:var(--blue)}
 .cta h2{color:#fff;font-size:1.5rem;font-weight:800;margin-bottom:12px;line-height:1.6}
 .cta p{color:rgba(255,255,255,.8);margin-bottom:22px}
 .cta .cta-eyebrow{display:inline-block;background:var(--blue);color:#fff;font-size:.7rem;font-weight:800;letter-spacing:.1em;border-radius:999px;padding:6px 14px;margin-bottom:16px}
@@ -387,6 +394,7 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 <h2 id="s3">チェックリスト2：住民窓口で、答えの根拠を限定できるか</h2>
 <ul><li>ホームページや広報誌、FAQなど自治体の資料に基づいて答える仕組み（<a class="term" href="/glossary#rag">RAG</a>）にしているか</li><li>夜間や休日、外国人住民からの問い合わせにどう応じるかを決めているか</li><li>電話の問い合わせで、AIが一次受けをして担当部署へつなぐ形を検討しているか</li><li>AIの回答に、最終確認は公式文書で行う旨の注記を出しているか</li></ul>
 <p>従来の<a class="term" href="/glossary#chatbot">チャットボット</a>は決められたシナリオでしか答えられず、「欲しい答えにたどり着けない」という不満がありました。RAG（検索拡張生成）は、自治体の資料を読み込ませ、それに基づいて回答をつくる仕組みです。勝手に推論する範囲を絞れるため、24時間の対応や多言語での対応を広げても、誤った情報が出るリスクを抑えやすくなります。</p>
+<aside class="inline-cta"><strong>この業務のどこにAIを使えるか、30分で整理します</strong><p>自治体・公共の業務の現状を伺い、AIに任せられる範囲と人が持つべき判断を切り分けてお返しします。初回相談・お見積もりまで無料です。</p><div class="inline-cta-btns"><a class="btn btn-primary" href="/contact">30分の無料相談を申し込む</a><a class="btn btn-ghost-dark" href="/service/ai-phone">AI電話（音声AI）を見る</a></div></aside>
 <h2 id="s4">チェックリスト3：データの格付けと、使う環境を決めているか</h2>
 <ul><li>統計データや公開済みの資料と、氏名・住所を含む情報を分けて扱っているか</li><li>LGWAN（総合行政ネットワーク）との関係を踏まえ、行政向けの環境や閉域網で動く仕組みを比べているか</li><li>入力データがAIの再学習に使われない設定（オプトアウト）を確認しているか</li><li>住民の権利に関わる使い方で、AIの提案の根拠を人が説明できるか</li></ul>
 <p>公開資料は汎用のAIで処理し、個人情報を含むものは管理された専用の環境で扱うか、<a class="term" href="/glossary#anonymization">匿名化</a>してから使う、という使い分けが基本です。保育所の入所選考の支援のように住民の権利に関わる場面では、どのような基準でAIが提案したかを人が説明できる状態を保ち、ブラックボックスにしないことが求められます。</p>
@@ -409,6 +417,7 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 <p>自治体・公共の業務のどこにAIを使えるか、どこは人が持つべきかを整理してお返しします。現状を伺うところから始められます。</p>
 <div class="btns">
 <a class="btn btn-primary" href="/contact">30分の無料相談を申し込む</a>
+<a class="btn btn-ghost" href="/service/ai-phone">AI電話（音声AI）を見る</a>
 <a class="btn btn-ghost" href="/cases">導入事例を見る</a>
 </div>
 <p class="cta-foot">初回のご相談・お見積もりまで無料です。具体的な資料がなくても構いません。</p>

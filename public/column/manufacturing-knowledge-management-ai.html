@@ -250,6 +250,13 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 
 /* CTA */
 .cta{margin:60px 0;background:var(--ink);color:#fff;border-radius:24px;padding:40px 34px}
+.inline-cta{margin:40px 0;background:var(--soft);border-left:4px solid var(--blue);border-radius:14px;padding:22px 24px}
+.inline-cta strong{display:block;font-weight:800;font-size:1.02rem;line-height:1.6;margin-bottom:6px}
+.inline-cta p{font-size:.9rem;color:var(--muted);margin:0 0 14px;line-height:1.8}
+.inline-cta-btns{display:flex;flex-wrap:wrap;gap:10px}
+.inline-cta .btn{font-size:.85rem;padding:10px 18px}
+.btn-ghost-dark{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.btn-ghost-dark:hover{border-color:var(--blue);color:var(--blue)}
 .cta h2{color:#fff;font-size:1.5rem;font-weight:800;margin-bottom:12px;line-height:1.6}
 .cta p{color:rgba(255,255,255,.8);margin-bottom:22px}
 .cta .cta-eyebrow{display:inline-block;background:var(--blue);color:#fff;font-size:.7rem;font-weight:800;letter-spacing:.1em;border-radius:999px;padding:6px 14px;margin-bottom:16px}
@@ -386,6 +393,7 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 <h2 id="s3">チェックリスト2：読み込ませる資料の「正式版」を決めているか</h2>
 <ul><li>「最新」「確定」「修正版」など似たファイルの中から、正式版を定めているか</li><li>古い資料を、アーカイブ用のフォルダに分けているか</li><li>紙やスキャンの資料は、表紙や重要項目だけ人がタグ付けする方針か</li></ul>
 <p>似たファイルが混ざっていると、AIはどれが正しいかを判断できません。読み込ませる前に正式版を定め、古い資料を分けておく前処理が要ります。古い図面や手書きの日報は、文字の読み取り（<a class="term" href="/glossary#ocr">OCR</a>）で字が潰れることがあります。すべてを正確に読み取ろうとせず、重要な項目だけ人が補う形が現実的です。</p>
+<aside class="inline-cta"><strong>この業務のどこにAIを使えるか、30分で整理します</strong><p>製造業の業務の現状を伺い、AIに任せられる範囲と人が持つべき判断を切り分けてお返しします。初回相談・お見積もりまで無料です。</p><div class="inline-cta-btns"><a class="btn btn-primary" href="/contact">30分の無料相談を申し込む</a><a class="btn btn-ghost-dark" href="/works/ai-solutions">AIソリューションを見る</a></div></aside>
 <h2 id="s4">チェックリスト3：図面に、何の図面かを示す文字情報があるか</h2>
 <ul><li>図面のタイトル、部品番号、注釈などの文字情報を取り出せるか</li><li>いつ・どの製品の・どの部位の図面かを、テキストで添えているか</li><li>設計変更の理由や経緯を、図面とあわせて記録しているか</li></ul>
 <p>AIは、複雑な図面の構造を完全に理解するのはまだ苦手です。図面の形から似た図面を探すAIも出てきていますが、現時点では文字情報をもとに探す方が精度が高く、費用も抑えやすくなります。経緯の記録が添えてあれば、見つけた資料をそのまま判断に使えます。</p>
@@ -410,6 +418,7 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 <p>製造業の業務のどこにAIを使えるか、どこは人が持つべきかを整理してお返しします。現状を伺うところから始められます。</p>
 <div class="btns">
 <a class="btn btn-primary" href="/contact">30分の無料相談を申し込む</a>
+<a class="btn btn-ghost" href="/works/ai-solutions">AIソリューションを見る</a>
 <a class="btn btn-ghost" href="/cases">導入事例を見る</a>
 </div>
 <p class="cta-foot">初回のご相談・お見積もりまで無料です。具体的な資料がなくても構いません。</p>

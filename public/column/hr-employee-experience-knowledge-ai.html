@@ -250,6 +250,13 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 
 /* CTA */
 .cta{margin:60px 0;background:var(--ink);color:#fff;border-radius:24px;padding:40px 34px}
+.inline-cta{margin:40px 0;background:var(--soft);border-left:4px solid var(--blue);border-radius:14px;padding:22px 24px}
+.inline-cta strong{display:block;font-weight:800;font-size:1.02rem;line-height:1.6;margin-bottom:6px}
+.inline-cta p{font-size:.9rem;color:var(--muted);margin:0 0 14px;line-height:1.8}
+.inline-cta-btns{display:flex;flex-wrap:wrap;gap:10px}
+.inline-cta .btn{font-size:.85rem;padding:10px 18px}
+.btn-ghost-dark{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.btn-ghost-dark:hover{border-color:var(--blue);color:var(--blue)}
 .cta h2{color:#fff;font-size:1.5rem;font-weight:800;margin-bottom:12px;line-height:1.6}
 .cta p{color:rgba(255,255,255,.8);margin-bottom:22px}
 .cta .cta-eyebrow{display:inline-block;background:var(--blue);color:#fff;font-size:.7rem;font-weight:800;letter-spacing:.1em;border-radius:999px;padding:6px 14px;margin-bottom:16px}
@@ -389,6 +396,7 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 <ul><li>交通費の精算ルールや社会保険の扱いなど、管理部門に繰り返し届く質問を洗い出しているか</li><li>AIが参照する規定やマニュアルを、最新で正しいものだけに絞っているか</li><li>廃止された規定や古いマニュアルを、参照先から外す運用があるか</li></ul>
 <p>現場の担当者は、求職者やクライアントへの対応に加えて、社内規定や労務手続きの確認にも時間を割いています。マニュアルを読めば分かるはずの質問が管理部門に集まると、双方の生産性が下がります。AIによる社内FAQ（よくある質問に自動で答える仕組み）を置けば、現場は24時間いつでも、話し言葉で質問して答えを得られます。</p>
 <p>要点は、AIに参照させる情報を限ることです。古いマニュアルを読み込ませると、もっともらしい誤った回答（<a class="term" href="/glossary#hallucination">ハルシネーション</a>）を招き、信頼を失います。導入前に情報を整理し、<a class="term" href="/glossary#rag">RAG</a>（AIに学習させず、指定した社内文書を検索して答えさせる仕組み）の参照先を絞っておきます。</p>
+<aside class="inline-cta"><strong>この業務のどこにAIを使えるか、30分で整理します</strong><p>人材・採用の業務の現状を伺い、AIに任せられる範囲と人が持つべき判断を切り分けてお返しします。初回相談・お見積もりまで無料です。</p><div class="inline-cta-btns"><a class="btn btn-primary" href="/contact">30分の無料相談を申し込む</a><a class="btn btn-ghost-dark" href="/training">AI活用リスキリング研修を見る</a></div></aside>
 <h2 id="s4">チェックリスト3：キャリア支援で、AIの分析を「支援」にとどめているか</h2>
 <ul><li>実績・保有スキル・研修の受講履歴をもとに、次に学ぶことを提案できるか</li><li>AIによる分析の結果を、本人に開示して対話の材料にしているか</li><li>キャリアの決定や評価は人が行うと、運用のルールに書いているか</li></ul>
 <p>EXを高めるには、業務の効率化だけでなく、社員自身が成長を実感できる仕組みも必要です。たとえばマネジメント職を目指す営業担当者に、足りないスキルや社内の関連コンテンツ、参加すると学びになるプロジェクトをAIが示せます。会社からの一律の教育ではなく、自分に合った道筋が見えることは意欲につながります。</p>
@@ -412,6 +420,7 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 <p>人材・採用の業務のどこにAIを使えるか、どこは人が持つべきかを整理してお返しします。現状を伺うところから始められます。</p>
 <div class="btns">
 <a class="btn btn-primary" href="/contact">30分の無料相談を申し込む</a>
+<a class="btn btn-ghost" href="/training">AI活用リスキリング研修を見る</a>
 <a class="btn btn-ghost" href="/cases">導入事例を見る</a>
 </div>
 <p class="cta-foot">初回のご相談・お見積もりまで無料です。具体的な資料がなくても構いません。</p>

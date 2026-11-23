@@ -250,6 +250,13 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 
 /* CTA */
 .cta{margin:60px 0;background:var(--ink);color:#fff;border-radius:24px;padding:40px 34px}
+.inline-cta{margin:40px 0;background:var(--soft);border-left:4px solid var(--blue);border-radius:14px;padding:22px 24px}
+.inline-cta strong{display:block;font-weight:800;font-size:1.02rem;line-height:1.6;margin-bottom:6px}
+.inline-cta p{font-size:.9rem;color:var(--muted);margin:0 0 14px;line-height:1.8}
+.inline-cta-btns{display:flex;flex-wrap:wrap;gap:10px}
+.inline-cta .btn{font-size:.85rem;padding:10px 18px}
+.btn-ghost-dark{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.btn-ghost-dark:hover{border-color:var(--blue);color:var(--blue)}
 .cta h2{color:#fff;font-size:1.5rem;font-weight:800;margin-bottom:12px;line-height:1.6}
 .cta p{color:rgba(255,255,255,.8);margin-bottom:22px}
 .cta .cta-eyebrow{display:inline-block;background:var(--blue);color:#fff;font-size:.7rem;font-weight:800;letter-spacing:.1em;border-radius:999px;padding:6px 14px;margin-bottom:16px}
@@ -385,6 +392,7 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 <h2 id="s3">チェックリスト2：入力データに優先順位をつけているか</h2>
 <ul><li>過去の販売実績（日次・商品別）、現在の在庫数、発注から納品までの日数（リードタイム）がそろっているか</li><li>価格や特売の履歴、曜日・祝日・連休・給料日などのカレンダー情報を加えられるか</li><li>欠品していた期間のデータを、補正するか学習から外しているか</li></ul>
 <p>最初からあらゆるデータを集めると、構築の費用と整理の負担が大きくなります。基本の販売・在庫データから始め、気象や販促の記録、さらにSNSの言及や競合価格へと段階的に広げます。在庫切れで売上がゼロだった日をそのまま学習させると、AIは需要がなかったと誤解します。データの不整合を整える作業（クレンジング）を丁寧に行うことが、手法の選択より予測に効きます。</p>
+<aside class="inline-cta"><strong>この業務のどこにAIを使えるか、30分で整理します</strong><p>小売・ECの業務の現状を伺い、AIに任せられる範囲と人が持つべき判断を切り分けてお返しします。初回相談・お見積もりまで無料です。</p><div class="inline-cta-btns"><a class="btn btn-primary" href="/contact">30分の無料相談を申し込む</a><a class="btn btn-ghost-dark" href="/works/ai-solutions">AIソリューションを見る</a></div></aside>
 <h2 id="s4">チェックリスト3：精度を「的中率」だけで評価していないか</h2>
 <ul><li>売れ残りのコスト（値下げ・廃棄・保管料）と、欠品による機会損失を商品ごとに比べているか</li><li>生鮮品や惣菜など廃棄に直結する商品は、控えめに予測する設定か</li><li>安全在庫（需要の急増や納品の遅れに備える予備の在庫）の基準を、商品群ごとに変えられるか</li></ul>
 <p>的中率という一つの数字だけで判断すると、自社にとっての損得が見えません。粗利が高く保管費用のかからない消耗品なら、多めに予測して欠品を防ぐ設定が合理的です。事業方針に合わせて、予測をどちらに寄せるかを調整できる状態をつくります。</p>
@@ -409,6 +417,7 @@ h1.title{font-size:clamp(1.7rem,3.4vw,2.6rem);line-height:1.45;font-weight:800;l
 <p>小売・ECの業務のどこにAIを使えるか、どこは人が持つべきかを整理してお返しします。現状を伺うところから始められます。</p>
 <div class="btns">
 <a class="btn btn-primary" href="/contact">30分の無料相談を申し込む</a>
+<a class="btn btn-ghost" href="/works/ai-solutions">AIソリューションを見る</a>
 <a class="btn btn-ghost" href="/cases">導入事例を見る</a>
 </div>
 <p class="cta-foot">初回のご相談・お見積もりまで無料です。具体的な資料がなくても構いません。</p>
