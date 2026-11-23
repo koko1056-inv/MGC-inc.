@@ -2,8 +2,8 @@
   "glossary": {
     "generative-ai": [
       {
-        "slug": "public-continuity-knowledge-management-ai",
-        "title": "自治体の業務継続とAI — 属人化を防ぎ、知見を次世代につなぐ活用術"
+        "slug": "public-ai-efficiency-governance",
+        "title": "自治体DXを加速させるAI活用の実務 — 業務効率化とガバナンスの両立"
       },
       {
         "slug": "ai-training-selection-checklist",
@@ -54,16 +54,16 @@
     ],
     "hallucination": [
       {
+        "slug": "public-ai-efficiency-governance",
+        "title": "自治体DXを加速させるAI活用の実務 — 業務効率化とガバナンスの両立"
+      },
+      {
         "slug": "education-learning-content-automation-checklist",
         "title": "AIによる教材作成・更新の効率化 — 質の高い学習コンテンツを継続的に届けるための確認項目"
       },
       {
         "slug": "professional-strategic-ai-partner",
         "title": "士業のAI活用は「作業」から「伴走」へ — 専門知を拡張する実務の再設計"
-      },
-      {
-        "slug": "hr-job-description-scout-ai",
-        "title": "求人票とスカウトをAIで改善する — 候補者の心に刺さる「言語化」の自動化"
       }
     ],
     "crm": [
@@ -102,22 +102,22 @@
     ],
     "off-jt": [
       {
+        "slug": "public-ai-efficiency-governance",
+        "title": "自治体DXを加速させるAI活用の実務 — 業務効率化とガバナンスの両立"
+      },
+      {
         "slug": "hr-talent-management-retention-ai",
         "title": "人材の流出を防ぎ活躍を促すAI活用 — 経験と勘に頼らないタレントマネジメント"
       },
       {
         "slug": "ai-cost-breakdown-initial-monthly-usage",
         "title": "AI導入費用の内訳の考え方 — 初期費用・月額費用・実費をどう見るか"
-      },
-      {
-        "slug": "professional-strategic-ai-partner",
-        "title": "士業のAI活用は「作業」から「伴走」へ — 専門知を拡張する実務の再設計"
       }
     ],
     "reskilling": [
       {
-        "slug": "public-continuity-knowledge-management-ai",
-        "title": "自治体の業務継続とAI — 属人化を防ぎ、知見を次世代につなぐ活用術"
+        "slug": "public-ai-efficiency-governance",
+        "title": "自治体DXを加速させるAI活用の実務 — 業務効率化とガバナンスの両立"
       },
       {
         "slug": "hr-internal-mobility-ai-skills",
@@ -158,12 +158,12 @@
     ],
     "chatbot": [
       {
-        "slug": "healthcare-family-communication-ai",
-        "title": "医療・介護での家族対応にAIを — 信頼を深めスタッフの負担を減らす"
+        "slug": "public-ai-efficiency-governance",
+        "title": "自治体DXを加速させるAI活用の実務 — 業務効率化とガバナンスの両立"
       },
       {
-        "slug": "public-regional-revitalization-ai-strategy",
-        "title": "自治体がAIで描く地域の未来 — 政策立案と活性化をデータで支える"
+        "slug": "healthcare-family-communication-ai",
+        "title": "医療・介護での家族対応にAIを — 信頼を深めスタッフの負担を減らす"
       },
       {
         "slug": "hospitality-personalized-guest-service-ai",
@@ -200,12 +200,12 @@
     ],
     "demand-forecasting": [
       {
-        "slug": "hospitality-quality-standardization-and-waste-reduction",
-        "title": "飲食・ホテルの「品質のバラツキ」と「廃棄」をAIで解決する — 現場の勘をデータに変える具体策"
+        "slug": "manufacturing-demand-forecasting-ai",
+        "title": "製造業の需要予測AI｜過剰在庫と欠品を減らす「根拠ある生産計画」の立て方"
       },
       {
-        "slug": "manufacturing-inventory-optimization-ai",
-        "title": "製造業の在庫最適化にAIをどう活かすか — 「適正在庫」をデータで導き出す"
+        "slug": "hospitality-quality-standardization-and-waste-reduction",
+        "title": "飲食・ホテルの「品質のバラツキ」と「廃棄」をAIで解決する — 現場の勘をデータに変える具体策"
       },
       {
         "slug": "retail-dynamic-pricing-markdown-optimization",
@@ -242,8 +242,8 @@
     ],
     "siloed-expertise": [
       {
-        "slug": "public-continuity-knowledge-management-ai",
-        "title": "自治体の業務継続とAI — 属人化を防ぎ、知見を次世代につなぐ活用術"
+        "slug": "public-ai-efficiency-governance",
+        "title": "自治体DXを加速させるAI活用の実務 — 業務効率化とガバナンスの両立"
       },
       {
         "slug": "construction-cost-estimation-ai",
@@ -274,12 +274,12 @@
         "title": "医療・介護の「見守りAI」活用 — センサーとAIで現場の負担を減らす方法"
       },
       {
-        "slug": "logistics-document-automation-ai",
-        "title": "物流現場の「書類業務」をAIで効率化する — 請求書や送り状の入力を自動化する現実解"
+        "slug": "manufacturing-demand-forecasting-ai",
+        "title": "製造業の需要予測AI｜過剰在庫と欠品を減らす「根拠ある生産計画」の立て方"
       },
       {
-        "slug": "real-estate-contract-document-ai",
-        "title": "不動産契約・重説チェックにAIをどう活かすか — 現場の心理的負担を減らす実務の勘所"
+        "slug": "logistics-document-automation-ai",
+        "title": "物流現場の「書類業務」をAIで効率化する — 請求書や送り状の入力を自動化する現実解"
       }
     ],
     "small-start": [
@@ -308,8 +308,8 @@
     ],
     "ai-governance": [
       {
-        "slug": "public-continuity-knowledge-management-ai",
-        "title": "自治体の業務継続とAI — 属人化を防ぎ、知見を次世代につなぐ活用術"
+        "slug": "public-ai-efficiency-governance",
+        "title": "自治体DXを加速させるAI活用の実務 — 業務効率化とガバナンスの両立"
       },
       {
         "slug": "finance-fraud-detection-operational-resilience",
