@@ -82,14 +82,14 @@
       "industry": "人材・採用"
     },
     {
+      "slug": "public-ai-efficiency-governance",
+      "title": "自治体DXを加速させるAI活用の実務 — 業務効率化とガバナンスの両立",
+      "industry": "自治体・公共"
+    },
+    {
       "slug": "education-personalized-learning-support",
       "title": "教育現場でのAI活用 — 先生の時間を「子どもと向き合う時間」へ変える",
       "industry": "教育"
-    },
-    {
-      "slug": "public-ai-internal-document-optimization",
-      "title": "自治体のAI導入、何から手をつける？ — 内部事務の効率化と「職員の判断」を両立する",
-      "industry": "自治体・公共"
     },
     {
       "slug": "professional-ai-legal-accounting-transformation",
