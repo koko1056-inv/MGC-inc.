@@ -214,8 +214,8 @@
     <image:image><image:loc>https://mgc-global01.com/assets/blog_methodology.webp</image:loc></image:image>
   </url>
   <!-- COLUMNS:START -->
-  <url><loc>https://mgc-global01.com/column</loc><lastmod>2026-11-23</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
-  <url><loc>https://mgc-global01.com/column/industry/manufacturing</loc><lastmod>2026-11-23</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mgc-global01.com/column</loc><lastmod>2026-11-28</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mgc-global01.com/column/industry/manufacturing</loc><lastmod>2026-11-28</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://mgc-global01.com/column/industry/construction</loc><lastmod>2026-11-03</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://mgc-global01.com/column/industry/real-estate</loc><lastmod>2026-11-23</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://mgc-global01.com/column/industry/retail</loc><lastmod>2026-11-23</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
@@ -228,6 +228,7 @@
   <url><loc>https://mgc-global01.com/column/industry/hr</loc><lastmod>2026-11-23</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://mgc-global01.com/column/industry/public</loc><lastmod>2026-11-23</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://mgc-global01.com/column/industry/general</loc><lastmod>2026-11-03</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mgc-global01.com/column/manufacturing-logistics-shipping-ai</loc><lastmod>2026-11-28</lastmod><changefreq>monthly</changefreq><priority>0.7</priority><image:image><image:loc>https://mgc-global01.com/assets/column/manufacturing-logistics-shipping-ai.webp</image:loc></image:image></url>
   <url><loc>https://mgc-global01.com/column/public-continuity-knowledge-management-ai</loc><lastmod>2026-11-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority><image:image><image:loc>https://mgc-global01.com/assets/column/public-continuity-knowledge-management-ai.webp</image:loc></image:image></url>
   <url><loc>https://mgc-global01.com/column/hr-internal-mobility-ai-skills</loc><lastmod>2026-11-05</lastmod><changefreq>monthly</changefreq><priority>0.7</priority><image:image><image:loc>https://mgc-global01.com/assets/column/hr-internal-mobility-ai-skills.webp</image:loc></image:image></url>
   <url><loc>https://mgc-global01.com/column/education-learning-content-automation-checklist</loc><lastmod>2026-11-04</lastmod><changefreq>monthly</changefreq><priority>0.7</priority><image:image><image:loc>https://mgc-global01.com/assets/column/education-learning-content-automation-checklist.webp</image:loc></image:image></url>

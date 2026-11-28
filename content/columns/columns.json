@@ -7,7 +7,7 @@
   },
   "rotation": {
     "note": "日次で industries を順番に回す。lastIndex は最後に公開した業種の添字。次回は (lastIndex+1)%12 の業種で、usedTopics に無いテーマを選ぶ。",
-    "lastIndex": 11,
+    "lastIndex": 0,
     "industries": [
       {
         "key": "manufacturing",
@@ -87,7 +87,8 @@
       "manufacturing-demand-forecasting-ai",
       "manufacturing-process-optimization-ai",
       "manufacturing-knowledge-management-ai",
-      "manufacturing-inventory-optimization-ai"
+      "manufacturing-inventory-optimization-ai",
+      "manufacturing-logistics-shipping-ai"
     ],
     "construction": [
       "construction-site-efficiency-ai",
@@ -795,6 +796,12 @@
       "industry": "public",
       "date": "2026-11-06",
       "file": "public-continuity-knowledge-management-ai.json"
+    },
+    {
+      "slug": "manufacturing-logistics-shipping-ai",
+      "industry": "manufacturing",
+      "date": "2026-11-28",
+      "file": "manufacturing-logistics-shipping-ai.json"
     }
   ]
 }

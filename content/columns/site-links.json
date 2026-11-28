@@ -228,16 +228,16 @@
     ],
     "tacit-knowledge": [
       {
+        "slug": "manufacturing-logistics-shipping-ai",
+        "title": "製造業の物流・出荷管理へのAI活用 — 配送効率の向上とコストの最適化"
+      },
+      {
         "slug": "public-continuity-knowledge-management-ai",
         "title": "自治体の業務継続とAI — 属人化を防ぎ、知見を次世代につなぐ活用術"
       },
       {
         "slug": "professional-strategic-ai-partner",
         "title": "士業のAI活用は「作業」から「伴走」へ — 専門知を拡張する実務の再設計"
-      },
-      {
-        "slug": "finance-knowledge-management-compliance-ai",
-        "title": "金融実務の「内部知見」をAIで活用する — 膨大な規定やマニュアルを現場の武器に"
       }
     ],
     "siloed-expertise": [
@@ -270,12 +270,12 @@
     ],
     "poc": [
       {
-        "slug": "healthcare-monitoring-sensing-ai",
-        "title": "医療・介護の「見守りAI」活用 — センサーとAIで現場の負担を減らす方法"
+        "slug": "manufacturing-logistics-shipping-ai",
+        "title": "製造業の物流・出荷管理へのAI活用 — 配送効率の向上とコストの最適化"
       },
       {
-        "slug": "manufacturing-demand-forecasting-ai",
-        "title": "製造業の需要予測AI｜過剰在庫と欠品を減らす「根拠ある生産計画」の立て方"
+        "slug": "healthcare-monitoring-sensing-ai",
+        "title": "医療・介護の「見守りAI」活用 — センサーとAIで現場の負担を減らす方法"
       },
       {
         "slug": "logistics-document-automation-ai",
@@ -329,6 +329,14 @@
   },
   "latest": [
     {
+      "slug": "manufacturing-logistics-shipping-ai",
+      "title": "製造業の物流・出荷管理へのAI活用 — 配送効率の向上とコストの最適化",
+      "industry": "製造業",
+      "date": "2026-11-28",
+      "image": "/assets/column/manufacturing-logistics-shipping-ai.webp",
+      "imageAlt": "製造業の倉庫からトラックへ荷物を積み込み、ルートを最適化するイメージ"
+    },
+    {
       "slug": "public-continuity-knowledge-management-ai",
       "title": "自治体の業務継続とAI — 属人化を防ぎ、知見を次世代につなぐ活用術",
       "industry": "自治体・公共",
@@ -343,14 +351,6 @@
       "date": "2026-11-05",
       "image": "/assets/column/hr-internal-mobility-ai-skills.webp",
       "imageAlt": "社内人材のスキルデータを分析し、最適な部署とマッチングさせるAIのイメージ"
-    },
-    {
-      "slug": "education-learning-content-automation-checklist",
-      "title": "AIによる教材作成・更新の効率化 — 質の高い学習コンテンツを継続的に届けるための確認項目",
-      "industry": "教育",
-      "date": "2026-11-04",
-      "image": "/assets/column/education-learning-content-automation-checklist.webp",
-      "imageAlt": "AIを使って教材作成やスライド構成を効率化している教育現場のイメージ"
     }
   ]
 }

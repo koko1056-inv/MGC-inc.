@@ -6,7 +6,15 @@
     <atom:link href="https://mgc-global01.com/column/feed.xml" rel="self" type="application/rss+xml"/>
     <description>業界別に、AIの現実的な活用方法を実務目線で解説するＭＧＣ株式会社のコラム。</description>
     <language>ja</language>
-    <lastBuildDate>Mon, 23 Nov 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 28 Nov 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>製造業の物流・出荷管理へのAI活用 — 配送効率の向上とコストの最適化</title>
+      <link>https://mgc-global01.com/column/manufacturing-logistics-shipping-ai</link>
+      <guid isPermaLink="true">https://mgc-global01.com/column/manufacturing-logistics-shipping-ai</guid>
+      <pubDate>Sat, 28 Nov 2026 00:00:00 GMT</pubDate>
+      <category>製造業</category>
+      <description>製造業の出荷・物流業務におけるAI活用の進め方を解説。物流コスト増や人手不足に対応するため、配車計画の自動化や積載率向上をどう進めるべきか、導入前に確認すべき5つの観点を実務目線でまとめました。</description>
+    </item>
     <item>
       <title>自治体の業務継続とAI — 属人化を防ぎ、知見を次世代につなぐ活用術</title>
       <link>https://mgc-global01.com/column/public-continuity-knowledge-management-ai</link>
@@ -238,14 +246,6 @@
       <pubDate>Fri, 09 Oct 2026 00:00:00 GMT</pubDate>
       <category>教育</category>
       <description>教育現場における指導力の属人化を解消し、AIを活用して熟練教員のノウハウを共有・継承する方法を解説。授業の振り返りや若手育成にAIをどう組み込むか、現場の負担を減らしつつ教育の質を高める現実的なステップを紹介します。</description>
-    </item>
-    <item>
-      <title>金融実務でAIの信頼性をどう担保するか — 精度向上とリスク管理の両立</title>
-      <link>https://mgc-global01.com/column/finance-ai-reliability-governance-strategy</link>
-      <guid isPermaLink="true">https://mgc-global01.com/column/finance-ai-reliability-governance-strategy</guid>
-      <pubDate>Thu, 08 Oct 2026 00:00:00 GMT</pubDate>
-      <category>金融・保険</category>
-      <description>金融・保険業界におけるAI導入で不可欠な「信頼性」と「説明責任」の確保について解説。ハルシネーション対策からガバナンス体制、段階的な導入ステップまで、実務に即したリスク管理の勘所をMGCの視点でまとめます。</description>
     </item>
   </channel>
 </rss>
